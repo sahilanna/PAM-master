@@ -15,7 +15,7 @@ import Create from './Components/Dashboard/Admin/Create/Create';
 import Update from './Components/Dashboard/Admin/Update/Update';
 import Delete from './Components/Dashboard/Admin/Delete/Delete';
 import {BrowserRouter as Router , Route,Routes } from 'react-router-dom';
-
+import Roles from './Components/Dashboard/Roles/Roles';
 
 
 
@@ -25,47 +25,48 @@ function App() {
     <Router>
     
     <div className="App">
-      <Create/>
     
-  {/* <Routes>
-  <Route path='/Delete' Component={Delete}/>
-      < Route path='/Update' Component={Update}/>
-  </Routes> */}
-     
-     
-      {/* <Routes>        
-        <Route path='/Login' element={<Login/>} />
-      </Routes>      
-      <NavBar/>
-      <LandingPage/>
-      <Footer/>  */}
-     
-      {/* <AdminDashboard/>  */}
-      {/* <PmDashboard/> */}
-     {/* <AddProject/> */}
-
-     {/* <Crud /> */}
-     <div>
-     <Routes><Route exact path='/Read' Component={Read}/></Routes>
-     </div>
-     <div>
-     
-     <Routes><Route exact path='/Create' Component={Create}/></Routes>
-       
-    </div>
     <div>
-     <Routes><Route exact path='/Read' Component={Read}/></Routes>
-     </div>
-    <div>
-<Routes>
-    <Route path='/Update' Component={Update}/>
-    <Route path='/Delete'Component={Delete}/>
+    <Routes>
+    <Route exact path='/AdminDashboard' Component={AdminDashboard}/>
     </Routes>
     </div>
-    </div>
-   
-    </Router>
     
+    <div>
+    <Routes>
+    <Route exact path='/' Component={LandingPage}/>
+    </Routes>
+    </div>
+
+
+
+    <div>
+    <Routes><Route exact path='/Create' Component={Create}/></Routes>
+    </div>
+
+    <div>
+    <Routes><Route exact path='/Read' Component={Read}/></Routes>
+    </div>
+
+    
+    <div>
+    <Routes>
+    <Route exact path='/Update' Component={Update}/></Routes>
+    </div>
+    </div>
+
+    <div>
+    <Routes>
+    <Route exact path='/Roles' Component={Roles}/>
+    </Routes>
+    </div>
+
+    <Routes>
+      <Route exact path = '/Login' element={<Login/>}/>
+    </Routes>
+
+    </Router>
+        
     
 
   );

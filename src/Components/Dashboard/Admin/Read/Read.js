@@ -55,30 +55,32 @@ import {Link}  from 'react-router-dom'
 export default function Read(){
 
     const[apiData, setApiData]=useState([])
-        useEffect(() => {
-        axios.get('https://6426a3c1d24d7e0de474780a.mockapi.io/CRUD').then((getData)=>{
-             setApiData(getData.data)
-        })
-    },[])
+    useEffect(() => {
+    axios.get('https://6429847d5a40b82da4d494b2.mockapi.io/PAM').then((response)=>{
+    console.log(response.data)
+    setApiData(response.data)
+    })
+},[])
 
-    const setData = (id, projectId, projectName, projectDesc) => {
-        localStorage.setItem('ID', id)
+    const setData = (data) => {
+        let {id, projectId, projectName, projectDesc} = data; 
+        localStorage.setItem('id', id)
         localStorage.setItem('projectId', projectId)
         localStorage.setItem('projectName', projectName)
         localStorage.setItem('projectDesc', projectDesc)
     }
     
     const getData = () => {
-        axios.get('https://6426a3c1d24d7e0de474780a.mockapi.io/CRUD')
+        axios.get('https://6429847d5a40b82da4d494b2.mockapi.io/PAM')
             .then((getData) => {
                 setApiData(getData.data);
             })
     }
 
     const OnDelete = (id) => {
-        axios.delete('https://6426a3c1d24d7e0de474780a.mockapi.io/CRUD/${id}')
-        .then(() => {
-            getData();
+        axios.delete('https://6429847d5a40b82da4d494b2.mockapi.io/PAM/3')
+        .then((getData) => {
+            console.log(id.getData());
         })
     }
 
@@ -98,16 +100,12 @@ export default function Read(){
 
     <Table.Body>
         {apiData.map((data) => {
-            const setID = (id)=>{
-                console.log(id);
-                localStorage.setItem('ID', id);
-            }
             return(
                 <Table.Row>
                 <Table.Cell className='td'>{data.projectId}</Table.Cell>
                 <Table.Cell >{data.projectName}</Table.Cell>
                 <Table.Cell>{data.projectDesc}</Table.Cell>
-                <Table.Cell>
+                {/* <Table.Cell>
                     <Link to='/Update'>
                     <Button onClick={() => setID(data.id)}>Update</Button>
                     </Link>
@@ -116,6 +114,16 @@ export default function Read(){
                     <Link to='/Delete'>
                     <Button onClick={() => OnDelete(data.id)}>Delete</Button>
                     </Link>
+                </Table.Cell>
+              </Table.Row> */}
+
+                <Table.Cell>
+                    <Link to='/Update'>
+                    <Button onClick={() => setData(data.id,data.projectId,data.projectName,data.projectDesc)}>Update</Button>
+                    </Link>
+                </Table.Cell>
+                <Table.Cell>
+                    <Button onClick={() => OnDelete(data.id)}>Delete</Button>
                 </Table.Cell>
               </Table.Row>
 
