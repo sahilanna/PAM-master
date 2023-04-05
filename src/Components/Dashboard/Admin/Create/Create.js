@@ -4,7 +4,6 @@ import axios from 'axios';
 
 export default function Create() {
 
-
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
   const [projectDesc, setProjectDesc] = useState('');
@@ -14,8 +13,7 @@ export default function Create() {
 
   const sendDataToAPI = (event) => {
     event.preventDefault()
-    // const url="https://64267bccd24d7e0de470e2b7.mockapi.io/Crud";
-   const data={projectId,projectName,projectDesc,returnSecureToken: true}
+    const data={projectId,projectName,projectDesc,returnSecureToken: true}
     // return axios.post(url,data)
     // axios.post('https://64267bccd24d7e0de470e2b7.mockapi.io/Crud', {projectId,
     // projectName,
@@ -27,29 +25,27 @@ export default function Create() {
   }
   
   return(
-<Form>
-    <Form.Field>
+  <Form>
+      <Form.Field>
         <label>Project-Id</label>
         <input name='ProjectId' onChange={(e)=>setProjectId(e.target.value)} placeholder='ProjectId' />
-    </Form.Field>
+      </Form.Field>
 
-    <Form.Field>
-      <label>Project-Name</label>
-      <input name='ProjectName' onChange={(e)=>setProjectName(e.target.value)} placeholder='ProjectName' />
-    </Form.Field>
+      <Form.Field>
+        <label>Project-Name</label>
+        <input name='ProjectName' onChange={(e)=>setProjectName(e.target.value)} placeholder='ProjectName' />
+      </Form.Field>
 
-    <Form.Field>
-      <label>Project-Description</label>
-      <input name='ProjectName' onChange={(e)=>setProjectDesc(e.target.value)} placeholder='ProjectDescription' />
-    </Form.Field>
+      <Form.Field>
+        <label>Project-Description</label>
+        <input name='ProjectName' onChange={(e)=>setProjectDesc(e.target.value)} placeholder='ProjectDescription' />
+      </Form.Field>
     
-    {/* <Form.Field> */}
-      {/* <Checkbox label='I agree to the Terms and Conditions' /> */}
-    {/* </Form.Field> */}
-    <Button type='submit' onClick={sendDataToAPI}>Submit</Button>
+      <Button type='submit' onClick={sendDataToAPI}>Submit</Button>
+
   </Form>
 )
 }
 
 
-// export default Create
+

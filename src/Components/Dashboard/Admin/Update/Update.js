@@ -19,12 +19,6 @@ export default function Update() {
         navigate('/Read')
     })
 }
-
-
-
-
-
-
   // console.log(projectId);
   // console.log(projectName);
 
@@ -74,9 +68,6 @@ export default function Update() {
       <input name="projectDesc" value={projectDesc.projectDesc} onChange={(e)=>setProjectDesc(e.target.value)} placeholder='ProjectDescription' />
     </Form.Field>
     
-    {/* <Form.Field> */}
-      {/* <Checkbox label='I agree to the Terms and Conditions' /> */}
-    {/* </Form.Field> */}
     <Link to = '/AdminDashboard'>
     <Button type='submit' onClick={ () => sendDataToAPI()}>Update</Button>
     </Link>

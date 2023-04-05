@@ -242,7 +242,7 @@ function EditList({current, lists, setList}) {
         setList(newlist)
     }
     return(
-        <tr>
+        <tr className='tr'>
             <td><input type="text" onChange={handInputname} name='name' value={current.name}/></td>
             <td><input type="text" onChange={handInputprice} name='price' value={current.price}/></td>
             <td><button type='submit'>Update</button></td>

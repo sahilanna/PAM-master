@@ -16,6 +16,7 @@ import Update from './Components/Dashboard/Admin/Update/Update';
 import Delete from './Components/Dashboard/Admin/Delete/Delete';
 import {BrowserRouter as Router , Route,Routes } from 'react-router-dom';
 import Roles from './Components/Dashboard/Roles/Roles';
+import AppRouter from './Components/AppRouter/AppRouter';
 
 
 
@@ -64,6 +65,7 @@ function App() {
     <Routes>
       <Route exact path = '/Login' element={<Login/>}/>
     </Routes>
+    {/* <AppRouter/> */}
 
     </Router>
         
