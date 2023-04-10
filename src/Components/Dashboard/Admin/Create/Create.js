@@ -1,44 +1,51 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Form, Button} from 'semantic-ui-react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { createProject } from '../../../../redux-store/actions/action';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Create() {
 
+  
+  let navigate= useNavigate();
+  const dispatch = useDispatch();
+  // const project = useSelector(state => state.createReducer);//Allows u to extract data from Redux store state.
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
-  const [projectDesc, setProjectDesc] = useState('');
+  const [projectDescription, setProjectDescription] = useState('');
 
-  console.log(projectId);
-  console.log(projectName);
+  // useEffect(() => {
+  //   console.log("project ", project);
+  // }, [project])
 
-  const sendDataToAPI = (event) => {
-    event.preventDefault()
-    const data={projectId,projectName,projectDesc,returnSecureToken: true}
-    // return axios.post(url,data)
-    // axios.post('https://64267bccd24d7e0de470e2b7.mockapi.io/Crud', {projectId,
+  const sendDataToAPI = () => {
+    dispatch(createProject({projectId, projectName, projectDescription}));
+    navigate('/Read')
+    // axios.post(`http://192.168.1.144:8080/api/projects/`, {
+    // id,
     // projectName,
-    // projectDesc})
-    axios.post('https://6426a3c1d24d7e0de474780a.mockapi.io/CRUD', data)
-     .then(response => { console.log(response.data); }) 
-     .catch(error => { console.error(error); }); 
-
+    // description
+    // }).then(() => {
+    //   navigate('/Read')
+    // })
   }
-  
+
   return(
   <Form>
       <Form.Field>
         <label>Project-Id</label>
-        <input name='ProjectId' onChange={(e)=>setProjectId(e.target.value)} placeholder='ProjectId' />
+        <input name='projectId' onChange={(e)=>setProjectId(e.target.value)} placeholder='ProjectId' />
       </Form.Field>
 
       <Form.Field>
         <label>Project-Name</label>
-        <input name='ProjectName' onChange={(e)=>setProjectName(e.target.value)} placeholder='ProjectName' />
+        <input name='projectName' onChange={(e)=>setProjectName(e.target.value)} placeholder='ProjectName' />
       </Form.Field>
 
       <Form.Field>
         <label>Project-Description</label>
-        <input name='ProjectName' onChange={(e)=>setProjectDesc(e.target.value)} placeholder='ProjectDescription' />
+        <input name='projectDescription' onChange={(e)=>setProjectDescription(e.target.value)} placeholder='ProjectDescription' />
       </Form.Field>
     
       <Button type='submit' onClick={sendDataToAPI}>Submit</Button>
