@@ -4,7 +4,7 @@ import axios from "axios";
 export const createProject = ({projectId, projectName, projectDescription}) => {
     return async(dispatch) => {
         try {
-            const responseCreate = await axios.post('https://279c-106-51-70-135.ngrok-free.app/api/projects/', {
+            const responseCreate = await axios.post('https://56ad-106-51-70-135.ngrok-free.app/api/projects/', {
                 projectId,
                 projectName,
                 projectDescription,
@@ -24,7 +24,7 @@ export const createProject = ({projectId, projectName, projectDescription}) => {
 export const readProject = ({projectId, projectName, projectDescription}) => {
     return async(dispatch) => {
         try {
-            const responseRead = await axios.get('https://279c-106-51-70-135.ngrok-free.app/api/projects/allProjects', {
+            const responseRead = await axios.get('https://6429847d5a40b82da4d494b2.mockapi.io/PAM', {
                 projectId,
                 projectName,
                 projectDescription,

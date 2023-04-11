@@ -1,4 +1,4 @@
-import createReducer from './createReducer'
+import createReducer from './crudReducer'
 import updateReducer from './updateReducer';
 import { combineReducers } from 'redux'
 
