@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 //import './Roles.css'
 //import pmRead from "../Admin/PMs/pmRead";
 //import NavBar from './Components/NavBar';
-export default function () {
+   function Roles () {
   return (
     <div>
       <body >
@@ -22,3 +22,5 @@ export default function () {
     </div>
   )
 }
+
+export default Roles;

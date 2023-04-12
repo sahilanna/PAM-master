@@ -2,10 +2,13 @@ import React, {useState} from 'react'
 import { Form, Button} from 'semantic-ui-react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-export default function PmCreate() {
+
+
+ function PmCreate(){
 let navigate= useNavigate();
 const[pmId,setpmId]=useState('');
 const[pmName,setpmName]=useState('')
+
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
   const [projectDesc, setProjectDesc] = useState('');
@@ -51,3 +54,5 @@ const[pmName,setpmName]=useState('')
   </Form>
 )
 }
+
+export default PmCreate;

@@ -1,66 +1,68 @@
-import React, {useState,useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Form, Button} from 'semantic-ui-react'
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { updateProject } from '../../../../redux-store/actions/action';
+import { useNavigate, useParams } from 'react-router-dom';
+import { createProject, updateProject } from '../../../../redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
-
 
 export default function Update() {
 
-  let navigate = useNavigate();
-  const dispatch = useDispatch();
+  
+  let navigate= useNavigate();
+  const {id} = useParams();
+
+  const dispatchU = useDispatch();
+  const[user,setUser]=useState('')
+  // const project = useSelector(state => state.createReducer);//Allows u to extract data from Redux store state.
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
-  const[ID, setID] = useState(null)
 
-  const sendDataToAPI = ({projectId, projectName, projectDescription}) => {
 
-    dispatch(updateProject({projectId, projectName, projectDescription}));
+  const sendDataToAPIu = () => {
+    dispatchU(updateProject({projectId, projectName, projectDescription}));
     navigate('/Read')
-    // axios.put(`https://6429847d5a40b82da4d494b2.mockapi.io/PAM/${ID}`, {ID,
-    //     projectId, projectName, projectDesc
-    // }).then(() => {
-    //     navigate('/Read')
-    // })
-}
+  }
+  const onInputChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
+  // useEffect(() => {
+  //   loadUser();
+  // }, []);
 
-  useEffect(()=>
-  {
-    setProjectId(localStorage.getItem('projectId'));
-    setProjectName(localStorage.getItem('projectName'));
-    setProjectDescription(localStorage.getItem('projectDescription'));
-    setID(localStorage.getItem('ID'))
+  // const loadUser = async () => {
+  //   const result = await axios.get(`https://cc0f-106-51-70-135.ngrok-free.app/api/projects/allProjects`);
+  //   setUser(result.data);
+  // };
 
-  },[])
-  
   return(
-
-  <div>
   <Form>
-    <Form.Field>
-        <label>Project Id</label>
+      <Form.Field>
+        <label>Project-Id</label>
         <input name='projectId'
-        value={projectId.projectId} onChange={(e)=>setProjectId(e.target.value)} placeholder='Project Id' />
-    </Form.Field>
+         onChange={(e)=>setProjectId(e.target.value)} 
+         placeholder='ProjectId'
+         />
+      </Form.Field>
 
-    <Form.Field>
-      <label>Project-Name</label>
-      <input name='projectName' 
-       value={projectName.projectName} onChange={(e)=>setProjectName(e.target.value)} placeholder='ProjectName' />
-    </Form.Field>
+      <Form.Field>
+        <label>Project-Name</label>
+        <input name='projectName' 
+        onChange={(e)=>setProjectName(e.target.value)}
+         placeholder='ProjectName' />
+      </Form.Field>
 
-    <Form.Field>
-      <label>Project-Description</label>
-      <input name="projectDescription" value={projectDescription.projectDescription} onChange={(e)=>setProjectDescription(e.target.value)} placeholder='ProjectDescription' />
-    </Form.Field>
+      <Form.Field>
+        <label>Project-Description</label>
+        <input name='projectDescription' onChange={(e)=>setProjectDescription(e.target.value)} placeholder='ProjectDescription' />
+      </Form.Field>
     
-    <Link to = '/AdminDashboard'>
-    <Button type='submit' onClick={ () => sendDataToAPI()}>Update</Button>
-    </Link>
+      <Button type='submit' onClick={sendDataToAPIu}>Submit</Button>
+
   </Form>
-  </div>
-  )
+)
 }
+
+
+

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import { Form, Button} from 'semantic-ui-react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-// import { createProject } from '../../../../../redux-store/actions/action';
 import { createProject } from '../../../../redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,13 +22,6 @@ export default function Create() {
   const sendDataToAPI = () => {
     dispatch(createProject({projectId, projectName, projectDescription}));
     navigate('/Read')
-    // axios.post(`http://192.168.1.144:8080/api/projects/`, {
-    // id,
-    // projectName,
-    // description
-    // }).then(() => {
-    //   navigate('/Read')
-    // })
   }
 
   return(

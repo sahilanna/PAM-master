@@ -1,15 +1,16 @@
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 //Create
 export const createProject = ({projectId, projectName, projectDescription}) => {
-    return async(dispatch) => {
+    return async(dispatchU) => {
         try {
-            const responseCreate = await axios.post('https://d792-106-51-70-135.ngrok-free.app/api/projects/', {
+            const responseCreate = await axios.post('https://cc0f-106-51-70-135.ngrok-free.app/api/projects/', {
                 projectId,
                 projectName,
                 projectDescription,
             })
-            dispatch({type: "createProject", payload: responseCreate});
+            dispatchU({type: "createProject", payload: responseCreate});
         }
         catch (error){
             console.log(error);
@@ -43,8 +44,9 @@ export const readProject = ({projectId, projectName, projectDescription}) => {
 //Update
 export const updateProject = ({projectId, projectName, projectDescription}) => {
     return async(dispatch) => {
+        // const {id} = useParams();
         try {
-            const responseUpdate = await axios.put('https://6429847d5a40b82da4d494b2.mockapi.io/PAM', {
+            const responseUpdate = await axios.put(`https://cc0f-106-51-70-135.ngrok-free.app/api/projects/update/${projectId}`, {
                 projectId,
                 projectName,
                 projectDescription,

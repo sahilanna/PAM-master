@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import { Button, Table } from 'semantic-ui-react'
 import axios from 'axios'
-import Create from '../Create/Create'
 import { NavLink } from 'react-router-dom'
 import {Link}  from 'react-router-dom'
 import { useReducer } from 'react'
-import NavBar from '../../../NavBar'
 import PmCreate from './pmCreate'
+import NavBar from '../../NavBar'
+
 import  {
   CDBSidebar,
   CDBSidebarContent,
@@ -15,7 +15,7 @@ import  {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from 'cdbreact'
-export default function Read(){
+ function PmRead(){
     // function reducer(state,action)
     // {
     //     if (action.type == 'setprojectid') {
@@ -112,3 +112,5 @@ export default function Read(){
   </div>
 )
 }
+
+export default PmRead;

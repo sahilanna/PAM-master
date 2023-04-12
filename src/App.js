@@ -17,9 +17,11 @@ import {BrowserRouter as Router , Route,Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux-store/store';
 import Roles from './Components/Dashboard/Roles/Roles';
-import PmCreate from './Components/Dashboard/PM/pmCreate';
 import Create from './Components/Dashboard/Admin/Create/Create';
 import Read from './Components/Dashboard/Admin/Read/Read';
+import PmCreate from './Components/Dashboard/PM/pmCreate';
+import PmRead from './Components/Dashboard/PM/pmRead';
+
 
 
 
@@ -35,9 +37,11 @@ function App() {
           <Route exact path='/' Component={LandingPage}/>
           <Route exact path='/Create' Component={Create}/>
           <Route exact path='/Read' Component={Read}/>
-          <Route exact path='/Update' Component={Update}/>
+          <Route exact path='/Update/:projectId' Component={Update}/>
           <Route exact path='/Roles' Component={Roles}/>
           <Route exact path='/Login' Component={Login}/>
+          <Route exact path='/PmCreate' Component={PmCreate}/>
+          <Route exact path='/PmRead' Component={PmRead}/>
           </Routes>
         </Router>
       </Provider>

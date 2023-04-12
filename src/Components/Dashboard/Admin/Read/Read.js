@@ -4,15 +4,16 @@ import axios from 'axios'
 import Create from '../Create/Create'
 // import Create from '../../Roles/Create/Create'
 import './Read.css'
-import {Link, useParams}  from 'react-router-dom'
+import {Link, Navigate, useParams}  from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useReducer } from 'react'
+import Update from '../Update/Update'
 
 export default function Read(){
     
-
-    const getUrl =  "https://d792-106-51-70-135.ngrok-free.app/api/projects/allProjects"
-    const delUrl = "https://d792-106-51-70-135.ngrok-free.app/api/projects/delete/3"
+   const navigate=useNavigate()
+    const getUrl =  "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/allProjects"
+    const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3"
     const [item, setItem] = useState([]);
     const [projectId, setProjectId] = useState('');
     const [projectName, setProjectName] = useState('');
@@ -39,9 +40,11 @@ export default function Read(){
     };
 
     const deleteUser = async (id) => {
-        await axios.delete(`https://d792-106-51-70-135.ngrok-free.app/api/projects/delete/${id}`);
+        await axios.delete(`https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/${id}`);
         loaditem();
       };
+
+
 
 
 
@@ -70,9 +73,15 @@ export default function Read(){
                   {/* <Link className="btn btn-primary mx-2" to={`/Read/${user.id}`}>
                     View
                   </Link>  */}
-                   <Link className="btn btn-outline-primary mx-2">
+
+
+                  <Link
+                    className="btn btn-outline-primary mx-2"
+                    to={`/Update/${user.projectId}`}
+                  >
                     Update
                   </Link>
+                  
                   <button className="btn btn-danger mx-2"
                     onClick={() => deleteUser(user.projectId)}>
                     Delete
