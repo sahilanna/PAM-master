@@ -203,6 +203,7 @@ function CRUD() {
             </div>
         </div>
     )
+    
 
     function handleEdit(id) {
         setUpdateState(id)

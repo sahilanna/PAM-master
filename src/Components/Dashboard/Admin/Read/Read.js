@@ -2,81 +2,91 @@ import React, {useEffect, useState} from 'react'
 import { Button, Table } from 'semantic-ui-react'
 import axios from 'axios'
 import Create from '../Create/Create'
+// import Create from '../../Roles/Create/Create'
 import './Read.css'
-import {Link}  from 'react-router-dom'
+import {Link, useParams}  from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useReducer } from 'react'
 
 export default function Read(){
+    
 
+    const getUrl =  "https://d792-106-51-70-135.ngrok-free.app/api/projects/allProjects"
+    const delUrl = "https://d792-106-51-70-135.ngrok-free.app/api/projects/delete/3"
     const [item, setItem] = useState([]);
     const [projectId, setProjectId] = useState('');
     const [projectName, setProjectName] = useState('');
     const [projectDescription, setProjectDescription] = useState('');
 
-    const loadUsers = async () => {
-    await axios.get("https://56ad-106-51-70-135.ngrok-free.app/api/projects/allProjects",{
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }}) .then((res) => {
-
-        setItem(res);
-        console.log(res, "hello");
-      })
-      .catch((res)=>{
-        console.log(res,'hi');
-      })
-
-    // setItem(result.item);
-    };
-
+    const { id } = useParams();
 
     useEffect(() => {
-        loadUsers();
+        loaditem();
     }, []);
+
+    const loaditem = async () => {
+    const result = await axios.get(getUrl,{
+        headers: {
+          'ngrok-skip-browser-warning': 'true'
+        }}) .then((result) => {
+
+        setItem(result.data);
+        // console.log(res, "hello");
+      })
+      .catch((error)=>{
+        console.log(error,'hi');
+      })
+    };
+
+    const deleteUser = async (id) => {
+        await axios.delete(`https://d792-106-51-70-135.ngrok-free.app/api/projects/delete/${id}`);
+        loaditem();
+      };
+
+
+
+    
 
     return(
         <div className="container">
-        <div className="py-4">
-          <table className="table border shadow">
-            <thead>
+      <div className="py-4">
+        <table className="table border shadow">
+          <thead>
+            <tr>
+            <th scope="col">Project-ID</th>
+              <th scope="col">Project-Name</th>
+              <th scope="col">Project-Description</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {item.map((user, index) => (
               <tr>
-                <th scope="col">Project-ID</th>
-                <th scope="col">Project Name</th>
-                <th scope="col">Project Description</th>
-                <th scope="col">Update</th>
-                <th scope="col">Delete</th>
+                <td>{user.projectId}</td>
+                <td>{user.projectName}</td>
+                <td>{user.projectDescription}</td>
+                <td>
+                  {/* <Link className="btn btn-primary mx-2" to={`/Read/${user.id}`}>
+                    View
+                  </Link>  */}
+                   <Link className="btn btn-outline-primary mx-2">
+                    Update
+                  </Link>
+                  <button className="btn btn-danger mx-2"
+                    onClick={() => deleteUser(user.projectId)}>
+                    Delete
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {item.map((user, index) => (
-                <tr>
-                  <th scope="row" key={index}>
-                    {index + 1}
-                  </th>
-                  <td>{item.projectId}</td>
-                  <td>{item.projectName}</td>
-                  <td>{item.projectDescription}</td>
-                  <td>
-                    <Link to='/Read'>
-                      View
-                    </Link>
-                    <Link>
-                      Update
-                    </Link>
-                    <button>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
+    </div>
    
    )
-   
-   }
+}
 
     // const[apiData, setApiData]=useState([])
     //     useEffect(() => {
@@ -124,7 +134,7 @@ export default function Read(){
     //     </Table.Header>
     
     //     <Table.Body>
-    //         {users.map((data) => {
+    //         {item.map((data) => {
                 
     //             return(
     //                 <Table.Row>

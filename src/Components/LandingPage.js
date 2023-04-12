@@ -3,6 +3,8 @@ import './LandingPage.css'
 import { IconName } from "react-icons/fa";
 import NoTransitionExample from './LandingPgCarousel';
 import Carousel from 'react-bootstrap/Carousel';
+import NavBar from './NavBar';
+import Footer from'./Footer'
 
 
 
@@ -10,6 +12,7 @@ export class LandingPage extends Component {
   render() {
     return (
       <div className='sample'>
+        <NavBar/>
       <div>
       <div className='at-container'>
         <div className='at-item'>Build-Better-Together</div>
@@ -36,8 +39,7 @@ export class LandingPage extends Component {
           <div>
           <h4 style={{color:"black"}} className='carousel-caption'>Boost your team’s alignment, efficiency, and productivity</h4><br/>
           </div>
-          {/* <p><strong> <h3>Boost your team’s alignment, efficiency, and productivity </h3></strong></p>
-          <p><strong><h3>by customizing any workflow to fit your needs.</h3></strong></p> */}
+        
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -65,14 +67,15 @@ export class LandingPage extends Component {
           <div>
           <h4 style={{color:"black"}} className='carousel-caption'>Boost your team’s alignment, efficiency, and productivity</h4><br/>
           </div>
-          {/* <p><strong> <h3>Boost your team’s alignment, efficiency, and productivity </h3></strong></p>
-          <p><strong><h3>by customizing any workflow to fit your needs.</h3></strong></p> */}
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
+
+    
     <br>
     </br>
   </div>
+  <Footer/>
 </div>
 
 )

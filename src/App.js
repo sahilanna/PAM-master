@@ -8,15 +8,18 @@ import Footer from './Components/Footer';
 import Carousel from 'react-bootstrap/Carousel'
 import AdminDashboard from './Components/Dashboard/Admin/AdminDashboard'
 import PmDashboard from './Components/Dashboard/PM/PmDashboard';
-import Read from './Components/Dashboard/Admin/Read/Read';
+//import Read from './Components/Dashboard/Admin/Read/Read';
 import AddProject from './Components/Forms/AddProject';
-import Create from './Components/Dashboard/Admin/Create/Create';
+// import Create from './Components/Dashboard/Roles/Create/Create';
 import Update from './Components/Dashboard/Admin/Update/Update';
 import Delete from './Components/Dashboard/Admin/Delete/Delete';
 import {BrowserRouter as Router , Route,Routes } from 'react-router-dom';
-import Roles from './Components/Dashboard/Roles/Roles';
 import { Provider } from 'react-redux';
 import store from './redux-store/store';
+import Roles from './Components/Dashboard/Roles/Roles';
+import PmCreate from './Components/Dashboard/PM/pmCreate';
+import Create from './Components/Dashboard/Admin/Create/Create';
+import Read from './Components/Dashboard/Admin/Read/Read';
 
 
 
@@ -34,7 +37,7 @@ function App() {
           <Route exact path='/Read' Component={Read}/>
           <Route exact path='/Update' Component={Update}/>
           <Route exact path='/Roles' Component={Roles}/>
-          <Route exact path='/Login' Component={<Login/>}/>
+          <Route exact path='/Login' Component={Login}/>
           </Routes>
         </Router>
       </Provider>

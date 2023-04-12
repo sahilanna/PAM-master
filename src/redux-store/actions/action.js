@@ -4,7 +4,7 @@ import axios from "axios";
 export const createProject = ({projectId, projectName, projectDescription}) => {
     return async(dispatch) => {
         try {
-            const responseCreate = await axios.post('https://56ad-106-51-70-135.ngrok-free.app/api/projects/', {
+            const responseCreate = await axios.post('https://d792-106-51-70-135.ngrok-free.app/api/projects/', {
                 projectId,
                 projectName,
                 projectDescription,
