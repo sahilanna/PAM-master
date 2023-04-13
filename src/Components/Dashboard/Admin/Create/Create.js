@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { createProject } from '../../../../redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
+import Read from '../Read/Read';
 
 export default function Create() {
 
@@ -26,17 +27,17 @@ export default function Create() {
 
   return(
   <Form>
-      <Form.Field>
+      <Form.Field className='form'>
         <label>Project-Id</label>
         <input name='projectId' onChange={(e)=>setProjectId(e.target.value)} placeholder='ProjectId' />
       </Form.Field>
 
-      <Form.Field>
+      <Form.Field className='form'>
         <label>Project-Name</label>
         <input name='projectName' onChange={(e)=>setProjectName(e.target.value)} placeholder='ProjectName' />
       </Form.Field>
 
-      <Form.Field>
+      <Form.Field className='form'>
         <label>Project-Description</label>
         <input name='projectDescription' onChange={(e)=>setProjectDescription(e.target.value)} placeholder='ProjectDescription' />
       </Form.Field>

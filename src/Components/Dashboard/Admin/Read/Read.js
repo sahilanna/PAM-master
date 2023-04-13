@@ -3,11 +3,11 @@ import { Button, Table } from 'semantic-ui-react'
 import axios from 'axios'
 import Create from '../Create/Create'
 // import Create from '../../Roles/Create/Create'
-import './Read.css'
 import {Link, Navigate, useParams}  from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useReducer } from 'react'
 import Update from '../Update/Update'
+import "./Read.css"
 
 export default function Read(){
     
@@ -51,37 +51,39 @@ export default function Read(){
     
 
     return(
-        <div className="container">
+
+      <div className="container">
       <div className="py-4">
         <table className="table border shadow">
-          <thead>
-            <tr>
-            <th scope="col">Project-ID</th>
-              <th scope="col">Project-Name</th>
-              <th scope="col">Project-Description</th>
-              <th scope="col">Update</th>
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
+          {/* <thead colspan = '5'>
+            
+          </thead> */}
           <tbody>
+          <tr>
+              <th className='col' >Project-ID</th>
+              <th className='col'>Project-Name</th>
+              <th className='col'>Project-Description</th>
+              <th className='col'>Update</th>
+              <th className='col'>Delete</th>
+            </tr>
             {item.map((user, index) => (
               <tr>
                 <td>{user.projectId}</td>
                 <td>{user.projectName}</td>
                 <td>{user.projectDescription}</td>
-                <td>
+                
                   {/* <Link className="btn btn-primary mx-2" to={`/Read/${user.id}`}>
                     View
                   </Link>  */}
-
-
+                <td>
                   <Link
                     className="btn btn-outline-primary mx-2"
-                    to={`/Update/${user.projectId}`}
+                    to={`/Update/${user.projectId}`} 
                   >
                     Update
                   </Link>
-                  
+                  </td>
+                   <td>
                   <button className="btn btn-danger mx-2"
                     onClick={() => deleteUser(user.projectId)}>
                     Delete

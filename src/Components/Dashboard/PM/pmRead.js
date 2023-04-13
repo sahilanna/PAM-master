@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import { Button, Table } from 'semantic-ui-react'
 import axios from 'axios'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import {Link}  from 'react-router-dom'
 import { useReducer } from 'react'
 import PmCreate from './pmCreate'
 import NavBar from '../../NavBar'
+import './Display.css'
+import PmUpdate from './pmUpdate'
 
 import  {
   CDBSidebar,
@@ -16,44 +18,41 @@ import  {
   CDBSidebarMenuItem,
 } from 'cdbreact'
  function PmRead(){
-    // function reducer(state,action)
-    // {
-    //     if (action.type == 'setprojectid') {
-    //         axios.post(`243ew`,{})
-    //         return (
-    //         );
-    //       }
-    // }
-    // const initialstate={projectId,projectDesc,projectName}
-    // const[state,dispatch]=useReducer(reducer,initialstate)
-    const[apiData, setApiData]=useState([])
-        useEffect(() => {
-        axios.get('https://6429847d5a40b82da4d494b2.mockapi.io/PM').then((response)=>{
-        console.log(response.data)
-        setApiData(response.data)
+
+    const navigate = useNavigate();
+    const getUrl =  "https://cc0f-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
+    const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3";   
+    const [item, setItem] = useState([]);
+    const [id, setId] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [enumRole,setEnumRole]=useState('2');
+
+    const { ID } = useParams();
+
+    useEffect(() => {
+      loaditem();
+    }, []);
+
+    const loaditem = async () => {
+      const result = await axios.get(getUrl,{
+          headers: {
+            'ngrok-skip-browser-warning': 'true'
+          }}) .then((result) => {
+  
+          setItem(result.data);
+          // console.log(res, "hello");
         })
-    },[])
-    const setData = (data) => {
-        let {id,pmId, pmName, projectDesc,projectId,projectName}=data;
-        // dispatch({type:'setprojectid'})
-        localStorage.setItem('id',id)
-        localStorage.setItem('pmId',pmId)
-        localStorage.setItem('projectId', projectId)
-        localStorage.setItem('projectName', projectName)
-        localStorage.setItem('projectDesc', projectDesc)
-    }
-    const getData = () => {
-        axios.get('https://6429847d5a40b82da4d494b2.mockapi.io/PM')
-            .then((getData) => {
-                setApiData(getData.data);
-            })
-    }
-    const OnDelete = (id) => {
-        axios.delete('https://6429847d5a40b82da4d494b2.mockapi.io/PM')
-        .then((getData) => {
-            console.log(id.getData());
+        .catch((error)=>{
+          console.log(error,'hi');
         })
-    }
+      };
+
+      const deleteUser = async (ID) => {
+        await axios.delete(`https://cc0f-106-51-70-135.ngrok-free.app/api/users/delete/${ID}`);
+        loaditem();
+      };
+
     return(
 <div>
     <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
@@ -74,40 +73,46 @@ import  {
             </CDBSidebarMenu>
             </CDBSidebarContent>
             </CDBSidebar>
-  <Table celled className = 'tc'>
-    <Table.Header className='th'>
-      <Table.Row colspan='3'>
-        <Table.HeaderCell colspan>Project-Manager id</Table.HeaderCell>
-        <Table.HeaderCell >Project-Manager-Name</Table.HeaderCell>
-        <Table.HeaderCell>Project Id</Table.HeaderCell>
-        <Table.HeaderCell>Project Name</Table.HeaderCell>
-        <Table.HeaderCell>Project Description</Table.HeaderCell>
-        <Table.HeaderCell>Update</Table.HeaderCell>
-        <Table.HeaderCell>Delete</Table.HeaderCell>
-      </Table.Row>
-    </Table.Header>
-    <Table.Body>
-        {apiData.map((data) => {
-            return(
-                <Table.Row>
-                <Table.Cell className='td'>{data.pmId}</Table.Cell>
-                <Table.Cell >{data.pmName}</Table.Cell>
-                <Table.Cell>{data.projectId}</Table.Cell>
-                <Table.Cell>{data.projectName}</Table.Cell>
-                <Table.Cell>{data.projectDesc}</Table.Cell>
-                <Table.Cell>
-                    <Link to='/Update'>
-                    <Button onClick={() => setData(data.id,data.projectId,data.projectName,data.projectDesc)}>Update</Button>
-                    </Link>
-                </Table.Cell>
-                <Table.Cell>
-                    <Button onClick={() => OnDelete(data.id)}>Delete</Button>
-                </Table.Cell>
-              </Table.Row>
-            )
-        })}
-    </Table.Body>
-  </Table>
+            <div className="container">
+      <div className="py-4">
+        <table className="table border shadow">
+          {/* <thead colspan = '5'>
+            
+          </thead> */}
+          <tbody>
+          <tr>
+              <th className='col'>PM-ID</th>
+              <th className='col'>PM-Name</th>
+              <th className='col'>PM-Email</th>
+              <th className='col'>Update</th>
+              <th className='col'>Delete</th>
+            </tr>
+            {item.map((user, index) => (
+              <tr>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                
+                <td>
+                  <Link
+                    className="btn btn-outline-primary mx-2"
+                    to={`/pmUpdate/${user.id}`} 
+                  >
+                    Update
+                  </Link>
+                  </td>
+                   <td>
+                  <button className="btn btn-danger mx-2"
+                    onClick={() => deleteUser(user.id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
   </div>
 )

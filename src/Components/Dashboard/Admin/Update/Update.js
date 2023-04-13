@@ -6,6 +6,7 @@ import { createProject, updateProject } from '../../../../redux-store/actions/ac
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Update() {
+  const getUrl =  "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/allProjects"
 
   
   let navigate= useNavigate();
@@ -13,14 +14,31 @@ export default function Update() {
 
   const dispatchU = useDispatch();
   const[user,setUser]=useState('')
+  const[item,setItem]=useState('')
+  
   // const project = useSelector(state => state.createReducer);//Allows u to extract data from Redux store state.
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
+  
 
 
   const sendDataToAPIu = () => {
     dispatchU(updateProject({projectId, projectName, projectDescription}));
+
+    const loaditem = async () => {
+      const result = await axios.get(getUrl,{
+          headers: {
+            'ngrok-skip-browser-warning': 'true'
+          }}) .then((result) => {
+  
+          setItem(result.data);
+          // console.log(res, "hello");
+        })
+        .catch((error)=>{
+          console.log(error,'hi');
+        })
+      };
     navigate('/Read')
   }
   const onInputChange = (e) => {

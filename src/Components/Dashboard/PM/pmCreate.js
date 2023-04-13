@@ -1,27 +1,39 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Form, Button} from 'semantic-ui-react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { createPM } from '../../../redux-store/actions/action';
+import { useDispatch, useSelector } from 'react-redux';
 
 
- function PmCreate(){
-let navigate= useNavigate();
+  function PmCreate(){
+
+  let navigate= useNavigate();
+  const dispatchPM = useDispatch();
 
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const[enumRole,setEnumRole]=useState('2');
-  const sendDataToAPI = () => {
-    axios.post(`https://6429847d5a40b82da4d494b2.mockapi.io/PM`, {
-        id,
-        name,
-      email,
-      enumRole
-      
-    }).then(() => {
-      navigate('/pmRead')
-    })
+
+
+   const sendDataToAPI = () => {
+    dispatchPM(createPM({id, name, email, enumRole}));
+    navigate('/pmRead')
   }
+  // const sendDataToAPI = () => {
+  //   axios.post(`https://cc0f-106-51-70-135.ngrok-free.app/api/users/`, {
+  //       id,
+  //       name,
+  //     email,
+  //     enumRole
+      
+  //   }).then(() => {
+  //     navigate('/pmRead')
+  //   })
+  // }
+
+
   return(
 <Form>
 <Form.Field>
@@ -36,15 +48,12 @@ let navigate= useNavigate();
         <label>Email-ID</label>
         <input type='email' name='email' onChange={(e)=>setEmail(e.target.value)} placeholder='EMAIL' />
     </Form.Field>
-    
     <Form.Field>
-    <label>Role : Project Manager </label>
+        <label>Role</label>
+        <input name='enumRole' onChange={(e)=>setEnumRole(2)} value="2" disabled/>
+        {/* <input type="text" name="name" value="2" disabled></input> */}
     </Form.Field>
-      
-     
-    {/* <Form.Field> */}
-      {/* <Checkbox label='I agree to the Terms and Conditions' /> */}
-    {/* </Form.Field> */}
+    
     <Button type='submit' onClick={sendDataToAPI}>Submit</Button>
   </Form>
 )
