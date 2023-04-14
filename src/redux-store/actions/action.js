@@ -19,17 +19,16 @@ export const createProject = ({projectId, projectName, projectDescription}) => {
 };
 
 
-//Create PM
-export const createPM = ({id, name, email, enumRole}) => {
-    return async(dispatchPM) => {
+//Update Project
+export const updateProject = ({projectId, projectName, projectDescription}) => {
+    return async(dispatch) => {
         try {
-            const responseCreatePM = await axios.post('https://cc0f-106-51-70-135.ngrok-free.app/api/users/', {
-                id,
-                name,
-                email,
-                enumRole
+            const responseUpdate = await axios.put(`https://cc0f-106-51-70-135.ngrok-free.app/api/projects/update/${projectId}`, {
+                projectId,
+                projectName,
+                projectDescription,
             })
-            dispatchPM({type: "createPM", payload: responseCreatePM});
+            dispatch({type: "updateProject", payload: responseUpdate});
         }
         catch (error){
             console.log(error);
@@ -38,6 +37,86 @@ export const createPM = ({id, name, email, enumRole}) => {
 };
 
 
+//Create PM
+export const createPM = ({id, name, email, enumRole}) => {
+    return async(dispatchPMUpdate) => {
+        try {
+            const responseCreatePM = await axios.post('https://cc0f-106-51-70-135.ngrok-free.app/api/users/', {
+                id,
+                name,
+                email,
+                enumRole
+            })
+            dispatchPMUpdate({type: "createPM", payload: responseCreatePM});
+        }
+        catch (error){
+            console.log(error);
+        }
+    };
+};
+
+
+
+
+//Update PM
+export const updatePM = ({id, name, email, enumRole}) => {
+    return async(dispatchPM) => {
+        try {
+            const responsePMUpdate = await axios.put(`https://cc0f-106-51-70-135.ngrok-free.app/api/users/update/${id}`, {
+                id,
+                name,
+                email,
+                enumRole
+            })
+            dispatchPM({type: "updatePM", payload: responsePMUpdate});
+        }
+        catch (error){
+            console.log(error);
+        }
+    };
+};
+
+
+
+//create user
+
+export const createUser = ({id, name, email, enumRole}) => {
+    return async(dispatchUserUpdate) => {
+        try {
+            const responseCreateUser = await axios.post('https://cc0f-106-51-70-135.ngrok-free.app/api/users/', {
+                id,
+                name,
+                email,
+                enumRole
+            })
+            dispatchUserUpdate({type: "createUser", payload: responseCreateUser});
+        }
+        catch (error){
+            console.log(error);
+        }
+    };
+};
+
+
+
+//Update USER
+export const updateUser = ({id, name, email, enumRole}) => {
+    return async(dispatchUser) => {
+        // const {id} = useParams();
+        try {
+            const responseUserUpdate = await axios.put(`https://cc0f-106-51-70-135.ngrok-free.app/api/users/update/${id}`, {
+                id,
+                name,
+                email,
+                enumRole
+            })
+            dispatchUser({type: "updatePM", payload: responseUserUpdate});
+        }
+        catch (error){
+            console.log(error);
+        }
+    };
+};
 
 
 
@@ -57,43 +136,3 @@ export const createPM = ({id, name, email, enumRole}) => {
 //         }
 //     };
 // };
-
-
-
-
-//Update Project
-export const updateProject = ({projectId, projectName, projectDescription}) => {
-    return async(dispatch) => {
-        // const {id} = useParams();
-        try {
-            const responseUpdate = await axios.put(`https://cc0f-106-51-70-135.ngrok-free.app/api/projects/update/${projectId}`, {
-                projectId,
-                projectName,
-                projectDescription,
-            })
-            dispatch({type: "updateProject", payload: responseUpdate});
-        }
-        catch (error){
-            console.log(error);
-        }
-    };
-};
-
-
-//Update PM
-export const updatePM = ({id, name, email}) => {
-    return async(dispatchPMUpdate) => {
-        // const {id} = useParams();
-        try {
-            const responsePMUpdate = await axios.put(`https://cc0f-106-51-70-135.ngrok-free.app/api/users/update/${id}`, {
-                id,
-                name,
-                email,
-            })
-            dispatchPMUpdate({type: "updatePM", payload: responsePMUpdate});
-        }
-        catch (error){
-            console.log(error);
-        }
-    };
-};

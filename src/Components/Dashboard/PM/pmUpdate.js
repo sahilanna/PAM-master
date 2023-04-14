@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react'
 import { Form, Button} from 'semantic-ui-react'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createProject, updateProject } from '../../../../redux-store/actions/action';
+import { createPM, updatePM } from '../../../redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
-import { updatePM } from '../../../redux-store/actions/action';
+
 
 export default function PmUpdate() {
   const getUrl =  "https://cc0f-106-51-70-135.ngrok-free.app/api/users/role/project_manager"
@@ -21,11 +21,12 @@ export default function PmUpdate() {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [enumRole,setEnumRole]=useState('2');
   
 
 
   const sendDataToAPIPM = () => {
-    dispatchPMUpdate(updatePM({id, name, email}));
+    dispatchPMUpdate(updatePM({id, name, email, enumRole}));
 
     const loaditem = async () => {
       const result = await axios.get(getUrl,{
@@ -53,7 +54,7 @@ export default function PmUpdate() {
         <label>PM-ID</label>
         <input name='id'
          onChange={(e)=>setId(e.target.value)} 
-         placeholder='id'
+         placeholder='PM-ID'
          />
       </Form.Field>
 
@@ -68,12 +69,17 @@ export default function PmUpdate() {
         <label>Email</label>
         <input name='email' onChange={(e)=>setEmail(e.target.value)} placeholder='email' />
       </Form.Field>
+
+      <Form.Field>
+        <label>Role</label>
+        <input name='enumRole' onChange={(e)=>setEnumRole(2)} value="2" disabled/>
+        {/* <input type="text" name="name" value="2" disabled></input> */}
+    </Form.Field>
     
       <Button type='submit' onClick={sendDataToAPIPM}>Submit</Button>
 
   </Form>
 )
 }
-
 
 
