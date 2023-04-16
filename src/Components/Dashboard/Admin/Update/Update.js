@@ -6,7 +6,7 @@ import { createProject, updateProject } from '../../../../redux-store/actions/ac
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Update() {
-  const getUrl =  "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/allProjects"
+  const getUrl =  "https://2063-106-51-70-135.ngrok-free.app/api/projects/allProjects"
 
   
   let navigate= useNavigate();

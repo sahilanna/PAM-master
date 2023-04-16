@@ -12,8 +12,8 @@ import "./Read.css"
 export default function Read(){
     
    const navigate=useNavigate()
-    const getUrl =  "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/allProjects"
-    const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3"
+    const getUrl =  "https://2063-106-51-70-135.ngrok-free.app/api/projects/allProjects"
+    const delUrl = "https://2063-106-51-70-135.ngrok-free.app/api/projects/delete/2"
     const [item, setItem] = useState([]);
     const [projectId, setProjectId] = useState('');
     const [projectName, setProjectName] = useState('');
@@ -40,7 +40,7 @@ export default function Read(){
     };
 
     const deleteUser = async (id) => {
-        await axios.delete(`https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/${id}`);
+        await axios.delete(`https://2063-106-51-70-135.ngrok-free.app/api/projects/delete/${id}`);
         loaditem();
       };
 

@@ -14,9 +14,13 @@ import  {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from 'cdbreact'
- function UserRead(){
+
+function UserRead(){
+
     const navigate = useNavigate();
-    const getUrl =  "https://cc0f-106-51-70-135.ngrok-free.app/api/users/role/user";
+    const getUrl =  "https://2063-106-51-70-135.ngrok-free.app/api/users/role/user";
+    
+    // https://2063-106-51-70-135.ngrok-free.app/api/users/2
     const delUrl = "";
     const [item, setItem] = useState([]);
     const [id, setId] = useState('');
@@ -24,9 +28,11 @@ import  {
     const [email, setEmail] = useState('');
     const [enumRole,setEnumRole]=useState('3');
     const { ID } = useParams();
+    
     useEffect(() => {
       loaditem();
     }, []);
+
     const loaditem = async () => {
       const result = await axios.get(getUrl,{
           headers: {
@@ -39,15 +45,15 @@ import  {
           console.log(error,'hi');
         })
       };
-      const deleteUser = async (ID) => {
-        await axios.delete(`https://cc0f-106-51-70-135.ngrok-free.app/api/users/delete/${ID}`);
+      const deleteUser = async (id) => {
+        await axios.delete(`https://2063-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
         loaditem();
       };
     return(
 <div>
     <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
     <CDBSidebar textColor="#fff" backgroundColor="#333">
-      <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
+      <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>USERS
         </CDBSidebarHeader>
       <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
@@ -84,7 +90,7 @@ import  {
                 <td>
                   <Link
                     className="btn btn-outline-primary mx-2"
-                    to={`//${user.id}`}
+                    to={`/userUpdate/${user.id}`}
                   >
                     Update
                   </Link>

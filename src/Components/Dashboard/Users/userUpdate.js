@@ -2,12 +2,13 @@ import React, {useEffect, useState} from 'react'
 import { Form, Button} from 'semantic-ui-react'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createPM, updateUser } from '../../../redux-store/actions/action';
+import { createUser, updateUser } from '../../../redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
+import UserRead from './userRead';
 
 
 export default function UserUpdate() {
-    const getUrl =  "https://cc0f-106-51-70-135.ngrok-free.app/api/users/role/user"
+    const getUrl =  "https://2063-106-51-70-135.ngrok-free.app/api/users/role/3"
 
     let navigate= useNavigate();
     const {ID} = useParams();

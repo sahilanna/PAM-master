@@ -8,18 +8,20 @@ import { useDispatch, useSelector } from 'react-redux';
 function UserCreate(){
   const navigate=useNavigate();
   const dispatchUser = useDispatch();
+
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const[enumRole,setEnumRole] = useState('3');
-   const sendDataToAPI = () => {
+
+  const sendDataToAPI = () => {
     dispatchUser(createUser({id, name, email, enumRole}));
     navigate('/userRead')
   }
  
 return(
 <Form>
-<Form.Field>
+    <Form.Field>
         <label>User ID</label>
         <input name='id' onChange={(e)=>setId(e.target.value)} placeholder='User Id' />
     </Form.Field>

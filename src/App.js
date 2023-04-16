@@ -49,7 +49,7 @@ function App() {
           <Route exact path='/PmUpdate/:id' Component={PmUpdate}/>
           <Route exact path='/UserCreate' Component={UserCreate}/>
           <Route exact path='/UserRead' Component={UserRead}/>
-          <Route exact path='/UserUpdate'Component={UserUpdate}/>
+          <Route exact path='/UserUpdate/:id'Component={UserUpdate}/>
           </Routes>
         </Router>
       </Provider>

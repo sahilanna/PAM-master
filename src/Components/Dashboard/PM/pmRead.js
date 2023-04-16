@@ -16,17 +16,17 @@ import  {
   CDBSidebarMenuItem,
 } from 'cdbreact'
 
+
 export default function PmRead(){
 
     const navigate = useNavigate();
-    const getUrl =  "https://cc0f-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
+    const getUrl =  "https://2063-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
     const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3";   
     const [item, setItem] = useState([]);
     const [id, setId] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [enumRole,setEnumRole]=useState('2');
-
     const { ID } = useParams();
 
     useEffect(() => {
@@ -38,7 +38,6 @@ export default function PmRead(){
           headers: {
             'ngrok-skip-browser-warning': 'true'
           }}) .then((result) => {
-  
           setItem(result.data);
           // console.log(res, "hello");
         })
@@ -48,7 +47,7 @@ export default function PmRead(){
       };
 
       const deleteUser = async (id) => {
-        await axios.delete(`https://cc0f-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
+        await axios.delete(`https://2063-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
         loaditem();
       };
 
