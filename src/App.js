@@ -23,6 +23,7 @@ import PmUpdate from './Components/Dashboard/PM/pmUpdate';
 import UserCreate from './Components/Dashboard/Users/userCreate';
 import UserRead from './Components/Dashboard/Users/userRead';
 import UserUpdate from './Components/Dashboard/Users/userUpdate';
+import View from './Components/Dashboard/Admin/Read/View';
 
 
 
@@ -48,6 +49,7 @@ function App() {
           <Route exact path='/UserCreate' Component={UserCreate}/>
           <Route exact path='/UserRead' Component={UserRead}/>
           <Route exact path='/UserUpdate/:id'Component={UserUpdate}/>
+          <Route exact path='/View' Component={View}/>
           </Routes>
         </Router>
       </Provider>

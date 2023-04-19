@@ -41,6 +41,9 @@ const AdminDashboard = () => {
             <NavLink exact to="/Create" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="chart-line">Create Project</CDBSidebarMenuItem>
             </NavLink>
+            <NavLink exact to="/Create" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="chart-line">Tools</CDBSidebarMenuItem>
+            </NavLink>
 
           </CDBSidebarMenu>
         </CDBSidebarContent>

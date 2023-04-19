@@ -20,8 +20,8 @@ import  {
 export default function PmRead(){
 
     const navigate = useNavigate();
-    const getUrl =  "https://2063-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-    const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3";   
+    const getUrl =  "https://b619-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
+    const delUrl = "https://b619-106-51-70-135.ngrok-free.app/api/projects/delete/3";   
     const [item, setItem] = useState([]);
     const [id, setId] = useState('');
     const [name, setName] = useState('');
@@ -47,7 +47,7 @@ export default function PmRead(){
       };
 
       const deleteUser = async (id) => {
-        await axios.delete(`https://2063-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
+        await axios.delete(`https://b619-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
         loaditem();
       };
 

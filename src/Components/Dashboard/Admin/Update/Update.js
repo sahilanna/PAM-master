@@ -6,7 +6,7 @@ import { createProject, updateProject } from '../../../../redux-store/actions/ac
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Update() {
-  const getUrl =  "https://2063-106-51-70-135.ngrok-free.app/api/projects/allProjects"
+  const getUrl =  "https://f0a1-106-51-70-135.ngrok-free.app/api/projects/allProjects"
 
   
   let navigate= useNavigate();
@@ -15,6 +15,11 @@ export default function Update() {
   const dispatchU = useDispatch();
   const[user,setUser]=useState('')
   const[item,setItem]=useState('')
+  const [pmList, setPmList] = useState([{'name':'','id':''}])
+  const [selectedOption, setSelectedOption] = useState('');
+  const [error,setError]=useState('false');
+  const[file,setFile]=useState('');
+  const[repo,setRepo]=useState('')
   
   // const project = useSelector(state => state.createReducer);//Allows u to extract data from Redux store state.
   const [projectId, setProjectId] = useState('');
@@ -22,6 +27,13 @@ export default function Update() {
   const [projectDescription, setProjectDescription] = useState('');
   
 
+  function handleDropdownChange(event) {
+    setSelectedOption(event.target.value);
+  }
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  }
 
   const sendDataToAPIu = () => {
     dispatchU(updateProject({projectId, projectName, projectDescription}));
@@ -33,6 +45,7 @@ export default function Update() {
           }}) .then((result) => {
   
           setItem(result.data);
+          
           // console.log(res, "hello");
         })
         .catch((error)=>{
@@ -43,6 +56,7 @@ export default function Update() {
   }
   const onInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+    
   };
 
   // useEffect(() => {
@@ -56,13 +70,12 @@ export default function Update() {
 
   return(
   <Form>
-      <Form.Field>
+      {/* <Form.Field>
         <label>Project-Id</label>
-        <input name='projectId'
-         onChange={(e)=>setProjectId(e.target.value)} 
-         placeholder='ProjectId'
-         />
-      </Form.Field>
+       
+
+        
+      </Form.Field> */}
 
       <Form.Field>
         <label>Project-Name</label>
@@ -75,7 +88,35 @@ export default function Update() {
         <label>Project-Description</label>
         <input name='projectDescription' onChange={(e)=>setProjectDescription(e.target.value)} placeholder='ProjectDescription' />
       </Form.Field>
-    
+
+      <select value={pmList} onChange={handleDropdownChange}>
+          <option value="name">Choose PM</option>
+          {pmList.map(option => (
+              <option value={option.name} key={option.id}>{option.name}</option>))}
+      </select>
+      <br/>
+      <select value={pmList} onChange={handleDropdownChange}>
+          <option value="name">Choose USER</option>
+          {pmList.map(option => (
+              <option value={option.name} key={option.id}>{option.name}</option>))}
+      </select>
+      <br/>
+         
+      
+      <Form.Field className='form'>
+        <label>Github Repo</label>
+        <input name='repo' onChange={(e)=>setRepo(e.target.value)} placeholder='Github Repo' />
+      </Form.Field>
+
+      <div>
+        <Form>
+        <label>Select file</label>
+        <input type="file" name='files' onChange={handleFileChange} />
+      
+        {/* <button onClick={handleFileChange}>Upload</button> */}
+        </Form>
+      </div>
+
       <Button type='submit' onClick={sendDataToAPIu}>Submit</Button>
 
   </Form>

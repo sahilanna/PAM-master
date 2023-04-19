@@ -18,7 +18,7 @@ import  {
 function UserRead(){
 
     const navigate = useNavigate();
-    const getUrl =  "https://2063-106-51-70-135.ngrok-free.app/api/users/role/user";
+    const getUrl =  "https://225f-106-51-70-135.ngrok-free.app/api/users/role/user";
     
     // https://2063-106-51-70-135.ngrok-free.app/api/users/2
     const delUrl = "";
@@ -46,7 +46,7 @@ function UserRead(){
         })
       };
       const deleteUser = async (id) => {
-        await axios.delete(`https://2063-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
+        await axios.delete(`https://225f-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
         loaditem();
       };
     return(

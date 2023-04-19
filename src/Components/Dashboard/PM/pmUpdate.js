@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 export default function PmUpdate() {
-  const getUrl =  "https://2063-106-51-70-135.ngrok-free.app/api/users/role/project_manager"
+  const getUrl =  "https://b619-106-51-70-135.ngrok-free.app/api/users/role/project_manager"
 
   
   let navigate= useNavigate();

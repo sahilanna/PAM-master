@@ -13,6 +13,9 @@ function UserCreate(){
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const[enumRole,setEnumRole] = useState('3');
+  const [error,setError]=useState('false');
+  const[file,setFile]=useState('');
+  const[repo,setRepo]=useState('')
 
   const sendDataToAPI = () => {
     dispatchUser(createUser({id, name, email, enumRole}));
