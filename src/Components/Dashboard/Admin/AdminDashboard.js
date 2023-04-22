@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import './AdminDashboard.css';
 import {button, Table} from 'react-bootstrap';
 import Read from './Read/Read';
+import Create from './Create/Create';
 // import Crud from '../CRUD';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 import  {
@@ -26,7 +27,7 @@ const AdminDashboard = () => {
         </CDBSidebarHeader>
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/AdminDashboard" activeClassName="activeClicked">
+            <NavLink exact to="/Login" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/tables" activeClassName="activeClicked">

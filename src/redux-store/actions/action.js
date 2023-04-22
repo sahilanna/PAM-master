@@ -2,13 +2,16 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 //Create Project
-export const createProject = ({projectId, projectName, projectDescription}) => {
+export const createProject = ({projectId, projectName, projectDescription,projectManagerId,gitRepoLink}) => {
     return async(dispatchU) => {
         try {
-            const responseCreate = await axios.post('https://6429847d5a40b82da4d494b2.mockapi.io/PAM', {
+            const responseCreate = await axios.post('https://64267bccd24d7e0de470e2b7.mockapi.io/Crud', {
                 projectId,
                 projectName,
                 projectDescription,
+                projectManagerId,
+                //userIds
+                gitRepoLink
             })
             dispatchU({type: "createProject", payload: responseCreate});
         }

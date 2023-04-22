@@ -12,13 +12,14 @@ import "./Read.css"
 export default function Read(){
 
     const navigate=useNavigate()
-    const getUrl =  "https://6429847d5a40b82da4d494b2.mockapi.io/PAM"
+    const getUrl =  "https://64267bccd24d7e0de470e2b7.mockapi.io/Crud"
     const delUrl = "https://225f-106-51-70-135.ngrok-free.app/api/projects/delete/2"
     const [item, setItem] = useState([]);
     const [projectId, setProjectId] = useState('');
     const [projectName, setProjectName] = useState('');
     const [projectDescription, setProjectDescription] = useState('');
     const [showConfirm, setShowConfirm] = useState(false);
+    const[gitRepoLink,setGitRepoLink]=useState('')
 
     const { id } = useParams();
 
@@ -49,9 +50,8 @@ export default function Read(){
     const viewUser = async (id) => {
         await axios.get(`https://6429847d5a40b82da4d494b2.mockapi.io/PAM/${id}`);
         loaditem();
-      };
-
-  
+      }
+      
 
    
 
@@ -68,6 +68,7 @@ export default function Read(){
               <th className='col' >Project-ID</th>
               <th className='col'>Project-Name</th>
               <th className='col'>Project-Description</th>
+              <th className='col'>Github Repo</th>
               {/* <th className='col'>View</th> */}
               <th className='col'>Update</th>
               <th className='col'>Delete</th>
@@ -77,6 +78,7 @@ export default function Read(){
                 <td>{user.projectId}</td>
                 <td>{user.projectName}</td>
                 <td>{user.projectDescription}</td>
+                <td><a href={user.gitRepoLink}>{user.gitRepoLink}</a></td>
                 {/* <td>
                   
                   <Link className="btn btn-danger mx-2" to={'/View'}

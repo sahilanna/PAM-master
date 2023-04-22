@@ -15,54 +15,88 @@ export default function Create() {
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
-  const [pmList, setPmList] = useState([{'name':'','id':''}])
-  const [selectedOption, setSelectedOption] = useState('');
+  const [projectManagerId, setProjectManagerId] = useState('')
+  const[userIds,setUserIds]=useState([]);
   const [error,setError]=useState('false');
   const[file,setFile]=useState('');
-  const[repo,setRepo]=useState('')
+  const[gitRepoLink,setGitRepoLink]=useState('');
+  //const [link, setLink] = useState('');
+  const [isValid, setIsValid] = useState(true);
 
-  useEffect(() =>{
-      const fetchData = async ()=>{
-          const response = await fetch(`https://6429847d5a40b82da4d494b2.mockapi.io/PAM`);
-          const newData = await response.json();
-          setPmList(newData);
-          // console.log(newData);
-      };
-      fetchData();
-  }, [])
+ 
+
+  const handleLinkChange = (event) => {
+    setGitRepoLink(event.target.value);
+  };
+
+
+
+  const validateLink = (value) => {
+    try {
+      new URL(value);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
+
+
+  // const MultiSelectDropdown = () => {
+  //   const [selectedOptions, setSelectedOptions] = useState([]);
+  
+  //   const handleOptionSelect = (e) => {
+  //     const options = userIds.from(e.target.selectedOptions).map((option) => option.value);
+  //     setSelectedOptions(options);
+  //   };
+  
+  // useEffect(() =>{
+  //     const fetchData = async ()=>{
+  //         const response = await fetch(`https://64267bccd24d7e0de470e2b7.mockapi.io/Crud`);
+  //         const newData = await response.json();
+  //         setProjectManagerId(newData);
+  //         // console.log(newData);
+  //     };
+  //     fetchData();
+  // }, [])
+
+  useEffect(() => {
+    fetch("https://64267bccd24d7e0de470e2b7.mockapi.io/Crud")
+      .then((response) => response.json())
+      .then((data) => setUserIds(data));
+  }, []);
+
 
   // useEffect(() => {
   //   console.log("project ", project);
   // }, [project])
 
   function handleDropdownChange(event) {
-    setSelectedOption(event.target.value);
+    setUserIds(event.target.value);
   }
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  }
+ 
 
   const handleSubmit=(e)=>{
     e.preventDefault();
-    if(projectId.length===0 || projectName.length===0 || projectDescription.length===0||file.length===0||repo.length===0){
+    if(projectId.length===0 || projectName.length===0 || projectDescription.length===0||gitRepoLink.length===0){
       setError(true)
   }
-  if(projectId && projectName && projectDescription && file && repo)
+  if(projectId && projectName && projectDescription  && gitRepoLink)
   {
     console.log(projectId)
-    dispatch(createProject({projectId, projectName, projectDescription}));
+    dispatch(createProject({projectId, projectName, projectDescription,projectManagerId,gitRepoLink}));
     navigate('/Read')
   }
-}
+  }
 
   // const sendDataToAPI = () => {
   //   dispatch(createProject({projectId, projectName, projectDescription}));
-  //   navigate('/Read')
+  //   navigate('/Read');
   // }
 
   return(
-  <Form>
+  <Form.Field>
       <Form.Field className='form'>
         <label>Project-Id</label>
         <input name='projectId' onChange={(e)=>setProjectId(e.target.value)} placeholder='ProjectId' />
@@ -83,35 +117,69 @@ export default function Create() {
         {error&&projectDescription.length<=0?
                <label>Project ID can't be Empty</label>: ""}
       </Form.Field>
-      <br/>
 
+     
 
-      <select value={pmList} onChange={handleDropdownChange}>
+      {/* <select value={pmList} onChange={handleDropdownChange}>
           <option value="name">Choose PM</option>
           {pmList.map(option => (
               <option value={option.name} key={option.id}>{option.name}</option>))}
-      </select>
+      </select> */}
       <br/>
-      <select value={pmList} onChange={handleDropdownChange}>
+      {/* <select value={projectManagerId} onChange={handleDropdownChange}>
           <option value="name">Choose USER</option>
-          {pmList.map(option => (
+          {projectManagerId.map(option => (
               <option value={option.name} key={option.id}>{option.name}</option>))}
       </select>
       <br/>
-         
-      
-      <Form.Field className='form'>
-        <label>Github Repo</label>
-        <input name='repo' onChange={(e)=>setRepo(e.target.value)} placeholder='Github Repo' />
-        {error&&repo.length<=0?
-               <label>Repo Link can't be Empty</label>: ""}
-
-    
+          */}
+        <Form.Field>
+        <div>
+          <label>Project Manager ID</label>
+      <select>
+        {userIds.map((item,index) => (
+          <option key={index.id} value={item.id}>
+            {item.id}
+          </option>
+          
+        ))}
+      </select>
+    </div>
       </Form.Field>
 
 
+      {/* <Form.Field>
+      <label>User Id : </label>
+      <select multiple={true} value={selectedOptions} onChange={handleOptionSelect}>
+      <option value="option4">Option 4</option>
+      </select>
+      </Form.Field> */}
+      
+      {/* <Form.Field className='form'>
+      <label>Github Repo</label>
+      <input name='repo' onChange={(e)=>setGitRepoLink(e.target.value)} placeholder='Github Repo' value = {link} />
+      {error&&gitRepoLink.length<=0?
+               <label>Repo Link can't be Empty</label>: ""}
+      </Form.Field> */}
 
-      <div>
+      <Form.Field>
+      <label htmlFor="link">Enter a link:</label>
+      <input
+        type="link"
+        id="gitRepoLink"
+        name="gitRepoLink"
+        value={gitRepoLink}
+        onChange={handleLinkChange}
+        placeholder='Repository'
+      />
+     
+      </Form.Field>
+
+      
+
+
+
+      {/* <div>
         <Form>
         <label>Select file</label>
         <input type="file" name='files' onChange={handleFileChange} />
@@ -119,13 +187,15 @@ export default function Create() {
                <label>Add a file</label>:""}
         <button onClick={handleFileChange}>Upload</button>
         </Form>
-      </div>
+      </div> */}
       
       <Button type='submit' onClick={handleSubmit}>Submit</Button>
 
-  </Form>
+  </Form.Field>
 )
 }
+
+
 
 
 
