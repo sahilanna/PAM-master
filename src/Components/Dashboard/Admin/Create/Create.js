@@ -134,18 +134,15 @@ export default function Create() {
       <br/>
           */}
         <Form.Field>
-        <div>
           <label>Project Manager ID</label>
-      <select>
-        {userIds.map((item,index) => (
+          <select>
+          {userIds.map((item,index) => (
           <option key={index.id} value={item.id}>
             {item.id}
           </option>
-          
-        ))}
-      </select>
-    </div>
-      </Form.Field>
+          ))}
+          </select>
+        </Form.Field>
 
 
       {/* <Form.Field>

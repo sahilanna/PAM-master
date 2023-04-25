@@ -10,7 +10,6 @@ import photo2 from '../Assets/photo2.avif'
 import photo3 from '../Assets/photo3.avif'
 
 
-
 export class LandingPage extends Component {
   render() {
     return (

@@ -13,7 +13,7 @@ export default function Update() {
   const {id} = useParams();
 
   const dispatchU = useDispatch();
-  const[user,setUser]=useState('')
+  const[user,setUser]=useState('');
   const[item,setItem]=useState('')
   const [pmList, setPmList] = useState([{'name':'','id':''}])
   const [selectedOption, setSelectedOption] = useState('');
@@ -25,6 +25,9 @@ export default function Update() {
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
+
+
+  
   
 
   function handleDropdownChange(event) {
@@ -36,6 +39,7 @@ export default function Update() {
   }
 
   const sendDataToAPIu = () => {
+    
     dispatchU(updateProject({projectId, projectName, projectDescription}));
 
     const loaditem = async () => {
@@ -53,10 +57,6 @@ export default function Update() {
         })
       };
     navigate('/Read')
-  }
-  const onInputChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-    
   };
 
   // useEffect(() => {
@@ -80,8 +80,8 @@ export default function Update() {
       <Form.Field>
         <label>Project-Name</label>
         <input name='projectName' 
-        onChange={(e)=>setProjectName(e.target.value)}
-         placeholder='ProjectName' />
+        onChange={(e) => setProjectName(e.target.value)}
+         />
       </Form.Field>
 
       <Form.Field>
