@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import Display from '../PM/Display';
+// import Display from '../PM/Display';
 import { props } from 'react-select';
 const DialogBox = (props) => {
   const {show,onClose,onConfirm}=props

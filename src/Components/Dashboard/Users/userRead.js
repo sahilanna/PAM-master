@@ -18,7 +18,7 @@ import  {
 
 function UserRead(){
   const navigate = useNavigate();
-  const getUrl =  "https://db60-106-51-70-135.ngrok-free.app/api/users/role/user";
+  const getUrl =  "https://7b96-106-51-70-135.ngrok-free.app/api/users/role/user";
   const delUrl = "";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -44,7 +44,7 @@ function UserRead(){
       })
     };
     const deleteUser = async (id) => {
-      await axios.delete(`https://db60-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
+      await axios.delete(`https://7b96-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
       navigate('/userRead')
       setShowConfirmDialog(false);
       loaditem();
@@ -67,19 +67,19 @@ function UserRead(){
           </CDBSidebarMenu>
           </CDBSidebarContent>
           </CDBSidebar>
-          <div className="container">
-    <div className="py-4">
-      <table className="table border shadow">
+          {/* <div className="container">
+    <div className="py-4"> */}
+      <table class = "table">
         {/* <thead colspan = '5'>
         </thead> */}
-        <tbody>
-        <tr>
-            <th className='col'>User ID</th>
-            <th className='col'>User Name</th>
-            <th className='col'>User Email</th>
-            <th className='col'>Update</th>
-            <th className='col'>Delete</th>
-          </tr>
+        <thead>
+            <th>User ID</th>
+            <th>User Name</th>
+            <th>User Email</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </thead>
+          <tbody>
           {item.map((user, index) => (
             <tr>
               <td>{user.id}</td>
@@ -108,8 +108,8 @@ function UserRead(){
       </table>
     </div>
   </div>
-</div>
-</div>
+// </div>
+// </div>
 )
 }
 export default UserRead;

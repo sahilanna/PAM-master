@@ -8,7 +8,7 @@ import UserRead from './userRead';
 
 
 export default function UserUpdate() {
-    const getUrl =  "https://225f-106-51-70-135.ngrok-free.app/api/users/role/3"
+    const getUrl =  "https://7b96-106-51-70-135.ngrok-free.app/api/users/role/3"
 
     let navigate= useNavigate();
     const {ID} = useParams();

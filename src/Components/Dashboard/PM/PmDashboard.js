@@ -7,7 +7,7 @@ import {button, Table} from 'react-bootstrap';
 import Roles from '../Roles/Roles';
 import Crud from '../CRUD';
 //import 'bootstrap/dist/css/bootstrap.min.css'
-import Display  from './Display';
+// import Display  from './Display';
 
 import  {
   CDBSidebar,
@@ -53,7 +53,7 @@ const PmDashboard = () => {
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>
-      <Display/> 
+      {/* <Display/>  */}
       {/* <table className='tab'>
         
                     <thead>

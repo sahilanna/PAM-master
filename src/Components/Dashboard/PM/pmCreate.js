@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
     const [email, setEmail] = useState('');
     const[enumRole,setEnumRole]=useState('2');
     const[error,setError]=useState('false');
-   const handleSubmit=(e)=>{
+    const handleSubmit=(e)=>{
       e.preventDefault();
       if(id.length==0 ||name.length==0 || email.length==0){
         setError(true)

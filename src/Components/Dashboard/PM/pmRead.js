@@ -5,7 +5,6 @@ import {Link, NavLink, useNavigate, useParams } from 'react-router-dom'
 import { useReducer } from 'react'
 import PmCreate from './pmCreate'
 import NavBar from '../../NavBar'
-import './Display.css'
 import PmUpdate from './pmUpdate'
 import DialogBox from '../DialogBox/DialogBox'
 import  {
@@ -20,7 +19,7 @@ import  {
 
 export default function PmRead(){
   const navigate = useNavigate();
-  const getUrl =  "https://db60-106-51-70-135.ngrok-free.app/api/users/role/user";
+  const getUrl =  "https://64267bccd24d7e0de470e2b7.mockapi.io/Crud";
   const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -68,19 +67,19 @@ export default function PmRead(){
           </CDBSidebarMenu>
           </CDBSidebarContent>
           </CDBSidebar>
-    <div className="container">
-    <div className="py-4">
-      <table className="table border shadow">
+    {/* <div className="container">
+    <div className="py-4"> */}
+      <table class="table">
         {/* <thead colspan = '5'>
         </thead> */}
-        <tbody>
-        <tr>
-            <th className='col'>PM-ID</th>
-            <th className='col'>PM-Name</th>
-            <th className='col'>PM-Email</th>
-            <th className='col'>Update</th>
-            <th className='col'>Delete</th>
-          </tr>
+        <thead>
+            <th>PM-ID</th>
+            <th>PM-Name</th>
+            <th>PM-Email</th>
+            <th>Update</th>
+            <th>Delete</th>
+         </thead>
+         <tbody>
           {item.map((user, index) => (
             <tr>
               <td>{user.id}</td>
@@ -109,8 +108,8 @@ export default function PmRead(){
       </table>
     </div>
   </div>
-</div>
-</div>
+// </div>
+// </div>
 )
 }
 
