@@ -54,11 +54,11 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 ## Usage
 Once the server is running, navigate to http://localhost:3000 to access the application. From here, you can:
 
-*Create a new user account
-*Log in to an existing user account
-*Create new resources and assign access levels to them
-*Assign access levels to individual users or groups of users
-*Modify or revoke access privileges as needed
+* Create a new user account
+* Log in to an existing user account
+* Create new resources and assign access levels to them
+* Assign access levels to individual users or groups of users
+* Modify or revoke access privileges as needed
 
 
 
