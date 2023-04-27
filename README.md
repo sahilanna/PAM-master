@@ -51,6 +51,17 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+## Usage
+Once the server is running, navigate to http://localhost:3000 to access the application. From here, you can:
+
+*Create a new user account
+*Log in to an existing user account
+*Create new resources and assign access levels to them
+*Assign access levels to individual users or groups of users
+*Modify or revoke access privileges as needed
+
+
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
