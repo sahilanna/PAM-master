@@ -54,12 +54,22 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 ## Usage
 Once the server is running, navigate to http://localhost:3000 to access the application. From here, you can:
 
-* Create a new user account
-* Log in to an existing user account
-* Create new resources and assign access levels to them
+* Navigate to Landing Page
+* Log in and experience role based routinng.
 * Assign access levels to individual users or groups of users
 * Modify or revoke access privileges as needed
+* Perform actions according to your role.
 
+
+## Contributing
+If you would like to contribute to PAMS, please follow these steps:
+
+* Fork the repository
+* Create a new branch for your feature or bugfix
+* Make your changes
+* Write tests for your changes (if applicable)
+* Run the tests and make sure they pass
+* Submit a pull request
 
 
 ## Learn More
