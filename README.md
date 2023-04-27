@@ -1,3 +1,8 @@
+## Project Access Management System
+
+This project is a web-based access management system that allows users to manage access to different resources and functionalities within an organization. It provides a user-friendly interface for managing access levels for different users or groups of users and allows for easy modification and revocation of access privileges.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
