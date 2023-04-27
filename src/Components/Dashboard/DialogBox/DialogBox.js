@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Display from '../PM/Display';
-const DialogBox = ({ show, onClose, onConfirm }) => {
+import { props } from 'react-select';
+const DialogBox = (props) => {
+  const {show,onClose,onConfirm}=props
   return (
     <Modal show={show} onHide={onClose}>
       <Modal.Header closeButton>
@@ -27,3 +28,10 @@ const DialogBox = ({ show, onClose, onConfirm }) => {
 //   onConfirm: PropTypes.func.isRequired,
 // };
 export default DialogBox;
+
+
+
+
+
+
+

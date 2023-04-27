@@ -13,7 +13,7 @@ import DialogBox from '../../DialogBox/DialogBox'
 
 export default function Read(){
   const navigate=useNavigate()
-  const getUrl =  "https://6429847d5a40b82da4d494b2.mockapi.io/PAM"
+  const getUrl =  "https://64267bccd24d7e0de470e2b7.mockapi.io/Crud"
   const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3"
   const [item, setItem] = useState([]);
   const [projectId, setProjectId] = useState('');
@@ -36,28 +36,26 @@ export default function Read(){
       console.log(error,'hi');
     })
   };
-    const deleteUser = async (id) => {
-      await axios.delete(`https://6429847d5a40b82da4d494b2.mockapi.io/PM`);
-      loaditem();
+  const deleteUser = async (projectId) => {
+    await axios.delete(`https://6429847d5a40b82da4d494b2.mockapi.io/PM`);
     navigate('/Read')
-    // Perform deletion logic here
-    // ...
     setShowConfirmDialog(false);
-  };
+    loaditem();
+};
   return(
-    <div className="container">
-    <div className="py-4">
-      <table className="table border shadow">
+    // <div className="container">
+    // <div className="py-4">
+      <table class="table">
+        <thead>
+            <th>Project-ID</th>
+            <th>Project-Name</th>
+            <th>Project-Description</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </thead>
         {/* <thead colspan = '5'>
         </thead> */}
         <tbody>
-        <tr>
-            <th className='col' >Project-ID</th>
-            <th className='col'>Project-Name</th>
-            <th className='col'>Project-Description</th>
-            <th className='col'>Update</th>
-            <th className='col'>Delete</th>
-          </tr>
           {item.map((user, index) => (
             <tr>
               <td>{user.projectId}</td>
@@ -84,18 +82,19 @@ export default function Read(){
       show={showConfirmDialog}
       onClose={() => setShowConfirmDialog(false)}
       onConfirm={handleDelete}/> */}
-                <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(true)}>Delete</button>
-    <DialogBox
-      show={showConfirmDialog}
-      onClose={() => setShowConfirmDialog(false)}
-      onConfirm={deleteUser(user.projectId)}/>
-              </td>
-            </tr>
-          ))}
+              <Link>
+      <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(true)}>Delete</button>
+      <DialogBox
+       show={showConfirmDialog}
+        onClose={() => setShowConfirmDialog(false)}
+        onConfirm={()=>deleteUser(user.projectId)}/>
+        </Link>
+        </td>
+        </tr> ))}
         </tbody>
       </table>
-    </div>
-  </div>
+  //   </div>
+  // </div>
  )
 }
   // const[apiData, setApiData]=useState([])

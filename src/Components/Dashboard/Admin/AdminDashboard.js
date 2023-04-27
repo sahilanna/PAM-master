@@ -6,7 +6,10 @@ import './AdminDashboard.css';
 import {button, Table} from 'react-bootstrap';
 import Read from './Read/Read';
 import Create from './Create/Create';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 // import Crud from '../CRUD';
+
 //import 'bootstrap/dist/css/bootstrap.min.css'
 import  {
   CDBSidebar,
@@ -33,19 +36,20 @@ const AdminDashboard = () => {
             <NavLink exact to="/tables" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="table">Notifications</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/Roles" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">Role</CDBSidebarMenuItem>
-            </NavLink>
+            <div className='row'>
+              <CDBSidebarMenuItem icon="user"/>
+              <NavDropdown  title="Role">
+              <NavDropdown.Item style={{color:'black'}} as={Link} to="/pmRead">Project Manager</NavDropdown.Item>
+          <NavDropdown.Item style={{color:'black'}} as={Link} to="/userRead">User</NavDropdown.Item>
+    </NavDropdown>
+    </div>
             <NavLink exact to="/analytics" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="chart-line">Reports</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/Create" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="chart-line">Create Project</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/Create" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="chart-line">Tools</CDBSidebarMenuItem>
-            </NavLink>
-
+           
           </CDBSidebarMenu>
         </CDBSidebarContent>
         <CDBSidebarFooter style={{ textAlign: 'center' }}>

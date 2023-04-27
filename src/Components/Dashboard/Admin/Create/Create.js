@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { createProject } from '../../../../redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
 import Read from '../Read/Read';
-import PmCreate from '../../PM/pmCreate';
+import PmCreate from '../../PM/pmCreate'; 
 
 export default function Create() {
 
@@ -23,12 +23,10 @@ export default function Create() {
   //const [link, setLink] = useState('');
   const [isValid, setIsValid] = useState(true);
 
- 
 
   const handleLinkChange = (event) => {
     setGitRepoLink(event.target.value);
   };
-
 
 
   const validateLink = (value) => {
