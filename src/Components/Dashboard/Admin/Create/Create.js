@@ -6,6 +6,7 @@ import { createProject } from '../../../../redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
 import Read from '../Read/Read';
 import PmCreate from '../../PM/pmCreate'; 
+import '../Read/Read.css'
 
 export default function Create() {
 
@@ -16,12 +17,20 @@ export default function Create() {
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
   const [projectManagerId, setProjectManagerId] = useState('')
-  const[userIds,setUserIds]=useState([]);
+  const[userIds,setUserIds]=useState('');
   const [error,setError]=useState('false');
   const[file,setFile]=useState('');
   const[gitRepoLink,setGitRepoLink]=useState('');
+  const[repoName,setRepoName]=useState('');
+  const[userName,setUserName]=useState('');
   //const [link, setLink] = useState('');
   const [isValid, setIsValid] = useState(true);
+
+
+  
+  const handleBack = () => {
+    navigate(-1); // Go back one page in history
+  };
 
 
   const handleLinkChange = (event) => {
@@ -77,7 +86,7 @@ export default function Create() {
 
   const handleSubmit=(e)=>{
     e.preventDefault();
-    if(projectId.length===0 || projectName.length===0 || projectDescription.length===0||gitRepoLink.length===0){
+    if(projectId.length===0 || projectName.length===0 || projectDescription.length===0||gitRepoLink.length===0 || projectManagerId===0 || userIds.length===0){
       setError(true)
   }
   if(projectId && projectName && projectDescription  && gitRepoLink)
@@ -94,26 +103,28 @@ export default function Create() {
   // }
 
   return(
-  <Form.Field>
-      <Form.Field className='form'>
+  <div className='form-display'>
+  <Form className='form-style' onSubmit={handleSubmit}>
+      <h1>Create Project</h1>
+      {/* <Form.Field>
         <label>Project-Id</label>
         <input name='projectId' onChange={(e)=>setProjectId(e.target.value)} placeholder='ProjectId' />
         {error&&projectId.length<=0?
-               <label>Project ID can't be Empty</label>: ""}
-      </Form.Field>
+               <label style={{color:'red'}}>Project ID can't be Empty</label>: ""}
+      </Form.Field> */}
 
-      <Form.Field className='form'>
+      <Form.Field>
         <label>Project-Name</label>
         <input name='projectName' onChange={(e)=>setProjectName(e.target.value)} placeholder='ProjectName' />
         {error&&projectName.length<=0?
-               <label>Project ID can't be Empty</label>: ""}
+               <label style={{color:'red'}}>Project ID can't be Empty</label>: ""}
       </Form.Field>
 
-      <Form.Field className='form'>
+      <Form.Field>
         <label>Project-Description</label>
         <input name='projectDescription' onChange={(e)=>setProjectDescription(e.target.value)} placeholder='ProjectDescription' />
         {error&&projectDescription.length<=0?
-               <label>Project ID can't be Empty</label>: ""}
+               <label style={{color:'red'}}>Project Description can't be Empty</label>: ""}
       </Form.Field>
 
      
@@ -131,7 +142,7 @@ export default function Create() {
       </select>
       <br/>
           */}
-        <Form.Field>
+        {/* <Form.Field>
           <label>Project Manager ID</label>
           <select>
           {userIds.map((item,index) => (
@@ -140,7 +151,30 @@ export default function Create() {
           </option>
           ))}
           </select>
+        </Form.Field> */}
+
+        <Form.Field>
+        <label>Github Repo</label>
+        <input name='projectId' onChange={(e)=>setProjectId(e.target.value)} placeholder='Repo Name'/>
+        {error&&projectId.length<=0?
+               <label style={{color:'red'}}>Github Repo Can't Be Empty</label>: ""}
         </Form.Field>
+
+        <Form.Field>
+        <label>Git  PM</label>
+        <input name='projectManagerId' onChange={(e)=>setProjectManagerId(e.target.value)} placeholder='PM UserName'/>
+        {error&&projectManagerId.length<=0?
+               <label style={{color:'red'}}>PM User Name Can't Be Empty</label>: ""}
+        </Form.Field>
+
+        <Form.Field>
+        <label>Git HUB Username</label>
+        <input name='userIds' onChange={(e)=>setUserIds(e.target.value)} placeholder='Add UserName'/>
+        {error&&userIds.length<=0?
+               <label style={{color:'red'}}>User's Git Hub User Name Can't Be Empty</label>: ""}
+        </Form.Field>
+        
+
 
 
       {/* <Form.Field>
@@ -150,14 +184,14 @@ export default function Create() {
       </select>
       </Form.Field> */}
       
-      {/* <Form.Field className='form'>
+      {/* <Form.Field>
       <label>Github Repo</label>
       <input name='repo' onChange={(e)=>setGitRepoLink(e.target.value)} placeholder='Github Repo' value = {link} />
       {error&&gitRepoLink.length<=0?
                <label>Repo Link can't be Empty</label>: ""}
       </Form.Field> */}
 
-      <Form.Field>
+      {/* <Form.Field>
       <label htmlFor="link">Enter a link:</label>
       <input
         type="link"
@@ -168,7 +202,7 @@ export default function Create() {
         placeholder='Repository'
       />
      
-      </Form.Field>
+      </Form.Field> */}
 
       
 
@@ -186,7 +220,9 @@ export default function Create() {
       
       <Button type='submit' onClick={handleSubmit}>Submit</Button>
 
-  </Form.Field>
+  </Form>
+  <Button className="back-button" onClick={handleBack}>Back</Button>
+  </div>
 )
 }
 

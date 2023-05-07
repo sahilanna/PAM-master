@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 export default function PmUpdate() {
-  const getUrl =  "https://b619-106-51-70-135.ngrok-free.app/api/users/role/project_manager"
+  const getUrl =  "https://bc38-106-51-70-135.ngrok-free.app/api/users/role/project_manager"
 
   
   let navigate= useNavigate();
@@ -22,19 +22,25 @@ export default function PmUpdate() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [enumRole,setEnumRole]=useState('2');
+
+  const params = useParams();
+
+  // useEffect(() => {
+  //   loaditem();
+  // },[])
   
-
-
   const sendDataToAPIPM = () => {
     dispatchPMUpdate(updatePM({id, name, email, enumRole}));
 
     const loaditem = async () => {
-      const result = await axios.get(getUrl,{
+      const result = await axios.get(`https://bc38-106-51-70-135.ngrok-free.app/api/users/role/project_manager/${params.id}`,{
           headers: {
             'ngrok-skip-browser-warning': 'true'
-          }}) .then((result) => {
-  
-          setItem(result.data);
+          }}).then((result) => {
+          console(result.name);
+          setName(result.name);
+          setEmail(result.email);
+          // setItem(result.data);
           // console.log(res, "hello");
         })
         .catch((error)=>{
@@ -60,14 +66,15 @@ export default function PmUpdate() {
 
       <Form.Field>
         <label>PM-Name</label>
-        <input name='name' 
+        <input name='name'
+        value = {name} 
         onChange={(e)=>setName(e.target.value)}
-         placeholder='PM-Name' />
+       />
       </Form.Field>
 
       <Form.Field>
         <label>Email</label>
-        <input name='email' onChange={(e)=>setEmail(e.target.value)} placeholder='email' />
+        <input name='email' value = {email} onChange={(e)=>setEmail(e.target.value)} />
       </Form.Field>
 
       <Form.Field>

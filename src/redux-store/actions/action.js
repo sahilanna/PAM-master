@@ -21,17 +21,18 @@ export const createProject = ({projectId, projectName, projectDescription,projec
     };
 };
 
-
+// `https://225f-106-51-70-135.ngrok-free.app/api/projects/update/${projectId}`
 //Update Project
-export const updateProject = ({projectId, projectName, projectDescription}) => {
-    return async(dispatch) => {
+export const updateProject = ({projectId, projectName, projectDescription, repo}) => {
+    return async(dispatchU) => {
         try {
-            const responseUpdate = await axios.put(`https://225f-106-51-70-135.ngrok-free.app/api/projects/update/${projectId}`, {
+            const responseUpdate = await axios.put(`https://64267bccd24d7e0de470e2b7.mockapi.io/Crud/${projectId}`, {
                 projectId,
                 projectName,
                 projectDescription,
+                repo
             })
-            dispatch({type: "updateProject", payload: responseUpdate});
+            dispatchU({type: "updateProject", payload: responseUpdate});
         }
         catch (error){
             console.log(error);
@@ -44,7 +45,7 @@ export const updateProject = ({projectId, projectName, projectDescription}) => {
 export const createPM = ({id, name, email, enumRole}) => {
     return async(dispatchPMUpdate) => {
         try {
-            const responseCreatePM = await axios.post('https://64267bccd24d7e0de470e2b7.mockapi.io/Crud', {
+            const responseCreatePM = await axios.post('https://bc38-106-51-70-135.ngrok-free.app/api/users/', {
                 id,
                 name,
                 email,
@@ -64,7 +65,7 @@ export const createPM = ({id, name, email, enumRole}) => {
 export const updatePM = ({id, name, email, enumRole}) => {
     return async(dispatchPM) => {
         try {
-            const responsePMUpdate = await axios.put(`https://7b96-106-51-70-135.ngrok-free.app/api/users/update/${id}`, {
+            const responsePMUpdate = await axios.put(`https://bc38-106-51-70-135.ngrok-free.app/api/users/update/${id}`, {
                 id,
                 name,
                 email,
@@ -106,7 +107,7 @@ export const updateUser = ({id, name, email, enumRole}) => {
     return async(dispatchUser) => {
         // const {id} = useParams();
         try {
-            const responseUserUpdate = await axios.put(`https://7b96-106-51-70-135.ngrok-free.app/api/users/update/${id}`, {
+            const responseUserUpdate = await axios.put(`https://bc38-106-51-70-135.ngrok-free.app/api/users/update/${id}`, {
                 id,
                 name,
                 email,

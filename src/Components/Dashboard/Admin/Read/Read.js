@@ -10,6 +10,7 @@ import Update from '../Update/Update'
 import Select from 'react-select'
 import "./Read.css"
 import DialogBox from '../../DialogBox/DialogBox'
+import PaginationComponent from '../../Pagination/Pagination'
 
 export default function Read(){
   const navigate=useNavigate()
@@ -20,10 +21,13 @@ export default function Read(){
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [currentPageData, setCurrentPageData] = useState([]);
+  
+
+  
+  const itemsPerPage = 5;
   const { id } = useParams();
-  useEffect(() => {
-      loaditem();
-  }, []);
+  
   const loaditem = async () => {
   const result = await axios.get(getUrl,{
       headers: {
@@ -35,7 +39,25 @@ export default function Read(){
     .catch((error)=>{
       console.log(error,'hi');
     })
-  };
+  }
+  useEffect(() => {
+    loaditem();
+}, []);
+
+React.useEffect(() => {
+  handlePaginate(1);
+}, [item]);
+
+console.log(item);
+const handlePaginate = (pageNumber) => {
+  const indexOfLastItem = pageNumber * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+  setCurrentPageData(currentItems);
+};
+//posts=item
+
+  
   const deleteUser = async (projectId) => {
     await axios.delete(`https://6429847d5a40b82da4d494b2.mockapi.io/PM`);
     navigate('/Read')
@@ -45,29 +67,30 @@ export default function Read(){
   return(
     // <div className="container">
     // <div className="py-4">
+    <div>
       <table class="table">
         <thead>
             <th>Project-ID</th>
             <th>Project-Name</th>
             <th>Project-Description</th>
+            <th>gitRepoLink</th>
             <th>Update</th>
             <th>Delete</th>
         </thead>
-        {/* <thead colspan = '5'>
-        </thead> */}
+        
         <tbody>
-          {item.map((user, index) => (
+          {currentPageData.map((item, index) => (
             <tr>
-              <td>{user.projectId}</td>
-              <td>{user.projectName}</td>
-              <td>{user.projectDescription}</td>
-                {/* <Link className="btn btn-primary mx-2" to={`/Read/${user.id}`}>
-                  View
-                </Link>  */}
+              <td>{item.projectId}</td>
+              <td>{item.projectName}</td>
+              <td>{item.projectDescription}</td>
+              <td><a href={item.gitRepoLink}></a>{item.gitRepoLink}</td>
+
+               
               <td>
                 <Link
                   className="btn btn-outline-primary mx-2"
-                  to={`/Update/${user.projectId}`}
+                  to={`/Update/${item.projectId}`}
                 >
                   Update
                 </Link>
@@ -87,13 +110,19 @@ export default function Read(){
       <DialogBox
        show={showConfirmDialog}
         onClose={() => setShowConfirmDialog(false)}
-        onConfirm={()=>deleteUser(user.projectId)}/>
+        onConfirm={()=>deleteUser(item.projectId)}/>
         </Link>
         </td>
         </tr> ))}
         </tbody>
       </table>
-  //   </div>
+      <div>
+      {/* Display items for the current page */}
+      <PaginationComponent
+      data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
+      />
+    </div>
+    </div>
   // </div>
  )
 }

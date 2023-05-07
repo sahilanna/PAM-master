@@ -8,7 +8,7 @@ import Footer from './Components/Footer';
 import Carousel from 'react-bootstrap/Carousel'
 import AdminDashboard from './Components/Dashboard/Admin/AdminDashboard'
 import PmDashboard from './Components/Dashboard/PM/PmDashboard';
-
+import Pagination from './Components/Dashboard/Pagination/Pagination';
 import Update from './Components/Dashboard/Admin/Update/Update';
 import Delete from './Components/Dashboard/Admin/Delete/Delete';
 import {BrowserRouter as Router , Route,Routes } from 'react-router-dom';
@@ -24,6 +24,8 @@ import UserCreate from './Components/Dashboard/Users/userCreate';
 import UserRead from './Components/Dashboard/Users/userRead';
 import UserUpdate from './Components/Dashboard/Users/userUpdate';
 import View from './Components/Dashboard/Admin/Read/View';
+import CreateRepo from './Components/Dashboard/Admin/Create/CreateRepo';
+
 
 
 
@@ -50,6 +52,8 @@ function App() {
           <Route exact path='/UserRead' Component={UserRead}/>
           <Route exact path='/UserUpdate/:id'Component={UserUpdate}/>
           <Route exact path='/View' Component={View}/>
+          <Route exact path='/CreateRepo' Component={CreateRepo}/>
+          
           </Routes>
         </Router>
       </Provider>

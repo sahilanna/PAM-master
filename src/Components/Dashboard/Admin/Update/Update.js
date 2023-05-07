@@ -12,7 +12,7 @@ export default function Update() {
   
   let navigate= useNavigate();
   const {id} = useParams();
-
+  
   const dispatchU = useDispatch();
   const[user,setUser]=useState('');
   const[item,setItem]=useState('')
@@ -27,9 +27,20 @@ export default function Update() {
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
 
+  const params = useParams();
+  
+  // useEffect(() => {
+  //   getDetails();
+  // },[]);
 
-  
-  
+  // const getDetails = async() => {
+  //   let result = await fetch(`https://64267bccd24d7e0de470e2b7.mockapi.io/Crud/${params.id}`);
+  //   result = await result.json();
+  //   setProjectName(result.projectName);
+  //   setProjectDescription(result.projectDescription);
+    
+  // }
+
 
   function handleDropdownChange(event) {
     setSelectedOption(event.target.value);
@@ -41,14 +52,16 @@ export default function Update() {
 
   const sendDataToAPIu = () => {
     
-    dispatchU(updateProject({projectId, projectName, projectDescription}));
+    dispatchU(updateProject({projectId, projectName, projectDescription, repo}));
 
     const loaditem = async () => {
-      const result = await axios.get(getUrl,{
+      const result = await axios.get(`https://64267bccd24d7e0de470e2b7.mockapi.io/Crud/${params.id}`,{
           headers: {
             'ngrok-skip-browser-warning': 'true'
           }}) .then((result) => {
-  
+          
+            setProjectName(result.projectName);
+            setProjectDescription(result.projectDescription);
           setItem(result.data);
           
           // console.log(res, "hello");
@@ -81,13 +94,14 @@ export default function Update() {
       <Form.Field>
         <label>Project-Name</label>
         <input name='projectName' 
+        value={projectName}
         onChange={(e) => setProjectName(e.target.value)}
          />
       </Form.Field>
 
       <Form.Field>
         <label>Project-Description</label>
-        <input name='projectDescription' onChange={(e)=>setProjectDescription(e.target.value)} placeholder='ProjectDescription' />
+        <input name='projectDescription' value={projectDescription} onChange={(e)=>setProjectDescription(e.target.value)} placeholder='ProjectDescription' />
       </Form.Field>
 
       <select value={pmList} onChange={handleDropdownChange}>
@@ -106,7 +120,7 @@ export default function Update() {
       
       <Form.Field className='form'>
         <label>Github Repo</label>
-        <input name='repo' onChange={(e)=>setRepo(e.target.value)} placeholder='Github Repo' />
+        <input name='repo' value={repo} onChange={(e)=>setRepo(e.target.value)} placeholder='Github Repo' />
       </Form.Field>
 
       <div>

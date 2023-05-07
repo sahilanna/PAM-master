@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Button, Table } from 'semantic-ui-react'
+import { Button, Item, Table } from 'semantic-ui-react'
 import axios from 'axios'
 import {Link, NavLink, useNavigate, useParams } from 'react-router-dom'
 import { useReducer } from 'react'
@@ -7,6 +7,10 @@ import PmCreate from './pmCreate'
 import NavBar from '../../NavBar'
 import PmUpdate from './pmUpdate'
 import DialogBox from '../DialogBox/DialogBox'
+import Pagination from '../Pagination/Pagination'
+import './Read.css'
+
+
 import  {
   CDBSidebar,
   CDBSidebarContent,
@@ -19,7 +23,8 @@ import  {
 
 export default function PmRead(){
   const navigate = useNavigate();
-  const getUrl =  "https://64267bccd24d7e0de470e2b7.mockapi.io/Crud";
+  // const getUrl =  "https://bc38-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
+  const getUrl =  "https://6429847d5a40b82da4d494b2.mockapi.io/PAM";
   const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -27,6 +32,9 @@ export default function PmRead(){
   const [email, setEmail] = useState('');
   const [enumRole,setEnumRole]=useState('2');
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [currentPageData, setCurrentPageData] = useState([]);
+  const itemsPerPage = 5;
+
   const { ID } = useParams();
   useEffect(() => {
     loaditem();
@@ -43,6 +51,25 @@ export default function PmRead(){
         console.log(error,'hi');
       })
     };
+
+    console.log(item);
+
+    useEffect(() => {
+      loaditem();
+  }, []);
+
+    React.useEffect(() => {
+      handlePaginate(1);
+    }, [item]);
+
+    const handlePaginate = (pageNumber) => {
+      const indexOfLastItem = pageNumber * itemsPerPage;
+      const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+      setCurrentPageData(currentItems);
+    };
+    
+
     const deleteUser = async (id) => {
       await axios.delete(`https://db60-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
       navigate('/pmRead')
@@ -58,7 +85,7 @@ export default function PmRead(){
       </CDBSidebarHeader>
     <CDBSidebarContent className="sidebar-content">
         <CDBSidebarMenu>
-          <NavLink exact to="/" activeClassName="activeClicked">
+          <NavLink exact to="/Admindashboard" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
           </NavLink>
           <NavLink exact to="/pmCreate" activeClassName="activeClicked">
@@ -80,16 +107,15 @@ export default function PmRead(){
             <th>Delete</th>
          </thead>
          <tbody>
-          {item.map((user, index) => (
+          {currentPageData.map((item, index) => (
             <tr>
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
+              <td>{item.id}</td>
+              <td>{item.name}</td>
+              <td>{item.email}</td>
               <td>
                 <Link
                   className="btn btn-outline-primary mx-2"
-                  to={`/PmUpdate/${user.id}`}
-                >
+                  to={`/PmUpdate/${item.id}`} >
                   Update
                 </Link>
                 </td>
@@ -99,15 +125,26 @@ export default function PmRead(){
     <DialogBox
      show={showConfirmDialog}
       onClose={() => setShowConfirmDialog(false)}
-      onConfirm={()=>deleteUser(user.id)}/>
+      onConfirm={()=>deleteUser(item.id)}/>
       </Link>
               </td>
+              
             </tr>
           ))}
         </tbody>
       </table>
+      
     </div>
+    <div className='pagination'>
+      {/* Display items for the current page */}
+      <Pagination
+      data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
+      />
+    </div>
+
+    
   </div>
+  
 // </div>
 // </div>
 )

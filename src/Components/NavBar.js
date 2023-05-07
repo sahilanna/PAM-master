@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Navbar, Nav, NavDropdown, Container} from 'react-bootstrap'
+import logo from '../Assets/logo.png'
+import './LandingPage.css'
 
 export default class NavBar extends Component {
   render() {
@@ -8,7 +10,10 @@ export default class NavBar extends Component {
       <div>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="#home">Project Access Management</Navbar.Brand>
+        
+      <img src={logo} alt="Logo" style={{
+        marginLeft: '-60px',width: '50px',height: '50px'}}/>
+        <Navbar.Brand className='heading' href="#href"> Project Access Management </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">

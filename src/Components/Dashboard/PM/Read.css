@@ -96,7 +96,13 @@
 }
 
 .pagination{
-  flex-direction:center;
+  /* flex-direction:flex-end; */
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  /* background-color: #f5f5f5;
+  color: #333; */
+  padding: 10px;
 }
 
 

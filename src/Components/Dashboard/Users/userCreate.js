@@ -14,6 +14,10 @@ function UserCreate(){
   const[enumRole,setEnumRole] = useState('3');
   const [error,setError]=useState('false');
   const[tools,settools]=useState('');
+
+  const handleBack = () =>{
+    navigate(-1);
+  }
  const handleSubmit=(e)=>{
     e.preventDefault();
     if(id.length==0 || name.length==0 || email.length==0||tools.length==0){
@@ -26,7 +30,8 @@ function UserCreate(){
   }
   }
 return(
-<Form onSubmit={handleSubmit}>
+<div className='form-display'>
+<Form className = 'form-style' onSubmit={handleSubmit}>
 <Form.Field>
         <label>User ID</label>
         <input name='id' onChange={(e)=>setId(e.target.value)} placeholder='User Id' />
@@ -61,6 +66,8 @@ return(
     </Form.Field>
     <Button type='submit' onClick={handleSubmit}>Submit</Button>
   </Form>
+  <Button className = 'back-button' onClick={handleBack}> Back </Button>
+  </div>
 )
 }
 export default UserCreate;

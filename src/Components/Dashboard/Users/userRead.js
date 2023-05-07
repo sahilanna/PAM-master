@@ -6,7 +6,9 @@ import {Link}  from 'react-router-dom'
 import { useReducer } from 'react'
 import UserCreate from './userCreate'
 import NavBar from '../../NavBar'
+import Pagination from '../Pagination/Pagination'
 import DialogBox from '../DialogBox/DialogBox'
+// import './Read.css'
 import  {
   CDBSidebar,
   CDBSidebarContent,
@@ -18,7 +20,7 @@ import  {
 
 function UserRead(){
   const navigate = useNavigate();
-  const getUrl =  "https://7b96-106-51-70-135.ngrok-free.app/api/users/role/user";
+  const getUrl =  "https://64267bccd24d7e0de470e2b7.mockapi.io/Crud";
   const delUrl = "";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -26,6 +28,8 @@ function UserRead(){
   const [email, setEmail] = useState('');
   const [enumRole,setEnumRole]=useState('3');
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [currentPageData, setCurrentPageData] = useState([]);
+  const itemsPerPage = 5;
   const { ID } = useParams();
   useEffect(() => {
     loaditem();
@@ -43,6 +47,18 @@ function UserRead(){
         console.log(error,'hi');
       })
     };
+
+    React.useEffect(() => {
+      handlePaginate(1);
+    }, [item]);
+
+    const handlePaginate = (pageNumber) => {
+      const indexOfLastItem = pageNumber * itemsPerPage;
+      const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+      setCurrentPageData(currentItems);
+    };
+
     const deleteUser = async (id) => {
       await axios.delete(`https://7b96-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
       navigate('/userRead')
@@ -58,7 +74,7 @@ function UserRead(){
       </CDBSidebarHeader>
     <CDBSidebarContent className="sidebar-content">
         <CDBSidebarMenu>
-          <NavLink exact to="/" activeClassName="activeClicked">
+          <NavLink exact to="/AdminDashboard" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
           </NavLink>
           <NavLink exact to="/userCreate" activeClassName="activeClicked">
@@ -80,7 +96,7 @@ function UserRead(){
             <th>Delete</th>
           </thead>
           <tbody>
-          {item.map((user, index) => (
+          {currentPageData.map((user, index) => (
             <tr>
               <td>{user.id}</td>
               <td>{user.name}</td>
@@ -106,6 +122,12 @@ function UserRead(){
           ))}
         </tbody>
       </table>
+    </div>
+    <div className='pagination'>
+      {/* Display items for the current page */}
+      <Pagination
+      data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
+      />
     </div>
   </div>
 // </div>
