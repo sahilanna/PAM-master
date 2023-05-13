@@ -20,7 +20,7 @@ import  {
 
 function UserRead(){
   const navigate = useNavigate();
-  const getUrl =  "https://64267bccd24d7e0de470e2b7.mockapi.io/Crud";
+  const getUrl =  "https://b1de-106-51-70-135.ngrok-free.app/api/users/role/user";
   const delUrl = "";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -92,6 +92,7 @@ function UserRead(){
             <th>User ID</th>
             <th>User Name</th>
             <th>User Email</th>
+            <th>User-Github-UserName</th>
             <th>Update</th>
             <th>Delete</th>
           </thead>
@@ -101,6 +102,7 @@ function UserRead(){
               <td>{user.id}</td>
               <td>{user.name}</td>
               <td>{user.email}</td>
+              <td>{user.githubUsername}</td>
               <td>
                 <Link
                   className="btn btn-outline-primary mx-2"

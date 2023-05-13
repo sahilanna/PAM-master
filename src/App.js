@@ -13,7 +13,7 @@ import Update from './Components/Dashboard/Admin/Update/Update';
 import Delete from './Components/Dashboard/Admin/Delete/Delete';
 import {BrowserRouter as Router , Route,Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './redux-store/store';
+import store from './Login/redux-store/store';
 import Roles from './Components/Dashboard/Roles/Roles';
 import Create from './Components/Dashboard/Admin/Create/Create';
 import Read from './Components/Dashboard/Admin/Read/Read';
@@ -25,6 +25,13 @@ import UserRead from './Components/Dashboard/Users/userRead';
 import UserUpdate from './Components/Dashboard/Users/userUpdate';
 import View from './Components/Dashboard/Admin/Read/View';
 import CreateRepo from './Components/Dashboard/Admin/Create/CreateRepo';
+import addCollab from './Components/Dashboard/Admin/addCollab/addCollab';
+// import addPm from './Components/Dashboard/Admin/Create/addPm';
+import parentForm from './Components/Dashboard/Admin/Create/parentForm';
+import addPm from './Components/Dashboard/Admin/Create/addPm';
+import addUser from './Components/Dashboard/Admin/Create/addUser.js';
+import userDashboard from './Components/Dashboard/Users/userDashboard';
+
 
 
 
@@ -53,7 +60,12 @@ function App() {
           <Route exact path='/UserUpdate/:id'Component={UserUpdate}/>
           <Route exact path='/View' Component={View}/>
           <Route exact path='/CreateRepo' Component={CreateRepo}/>
-          
+          <Route exact path='/addCollab' Component={addCollab}/>
+          <Route exact path='/addPm' Component={addPm}/>
+          <Route exact path='/parentForm' Component={parentForm}/>
+          <Route exact path='/addUser' Component={addUser}/>
+          <Route exact path='/pmDashboard' Component={PmDashboard}/>
+          <Route exact path='/userDashboard'Component={userDashboard}/>
           </Routes>
         </Router>
       </Provider>

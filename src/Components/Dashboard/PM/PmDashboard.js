@@ -9,6 +9,8 @@ import Crud from '../CRUD';
 //import 'bootstrap/dist/css/bootstrap.min.css'
 // import Display  from './Display';
 
+
+  
 import  {
   CDBSidebar,
   CDBSidebarContent,
@@ -17,7 +19,6 @@ import  {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from 'cdbreact';
-
 const PmDashboard = () => {
     // const [orders, setOrders] = useState("all_proj");
   return (
@@ -28,7 +29,6 @@ const PmDashboard = () => {
             PAM
           </a>
         </CDBSidebarHeader>
-
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
             <NavLink exact to="/" activeClassName="activeClicked">
@@ -37,13 +37,12 @@ const PmDashboard = () => {
             <NavLink exact to="/tables" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="table">Notifications</CDBSidebarMenuItem>
             </NavLink>
-{/* 
+{/*
             <NavLink exact to="/hero404" target="_blank" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="exclamation-circle">404 page</CDBSidebarMenuItem>
             </NavLink> */}
           </CDBSidebarMenu>
         </CDBSidebarContent>
-
         <CDBSidebarFooter style={{ textAlign: 'center' }}>
           <div
             style={{
@@ -53,56 +52,7 @@ const PmDashboard = () => {
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>
-      {/* <Display/>  */}
-      {/* <table className='tab'>
-        
-                    <thead>
-                        <th>ID</th>
-                        <th>PROJECT</th>
-                        <th>add</th>
-                        <th>del</th>
-                        <th>view</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <td>#111111</td>
-                        <td>sahil</td>
-                       <td> <button>UPDATE</button></td>
-                        <td><button>DELETE</button></td>
-                       <td> <button>VIEW</button></td>
-                        </tr>
-
-                        <tr>
-                        <td>#111112</td>
-                        <td>zahil</td>
-                       <td> <button>UPDATE</button></td>
-                        <td><button>DELETE</button></td>
-                       <td> <button>VIEW</button></td>
-                        </tr>
-
-                        <tr>
-                        <td>#111113</td>
-                        <td>dahil</td>
-                       <td> <button>UPDATE</button></td>
-                        <td><button>DELETE</button></td>
-                       <td> <button>VIEW</button></td>
-                        </tr>
-
-                        <tr>
-                        <td>#111114</td>
-                        <td>lahil</td>
-                       <td> <button>UPDATE</button></td>
-                        <td><button>DELETE</button></td>
-                       <td> <button>VIEW</button></td>
-                        </tr>
-
-                    </tbody>
-                </table>  */}
-                
 </div>
-
-      
   );
 };
-
 export default PmDashboard;

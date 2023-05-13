@@ -10,7 +10,7 @@ export const createProject = ({projectId, projectName, projectDescription,projec
                 projectName,
                 projectDescription,
                 projectManagerId,
-                //userIds
+                
                 gitRepoLink
             })
             dispatchU({type: "createProject", payload: responseCreate});
@@ -42,14 +42,16 @@ export const updateProject = ({projectId, projectName, projectDescription, repo}
 
 
 //Create PM
-export const createPM = ({id, name, email, enumRole}) => {
+export const createPM = ({id, name, email, githubUsername,enumRole}) => {
     return async(dispatchPMUpdate) => {
         try {
-            const responseCreatePM = await axios.post('https://bc38-106-51-70-135.ngrok-free.app/api/users/', {
+            const responseCreatePM = await axios.post('https://b1de-106-51-70-135.ngrok-free.app/api/users/', {
                 id,
                 name,
                 email,
-                enumRole
+                githubUsername,
+                enumRole,
+                
             })
             dispatchPMUpdate({type: "createPM", payload: responseCreatePM});
         }
@@ -83,13 +85,14 @@ export const updatePM = ({id, name, email, enumRole}) => {
 
 //create user
 
-export const createUser = ({id, name, email, enumRole}) => {
+export const createUser = ({id, name, email, githubUsername, enumRole}) => {
     return async(dispatchUserUpdate) => {
         try {
-            const responseCreateUser = await axios.post('https://7b96-106-51-70-135.ngrok-free.app/api/users/', {
+            const responseCreateUser = await axios.post('https://b1de-106-51-70-135.ngrok-free.app/api/users/', {
                 id,
                 name,
                 email,
+                githubUsername,
                 enumRole
             })
             dispatchUserUpdate({type: "createUser", payload: responseCreateUser});
@@ -121,6 +124,22 @@ export const updateUser = ({id, name, email, enumRole}) => {
     };
 };
 
+
+export const createPmGithubName = ({projectName, repo, username}) => {
+    return async(dispatchPmGithub) => {
+        try {
+            const responseCreatePmGithubName = await axios.post('https://b1de-106-51-70-135.ngrok-free.app/api/collaborators/add', {
+                projectName,
+                repo,
+                username
+            })
+            dispatchPmGithub({type: "createPmGithubName", payload: responseCreatePmGithubName});
+        }
+        catch (error){
+            console.log(error);
+        }
+    };
+};
 
 
 //Read

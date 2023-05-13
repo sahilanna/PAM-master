@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { Form, Button} from 'semantic-ui-react'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createUser, updateUser } from '../../../redux-store/actions/action';
+import { createUser, updateUser } from '../../../Login/redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
 import UserRead from './userRead';
 

@@ -2,17 +2,20 @@ import React, {useEffect, useState} from 'react'
 import { Form, Button} from 'semantic-ui-react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { createProject } from '../../../../redux-store/actions/action';
+import { createProject } from '../../../../Login/redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
 import Read from '../Read/Read';
 import PmCreate from '../../PM/pmCreate'; 
 import '../Read/Read.css'
+import AddPm from './addPm';
+import AddUser from './addUser';
 
-export default function Create() {
 
-  let navigate= useNavigate();
+const Create = () => {
+  
+
+  let navigate = useNavigate();
   const dispatch = useDispatch();
-  // const project = useSelector(state => state.createReducer);//Allows u to extract data from Redux store state.
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
@@ -21,33 +24,87 @@ export default function Create() {
   const [error,setError]=useState('false');
   const[file,setFile]=useState('');
   const[gitRepoLink,setGitRepoLink]=useState('');
-  const[repoName,setRepoName]=useState('');
+  const[repo,setrepo]=useState('');
   const[userName,setUserName]=useState('');
-  //const [link, setLink] = useState('');
   const [isValid, setIsValid] = useState(true);
+  const [options, setOptions] = useState([]);
+  const [formData, setFormData] = useState('');
+  
 
-
+ 
   
   const handleBack = () => {
     navigate(-1); // Go back one page in history
   };
 
 
-  const handleLinkChange = (event) => {
-    setGitRepoLink(event.target.value);
-  };
+  useEffect(() => {
+    fetch(`https://b1de-106-51-70-135.ngrok-free.app/api/repositories/get`,{
+      headers: {
+        'ngrok-skip-browser-warning': 'true'
+      }}).then((response)=>response.json())
+    .then((data)=>setOptions(data))
+  
+  }, []);
+   
+    
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    if(projectName.length===0 || projectDescription.length===0 || options.length === 0){
+      setError(true)
+  }
+  if(projectName && projectDescription && options)
+  {
+    console.log(projectId)
+    dispatch(createProject({projectName, projectDescription, options}));
+   // navigate('/addUser', { state: { projectName, repo } });
+    navigate('/addPm', { state: { projectName, repo } });
+    
+
+  }
+  }
 
 
-  const validateLink = (value) => {
-    try {
-      new URL(value);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
+  return(
+  <div className='form-display'>
+  <Form className='form-style' onSubmit={handleSubmit}>
+      <h1>Create Project</h1>
+      <Form.Field>
+        <label>Project-Name</label>
+        <input name='projectName' onChange={(e)=>setProjectName(e.target.value)} placeholder='ProjectName' />
+        {error&&projectName.length<=0?
+               <label style={{color:'red'}}>Project ID can't be Empty</label>: ""}
+      </Form.Field>
 
+      <Form.Field>
+        <label>Project-Description</label>
+        <input name='projectDescription' onChange={(e)=>setProjectDescription(e.target.value)} placeholder='ProjectDescription' />
+        {error&&projectDescription.length<=0?
+               <label style={{color:'red'}}>Project Description can't be Empty</label>: ""}
+      </Form.Field>
+      
+      <Form.Field>
+          <label>REPO</label>
+          <select onChange={(e) => setrepo(e.target.value)}>
+            {options.map((item, index) => (
+              <option key={item.name} value={item.name}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+        </Form.Field>
 
+      
+        
+      <Button type='submit' onClick={handleSubmit}>Submit</Button>
+
+  </Form>
+  <Button className="back-button" onClick={handleBack}>Back</Button>
+  </div>
+)
+}
+
+export default Create;
 
   // const MultiSelectDropdown = () => {
   //   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -66,68 +123,13 @@ export default function Create() {
   //     };
   //     fetchData();
   // }, [])
-
-  useEffect(() => {
-    fetch("https://64267bccd24d7e0de470e2b7.mockapi.io/Crud")
-      .then((response) => response.json())
-      .then((data) => setUserIds(data));
-  }, []);
-
-
-  // useEffect(() => {
+// useEffect(() => {
   //   console.log("project ", project);
   // }, [project])
-
-  function handleDropdownChange(event) {
-    setUserIds(event.target.value);
-  }
-
- 
-
-  const handleSubmit=(e)=>{
-    e.preventDefault();
-    if(projectId.length===0 || projectName.length===0 || projectDescription.length===0||gitRepoLink.length===0 || projectManagerId===0 || userIds.length===0){
-      setError(true)
-  }
-  if(projectId && projectName && projectDescription  && gitRepoLink)
-  {
-    console.log(projectId)
-    dispatch(createProject({projectId, projectName, projectDescription,projectManagerId,gitRepoLink}));
-    navigate('/Read')
-  }
-  }
-
-  // const sendDataToAPI = () => {
+   // const sendDataToAPI = () => {
   //   dispatch(createProject({projectId, projectName, projectDescription}));
   //   navigate('/Read');
   // }
-
-  return(
-  <div className='form-display'>
-  <Form className='form-style' onSubmit={handleSubmit}>
-      <h1>Create Project</h1>
-      {/* <Form.Field>
-        <label>Project-Id</label>
-        <input name='projectId' onChange={(e)=>setProjectId(e.target.value)} placeholder='ProjectId' />
-        {error&&projectId.length<=0?
-               <label style={{color:'red'}}>Project ID can't be Empty</label>: ""}
-      </Form.Field> */}
-
-      <Form.Field>
-        <label>Project-Name</label>
-        <input name='projectName' onChange={(e)=>setProjectName(e.target.value)} placeholder='ProjectName' />
-        {error&&projectName.length<=0?
-               <label style={{color:'red'}}>Project ID can't be Empty</label>: ""}
-      </Form.Field>
-
-      <Form.Field>
-        <label>Project-Description</label>
-        <input name='projectDescription' onChange={(e)=>setProjectDescription(e.target.value)} placeholder='ProjectDescription' />
-        {error&&projectDescription.length<=0?
-               <label style={{color:'red'}}>Project Description can't be Empty</label>: ""}
-      </Form.Field>
-
-     
 
       {/* <select value={pmList} onChange={handleDropdownChange}>
           <option value="name">Choose PM</option>
@@ -152,29 +154,12 @@ export default function Create() {
           ))}
           </select>
         </Form.Field> */}
-
-        <Form.Field>
+          {/* <Form.Field>
         <label>Github Repo</label>
         <input name='projectId' onChange={(e)=>setProjectId(e.target.value)} placeholder='Repo Name'/>
         {error&&projectId.length<=0?
                <label style={{color:'red'}}>Github Repo Can't Be Empty</label>: ""}
-        </Form.Field>
-
-        <Form.Field>
-        <label>Git  PM</label>
-        <input name='projectManagerId' onChange={(e)=>setProjectManagerId(e.target.value)} placeholder='PM UserName'/>
-        {error&&projectManagerId.length<=0?
-               <label style={{color:'red'}}>PM User Name Can't Be Empty</label>: ""}
-        </Form.Field>
-
-        <Form.Field>
-        <label>Git HUB Username</label>
-        <input name='userIds' onChange={(e)=>setUserIds(e.target.value)} placeholder='Add UserName'/>
-        {error&&userIds.length<=0?
-               <label style={{color:'red'}}>User's Git Hub User Name Can't Be Empty</label>: ""}
-        </Form.Field>
-        
-
+        </Form.Field> */}
 
 
       {/* <Form.Field>
@@ -217,16 +202,22 @@ export default function Create() {
         <button onClick={handleFileChange}>Upload</button>
         </Form>
       </div> */}
-      
-      <Button type='submit' onClick={handleSubmit}>Submit</Button>
-
-  </Form>
-  <Button className="back-button" onClick={handleBack}>Back</Button>
-  </div>
-)
-}
-
-
-
+       {/* <Form.Field>
+        <label>Project-Id</label>
+        <input name='projectId' onChange={(e)=>setProjectId(e.target.value)} placeholder='ProjectId' />
+        {error&&projectId.length<=0?
+               <label style={{color:'red'}}>Project ID can't be Empty</label>: ""}
+      </Form.Field> */}
+      // const validateLink = (value) => {
+      //   try {
+      //     new URL(value);
+      //     return true;
+      //   } catch (error) {
+      //     return false;
+      //   }
+      // };
+      // const handleLinkChange = (event) => {
+      //   setGitRepoLink(event.target.value);
+      // };
 
 

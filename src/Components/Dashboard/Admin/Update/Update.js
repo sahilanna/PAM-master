@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { Form, Button} from 'semantic-ui-react'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createProject, updateProject } from '../../../../redux-store/actions/action';
+import { createProject, updateProject } from '../../../../Login/redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Update() {

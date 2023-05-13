@@ -73,7 +73,9 @@ const handlePaginate = (pageNumber) => {
             <th>Project-ID</th>
             <th>Project-Name</th>
             <th>Project-Description</th>
-            <th>gitRepoLink</th>
+            <th>Repository Name</th>
+            <th>User</th>
+            <th>Project Manager</th>
             <th>Update</th>
             <th>Delete</th>
         </thead>
@@ -84,7 +86,10 @@ const handlePaginate = (pageNumber) => {
               <td>{item.projectId}</td>
               <td>{item.projectName}</td>
               <td>{item.projectDescription}</td>
-              <td><a href={item.gitRepoLink}></a>{item.gitRepoLink}</td>
+              <td>{item.repo}</td>
+              <td>{item.userUserName}</td>
+              <td>{item.pmUserName}</td>
+             
 
                
               <td>

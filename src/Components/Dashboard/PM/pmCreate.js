@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Form, Button} from 'semantic-ui-react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { createPM } from '../../../redux-store/actions/action';
+import { createPM } from '../../../Login/redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
 //import '../Read/Read.css'
 
@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
     const dispatchPM = useDispatch();
     const [id, setId] = useState('');
     const [name, setName] = useState('');
-    const [pmName, setPmName] = useState('');
+    const [githubUsername, setgithubUsername] = useState('');
     const [email, setEmail] = useState('');
     const[enumRole,setEnumRole]=useState('2');
     const[error,setError]=useState('false');
@@ -25,14 +25,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
     const handleSubmit=(e)=>{
       e.preventDefault();
-      if(id.length==0 ||name.length==0 || email.length==0){
+      if(name.length==0 || email.length==0 || githubUsername.length == 0){
         setError(true)
     }
     
 
-    if(id && name && email)
+    if(name && email && githubUsername)
     {
-      dispatchPM(createPM({id, name, email, enumRole}));
+      dispatchPM(createPM({id, name, email, githubUsername, enumRole}));
       navigate('/pmRead')
     }
     }
@@ -50,12 +50,12 @@ import { useDispatch, useSelector } from 'react-redux';
   <div className = "form-display">
   <Form className='form-style'   onSubmit={handleSubmit}>
       <h1>Add PM</h1>
-      {/* <Form.Field>
+      <Form.Field>
           <label>Project-Manager ID</label>
           <input name='id' onChange={(e)=>setId(e.target.value)} placeholder='PM Id' />
           {error&&id.length<=0?
                  <label style={{color:'red'}}> ID can't be Empty</label>: ""}
-      </Form.Field> */}
+      </Form.Field>
       <Form.Field>
           <label>Project-Manager Name</label>
           <input name='name' onChange={(e)=>setName(e.target.value)} placeholder='PM Name' />
@@ -70,8 +70,8 @@ import { useDispatch, useSelector } from 'react-redux';
       </Form.Field>
       <Form.Field>
           <label>PM UserName</label>
-          <input type='text' name='pmName' onChange={(e)=>setPmName(e.target.value)} placeholder='PM UserName' />
-          {error&&pmName.length<=0?
+          <input type='text' name='githubUsername' onChange={(e)=>setgithubUsername(e.target.value)} placeholder='PM UserName' />
+          {error&&githubUsername.length<=0?
                  <label style={{color:'red'}}> PM UserName can't be Empty</label>: ""}
       </Form.Field>
       <Form.Field>

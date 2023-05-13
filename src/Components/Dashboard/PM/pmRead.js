@@ -24,7 +24,7 @@ import  {
 export default function PmRead(){
   const navigate = useNavigate();
   // const getUrl =  "https://bc38-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-  const getUrl =  "https://6429847d5a40b82da4d494b2.mockapi.io/PAM";
+  const getUrl =  "https://b1de-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
   const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -33,6 +33,7 @@ export default function PmRead(){
   const [enumRole,setEnumRole]=useState('2');
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [currentPageData, setCurrentPageData] = useState([]);
+  const[githubUsername,setgithubUsername]=useState('')
   const itemsPerPage = 5;
 
   const { ID } = useParams();
@@ -71,7 +72,7 @@ export default function PmRead(){
     
 
     const deleteUser = async (id) => {
-      await axios.delete(`https://db60-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
+      await axios.delete(`https://b1de-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
       navigate('/pmRead')
       setShowConfirmDialog(false);
       loaditem();
@@ -103,6 +104,7 @@ export default function PmRead(){
             <th>PM-ID</th>
             <th>PM-Name</th>
             <th>PM-Email</th>
+            <th>PM-Github-UserName</th>
             <th>Update</th>
             <th>Delete</th>
          </thead>
@@ -112,6 +114,7 @@ export default function PmRead(){
               <td>{item.id}</td>
               <td>{item.name}</td>
               <td>{item.email}</td>
+              <td>{item.githubUsername}</td>
               <td>
                 <Link
                   className="btn btn-outline-primary mx-2"
