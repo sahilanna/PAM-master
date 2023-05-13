@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Navbar, Nav, NavDropdown, Container} from 'react-bootstrap'
-
+import { GoogleLogout } from 'react-google-login';
 
 
 export default class NavBarA extends Component {
@@ -18,6 +18,7 @@ export default class NavBarA extends Component {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
              <Navbar.Brand className='heading' href="#href"> Admin Dashboard</Navbar.Brand>
+             <Link to='/Logout'>Logout</Link>
             
             
             
