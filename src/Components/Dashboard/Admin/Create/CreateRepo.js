@@ -3,6 +3,7 @@ import { Form} from 'semantic-ui-react'
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { toBeRequired } from '@testing-library/jest-dom/dist/matchers';
 
 function CreateRepo() {
   const navigate=useNavigate();
@@ -10,17 +11,19 @@ function CreateRepo() {
     let[name,setname]=useState('');
     const [isValid, setIsValid] = useState(true);
     const [error,setError]=useState('false');
+    const[clicked,setClicked]= useState(false);
     const token = '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'
     
     let handleSubmit=(e)=>{
 
       const description='i am sweda'
       e.preventDefault();
+      setClicked(true);
       if(name.length===0){
-        setError(true)
+        return;
       }
       if(name){
-      const response= axios.post('https://b1de-106-51-70-135.ngrok-free.app/api/repositories/add',{name
+      const response= axios.post('https://118b-106-51-70-135.ngrok-free.app/api/repositories/add',{name
       })
       console.log(name);
       navigate('/AdminDashboard')  
@@ -35,10 +38,10 @@ function CreateRepo() {
           <Form className='form-style'>
           <br/>
           <Form.Field>
-          <label>Name</label>
+          <label style={{ textAlign: 'left' }}>Name</label>
           <br/>
           <input name='name' onChange={(e)=>setname(e.target.value)} placeholder='name' />   
-          {error&&name.length<=0?
+          {clicked&&name.length<=0?
                <label style={{color:'red'}}>Repo name can't be Empty</label>: ""} 
           <br/> 
           </Form.Field>

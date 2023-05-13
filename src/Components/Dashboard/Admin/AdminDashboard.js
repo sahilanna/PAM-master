@@ -64,7 +64,7 @@ const AdminDashboard = () => {
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>
-      {/* <Read/> */}
+      <Read/>
 </div>
   );
 };

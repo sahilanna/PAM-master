@@ -11,10 +11,12 @@ import Select from 'react-select'
 import "./Read.css"
 import DialogBox from '../../DialogBox/DialogBox'
 import PaginationComponent from '../../Pagination/Pagination'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 export default function Read(){
   const navigate=useNavigate()
-  const getUrl =  "https://64267bccd24d7e0de470e2b7.mockapi.io/Crud"
+  const getUrl =  "https://118b-106-51-70-135.ngrok-free.app/api/project-details/get"
   const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3"
   const [item, setItem] = useState([]);
   const [projectId, setProjectId] = useState('');
@@ -23,6 +25,9 @@ export default function Read(){
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [currentPageData, setCurrentPageData] = useState([]);
   
+  const [repoName, setRepoName] = useState('');
+  const [pmGithubUsername, setPmGithubUsername] = useState('');
+  const [userGithubUsername, setUserGithubUsername] = useState('');
 
   
   const itemsPerPage = 5;
@@ -74,8 +79,8 @@ const handlePaginate = (pageNumber) => {
             <th>Project-Name</th>
             <th>Project-Description</th>
             <th>Repository Name</th>
-            <th>User</th>
-            <th>Project Manager</th>
+            <th>PM Github</th>
+            <th>User Github</th>
             <th>Update</th>
             <th>Delete</th>
         </thead>
@@ -86,9 +91,9 @@ const handlePaginate = (pageNumber) => {
               <td>{item.projectId}</td>
               <td>{item.projectName}</td>
               <td>{item.projectDescription}</td>
-              <td>{item.repo}</td>
-              <td>{item.userUserName}</td>
-              <td>{item.pmUserName}</td>
+              <td>{item.repoName}</td>
+              <td>{item.pmGithubUsername}</td>
+              <td>{item.userGithubUsername}</td>
              
 
                
@@ -97,7 +102,7 @@ const handlePaginate = (pageNumber) => {
                   className="btn btn-outline-primary mx-2"
                   to={`/Update/${item.projectId}`}
                 >
-                  Update
+                  <FontAwesomeIcon icon={faPen} />
                 </Link>
                 </td>
                  <td>
@@ -111,7 +116,7 @@ const handlePaginate = (pageNumber) => {
       onClose={() => setShowConfirmDialog(false)}
       onConfirm={handleDelete}/> */}
               <Link>
-      <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(true)}>Delete</button>
+      <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(true)}><FontAwesomeIcon icon={faTrash} /></button>
       <DialogBox
        show={showConfirmDialog}
         onClose={() => setShowConfirmDialog(false)}

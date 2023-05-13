@@ -14,16 +14,17 @@ const AddPm = () => {
   const [error,setError]=useState('false');
   let navigate = useNavigate()
   const { state } = useLocation();
-  let{ projectName, repo } = state || {};
+  let{ projectName, repo, projectDescription } = state || {};
   const[username,setusername]= useState('');
   let[projectNameA,setProjectNameA]=useState('')
+  let[userNameA,setUserNameA]=useState('')
   // let[repoA,setRepoA]=useState('');
 
   // const handleSubmit=()=>{
   //   navigate('/addUser');
   // }
   useEffect(() => {
-    fetch(`https://b1de-106-51-70-135.ngrok-free.app/api/users/role/project_manager`,{
+    fetch(`https://118b-106-51-70-135.ngrok-free.app/api/users/role/project_manager`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}).then((response)=>response.json())
@@ -33,22 +34,24 @@ const AddPm = () => {
 
   const handleSubmit=(e)=>{
     e.preventDefault();
+    setError(true);
     const owner='swe1304';
-    const accessToken='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';
+    const accessToken='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';
     if(!projectName || !options||projectName.length===0 ||  options.length === 0){
-      setError(true)
+      return;
   }
   if(projectName && options)
   {
     // dispatchPmGithub(createPmGithubName({projectName, repo, username}));
-    const response= axios.post('https://b1de-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
+    const response= axios.post('https://118b-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
     })
     projectNameA=projectName;
     console.log("hi",projectNameA)
     // repoA=repo;
-    navigate('/addUser', { state: { projectNameA, repo } });
-    console.log(projectName)
-    console.log(repo)
+    userNameA=username;
+    navigate('/addUser', { state: { projectNameA, repo, projectDescription, userNameA } });
+    // console.log(projectName)
+    // console.log(repo)
   }
   }
   // const { projectName, repo } = useLocation();
@@ -59,17 +62,17 @@ const AddPm = () => {
         <h1> Add Project-Manager to Repo</h1>
 
         <Form.Field>
-          <label>Project Name</label>
+          <label style={{ textAlign: 'left' }}>Project Name</label>
           <input name="projectName" value={projectName || ''}  readOnly/>
         </Form.Field>
 
         <Form.Field>
-          <label>Repository Name</label>
+          <label style={{ textAlign: 'left' }}>Repository Name</label>
           <input name="repoName" value={repo|| ' '} readOnly />
         </Form.Field>
 
         <Form.Field>
-          <label>PM Username</label>
+          <label style={{ textAlign: 'left' }}>PM Username</label>
           <select onChange={(e) => setusername(e.target.value)}>
             {options.map((item, index) => (
               <option key={item.githubUsername} value={item.githubUsername}>

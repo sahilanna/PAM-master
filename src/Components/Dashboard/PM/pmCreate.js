@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
     const [email, setEmail] = useState('');
     const[enumRole,setEnumRole]=useState('2');
     const[error,setError]=useState('false');
+    const [clicked, setClicked] = useState(false);
     
     const handleBack = () => {
       navigate(-1); // Go back one page in history
@@ -25,57 +26,48 @@ import { useDispatch, useSelector } from 'react-redux';
 
     const handleSubmit=(e)=>{
       e.preventDefault();
+      setClicked(true);
       if(name.length==0 || email.length==0 || githubUsername.length == 0){
-        setError(true)
+        return;
     }
     
 
-    if(name && email && githubUsername)
-    {
+   
       dispatchPM(createPM({id, name, email, githubUsername, enumRole}));
       navigate('/pmRead')
+    
     }
-    }
-    // const sendDataToAPI = () => {
-    //   axios.post(`https://cc0f-106-51-70-135.ngrok-free.app/api/users/`, {
-    //       id,
-    //       name,
-    //     email,
-    //     enumRole
-    //   }).then(() => {
-    //     navigate('/pmRead')
-    //   })
-    // }
+  
     return(
   <div className = "form-display">
   <Form className='form-style'   onSubmit={handleSubmit}>
       <h1>Add PM</h1>
       <Form.Field>
-          <label>Project-Manager ID</label>
+          <label style={{ textAlign: 'left' }}>Project-Manager ID</label>
           <input name='id' onChange={(e)=>setId(e.target.value)} placeholder='PM Id' />
-          {error&&id.length<=0?
+          {clicked&&id.length<=0?
                  <label style={{color:'red'}}> ID can't be Empty</label>: ""}
       </Form.Field>
       <Form.Field>
-          <label>Project-Manager Name</label>
+          <label style={{ textAlign: 'left' }}>Project-Manager Name</label>
           <input name='name' onChange={(e)=>setName(e.target.value)} placeholder='PM Name' />
-          {error&&name.length<=0?
+          {clicked&&name.length<=0?
                  <label style={{color:'red'}}> Name can't be Empty</label>: ""}
       </Form.Field>
       <Form.Field>
-          <label>Email-ID</label>
+          <label style={{ textAlign: 'left' }}>Email-ID</label>
           <input type='email' name='email' onChange={(e)=>setEmail(e.target.value)} placeholder='EMAIL' />
-          {error&&email.length<=0?
+          {clicked&&email.length<=0?
                  <label style={{color:'red'}}> Email can't be Empty</label>: ""}
       </Form.Field>
       <Form.Field>
-          <label>PM UserName</label>
+          <label style={{ textAlign: 'left' }}>PM UserName</label>
           <input type='text' name='githubUsername' onChange={(e)=>setgithubUsername(e.target.value)} placeholder='PM UserName' />
-          {error&&githubUsername.length<=0?
+          {clicked&&githubUsername.length<=0?
                  <label style={{color:'red'}}> PM UserName can't be Empty</label>: ""}
       </Form.Field>
       <Form.Field>
-          <label>Role</label>
+          <label style={{ textAlign: 'left' }}>Role</label>
           <input name='enumRole' onChange={(e)=>setEnumRole(2)} value="2" disabled/>
           {/* <input type="text" name="name" value="2" disabled></input> */}
       </Form.Field>

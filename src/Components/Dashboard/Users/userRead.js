@@ -8,6 +8,8 @@ import UserCreate from './userCreate'
 import NavBar from '../../NavBar'
 import Pagination from '../Pagination/Pagination'
 import DialogBox from '../DialogBox/DialogBox'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 // import './Read.css'
 import  {
   CDBSidebar,
@@ -20,7 +22,7 @@ import  {
 
 function UserRead(){
   const navigate = useNavigate();
-  const getUrl =  "https://b1de-106-51-70-135.ngrok-free.app/api/users/role/user";
+  const getUrl =  "https://118b-106-51-70-135.ngrok-free.app/api/users/role/user";
   const delUrl = "";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -108,12 +110,12 @@ function UserRead(){
                   className="btn btn-outline-primary mx-2"
                   to={`/userUpdate/${user.id}`}
                 >
-                  Update
+                <FontAwesomeIcon icon={faPen} />
                 </Link>
                 </td>
                  <td>
                  <Link>
-    <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(true)}>Delete</button>
+    <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(true)}><FontAwesomeIcon icon={faTrash} /> </button>
     <DialogBox
      show={showConfirmDialog}
       onClose={() => setShowConfirmDialog(false)}

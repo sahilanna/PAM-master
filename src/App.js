@@ -26,11 +26,10 @@ import UserUpdate from './Components/Dashboard/Users/userUpdate';
 import View from './Components/Dashboard/Admin/Read/View';
 import CreateRepo from './Components/Dashboard/Admin/Create/CreateRepo';
 import addCollab from './Components/Dashboard/Admin/addCollab/addCollab';
-// import addPm from './Components/Dashboard/Admin/Create/addPm';
-import parentForm from './Components/Dashboard/Admin/Create/parentForm';
 import addPm from './Components/Dashboard/Admin/Create/addPm';
 import addUser from './Components/Dashboard/Admin/Create/addUser.js';
 import userDashboard from './Components/Dashboard/Users/userDashboard';
+import FinalForm from './Components/Dashboard/Admin/Create/finalForm';
 
 
 
@@ -62,10 +61,10 @@ function App() {
           <Route exact path='/CreateRepo' Component={CreateRepo}/>
           <Route exact path='/addCollab' Component={addCollab}/>
           <Route exact path='/addPm' Component={addPm}/>
-          <Route exact path='/parentForm' Component={parentForm}/>
           <Route exact path='/addUser' Component={addUser}/>
           <Route exact path='/pmDashboard' Component={PmDashboard}/>
           <Route exact path='/userDashboard'Component={userDashboard}/>
+          <Route exact path='/finalForm' Component={FinalForm}/>
           </Routes>
         </Router>
       </Provider>

@@ -8,6 +8,8 @@ import NavBar from '../../NavBar'
 import PmUpdate from './pmUpdate'
 import DialogBox from '../DialogBox/DialogBox'
 import Pagination from '../Pagination/Pagination'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import './Read.css'
 
 
@@ -24,7 +26,7 @@ import  {
 export default function PmRead(){
   const navigate = useNavigate();
   // const getUrl =  "https://bc38-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-  const getUrl =  "https://b1de-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
+  const getUrl =  "https://cab5-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
   const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -80,6 +82,7 @@ export default function PmRead(){
     };
   return(
 <div>
+ 
 <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
   <CDBSidebar textColor="#fff" backgroundColor="#333">
     <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>Project Manager
@@ -115,13 +118,13 @@ export default function PmRead(){
               <td>{item.name}</td>
               <td>{item.email}</td>
               <td>{item.githubUsername}</td>
-              <td>
+              {/* <td>
                 <Link
                   className="btn btn-outline-primary mx-2"
                   to={`/PmUpdate/${item.id}`} >
                   Update
                 </Link>
-                </td>
+              </td>
                  <td>
                  <Link>
     <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(true)}>Delete</button>
@@ -130,7 +133,36 @@ export default function PmRead(){
       onClose={() => setShowConfirmDialog(false)}
       onConfirm={()=>deleteUser(item.id)}/>
       </Link>
-              </td>
+              </td> */}
+              <td>
+        <Link className="btn btn-outline-primary mx-2" to={`/PmUpdate/${item.id}`}>
+          <FontAwesomeIcon icon={faPen} /> 
+        </Link>
+      </td>
+      <td>
+      {/* <div className="dialog-backdrop"> */}
+        <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(true)}>
+          <FontAwesomeIcon icon={faTrash} />   
+        </button>
+        {showConfirmDialog && (
+      <div className="dialog-backdrop">
+        <div className="dialog-container">
+          <DialogBox
+          
+            show={showConfirmDialog}
+            onClose={() => setShowConfirmDialog(false)}
+            onConfirm={() => deleteUser(item.id)}
+          />
+        </div>
+      </div>
+    )}
+        {/* <DialogBox
+          show={showConfirmDialog}
+          onClose={() => setShowConfirmDialog(false)}
+          onConfirm={() => deleteUser(item.id)}
+        /> */}
+      </td>
+      
               
             </tr>
           ))}
@@ -144,12 +176,9 @@ export default function PmRead(){
       data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
     </div>
-
+   </div>
     
-  </div>
   
-// </div>
-// </div>
 )
 }
 

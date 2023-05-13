@@ -29,6 +29,7 @@ const Create = () => {
   const [isValid, setIsValid] = useState(true);
   const [options, setOptions] = useState([]);
   const [formData, setFormData] = useState('');
+  const[clicked,setClicked]= useState(false);
   
 
  
@@ -39,7 +40,7 @@ const Create = () => {
 
 
   useEffect(() => {
-    fetch(`https://b1de-106-51-70-135.ngrok-free.app/api/repositories/get`,{
+    fetch(`https://118b-106-51-70-135.ngrok-free.app/api/repositories/get`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}).then((response)=>response.json())
@@ -50,15 +51,16 @@ const Create = () => {
     
   const handleSubmit=(e)=>{
     e.preventDefault();
+    setClicked(true);
     if(projectName.length===0 || projectDescription.length===0 || options.length === 0){
-      setError(true)
+      return;
   }
   if(projectName && projectDescription && options)
   {
     console.log(projectId)
-    dispatch(createProject({projectName, projectDescription, options}));
+    // dispatch(createProject({projectName, projectDescription, options}));
    // navigate('/addUser', { state: { projectName, repo } });
-    navigate('/addPm', { state: { projectName, repo } });
+    navigate('/addPm', { state: { projectName, repo, projectDescription} });
     
 
   }
@@ -70,21 +72,21 @@ const Create = () => {
   <Form className='form-style' onSubmit={handleSubmit}>
       <h1>Create Project</h1>
       <Form.Field>
-        <label>Project-Name</label>
+        <label style={{ textAlign: 'left' }}>Project-Name</label>
         <input name='projectName' onChange={(e)=>setProjectName(e.target.value)} placeholder='ProjectName' />
-        {error&&projectName.length<=0?
+        {clicked&&projectName.length<=0?
                <label style={{color:'red'}}>Project ID can't be Empty</label>: ""}
       </Form.Field>
 
       <Form.Field>
-        <label>Project-Description</label>
+        <label style={{ textAlign: 'left' }}>Project-Description</label>
         <input name='projectDescription' onChange={(e)=>setProjectDescription(e.target.value)} placeholder='ProjectDescription' />
-        {error&&projectDescription.length<=0?
+        {clicked&&projectDescription.length<=0?
                <label style={{color:'red'}}>Project Description can't be Empty</label>: ""}
       </Form.Field>
       
       <Form.Field>
-          <label>REPO</label>
+          <label style={{ textAlign: 'left' }}>REPO</label>
           <select onChange={(e) => setrepo(e.target.value)}>
             {options.map((item, index) => (
               <option key={item.name} value={item.name}>
@@ -96,7 +98,7 @@ const Create = () => {
 
       
         
-      <Button type='submit' onClick={handleSubmit}>Submit</Button>
+      <Button type='submit' onClick={handleSubmit}>Next</Button>
 
   </Form>
   <Button className="back-button" onClick={handleBack}>Back</Button>
