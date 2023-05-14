@@ -46,6 +46,7 @@ const AddUser = () => {
     const response= axios.post('https://118b-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
     })
     // navigate('/AdminDashboard')
+    console.log(response)
     navigate('/finalForm', { state: { projectNameA, repo, projectDescription, userNameA, username } });
   }
 }
