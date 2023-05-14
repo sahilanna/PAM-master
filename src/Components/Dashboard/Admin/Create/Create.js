@@ -9,6 +9,8 @@ import PmCreate from '../../PM/pmCreate';
 import '../Read/Read.css'
 import AddPm from './addPm';
 import AddUser from './addUser';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 const Create = () => {
@@ -101,7 +103,7 @@ const Create = () => {
       <Button type='submit' onClick={handleSubmit}>Next</Button>
 
   </Form>
-  <Button className="back-button" onClick={handleBack}>Back</Button>
+  <Button className="back-button" onClick={handleBack}><FontAwesomeIcon icon={faArrowLeft} /> </Button>
   </div>
 )
 }
