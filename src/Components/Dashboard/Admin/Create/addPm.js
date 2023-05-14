@@ -58,6 +58,7 @@ const AddPm = () => {
     })
     projectNameA=projectName;
     console.log("hi",projectNameA)
+    console.log('work')
     // repoA=repo;
     userNameA=username;
     navigate('/addUser', { state: { projectNameA, repo, projectDescription, userNameA } });
