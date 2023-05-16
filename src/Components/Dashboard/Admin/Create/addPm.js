@@ -25,7 +25,7 @@ const AddPm = () => {
   //   navigate('/addUser');
   // }
   useEffect(() => {
-    fetch(`https://f44c-106-51-70-135.ngrok-free.app/api/users/role/project_manager`,{
+    fetch(`https://3a5e-106-51-70-135.ngrok-free.app/api/users/role/project_manager`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}).then((response)=>response.json())
@@ -37,14 +37,14 @@ const AddPm = () => {
     e.preventDefault();
     setError(true);
     const owner='swe1304';
-    const accessToken='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';
+    const accessToken='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';
     if(!projectName || !options||projectName.length===0 ||  options.length === 0){
       return;
   }
   if(projectName && options)
   {
     // dispatchPmGithub(createPmGithubName({projectName, repo, username}));
-    const response= axios.post('https://f44c-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
+    const response= axios.post('https://3a5e-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
     })
     projectNameA=projectName;
     console.log("hi",projectNameA)

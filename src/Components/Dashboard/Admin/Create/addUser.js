@@ -23,7 +23,7 @@ const AddUser = () => {
   const[username,setusername]=useState('');
   // const { projectName, repo } = useLocation();
    useEffect(() => {
-    fetch(`https://f44c-106-51-70-135.ngrok-free.app/api/users/role/user`,{
+    fetch(`https://3a5e-106-51-70-135.ngrok-free.app/api/users/role/user`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}).then((response)=>response.json())
@@ -33,7 +33,7 @@ const AddUser = () => {
   const handleSubmit=(e)=>{
     e.preventDefault();
     const owner='swe1304';
-    const accessToken='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';
+    const accessToken='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';
     if(!projectNameA||!options||projectNameA.length===0 ||  options.length === 0){
       setError(true)
   }
@@ -41,7 +41,7 @@ const AddUser = () => {
   if(projectNameA && options)
   {
     // dispatchPmGithub(createPmGithubName({projectName, repo, username}));
-    const response= axios.post('https://f44c-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
+    const response= axios.post('https://3a5e-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
     })
     // navigate('/AdminDashboard')
     navigate('/finalForm', { state: { projectNameA, repo, projectDescription, userNameA, username } });

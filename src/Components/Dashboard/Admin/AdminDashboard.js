@@ -16,7 +16,6 @@ import Read from './Read/Read';
 
 const AdminDashboard = () => {
   return (
-    <div>
       <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
         <div> {/* Set flex: 1 to create a container for the sidebar */}
           <CDBSidebar textColor="#fff" backgroundColor="#333">
@@ -68,7 +67,7 @@ const AdminDashboard = () => {
           <Read />
         </div>
       </div>
-    </div>
+    
   );
 };
 

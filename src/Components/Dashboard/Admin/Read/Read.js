@@ -9,11 +9,11 @@ import { useNavigate } from 'react-router-dom'
 import { useReducer } from 'react'
 import Update from '../Update/Update'
 import Select from 'react-select'
-import "./Read.css"
 import DialogBox from '../../DialogBox/DialogBox'
 import PaginationComponent from '../../Pagination/Pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import './Read.css'
 import ProjectDetails from './ProjectDetails'
 
 
@@ -21,8 +21,8 @@ import ProjectDetails from './ProjectDetails'
 
 export default function Read(){
   const navigate=useNavigate()
-  const getUrl =  "https://f44c-106-51-70-135.ngrok-free.app/api/project-details/get"
-  const delUrl = "https://f44c-106-51-70-135.ngrok-free.app/api/projects/delete/3"
+  const getUrl =  "https://3a5e-106-51-70-135.ngrok-free.app/api/project-details/get"
+  const delUrl = "https://3a5e-106-51-70-135.ngrok-free.app/api/projects/delete/3"
   const [item, setItem] = useState([]);
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
@@ -82,7 +82,7 @@ const handlePaginate = (pageNumber) => {
 
   
   const deleteUser = async (projectId) => {
-    await axios.delete(`https://f44c-106-51-70-135.ngrok-free.app/api/project-details/delete/${projectId}`);
+    await axios.delete(`https://3a5e-106-51-70-135.ngrok-free.app/api/project-details/delete/${projectId}`);
     navigate('/Read')
     setShowConfirmDialog(false);
     loaditem();
@@ -149,10 +149,10 @@ const handlePaginate = (pageNumber) => {
       onClose={() => setShowConfirmDialog(false)}
       onConfirm={handleDelete}/> */}
               <Link>
-      <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(true)}><FontAwesomeIcon icon={faTrash} /></button>
+      <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(item.projectId)}><FontAwesomeIcon icon={faTrash} /></button>
       <DialogBox
-       show={showConfirmDialog}
-        onClose={() => setShowConfirmDialog(false)}
+       show={showConfirmDialog === item.projectId}
+        onClose={() => setShowConfirmDialog(null)}
         onConfirm={()=>deleteUser(item.projectId)}/>
         </Link>
         </td>

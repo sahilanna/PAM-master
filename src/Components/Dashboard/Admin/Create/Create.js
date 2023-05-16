@@ -39,7 +39,7 @@ const Create = () => {
     navigate(-1); // Go back one page in history
   };
   useEffect(() => {
-    fetch(`https://f44c-106-51-70-135.ngrok-free.app/api/repositories/get`,{
+    fetch(`https://3a5e-106-51-70-135.ngrok-free.app/api/repositories/get`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}).then((response)=>response.json())
@@ -63,11 +63,8 @@ const Create = () => {
     <div>
       <NavBarA/>
   <div  >
-    {/* <div className='back-button'> */}
-  {/* <button className='back-button' onClick={handleBack} FontAwesomeIcon icon={faArrowLeft}/> */}
-        {/* </div> */}
   <Form className='form-style' onSubmit={handleSubmit}>
-      <h1>Create Project</h1>
+      <h1><Button className="back-button" onClick={handleBack}><FontAwesomeIcon icon={faArrowLeft} /> </Button>Create Project</h1>
       <Form.Field>
         <label style={{ textAlign: 'left' }}>Project-Name</label>
         <input name='projectName' onChange={(e)=>setProjectName(e.target.value)} placeholder='ProjectName' />
@@ -92,8 +89,6 @@ const Create = () => {
         </Form.Field>
       <Button type='submit' variant='primary' onClick={handleSubmit}>Next</Button>
   </Form>
-  {/* <button className='back-button' onClick={handleBack} FontAwesomeIcon icon={faArrowLeft}/> */}
-  <Button className="back-button" onClick={handleBack}><FontAwesomeIcon icon={faArrowLeft} /> </Button>
   </div>
   </div>
 )

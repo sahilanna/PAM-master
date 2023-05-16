@@ -17,7 +17,7 @@ function CreateRepo() {
   const [isValid, setIsValid] = useState(true);
   const [error, setError] = useState('false');
   const [clicked, setClicked] = useState(false);
-  const token = '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';
+  const token = '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';
 
   const handleBack = () => {
     navigate(-1); // Go back one page in history
@@ -31,7 +31,7 @@ function CreateRepo() {
       return;
     }
     if (name) {
-      const response = axios.post('https://f44c-106-51-70-135.ngrok-free.app/api/repositories/add', { name });
+      const response = axios.post('https://3a5e-106-51-70-135.ngrok-free.app/api/repositories/add', { name });
       console.log(name);
       navigate('/Create');
     }

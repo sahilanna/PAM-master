@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react'
-import { Form, Button} from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
+import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createProject, updateProject } from '../../../../Login/redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
+import NavBarP from '../../PM/NavbarP';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 export default function Update() {
   // const getUrl =  "https://f0a1-106-51-70-135.ngrok-free.app/api/projects/allProjects"
@@ -28,6 +32,9 @@ export default function Update() {
   const [projectDescription, setProjectDescription] = useState('');
 
   const params = useParams();
+  const handleBack = () => {
+    navigate(-1); // Go back one page in history
+  };
   
   // useEffect(() => {
   //   getDetails();
@@ -83,14 +90,12 @@ export default function Update() {
   // };
 
   return(
-  <Form>
-      {/* <Form.Field>
-        <label>Project-Id</label>
-       
-
-        
-      </Form.Field> */}
-
+    <div>
+      <NavBarP />
+      <div>
+      <div className = "form-dis">
+      <Form className='form-style'>
+      <h1>Update Project Details</h1>
       <Form.Field>
         <label>Project-Name</label>
         <input name='projectName' 
@@ -115,26 +120,31 @@ export default function Update() {
           {pmList.map(option => (
               <option value={option.name} key={option.id}>{option.name}</option>))}
       </select>
-      <br/>
+    
          
-      
-      <Form.Field className='form'>
+      {/* <Form.Field className='form'>
         <label>Github Repo</label>
         <input name='repo' value={repo} onChange={(e)=>setRepo(e.target.value)} placeholder='Github Repo' />
-      </Form.Field>
+      </Form.Field> */}
 
-      <div>
+      {/* <div>
         <Form>
         <label>Select file</label>
         <input type="file" name='files' onChange={handleFileChange} />
       
-        {/* <button onClick={handleFileChange}>Upload</button> */}
+       
         </Form>
-      </div>
+      </div> */}
 
       <Button type='submit' onClick={sendDataToAPIu}>Submit</Button>
 
   </Form>
+  <Button className='back-button' onClick={handleBack}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Button> 
+        </div>
+        </div>
+        </div>
 )
 }
 

@@ -10,12 +10,12 @@ const ProjectDetails = ({ project, onClose }) => {
         <Modal.Title>Project Details</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Project ID: {project.projectId}</p>
-        <p>Project Name: {project.projectName}</p>
-        <p>Project Description: {project.projectDescription}</p>
-        <p>Repository Name: {project.repoName}</p>
-        <p>PM Github: {project.pmGithubUsername}</p>
-        <p>User Github: {project.userGithubUsername}</p>
+        <p><strong>Project ID:</strong> {project.projectId}</p>
+        <p><strong>Project Name:</strong> {project.projectName}</p>
+        <p><strong>Project Description:</strong> {project.projectDescription}</p>
+        <p><strong>Repository Name:</strong> {project.repoName}</p>
+        <p><strong>PM Github:</strong> {project.pmGithubUsername}</p>
+        <p><strong>User Github:</strong> {project.userGithubUsername}</p>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>

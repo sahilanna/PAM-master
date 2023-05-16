@@ -9,7 +9,9 @@ import NavBar from '../../NavBar'
 import Pagination from '../Pagination/Pagination'
 import DialogBox from '../DialogBox/DialogBox'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import UserDetails from './UserDetails'
+
 // import './Read.css'
 import  {
   CDBSidebar,
@@ -22,7 +24,7 @@ import  {
 
 function UserRead(){
   const navigate = useNavigate();
-  const getUrl =  "https://f44c-106-51-70-135.ngrok-free.app/api/users/role/user";
+  const getUrl =  "https://3a5e-106-51-70-135.ngrok-free.app/api/users/role/user";
   const delUrl = "";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -32,6 +34,8 @@ function UserRead(){
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 5;
+  const [showProjectDetails, setShowProjectDetails] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
   const { ID } = useParams();
   useEffect(() => {
     loaditem();
@@ -50,6 +54,15 @@ function UserRead(){
       })
     };
 
+    const handleViewDetails = (project) => {
+      setSelectedProject(project);
+      setShowProjectDetails(true);
+    };
+  
+    const handleCloseDetails = () => {
+      setShowProjectDetails(false);
+    };
+
     React.useEffect(() => {
       handlePaginate(1);
     }, [item]);
@@ -62,7 +75,7 @@ function UserRead(){
     };
 
     const deleteUser = async (id) => {
-      await axios.delete(`https://f44c-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
+      await axios.delete(`https://3a5e-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
       navigate('/userRead')
       setShowConfirmDialog(false);
       loaditem();
@@ -94,7 +107,8 @@ function UserRead(){
             <th>User ID</th>
             <th>User Name</th>
             <th>User Email</th>
-            <th>User-Github-UserName</th>
+            {/* <th>User-Github-UserName</th> */}
+            <th>View</th>
             <th>Update</th>
             <th>Delete</th>
           </thead>
@@ -104,7 +118,15 @@ function UserRead(){
               <td>{user.id}</td>
               <td>{user.name}</td>
               <td>{user.email}</td>
-              <td>{user.githubUsername}</td>
+              {/* <td>{user.githubUsername}</td> */}
+              <td>
+  <button
+    className="btn btn-outline-info mx-2"
+    onClick={() => handleViewDetails(user)}
+  >
+    <FontAwesomeIcon icon={faEye} />
+  </button>
+</td>          
               <td>
                 <Link
                   className="btn btn-outline-primary mx-2"
@@ -115,10 +137,10 @@ function UserRead(){
                 </td>
                  <td>
                  <Link>
-    <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(true)}><FontAwesomeIcon icon={faTrash} /> </button>
+    <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(user.id)}><FontAwesomeIcon icon={faTrash} /> </button>
     <DialogBox
-     show={showConfirmDialog}
-      onClose={() => setShowConfirmDialog(false)}
+     show={showConfirmDialog === user.id}
+      onClose={() => setShowConfirmDialog(null)}
       onConfirm={()=>deleteUser(user.id)}/>
       </Link>
               </td>
@@ -133,6 +155,9 @@ function UserRead(){
       data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
     </div>
+    {showProjectDetails && (
+        <UserDetails project={selectedProject} onClose={handleCloseDetails} />
+      )}
   </div>
 // </div>
 // </div>
