@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import { Form, Button} from 'semantic-ui-react'
+import { Form} from 'semantic-ui-react'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createPM, updatePM } from '../../../Login/redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function PmUpdate() {
@@ -55,6 +58,8 @@ export default function PmUpdate() {
 
 
   return(
+    
+
   <Form>
       <Form.Field>
         <label>PM-ID</label>
@@ -83,9 +88,10 @@ export default function PmUpdate() {
         {/* <input type="text" name="name" value="2" disabled></input> */}
     </Form.Field>
     
-      <Button type='submit' onClick={sendDataToAPIPM}>Submit</Button>
+      <Button type='submit' variant='primary' onClick={sendDataToAPIPM}>Submit</Button>
 
   </Form>
+  
 )
 }
 

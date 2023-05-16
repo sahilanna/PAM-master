@@ -1,9 +1,13 @@
 import React, {useState, useEffect} from 'react'
-import { Form, Button} from 'semantic-ui-react'
+import { Form} from 'semantic-ui-react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { createPM } from '../../../Login/redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
+import NavBarP from './NavbarP';
+import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 //import '../Read/Read.css'
 
 
@@ -39,7 +43,10 @@ import { useDispatch, useSelector } from 'react-redux';
     }
   
     return(
-  <div className = "form-display">
+      <div>
+      <NavBarP />
+      <div>
+  <div className = "form-dis">
   <Form className='form-style'   onSubmit={handleSubmit}>
       <h1>Add PM</h1>
       <Form.Field>
@@ -73,7 +80,11 @@ import { useDispatch, useSelector } from 'react-redux';
       </Form.Field>
       <Button type='submit' onClick={handleSubmit}>Submit</Button>
     </Form>
-    <Button className='back-button' onClick={handleBack}>Back</Button>  
+    <Button className='back-button' onClick={handleBack}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Button> 
+    </div>
+    </div>
     </div>
   )
   }

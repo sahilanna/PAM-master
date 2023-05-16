@@ -1,3 +1,4 @@
+import 'semantic-ui-css/semantic.min.css';
 import React, {useEffect, useState, dispatch} from 'react'
 import { Form,Button, Table } from 'semantic-ui-react'
 import axios from 'axios'
@@ -12,18 +13,24 @@ import "./Read.css"
 import DialogBox from '../../DialogBox/DialogBox'
 import PaginationComponent from '../../Pagination/Pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import ProjectDetails from './ProjectDetails'
+
+
+
 
 export default function Read(){
   const navigate=useNavigate()
-  const getUrl =  "https://118b-106-51-70-135.ngrok-free.app/api/project-details/get"
-  const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3"
+  const getUrl =  "https://f44c-106-51-70-135.ngrok-free.app/api/project-details/get"
+  const delUrl = "https://f44c-106-51-70-135.ngrok-free.app/api/projects/delete/3"
   const [item, setItem] = useState([]);
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [currentPageData, setCurrentPageData] = useState([]);
+  const [showProjectDetails, setShowProjectDetails] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
   
   const [repoName, setRepoName] = useState('');
   const [pmGithubUsername, setPmGithubUsername] = useState('');
@@ -32,13 +39,15 @@ export default function Read(){
   
   const itemsPerPage = 5;
   const { id } = useParams();
-  
+
   const loaditem = async () => {
   const result = await axios.get(getUrl,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}) .then((result) => {
       setItem(result.data);
+      // handleViewDetails(result.data);
+      // setSelectedProject(result.data);
       // console.log(res, "hello");
     })
     .catch((error)=>{
@@ -48,6 +57,15 @@ export default function Read(){
   useEffect(() => {
     loaditem();
 }, []);
+
+const handleViewDetails = (project) => {
+  setSelectedProject(project);
+  setShowProjectDetails(true);
+};
+
+const handleCloseDetails = () => {
+  setShowProjectDetails(false);
+};
 
 React.useEffect(() => {
   handlePaginate(1);
@@ -64,7 +82,7 @@ const handlePaginate = (pageNumber) => {
 
   
   const deleteUser = async (projectId) => {
-    await axios.delete(`https://6429847d5a40b82da4d494b2.mockapi.io/PM`);
+    await axios.delete(`https://f44c-106-51-70-135.ngrok-free.app/api/project-details/delete/${projectId}`);
     navigate('/Read')
     setShowConfirmDialog(false);
     loaditem();
@@ -77,10 +95,11 @@ const handlePaginate = (pageNumber) => {
         <thead>
             <th>Project-ID</th>
             <th>Project-Name</th>
-            <th>Project-Description</th>
+            {/* <th>Project-Description</th>
             <th>Repository Name</th>
             <th>PM Github</th>
-            <th>User Github</th>
+            <th>User Github</th> */}
+            <th>View</th>
             <th>Update</th>
             <th>Delete</th>
         </thead>
@@ -90,13 +109,27 @@ const handlePaginate = (pageNumber) => {
             <tr>
               <td>{item.projectId}</td>
               <td>{item.projectName}</td>
-              <td>{item.projectDescription}</td>
+              {/* <td>{item.projectDescription}</td>
               <td>{item.repoName}</td>
               <td>{item.pmGithubUsername}</td>
-              <td>{item.userGithubUsername}</td>
+              <td>{item.userGithubUsername}</td> */}
              
-
-               
+              {/* <td>
+  <button
+    className="btn btn-outline-info mx-2"
+    onClick={() => loaditem(item.projectId)}
+  >
+    <FontAwesomeIcon icon={faEye} />
+  </button>
+</td> */}
+              <td>
+  <button
+    className="btn btn-outline-info mx-2"
+    onClick={() => handleViewDetails(item)}
+  >
+    <FontAwesomeIcon icon={faEye} />
+  </button>
+</td>             
               <td>
                 <Link
                   className="btn btn-outline-primary mx-2"
@@ -132,6 +165,9 @@ const handlePaginate = (pageNumber) => {
       data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
     </div>
+    {showProjectDetails && (
+        <ProjectDetails project={selectedProject} onClose={handleCloseDetails} />
+      )}
     </div>
   // </div>
  )

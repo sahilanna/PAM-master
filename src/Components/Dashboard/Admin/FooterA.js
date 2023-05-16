@@ -1,10 +1,10 @@
 import React from "react";
 //import "/home/nineleaps/Downloads/vc-pr/vc-pr/src/css/Footer.css";
-import './Footer.css'
-const Footer = () => {
+import './FooterA.css';
+const FooterA = () => {
   return (
-    <div className="Footer">
-      <div className="sb_footer_section_padding">
+    <div className="FooterContainer">
+      <div className="Footer sb_footer_section_padding">
         <div className="sb_footer-links">
           <div className="sb_footer-links_div">
             <h4>For Business</h4>
@@ -22,7 +22,7 @@ const Footer = () => {
             </a>
             </div>
             <div className="sb_footer-links_div">
-            <h4>Tools</h4>
+            <h4>Social media</h4>
             <a href="https://www.figma.com/">
             <p>Figma</p>
             </a>
@@ -65,4 +65,4 @@ const Footer = () => {
     </div>
   );
 };
-export default Footer;
+export default FooterA;

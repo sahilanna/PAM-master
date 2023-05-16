@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form} from 'semantic-ui-react';
 import { useNavigate,useLocation } from "react-router-dom";
 import axios from 'axios';
 import AddPm from './addPm';
-
+import NavBarA from '../NavbarA';
+import { Button } from 'react-bootstrap';
 
 const AddUser = () => {
   
@@ -22,7 +23,7 @@ const AddUser = () => {
   const[username,setusername]=useState('');
   // const { projectName, repo } = useLocation();
    useEffect(() => {
-    fetch(`https://118b-106-51-70-135.ngrok-free.app/api/users/role/user`,{
+    fetch(`https://f44c-106-51-70-135.ngrok-free.app/api/users/role/user`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}).then((response)=>response.json())
@@ -32,7 +33,7 @@ const AddUser = () => {
   const handleSubmit=(e)=>{
     e.preventDefault();
     const owner='swe1304';
-    const accessToken='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';
+    const accessToken='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';
     if(!projectNameA||!options||projectNameA.length===0 ||  options.length === 0){
       setError(true)
   }
@@ -40,7 +41,7 @@ const AddUser = () => {
   if(projectNameA && options)
   {
     // dispatchPmGithub(createPmGithubName({projectName, repo, username}));
-    const response= axios.post('https://118b-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
+    const response= axios.post('https://f44c-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
     })
     // navigate('/AdminDashboard')
     navigate('/finalForm', { state: { projectNameA, repo, projectDescription, userNameA, username } });
@@ -48,8 +49,10 @@ const AddUser = () => {
 }
  
   return (
-    
-    <div className="form-display">
+    <div> 
+      <NavBarA/> 
+    <div >
+    {/* <div className="form-display"> */}
       {/* {console.log("rendering again...........")} */}
       <Form className="form-style">
         <h1> Add User to Repo</h1>
@@ -75,11 +78,12 @@ const AddUser = () => {
         </Form.Field>
 
 
-        <Button type='submit' onClick={handleSubmit}>Submit</Button>
+        <Button type='submit' variant='primary' onClick={handleSubmit}>Submit</Button>
       </Form>
     </div>
-  );
-};
+    </div>
+  )
+}
 
 
 

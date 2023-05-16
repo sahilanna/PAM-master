@@ -45,7 +45,7 @@ export const updateProject = ({projectId, projectName, projectDescription, repo}
 export const createPM = ({id, name, email, githubUsername,enumRole}) => {
     return async(dispatchPMUpdate) => {
         try {
-            const responseCreatePM = await axios.post('https://b1de-106-51-70-135.ngrok-free.app/api/users/', {
+            const responseCreatePM = await axios.post('https://f44c-106-51-70-135.ngrok-free.app/api/users/', {
                 id,
                 name,
                 email,
@@ -67,7 +67,7 @@ export const createPM = ({id, name, email, githubUsername,enumRole}) => {
 export const updatePM = ({id, name, email, enumRole}) => {
     return async(dispatchPM) => {
         try {
-            const responsePMUpdate = await axios.put(`https://bc38-106-51-70-135.ngrok-free.app/api/users/update/${id}`, {
+            const responsePMUpdate = await axios.put(`https://f44c-106-51-70-135.ngrok-free.app/api/users/update/${id}`, {
                 id,
                 name,
                 email,
@@ -88,7 +88,7 @@ export const updatePM = ({id, name, email, enumRole}) => {
 export const createUser = ({id, name, email, githubUsername, enumRole}) => {
     return async(dispatchUserUpdate) => {
         try {
-            const responseCreateUser = await axios.post('https://b1de-106-51-70-135.ngrok-free.app/api/users/', {
+            const responseCreateUser = await axios.post('https://f44c-106-51-70-135.ngrok-free.app/api/users/', {
                 id,
                 name,
                 email,
@@ -110,7 +110,7 @@ export const updateUser = ({id, name, email, enumRole}) => {
     return async(dispatchUser) => {
         // const {id} = useParams();
         try {
-            const responseUserUpdate = await axios.put(`https://bc38-106-51-70-135.ngrok-free.app/api/users/update/${id}`, {
+            const responseUserUpdate = await axios.put(`https://f44c-106-51-70-135.ngrok-free.app/api/users/update/${id}`, {
                 id,
                 name,
                 email,
@@ -128,7 +128,7 @@ export const updateUser = ({id, name, email, enumRole}) => {
 export const createPmGithubName = ({projectName, repo, username}) => {
     return async(dispatchPmGithub) => {
         try {
-            const responseCreatePmGithubName = await axios.post('https://b1de-106-51-70-135.ngrok-free.app/api/collaborators/add', {
+            const responseCreatePmGithubName = await axios.post('https://f44c-106-51-70-135.ngrok-free.app/api/collaborators/add', {
                 projectName,
                 repo,
                 username

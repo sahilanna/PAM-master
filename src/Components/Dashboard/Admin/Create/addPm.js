@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 import { useNavigate,useLocation } from "react-router-dom";
 import axios from 'axios';
 import AddUser from './addUser.js';
 import { useDispatch } from 'react-redux';
 import { createPmGithubName } from '../../../../Login/redux-store/actions/action.js';
-
+import NavBarA from '../NavbarA';
+import { Button } from 'react-bootstrap';
 
 const AddPm = () => {
   
@@ -24,7 +25,7 @@ const AddPm = () => {
   //   navigate('/addUser');
   // }
   useEffect(() => {
-    fetch(`https://118b-106-51-70-135.ngrok-free.app/api/users/role/project_manager`,{
+    fetch(`https://f44c-106-51-70-135.ngrok-free.app/api/users/role/project_manager`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}).then((response)=>response.json())
@@ -36,14 +37,14 @@ const AddPm = () => {
     e.preventDefault();
     setError(true);
     const owner='swe1304';
-    const accessToken='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';
+    const accessToken='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';
     if(!projectName || !options||projectName.length===0 ||  options.length === 0){
       return;
   }
   if(projectName && options)
   {
     // dispatchPmGithub(createPmGithubName({projectName, repo, username}));
-    const response= axios.post('https://118b-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
+    const response= axios.post('https://f44c-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
     })
     projectNameA=projectName;
     console.log("hi",projectNameA)
@@ -57,7 +58,8 @@ const AddPm = () => {
   // const { projectName, repo } = useLocation();
  
   return (
-    <div className="form-display">
+    <div> <NavBarA/> <div >
+    {/* <div className="form-display"> */}
       <Form className="form-style">
         <h1> Add Project-Manager to Repo</h1>
 
@@ -83,8 +85,9 @@ const AddPm = () => {
         </Form.Field>
 
 
-        <Button type='submit' onClick={handleSubmit}>Submit</Button>
+        <Button type='submit' variant='primary' onClick={handleSubmit}>Submit</Button>
       </Form>
+    </div>
     </div>
   );
 };

@@ -22,7 +22,7 @@ import  {
 
 function UserRead(){
   const navigate = useNavigate();
-  const getUrl =  "https://118b-106-51-70-135.ngrok-free.app/api/users/role/user";
+  const getUrl =  "https://f44c-106-51-70-135.ngrok-free.app/api/users/role/user";
   const delUrl = "";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -62,7 +62,7 @@ function UserRead(){
     };
 
     const deleteUser = async (id) => {
-      await axios.delete(`https://7b96-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
+      await axios.delete(`https://f44c-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
       navigate('/userRead')
       setShowConfirmDialog(false);
       loaditem();

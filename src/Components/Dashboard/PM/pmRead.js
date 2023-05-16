@@ -26,8 +26,8 @@ import  {
 export default function PmRead(){
   const navigate = useNavigate();
   // const getUrl =  "https://bc38-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-  const getUrl =  "https://cab5-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-  const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3";
+  const getUrl =  "https://f44c-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
+  const delUrl = "https://f44c-106-51-70-135.ngrok-free.app/api/projects/delete/3";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
   const [name, setName] = useState('');
@@ -74,7 +74,7 @@ export default function PmRead(){
     
 
     const deleteUser = async (id) => {
-      await axios.delete(`https://b1de-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
+      await axios.delete(`https://f44c-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
       navigate('/pmRead')
       setShowConfirmDialog(false);
       loaditem();
