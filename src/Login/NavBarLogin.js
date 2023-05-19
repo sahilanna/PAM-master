@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Navbar, Nav, NavDropdown, Container} from 'react-bootstrap'
 import logo from '../Assets/logo.png'
-import './LandingPage.css'
+import './Login.css'
 
-export default class NavBar extends Component {
+export default class NavBarLogin extends Component {
   render() {
     return (
       <div>
@@ -46,14 +46,15 @@ export default class NavBar extends Component {
              <NavDropdown.Divider />
             </NavDropdown>
           </Nav>
-          <Nav>
-            <Link to='/Login'>Login</Link>
+          {/* <Nav>
+            <Link to='/Login'>Login</Link> */}
             {/* <Nav.Link href="#deets">Login</Nav.Link> */}
-                      </Nav>
+                      {/* </Nav> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>
       </div>
+
     )
   }
 }

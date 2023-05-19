@@ -27,6 +27,9 @@
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   position: relative;
+  left:16px;
+  top:16px;
+  z-index: 1;
 }
 
 .back-button:hover {

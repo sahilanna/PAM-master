@@ -30,6 +30,8 @@ import addPm from './Components/Dashboard/Admin/Create/addPm';
 import addUser from './Components/Dashboard/Admin/Create/addUser.js';
 import userDashboard from './Components/Dashboard/Users/userDashboard';
 import FinalForm from './Components/Dashboard/Admin/Create/finalForm';
+import NavBarA from './Components/Dashboard/Admin/NavbarA';
+
 
 
 
@@ -64,6 +66,7 @@ function App() {
           <Route exact path='/pmDashboard' Component={PmDashboard}/>
           <Route exact path='/userDashboard'Component={userDashboard}/>
           <Route exact path='/finalForm' Component={FinalForm}/>
+          <Route exact path='/NavbarA' Component={NavBarA}/>
           </Routes>
         </Router>
       </Provider>

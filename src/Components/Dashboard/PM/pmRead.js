@@ -9,8 +9,9 @@ import PmUpdate from './pmUpdate'
 import DialogBox from '../DialogBox/DialogBox'
 import Pagination from '../Pagination/Pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './Read.css'
+import PmDetails from './PmDetails'
 
 
 import  {
@@ -26,8 +27,8 @@ import  {
 export default function PmRead(){
   const navigate = useNavigate();
   // const getUrl =  "https://bc38-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-  const getUrl =  "https://cab5-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-  const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3";
+  const getUrl =  "https://3a5e-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
+  const delUrl = "https://3a5e-106-51-70-135.ngrok-free.app/api/projects/delete/3";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
   const [name, setName] = useState('');
@@ -36,6 +37,8 @@ export default function PmRead(){
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [currentPageData, setCurrentPageData] = useState([]);
   const[githubUsername,setgithubUsername]=useState('')
+  const [showProjectDetails, setShowProjectDetails] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
   const itemsPerPage = 5;
 
   const { ID } = useParams();
@@ -61,6 +64,16 @@ export default function PmRead(){
       loaditem();
   }, []);
 
+  const handleViewDetails = (project) => {
+    setSelectedProject(project);
+    setShowProjectDetails(true);
+  };
+
+  const handleCloseDetails = () => {
+    setShowProjectDetails(false);
+  };
+  
+
     React.useEffect(() => {
       handlePaginate(1);
     }, [item]);
@@ -74,7 +87,7 @@ export default function PmRead(){
     
 
     const deleteUser = async (id) => {
-      await axios.delete(`https://b1de-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
+      await axios.delete(`https://3a5e-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
       navigate('/pmRead')
       setShowConfirmDialog(false);
       loaditem();
@@ -107,7 +120,8 @@ export default function PmRead(){
             <th>PM-ID</th>
             <th>PM-Name</th>
             <th>PM-Email</th>
-            <th>PM-Github-UserName</th>
+            {/* <th>PM-Github-UserName</th> */}
+            <th>View</th>
             <th>Update</th>
             <th>Delete</th>
          </thead>
@@ -117,23 +131,15 @@ export default function PmRead(){
               <td>{item.id}</td>
               <td>{item.name}</td>
               <td>{item.email}</td>
-              <td>{item.githubUsername}</td>
-              {/* <td>
-                <Link
-                  className="btn btn-outline-primary mx-2"
-                  to={`/PmUpdate/${item.id}`} >
-                  Update
-                </Link>
-              </td>
-                 <td>
-                 <Link>
-    <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(true)}>Delete</button>
-    <DialogBox
-     show={showConfirmDialog}
-      onClose={() => setShowConfirmDialog(false)}
-      onConfirm={()=>deleteUser(item.id)}/>
-      </Link>
-              </td> */}
+             
+              <td>
+  <button
+    className="btn btn-outline-info mx-2"
+    onClick={() => handleViewDetails(item)}
+  >
+    <FontAwesomeIcon icon={faEye} />
+  </button>
+</td>             
               <td>
         <Link className="btn btn-outline-primary mx-2" to={`/PmUpdate/${item.id}`}>
           <FontAwesomeIcon icon={faPen} /> 
@@ -141,26 +147,21 @@ export default function PmRead(){
       </td>
       <td>
       {/* <div className="dialog-backdrop"> */}
-        <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(true)}>
+        <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(item.id)}>
           <FontAwesomeIcon icon={faTrash} />   
         </button>
-        {showConfirmDialog && (
+        {showConfirmDialog === item.id && (
       <div className="dialog-backdrop">
         <div className="dialog-container">
           <DialogBox
           
-            show={showConfirmDialog}
-            onClose={() => setShowConfirmDialog(false)}
+            show={showConfirmDialog === item.id}
+            onClose={() => setShowConfirmDialog(null)}
             onConfirm={() => deleteUser(item.id)}
           />
         </div>
       </div>
     )}
-        {/* <DialogBox
-          show={showConfirmDialog}
-          onClose={() => setShowConfirmDialog(false)}
-          onConfirm={() => deleteUser(item.id)}
-        /> */}
       </td>
       
               
@@ -176,7 +177,11 @@ export default function PmRead(){
       data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
     </div>
-   </div>
+    {showProjectDetails && (
+        <PmDetails project={selectedProject} onClose={handleCloseDetails} />
+      )}
+    </div>
+   
     
   
 )

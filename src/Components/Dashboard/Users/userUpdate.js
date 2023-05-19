@@ -1,14 +1,18 @@
 import React, {useEffect, useState} from 'react'
-import { Form, Button} from 'semantic-ui-react'
+import { Form} from 'semantic-ui-react'
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createUser, updateUser } from '../../../Login/redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
 import UserRead from './userRead';
+import NavBarP from '../PM/NavbarP';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function UserUpdate() {
-    const getUrl =  "https://7b96-106-51-70-135.ngrok-free.app/api/users/role/3"
+    const getUrl =  "https://3a5e-106-51-70-135.ngrok-free.app/api/users/role/3"
 
     let navigate= useNavigate();
     const {ID} = useParams();
@@ -20,11 +24,17 @@ export default function UserUpdate() {
     const [id, setId] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const[githubUsername, setGithubUsername]=useState('');
     const [enumRole,setEnumRole]=useState('3');
+
+    const handleBack = () => {
+        navigate(-1); // Go back one page in history
+      };
+    
   
 
     const sendDataToAPIUser = () => {
-    dispatchUserUpdate(updateUser({id, name, email, enumRole}));
+    dispatchUserUpdate(updateUser({id, name, email, githubUsername, enumRole}));
 
     const loaditem = async () => {
         const result = await axios.get(getUrl,{
@@ -33,6 +43,9 @@ export default function UserUpdate() {
           }}) .then((result) => {
   
           setItem(result.data);
+          setName(result.name);
+          setEmail(result.email);
+          setGithubUsername(result.gitbubUsername);
           // console.log(res, "hello");
         })
         .catch((error)=>{
@@ -48,7 +61,12 @@ export default function UserUpdate() {
 
 
     return(
-    <Form>
+        <div>
+      <NavBarP />
+      <div>
+      <div className = "form-dis">
+      <Form className='form-style'>
+      <h1>Update USER</h1>
         <Form.Field>
             <label>USER-ID</label>
             <input name='id'
@@ -70,13 +88,24 @@ export default function UserUpdate() {
         </Form.Field>
 
         <Form.Field>
+        <label>User Github Username</label>
+        <input name='githubUsername' value = {githubUsername} onChange={(e)=>setGithubUsername(e.target.value)} />
+      </Form.Field>
+
+        <Form.Field>
             <label>Role</label>
             <input name='enumRole' onChange={(e)=>setEnumRole(3)} value="3" disabled/>
         </Form.Field>
     
-        <Button type='submit' onClick={sendDataToAPIUser}>Submit</Button>
+        <Button type='submit' variant='primary' onClick={sendDataToAPIUser}>Submit</Button>
 
   </Form>
+  <Button className='back-button' onClick={handleBack}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Button> 
+        </div>
+        </div>
+        </div>
 )
 }
 

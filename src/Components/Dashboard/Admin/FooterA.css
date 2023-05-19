@@ -79,6 +79,7 @@ line-height: 15px;
 color: rgb(255,255,255);
 font-weight: 600;
 }
+
 @media screen and (max-width:850px) {
 .sb_footer-heding h1{
     font-size: 44px;

@@ -8,7 +8,7 @@ const DialogBox = (props) => {
   return (
     <Modal show={show} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Confirm Delete</Modal.Title>
+        <Modal.Title><strong>Confirm Delete</strong></Modal.Title>
       </Modal.Header>
       <Modal.Body>Are you sure you want to delete this item?</Modal.Body>
       <Modal.Footer>
