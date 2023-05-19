@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toBeRequired } from '@testing-library/jest-dom/dist/matchers';
-import './Create.css'
 
 function CreateRepo() {
   const navigate=useNavigate();
@@ -14,12 +13,6 @@ function CreateRepo() {
     const [error,setError]=useState('false');
     const[clicked,setClicked]= useState(false);
     const token = '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'
-
-      
-  const handleBack = () => {
-    navigate(-1); // Go back one page in history
-  };
-
     
     let handleSubmit=(e)=>{
 
@@ -39,14 +32,10 @@ function CreateRepo() {
 
     return (
       <div>
-        
         <h1>Create new Repository</h1>
       
         <div className='form-display'>
-        <Button className="back-button" onClick={handleBack}>Back</Button>
-
           <Form className='form-style'>
-            
           <br/>
           <Form.Field>
           <label style={{ textAlign: 'left' }}>Name</label>

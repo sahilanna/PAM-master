@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Form } from 'semantic-ui-react';
+import { Form, Button } from 'semantic-ui-react';
 import { useNavigate,useLocation } from "react-router-dom";
 import axios from 'axios';
 import AddPm from './addPm';
-import './Create.css'
-import { button } from 'react-bootstrap';
-import NavBarA from '../NavbarA';
 
 
 const AddUser = () => {
@@ -46,18 +43,13 @@ const AddUser = () => {
     const response= axios.post('https://118b-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
     })
     // navigate('/AdminDashboard')
-    console.log(response)
     navigate('/finalForm', { state: { projectNameA, repo, projectDescription, userNameA, username } });
   }
 }
  
   return (
     
-    <div>
-      <NavBarA/>
-
-      <br/>
-      <br/>
+    <div className="form-display">
       {/* {console.log("rendering again...........")} */}
       <Form className="form-style">
         <h1> Add User to Repo</h1>
@@ -83,7 +75,7 @@ const AddUser = () => {
         </Form.Field>
 
 
-        <button type='submit' onClick={handleSubmit} variant='primary'>Submit</button>
+        <Button type='submit' onClick={handleSubmit}>Submit</Button>
       </Form>
     </div>
   );

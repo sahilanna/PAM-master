@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import {Navbar, Nav, NavDropdown, Container} from 'react-bootstrap'
 import logo from '../Assets/logo.png'
 import './LandingPage.css'
-import Login from '../Login/Login';
 
 export default class NavBar extends Component {
   render() {
@@ -48,7 +47,6 @@ export default class NavBar extends Component {
             </NavDropdown>
           </Nav>
           <Nav>
-            
             <Link to='/Login'>Login</Link>
             {/* <Nav.Link href="#deets">Login</Nav.Link> */}
                       </Nav>

@@ -13,12 +13,10 @@ import DialogBox from '../../DialogBox/DialogBox'
 import PaginationComponent from '../../Pagination/Pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
-import Footer from '../Footer'
 
 export default function Read(){
   const navigate=useNavigate()
-  // const getUrl =  "https://118b-106-51-70-135.ngrok-free.app/api/project-details/get"
-const getUrl='  https://6429847d5a40b82da4d494b2.mockapi.io/PAM'
+  const getUrl =  "https://118b-106-51-70-135.ngrok-free.app/api/project-details/get"
   const delUrl = "https://cc0f-106-51-70-135.ngrok-free.app/api/projects/delete/3"
   const [item, setItem] = useState([]);
   const [projectId, setProjectId] = useState('');
@@ -134,7 +132,6 @@ const handlePaginate = (pageNumber) => {
       data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
     </div>
-    
     </div>
   // </div>
  )

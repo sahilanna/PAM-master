@@ -4,7 +4,7 @@ import 'react-multi-carousel/lib/styles.css';
 import NavBar from './Components/NavBar';
 import LandingPage from './Components/LandingPage';
 import Login from './Login/Login';
-import Footer from './Components/Dashboard/Admin/Footer';
+import Footer from './Components/Footer';
 import Carousel from 'react-bootstrap/Carousel'
 import AdminDashboard from './Components/Dashboard/Admin/AdminDashboard'
 import PmDashboard from './Components/Dashboard/PM/PmDashboard';
@@ -30,8 +30,6 @@ import addPm from './Components/Dashboard/Admin/Create/addPm';
 import addUser from './Components/Dashboard/Admin/Create/addUser.js';
 import userDashboard from './Components/Dashboard/Users/userDashboard';
 import FinalForm from './Components/Dashboard/Admin/Create/finalForm';
-import NavBarA from './Components/Dashboard/Admin/NavbarA';
-import LogoutButton from './Login/Logout';
 
 
 
@@ -66,7 +64,6 @@ function App() {
           <Route exact path='/pmDashboard' Component={PmDashboard}/>
           <Route exact path='/userDashboard'Component={userDashboard}/>
           <Route exact path='/finalForm' Component={FinalForm}/>
-          <Route exact path='/Logout' Component={LogoutButton}/>
           </Routes>
         </Router>
       </Provider>

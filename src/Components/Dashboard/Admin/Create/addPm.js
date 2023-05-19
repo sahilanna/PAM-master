@@ -5,12 +5,6 @@ import axios from 'axios';
 import AddUser from './addUser.js';
 import { useDispatch } from 'react-redux';
 import { createPmGithubName } from '../../../../Login/redux-store/actions/action.js';
-import './Create.css'
-import { button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import NavBarA from '../NavbarA.js';
-
 
 
 const AddPm = () => {
@@ -38,11 +32,6 @@ const AddPm = () => {
   
   }, []);
 
-    
-  const handleBack = () => {
-    navigate(-1); // Go back one page in history
-  }
-
   const handleSubmit=(e)=>{
     e.preventDefault();
     setError(true);
@@ -58,7 +47,6 @@ const AddPm = () => {
     })
     projectNameA=projectName;
     console.log("hi",projectNameA)
-    console.log('work')
     // repoA=repo;
     userNameA=username;
     navigate('/addUser', { state: { projectNameA, repo, projectDescription, userNameA } });
@@ -69,12 +57,7 @@ const AddPm = () => {
   // const { projectName, repo } = useLocation();
  
   return (
-    <div>
-      <NavBarA/>
-      <br/>
-      <br/>
-      <button className='back-button' onClick={handleBack} FontAwesomeIcon icon={faArrowLeft}/>
-        <FontAwesomeIcon icon={faArrowLeft} />
+    <div className="form-display">
       <Form className="form-style">
         <h1> Add Project-Manager to Repo</h1>
 
@@ -100,7 +83,7 @@ const AddPm = () => {
         </Form.Field>
 
 
-        <Button type='submit' onClick={handleSubmit} variant='primary'>Submit</Button>
+        <Button type='submit' onClick={handleSubmit}>Submit</Button>
       </Form>
     </div>
   );

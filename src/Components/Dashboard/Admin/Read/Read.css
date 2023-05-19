@@ -64,6 +64,7 @@
   padding: 10px 20px;
   
    */
+<<<<<<< HEAD
   /* width: 88px;
   height: 32px; */
   /* border-radius: 2px; */
@@ -73,6 +74,14 @@
   
   font-size: large;
   float: left;
+=======
+  width: 88px;
+  height: 32px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  position:relative;
+>>>>>>> 503d1b91365c0db646b5ec0a5fb9a7b627a6faa6
   /* top:10px;
   right:-20px; */
 
@@ -86,18 +95,29 @@
   display: flex;
   justify-content: center;
   border: 3px solid #ccc;
+<<<<<<< HEAD
   position: relative;
+=======
+>>>>>>> 503d1b91365c0db646b5ec0a5fb9a7b627a6faa6
   background-color: #f9f9f9;
   padding: 20px;
 }
 
 
+<<<<<<< HEAD
 /* .form-style{
+=======
+.form-style{
+>>>>>>> 503d1b91365c0db646b5ec0a5fb9a7b627a6faa6
   width: 500px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+<<<<<<< HEAD
 } */
+=======
+}
+>>>>>>> 503d1b91365c0db646b5ec0a5fb9a7b627a6faa6
 
 .pagination{
   flex-direction:center;
@@ -145,10 +165,13 @@
     content: attr(data-column);
     font-weight: bold;
   }
+<<<<<<< HEAD
   .readfoot{
     position: relative;
     top: 20px
   }
+=======
+>>>>>>> 503d1b91365c0db646b5ec0a5fb9a7b627a6faa6
 }
 
 
