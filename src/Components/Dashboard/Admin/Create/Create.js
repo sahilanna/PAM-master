@@ -6,7 +6,6 @@ import { createProject } from '../../../../Login/redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
 import Read from '../Read/Read';
 import PmCreate from '../../PM/pmCreate'; 
-<<<<<<< HEAD
 import './Create.css'
 import AddPm from './addPm';
 import AddUser from './addUser';
@@ -14,7 +13,6 @@ import { Button } from 'react-bootstrap';
 import NavBarA from '../NavbarA';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-=======
 import '../Read/Read.css'
 import AddPm from './addPm';
 import AddUser from './addUser';
