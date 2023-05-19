@@ -6,6 +6,8 @@ import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import NavBarA from '../NavbarA';
+import './Create.css';
+import { ngrokUrl } from '../../../../Assets/config';
 
 const FinalForm = () => {
   const navigate = useNavigate();
@@ -15,7 +17,7 @@ const FinalForm = () => {
   let [projectName, setProjectNameA] = useState('');
   let [repoName, setRepoName] = useState('');
   let [pmGithubUsername, setPmGithubUsername] = useState('');
-  let [userGithubUsername, setUserGithubUsername] = useState('');
+  let [userGithubUsernames, setUserGithubUsername] = useState('');
 
   console.log("hi");
 
@@ -24,8 +26,8 @@ const FinalForm = () => {
     projectName=projectNameA;
     repoName=repo;
     pmGithubUsername=userNameA;
-    userGithubUsername=username;
-    axios.post('https://f44c-106-51-70-135.ngrok-free.app/api/project-details/add', {projectName, repoName, projectDescription, pmGithubUsername, userGithubUsername}).then(() => {
+    userGithubUsernames=username;
+    axios.post(`https://${ngrokUrl}/api/project-details/add`, {projectName, repoName, projectDescription, pmGithubUsername, userGithubUsernames}).then(() => {
       navigate('/adminDashboard');
     });
   };

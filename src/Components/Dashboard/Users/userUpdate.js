@@ -9,10 +9,11 @@ import UserRead from './userRead';
 import NavBarP from '../PM/NavbarP';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { ngrokUrl } from '../../../Assets/config';
 
 
 export default function UserUpdate() {
-    const getUrl =  "https://3a5e-106-51-70-135.ngrok-free.app/api/users/role/3"
+    const getUrl =  `https://${ngrokUrl}/api/users/role/3`
 
     let navigate= useNavigate();
     const {ID} = useParams();

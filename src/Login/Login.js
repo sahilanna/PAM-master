@@ -5,6 +5,7 @@ import NavBarLogin from './NavBarLogin';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import './Login.css'
+import { ngrokUrl } from '../Assets/config';
 //import apiLink from "../ApiConfig"
 function Test() {
     const navigate=useNavigate()
@@ -17,7 +18,7 @@ function Test() {
           };
           try {
             const { data}  = await axios.get(
-                `https://4d1e-106-51-70-135.ngrok-free.app/auth/api/get-email`,
+                `https://${ngrokUrl}/auth/api/get-email`,
                 { headers },)
             //console.log(headers)
             console.log(data);

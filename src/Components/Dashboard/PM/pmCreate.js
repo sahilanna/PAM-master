@@ -34,12 +34,9 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
       if(name.length==0 || email.length==0 || githubUsername.length == 0){
         return;
     }
-    
-
-   
       dispatchPM(createPM({id, name, email, githubUsername, enumRole}));
       navigate('/pmRead')
-    
+     
     }
   
     return(

@@ -7,6 +7,9 @@ import { useDispatch } from 'react-redux';
 import { createPmGithubName } from '../../../../Login/redux-store/actions/action.js';
 import NavBarA from '../NavbarA';
 import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { ngrokUrl } from '../../../../Assets/config.js';
 
 const AddPm = () => {
   
@@ -15,7 +18,7 @@ const AddPm = () => {
   const [error,setError]=useState('false');
   let navigate = useNavigate()
   const { state } = useLocation();
-  let{ projectName, repo, projectDescription } = state || {};
+  let{ projectName, repo, projectDescription } = state || {};//passing data from create.js
   const[username,setusername]= useState('');
   let[projectNameA,setProjectNameA]=useState('')
   let[userNameA,setUserNameA]=useState('')
@@ -24,8 +27,13 @@ const AddPm = () => {
   // const handleSubmit=()=>{
   //   navigate('/addUser');
   // }
+
+  const handleBack = () => {
+    navigate(-1); // Go back one page in history
+  };
+
   useEffect(() => {
-    fetch(`https://3a5e-106-51-70-135.ngrok-free.app/api/users/role/project_manager`,{
+    fetch(`https://${ngrokUrl}/api/users/role/project_manager`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}).then((response)=>response.json())
@@ -37,14 +45,14 @@ const AddPm = () => {
     e.preventDefault();
     setError(true);
     const owner='swe1304';
-    const accessToken='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';
+    const accessToken='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';
     if(!projectName || !options||projectName.length===0 ||  options.length === 0){
       return;
   }
   if(projectName && options)
   {
     // dispatchPmGithub(createPmGithubName({projectName, repo, username}));
-    const response= axios.post('https://3a5e-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
+    const response= axios.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
     })
     projectNameA=projectName;
     console.log("hi",projectNameA)
@@ -73,7 +81,7 @@ const AddPm = () => {
           <input name="repoName" value={repo|| ' '} readOnly />
         </Form.Field>
 
-        <Form.Field>
+        {/* <Form.Field>
           <label style={{ textAlign: 'left' }}>PM Username</label>
           <select onChange={(e) => setusername(e.target.value)}>
             {options.map((item, index) => (
@@ -82,11 +90,27 @@ const AddPm = () => {
               </option>
             ))}
           </select>
-        </Form.Field>
+        </Form.Field> */}
+        <Form.Field>
+  <label style={{ textAlign: 'left' }}>PM Username</label>
+  <Form.Select
+    options={options.map((item, index) => ({
+      key: item.githubUsername,
+      value: item.githubUsername,
+      text: item.githubUsername
+    }))}
+    onChange={(e, { value }) => setusername(value)}
+    placeholder="Select PM Username"
+    search
+    selection
+    dropdownDirection="down"
+  />
+</Form.Field>
 
 
         <Button type='submit' variant='primary' onClick={handleSubmit}>Submit</Button>
       </Form>
+      <Button className="back-button" onClick={handleBack}><FontAwesomeIcon icon={faArrowLeft} /> </Button>
     </div>
     </div>
   );
