@@ -21,6 +21,7 @@ import NavBarA from '../NavbarA';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './Create.css'
+import { ngrokUrl } from '../../../../Assets/config';
 
 const Create = () => {
   let navigate = useNavigate();
@@ -47,7 +48,7 @@ const Create = () => {
     navigate(-1); // Go back one page in history
   };
   useEffect(() => {
-    fetch(`https://3a5e-106-51-70-135.ngrok-free.app/api/repositories/get`,{
+    fetch(`https://${ngrokUrl}/api/repositories/get`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}).then((response)=>response.json())
@@ -72,7 +73,7 @@ const Create = () => {
       <NavBarA/>
   <div  >
   <Form className='form-style' onSubmit={handleSubmit}>
-      <h1><Button className="back-button" onClick={handleBack}><FontAwesomeIcon icon={faArrowLeft} /> </Button>Create Project</h1>
+      <h1>Create Project</h1>
       <Form.Field>
         <label style={{ textAlign: 'left' }}>Project-Name</label>
         <input name='projectName' onChange={(e)=>setProjectName(e.target.value)} placeholder='ProjectName' />
@@ -85,21 +86,23 @@ const Create = () => {
         {clicked&&projectDescription.length<=0?
                <label style={{color:'red'}}>Project Description can't be Empty</label>: ""}
       </Form.Field>
-      <Form.Field>
-          <label style={{ textAlign: 'left' }}>REPO</label>
-          <select onChange={(e) => setrepo(e.target.value)}>
-            {options.map((item, index) => (
-              <option key={item.name} value={item.name}>
-                {item.name}
-              </option>
-            ))}
-          </select>
-        </Form.Field>
+     
+        <Form.Field>
+  <label style={{ textAlign: 'left' }}>REPO</label>
+  <Form.Select
+    options={options.map((item) => ({ key: item.name, value: item.name, text: item.name }))}
+    onChange={(e, { value }) => setrepo(value)}
+    placeholder="Select Repository"
+    search
+    selection
+    dropdownDirection="down"
+  />
+</Form.Field>
       <Button type='submit' variant='primary' onClick={handleSubmit}>Next</Button>
   </Form>
+  <Button className="back-button" onClick={handleBack}><FontAwesomeIcon icon={faArrowLeft} /> </Button>
   </div>
   </div>
 )
 }
 export default Create;
-

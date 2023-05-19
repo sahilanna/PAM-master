@@ -21,10 +21,11 @@ import  {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from 'cdbreact'
+import { ngrokUrl } from '../../../Assets/config'
 
 function UserRead(){
   const navigate = useNavigate();
-  const getUrl =  "https://3a5e-106-51-70-135.ngrok-free.app/api/users/role/user";
+  const getUrl =  `https://${ngrokUrl}/api/users/role/user`;
   const delUrl = "";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -75,7 +76,7 @@ function UserRead(){
     };
 
     const deleteUser = async (id) => {
-      await axios.delete(`https://3a5e-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
+      await axios.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
       navigate('/userRead')
       setShowConfirmDialog(false);
       loaditem();

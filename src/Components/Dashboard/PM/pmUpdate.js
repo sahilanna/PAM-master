@@ -10,15 +10,19 @@ import { faPen, faTrash, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import NavBarP from './NavbarP';
 
 export default function PmUpdate() {
-  const getUrl =  "https://3a5e-106-51-70-135.ngrok-free.app/api/users/role/project_manager"
+  // const { id, name, email, githubUsername } = useLocation().state;
+  const getUrl =  "https://77c8-106-51-70-135.ngrok-free.app/api/users/role/project_manager"
 
   
   let navigate= useNavigate();
-  const {ID} = useParams();
 
   const dispatchPMUpdate = useDispatch();
+ 
+  const {ID} = useParams();
+
+  // const dispatchPMUpdate = useDispatch();
   const[user,setUser]=useState('')
-  const[item,setItem]=useState('')
+  // const[item,setItem]=useState('')
   
   // const project = useSelector(state => state.createReducer);//Allows u to extract data from Redux store state.
   const [id, setId] = useState('');
@@ -40,7 +44,7 @@ export default function PmUpdate() {
     dispatchPMUpdate(updatePM({id, name, email, githubUsername, enumRole}));
 
     const loaditem = async () => {
-      const result = await axios.get(`https://3a5e-106-51-70-135.ngrok-free.app/api/users/role/project_manager/${params.id}`,{
+      const result = await axios.get(`https://77c8-106-51-70-135.ngrok-free.app/api/users/role/project_manager/${params.id}`,{
           headers: {
             'ngrok-skip-browser-warning': 'true'
           }}).then((result) => {
@@ -70,7 +74,7 @@ export default function PmUpdate() {
       <Form className='form-style'>
       <h1>Update PM</h1>
       <Form.Field>
-        <label>PM-ID</label>
+        <label style={{ textAlign: 'left' }}>PM-ID</label>
         <input name='id'
          onChange={(e)=>setId(e.target.value)} 
          placeholder='PM-ID'
@@ -78,7 +82,7 @@ export default function PmUpdate() {
       </Form.Field>
 
       <Form.Field>
-        <label>PM-Name</label>
+        <label style={{ textAlign: 'left' }}>PM-Name</label>
         <input name='name'
         value = {name} 
         onChange={(e)=>setName(e.target.value)}
@@ -86,17 +90,17 @@ export default function PmUpdate() {
       </Form.Field>
 
       <Form.Field>
-        <label>Email</label>
+        <label style={{ textAlign: 'left' }}>Email</label>
         <input name='email' value = {email} onChange={(e)=>setEmail(e.target.value)} />
       </Form.Field>
 
       <Form.Field>
-        <label>PM Github Username</label>
+        <label style={{ textAlign: 'left' }}>PM Github Username</label>
         <input name='githubUsername' value = {githubUsername} onChange={(e)=>setGithubUsername(e.target.value)} />
       </Form.Field>
 
       <Form.Field>
-        <label>Role</label>
+        <label style={{ textAlign: 'left' }}>Role</label>
         <input name='enumRole' onChange={(e)=>setEnumRole(2)} value="2" disabled/>
         {/* <input type="text" name="name" value="2" disabled></input> */}
     </Form.Field>

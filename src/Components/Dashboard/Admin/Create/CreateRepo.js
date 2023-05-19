@@ -9,6 +9,8 @@ import './Create.css';
 import FooterA from '../FooterA';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { ngrokUrl } from '../../../../Assets/config';
+
 
 function CreateRepo() {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ function CreateRepo() {
   const [isValid, setIsValid] = useState(true);
   const [error, setError] = useState('false');
   const [clicked, setClicked] = useState(false);
-  const token = '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';
+  const token = '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';
 
   const handleBack = () => {
     navigate(-1); // Go back one page in history
@@ -31,7 +33,7 @@ function CreateRepo() {
       return;
     }
     if (name) {
-      const response = axios.post('https://3a5e-106-51-70-135.ngrok-free.app/api/repositories/add', { name });
+      const response = axios.post(`https://${ngrokUrl}/api/repositories/add`, { name });
       console.log(name);
       navigate('/Create');
     }

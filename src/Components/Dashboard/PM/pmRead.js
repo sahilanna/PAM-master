@@ -22,13 +22,14 @@ import  {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from 'cdbreact'
+import { ngrokUrl } from '../../../Assets/config'
 
 
 export default function PmRead(){
   const navigate = useNavigate();
   // const getUrl =  "https://bc38-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-  const getUrl =  "https://3a5e-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-  const delUrl = "https://3a5e-106-51-70-135.ngrok-free.app/api/projects/delete/3";
+  const getUrl =  `https://${ngrokUrl}/api/users/role/project_manager`;
+  const delUrl = "https://77c8-106-51-70-135.ngrok-free.app/api/projects/delete/3";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
   const [name, setName] = useState('');
@@ -87,7 +88,7 @@ export default function PmRead(){
     
 
     const deleteUser = async (id) => {
-      await axios.delete(`https://3a5e-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
+      await axios.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
       navigate('/pmRead')
       setShowConfirmDialog(false);
       loaditem();
@@ -122,7 +123,7 @@ export default function PmRead(){
             <th>PM-Email</th>
             {/* <th>PM-Github-UserName</th> */}
             <th>View</th>
-            <th>Update</th>
+            <th>Edit</th>
             <th>Delete</th>
          </thead>
          <tbody>

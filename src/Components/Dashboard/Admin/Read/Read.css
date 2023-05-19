@@ -54,27 +54,6 @@
 }
 
 .back-button{
-  /* position: fixed;
-  top: 10px;
-  right: 10px;
-  font-size: 1.2rem;
-  background-color: #1f1f1f;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  
-   */
-<<<<<<< HEAD
-  /* width: 88px;
-  height: 32px; */
-  /* border-radius: 2px; */
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-  position:relative;
-  
-  font-size: large;
-  float: left;
-=======
   width: 88px;
   height: 32px;
   border-radius: 2px;
