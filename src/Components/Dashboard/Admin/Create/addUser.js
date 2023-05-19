@@ -44,6 +44,8 @@ const AddUser = () => {
     const accessToken='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';
     if(!projectNameA||!options||projectNameA.length===0 ||  options.length === 0){
       setError(true)
+      console.log('lll')
+      //hi
   }
 
   if(projectNameA && options)

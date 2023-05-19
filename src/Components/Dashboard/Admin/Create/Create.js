@@ -14,12 +14,6 @@ import NavBarA from '../NavbarA';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import '../Read/Read.css'
-import AddPm from './addPm';
-import AddUser from './addUser';
-import { Button } from 'react-bootstrap';
-import NavBarA from '../NavbarA';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './Create.css'
 import { ngrokUrl } from '../../../../Assets/config';
 

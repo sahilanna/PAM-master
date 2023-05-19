@@ -4,11 +4,7 @@ import { IconName } from "react-icons/fa";
 // import NoTransitionExample from './LandingPgCarousel';
 import Carousel from 'react-bootstrap/Carousel';
 import NavBar from './NavBar';
-<<<<<<< HEAD
-import Footer from'./Dashboard/Admin/Footer'
-=======
 import Footer from'./Footer'
->>>>>>> 503d1b91365c0db646b5ec0a5fb9a7b627a6faa6
 import photo1 from '../Assets/photo1.jpeg'
 import photo2 from '../Assets/photo2.avif'
 import photo3 from '../Assets/photo3.avif'
