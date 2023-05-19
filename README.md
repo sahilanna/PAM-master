@@ -9,7 +9,7 @@ PAMS currently supports the following features:
 * User authentication
 * Resource management (add, edit, delete resources)
 * User management (add, edit, delete users)
-* Access management (grant, revoke, view access for users)
+* Access management (grant, revoke, view access for users).
 
 
 
