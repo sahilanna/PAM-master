@@ -18,8 +18,9 @@ const FinalForm = () => {
   let [repoName, setRepoName] = useState('');
   let [pmGithubUsername, setPmGithubUsername] = useState('');
   let [userGithubUsernames, setUserGithubUsername] = useState('');
+  const [file, setFile] = useState(null);
 
-  console.log("hi");
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,13 +28,25 @@ const FinalForm = () => {
     repoName=repo;
     pmGithubUsername=userNameA;
     userGithubUsernames=username;
-    axios.post(`https://${ngrokUrl}/api/project-details/add`, {projectName, repoName, projectDescription, pmGithubUsername, userGithubUsernames}).then(() => {
+    const a= axios.post(`https://${ngrokUrl}/file`, {file},{
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },}).then(() => {
       navigate('/adminDashboard');
+      
+    }).catch((error)=>{
+      console.log("error")
+
     });
   };
 
   const handleBack = () => {
     navigate(-1);
+  };
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+    console.log(event);
   };
 
 
@@ -78,6 +91,11 @@ const FinalForm = () => {
           <label style={{ textAlign: 'left' }}>User's Github Username</label>
           <input name='username' value={username || ''} readOnly  />
         </Form.Field>
+        <Form.Field >
+           
+            <label style={{ textAlign: 'left' }}>File Upload</label>
+            <input type='file' name='file' onChange={handleFileChange} />
+          </Form.Field>
 
 
         <Button type='submit' variant='primary' onClick={handleSubmit}>Submit</Button>

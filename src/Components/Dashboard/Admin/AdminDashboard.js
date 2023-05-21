@@ -39,6 +39,7 @@ const AdminDashboard = () => {
   const [currentPageData, setCurrentPageData] = useState([]);
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const[file,setFile]=useState(null);
   
   const [repoName, setRepoName] = useState('');
   const [pmGithubUsername, setPmGithubUsername] = useState('');
@@ -151,6 +152,7 @@ const handlePaginate = (pageNumber) => {
             <th>Project-ID</th>
             <th>Project-Name</th>
             <th>Project-Description</th>
+            <th>File</th>
             {/* <th>Repository Name</th> */}
             {/* <th>PM Github</th>
             <th>User Github</th>  */}
@@ -165,6 +167,7 @@ const handlePaginate = (pageNumber) => {
               <td>{item.projectId}</td>
               <td>{item.projectName}</td>
               <td>{item.projectDescription}</td>
+              <td>{item.file}</td>
          
               <td>
   <button
