@@ -199,7 +199,7 @@ function PmReadNew() {
       </table>
     
     <div className='pagination'>
-      {/* Display items for the current page */}
+      
       <Pagination
       data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
