@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import FigmaCreate from '../Create/FigmaCreate';
+import FigmaCreate from './FigmaCreate';
 import { Button, Icon } from 'semantic-ui-react';
 
 

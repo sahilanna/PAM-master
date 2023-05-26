@@ -16,6 +16,7 @@ import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './Read.css'
 import ProjectDetails from './ProjectDetails'
 import { ngrokUrl } from '../../../../Assets/config';
+import Sidebar from '../../SideBar/SideBar';
 
 
 
@@ -92,6 +93,7 @@ const handlePaginate = (pageNumber) => {
     // <div className="container">
     // <div className="py-4">
     <div>
+      <Sidebar/>
      
       <table class="table">
         <thead>

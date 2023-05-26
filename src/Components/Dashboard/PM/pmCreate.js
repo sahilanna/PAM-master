@@ -35,7 +35,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
         return;
     }
       dispatchPM(createPM({id, name, email, enumRole}));
-      navigate('/pmRead')
+      navigate('/pmReadNew')
      
     }
   

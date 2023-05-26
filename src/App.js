@@ -34,9 +34,11 @@ import NavBarA from './Components/Dashboard/Admin/NavbarA';
 import projectDetailsNew from './Components/Dashboard/Admin/Read/projectDetailsNew';
 import SideBar from './Components/Dashboard/SideBar/SideBar';
 import repoRead from './Components/Dashboard/Admin/Repository/repoRead';
-import FigmaRead from './Components/Dashboard/Admin/Read/FigmaRead';
-import FigmaCreate from './Components/Dashboard/Admin/Create/FigmaCreate';
+import FigmaRead from './Components/Dashboard/Admin/Figma/FigmaRead';
+import FigmaCreate from './Components/Dashboard/Admin/Figma/FigmaCreate';
 import userHistory from './Components/Dashboard/Admin/userHistory/userHistory';
+import Reports from './Components/Dashboard/Admin/Reports/Reports';
+import Sidebar from './Components/Dashboard/SideBar/SideBar';
 
 
 
@@ -49,8 +51,12 @@ function App() {
     
     <div className="App">
       <Provider store = {store}>
+      {/* <div style={{display:'flex', flexDirection:'row'}}>
+              <Sidebar/> */}
+              
         <Router>
           <Routes>
+           
           <Route exact path='/AdminDashboard' Component={AdminDashboard}/>
           <Route exact path='/' Component={LandingPage}/>
           <Route exact path='/Create' Component={Create}/>
@@ -79,8 +85,12 @@ function App() {
           <Route exact path='/FigmaRead' Component={FigmaRead}/>
           <Route exact path='/FigmaCreate' Component={FigmaCreate}/>
           <Route exact path='/userHistory' Component={userHistory}/>
+          <Route exact path='/Reports' Component={Reports}/>
+          
+          
           </Routes>
         </Router>
+        {/* </div> */}
       </Provider>
     </div>
   );

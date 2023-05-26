@@ -11,7 +11,7 @@ import  {
 
 function Sidebar() {
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
+    <div style={{ height: '100vh', overflow: 'scroll initial' }}>
     {/* Set flex: 1 to create a container for the sidebar */}
       <CDBSidebar textColor="#fff" backgroundColor="#333">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
@@ -32,7 +32,7 @@ function Sidebar() {
             {/* <NavLink exact to="/analytics" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="chart-line">Reports</CDBSidebarMenuItem>
             </NavLink> */}
-            <NavLink exact to="/CreateRepo" activeClassName="activeClicked">
+            <NavLink exact to="/repoRead" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="sticky-note">Repos</CDBSidebarMenuItem>
             </NavLink>
 
@@ -42,7 +42,16 @@ function Sidebar() {
             <NavLink exact to="/userRead" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="table">Users</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/userRead" activeClassName="activeClicked">
+           
+            <NavLink exact to="/figmaRead" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="book">Figma</CDBSidebarMenuItem>
+            </NavLink>
+            
+            <NavLink exact to="/userHistory" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="book">User History</CDBSidebarMenuItem>
+            </NavLink>
+
+            <NavLink exact to="/Reports" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="book">Reports</CDBSidebarMenuItem>
             </NavLink>
 

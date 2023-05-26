@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Button, Table } from 'semantic-ui-react'
+import { Button, Sidebar, Table } from 'semantic-ui-react'
 import axios from 'axios'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import {Link}  from 'react-router-dom'
@@ -96,6 +96,7 @@ function UserRead(){
   return(
 <div>
   <h1>Users</h1>
+  <Sidebar/>
   {/* <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
   <CDBSidebar textColor="#fff" backgroundColor="#333">
     <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}> Users
@@ -116,12 +117,12 @@ function UserRead(){
     <div className="py-4"> */}
      <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
         <div class="ui left icon input">
-  <input type="text" placeholder="Search PM..."  ></input>
+  <input type="text" placeholder="Search user..."  ></input>
   <i class="users icon"></i>
 </div>
 
 
-    <button class="ui button" onClick={createOnclick} >Create PM</button>
+    <button class="ui button" onClick={createOnclick} >Create User</button>
     
     </div>
     <div style={{marginLeft:'20px',marginRight:'30px'}}>

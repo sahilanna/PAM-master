@@ -27,7 +27,7 @@ function userHistory() {
     <tr class="positive">
       <td>project 3</td>
       <td><i class="icon checkmark"></i> Approved</td>
-      <td>None</td>
+      <td>3/1/22</td>
     </tr>
     <tr>
       <td>project 2</td>
