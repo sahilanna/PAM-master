@@ -78,6 +78,9 @@ function UserRead(){
     React.useEffect(() => {
       handlePaginate(1);
     }, [item]);
+    const handleSearchChange = (e) => {
+      setSearchQuery(e.target.value);
+    };
 
     const handlePaginate = (pageNumber) => {
       const indexOfLastItem = pageNumber * itemsPerPage;
@@ -96,28 +99,12 @@ function UserRead(){
   return(
 <div>
   <h1>Users</h1>
-  <Sidebar/>
-  {/* <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-  <CDBSidebar textColor="#fff" backgroundColor="#333">
-    <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}> Users
-      </CDBSidebarHeader>
-    <CDBSidebarContent className="sidebar-content">
-        <CDBSidebarMenu>
-          <NavLink exact to="/AdminDashboard" activeClassName="activeClicked">
-            <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
-          </NavLink>
-          <NavLink exact to="/userCreate" activeClassName="activeClicked">
-            <CDBSidebarMenuItem icon="chart-line">Create User</CDBSidebarMenuItem>
-          </NavLink>
-          </CDBSidebarMenu>
-          </CDBSidebarContent>
-          </CDBSidebar>
-          </div> */}
-          {/* <div className="container">
-    <div className="py-4"> */}
+  
+  
      <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
         <div class="ui left icon input">
-  <input type="text" placeholder="Search user..."  ></input>
+  <input type="text" placeholder="Search user..." value={searchQuery}
+            onChange={handleSearchChange} ></input>
   <i class="users icon"></i>
 </div>
 

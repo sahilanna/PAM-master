@@ -71,6 +71,10 @@ function PmReadNew() {
         );
         setFilteredProjects(filteredProjects);
       }, [searchQuery, item]);
+
+      const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+      };
   
       console.log(item);
   
@@ -128,7 +132,8 @@ function PmReadNew() {
     
     <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
         <div class="ui left icon input">
-  <input type="text" placeholder="Search PM..."  ></input>
+  <input type="text" placeholder="Search PM..." value={searchQuery}
+            onChange={handleSearchChange} ></input>
   <i class="users icon"></i>
 </div>
 

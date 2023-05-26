@@ -12,7 +12,7 @@ import  {
 function Sidebar() {
   return (
     <div style={{ height: '100vh', overflow: 'scroll initial' }}>
-    {/* Set flex: 1 to create a container for the sidebar */}
+    
       <CDBSidebar textColor="#fff" backgroundColor="#333">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
           <a href="/LandingPage" className="text-decoration-none" style={{ color: 'inherit' }}>
