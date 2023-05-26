@@ -1,12 +1,23 @@
-import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Modal, Button} from 'semantic-ui-react';
+
+
+
+
+
 
 const ProjectDetails = ({ project, onClose }) => {
-  if (!project) return null;
+  
+
+  const [visible,setvisible]=useState(false);
 
   return (
-    <Modal show={true} onHide={onClose}>
-      <Modal.Header closeButton>
+    <Modal 
+    onClose={() => setvisible(false)}
+    onOpen={() => setvisible(true)}
+    open={visible}
+    >
+      <Modal.Header >
         <Modal.Title>Project Details</Modal.Title>
       </Modal.Header>
       <Modal.Body>

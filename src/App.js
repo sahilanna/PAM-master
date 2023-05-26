@@ -18,7 +18,7 @@ import Roles from './Components/Dashboard/Roles/Roles';
 import Create from './Components/Dashboard/Admin/Create/Create';
 import Read from './Components/Dashboard/Admin/Read/Read';
 import PmCreate from './Components/Dashboard/PM/pmCreate';
-import PmRead from './Components/Dashboard/PM/pmRead';
+import PmReadNew from './Components/Dashboard/PM/PmReadNew';
 import PmUpdate from './Components/Dashboard/PM/pmUpdate';
 import UserCreate from './Components/Dashboard/Users/userCreate';
 import UserRead from './Components/Dashboard/Users/userRead';
@@ -31,6 +31,12 @@ import addUser from './Components/Dashboard/Admin/Create/addUser.js';
 import userDashboard from './Components/Dashboard/Users/userDashboard';
 import FinalForm from './Components/Dashboard/Admin/Create/finalForm';
 import NavBarA from './Components/Dashboard/Admin/NavbarA';
+import projectDetailsNew from './Components/Dashboard/Admin/Read/projectDetailsNew';
+import SideBar from './Components/Dashboard/SideBar/SideBar';
+import repoRead from './Components/Dashboard/Admin/Repository/repoRead';
+import FigmaRead from './Components/Dashboard/Admin/Read/FigmaRead';
+import FigmaCreate from './Components/Dashboard/Admin/Create/FigmaCreate';
+import userHistory from './Components/Dashboard/Admin/userHistory/userHistory';
 
 
 
@@ -53,7 +59,7 @@ function App() {
           <Route exact path='/Roles' Component={Roles}/>
           <Route exact path='/Login' Component={Login}/>
           <Route exact path='/PmCreate' Component={PmCreate}/>
-          <Route exact path='/PmRead' Component={PmRead}/>
+          <Route exact path='/PmReadNew' Component={PmReadNew}/>
           <Route exact path='/PmUpdate/:id' Component={PmUpdate}/>
           <Route exact path='/UserCreate' Component={UserCreate}/>
           <Route exact path='/UserRead' Component={UserRead}/>
@@ -67,6 +73,12 @@ function App() {
           <Route exact path='/userDashboard'Component={userDashboard}/>
           <Route exact path='/finalForm' Component={FinalForm}/>
           <Route exact path='/NavbarA' Component={NavBarA}/>
+          <Route exact path='/ProjectDetailsNew' Component={projectDetailsNew}/>
+          <Route exact path='/SideBar' Component={SideBar}/>
+          <Route exact path='/repoRead' Component={repoRead}/>
+          <Route exact path='/FigmaRead' Component={FigmaRead}/>
+          <Route exact path='/FigmaCreate' Component={FigmaCreate}/>
+          <Route exact path='/userHistory' Component={userHistory}/>
           </Routes>
         </Router>
       </Provider>

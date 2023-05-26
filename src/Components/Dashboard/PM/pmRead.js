@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Button, Item, Table } from 'semantic-ui-react'
+import { Button, Item, Sidebar, Table } from 'semantic-ui-react'
 import axios from 'axios'
 import {Link, NavLink, useNavigate, useParams } from 'react-router-dom'
 import { useReducer } from 'react'
@@ -40,6 +40,9 @@ export default function PmRead(){
   const[githubUsername,setgithubUsername]=useState('')
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+const [filteredProjects, setFilteredProjects] = useState([]);
+
   const itemsPerPage = 5;
 
   const { ID } = useParams();
@@ -52,12 +55,20 @@ export default function PmRead(){
           'ngrok-skip-browser-warning': 'true'
         }}) .then((result) => {
         setItem(result.data);
+       
         // console.log(res, "hello");
       })
       .catch((error)=>{
         console.log(error,'hi');
       })
     };
+
+    useEffect(() => {
+      const filteredProjects = item.filter((project) =>
+        project.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredProjects(filteredProjects);
+    }, [searchQuery, item]);
 
     console.log(item);
 
@@ -94,27 +105,41 @@ export default function PmRead(){
       loaditem();
       navigate('/pmRead')
     };
+
+const createOnclick=()=>{
+  navigate('/PmCreate')
+}
+
+const handleSearch = (event) => {
+  setSearchQuery(event.target.value);
+};
+
   return(
 <div>
  
 <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-  <CDBSidebar textColor="#fff" backgroundColor="#333">
-    <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>Project Manager
-      </CDBSidebarHeader>
-    <CDBSidebarContent className="sidebar-content">
-        <CDBSidebarMenu>
-          <NavLink exact to="/Admindashboard" activeClassName="activeClicked">
-            <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
-          </NavLink>
-          <NavLink exact to="/pmCreate" activeClassName="activeClicked">
-            <CDBSidebarMenuItem icon="chart-line">Create PM</CDBSidebarMenuItem>
-          </NavLink>
-          </CDBSidebarMenu>
-          </CDBSidebarContent>
-          </CDBSidebar>
-    {/* <div className="container">
-    <div className="py-4"> */}
-      <table class="table">
+  <Sidebar/>
+  </div>
+  
+   <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'20px',marginRight:'30px'}}>
+        <div class="ui left icon input">
+  <input type="text" placeholder="Search PM..."  ></input>
+  <i class="users icon"></i>
+</div>
+
+
+    <button class="ui button" >Create PM</button>
+    
+    </div>
+   
+     
+
+     
+
+
+    <div>
+      <div style={{marginLeft:'20px',marginRight:'30px'}}>
+    <table class="ui celled table">
         {/* <thead colspan = '5'>
         </thead> */}
         <thead>
@@ -127,8 +152,11 @@ export default function PmRead(){
             <th>Delete</th>
          </thead>
          <tbody>
-          {currentPageData.map((item, index) => (
-            <tr>
+           {filteredProjects.map((item, index) => (
+    <tr key={index}>
+          
+          {/* {currentPageData.map((item, index) => (
+            <tr> */}
               <td>{item.id}</td>
               <td>{item.name}</td>
               <td>{item.email}</td>
@@ -169,9 +197,10 @@ export default function PmRead(){
             </tr>
           ))}
         </tbody>
+
       </table>
-      
-    </div>
+      </div>
+     
     <div className='pagination'>
       {/* Display items for the current page */}
       <Pagination
@@ -182,6 +211,7 @@ export default function PmRead(){
         <PmDetails project={selectedProject} onClose={handleCloseDetails} />
       )}
     </div>
+    </div>
    
     
   
@@ -189,7 +219,9 @@ export default function PmRead(){
 }
 
 
-// export default function PmRead(){
+
+
+{/* // export default function PmRead(){
 
 //     const navigate = useNavigate();
 //     const getUrl =  "https://b619-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
@@ -249,7 +281,7 @@ export default function PmRead(){
 //           {/* <thead colspan = '5'>
             
 //           </thead> */}
-//           <tbody>
+{/* //           <tbody>
 //           <tr>
 //               <th className='col'>PM-ID</th>
 //               <th className='col'>PM-Name</th>
@@ -257,35 +289,17 @@ export default function PmRead(){
 //               <th className='col'>Update</th>
 //               <th className='col'>Delete</th>
 //             </tr>
-//             {item.map((user, index) => (
-//               <tr>
+//             {item.map((user, index) => ( */}
+{/* //               <tr>
 //                 <td>{user.id}</td>
 //                 <td>{user.name}</td>
 //                 <td>{user.email}</td>
                 
 //                 <td>
-//                   <Link
-//                     className="btn btn-outline-primary mx-2"
+//                   <Link */}
+{/* //                     className="btn btn-outline-primary mx-2"
 //                     to={`/PmUpdate/${user.id}`} 
 //                   >
-//                     Update
-//                   </Link>
-//                   </td>
-//                   <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(true)}>Delete</button>
-//       <DialogBox
-//        show={showConfirmDialog}
-//         onClose={() => setShowConfirmDialog(false)}
-//         onConfirm={()=>deleteUser(user.id)}/>
-//         </Link>
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-//     </div>
-//   </div>
-//   </div>
-// )
-// }
-
+//                     Update */}
+//                 
+//           

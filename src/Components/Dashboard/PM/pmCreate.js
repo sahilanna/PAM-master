@@ -34,7 +34,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
       if(name.length==0 || email.length==0 || githubUsername.length == 0){
         return;
     }
-      dispatchPM(createPM({id, name, email, githubUsername, enumRole}));
+      dispatchPM(createPM({id, name, email, enumRole}));
       navigate('/pmRead')
      
     }
@@ -44,7 +44,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
       <NavBarP />
       <div>
   <div className = "form-dis">
-  <Form className='form-style'   onSubmit={handleSubmit}>
+  <Form className='form-style' onSubmit={handleSubmit}>
       <h1>Add PM</h1>
       <Form.Field>
           <label style={{ textAlign: 'left' }}>Project-Manager ID</label>

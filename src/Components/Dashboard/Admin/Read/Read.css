@@ -137,6 +137,9 @@
     position: relative;
     top: 20px
   }
+  .table-align{
+    padding-bottom: 0px;
+  }
 }
 
 

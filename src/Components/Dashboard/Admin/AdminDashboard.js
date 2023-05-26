@@ -4,15 +4,14 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { Navigate, useParams}  from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import DialogBox from '../DialogBox/DialogBox';
 import ProjectDetails from './Read/ProjectDetails';
 import 'semantic-ui-css/semantic.min.css';
 import Pagination from '../Pagination/Pagination';
-
-
-
+import PmReadNew from '../PM/PmReadNew';
+import userHistory from './userHistory/userHistory';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import {
   CDBSidebar,
@@ -79,6 +78,9 @@ const handleCloseDetails = () => {
 React.useEffect(() => {
   handlePaginate(1);
 }, [item]);
+const createOnclick=()=>{
+  navigate('/Create')
+}
 
 console.log(item);
 const handlePaginate = (pageNumber) => {
@@ -101,7 +103,8 @@ const handlePaginate = (pageNumber) => {
 
   return (
       <div>
-      <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
+        
+      <div style={{ height: '100vh', overflow: 'scroll initial' }}>
         {/* Set flex: 1 to create a container for the sidebar */}
           <CDBSidebar textColor="#fff" backgroundColor="#333">
             <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
@@ -112,7 +115,7 @@ const handlePaginate = (pageNumber) => {
             <CDBSidebarContent className="sidebar-content">
               <CDBSidebarMenu>
                 <NavLink exact to="/AdminDashboard" activeClassName="activeClicked">
-                  <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
+                  <CDBSidebarMenuItem icon="columns">Projects</CDBSidebarMenuItem>
                 </NavLink>
 
                 {/* <NavLink exact to="/tables" activeClassName="activeClicked">
@@ -122,20 +125,35 @@ const handlePaginate = (pageNumber) => {
                 {/* <NavLink exact to="/analytics" activeClassName="activeClicked">
                   <CDBSidebarMenuItem icon="chart-line">Reports</CDBSidebarMenuItem>
                 </NavLink> */}
-                <NavLink exact to="/CreateRepo" activeClassName="activeClicked">
-                  <CDBSidebarMenuItem icon="chart-line">Create Repository</CDBSidebarMenuItem>
+                <NavLink exact to="/repoRead" activeClassName="activeClicked">
+                  <CDBSidebarMenuItem icon="sticky-note">Repos</CDBSidebarMenuItem>
                 </NavLink>
 
-                <NavLink exact to="/Create" activeClassName="activeClicked">
-                  <CDBSidebarMenuItem icon="table">Create Project</CDBSidebarMenuItem>
+                <NavLink exact to="/pmReadNew" activeClassName="activeClicked">
+                  <CDBSidebarMenuItem icon="table">PMs</CDBSidebarMenuItem>
+                </NavLink>
+                <NavLink exact to="/userRead" activeClassName="activeClicked">
+                  <CDBSidebarMenuItem icon="table">Users</CDBSidebarMenuItem>
+                </NavLink>
+               
+                <NavLink exact to="/figmaRead" activeClassName="activeClicked">
+                  <CDBSidebarMenuItem icon="book">Figma</CDBSidebarMenuItem>
+                </NavLink>
+                
+                <NavLink exact to="/userHistory" activeClassName="activeClicked">
+                  <CDBSidebarMenuItem icon="book">User History</CDBSidebarMenuItem>
                 </NavLink>
 
-                <div className='row'>
+                <NavLink exact to="/Reports" activeClassName="activeClicked">
+                  <CDBSidebarMenuItem icon="book">Reports</CDBSidebarMenuItem>
+                </NavLink>
+
+                {/* <div className='row'>
                   <NavDropdown title="Role">
                     <NavDropdown.Item style={{ color: 'black' }} as={Link} to="/pmRead">Project Manager</NavDropdown.Item>
                     <NavDropdown.Item style={{ color: 'black' }} as={Link} to="/userRead">User</NavDropdown.Item>
                   </NavDropdown>
-                </div>
+                </div> */}
               </CDBSidebarMenu>
             </CDBSidebarContent>
             <CDBSidebarFooter style={{ textAlign: 'center' }}>
@@ -146,8 +164,22 @@ const handlePaginate = (pageNumber) => {
               ></div>
             </CDBSidebarFooter>
           </CDBSidebar>
+          </div>
+          <div>
+          <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
+        <div class="ui left icon input">
+  <input type="text" placeholder="Search PM..."  ></input>
+  <i class="users icon"></i>
+</div>
+
+
+    <button class="ui button" onClick={createOnclick} >Create PM</button>
+    
+    </div>
+    
+    <div style={{marginLeft:'20px',marginRight:'30px'}}>
+    <table class="ui celled table">
        
-        <table class="table">
         <thead>
             <th>Project-ID</th>
             <th>Project-Name</th>
@@ -211,6 +243,7 @@ const handlePaginate = (pageNumber) => {
 
 
         </div>  
+      </div>
       </div>
     
   );
