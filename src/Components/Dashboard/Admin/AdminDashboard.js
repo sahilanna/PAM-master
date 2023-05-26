@@ -28,8 +28,8 @@ import { ngrokUrl } from '../../../Assets/config';
 const AdminDashboard = () => {
 
   const navigate=useNavigate()
-  const getUrl =  `https://${ngrokUrl}/api/project-details/get`
-  const delUrl = `https:/${ngrokUrl}/api/projects/delete/3`
+  const getUrl =  `https://${ngrokUrl}/api/projects/allProjects`
+  const delUrl = `https:/${ngrokUrl}/api/projects/delete/`
   const [item, setItem] = useState([]);
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
@@ -173,7 +173,7 @@ const handlePaginate = (pageNumber) => {
 </div>
 
 
-    <button class="ui button" onClick={createOnclick} >Create PM</button>
+    <button class="ui button" onClick={createOnclick} >Create Project</button>
     
     </div>
     

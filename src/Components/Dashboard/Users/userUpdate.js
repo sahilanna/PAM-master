@@ -35,7 +35,7 @@ export default function UserUpdate() {
   
 
     const sendDataToAPIUser = () => {
-    dispatchUserUpdate(updateUser({id, name, email, githubUsername, enumRole}));
+    dispatchUserUpdate(updateUser({id, name, email, enumRole}));
 
     const loaditem = async () => {
         const result = await axios.get(getUrl,{
@@ -46,7 +46,7 @@ export default function UserUpdate() {
           setItem(result.data);
           setName(result.name);
           setEmail(result.email);
-          setGithubUsername(result.gitbubUsername);
+          
           // console.log(res, "hello");
         })
         .catch((error)=>{
@@ -88,10 +88,10 @@ export default function UserUpdate() {
             <input name='email' onChange={(e)=>setEmail(e.target.value)} placeholder='EMAIL' />
         </Form.Field>
 
-        <Form.Field>
+        {/* <Form.Field>
         <label>User Github Username</label>
         <input name='githubUsername' value = {githubUsername} onChange={(e)=>setGithubUsername(e.target.value)} />
-      </Form.Field>
+      </Form.Field> */}
 
         <Form.Field>
             <label>Role</label>

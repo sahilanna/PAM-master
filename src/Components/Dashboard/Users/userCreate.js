@@ -27,11 +27,11 @@ function UserCreate(){
  const handleSubmit=(e)=>{
     e.preventDefault();
     setClicked(true);
-    if(name.length==0 || email.length==0 || githubUsername.length==0){
+    if(name.length==0 || email.length==0 ){
       return;
   }
  
-   dispatchUser(createUser({id,name, email, githubUsername, enumRole}));
+   dispatchUser(createUser({id,name, email, enumRole}));
     navigate('/userRead')
   
   }
@@ -60,12 +60,12 @@ return(
         {clicked&&email.length<=0?
                <label style={{color:'red'}}>  Email can't be Empty</label>: ""}
     </Form.Field>
-    <Form.Field>
+    {/* <Form.Field>
           <label style={{ textAlign: 'left' }}>User's Github Name</label>
           <input type='text' name='githubUsername' onChange={(e)=>setgithubUsername(e.target.value)} placeholder='User Github githubUsername' />
           {clicked&&githubUsername.length<=0?
                  <label style={{color:'red'}}> User's githubname can't be Empty</label>: ""}
-    </Form.Field>
+    </Form.Field> */}
 
     <Form.Field>
         <label style={{ textAlign: 'left' }}>Role</label>

@@ -33,6 +33,9 @@ export default function Read(){
   const [currentPageData, setCurrentPageData] = useState([]);
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  
   
   const [repoName, setRepoName] = useState('');
   const [pmGithubUsername, setPmGithubUsername] = useState('');
@@ -59,6 +62,17 @@ export default function Read(){
   useEffect(() => {
     loaditem();
 }, []);
+
+useEffect(() => {
+  const filteredProjects = item.filter((project) =>
+    project.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  setFilteredProjects(filteredProjects);
+}, [searchQuery, item]);
+
+const handleSearchChange = (e) => {
+  setSearchQuery(e.target.value);
+};
 
 const handleViewDetails = (project) => {
   setSelectedProject(project);
