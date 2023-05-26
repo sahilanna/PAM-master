@@ -19,7 +19,7 @@ function CreateRepo() {
   const [isValid, setIsValid] = useState(true);
   const [error, setError] = useState('false');
   const [clicked, setClicked] = useState(false);
-  const token = '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';
+  const token = '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';
 
   const handleBack = () => {
     navigate(-1); // Go back one page in history
