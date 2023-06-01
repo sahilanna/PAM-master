@@ -39,6 +39,9 @@ import FigmaCreate from './Components/Dashboard/Admin/Figma/FigmaCreate';
 import userHistory from './Components/Dashboard/Admin/userHistory/userHistory';
 import Reports from './Components/Dashboard/Admin/Reports/Reports';
 import Sidebar from './Components/Dashboard/SideBar/SideBar';
+import Signup from './Login/signUp';
+import createFigmaDetails from './Components/Dashboard/Admin/Figma/createFigmaDetails';
+
 
 
 
@@ -86,6 +89,8 @@ function App() {
           <Route exact path='/FigmaCreate' Component={FigmaCreate}/>
           <Route exact path='/userHistory' Component={userHistory}/>
           <Route exact path='/Reports' Component={Reports}/>
+          <Route exact path='/SignUp' Component={Signup}/>
+          <Route exact path='/createFigmaDetails' Component={createFigmaDetails}/>
           
           
           </Routes>

@@ -10,6 +10,7 @@ import { ngrokUrl } from '../Assets/config';
 function Test() {
     const navigate=useNavigate()
     async function handleGoogleLogin(response) {
+        console.log(response);
         const token=response.credential
         console.log(token)
         const headers = {
@@ -17,6 +18,29 @@ function Test() {
             'ngrok-skip-browser-warning': 'true'
           };
           try {
+        //     const { data } = await axios.post(
+        //         'https://oauth2.googleapis.com/token',
+        //         {
+        //           client_id: '840665959732-ip9sm2ea6l7ds2vbgooum6ec08fl8k3v.apps.googleusercontent.com',
+        //           client_secret: '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',
+        //           grant_type: 'refresh_token',
+        //           refreshToken:token,
+        //           code: response.code,
+        //           redirect_uri: 'http://localhost:3000',
+        //         }
+        //       );
+          
+        //       const refreshToken = data.refresh_token;
+        //       console.log(refreshToken);
+          
+        //       // Store the refresh token securely for later use
+        //       // You can save it in a database or any secure storage mechanism
+          
+        //       // Continue with your logic to navigate or handle the token as needed
+        //     } catch (error) {
+        //       console.log('Error exchanging ID token for refresh token:', error);
+        //     }
+        //   }
             const { data}  = await axios.get(
                 `https://${ngrokUrl}/auth/api/get-email`,
                 { headers },)
@@ -37,7 +61,7 @@ function Test() {
         }
         catch (error) {
             console.log('hi',error);
-            // Handle errors
+           
         }
     }
     useEffect(() => {

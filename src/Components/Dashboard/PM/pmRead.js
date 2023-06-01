@@ -49,10 +49,13 @@ const [filteredProjects, setFilteredProjects] = useState([]);
   useEffect(() => {
     loaditem();
   }, []);
+  const token = localStorage.getItem('token');
+
   const loaditem = async () => {
     const result = await axios.get(getUrl,{
         headers: {
-          'ngrok-skip-browser-warning': 'true'
+          'ngrok-skip-browser-warning': 'true',
+           'Authorization': token,
         }}) .then((result) => {
         setItem(result.data);
        
@@ -60,6 +63,7 @@ const [filteredProjects, setFilteredProjects] = useState([]);
       })
       .catch((error)=>{
         console.log(error,'hi');
+        console.log(token);
       })
     };
 
@@ -100,6 +104,7 @@ const [filteredProjects, setFilteredProjects] = useState([]);
 
     const deleteUser = async (id) => {
       await axios.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
+
       navigate('/pmRead')
       setShowConfirmDialog(false);
       loaditem();

@@ -51,17 +51,26 @@ function PmReadNew() {
     useEffect(() => {
       loaditem();
     }, []);
+    // const tokenData = localStorage.getItem('userData').replaceAll('"','');
+    const tokenData=localStorage.getItem('userData')
+    console.log(tokenData)
+
     const loaditem = async () => {
       const result = await axios.get(getUrl,{
           headers: {
+            Authorization: `Bearer ${tokenData}`,
             'ngrok-skip-browser-warning': 'true'
+          
           }}) .then((result) => {
           setItem(result.data);
+          console.log(tokenData)
          
           // console.log(res, "hello");
         })
         .catch((error)=>{
           console.log(error,'hi');
+          
+
         })
       };
   

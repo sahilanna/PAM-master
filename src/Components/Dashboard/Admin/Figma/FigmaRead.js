@@ -73,21 +73,48 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Dropdown, Input,Icon } from 'semantic-ui-react';
 import FigmaCreate from './FigmaCreate';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 function FigmaRead() {
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
-  const[item,setItem]=useState('')
+  const [item,setitem]=useState([])
+
+  const[list,setlist]=useState([])
+  const navigate=useNavigate();
 
   const openModal = () => {
     setShowModal(true);
   };
-//   useEffect(() => {
-//     const filteredProjects = item.filter((project) =>
-//       project.name.toLowerCase().includes(searchQuery.toLowerCase())
-//     );
-//     setFilteredProjects(filteredProjects);
-//   }, [searchQuery, item]);
+
+
+useEffect(() => {
+  fetchProjects();
+}, []);
+
+const fetchProjects = async () => {
+  try {
+    const response = await axios.get('https://7db4-106-51-70-135.ngrok-free.app/api/figmas/getAll',{
+      headers: {
+        'ngrok-skip-browser-warning': 'true'
+      }});
+      
+    setlist(response.data);
+  } catch (error) {
+    console.log('Error fetching projects:', error);
+  }
+};
+useEffect(() => {
+  const filteredProjects = list.filter((project) =>
+    project.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  setFilteredProjects(filteredProjects);
+}, [searchQuery, list]);
+
+const CreateFigma=()=>{
+  navigate('/createFigmaDetails')
+}
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -99,7 +126,7 @@ function FigmaRead() {
 
   return (
     <div>
-      <h1>Figma</h1>
+      <h1 style={{textAlign:'center'}}>Figma</h1>
       <div
         style={{
           display: 'flex',
@@ -116,7 +143,7 @@ function FigmaRead() {
             onChange={handleSearchChange}/>
           <i className="users icon"></i>
         </div>
-        <button className="ui button" >
+        <button className="ui button" onClick={CreateFigma} >
           Create Figma
         </button>
       </div>
@@ -130,16 +157,29 @@ function FigmaRead() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>www.figma.com</td>
-              <td>
-                <Button color="blue" icon labelPosition="left" onClick={openModal}>
-                  <Icon name="plus" />
-                  Add
-                </Button>
-              </td>
-            </tr>
+            {filteredProjects.map((project,index) => (
+              <tr key={project.id}>
+                <td>{project.projectName}</td>
+                
+                {/* <td>{project.figmaURL}</td> */}
+                <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">
+                    {project.figmaURL}
+                    
+                    
+                  </a>
+                <td>
+                  <Button
+                    color="blue"
+                    icon
+                    labelPosition="left"
+                    onClick={openModal}
+                  >
+                    <Icon name="plus" />
+                    Add
+                  </Button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

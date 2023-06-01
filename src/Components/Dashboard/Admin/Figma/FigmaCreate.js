@@ -89,19 +89,19 @@
 
 // export default FigmaCreate;
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
+import axios from 'axios';
+import CreateFigmaDetails from './createFigmaDetails';
 
-const FigmaCreate = ({ onClose }) => {
-  const [url, setUrl] = useState('');
+const FigmaCreate = ({ onClose, figmaURL }) => {
+  console.log(figmaURL)
+  const [url, setUrl] = useState(figmaURL);
   const [selectedUser, setSelectedUser] = useState('');
   const [image, setImage] = useState(null);
+  const[user, setUsers]=useState([])
+ 
 
-  const userList = [
-    { id: 1, name: 'User 1' },
-    { id: 2, name: 'User 2' },
-    { id: 3, name: 'User 3' },
-  ];
 
   const handleUrlChange = (e) => {
     setUrl(e.target.value);
@@ -119,13 +119,50 @@ const FigmaCreate = ({ onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Handle form submission logic here
+    
+    const formData = new FormData();
+    formData.append('image', image);
 
-    setUrl('');
-    setSelectedUser('');
-    setImage(null);
-    onClose();
+    
+    try {
+     
+      const response =  axios.post('https://7db4-106-51-70-135.ngrok-free.app/api/figmas/image', formData);
+
+      const names = response.data.map(project => project.projectName);
+      setUsers(names);
+      console.log(response.data);
+
+      
+      setUrl('');
+      setSelectedUser('');
+      setImage(null);
+      onClose();
+    } catch (error) {
+     
+      console.error(error);
+    }
+  
   };
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+  
+  const fetchProjects = async () => {
+    try {
+      const response = await axios.get('https://7db4-106-51-70-135.ngrok-free.app/api/users/get', {
+        headers: {
+          'ngrok-skip-browser-warning': 'true'
+        }
+      });
+     console.log(response.data)
+     const projectNames = response.data.map(project => project.name);
+     setUsers(projectNames);
+  
+    } catch (error) {
+      console.log('Error fetching projects:', error);
+    }
+  };
+    
 
   return (
     <Modal open={true} onClose={onClose}>
@@ -139,18 +176,19 @@ const FigmaCreate = ({ onClose }) => {
               placeholder="Enter URL"
               value={url}
               onChange={handleUrlChange}
+              readOnly
             />
           </Form.Field>
           <Form.Field>
             <label>User</label>
             <Dropdown
-              placeholder="Select User"
+              placeholder="Select Project"
               fluid
               selection
-              options={userList.map((user) => ({
-                key: user.id,
-                text: user.name,
-                value: user.id,
+              options={user.map((name, index) => ({
+                key: index,
+                text: name,
+                value: name
               }))}
               value={selectedUser}
               onChange={handleUserChange}
@@ -173,5 +211,4 @@ const FigmaCreate = ({ onClose }) => {
 };
 
 export default FigmaCreate;
-
 
