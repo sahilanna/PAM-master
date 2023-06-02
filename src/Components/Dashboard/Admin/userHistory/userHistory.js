@@ -49,9 +49,11 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Table } from 'semantic-ui-react';
+import { Table, TableCell,Icon } from 'semantic-ui-react';
 import './userHistory.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Sidebar from '../../SideBar/SideBar';
+import { ngrokUrl } from '../../../../Assets/config';
 
 function UserHistory() {
   const [historyData, setHistoryData] = useState([]);
@@ -62,43 +64,71 @@ function UserHistory() {
 
   async function fetchData() {
     try {
-      const response = await axios.get('https://6429847d5a40b82da4d494b2.mockapi.io/userHsitory');
+      const response = await axios.get(`https://${ngrokUrl}/api/projects/all`,{
+        headers: {
+          'ngrok-skip-browser-warning': 'true'
+        }});
       setHistoryData(response.data);
+     
     } catch (error) {
       console.log('Error fetching user history:', error);
     }
   }
 
   return (
-    <div>
+    <div className='parent-admin'>
       <div>
-        <h1 style={{fontFamily:'sans-serif'}}>User History</h1>
+        <Sidebar/>
       </div>
+      
       <br />
       <br />
+      
+      <div className='admin-child'>
+      <h1 style={{fontFamily:'sans-serif'}}>User History</h1>
       <div style={{ marginLeft: '20px', marginRight: '30px' }}>
         <Table  class="ui celled table">
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Projects</Table.HeaderCell>
-              <Table.HeaderCell>Status</Table.HeaderCell>
+              <Table.HeaderCell>Project Id</Table.HeaderCell>
+              <Table.HeaderCell>Project Name</Table.HeaderCell>
+              <Table.HeaderCell>Project Description</Table.HeaderCell>
               <Table.HeaderCell>Last Updated</Table.HeaderCell>
+              <Table.HeaderCell>Status</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {historyData.map((entry) => (
-              <Table.Row key={entry.id}>
+              <Table.Row key={entry.projectId}>
+                <Table.Cell>{entry.projectId}</Table.Cell>
                 <Table.Cell>{entry.projectName}</Table.Cell>
-                
-                
-                
-                <Table.Cell class='positive'>{entry.status}</Table.Cell>
+                <Table.Cell>{entry.projectDescription}</Table.Cell>
+                <Table.Cell style={{ color: 'blue' }}>
+        {new Date(entry.lastUpdated).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+        })}
+      </Table.Cell>
+                <Table.Cell>
+        {entry.status ? (
+          <Icon name="close" color="red" />
+        ) : (
+          <Icon name="check" color="green" />
+        )}
+      </Table.Cell>
+                {/* <Table.Cell>{entry.status ? "Inactive" : "Active"}</Table.Cell> */}
 
-                <Table.Cell>{entry.lastupdated}</Table.Cell>
+
+               
+                
               </Table.Row>
             ))}
           </Table.Body>
         </Table>
+        </div>
       </div>
     </div>
   );

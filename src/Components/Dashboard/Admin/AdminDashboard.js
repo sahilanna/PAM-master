@@ -102,7 +102,7 @@ const handlePaginate = (pageNumber) => {
 
   
   const deleteUser = async (projectId) => {
-    await axios.delete(`https://${ngrokUrl}/api/project-details/delete/${projectId}`);
+    await axios.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`);
     navigate('/AdminDashboard')
     setShowConfirmDialog(false);
     loaditem();
@@ -137,7 +137,7 @@ const handlePaginate = (pageNumber) => {
             <th>Project-ID</th>
             <th>Project-Name</th>
             <th>Project-Description</th>
-            <th>File</th>
+            
             {/* <th>Repository Name</th> */}
             {/* <th>PM Github</th>
             <th>User Github</th>  */}
@@ -152,7 +152,7 @@ const handlePaginate = (pageNumber) => {
               <td>{item.projectId}</td>
               <td>{item.projectName}</td>
               <td>{item.projectDescription}</td>
-              <td>{item.file}</td>
+             
          
               <td>
   <button

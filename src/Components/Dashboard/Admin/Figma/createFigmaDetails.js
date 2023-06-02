@@ -6,18 +6,21 @@ import FigmaCreate from './FigmaCreate';
 
 function CreateFigmaDetails() {
   const navigate = useNavigate()
-  const [projectName, setProjectName] = useState('');
+  let [projectName, setProjectName] = useState('');
   const [figmaURL, setFigmaUrl] = useState('');
   const [proj,setproj]=useState([])
-  const[item,setitem]=useState('')
+  let[item,setitem]=useState('')
+  const [selectedProject, setSelectedProject] = useState('');
 
-  const handleProjChange = (e, { value }) => {
+  const handleProjChange = (event, { value }) => {
     setitem(value);
   };
   useEffect(() => {
     fetchProjects();
   }, []);
   
+projectName=item;
+
   const fetchProjects = async () => {
     try {
       const response = await axios.get('https://de62-106-51-70-135.ngrok-free.app/api/projects/allProjects', {
@@ -25,7 +28,7 @@ function CreateFigmaDetails() {
           'ngrok-skip-browser-warning': 'true'
         }
       });
-      setitem(response.data)
+      // setitem(response.data)
      console.log(response.data)
      const projectNames = response.data.map(project => project.projectName);
      setproj(projectNames);
@@ -67,7 +70,7 @@ function CreateFigmaDetails() {
                 value: name
               }))}
               value={item}
-              onChange={handleProjChange}
+               onChange={handleProjChange}
             />
             </Form.Field>
         <Form.Field>

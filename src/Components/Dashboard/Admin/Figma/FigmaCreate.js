@@ -97,9 +97,9 @@ import CreateFigmaDetails from './createFigmaDetails';
 const FigmaCreate = ({ onClose, figmaURL }) => {
   console.log(figmaURL)
   const [url, setUrl] = useState(figmaURL);
-  const [selectedUser, setSelectedUser] = useState('');
+  let [selectedUser, setSelectedUser] = useState('');
   const [image, setImage] = useState(null);
-  const[user, setUsers]=useState([])
+  let[user, setUsers]=useState([])
  
 
 
@@ -120,13 +120,13 @@ const FigmaCreate = ({ onClose, figmaURL }) => {
     e.preventDefault();
 
     
-    const formData = new FormData();
-    formData.append('image', image);
+    // const formData = new FormData();
+    // formData.append('image', image);
 
-    
+  selectedUser=user;    
     try {
      
-      const response =  axios.post('https://de62-106-51-70-135.ngrok-free.app/api/figmas/image', formData);
+      const response =  axios.post('https://de62-106-51-70-135.ngrok-free.app/api/users',user );
 
       const names = response.data.map(project => project.projectName);
       setUsers(names);

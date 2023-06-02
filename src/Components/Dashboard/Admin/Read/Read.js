@@ -52,9 +52,7 @@ export default function Read(){
         'ngrok-skip-browser-warning': 'true'
       }}) .then((result) => {
       setItem(result.data);
-      // handleViewDetails(result.data);
-      // setSelectedProject(result.data);
-      // console.log(res, "hello");
+     
     })
     .catch((error)=>{
       console.log(error,'hi');
