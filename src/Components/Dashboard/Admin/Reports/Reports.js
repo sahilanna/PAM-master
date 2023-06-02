@@ -1,8 +1,12 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import axios from 'axios';
 import { CSVLink } from 'react-csv';
+import Sidebar from '../../SideBar/SideBar';
+import '../AdminDashboard.css'
+
+
 
 function Reports() {
     const [userProjectList, setUserProjectlist] = useState(false);
@@ -18,7 +22,7 @@ function Reports() {
 
     async function fetchUserProjectList() {
           try {
-            const response = await axios.get('https://7db4-106-51-70-135.ngrok-free.app/api/users/getAll',{
+            const response = await axios.get('https://de62-106-51-70-135.ngrok-free.app/api/users/getAll',{
               headers: {
                 'ngrok-skip-browser-warning': 'true'
               }
@@ -34,7 +38,7 @@ function Reports() {
         
         async function fetchOtherTableData() {
           try {
-            const response1 = await axios.get('https://7db4-106-51-70-135.ngrok-free.app/api/users/getMultiple',{
+            const response1 = await axios.get('https://de62-106-51-70-135.ngrok-free.app/api/users/getMultiple',{
               headers: {
                 'ngrok-skip-browser-warning': 'true'
               }
@@ -68,13 +72,18 @@ function Reports() {
     }));
     
     return (
-      <div>
-        <h1> Reports</h1>
-        <br/>
-        <br/>
+      <div className='parent-admin'>
         
-        <button className='btn btn-danger mx-2' onClick={handleTableClick}>User Project List</button>
-        <button  className='btn btn-danger mx-2' onClick={handleOtherTableClick}>Users With Multiple Project Access</button>
+        <div >
+          <Sidebar/>
+        </div>
+        
+        
+        <div className='admin-child'>
+          <h1>Reports</h1>
+        
+        <Button  onClick={handleTableClick}>User Project List</Button>
+        <Button  onClick={handleOtherTableClick}>Users With Multiple Project Access</Button>
        <br/><br/>
 
        
@@ -146,12 +155,11 @@ function Reports() {
         </div>
         )}
         </div>
-          </div>
-          
-          
+          </div>  
             
           
         )}
+        </div>
         </div>
       
       </div>
@@ -159,104 +167,3 @@ function Reports() {
   }
 
   export default Reports;
-
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import { Button } from 'semantic-ui-react';
-
-// function Reports() {
-//   const [userProjectList, setUserProjectList] = useState([]);
-//   const [showOtherTable, setShowOtherTable] = useState([]);
-  
-//   useEffect(() => {
-//     fetchUserProjectList();
-//     fetchOtherTableData();
-//   }, []);
-
-//   async function fetchUserProjectList() {
-//     try {
-//       const response = await axios.get('https://3cb3-106-51-70-135.ngrok-free.app/api/users/getAll');
-//       setUserProjectList(response.data);
-//     } catch (error) {
-//       console.log('Error fetching user project list:', error);
-//     }
-//   }
-  
-//   async function fetchOtherTableData() {
-//     try {
-//       const response = await axios.get('your-other-table-api');
-//       setShowOtherTable(response.data);
-//     } catch (error) {
-//       console.log('Error fetching other table data:', error);
-//     }
-//   }
-
-//   const handleTableClick = () => {
-//     setUserProjectList(true);
-//     setShowOtherTable(false);
-//   };
-
-//   const handleOtherTableClick = () => {
-//     setUserProjectList(false);
-//     setShowOtherTable(true);
-//   };
-
-//   return (
-//     <div>
-//       <h1>Reports</h1>
-//       <br />
-//       <br />
-
-//       <Button className='btn btn-danger mx-2' onClick={handleTableClick}>User Project List</Button>
-//       <Button className='btn btn-danger mx-2' onClick={handleOtherTableClick}>Users With Multiple Project Access</Button>
-//       <br /><br />
-
-//       {userProjectList.length > 0 && (
-//         <div style={{ marginLeft: '40px', marginRight: '40px' }}>
-//           <table className="ui celled table">
-//             <thead>
-//               <tr>
-//                 <th>User Id</th>
-//                 <th>User Name</th>
-//                 <th>Projects</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {userProjectList.map((entry) => (
-//                 <tr key={entry.userId}>
-//                   <td>{entry.userName}</td>
-//                   <td>{entry.projectNames}</td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         </div>
-//       )}
-
-//       {showOtherTable.length > 0 && (
-//         <div style={{ marginLeft: '40px', marginRight: '40px' }}>
-//           <table className="ui celled table">
-//             <thead>
-//               <tr>
-//                 <th>Name</th>
-//                 <th>Email</th>
-//                 <th>Projects</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {showOtherTable.map((entry) => (
-//                 <tr key={entry.id}>
-//                   <td>{entry.name}</td>
-//                   <td>{entry.email}</td>
-//                   <td>{entry.projects}</td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default Reports;

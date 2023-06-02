@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Button, Sidebar, Table } from 'semantic-ui-react'
+import { Button,  Table } from 'semantic-ui-react'
 import axios from 'axios'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import {Link}  from 'react-router-dom'
@@ -11,16 +11,10 @@ import DialogBox from '../DialogBox/DialogBox'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import UserDetails from './UserDetails'
+import Sidebar from '../SideBar/SideBar'
+
 
 // import './Read.css'
-import  {
-  CDBSidebar,
-  CDBSidebarContent,
-  CDBSidebarFooter,
-  CDBSidebarHeader,
-  CDBSidebarMenu,
-  CDBSidebarMenuItem,
-} from 'cdbreact'
 import { ngrokUrl } from '../../../Assets/config'
 
 function UserRead(){
@@ -97,10 +91,13 @@ function UserRead(){
       navigate('/userRead')
     };
   return(
-<div>
-  <h1>Users</h1>
+<div className='parent-admin'>
+  <div>
+    <Sidebar/>
+  </div>
+ 
   
-  
+  <div className='admin-child'>
      <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
         <div class="ui left icon input">
   <input type="text" placeholder="Search user..." value={searchQuery}

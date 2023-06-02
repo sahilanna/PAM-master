@@ -126,7 +126,7 @@ const FigmaCreate = ({ onClose, figmaURL }) => {
     
     try {
      
-      const response =  axios.post('https://7db4-106-51-70-135.ngrok-free.app/api/figmas/image', formData);
+      const response =  axios.post('https://de62-106-51-70-135.ngrok-free.app/api/figmas/image', formData);
 
       const names = response.data.map(project => project.projectName);
       setUsers(names);
@@ -144,22 +144,22 @@ const FigmaCreate = ({ onClose, figmaURL }) => {
   
   };
   useEffect(() => {
-    fetchProjects();
+    fetchUsers();
   }, []);
   
-  const fetchProjects = async () => {
+  const fetchUsers = async () => {
     try {
-      const response = await axios.get('https://7db4-106-51-70-135.ngrok-free.app/api/users/get', {
+      const response = await axios.get('https://de62-106-51-70-135.ngrok-free.app/api/users/get', {
         headers: {
           'ngrok-skip-browser-warning': 'true'
         }
       });
      console.log(response.data)
-     const projectNames = response.data.map(project => project.name);
-     setUsers(projectNames);
+     const userNames = response.data.map(project => project.name);
+     setUsers(userNames);
   
     } catch (error) {
-      console.log('Error fetching projects:', error);
+      console.log('Error fetching Users:', error);
     }
   };
     
@@ -182,7 +182,7 @@ const FigmaCreate = ({ onClose, figmaURL }) => {
           <Form.Field>
             <label>User</label>
             <Dropdown
-              placeholder="Select Project"
+              placeholder="Select User"
               fluid
               selection
               options={user.map((name, index) => ({

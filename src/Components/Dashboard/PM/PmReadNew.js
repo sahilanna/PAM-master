@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
-import { Button, Item, Sidebar, Table } from 'semantic-ui-react'
+import { Button, Item,  Table } from 'semantic-ui-react'
 import axios from 'axios'
 import {Link, NavLink, useNavigate, useParams } from 'react-router-dom'
 import { useReducer } from 'react'
@@ -14,14 +14,16 @@ import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './Read.css'
 import PmDetails from './PmDetails'
 import { ngrokUrl } from '../../../Assets/config'
-import  {
-    CDBSidebar,
-    CDBSidebarContent,
-    CDBSidebarFooter,
-    CDBSidebarHeader,
-    CDBSidebarMenu,
-    CDBSidebarMenuItem,
-  } from 'cdbreact'
+import Sidebar from '../SideBar/SideBar'
+import '/home/nineleaps/Downloads/PAM-master-master/src/Components/Dashboard/Admin/AdminDashboard.css'
+// import  {
+//     CDBSidebar,
+//     CDBSidebarContent,
+//     CDBSidebarFooter,
+//     CDBSidebarHeader,
+//     CDBSidebarMenu,
+//     CDBSidebarMenuItem,
+//   } from 'cdbreact'
 
 
 
@@ -131,14 +133,14 @@ function PmReadNew() {
   
   return (
 
-<div>
+<div className='parent-admin'>
     
-   <div>
+   <div >
     <Sidebar/>
     </div>
      
        
-    
+    <div className='admin-child'>
     <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
         <div class="ui left icon input">
   <input type="text" placeholder="Search PM..." value={searchQuery}
@@ -211,6 +213,7 @@ function PmReadNew() {
         </tbody>
 
       </table>
+      </div>
     
     <div className='pagination'>
       

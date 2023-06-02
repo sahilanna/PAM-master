@@ -89,6 +89,7 @@ import React, { useState, useEffect} from 'react';
 import CreateRepo from '../Create/CreateRepo';
 import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import Sidebar from '../../SideBar/SideBar';
 
 function RepoRead() {
   const getUrl = 'https://3ecb-106-51-70-135.ngrok-free.app/api/repositories/get';
@@ -130,9 +131,14 @@ function RepoRead() {
   };
 
   return (
-    <div>
-      <h1 style={{ textAlign: 'center' }}>Repository</h1>
-      <hr />
+    <div className='parent-admin'>
+      <div>
+        <Sidebar/>
+      </div>
+      
+    
+    
+      <div className='admin-child'>
       <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '20px', marginBottom: '30px', marginLeft: '40px', marginRight: '30px' }}>
         <div className="ui left icon input">
           <input type="text" placeholder="Search Repo..." onChange={(e) => setSearchQuery(e.target.value)} />
@@ -159,6 +165,7 @@ function RepoRead() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

@@ -7,14 +7,13 @@ import Login from './Login/Login';
 import Footer from './Components/Footer';
 import Carousel from 'react-bootstrap/Carousel'
 import AdminDashboard from './Components/Dashboard/Admin/AdminDashboard'
-import PmDashboard from './Components/Dashboard/PM/PmDashboard';
 import Pagination from './Components/Dashboard/Pagination/Pagination';
 import Update from './Components/Dashboard/Admin/Update/Update';
 import Delete from './Components/Dashboard/Admin/Delete/Delete';
 import {BrowserRouter as Router , Route,Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './Login/redux-store/store';
-import Roles from './Components/Dashboard/Roles/Roles';
+import PmDashboard from './Components/Dashboard/ProjectManager/PmDashboard';
 import Create from './Components/Dashboard/Admin/Create/Create';
 import Read from './Components/Dashboard/Admin/Read/Read';
 import PmCreate from './Components/Dashboard/PM/pmCreate';
@@ -28,7 +27,7 @@ import CreateRepo from './Components/Dashboard/Admin/Create/CreateRepo';
 import addCollab from './Components/Dashboard/Admin/addCollab/addCollab';
 import addPm from './Components/Dashboard/Admin/Create/addPm';
 import addUser from './Components/Dashboard/Admin/Create/addUser.js';
-import userDashboard from './Components/Dashboard/Users/userDashboard';
+//import userDashboard from './Components/Dashboard/Users/userDashboard';
 import FinalForm from './Components/Dashboard/Admin/Create/finalForm';
 import NavBarA from './Components/Dashboard/Admin/NavbarA';
 import projectDetailsNew from './Components/Dashboard/Admin/Read/projectDetailsNew';
@@ -41,6 +40,14 @@ import Reports from './Components/Dashboard/Admin/Reports/Reports';
 import Sidebar from './Components/Dashboard/SideBar/SideBar';
 import Signup from './Login/signUp';
 import createFigmaDetails from './Components/Dashboard/Admin/Figma/createFigmaDetails';
+import repoPmDashboard from './Components/Dashboard/ProjectManager/repoPmDashboard';
+import pmSidebar from './Components/Dashboard/ProjectManager/pmSidebar';
+import FigmaPmDashboard from './Components/Dashboard/ProjectManager/figmaPmDashboard';
+import Profile from './Components/Dashboard/ProjectManager/profile';
+import userProjects from './Components/Dashboard/UserDashboard/userProjects';
+import UserSidebar from './Components/Dashboard/UserDashboard/userSidebar';
+import userRepoRead from './Components/Dashboard/UserDashboard/userRepoRead';
+import userFigmaRead from './Components/Dashboard/UserDashboard/userFigmaRead';
 
 
 
@@ -65,7 +72,7 @@ function App() {
           <Route exact path='/Create' Component={Create}/>
           <Route exact path='/Read' Component={Read}/>
           <Route exact path='/Update/:projectId' Component={Update}/>
-          <Route exact path='/Roles' Component={Roles}/>
+          <Route exact path='/repoPmDashboard' Component={repoPmDashboard}/>
           <Route exact path='/Login' Component={Login}/>
           <Route exact path='/PmCreate' Component={PmCreate}/>
           <Route exact path='/PmReadNew' Component={PmReadNew}/>
@@ -79,7 +86,7 @@ function App() {
           <Route exact path='/addPm' Component={addPm}/>
           <Route exact path='/addUser' Component={addUser}/>
           <Route exact path='/pmDashboard' Component={PmDashboard}/>
-          <Route exact path='/userDashboard'Component={userDashboard}/>
+          {/* <Route exact path='/userDashboard'Component={userDashboard}/> */}
           <Route exact path='/finalForm' Component={FinalForm}/>
           <Route exact path='/NavbarA' Component={NavBarA}/>
           <Route exact path='/ProjectDetailsNew' Component={projectDetailsNew}/>
@@ -91,7 +98,12 @@ function App() {
           <Route exact path='/Reports' Component={Reports}/>
           <Route exact path='/SignUp' Component={Signup}/>
           <Route exact path='/createFigmaDetails' Component={createFigmaDetails}/>
-          
+          <Route exact path='/pmSidebar' Component={pmSidebar}/>
+          <Route exact path='/figmaPmDashboard' Component={FigmaPmDashboard}/>
+          <Route exact path='/profile' Component={Profile}/>
+          <Route exact path='/userProjects' Component={userProjects}/>
+          <Route exact path='/userRepoRead' Component={userRepoRead}/>
+          <Route exact path='/userFigmaRead' Component={userFigmaRead}/>
           
           </Routes>
         </Router>

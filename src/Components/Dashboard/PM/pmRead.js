@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './Read.css'
 import PmDetails from './PmDetails'
+import Sidebar from '../SideBar/SideBar'
 
 
 import  {
@@ -121,9 +122,9 @@ const handleSearch = (event) => {
 
   return(
 <div>
- 
+<Sidebar/>
 <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-  <Sidebar/>
+  
   </div>
   
    <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'20px',marginRight:'30px'}}>
