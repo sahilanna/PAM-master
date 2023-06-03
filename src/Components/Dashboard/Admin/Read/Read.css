@@ -74,17 +74,18 @@
   display: flex;
   justify-content: center;
   border: 3px solid #ccc;
+  position: relative;
   background-color: #f9f9f9;
   padding: 20px;
 }
 
 
-.form-style{
+/* .form-style{
   width: 500px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-}
+} */
 
 .pagination{
   flex-direction:center;
@@ -131,6 +132,13 @@
     white-space: nowrap;
     content: attr(data-column);
     font-weight: bold;
+  }
+  .readfoot{
+    position: relative;
+    top: 20px
+  }
+  .table-align{
+    padding-bottom: 0px;
   }
 }
 

@@ -1,7 +1,8 @@
-import React from 'react';
+import React from 'react'
 import { Modal, Button } from 'react-bootstrap';
 
-const PmDetails = ({ project, onClose }) => {
+ 
+const PmProjectDetails = ({ project, onClose }) => {
   if (!project) return null;
 
   return (
@@ -10,9 +11,9 @@ const PmDetails = ({ project, onClose }) => {
         <Modal.Title>Project Details</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p><strong>PM ID: </strong> {project.id}</p>
-        <p><strong>PM Name:</strong>  {project.name}</p>
-        <p><strong>PM Email:</strong>  {project.email}</p>
+        <p><strong>Project ID: </strong> {project.projectId}</p>
+        <p><strong>Project Name:</strong>  {project.projectName}</p>
+        <p><strong>project Description: </strong>  {project.projectDescription}</p>
         {/* <p><strong>PM Github Username:</strong>  {project.githubUsername}</p> */}
       </Modal.Body>
       <Modal.Footer>
@@ -24,4 +25,7 @@ const PmDetails = ({ project, onClose }) => {
   );
 };
 
-export default PmDetails;
+
+ 
+
+export default PmProjectDetails

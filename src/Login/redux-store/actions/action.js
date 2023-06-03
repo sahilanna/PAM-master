@@ -43,14 +43,14 @@ export const updateProject = ({projectId, projectName, projectDescription, repo}
 
 
 //Create PM
-export const createPM = ({id, name, email, githubUsername,enumRole}) => {
+export const createPM = ({id, name, email,enumRole}) => {
     return async(dispatchPMUpdate) => {
         try {
             const responseCreatePM = await axios.post(`https://${ngrokUrl}/api/users/`, {
                 id,
                 name,
                 email,
-                githubUsername,
+                
                 enumRole,
                 
             })
@@ -87,14 +87,14 @@ export const updatePM = ({id, name, email, githubUsername, enumRole}) => {
 
 //create user
 
-export const createUser = ({id, name, email, githubUsername, enumRole}) => {
+export const createUser = ({id, name, email, enumRole}) => {
     return async(dispatchUserUpdate) => {
         try {
             const responseCreateUser = await axios.post(`https://${ngrokUrl}/api/users/`, {
                 id,
                 name,
                 email,
-                githubUsername,
+                
                 enumRole
             })
             dispatchUserUpdate({type: "createUser", payload: responseCreateUser});
@@ -108,7 +108,7 @@ export const createUser = ({id, name, email, githubUsername, enumRole}) => {
 
 
 //Update USER
-export const updateUser = ({id, name, email,githubUsername, enumRole}) => {
+export const updateUser = ({id, name, email, enumRole}) => {
     return async(dispatchUser) => {
         // const {id} = useParams();
         try {
@@ -116,7 +116,7 @@ export const updateUser = ({id, name, email,githubUsername, enumRole}) => {
                 id,
                 name,
                 email,
-                githubUsername,
+                
                 enumRole
             })
             dispatchUser({type: "updatePM", payload: responseUserUpdate});

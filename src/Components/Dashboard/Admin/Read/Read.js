@@ -16,6 +16,8 @@ import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './Read.css'
 import ProjectDetails from './ProjectDetails'
 import { ngrokUrl } from '../../../../Assets/config';
+import Sidebar from '../../SideBar/SideBar';
+
 
 
 
@@ -32,6 +34,9 @@ export default function Read(){
   const [currentPageData, setCurrentPageData] = useState([]);
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  
   
   const [repoName, setRepoName] = useState('');
   const [pmGithubUsername, setPmGithubUsername] = useState('');
@@ -47,9 +52,7 @@ export default function Read(){
         'ngrok-skip-browser-warning': 'true'
       }}) .then((result) => {
       setItem(result.data);
-      // handleViewDetails(result.data);
-      // setSelectedProject(result.data);
-      // console.log(res, "hello");
+     
     })
     .catch((error)=>{
       console.log(error,'hi');
@@ -58,6 +61,19 @@ export default function Read(){
   useEffect(() => {
     loaditem();
 }, []);
+
+useEffect(() => {
+  const filteredProjects = item.filter((project) =>
+    project.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  setFilteredProjects(filteredProjects);
+}, [searchQuery, item]);
+
+
+
+const handleSearchChange = (e) => {
+  setSearchQuery(e.target.value);
+};
 
 const handleViewDetails = (project) => {
   setSelectedProject(project);
@@ -92,6 +108,8 @@ const handlePaginate = (pageNumber) => {
     // <div className="container">
     // <div className="py-4">
     <div>
+      <Sidebar/>
+     
       <table class="table">
         <thead>
             <th>Project-ID</th>
@@ -159,7 +177,9 @@ const handlePaginate = (pageNumber) => {
         </td>
         </tr> ))}
         </tbody>
+       
       </table>
+     
       <div>
       {/* Display items for the current page */}
       <PaginationComponent
@@ -173,90 +193,4 @@ const handlePaginate = (pageNumber) => {
   // </div>
  )
 }
-  // const[apiData, setApiData]=useState([])
-  //     useEffect(() => {
-  //     axios.get('https://279c-106-51-70-135.ngrok-free.app/api/projects/').then((response)=>{
-  //     console.log(response.data)
-  //     setApiData(response.data)
-  //     })
-  // },[])
-  // const setData = (data) => {
-  //     let {id,projectId, projectName, projectDescription}=data;
-  //     localStorage.setItem('id',id)
-  //     localStorage.setItem('projectId', projectId)
-  //     localStorage.setItem('projectName', projectName)
-  //     localStorage.setItem('projectDescription', projectDescription)
-  // }
-  // const getData = () => {
-  //     axios.get('https://279c-106-51-70-135.ngrok-free.app/api/projects/')
-  //         .then((getData) => {
-  //             setApiData(getData.data);
-  //         })
-  // }
-  // const OnDelete = (id) => {
-  //     axios.delete('https://6429847d5a40b82da4d494b2.mockapi.io/PAM')
-  //     .then((getData) => {
-  //         console.log(id.getData());
-  // return(
-  //     <div>
-  //   <Table celled className = 'tc'>
-  //     <Table.Header className='th'>
-  //       <Table.Row colspan='3'>
-  //         <Table.HeaderCell colspan>Project ID</Table.HeaderCell>
-  //         <Table.HeaderCell >Project Name</Table.HeaderCell>
-  //         <Table.HeaderCell>Project Description</Table.HeaderCell>
-  //         <Table.HeaderCell>Update</Table.HeaderCell>
-  //         <Table.HeaderCell>Delete</Table.HeaderCell>
-  //       </Table.Row>
-  //     </Table.Header>
-  //     <Table.Body>
-  //         {item.map((data) => {
-  //             return(
-  //                 <Table.Row>
-  //                 <Table.Cell className='td'>{data.projectId}</Table.Cell>
-  //                 <Table.Cell >{data.projectName}</Table.Cell>
-  //                 <Table.Cell>{data.projectDescription}</Table.Cell>
-  //                 <Table.Cell>
-  //                     <Link to='/Update'>
-  //                     <Button onClick={() => setData(apiData)}>Update</Button>
-  //                     </Link>
-  //                 </Table.Cell>
-  //                 <Table.Cell>
-  //                 <Button onClick={() => OnDelete(data.id)}>Delete</Button>
-  //                    </Table.Cell>
-  //                  </Table.Row>
-  //                )
-  //            })}
-  //        </Table.Body>
-  //      </Table>
-  //      </div>
-  //    )
-  //    }
-      // const[apiData, setApiData]=useState([])
-      //     useEffect(() => {
-      //     axios.get('https://279c-106-51-70-135.ngrok-free.app/api/projects/').then((response)=>{
-      //     console.log(response.data)
-      //     setApiData(response.data)
-      //     })
-      // },[])
-      // const setData = (data) => {
-      //     let {id,projectId, projectName, projectDescription}=data;
-      //     localStorage.setItem('id',id)
-      //     localStorage.setItem('projectId', projectId)
-      //     localStorage.setItem('projectName', projectName)
-      //     localStorage.setItem('projectDescription', projectDescription)
-      // }
-      // const getData = () => {
-      //     axios.get('https://279c-106-51-70-135.ngrok-free.app/api/projects/')
-      //         .then((getData) => {
-      //             setApiData(getData.data);
-      //         })
-      // }
-      // const OnDelete = (id) => {
-      //     axios.delete('https://6429847d5a40b82da4d494b2.mockapi.io/PAM')
-      //     .then((getData) => {
-      //         console.log(id.getData());
-      //     })
-      // }
-  //     })
-  // }
+ 

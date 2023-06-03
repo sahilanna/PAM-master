@@ -33,7 +33,8 @@ function CreateRepo() {
       return;
     }
     if (name) {
-      const response = axios.post(`https://${ngrokUrl}/api/repositories/add`, { name });
+      //  const response = axios.post(`https://${ngrokUrl}/api/repositories/add`, { name });
+      const response=axios.post(`https://3ecb-106-51-70-135.ngrok-free.app/api/repositories/add`,{name})
       console.log(name);
       navigate('/Create');
     }

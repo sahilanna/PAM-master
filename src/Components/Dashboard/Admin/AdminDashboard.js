@@ -4,33 +4,35 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { Navigate, useParams}  from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import DialogBox from '../DialogBox/DialogBox';
 import ProjectDetails from './Read/ProjectDetails';
 import 'semantic-ui-css/semantic.min.css';
 import Pagination from '../Pagination/Pagination';
-
-
-
+import PmReadNew from '../PM/PmReadNew';
+import userHistory from './userHistory/userHistory';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
-import {
-  CDBSidebar,
-  CDBSidebarContent,
-  CDBSidebarFooter,
-  CDBSidebarHeader,
-  CDBSidebarMenu,
-  CDBSidebarMenuItem,
-} from 'cdbreact';
+import { CSVLink } from 'react-csv';
+import Sidebar from '../SideBar/SideBar';
+// import {
+//   CDBSidebar,
+//   CDBSidebarContent,
+//   CDBSidebarFooter,
+//   CDBSidebarHeader,
+//   CDBSidebarMenu,
+//   CDBSidebarMenuItem,
+// } from 'cdbreact';
 import NavBarA from './NavbarA';
 import Read from './Read/Read';
 import { ngrokUrl } from '../../../Assets/config';
+import "./AdminDashboard.css"
 
 const AdminDashboard = () => {
 
   const navigate=useNavigate()
-  const getUrl =  `https://${ngrokUrl}/api/project-details/get`
-  const delUrl = `https:/${ngrokUrl}/api/projects/delete/3`
+  const getUrl =  `https://${ngrokUrl}/api/projects/allProjects`
+  const delUrl = `https:/${ngrokUrl}/api/projects/delete/`
   const [item, setItem] = useState([]);
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
@@ -39,6 +41,7 @@ const AdminDashboard = () => {
   const [currentPageData, setCurrentPageData] = useState([]);
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const[file,setFile]=useState(null);
   
   const [repoName, setRepoName] = useState('');
   const [pmGithubUsername, setPmGithubUsername] = useState('');
@@ -65,6 +68,12 @@ const AdminDashboard = () => {
   useEffect(() => {
     loaditem();
 }, []);
+const csvDataProj = item.map((entry) => ({
+  'project Id': entry.projectId,
+  'project Name': entry.projectName,
+  'project Description': entry.projectDescription
+ 
+}));
 
 const handleViewDetails = (project) => {
   setSelectedProject(project);
@@ -78,6 +87,9 @@ const handleCloseDetails = () => {
 React.useEffect(() => {
   handlePaginate(1);
 }, [item]);
+const createOnclick=()=>{
+  navigate('/Create')
+}
 
 console.log(item);
 const handlePaginate = (pageNumber) => {
@@ -90,7 +102,7 @@ const handlePaginate = (pageNumber) => {
 
   
   const deleteUser = async (projectId) => {
-    await axios.delete(`https://${ngrokUrl}/api/project-details/delete/${projectId}`);
+    await axios.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`);
     navigate('/AdminDashboard')
     setShowConfirmDialog(false);
     loaditem();
@@ -99,58 +111,33 @@ const handlePaginate = (pageNumber) => {
 
 
   return (
-      <div>
-      <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-        {/* Set flex: 1 to create a container for the sidebar */}
-          <CDBSidebar textColor="#fff" backgroundColor="#333">
-            <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-              <a href="/LandingPage" className="text-decoration-none" style={{ color: 'inherit' }}>
-                PAM
-              </a>
-            </CDBSidebarHeader>
-            <CDBSidebarContent className="sidebar-content">
-              <CDBSidebarMenu>
-                <NavLink exact to="/AdminDashboard" activeClassName="activeClicked">
-                  <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
-                </NavLink>
+      <div className='parent-admin'>
+        
+      <div style={{ height: '100vh', overflow: 'scroll initial' }}>
+        <Sidebar/>
+          </div>
+          
+          <div className='admin-child'>
+          <h1 >Projects</h1>
+          <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
+        <div class="ui left icon input">
+  <input type="text" placeholder="Search PM..."  ></input>
+  <i class="users icon"></i>
+</div>
 
-                {/* <NavLink exact to="/tables" activeClassName="activeClicked">
-                  <CDBSidebarMenuItem icon="table">Notifications</CDBSidebarMenuItem>
-                </NavLink> */}
 
-                {/* <NavLink exact to="/analytics" activeClassName="activeClicked">
-                  <CDBSidebarMenuItem icon="chart-line">Reports</CDBSidebarMenuItem>
-                </NavLink> */}
-                <NavLink exact to="/CreateRepo" activeClassName="activeClicked">
-                  <CDBSidebarMenuItem icon="chart-line">Create Repository</CDBSidebarMenuItem>
-                </NavLink>
-
-                <NavLink exact to="/Create" activeClassName="activeClicked">
-                  <CDBSidebarMenuItem icon="table">Create Project</CDBSidebarMenuItem>
-                </NavLink>
-
-                <div className='row'>
-                  <NavDropdown title="Role">
-                    <NavDropdown.Item style={{ color: 'black' }} as={Link} to="/pmRead">Project Manager</NavDropdown.Item>
-                    <NavDropdown.Item style={{ color: 'black' }} as={Link} to="/userRead">User</NavDropdown.Item>
-                  </NavDropdown>
-                </div>
-              </CDBSidebarMenu>
-            </CDBSidebarContent>
-            <CDBSidebarFooter style={{ textAlign: 'center' }}>
-              <div
-                style={{
-                  padding: '20px 5px',
-                }}
-              ></div>
-            </CDBSidebarFooter>
-          </CDBSidebar>
+    <button class="ui button" onClick={createOnclick} >Create Project</button>
+    
+    </div>
+    
+    <div style={{marginLeft:'20px',marginRight:'30px'}}>
+    <table class="ui celled table">
        
-        <table class="table">
         <thead>
             <th>Project-ID</th>
             <th>Project-Name</th>
             <th>Project-Description</th>
+            
             {/* <th>Repository Name</th> */}
             {/* <th>PM Github</th>
             <th>User Github</th>  */}
@@ -165,6 +152,7 @@ const handlePaginate = (pageNumber) => {
               <td>{item.projectId}</td>
               <td>{item.projectName}</td>
               <td>{item.projectDescription}</td>
+             
          
               <td>
   <button
@@ -174,14 +162,7 @@ const handlePaginate = (pageNumber) => {
     <FontAwesomeIcon icon={faEye} />
   </button>
 </td>             
-              {/* <td>
-                <Link
-                  className="btn btn-outline-primary mx-2"
-                  to={`/Update/${item.projectId}`}
-                >
-                  <FontAwesomeIcon icon={faPen} />
-                </Link>
-                </td> */}
+
                  <td>
               <Link>
       <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(item.projectId)}><FontAwesomeIcon icon={faTrash} /></button>
@@ -194,6 +175,15 @@ const handlePaginate = (pageNumber) => {
         </tr> ))}
         </tbody>
       </table>
+      <div>
+        {item.length > 0 && (
+        <div style={{ marginTop: '20px' }}>
+          <CSVLink data={csvDataProj} filename="user_project_list.csv" className="btn btn-primary">
+            Download CSV
+          </CSVLink>
+        </div>
+        )}
+        </div>
       <div>
       {/* Display items for the current page */}
       {/* <div className='pagination'>
@@ -208,6 +198,7 @@ const handlePaginate = (pageNumber) => {
 
 
         </div>  
+      </div>
       </div>
     
   );

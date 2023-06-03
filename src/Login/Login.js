@@ -10,6 +10,7 @@ import { ngrokUrl } from '../Assets/config';
 function Test() {
     const navigate=useNavigate()
     async function handleGoogleLogin(response) {
+        console.log(response);
         const token=response.credential
         console.log(token)
         const headers = {
@@ -17,9 +18,10 @@ function Test() {
             'ngrok-skip-browser-warning': 'true'
           };
           try {
+        
             const { data}  = await axios.get(
                 `https://${ngrokUrl}/auth/api/get-email`,
-                { headers },)
+                { headers })
             //console.log(headers)
             console.log(data);
             const role = data.role;
@@ -29,6 +31,7 @@ function Test() {
             } else if (data=="PROJECT_MANAGER") {
                 navigate('/pmDashboard', { state: { data } });
             } else if (data =='USER') {
+                
                 navigate('/userDashboard', { state: { data } });
             } else {
                 navigate('/');
@@ -36,7 +39,7 @@ function Test() {
         }
         catch (error) {
             console.log('hi',error);
-            // Handle errors
+           
         }
     }
     useEffect(() => {

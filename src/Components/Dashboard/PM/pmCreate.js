@@ -31,11 +31,11 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
     const handleSubmit=(e)=>{
       e.preventDefault();
       setClicked(true);
-      if(name.length==0 || email.length==0 || githubUsername.length == 0){
+      if(name.length==0 || email.length==0){
         return;
     }
-      dispatchPM(createPM({id, name, email, githubUsername, enumRole}));
-      navigate('/pmRead')
+      dispatchPM(createPM({id, name, email, enumRole}));
+      navigate('/pmReadNew')
      
     }
   
@@ -44,7 +44,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
       <NavBarP />
       <div>
   <div className = "form-dis">
-  <Form className='form-style'   onSubmit={handleSubmit}>
+  <Form className='form-style' onSubmit={handleSubmit}>
       <h1>Add PM</h1>
       <Form.Field>
           <label style={{ textAlign: 'left' }}>Project-Manager ID</label>
@@ -64,12 +64,12 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
           {clicked&&email.length<=0?
                  <label style={{color:'red'}}> Email can't be Empty</label>: ""}
       </Form.Field>
-      <Form.Field>
+      {/* <Form.Field>
           <label style={{ textAlign: 'left' }}>PM UserName</label>
           <input type='text' name='githubUsername' onChange={(e)=>setgithubUsername(e.target.value)} placeholder='PM UserName' />
           {clicked&&githubUsername.length<=0?
                  <label style={{color:'red'}}> PM UserName can't be Empty</label>: ""}
-      </Form.Field>
+      </Form.Field> */}
       <Form.Field>
           <label style={{ textAlign: 'left' }}>Role</label>
           <input name='enumRole' onChange={(e)=>setEnumRole(2)} value="2" disabled/>

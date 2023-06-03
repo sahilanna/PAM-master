@@ -1,0 +1,28 @@
+.project-heading {
+    text-align: left;
+    margin-left: 20px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  
+  .project-box {
+    width: 80%;
+    border: 2px solid black;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .project-info {
+    text-align: left;
+    padding: 10px;
+  }
+  
+  .project-info p {
+    margin-bottom: 10px;
+  }
+  
+  .project-info a {
+    color: #0000FF;
+  }
+  

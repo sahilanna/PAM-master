@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Button, Table } from 'semantic-ui-react'
+import { Button,  Table } from 'semantic-ui-react'
 import axios from 'axios'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import {Link}  from 'react-router-dom'
@@ -11,16 +11,10 @@ import DialogBox from '../DialogBox/DialogBox'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import UserDetails from './UserDetails'
+import Sidebar from '../SideBar/SideBar'
+
 
 // import './Read.css'
-import  {
-  CDBSidebar,
-  CDBSidebarContent,
-  CDBSidebarFooter,
-  CDBSidebarHeader,
-  CDBSidebarMenu,
-  CDBSidebarMenuItem,
-} from 'cdbreact'
 import { ngrokUrl } from '../../../Assets/config'
 
 function UserRead(){
@@ -38,6 +32,8 @@ function UserRead(){
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const { ID } = useParams();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredProjects, setFilteredProjects] = useState([]);
   useEffect(() => {
     loaditem();
   }, []);
@@ -54,11 +50,20 @@ function UserRead(){
         console.log(error,'hi');
       })
     };
+    useEffect(() => {
+      const filteredProjects = item.filter((project) =>
+        project.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredProjects(filteredProjects);
+    }, [searchQuery, item]);
 
     const handleViewDetails = (project) => {
       setSelectedProject(project);
       setShowProjectDetails(true);
     };
+    const createOnclick=()=>{
+      navigate('/userCreate')
+    }
   
     const handleCloseDetails = () => {
       setShowProjectDetails(false);
@@ -67,6 +72,9 @@ function UserRead(){
     React.useEffect(() => {
       handlePaginate(1);
     }, [item]);
+    const handleSearchChange = (e) => {
+      setSearchQuery(e.target.value);
+    };
 
     const handlePaginate = (pageNumber) => {
       const indexOfLastItem = pageNumber * itemsPerPage;
@@ -83,25 +91,26 @@ function UserRead(){
       navigate('/userRead')
     };
   return(
-<div>
-  <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-  <CDBSidebar textColor="#fff" backgroundColor="#333">
-    <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}> Users
-      </CDBSidebarHeader>
-    <CDBSidebarContent className="sidebar-content">
-        <CDBSidebarMenu>
-          <NavLink exact to="/AdminDashboard" activeClassName="activeClicked">
-            <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
-          </NavLink>
-          <NavLink exact to="/userCreate" activeClassName="activeClicked">
-            <CDBSidebarMenuItem icon="chart-line">Create User</CDBSidebarMenuItem>
-          </NavLink>
-          </CDBSidebarMenu>
-          </CDBSidebarContent>
-          </CDBSidebar>
-          {/* <div className="container">
-    <div className="py-4"> */}
-      <table class = "table">
+<div className='parent-admin'>
+  <div>
+    <Sidebar/>
+  </div>
+ 
+  
+  <div className='admin-child'>
+     <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
+        <div class="ui left icon input">
+  <input type="text" placeholder="Search user..." value={searchQuery}
+            onChange={handleSearchChange} ></input>
+  <i class="users icon"></i>
+</div>
+
+
+    <button class="ui button" onClick={createOnclick} >Create User</button>
+    
+    </div>
+    <div style={{marginLeft:'20px',marginRight:'30px'}}>
+    <table class="ui celled table">
         {/* <thead colspan = '5'>
         </thead> */}
         <thead>
@@ -114,7 +123,7 @@ function UserRead(){
             <th>Delete</th>
           </thead>
           <tbody>
-          {currentPageData.map((user, index) => (
+          {filteredProjects.map((user, index) => (
             <tr>
               <td>{user.id}</td>
               <td>{user.name}</td>
