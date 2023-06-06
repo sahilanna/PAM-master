@@ -48,6 +48,8 @@ import userProjects from './Components/Dashboard/UserDashboard/userProjects';
 import UserSidebar from './Components/Dashboard/UserDashboard/userSidebar';
 import userRepoRead from './Components/Dashboard/UserDashboard/userRepoRead';
 import userFigmaRead from './Components/Dashboard/UserDashboard/userFigmaRead';
+import PmRequestForm from './Components/Dashboard/ProjectManager/PmRequestForm';
+import PmRequestUser from './Components/Dashboard/Admin/PmRequests/PmRequestUser';
 
 
 
@@ -85,7 +87,9 @@ function App() {
           <Route exact path='/addCollab' Component={addCollab}/>
           <Route exact path='/addPm' Component={addPm}/>
           <Route exact path='/addUser' Component={addUser}/>
-          <Route exact path='/pmDashboard' Component={PmDashboard}/>
+          <Route exact path='/pmDashboard' Component={PmDashboard}/> 
+          {/* <Route path="/api/users/:id/role/project_manager/projects" Component={PmDashboard}/> */}
+         
           {/* <Route exact path='/userDashboard'Component={userDashboard}/> */}
           <Route exact path='/finalForm' Component={FinalForm}/>
           <Route exact path='/NavbarA' Component={NavBarA}/>
@@ -104,6 +108,8 @@ function App() {
           <Route exact path='/userProjects' Component={userProjects}/>
           <Route exact path='/userRepoRead' Component={userRepoRead}/>
           <Route exact path='/userFigmaRead' Component={userFigmaRead}/>
+          <Route exact path='/PmRequestForm' Component={PmRequestForm}/> 
+          <Route exact path='/PmRequestUser' Component={PmRequestUser}/>
           
           </Routes>
         </Router>

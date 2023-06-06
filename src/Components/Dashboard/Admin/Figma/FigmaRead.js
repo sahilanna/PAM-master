@@ -137,6 +137,7 @@ import FigmaCreate from './FigmaCreate';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../SideBar/SideBar';
+import { ngrokUrlSwe } from '../../../../Assets/config';
 
 function FigmaRead() {
   const [showModal, setShowModal] = useState(false);
@@ -144,6 +145,8 @@ function FigmaRead() {
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
+  const[figmaURL, setFigmaURL]=useState('')
+  const[figmaId, setFigmaId]=useState('')
 
   useEffect(() => {
     fetchProjects();
@@ -151,7 +154,7 @@ function FigmaRead() {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get('https://de62-106-51-70-135.ngrok-free.app/api/figmas/getAll', {
+      const response = await axios.get(`https://${ngrokUrlSwe}/api/figmas/getAll`, {
         headers: {
           'ngrok-skip-browser-warning': 'true'
         }
@@ -172,6 +175,11 @@ function FigmaRead() {
 
   const createFigma = () => {
     navigate('/createFigmaDetails');
+  };
+  const handleAddUser = (url, id) => {
+    setFigmaURL(url);
+    setFigmaId(id);
+    setShowModal(true);
   };
 
   const handleSearchChange = (e) => {
@@ -224,7 +232,7 @@ function FigmaRead() {
                     </a>
                   </td>
                   <td>
-                    <Button color="blue" icon labelPosition="left" onClick={() => setShowModal(true)}>
+                    <Button color="blue" icon labelPosition="left" onClick={() => handleAddUser(project.figmaURL, project.figmaId)}>
                       <Icon name="plus" />
                       Add
                     </Button>
@@ -236,7 +244,7 @@ function FigmaRead() {
         </div>
       </div>
 
-      {showModal && <FigmaCreate onClose={closeModal} />}
+      {showModal && <FigmaCreate onClose={closeModal} figmaURL={figmaURL} figmaId={figmaId} />}
     </div>
   );
 }

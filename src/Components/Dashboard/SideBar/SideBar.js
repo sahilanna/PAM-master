@@ -54,6 +54,9 @@ function Sidebar() {
             <NavLink exact to="/Reports" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="book">Reports</CDBSidebarMenuItem>
             </NavLink>
+            <NavLink exact to="/PmRequestUser" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="book">PM Requests</CDBSidebarMenuItem>
+            </NavLink>
 
             {/* <div className='row'>
               <NavDropdown title="Role">

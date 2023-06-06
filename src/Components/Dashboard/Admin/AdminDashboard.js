@@ -124,9 +124,20 @@ const handlePaginate = (pageNumber) => {
   <input type="text" placeholder="Search PM..."  ></input>
   <i class="users icon"></i>
 </div>
+<button  class="ui button" onClick={createOnclick} >Create Project</button>
 
 
-    <button class="ui button" onClick={createOnclick} >Create Project</button>
+<div >
+
+        {item.length > 0 && (
+        <div style={{ marginTop: '20px' }}>
+          <CSVLink data={csvDataProj} filename="user_project_list.csv" className="btn btn-primary">
+            Download CSV
+          </CSVLink>
+        </div>
+        )}
+        </div>
+  
     
     </div>
     
@@ -175,15 +186,7 @@ const handlePaginate = (pageNumber) => {
         </tr> ))}
         </tbody>
       </table>
-      <div>
-        {item.length > 0 && (
-        <div style={{ marginTop: '20px' }}>
-          <CSVLink data={csvDataProj} filename="user_project_list.csv" className="btn btn-primary">
-            Download CSV
-          </CSVLink>
-        </div>
-        )}
-        </div>
+    
       <div>
       {/* Display items for the current page */}
       {/* <div className='pagination'>

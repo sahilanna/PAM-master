@@ -24,7 +24,7 @@ import Sidebar from '../../SideBar/SideBar';
 
 export default function Read(){
   const navigate=useNavigate()
-  const getUrl =  `https://${ngrokUrl}/api/project-details/get`
+ // const getUrl =  `https://${ngrokUrl}/api/project-details/get`
   const delUrl = `https://${ngrokUrl}/api/projects/delete/3`
   const [item, setItem] = useState([]);
   const [projectId, setProjectId] = useState('');
@@ -47,7 +47,7 @@ export default function Read(){
   const { id } = useParams();
 
   const loaditem = async () => {
-  const result = await axios.get(`https://${ngrokUrl}/api/project-details/get`,{
+  const result = await axios.get(`https://${ngrokUrl}/api/projecs/allProjects`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}) .then((result) => {

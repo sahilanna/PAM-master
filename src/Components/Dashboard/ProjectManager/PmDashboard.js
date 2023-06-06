@@ -3,14 +3,14 @@ import { useState,useEffect } from 'react';
 // import Projects from '../Admin/Home';
 import { NavLink } from 'react-router-dom';
 // import './AdminDashboard.css';
-import {button, Table} from 'react-bootstrap';
+import {Button,Icon} from 'semantic-ui-react'
 import { Navigate, useParams}  from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import DialogBox from '../DialogBox/DialogBox';
 import axios from 'axios';
-import { ngrokUrl } from '../../../Assets/config';
+import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import PmSidebar from './pmSidebar';
 import PmProjectDetails from './pmProjectDetails';
 
@@ -25,17 +25,23 @@ const PmDashboard = () => {
   const [selectedPmProject, setSelectedPmProject] = useState(null);
   const [showPmProjectDetails, setShowPmProjectDetails] = useState(false);
   const [pmid, setPmid] = useState([]);
-  
+  const navigate=useNavigate()
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchPmid = async () => {
+      
       try {
+        
         const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
-        const response = await axios.get('https://5713-106-51-70-135.ngrok-free.app/api/users/1/role/project_manager/projects',{
+        // const id = urlParams.get('id');
+        const response = await axios.get(`https://${ngrokUrlSwe}/api/users/6/role/user/projects`,{
           headers : {
             'ngrok-skip-browser-warning': 'true'
       }});
+      console.log(response.id);
+
+     
       
         const  pmid  = response.data;
         setPmid(pmid);
@@ -46,6 +52,11 @@ const PmDashboard = () => {
 
     fetchPmid();
   }, []);
+
+  const navigateForm=()=>{
+    navigate('/PmRequestForm')
+
+  }
 
 
   // const handleViewDetails = (pmid) => {
@@ -85,12 +96,11 @@ const PmDashboard = () => {
         <thead>
             <th>Project-ID</th>
             <th>Project-Name</th>
-            {/* <th>Project-Description</th> */}
-            
             {/* <th>Repository Name</th> */}
             {/* <th>PM Github</th>
             <th>User Github</th>  */}
             <th>project Description</th>
+            <th>Add User</th>
             {/* <th>Edit</th> */}
             
         </thead>
@@ -104,10 +114,13 @@ const PmDashboard = () => {
               <td>{item.projectId}</td>
               <td>{item.projectName}</td>
               <td>{item.projectDescription}</td>
-             
-              
-
-     
+           
+              <td>
+                    <Button color="blue" icon labelPosition="left" onClick={navigateForm}>
+                      <Icon name="plus" />
+                      Add
+                    </Button>
+                  </td>
       
               
             </tr>
