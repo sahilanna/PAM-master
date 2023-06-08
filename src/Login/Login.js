@@ -22,19 +22,17 @@ function Test() {
             const { data}  = await axios.get(
                 `https://${ngrokUrl}/auth/api/get-email`,
                 { headers })
-            //console.log(headers)
-            console.log(data);
-            const role = data.role;
-            console.log(role);
-            if (data =="ADMIN") {
+            sessionStorage.setItem('role', JSON.stringify( data))
+          console.log(data)
+            if (data ==="ADMIN") {
                 navigate('/AdminDashboard', { state: { data } });
             } else if (data=="PROJECT_MANAGER") {
                 navigate('/pmDashboard', { state: { data } });
-            } else if (data =='USER') {
+            } else if (data =="USER") {
                 
-                navigate('/userDashboard', { state: { data } });
+                navigate('/userProjects', { state: { data } });
             } else {
-                navigate('/');
+                navigate('/Login');
             }
         }
         catch (error) {

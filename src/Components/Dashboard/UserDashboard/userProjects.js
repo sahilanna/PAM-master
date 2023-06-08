@@ -3,6 +3,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import PmSidebar from '../ProjectManager/pmSidebar';
 import UserSidebar from './userSidebar';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import Logout from '../../../Login/Logout';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 
 
 function UserProjects() {
@@ -14,8 +18,15 @@ function UserProjects() {
     const [showPmProjectDetails, setShowPmProjectDetails] = useState(false);
     const [userid, setUserid] = useState([]);
     
+    const navigate=useNavigate()
+
+    const handleLogout=()=>{
+      navigate('/Logout')
+    }
+    
   
     useEffect(() => {
+       
       const fetchUserid = async () => {
         try {
           const response = await axios.get('https://de62-106-51-70-135.ngrok-free.app/api/users/6/role/user/projects',{
@@ -32,6 +43,8 @@ function UserProjects() {
   
       fetchUserid();
     }, []);
+    
+  
   
   
     // const handleViewDetails = (pmid) => {
@@ -58,6 +71,12 @@ function UserProjects() {
           <div class="ui left icon input">
     <input type="text" placeholder="Search Projects..."  ></input>
     <i class="users icon"></i>
+    <div style={{paddingLeft:'660px',paddingTop:'20px'}}>
+      
+  <button onClick={handleLogout} >
+      <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+    </button>
+    </div>
   </div>
   
   

@@ -33,6 +33,9 @@ function PmRequestUser() {
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 3000,
           });
+        
+            fetchData();
+       
   
           
          
@@ -68,15 +71,13 @@ function PmRequestUser() {
         if (response.status === 200 || response.status===204) {
           toast.error('access denied', {
             position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000,
+            autoClose: 1000,
           });
          
-        } else {
-          toast.error('Failed . Please try again.', {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000,
-          });
-        }
+            fetchData();
+          
+         
+        } 
       })
     }
     
@@ -131,8 +132,8 @@ function PmRequestUser() {
         {requestData.map((item) => (
           <Table.Row key={item.accessRequestId}>
             <Table.Cell>{item.pmName}</Table.Cell>
-            <Table.Cell>{item.projectName}</Table.Cell>
-            <Table.Cell>{item.name}</Table.Cell>
+            <Table.Cell>{item.project?.projectName}</Table.Cell>
+            <Table.Cell>{item.user?.name}</Table.Cell>
             <Table.Cell>{item.accessDescription}</Table.Cell>
             <Table.Cell>
               

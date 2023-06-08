@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Form,Button,Dropdown} from 'semantic-ui-react'
 import { ngrokUrlSwe, ngrokUrl } from '../../../Assets/config';
+import { Navigate, useNavigate } from 'react-router-dom';
+
 
 function PmRequestForm() {
+  const navigate = useNavigate()
   const [requestStatus, setRequestStatus] = useState('');
   let [projectName, setProjectName] = useState('');
   const[users,setUsers]=useState([])
@@ -17,14 +20,16 @@ function PmRequestForm() {
   const[projectObj,setProjectObj]=useState([])
   const[requestDescription,setRequestDescription]=useState([])
   const [selectedProjId, setSelectedProjId] = useState('');
+  
     
 
 
   const handleUserChange = (event, { value }) => {
-    const selectedUserObj = userObj.find(user => user.name === value);
+    const selectedUserObj = userObj.find(userr => userr.name === value);
     if (selectedUserObj) {
       setSelectedUser(value);
       setSelectedUserId(selectedUserObj.id);
+      
     }
   };
 
@@ -44,7 +49,7 @@ function PmRequestForm() {
   }, []);
   const fetchProjects = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/projects/allProjects`, {
+      const response = await axios.get(`https://${ngrokUrl}/api/projects/allProjects`, {
         headers: {
           'ngrok-skip-browser-warning': 'true'
         }
@@ -67,7 +72,7 @@ function PmRequestForm() {
   }, [])
   const fetchPms = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/users/role/project_manager`, {
+      const response = await axios.get(`https://${ngrokUrl}/api/users/role/project_manager`, {
         headers: {
           'ngrok-skip-browser-warning': 'true'
         }
@@ -87,13 +92,13 @@ function PmRequestForm() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/users/get`, {
+      const response = await axios.get(`https://${ngrokUrl}/api/users/role/user`, {
         headers: {
           'ngrok-skip-browser-warning': 'true'
         }
       });
       console.log(response.data);
-      console.log(response.data[1].id)
+      
   
       if (Array.isArray(response.data)) {
         const userNames = response.data.map(users => users.name);
@@ -115,10 +120,6 @@ projectName=item;
 setRequestDescription(e.target.value)
 }  
 
-
- 
- 
-  
  
   
   const handleSubmit = async (e) => {
@@ -133,26 +134,36 @@ setRequestDescription(e.target.value)
      
     
       try {
-        const response = await axios.post(`https://${ngrokUrl}/api/request/`, { selectedProjId, selectedUserId,
-          pmName, requestDescription
+      
+         
+         const user={
+              id: selectedUserId,
+          }
+        
+        const  project={
+              projectId: selectedProjId,
+          }
+          
+      
+        const response = await axios.post(`https://${ngrokUrl}/api/request/`, { pmName, user, project, requestDescription
         });
     
         if (response.data.success) {
           setRequestStatus('Request submitted successfully');
-        } else {
-          setRequestStatus('Failed to submit request');
-        }
+        } 
+        navigate('/PmDashboard')
       } catch (error) {
         console.error('Error submitting request:', error);
-        setRequestStatus('Failed to submit request');
+        
       }
     };
     
 
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
-      <Form.Field>
+      <Form  onSubmit={handleSubmit}>
+        
+      <Form.Field >
             <label>PMs</label>
             <Dropdown
               placeholder="Select PM"

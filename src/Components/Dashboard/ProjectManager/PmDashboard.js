@@ -13,6 +13,8 @@ import axios from 'axios';
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import PmSidebar from './pmSidebar';
 import PmProjectDetails from './pmProjectDetails';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import Logout from '../../../Login/Logout';
 
   
 
@@ -71,7 +73,10 @@ const PmDashboard = () => {
   return (
    
       <div className='parent-admin'>
+        
       <div style={{ height: '100vh', overflow: 'scroll initial' }}>
+        
+       
     
    <PmSidebar/>
 
@@ -83,6 +88,9 @@ const PmDashboard = () => {
         <div class="ui left icon input">
   <input type="text" placeholder="Search Projects..."  ></input>
   <i class="users icon"></i>
+  <button onClick={Logout}>
+      <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+    </button>
 </div>
 
 

@@ -31,6 +31,9 @@ function UserSidebar() {
           <NavLink exact to="/userRepoRead" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="columns">Repository</CDBSidebarMenuItem>
           </NavLink>
+          <NavLink exact to="/Logout" activeClassName="activeClicked">
+            <CDBSidebarMenuItem icon="columns">Logout</CDBSidebarMenuItem>
+          </NavLink>
           </CDBSidebarMenu>
           </CDBSidebarContent>
           </CDBSidebar>

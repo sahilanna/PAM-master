@@ -10,9 +10,10 @@ import AdminDashboard from './Components/Dashboard/Admin/AdminDashboard'
 import Pagination from './Components/Dashboard/Pagination/Pagination';
 import Update from './Components/Dashboard/Admin/Update/Update';
 import Delete from './Components/Dashboard/Admin/Delete/Delete';
-import {BrowserRouter as Router , Route,Routes } from 'react-router-dom';
+import {BrowserRouter as Router , Route,Routes, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './Login/redux-store/store';
+import PrivateRoutes from './Login/PrivateRouting';
 import PmDashboard from './Components/Dashboard/ProjectManager/PmDashboard';
 import Create from './Components/Dashboard/Admin/Create/Create';
 import Read from './Components/Dashboard/Admin/Read/Read';
@@ -50,6 +51,7 @@ import userRepoRead from './Components/Dashboard/UserDashboard/userRepoRead';
 import userFigmaRead from './Components/Dashboard/UserDashboard/userFigmaRead';
 import PmRequestForm from './Components/Dashboard/ProjectManager/PmRequestForm';
 import PmRequestUser from './Components/Dashboard/Admin/PmRequests/PmRequestUser';
+import Logout from './Login/Logout';
 
 
 
@@ -66,53 +68,16 @@ function App() {
       {/* <div style={{display:'flex', flexDirection:'row'}}>
               <Sidebar/> */}
               
-        <Router>
+        <BrowserRouter>
           <Routes>
-           
-          <Route exact path='/AdminDashboard' Component={AdminDashboard}/>
-          <Route exact path='/' Component={LandingPage}/>
-          <Route exact path='/Create' Component={Create}/>
-          <Route exact path='/Read' Component={Read}/>
-          <Route exact path='/Update/:projectId' Component={Update}/>
-          <Route exact path='/repoPmDashboard' Component={repoPmDashboard}/>
-          <Route exact path='/Login' Component={Login}/>
-          <Route exact path='/PmCreate' Component={PmCreate}/>
-          <Route exact path='/PmReadNew' Component={PmReadNew}/>
-          <Route exact path='/PmUpdate/:id' Component={PmUpdate}/>
-          <Route exact path='/UserCreate' Component={UserCreate}/>
-          <Route exact path='/UserRead' Component={UserRead}/>
-          <Route exact path='/UserUpdate/:id'Component={UserUpdate}/>
-          <Route exact path='/View' Component={View}/>
-          <Route exact path='/CreateRepo' Component={CreateRepo}/>
-          <Route exact path='/addCollab' Component={addCollab}/>
-          <Route exact path='/addPm' Component={addPm}/>
-          <Route exact path='/addUser' Component={addUser}/>
-          <Route exact path='/pmDashboard' Component={PmDashboard}/> 
-          {/* <Route path="/api/users/:id/role/project_manager/projects" Component={PmDashboard}/> */}
-         
-          {/* <Route exact path='/userDashboard'Component={userDashboard}/> */}
-          <Route exact path='/finalForm' Component={FinalForm}/>
-          <Route exact path='/NavbarA' Component={NavBarA}/>
-          <Route exact path='/ProjectDetailsNew' Component={projectDetailsNew}/>
-          <Route exact path='/SideBar' Component={SideBar}/>
-          <Route exact path='/repoRead' Component={repoRead}/>
-          <Route exact path='/FigmaRead' Component={FigmaRead}/>
-          <Route exact path='/FigmaCreate' Component={FigmaCreate}/>
-          <Route exact path='/userHistory' Component={userHistory}/>
-          <Route exact path='/Reports' Component={Reports}/>
-          <Route exact path='/SignUp' Component={Signup}/>
-          <Route exact path='/createFigmaDetails' Component={createFigmaDetails}/>
-          <Route exact path='/pmSidebar' Component={pmSidebar}/>
-          <Route exact path='/figmaPmDashboard' Component={FigmaPmDashboard}/>
-          <Route exact path='/profile' Component={Profile}/>
-          <Route exact path='/userProjects' Component={userProjects}/>
-          <Route exact path='/userRepoRead' Component={userRepoRead}/>
-          <Route exact path='/userFigmaRead' Component={userFigmaRead}/>
-          <Route exact path='/PmRequestForm' Component={PmRequestForm}/> 
-          <Route exact path='/PmRequestUser' Component={PmRequestUser}/>
-          
-          </Routes>
-        </Router>
+          <Route path="/Login" element={<Login/>} />
+          <Route path="/" element={<LandingPage/>}/>
+          <Route path="/Logout" element={<Logout/>}/>
+        <Route element={<PrivateRoutes />}>
+          <Route path="*" element={<h1>Page Not Found</h1>} />
+          </Route>
+        </Routes>
+        </BrowserRouter>
         {/* </div> */}
       </Provider>
     </div>

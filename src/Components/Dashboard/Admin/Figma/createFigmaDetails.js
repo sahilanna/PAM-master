@@ -11,6 +11,7 @@ function CreateFigmaDetails() {
   const [figmaURL, setFigmaUrl] = useState('');
   const [proj,setproj]=useState([])
   let[item,setitem]=useState('')
+  const [figmaId, setFigmaId] = useState(null);
   const [selectedProject, setSelectedProject] = useState('');
 
   const handleProjChange = (event, { value }) => {
@@ -48,7 +49,8 @@ projectName=item;
       });
       console.log('API Response:', response.data.id);
       const figmaId=response.data.id;
-      navigate('/figmaRead',{ state: { figmaId: figmaId } })
+      setFigmaId(figmaId)
+      navigate('/figmaRead', { state: { figmaId } });
       setProjectName('');
       setFigmaUrl('');
       

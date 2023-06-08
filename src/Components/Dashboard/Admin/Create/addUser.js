@@ -30,7 +30,7 @@ const AddUser = () => {
 
   // const { projectName, repo } = useLocation();
    useEffect(() => {
-    fetch(`https://${ngrokUrl}/api/users/role/user`,{
+    fetch(`https://fa07-106-51-70-135.ngrok-free.app/api/users/role/user`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}).then((response)=>response.json())
@@ -51,7 +51,7 @@ const AddUser = () => {
   if(projectNameA && options)
   {
     // dispatchPmGithub(createPmGithubName({projectName, repo, username}));
-    const promises = username.map((user) => axios.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username:user,accessToken
+    const promises = username.map((user) => axios.post(`https://fa07-106-51-70-135.ngrok-free.app/api/collaborators/add`,{owner, repo,username:user,accessToken
     }));
     Promise.all(promises).then(() => {
       navigate('/finalForm', { state: { projectNameA, repo, projectDescription, userNameA, username } });

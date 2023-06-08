@@ -1,93 +1,4 @@
 
-// import React from 'react';
-// import { useState } from 'react';
-// import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
-
-
-// const FigmaCreate = ({ onOpen, onClose }) => {
-//     const [url, setUrl] = useState('');
-//   const [selectedUser, setSelectedUser] = useState('');
-//   const [image, setImage] = useState(null);
-  
-//   const userList = [
-//     { id: 1, name: 'User 1' },
-//     { id: 2, name: 'User 2' },
-//     { id: 3, name: 'User 3' },
-//   ];
-//   const handleUrlChange = (e) => {
-//     setUrl(e.target.value);
-//   };
-
-//   const handleUserChange = (e, { value }) => {
-//     setSelectedUser(value);
-//   };
-
-//   const handleImageUpload = (e) => {
-//     const file = e.target.files[0];
-//     setImage(file);
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-
-  
-//     setUrl('');
-//     setSelectedUser('');
-//     setImage(null);
-//     onClose();
-//   };
-
-
-//   return (
-//     <Modal onClose={onClose}>
-//     <Modal.Header>Project Details</Modal.Header>
-//     <Modal.Content>
-//       <Form onSubmit={handleSubmit}>
-//         <Form.Field>
-//           <label>URL</label>
-//           <input
-//             type="text"
-//             placeholder="Enter URL"
-//             value={url}
-//             onChange={handleUrlChange}
-//           />
-//         </Form.Field>
-//         <Form.Field>
-//           <label>User</label>
-//           <Dropdown
-//             placeholder="Select User"
-//             fluid
-//             selection
-//             options={userList.map(user => ({
-//               key: user.id,
-//               text: user.name,
-//               value: user.id
-//             }))}
-//             value={selectedUser}
-//             onChange={handleUserChange}
-//           />
-//         </Form.Field>
-//         <Form.Field>
-//           <label>Image</label>
-//           <Input
-//             type="file"
-//             accept="image/*"
-//             onChange={handleImageUpload}
-//           />
-//         </Form.Field>
-//         <Button type="submit">Submit</Button>
-//       </Form>
-//     </Modal.Content>
-//     <Modal.Actions>
-//       <Button secondary onClick={onClose}>
-//         Close
-//       </Button>
-//     </Modal.Actions>
-//   </Modal>
-//   );
-// };
-
-// export default FigmaCreate;
 
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
@@ -95,16 +6,22 @@ import axios from 'axios';
 import CreateFigmaDetails from './createFigmaDetails';
 import { ngrokUrlSwe } from '../../../../Assets/config';
 
-const FigmaCreate = ({ onClose, figmaURL , location}) => {
+import { useLocation } from 'react-router-dom';
+
+const FigmaCreate = ({ onClose, figmaURL}) => {
   console.log(figmaURL)
+  const location = useLocation();
+  const figmaId = location && location.state && location.state.figmaId;
+  
+ console.log(figmaId)
   const [url, setUrl] = useState(figmaURL);
   let [selectedUser, setSelectedUser] = useState('');
   const [screenshotImage, setscreenshotImage] = useState(null);
   let[user, setUsers]=useState([])
   const[post,setPost]=useState('')
-  const figmaId = location.state && location.state.figmaId;
  
-console.log(figmaId);
+ 
+
 
   const handleUrlChange = (e) => {
     setUrl(e.target.value);
@@ -127,23 +44,23 @@ console.log(figmaId);
     // formData.append('image', image);
 
   selectedUser=user;    
-    try {
+    // try {
      
-      const response =  axios.post(`https://${ngrokUrlSwe}/api/users`,user );
+    //   const response =  axios.post(`https://${ngrokUrlSwe}/api/users`,user );
 
-      const names = response.data.map(project => project.projectName);
-      setUsers(names);
-      console.log(response.data);
+    //   const names = response.data.map(project => project.projectName);
+    //   setUsers(names);
+    //   console.log(response.data);
 
       
-      setUrl('');
-      setSelectedUser('');
-      setscreenshotImage(null);
-      onClose();
-    } catch (error) {
+    //   setUrl('');
+    //   setSelectedUser('');
+    //   setscreenshotImage(null);
+    //   onClose();
+    // } catch (error) {
      
-      console.error(error);
-    }
+    //   console.error(error);
+    // }
   
   };
   useEffect(() => {
@@ -165,17 +82,20 @@ console.log(figmaId);
       console.log('Error fetching Users:', error);
     }
   };
-  const onUpload = (event, figmaId) => {
+  const onUpload = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload =()=> {
       const result=reader.result;
       console.log(result);
+       console.log(figmaId)
+      console.log(selectedUser)
       setscreenshotImage(result)
+      console.log(screenshotImage)
       setPost(prevState => ({ ...prevState, image: result }));
       try {
-        const response = axios.post(`https://${ngrokUrlSwe}/api/figmas/add`, figmaId, user, screenshotImage
+        const response = axios.post(`https://${ngrokUrlSwe}/api/figmas/adduser`, figmaId, user, screenshotImage
        );
        console.log(response.data)
        
@@ -257,4 +177,5 @@ console.log(figmaId);
 };
 
 export default FigmaCreate;
+
 
