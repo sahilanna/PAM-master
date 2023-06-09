@@ -20,6 +20,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     /* height: 100vh; */
   }
   
@@ -46,10 +47,11 @@
     /* border: 1px solid #ccc; */
     /* border-radius: 8px; */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: 61.5vh;
+    height: 25vh;
   }
   .space {
     height: 20px;
+    
   }
   
   .welcome-message {
@@ -58,6 +60,7 @@
     font-size: 40px;
     font-weight: bold;
     animation: fade-in 1s ease-in;
+   
     
   }
   

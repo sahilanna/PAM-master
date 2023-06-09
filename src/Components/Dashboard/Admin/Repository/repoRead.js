@@ -90,6 +90,7 @@ import CreateRepo from '../Create/CreateRepo';
 import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../SideBar/SideBar';
+import Create from '../Create/Create';
 
 function RepoRead() {
   const getUrl = 'https://3ecb-106-51-70-135.ngrok-free.app/api/repositories/get';
@@ -129,12 +130,17 @@ function RepoRead() {
   const createOnclick = () => {
     navigate('/CreateRepo');
   };
+  const createOnclickProj=()=>{
+    navigate('/Create')
+  }
+  
 
   return (
     <div className='parent-admin'>
       <div>
         <Sidebar/>
       </div>
+     
       
     
     
@@ -145,7 +151,11 @@ function RepoRead() {
           <i className="users icon"></i>
         </div>
         <button className="ui button" onClick={createOnclick}>Create Repository</button>
+        <button  class="ui button" onClick={createOnclickProj} >Create Project</button>
+
+     
       </div>
+      
       <div style={{ marginLeft: '20px', marginRight: '30px' }}></div>
       <table className="ui celled table">
         <thead>

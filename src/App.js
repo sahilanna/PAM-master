@@ -44,7 +44,6 @@ import createFigmaDetails from './Components/Dashboard/Admin/Figma/createFigmaDe
 import repoPmDashboard from './Components/Dashboard/ProjectManager/repoPmDashboard';
 import pmSidebar from './Components/Dashboard/ProjectManager/pmSidebar';
 import FigmaPmDashboard from './Components/Dashboard/ProjectManager/figmaPmDashboard';
-import Profile from './Components/Dashboard/ProjectManager/profile';
 import userProjects from './Components/Dashboard/UserDashboard/userProjects';
 import UserSidebar from './Components/Dashboard/UserDashboard/userSidebar';
 import userRepoRead from './Components/Dashboard/UserDashboard/userRepoRead';

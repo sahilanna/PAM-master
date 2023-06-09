@@ -35,23 +35,31 @@ import UserRepoRead from "../Components/Dashboard/UserDashboard/userRepoRead";
 import UserFigmaRead from "../Components/Dashboard/UserDashboard/userFigmaRead";
 import Logout from "./Logout";
 import Analytics from "../Components/Dashboard/Admin/Analytics/Analytics";
+import Profile from "../Components/Dashboard/Admin/Profile";
+import UserProfile from "../Components/Dashboard/UserDashboard/userProfile";
+import PmProfile from "../Components/Dashboard/ProjectManager/pmprofile";
+
 
 const PrivateRoutes = () => {
-    let data = sessionStorage.getItem("role");
+    let data = sessionStorage.getItem("item");
+    console.log(data.role)
     console.log(data)
+    
     let user = JSON.parse(data);
-    console.log(user)
+    console.log(user.role)
+    const role=user.role
+   const id = user ? user.id : null;
+    console.log(id)
     // if (!user || !user.role) {
     //   return <Navigate to="/Login" />
 
     // }
     return (
         <>
-          {user== "ADMIN" && (
+          {role== "ADMIN" && (
             <Routes>
               <Route path="/AdminDashboard" element={<AdminDashboard />} />
               <Route path="/Login" element={<Login />} />
-              <Route path='/Logut' element={<Logout/>}/>
               <Route path="/Create" element={<Create />} />
               <Route path="/Read" element={<Read/>} />
               <Route path="/RepoRead" element={<RepoRead/>} />
@@ -66,7 +74,7 @@ const PrivateRoutes = () => {
               <Route path="/View'" element={<View />} />
               <Route path="/CreateRepo" element={<CreateRepo />} />
               <Route path="/addCollab" element={<addCollab />} />
-              <Route path="/addPm" element={<addPm/>} />
+              <Route path="/AddPm" element={<AddPm/>} />
               <Route path="/addUser" element={<addUser />} />
               <Route path="/finalForm" element={<FinalForm />} />
               <Route path="/NavbarA" element={<NavBarA/>} />             
@@ -77,26 +85,27 @@ const PrivateRoutes = () => {
               <Route path="/Reports" element={<Reports />} />
               <Route path="/CreateFigmaDetails" element={<CreateFigmaDetails/>} />
               <Route path="/PmRequestUser" element={<PmRequestUser/>} />
+              <Route path='/Profile' element={<Profile/>}/>
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           )}
-          {user== "PROJECT_MANAGER" && (
+          {role=== "PROJECT_MANAGER" && (
             <Routes>
               <Route path="/pmDashboard" element={<PmDashboard />} />
               <Route path="/figmaPmDashboard" element={<FigmaPmDashboard />} />
               <Route path="/PmRequestForm" element={<PmRequestForm />} />
               <Route path="/repoPmDashboard" element={<RepoPmDashboard/>} />
-              <Route path='/Logut' element={<Logout/>}/>
+              <Route path='/pmProfile' element={<PmProfile/>}/>
               
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           )}
-          {user == "USER" && (
+          {role === "USER" && (
             <Routes>
               <Route path="/userProjects" element={<UserProjects/>} />
               <Route path="/userRepoRead" element={<UserRepoRead />} />
               <Route path="/userFigmaRead" element={<UserFigmaRead/>} />
-              <Route path='/Logut' element={<Logout/>}/>
+              <Route path='/userProfile' element={<UserProfile/>}/>
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           )}

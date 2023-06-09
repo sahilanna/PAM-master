@@ -88,9 +88,8 @@ const PmDashboard = () => {
         <div class="ui left icon input">
   <input type="text" placeholder="Search Projects..."  ></input>
   <i class="users icon"></i>
-  <button onClick={Logout}>
-      <FontAwesomeIcon icon={faSignOutAlt} /> Logout
-    </button>
+ 
+   
 </div>
 
 
