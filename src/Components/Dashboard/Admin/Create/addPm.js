@@ -22,11 +22,7 @@ const AddPm = () => {
   const[username,setusername]= useState('');
   let[projectNameA,setProjectNameA]=useState('')
   let[userNameA,setUserNameA]=useState('')
-  // let[repoA,setRepoA]=useState('');
-
-  // const handleSubmit=()=>{
-  //   navigate('/addUser');
-  // }
+ 
 
   const handleBack = () => {
     navigate(-1); // Go back one page in history
@@ -59,11 +55,10 @@ const AddPm = () => {
     // repoA=repo;
     userNameA=username;
     navigate('/addUser', { state: { projectNameA, repo, projectDescription, userNameA } });
-    // console.log(projectName)
-    // console.log(repo)
+    
   }
   }
-  // const { projectName, repo } = useLocation();
+  
  
   return (
     <div> <NavBarA/> <div >
@@ -81,16 +76,7 @@ const AddPm = () => {
           <input name="repoName" value={repo|| ' '} readOnly />
         </Form.Field>
 
-        {/* <Form.Field>
-          <label style={{ textAlign: 'left' }}>PM Username</label>
-          <select onChange={(e) => setusername(e.target.value)}>
-            {options.map((item, index) => (
-              <option key={item.githubUsername} value={item.githubUsername}>
-                {item.githubUsername}
-              </option>
-            ))}
-          </select>
-        </Form.Field> */}
+
         <Form.Field>
   <label style={{ textAlign: 'left' }}>PM Username</label>
   <Form.Select

@@ -15,7 +15,7 @@ import './Read.css'
 import PmDetails from './PmDetails'
 import { ngrokUrl } from '../../../Assets/config'
 import Sidebar from '../SideBar/SideBar'
-import '/home/nineleaps/Downloads/PAM-master-master/src/Components/Dashboard/Admin/AdminDashboard.css'
+// import '/home/nineleaps/Downloads/PAM-master-master/src/Components/Dashboard/Admin/AdminDashboard.css'
 // import  {
 //     CDBSidebar,
 //     CDBSidebarContent,

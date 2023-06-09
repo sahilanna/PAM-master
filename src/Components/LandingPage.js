@@ -48,11 +48,6 @@ export class LandingPage extends Component {
               alt="Third slide"
               max-width="100%"
               height="350"/>
-      {/* <Carousel.Caption>
-          <div>
-          <h4 style={{color:"black"}} className='carousel-caption'>Boost your team’s alignment, efficiency, and productivity</h4><br/>
-          </div>
-        </Carousel.Caption> */}
       </Carousel.Item>
     </Carousel>
 
