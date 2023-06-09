@@ -29,29 +29,26 @@ const Profile = () => {
      
       </div>
        <div className='admin-child'>
-       
-
-        <br/>
-      <div className="box">
-        <br/>
+       <div className="profile-container">
+       <div className="profile">
+     
       <div className="profile-image">
           <FontAwesomeIcon icon={faUser} size="5x" />
         </div>
-        <br/><br/>
-        <h3>Name: {pname}</h3><hr/>
+        <div className="profile-details">
+        {/* <h3>Name: {pname}</h3><hr/>
         <h3>Email: {pemail}</h3><hr/>
         <h3>Role: {prole}</h3><hr/>
-        <h3>Id: {id}</h3>
-
-        
-        {/* <div className="profile-details">
-          <h2 className="profile-name">Name: {pname}</h2>
+        <h3>Id: {id}</h3> */}
+        <h2 className="profile-name">Name: {pname}</h2>
           <p className="profile-age">email: {pemail}</p>
           <p className="profile-role">Role:{prole} </p>
           <p className="profile-id">Id:{id} </p>
-        </div> */}
+      
       </div>
     </div>
+      </div>
+      </div>
       </div>
       
     );
