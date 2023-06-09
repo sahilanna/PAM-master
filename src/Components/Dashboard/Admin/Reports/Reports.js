@@ -5,6 +5,7 @@ import axios from 'axios';
 import { CSVLink } from 'react-csv';
 import Sidebar from '../../SideBar/SideBar';
 import '../AdminDashboard.css'
+import { ngrokUrlSwe } from '../../../../Assets/config';
 
 
 
@@ -22,7 +23,7 @@ function Reports() {
 
     async function fetchUserProjectList() {
           try {
-            const response = await axios.get('https://de62-106-51-70-135.ngrok-free.app/api/users/getAll',{
+            const response = await axios.get(`https://${ngrokUrlSwe}/api/users/getAll`,{
               headers: {
                 'ngrok-skip-browser-warning': 'true'
               }
@@ -38,7 +39,7 @@ function Reports() {
         
         async function fetchOtherTableData() {
           try {
-            const response1 = await axios.get('https://de62-106-51-70-135.ngrok-free.app/api/users/getMultiple',{
+            const response1 = await axios.get(`https://${ngrokUrlSwe}/api/users/getMultiple`,{
               headers: {
                 'ngrok-skip-browser-warning': 'true'
               }

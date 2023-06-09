@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
+import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
 import  {
     CDBSidebar,
     CDBSidebarContent,
@@ -21,8 +22,11 @@ function Sidebar() {
         </CDBSidebarHeader>
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
+          <NavLink exact to="/profile" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="user">My Profile</CDBSidebarMenuItem>
+            </NavLink>
             <NavLink exact to="/AdminDashboard" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="columns">Projects</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="list">Projects</CDBSidebarMenuItem>
             </NavLink>
 
             {/* <NavLink exact to="/tables" activeClassName="activeClicked">
@@ -37,10 +41,10 @@ function Sidebar() {
             </NavLink>
 
             <NavLink exact to="/pmReadNew" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">PMs</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="users">PMs</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/userRead" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">Users</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="users">Users</CDBSidebarMenuItem>
             </NavLink>
            
             <NavLink exact to="/figmaRead" activeClassName="activeClicked">
@@ -48,11 +52,20 @@ function Sidebar() {
             </NavLink>
             
             <NavLink exact to="/userHistory" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="book">User History</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="bookmark">User History</CDBSidebarMenuItem>
             </NavLink>
 
             <NavLink exact to="/Reports" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="book">Reports</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="file">Reports</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/PmRequestUser" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="bell">PM Requests</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/Analytics" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="cog">Analytics</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/Logout" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="arrow-left">Logout</CDBSidebarMenuItem>
             </NavLink>
 
             {/* <div className='row'>

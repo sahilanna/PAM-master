@@ -51,7 +51,7 @@ export default class NavBar extends Component {
            
             {/* <Nav.Link href="#deets">Login</Nav.Link> */}
                       </Nav> <br/>
-                      <Nav>  <Link to='/SignUp'>SignUp</Link></Nav>
+                      {/* <Nav>  <Link to='/SignUp'>SignUp</Link></Nav> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>

@@ -22,19 +22,17 @@ function Test() {
             const { data}  = await axios.get(
                 `https://${ngrokUrl}/auth/api/get-email`,
                 { headers })
-            //console.log(headers)
-            console.log(data);
-            const role = data.role;
-            console.log(role);
-            if (data =="ADMIN") {
+            sessionStorage.setItem('item', JSON.stringify( data))
+          console.log(data.role)
+            if (data.role ==="ADMIN") {
                 navigate('/AdminDashboard', { state: { data } });
-            } else if (data=="PROJECT_MANAGER") {
+            } else if (data.role=="PROJECT_MANAGER") {
                 navigate('/pmDashboard', { state: { data } });
-            } else if (data =='USER') {
+            } else if (data.role =="USER") {
                 
-                navigate('/userDashboard', { state: { data } });
+                navigate('/userProjects', { state: { data } });
             } else {
-                navigate('/');
+                navigate('/Login');
             }
         }
         catch (error) {
@@ -61,9 +59,15 @@ function Test() {
       <NavBarLogin />
       <div className="box-container">
         <div className="welcome-message">Welcome to our Website!</div>
+        <br/>
         <div className="space"></div>
+        <br/>
+
+      </div>
+      <div className="box-container">
         <div id="signIn"></div>
       </div>
+      <div className="box-container"></div>
       <Footer />
     </div>
     

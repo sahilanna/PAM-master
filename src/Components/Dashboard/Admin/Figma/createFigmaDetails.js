@@ -3,6 +3,7 @@ import { Form, Button, Dropdown } from 'semantic-ui-react';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import FigmaCreate from './FigmaCreate';
+import { ngrokUrlSwe } from '../../../../Assets/config';
 
 function CreateFigmaDetails() {
   const navigate = useNavigate()
@@ -10,6 +11,7 @@ function CreateFigmaDetails() {
   const [figmaURL, setFigmaUrl] = useState('');
   const [proj,setproj]=useState([])
   let[item,setitem]=useState('')
+  const [figmaId, setFigmaId] = useState(null);
   const [selectedProject, setSelectedProject] = useState('');
 
   const handleProjChange = (event, { value }) => {
@@ -23,7 +25,7 @@ projectName=item;
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get('https://de62-106-51-70-135.ngrok-free.app/api/projects/allProjects', {
+      const response = await axios.get(`https://${ngrokUrlSwe}/api/projects/allProjects`, {
         headers: {
           'ngrok-skip-browser-warning': 'true'
         }
@@ -41,14 +43,17 @@ projectName=item;
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('https://de62-106-51-70-135.ngrok-free.app/api/figmas/add', {
+      const response = await axios.post(`https://${ngrokUrlSwe}/api/figmas/addurl`, {
          projectName,
          figmaURL,
       });
-      console.log('API Response:', response.data);
-      navigate('/figmaRead')
+      console.log('API Response:', response.data.id);
+      const figmaId=response.data.id;
+      setFigmaId(figmaId)
+      navigate('/figmaRead', { state: { figmaId } });
       setProjectName('');
       setFigmaUrl('');
+      
     } catch (error) {
       console.log('Error:', error);
     }

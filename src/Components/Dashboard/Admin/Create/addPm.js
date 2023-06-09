@@ -10,6 +10,7 @@ import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { ngrokUrl } from '../../../../Assets/config.js';
+import { ngrokUrlSwe } from '../../../../Assets/config.js';
 
 const AddPm = () => {
   
@@ -19,7 +20,7 @@ const AddPm = () => {
   let navigate = useNavigate()
   const { state } = useLocation();
   let{ projectName, repo, projectDescription } = state || {};//passing data from create.js
-  const[username,setusername]= useState('');
+  const[username,setusername]= useState([]);
   let[projectNameA,setProjectNameA]=useState('')
   let[userNameA,setUserNameA]=useState('')
  
@@ -29,7 +30,7 @@ const AddPm = () => {
   };
 
   useEffect(() => {
-    fetch(`https://${ngrokUrl}/api/users/role/project_manager`,{
+    fetch(`https://fa07-106-51-70-135.ngrok-free.app/api/users/role/project_manager`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}).then((response)=>response.json())
@@ -48,7 +49,7 @@ const AddPm = () => {
   if(projectName && options)
   {
     // dispatchPmGithub(createPmGithubName({projectName, repo, username}));
-    const response= axios.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
+    const response= axios.post(`https://fa07-106-51-70-135.ngrok-free.app/api/collaborators/add`,{owner, repo,username,accessToken
     })
     projectNameA=projectName;
     console.log("hi",projectNameA)

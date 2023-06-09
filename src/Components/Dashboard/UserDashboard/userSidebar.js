@@ -22,14 +22,20 @@ function UserSidebar() {
       </CDBSidebarHeader>
       <CDBSidebarContent className="sidebar-content">
         <CDBSidebarMenu>
+        <NavLink exact to="/userProfile" activeClassName="activeClicked">
+            <CDBSidebarMenuItem icon="user">My Profile</CDBSidebarMenuItem>
+          </NavLink>
           <NavLink exact to="/userProjects" activeClassName="activeClicked">
-            <CDBSidebarMenuItem icon="columns">Projects</CDBSidebarMenuItem>
+            <CDBSidebarMenuItem icon="list">Projects</CDBSidebarMenuItem>
           </NavLink>
           <NavLink exact to="/userFigmaRead" activeClassName="activeClicked">
-            <CDBSidebarMenuItem icon="columns">Figma</CDBSidebarMenuItem>
+            <CDBSidebarMenuItem icon="book">Figma</CDBSidebarMenuItem>
           </NavLink>
           <NavLink exact to="/userRepoRead" activeClassName="activeClicked">
-            <CDBSidebarMenuItem icon="columns">Repository</CDBSidebarMenuItem>
+            <CDBSidebarMenuItem icon="sticky-note">Repository</CDBSidebarMenuItem>
+          </NavLink>
+          <NavLink exact to="/Logout" activeClassName="activeClicked">
+            <CDBSidebarMenuItem icon="arrow-left">Logout</CDBSidebarMenuItem>
           </NavLink>
           </CDBSidebarMenu>
           </CDBSidebarContent>

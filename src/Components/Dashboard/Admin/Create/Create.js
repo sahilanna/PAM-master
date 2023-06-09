@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import '../Read/Read.css'
 import './Create.css'
-import { ngrokUrl } from '../../../../Assets/config';
+import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
 
 const Create = () => {
   let navigate = useNavigate();
@@ -42,7 +42,7 @@ const Create = () => {
     navigate(-1); // Go back one page in history
   };
   useEffect(() => {
-    fetch(`https://${ngrokUrl}/api/repositories/get`,{
+    fetch(`https://${ngrokUrlSwe}/api/repositories/get`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}).then((response)=>response.json())
