@@ -61,10 +61,12 @@ projectName=item;
 
   return (
     <div>
+     
+      <div className='form-style'>
       <h1>Project Form</h1>
       <Form onSubmit={handleSubmit}>
       <Form.Field>
-            <label>Projects</label>
+            <label style={{textAlign:'left'}}>Projects</label>
             <Dropdown
               placeholder="Select Project"
               fluid
@@ -79,7 +81,7 @@ projectName=item;
             />
             </Form.Field>
         <Form.Field>
-          <label>Figma URL</label>
+          <label style={{textAlign:'left'}}>Figma URL</label>
           <input
             placeholder="Enter Figma URL"
             value={figmaURL}
@@ -90,6 +92,7 @@ projectName=item;
           Submit
         </Button>
       </Form>
+      </div>
     </div>
   );
 }

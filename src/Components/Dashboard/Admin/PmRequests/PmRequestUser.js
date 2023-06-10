@@ -10,83 +10,7 @@ import { ngrokUrl } from '../../../../Assets/config';
 
 
 function PmRequestUser() {
-  const[requestData,setRequestData]=useState([])
-  const[showPopup, setShowPopup]=useState(false)
-    const navigate=useNavigate()
-    
-  const [data, setData] = useState([]);
-  const[id,setId]=useState('');
-
-
-  const AcceptRequest = async (accessRequestId) => {
-    try{
-      let accessId=accessRequestId;
-      console.log(accessId)
-
-      const response= await axios.put(
-        `https://${ngrokUrl}/api/request/update/${accessId}`,
-        { 'allowed': true }
-      )
-      .then((response) => {
-        if (response.status === 200|| response.status==204) {
-          toast.success('User added successfully!', {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000,
-          });
-        
-            fetchData();
-       
-  
-          
-         
-        } else {
-          toast.error('Failed to add user. Please try again.', {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000,
-          });
-        }
-      }) }
-      catch(error) {
-        console.log('Error adding user:', error);
-      };
-  };
-
-  
-   
-   
-   
-   
-    
-
-  const DeclineRequest = async (accessRequestId) => {
-    try{
-      let accessId=accessRequestId;
-      console.log(accessId)
-
-      const response= await axios.put(
-        `https://${ngrokUrl}/api/request/update/${accessId}`,
-        { 'allowed': false}
-      )
-      .then((response) => {
-        if (response.status === 200 || response.status===204) {
-          toast.error('access denied', {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 1000,
-          });
-         
-            fetchData();
-          
-         
-        } 
-      })
-    }
-    
-      catch(error) {
-        console.log('Error adding user:', error);
-      }
-   
-   
-  }
+  const [requestData, setRequestData] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -98,59 +22,104 @@ function PmRequestUser() {
         headers: {
           'ngrok-skip-browser-warning': 'true'
         }
-      }).then((response)=>{
+      });
+      setRequestData(response.data);
       console.log(response.data)
-     setId(response.data.accessRequestId);
-     setRequestData(response.data)
- 
-      })
-  
+      console.log(requestData)
     } catch (error) {
       console.log('Error fetching Users:', error);
     }
-  }
-  
+  };
 
+  const AcceptRequest = async (accessRequestId) => {
+    try {
+      const response = await axios.put(
+        `https://${ngrokUrl}/api/request/update/${accessRequestId}`,
+        { allowed: true }
+      );
+      if (response.status === 200|| response.status === 204|| response.status === 201) {
+        toast.success('User added successfully!', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+        });
+        fetchData();
+      } else {
+        toast.error('Failed to add user. Please try again.', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+        });
+      }
+    } catch (error) {
+      console.log('Error adding user:', error);
+    }
+  };
+
+  const DeclineRequest = async (accessRequestId) => {
+    try {
+      const response = await axios.put(
+        `https://${ngrokUrl}/api/request/update/${accessRequestId}`,
+        { allowed: false }
+      );
+      if (response.status === 200 || response.status === 204) {
+        toast.error('Access denied', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000,
+        });
+        fetchData();
+      }
+    } catch (error) {
+      console.log('Error adding user:', error);
+    }
+  };
 
   return (
-    <div className='parent-admin'>
-      <Sidebar/>
-    <div className='admin-child'>
-      <div style={{marginLeft:'20px',marginRight:'30px', marginTop:'20px'}}>
-    <Table className='ui-celled-table'>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell>Project Manager</Table.HeaderCell>
-          <Table.HeaderCell>Project</Table.HeaderCell>
-          <Table.HeaderCell>User</Table.HeaderCell>
-          <Table.HeaderCell>Description</Table.HeaderCell>
-          <Table.HeaderCell>Actions</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
+    <div className="parent-admin">
+      <Sidebar />
+      <div className="admin-child">
+        <div style={{ marginLeft: '20px', marginRight: '30px', marginTop: '20px' }}>
+        {requestData.length > 0 ? (
+          <Table className="ui-celled-table">
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Project Manager</Table.HeaderCell>
+                <Table.HeaderCell>Project</Table.HeaderCell>
+                <Table.HeaderCell>User</Table.HeaderCell>
+                <Table.HeaderCell>Description</Table.HeaderCell>
+                <Table.HeaderCell>Actions</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-      <Table.Body>
-        {requestData.map((item) => (
-          <Table.Row key={item.accessRequestId}>
-            <Table.Cell>{item.pmName}</Table.Cell>
-            <Table.Cell>{item.project?.projectName}</Table.Cell>
-            <Table.Cell>{item.user?.name}</Table.Cell>
-            <Table.Cell>{item.accessDescription}</Table.Cell>
-            <Table.Cell>
+
+            
+            <Table.Body>
               
-              <Button color="green" onClick={AcceptRequest .bind(null, item.accessRequestId )}>Accept</Button>
-              <Button color="red" onClick={DeclineRequest.bind(null,item.accessRequestId)}>Decline</Button>
-              <ToastContainer />
               
-             
-            </Table.Cell>
-          </Table.Row>
-        ))}
-      </Table.Body>
-    </Table>
-    </div>
-    </div>
+              {requestData.map((item)=> (
+                <Table.Row key={item.accessRequestId}>
+                  <Table.Cell>{item.pmName}</Table.Cell>
+                  <Table.Cell>{item.project?.projectName}</Table.Cell>
+                  <Table.Cell>{item.user?.name}</Table.Cell>
+                  <Table.Cell>{item.requestDescription}</Table.Cell>
+                  <Table.Cell>
+                    <Button color="green" onClick={() => AcceptRequest(item.accessRequestId)}>
+                      Accept
+                    </Button>
+                    <Button color="red" onClick={() => DeclineRequest(item.accessRequestId)}>
+                      Decline
+                    </Button>
+                    <ToastContainer />
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          
+          </Table>
+            ):(<h2>No requests right now!</h2>)}
+        </div>
+      </div>
     </div>
   );
 }
+
 
 export default PmRequestUser;

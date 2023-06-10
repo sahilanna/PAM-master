@@ -67,7 +67,12 @@ const Create = () => {
       <NavBarA/>
   <div  >
   <Form className='form-style' onSubmit={handleSubmit}>
-      <h1>Create Project</h1>
+  <Button className='back-button' onClick={handleBack}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Button>
+  <h1>Create Project</h1>
+ 
+     
       <Form.Field>
         <label style={{ textAlign: 'left' }}>Project-Name</label>
         <input name='projectName' onChange={(e)=>setProjectName(e.target.value)} placeholder='ProjectName' />
@@ -94,7 +99,7 @@ const Create = () => {
 </Form.Field>
       <Button type='submit' variant='primary' onClick={handleSubmit}>Next</Button>
   </Form>
-  <Button className="back-button" onClick={handleBack}><FontAwesomeIcon icon={faArrowLeft} /> </Button>
+  
   </div>
   </div>
 )

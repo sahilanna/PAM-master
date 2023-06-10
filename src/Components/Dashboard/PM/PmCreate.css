@@ -22,8 +22,8 @@ margin-right: 30px;
 
 .form-style .back-button{
    position: relative;
-   top: 0px;
-   left:0px;
+   top: -30px;
+   left:-480px;
    display:flex;
    align-items: center;
    width:55px;

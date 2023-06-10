@@ -39,7 +39,7 @@ function UserCreate(){
 return(
   <div>
   <NavBarA />
-  <div>
+  <div >
 <div className='form-dis'>
 <Form className = 'form-style' onSubmit={handleSubmit}>
  <Button className='back-button' onClick={handleBack}>

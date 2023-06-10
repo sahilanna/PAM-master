@@ -81,10 +81,12 @@ function Reports() {
         
         
         <div className='admin-child'>
-          <h1>Reports</h1>
-        
-        <Button  onClick={handleTableClick}>User Project List</Button>
+          <br/>
+          <h1 style={{paddingRight:'80px'}}> Reports</h1>
+       <div>
+        <Button style={{marginRight:'20px'}}  onClick={handleTableClick}>User Project List</Button> 
         <Button  onClick={handleOtherTableClick}>Users With Multiple Project Access</Button>
+        </div>
        <br/><br/>
 
        

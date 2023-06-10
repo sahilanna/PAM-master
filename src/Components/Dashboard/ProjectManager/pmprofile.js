@@ -17,34 +17,36 @@ const PmProfile = () => {
   console.log(pname)
 
     return (
-      <div className='parent-admin'>
-        
+      <div className='parent-admi'>  
       <div style={{ height: '100vh', overflow: 'scroll initial' }}>
-        
-       
-    
-   <PmSidebar/>
-
-
-     
+        <pmSidebar/>
       </div>
-       <div className='admin-child'>
+      <div className='admin-chil'>
+        <div className="profile-paren">
+          <div className="profile-details">
+            <div className="profile-imag">
+              <h1>PROFILE</h1>
+              <FontAwesomeIcon icon={faUser} size="7x" />
+          
+              <div className='profile-chil'>
+              {/* <label>Name</label>   */}
+              <b>Name</b>
+              <p>{pname}</p>
 
-       <div className="profile-container">
-      <div className="profile">
-        <div className="profile-image">
-          <FontAwesomeIcon icon={faUser} size="5x" />
-        </div>
-        <div className="profile-details">
-          {/* <h2 className="profile-name">Name:</h2>
-          <p className="profile-age">email: {pemail}</p>
-          <p className="profile-role">Role:{prole} </p>
-          <p className="profile-id">Id:{id} </p> */}
+              <b>Email</b>
+              <p>{pemail}</p>
+              <b>Role</b>
+              <p>{prole}</p>
+              <b>ID</b>
+              <p>{id}</p>
+              
+            </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-      </div>
-      </div>
+  
     );
   };
 

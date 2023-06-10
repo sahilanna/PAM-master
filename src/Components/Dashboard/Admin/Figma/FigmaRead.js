@@ -138,6 +138,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrlSwe } from '../../../../Assets/config';
+import './FigmaRead.css'
 
 function FigmaRead() {
   const [showModal, setShowModal] = useState(false);
@@ -192,6 +193,7 @@ function FigmaRead() {
 
   return (
     <div className='parent-admin'>
+      <Sidebar/>
       <div className='admin-child'>
         <h1 style={{ textAlign: 'center' }}>Figma</h1>
         <div
@@ -243,8 +245,12 @@ function FigmaRead() {
           </table>
         </div>
       </div>
-
+      <div className='model-container'>
+      <div className="modal-content-container">
       {showModal && <FigmaCreate onClose={closeModal} figmaURL={figmaURL} figmaId={figmaId} />}
+    </div>
+     
+      </div>
     </div>
   );
 }
