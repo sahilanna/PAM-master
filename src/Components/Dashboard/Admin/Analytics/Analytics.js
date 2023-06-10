@@ -1,18 +1,15 @@
-import React from 'react'
+ import React from 'react'
 import { PieChart, Pie, Legend, Tooltip,Cell } from 'recharts';
 import { useEffect,useState } from 'react';
 import axios from 'axios';
 import { ngrokUrl } from '../../../../Assets/config';
 import Sidebar from '../../SideBar/SideBar';
+import ProjectAnalytics from './projectAnalytics';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid} from 'recharts';
+import "./Analytics.css"
+
 function Analytics() {
 const[Data,setData]=useState([])
-
-
-
-
-
-
 const fetchCount = async () => {
     try {
       const [adminResponse, pmResponse, userResponse] = await Promise.all([
@@ -65,23 +62,25 @@ fetchCount();
 
       const COLORS = ['#FFBB28', '#FF8042', '#0088FE']; 
   return (
-    <div className='parent-admin'>
+    <div className='parent-adm'>
         
-      <div style={{ height: '100vh', overflow: 'scroll initial' }}>
+      <div className='Analytics-side' style={{ height: '100vh', overflow: 'scroll initial' }}>
         <Sidebar/>
           </div>
           
-          {/* <div className='admin-child'></div> */}
+       <div className='try'>
     <div style={{align: "center"}}> 
-        <h3>Count of all Admin, Project Manager and User in platform</h3>
+    <br/>
+    <div className='Analytics-components'>
+        <h2>Count</h2>
         
-        <PieChart width={440} height={400}>
+        <PieChart width={300} height={300}>
             
     <Pie
       dataKey="count"
       data={Data}
-      cx={200}
-      cy={200}
+      cx={150}
+      cy={150}
       outerRadius={80}
       fill="#8884d8"
       label
@@ -92,8 +91,17 @@ fetchCount();
         </Pie>
     <Tooltip />
     <Legend />
-  </PieChart></div>
-  </div>
+  </PieChart>
+  <div style={{ textAlign: 'center' }}>
+       
+        <ProjectAnalytics />
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+ 
+  
   )
 }
 

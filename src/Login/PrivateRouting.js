@@ -35,6 +35,7 @@ import UserRepoRead from "../Components/Dashboard/UserDashboard/userRepoRead";
 import UserFigmaRead from "../Components/Dashboard/UserDashboard/userFigmaRead";
 import Logout from "./Logout";
 import Analytics from "../Components/Dashboard/Admin/Analytics/Analytics";
+import ProjectAnalytics from "../Components/Dashboard/Admin/Analytics/projectAnalytics";
 import Profile from "../Components/Dashboard/Admin/Profile";
 import UserProfile from "../Components/Dashboard/UserDashboard/userProfile";
 import PmProfile from "../Components/Dashboard/ProjectManager/pmprofile";
@@ -65,6 +66,7 @@ const PrivateRoutes = () => {
               <Route path="/RepoRead" element={<RepoRead/>} />
               <Route path="/UserRead" element={<UserRead/>} />
               <Route path='/Analytics' element={<Analytics/>}/>
+              {/* <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/> */}
               <Route path="/Update/:projectId" element={<Update />} />
               <Route path="/PmCreate" element={<PmCreate />} />
               <Route path="/PmReadNew" element={<PmReadNew />} />

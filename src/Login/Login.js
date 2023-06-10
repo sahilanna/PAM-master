@@ -41,7 +41,7 @@ function Test() {
         }
     }
     useEffect(() => {
-        const clientID='840665959732-ip9sm2ea6l7ds2vbgooum6ec08fl8k3v.apps.googleusercontent.com'
+        const clientID='664601673419-hiir2173k5usfrm159r3ttg9108cpuhi.apps.googleusercontent.com'
         window.google.accounts.id.initialize({
             client_id: clientID,
             callback: handleGoogleLogin

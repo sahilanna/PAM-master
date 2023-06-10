@@ -52,6 +52,7 @@ import PmRequestForm from './Components/Dashboard/ProjectManager/PmRequestForm';
 import PmRequestUser from './Components/Dashboard/Admin/PmRequests/PmRequestUser';
 import Logout from './Login/Logout';
 import Analytics from './Components/Dashboard/Admin/Analytics/Analytics';
+import ProjectAnalytics from './Components/Dashboard/Admin/Analytics/projectAnalytics';
 import RepoRead from './Components/Dashboard/Admin/Repository/repoRead';
 import AddPm from './Components/Dashboard/Admin/Create/addPm';
 import UserHistory from './Components/Dashboard/Admin/userHistory/userHistory';
@@ -84,6 +85,7 @@ function App() {
               <Route path="/repoRead" element={<RepoRead/>} />
               <Route path="/UserRead" element={<UserRead/>} />
               <Route path='/Analytics' element={<Analytics/>}/>
+              <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/>
               <Route path="/Update/:projectId" element={<Update />} />
               <Route path="/PmCreate" element={<PmCreate />} />
               <Route path="/PmReadNew" element={<PmReadNew />} />
