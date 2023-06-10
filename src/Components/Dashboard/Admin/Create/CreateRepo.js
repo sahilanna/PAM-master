@@ -45,6 +45,11 @@ function CreateRepo() {
       <NavBarA />
       <div>
         <div className='form-dis'>
+          <div>
+                    <Button className="back-button" onClick={handleBack}>
+                <FontAwesomeIcon icon={faArrowLeft} />
+              </Button>
+              </div>
           
         <Form className='form-style'>
         <h1 style={{ textAlign: 'left' }}>Create New Repository</h1>
@@ -59,9 +64,7 @@ function CreateRepo() {
             Submit
           </Button>
         </Form>
-        <Button className='back-button' onClick={handleBack}>
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </Button>
+        
       </div>
     </div>
     {/* <div><FooterA/></div> */}

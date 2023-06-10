@@ -183,6 +183,8 @@ function FigmaRead() {
     setShowModal(true);
   };
 
+  
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
@@ -195,6 +197,7 @@ function FigmaRead() {
     <div className='parent-admin'>
       <Sidebar/>
       <div className='admin-child'>
+        <br/>
         <h1 style={{ textAlign: 'center' }}>Figma</h1>
         <div
           style={{

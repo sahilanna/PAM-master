@@ -38,6 +38,7 @@ import Analytics from "../Components/Dashboard/Admin/Analytics/Analytics";
 import Profile from "../Components/Dashboard/Admin/Profile";
 import UserProfile from "../Components/Dashboard/UserDashboard/userProfile";
 import PmProfile from "../Components/Dashboard/ProjectManager/pmprofile";
+import AddUserName from "../Components/Dashboard/Users/AddUserName";
 
 
 const PrivateRoutes = () => {
@@ -59,6 +60,7 @@ const PrivateRoutes = () => {
           {role== "ADMIN" && (
             <Routes>
               <Route path="/AdminDashboard" element={<AdminDashboard />} />
+              <Route path="/AddUserName" element={<AddUserName/>} />
               <Route path="/Login" element={<Login />} />
               <Route path="/Create" element={<Create />} />
               <Route path="/Read" element={<Read/>} />
@@ -75,7 +77,7 @@ const PrivateRoutes = () => {
               <Route path="/CreateRepo" element={<CreateRepo />} />
               <Route path="/addCollab" element={<addCollab />} />
               <Route path="/AddPm" element={<AddPm/>} />
-              <Route path="/addUser" element={<addUser />} />
+              <Route path="/addUser" element={<AddUser />} />
               <Route path="/finalForm" element={<FinalForm />} />
               <Route path="/NavbarA" element={<NavBarA/>} />             
               <Route path="/repoRead" element={<repoRead/>} />

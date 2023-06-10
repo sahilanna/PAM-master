@@ -90,7 +90,7 @@ import CreateRepo from '../Create/CreateRepo';
 import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../SideBar/SideBar';
-import Create from '../Create/Create';
+
 
 function RepoRead() {
   const getUrl = 'https://3ecb-106-51-70-135.ngrok-free.app/api/repositories/get';
@@ -127,6 +127,10 @@ function RepoRead() {
     setFilteredProjects(filteredProjects);
   }, [searchQuery, item]);
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   const createOnclick = () => {
     navigate('/CreateRepo');
   };
@@ -140,23 +144,27 @@ function RepoRead() {
       <div>
         <Sidebar/>
       </div>
+      <div className='admin-child'>
+     <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
+        <div class="ui left icon input">
+  <input type="text" placeholder="Search Repo..." value={searchQuery}
+            onChange={handleSearchChange} ></input>
+  <i class="users icon"></i>
+</div>
      
       
     
     
-      <div className='admin-child'>
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '20px', marginBottom: '30px', marginLeft: '40px', marginRight: '30px' }}>
-        <div className="ui left icon input">
-          <input type="text" placeholder="Search Repo..." onChange={(e) => setSearchQuery(e.target.value)} />
-          <i className="users icon"></i>
-        </div>
+     
+        <div>
         <button className="ui button" onClick={createOnclick}>Create Repository</button>
         <button  class="ui button" onClick={createOnclickProj} >Create Project</button>
+        </div>
 
      
       </div>
       
-      <div style={{ marginLeft: '20px', marginRight: '30px' }}></div>
+      <div style={{marginLeft:'20px',marginRight:'30px'}}></div>
       <table className="ui celled table">
         <thead>
           <tr>

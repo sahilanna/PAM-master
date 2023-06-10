@@ -30,10 +30,11 @@ function UserProjects() {
        
       const fetchUserid = async () => {
         try {
-          const response = await axios.get(`https://${ngrokUrlSwe}/api/users/6/role/project_manager/projects`,{
+          const response = await axios.get(`https://${ngrokUrlSwe}/api/users/54/role/user/projects`,{
             headers : {
               'ngrok-skip-browser-warning': 'true'
         }});
+
         
           const  userid  = response.data;
           setUserid(userid);

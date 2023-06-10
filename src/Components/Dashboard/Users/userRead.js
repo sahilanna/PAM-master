@@ -37,6 +37,11 @@ function UserRead(){
   useEffect(() => {
     loaditem();
   }, []);
+
+  const addUserName=()=>{
+    navigate('/addUserName')
+  }
+
   const loaditem = async () => {
     const result = await axios.get(getUrl,{
         headers: {
@@ -104,9 +109,11 @@ function UserRead(){
             onChange={handleSearchChange} ></input>
   <i class="users icon"></i>
 </div>
-
-
+    
+    <div>
+    <button className='ui button' onClick={addUserName}>Add Github UserName</button>
     <button class="ui button" onClick={createOnclick} >Create User</button>
+    </div>
     
     </div>
     <div style={{marginLeft:'20px',marginRight:'30px'}}>
@@ -169,7 +176,7 @@ function UserRead(){
         <UserDetails project={selectedProject} onClose={handleCloseDetails} />
       )}
   </div>
-// </div>
+ </div>
 // </div>
 )
 }
