@@ -51,6 +51,12 @@ import userFigmaRead from './Components/Dashboard/UserDashboard/userFigmaRead';
 import PmRequestForm from './Components/Dashboard/ProjectManager/PmRequestForm';
 import PmRequestUser from './Components/Dashboard/Admin/PmRequests/PmRequestUser';
 import Logout from './Login/Logout';
+import Analytics from './Components/Dashboard/Admin/Analytics/Analytics';
+import RepoRead from './Components/Dashboard/Admin/Repository/repoRead';
+import AddPm from './Components/Dashboard/Admin/Create/addPm';
+import UserHistory from './Components/Dashboard/Admin/userHistory/userHistory';
+import Profile from './Components/Dashboard/Admin/Profile';
+import CreateFigmaDetails from './Components/Dashboard/Admin/Figma/createFigmaDetails';
 
 
 
@@ -70,6 +76,35 @@ function App() {
         <BrowserRouter>
           <Routes>
           <Route path="/Login" element={<Login/>} />
+       
+              <Route path="/AdminDashboard" element={<AdminDashboard />} />
+              <Route path="/Login" element={<Login />} />
+              <Route path="/Create" element={<Create />} />
+              <Route path="/Read" element={<Read/>} />
+              <Route path="/repoRead" element={<RepoRead/>} />
+              <Route path="/UserRead" element={<UserRead/>} />
+              <Route path='/Analytics' element={<Analytics/>}/>
+              <Route path="/Update/:projectId" element={<Update />} />
+              <Route path="/PmCreate" element={<PmCreate />} />
+              <Route path="/PmReadNew" element={<PmReadNew />} />
+              <Route path="//PmUpdate/:id" element={<PmReadNew />} />
+              <Route path="/UserCreate" element={<UserCreate />} />
+              <Route path="/UserUpdate/:id" element={<UserUpdate />} />
+              <Route path="/View'" element={<View />} />
+              <Route path="/CreateRepo" element={<CreateRepo />} />
+              <Route path="/addCollab" element={<addCollab />} />
+              <Route path="/AddPm" element={<AddPm/>} />
+              <Route path="/addUser" element={<addUser />} />
+              <Route path="/finalForm" element={<FinalForm />} />
+              <Route path="/NavbarA" element={<NavBarA/>} />             
+              <Route path="/repoRead" element={<repoRead/>} />
+              <Route path="/FigmaRead" element={<FigmaRead/>} />
+              <Route path="/FigmaCreate" element={<FigmaCreate />} />
+              <Route path="/UserHistory" element={<UserHistory />} />
+              <Route path="/Reports" element={<Reports />} />
+              <Route path="/CreateFigmaDetails" element={<CreateFigmaDetails/>} />
+              <Route path="/PmRequestUser" element={<PmRequestUser/>} />
+              <Route path='/Profile' element={<Profile/>}/>
           <Route path="/" element={<LandingPage/>}/>
           <Route path="/Logout" element={<Logout/>}/>
         <Route element={<PrivateRoutes />}>

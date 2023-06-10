@@ -161,9 +161,9 @@ function PmReadNew() {
             <th>PM-Name</th>
             <th>PM-Email</th>
             {/* <th>PM-Github-UserName</th> */}
-            <th>View</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th className='text-center'>View</th>
+            <th className='text-center'>Edit</th>
+            <th className='text-center'>Delete</th>
          </thead>
          <tbody>
            {filteredProjects.map((item, index) => (
@@ -175,7 +175,7 @@ function PmReadNew() {
               <td>{item.name}</td>
               <td>{item.email}</td>
              
-              <td>
+              <td className='text-center'>
   <button
     className="btn btn-outline-info mx-2"
     onClick={() => handleViewDetails(item)}
@@ -183,12 +183,12 @@ function PmReadNew() {
     <FontAwesomeIcon icon={faEye} />
   </button>
 </td>             
-              <td>
+              <td className='text-center'>
         <Link className="btn btn-outline-primary mx-2" to={`/PmUpdate/${item.id}`}>
           <FontAwesomeIcon icon={faPen} /> 
         </Link>
       </td>
-      <td>
+      <td className='text-center'>
       {/* <div className="dialog-backdrop"> */}
         <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(item.id)}>
           <FontAwesomeIcon icon={faTrash} />   

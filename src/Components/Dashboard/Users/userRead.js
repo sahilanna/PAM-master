@@ -118,9 +118,9 @@ function UserRead(){
             <th>User Name</th>
             <th>User Email</th>
             {/* <th>User-Github-UserName</th> */}
-            <th>View</th>
-            <th>Update</th>
-            <th>Delete</th>
+            <th className='text-center'>View</th>
+            <th className='text-center'>Update</th>
+            <th className='text-center'>Delete</th>
           </thead>
           <tbody>
           {filteredProjects.map((user, index) => (
@@ -129,7 +129,7 @@ function UserRead(){
               <td>{user.name}</td>
               <td>{user.email}</td>
               {/* <td>{user.githubUsername}</td> */}
-              <td>
+              <td className='text-center'>
   <button
     className="btn btn-outline-info mx-2"
     onClick={() => handleViewDetails(user)}
@@ -137,7 +137,7 @@ function UserRead(){
     <FontAwesomeIcon icon={faEye} />
   </button>
 </td>          
-              <td>
+              <td className='text-center'>
                 <Link
                   className="btn btn-outline-primary mx-2"
                   to={`/userUpdate/${user.id}`}
@@ -145,7 +145,7 @@ function UserRead(){
                 <FontAwesomeIcon icon={faPen} />
                 </Link>
                 </td>
-                 <td>
+                 <td className='text-center'>
                  <Link>
     <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(user.id)}><FontAwesomeIcon icon={faTrash} /> </button>
     <DialogBox

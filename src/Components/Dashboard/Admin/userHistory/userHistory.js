@@ -94,7 +94,7 @@ function UserHistory() {
               <Table.HeaderCell>Project Name</Table.HeaderCell>
               <Table.HeaderCell>Project Description</Table.HeaderCell>
               <Table.HeaderCell>Last Updated</Table.HeaderCell>
-              <Table.HeaderCell>Status</Table.HeaderCell>
+              <Table.HeaderCell className='text-center'>Status</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -112,7 +112,7 @@ function UserHistory() {
           minute: 'numeric',
         })}
       </Table.Cell>
-                <Table.Cell>
+                <Table.Cell className='text-center'>
         {entry.status ? (
           <Icon name="close" color="red" />
         ) : (

@@ -1,36 +1,74 @@
+.parent-admi {
+  display: flex;
+  height: 100vh;
+ 
+  justify-content: center;
+ 
+}
 
-  .profile-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+.admin-chil {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.profile-details {
+  display: flex;
+  align-items: center;
+}
+
+.profile-imag {
+  margin-right: 20px;
   
-  .box{
-    box-sizing: border-box ;
-    border: 2px solid black ;
-    width: 360px;
-    height: 575px;
-    border-radius: 5px;
-    box-shadow: -3px -3px -3px;
-    margin-bottom: 50px;
-    margin-left: 370px;
-    align-items: center;
-    background-color: whitesmoke
-    
-  }
+  padding: 30px;
+  border-radius: 15px;
+  width: 400px;
+  background-color:rgb(238, 245, 245);
+  box-shadow: 10px 10px 5px #aaaaaa;
+}
+
+.profile-imag p,.profile-imag b{
+ display: flex;
+ justify-content: flex-start;
+ font-size: 16px;
+ font-family: 'Times New Roman', Times, serif;
+}
+.profile-imag h1{
+  font-size: 20px;
+  font-family:'Times New Roman', Times, serif ;
+}
+
+.profile-chil{
+  margin-top: 15%;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-info h2,
+.profile-info p {
+  margin-bottom: 10px;
+}
+
+.profile-containe {
+  background-color: transparent;
+  height: 100vh;
+  border: none;
+  box-shadow: none;
+}
+
+
   
-  .profile-image {
-    margin-right: 20px;
-  }
-  
-  .profile-name {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .profile-email,
-  .profile-id {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
+
+
+
+
+ 

@@ -36,10 +36,10 @@ const PmProfile = () => {
           <FontAwesomeIcon icon={faUser} size="5x" />
         </div>
         <div className="profile-details">
-          <h2 className="profile-name">Name: {pname}</h2>
+          {/* <h2 className="profile-name">Name:</h2>
           <p className="profile-age">email: {pemail}</p>
           <p className="profile-role">Role:{prole} </p>
-          <p className="profile-id">Id:{id} </p>
+          <p className="profile-id">Id:{id} </p> */}
         </div>
       </div>
     </div>
