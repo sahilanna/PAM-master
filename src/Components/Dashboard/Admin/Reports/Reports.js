@@ -81,10 +81,12 @@ function Reports() {
         
         
         <div className='admin-child'>
-          <h1>Reports</h1>
-        
-        <Button  onClick={handleTableClick}>User Project List</Button>
+          <br/>
+          <h1 style={{paddingRight:'80px'}}> Reports</h1>
+       <div>
+        <Button style={{marginRight:'20px'}}  onClick={handleTableClick}>User Project List</Button> 
         <Button  onClick={handleOtherTableClick}>Users With Multiple Project Access</Button>
+        </div>
        <br/><br/>
 
        
@@ -104,7 +106,8 @@ function Reports() {
                 <tr key={entry.userId}>
                   <td>{entry.userId}</td>
                   <td>{entry.userName}</td>
-                  <td>{entry.projectNames}</td>
+                  {console.log(entry)}
+                  <td>{entry.projectNames.join(', ')}</td>
                 </tr>
               ))}
             </tbody>
@@ -142,7 +145,14 @@ function Reports() {
                 <tr key={entry.userId}>
                   <td>{entry.userId}</td>
                   <td>{entry.userName}</td>
-                  <td>{entry.projectNames}</td>
+                  {/* <td>{entry.projectNames.map((item,index)=>{
+                    if(index==entry.projectNames.length-1){
+                    return item
+                    }
+                    else{
+                      return item+','+' '
+                    } */}
+                  <td>{entry.projectNames.join(', ')}</td>
                 </tr>
               ))}
             </tbody>

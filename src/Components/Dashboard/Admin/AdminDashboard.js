@@ -118,19 +118,21 @@ const handlePaginate = (pageNumber) => {
           </div>
           
           <div className='admin-child'>
-          <h1 >Projects</h1>
+          {/* <br/>
+          <h1 >Projects</h1> */}
           <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
         <div class="ui left icon input">
   <input type="text" placeholder="Search PM..."  ></input>
   <i class="users icon"></i>
 </div>
-<button  class="ui button" onClick={createOnclick} >Create Project</button>
+
 
 
 <div >
 
         {item.length > 0 && (
         <div style={{ marginTop: '20px' }}>
+          <button  class="ui button" onClick={createOnclick} >Create Project</button>
           <CSVLink data={csvDataProj} filename="user_project_list.csv" className="btn btn-primary">
             Download CSV
           </CSVLink>
@@ -174,7 +176,7 @@ const handlePaginate = (pageNumber) => {
   </button>
 </td>             
 
-                 <td className='text-center'>
+      <td className='text-center'>
               <Link>
       <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(item.projectId)}><FontAwesomeIcon icon={faTrash} /></button>
       <DialogBox

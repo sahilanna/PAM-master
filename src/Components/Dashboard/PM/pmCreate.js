@@ -8,7 +8,8 @@ import NavBarP from './NavbarP';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-//import '../Read/Read.css'
+// import '/home/nineleaps/Downloads/PAM-master-master/src/Components/Dashboard/Read/Read.css'
+// import '/home/nineleaps/Downloads/PAM-master-master/src/Components/Dashboard/PM/PmCreate.css'
 
 
 
@@ -34,7 +35,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
       if(name.length==0 || email.length==0){
         return;
     }
-      dispatchPM(createPM({id, name, email, enumRole}));
+      dispatchPM(createPM({ name, email, enumRole}));
       navigate('/pmReadNew')
      
     }
@@ -44,14 +45,29 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
       <NavBarP />
       <div>
   <div className = "form-dis">
+    {/* <div style={{paddingRight:'470px',flexDirection:'row'}}>
+      
+  <Button className='back-button' onClick={handleBack}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Button> </div> */}
   <Form className='form-style' onSubmit={handleSubmit}>
-      <h1>Add PM</h1>
-      <Form.Field>
+  <Button className="back-button" onClick={handleBack}>
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </Button>
+ <div className='backandheader'>
+ 
+  <h1>Add PM</h1>
+  </div>
+  
+      
+      
+      {/* <Form.Field>
           <label style={{ textAlign: 'left' }}>Project-Manager ID</label>
           <input name='id' onChange={(e)=>setId(e.target.value)} placeholder='PM Id' />
           {clicked&&id.length<=0?
                  <label style={{color:'red'}}> ID can't be Empty</label>: ""}
-      </Form.Field>
+      </Form.Field> */}
+        
       <Form.Field>
           <label style={{ textAlign: 'left' }}>Project-Manager Name</label>
           <input name='name' onChange={(e)=>setName(e.target.value)} placeholder='PM Name' />
@@ -70,16 +86,10 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
           {clicked&&githubUsername.length<=0?
                  <label style={{color:'red'}}> PM UserName can't be Empty</label>: ""}
       </Form.Field> */}
-      <Form.Field>
-          <label style={{ textAlign: 'left' }}>Role</label>
-          <input name='enumRole' onChange={(e)=>setEnumRole(2)} value="2" disabled/>
-          {/* <input type="text" name="name" value="2" disabled></input> */}
-      </Form.Field>
+     
       <Button type='submit' onClick={handleSubmit}>Submit</Button>
     </Form>
-    <Button className='back-button' onClick={handleBack}>
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </Button> 
+    
     </div>
     </div>
     </div>

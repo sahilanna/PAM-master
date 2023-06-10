@@ -114,9 +114,21 @@ const FigmaCreate = ({ onClose, figmaURL}) => {
     
 
   return (
-    <Modal open={true} onClose={onClose}>
+    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}>
+      <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
+      
+        </div>
+        <div style={{paddingLeft:'442px'}}>
+      <Button secondary onClick={onClose}>
+          X
+        </Button>
+        </div>
       <Modal.Header>Add Project</Modal.Header>
+    
+       
+      
       <Modal.Content>
+     
         <Form onSubmit={handleSubmit}>
           <Form.Field>
             <label>URL</label>
@@ -168,9 +180,9 @@ const FigmaCreate = ({ onClose, figmaURL}) => {
         </Form>
       </Modal.Content>
       <Modal.Actions>
-        <Button secondary onClick={onClose}>
+        {/* <Button secondary onClick={onClose}>
           Close
-        </Button>
+        </Button> */}
       </Modal.Actions>
     </Modal>
   );

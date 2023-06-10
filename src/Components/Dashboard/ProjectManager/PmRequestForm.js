@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Form,Button,Dropdown} from 'semantic-ui-react'
 import { ngrokUrlSwe, ngrokUrl } from '../../../Assets/config';
 import { Navigate, useNavigate } from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css';
 
 
 function PmRequestForm() {
@@ -161,64 +162,69 @@ setRequestDescription(e.target.value)
 
   return (
     <div>
-      <Form  onSubmit={handleSubmit}>
-        
-      <Form.Field >
-            <label>PMs</label>
-            <Dropdown
-              placeholder="Select PM"
-              fluid
-              selection
-              options={pm.map((name, index) => ({
-                key: index,
-                text: name,
-                value: name
-              }))}
-              value={selectedPm}
-               onChange={handlePmChange}
-            />
-            </Form.Field>
+      
+   
+      <div className='form-style'>
+      <h1 style={{textAlign:'center'}} >Request Form to add User</h1>
+      <Form onSubmit={handleSubmit}>
         <Form.Field>
-            <label>Projects</label>
-            <Dropdown
-              placeholder="Select Project"
-              fluid
-              selection
-              options={proj.map((name, index) => ({
-                key: index,
-                text: name,
-                value: name
-              }))}
-              value={item}
-               onChange={handleProjChange}
-            />
-            </Form.Field>
-        
-       
-        
-        <Form.Field>
-            <label>User</label>
-            <Dropdown
-              placeholder="Select User"
-              fluid
-              selection
-              options={users.map((name, index) => ({
-                key: index,
-                text: name,
-                value: name
-              }))}
-              value={selectedUser}
-              onChange={handleUserChange}
-            />
-          </Form.Field>
-        <Form.Field>
-        <label htmlFor="projectName">Description:</label>
-        <input type="text" id="Description" required onChange={Description}/>
+          <label style={{textAlign:'left'}}>PMs</label>
+          <Dropdown
+            placeholder="Select PM"
+            fluid
+            selection
+            options={pm.map((name, index) => ({
+              key: index,
+              text: name,
+              value: name
+            }))}
+            value={selectedPm}
+            onChange={handlePmChange}
+          />
         </Form.Field>
-       
+        
+        <Form.Field>
+          <label style={{textAlign:'left'}}>Projects</label>
+          <Dropdown
+            placeholder="Select Project"
+            fluid
+            selection
+            options={proj.map((name, index) => ({
+              key: index,
+              text: name,
+              value: name
+            }))}
+            value={item}
+            onChange={handleProjChange}
+          />
+        </Form.Field>
+        
+        <Form.Field>
+          <label style={{textAlign:'left'}}>User</label>
+          <Dropdown
+            placeholder="Select User"
+            fluid
+            selection
+            options={users.map((name, index) => ({
+              key: index,
+              text: name,
+              value: name
+            }))}
+            value={selectedUser}
+            onChange={handleUserChange}
+          />
+        </Form.Field>
+        
+        <Form.Field>
+          <label style={{textAlign:'left'}}>Description:</label>
+          <input type="text" id="Description" required onChange={Description} />
+        </Form.Field>
 
-        <Button type="submit">Submit Request</Button>
+        <Button type="submit" primary>
+          Submit Request
+        </Button>
       </Form>
+      </div>
 
       <p>{requestStatus}</p>
     </div>

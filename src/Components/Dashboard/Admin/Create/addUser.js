@@ -61,13 +61,21 @@ const AddUser = () => {
 }
  
   return (
-    <div> 
-      <NavBarA/> 
-    <div >
-    {/* <div className="form-display"> */}
-      {/* {console.log("rendering again...........")} */}
-      <Form className="form-style">
-        <h1> Add User to Repo</h1>
+    <div> <NavBarA/><div>
+    <div className = "form-dis">
+    {/* <div style={{paddingRight:'470px',flexDirection:'row'}}>
+      
+  <Button className='back-button' onClick={handleBack}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Button> </div> */}
+  <Form className='form-style' onSubmit={handleSubmit}>
+  <Button className="back-button" onClick={handleBack}>
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </Button>
+ <div className='backandheader'>
+ 
+  <h1>Add User</h1>
+  </div> 
 
         <Form.Field>
           <label style={{ textAlign: 'left' }}>Project Name</label>
@@ -114,7 +122,8 @@ const AddUser = () => {
 
         <Button type='submit' variant='primary' onClick={handleSubmit}>Submit</Button>
       </Form>
-      <Button className="back-button" onClick={handleBack}><FontAwesomeIcon icon={faArrowLeft} /> </Button>
+     
+    </div>
     </div>
     </div>
   )
