@@ -41,6 +41,7 @@ function AddUserName() {
             //  onChange={}
           />
           </Form.Field>
+          <br/>
       <Form.Field>
         <label style={{textAlign:'left'}}>github Username</label>
         <input

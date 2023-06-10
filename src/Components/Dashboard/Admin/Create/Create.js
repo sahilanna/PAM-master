@@ -13,8 +13,8 @@ import { Button } from 'react-bootstrap';
 import NavBarA from '../NavbarA';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import '../Read/Read.css'
-import './Create.css'
+// import '../Read/Read.css'
+// import './Create.css'
 import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
 
 const Create = () => {
