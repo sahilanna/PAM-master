@@ -7,7 +7,6 @@ import Sidebar from '../../SideBar/SideBar';
 import ProjectAnalytics from './projectAnalytics';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid} from 'recharts';
 import "./Analytics.css"
-
 function Analytics() {
 const[Data,setData]=useState([])
 const fetchCount = async () => {
