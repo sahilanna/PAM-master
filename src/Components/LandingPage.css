@@ -7,7 +7,7 @@
 p {
   margin: 0 auto;
   font-family: "Helvetica Neue", "Arial", sans-serif;
-  font-style: italic;
+  /* font-style: italic; */
   color: gray;
   font-variant-ligatures: normal;
 }

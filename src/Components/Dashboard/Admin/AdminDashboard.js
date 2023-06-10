@@ -153,9 +153,9 @@ const handlePaginate = (pageNumber) => {
             {/* <th>Repository Name</th> */}
             {/* <th>PM Github</th>
             <th>User Github</th>  */}
-            <th>View</th>
+            <th className='text-center'>View</th>
             {/* <th>Edit</th> */}
-            <th>Delete</th>
+            <th className='text-center'>Delete</th>
         </thead>
         
         <tbody>
@@ -166,7 +166,7 @@ const handlePaginate = (pageNumber) => {
               <td>{item.projectDescription}</td>
              
          
-              <td>
+              <td className="text-center">
   <button
     className="btn btn-outline-info mx-2"
     onClick={() => handleViewDetails(item)}
@@ -175,7 +175,7 @@ const handlePaginate = (pageNumber) => {
   </button>
 </td>             
 
-                 <td>
+                 <td className='text-center'>
               <Link>
       <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(item.projectId)}><FontAwesomeIcon icon={faTrash} /></button>
       <DialogBox
