@@ -124,13 +124,14 @@ const handlePaginate = (pageNumber) => {
   <input type="text" placeholder="Search PM..."  ></input>
   <i class="users icon"></i>
 </div>
-<button  class="ui button" onClick={createOnclick} >Create Project</button>
+
 
 
 <div >
 
         {item.length > 0 && (
         <div style={{ marginTop: '20px' }}>
+          <button  class="ui button" onClick={createOnclick} >Create Project</button>
           <CSVLink data={csvDataProj} filename="user_project_list.csv" className="btn btn-primary">
             Download CSV
           </CSVLink>

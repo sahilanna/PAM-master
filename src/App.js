@@ -72,6 +72,8 @@ function App() {
           <Route path="/Login" element={<Login/>} />
           <Route path="/" element={<LandingPage/>}/>
           <Route path="/Logout" element={<Logout/>}/>
+          <Route path="/UserCreate" element={<UserCreate />} />
+          <Route path="/PmCreate" element={<PmCreate />} />
         <Route element={<PrivateRoutes />}>
           <Route path="*" element={<h1>Page Not Found</h1>} />
           </Route>

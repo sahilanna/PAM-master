@@ -7,6 +7,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../../../Login/Logout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
+import { ngrokUrlSwe } from '../../../Assets/config';
 
 
 function UserProjects() {
@@ -29,7 +30,7 @@ function UserProjects() {
        
       const fetchUserid = async () => {
         try {
-          const response = await axios.get('https://de62-106-51-70-135.ngrok-free.app/api/users/6/role/user/projects',{
+          const response = await axios.get(`https://${ngrokUrlSwe}/api/users/6/role/project_manager/projects`,{
             headers : {
               'ngrok-skip-browser-warning': 'true'
         }});
@@ -73,9 +74,7 @@ function UserProjects() {
     <i class="users icon"></i>
     <div style={{paddingLeft:'660px',paddingTop:'20px'}}>
       
-  <button onClick={handleLogout} >
-      <FontAwesomeIcon icon={faSignOutAlt} /> Logout
-    </button>
+  
     </div>
   </div>
   

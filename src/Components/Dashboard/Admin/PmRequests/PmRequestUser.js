@@ -28,7 +28,7 @@ function PmRequestUser() {
         { 'allowed': true }
       )
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === 200|| response.status==204) {
           toast.success('User added successfully!', {
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 3000,

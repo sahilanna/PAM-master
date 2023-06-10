@@ -17,42 +17,41 @@ const Profile = () => {
   console.log(pname)
 
     return (
-      <div className='parent-admin'>
-        
-      <div style={{ height: '100vh', overflow: 'scroll initial' }}>
-        
-       
-    
-   <Sidebar/>
-
-
      
-      </div>
-       <div className='admin-child'>
+     
+    
+
        
-
-        <br/>
-      <div className="box">
-        <br/>
-      <div className="profile-image">
-          <FontAwesomeIcon icon={faUser} size="5x" />
-        </div>
-        <br/><br/>
-        <h3>Name: {pname}</h3><hr/>
-        <h3>Email: {pemail}</h3><hr/>
-        <h3>Role: {prole}</h3><hr/>
-        <h3>Id: {id}</h3>
-
+          <div className='parent-admi'>  
+            <div style={{ height: '100vh', overflow: 'scroll initial' }}>
+              <Sidebar/>
+            </div>
+            <div className='admin-chil'>
+              <div className="profile-paren">
+                <div className="profile-details">
+                  <div className="profile-imag">
+                    <h1>PROFILE</h1>
+                    <FontAwesomeIcon icon={faUser} size="7x" />
+                
+                    <div className='profile-chil'>
+                    {/* <label>Name</label>   */}
+                    <b>Name</b>
+                    <p>{pname}</p>
+      
+                    <b>Email</b>
+                    <p>{pemail}</p>
+                    <b>Role</b>
+                    <p>{prole}</p>
+                    <b>ID</b>
+                    <p>{id}</p>
+                    
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         
-        {/* <div className="profile-details">
-          <h2 className="profile-name">Name: {pname}</h2>
-          <p className="profile-age">email: {pemail}</p>
-          <p className="profile-role">Role:{prole} </p>
-          <p className="profile-id">Id:{id} </p>
-        </div> */}
-      </div>
-    </div>
-      </div>
       
     );
   };

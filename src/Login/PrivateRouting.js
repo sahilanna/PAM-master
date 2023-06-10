@@ -66,10 +66,10 @@ const PrivateRoutes = () => {
               <Route path="/UserRead" element={<UserRead/>} />
               <Route path='/Analytics' element={<Analytics/>}/>
               <Route path="/Update/:projectId" element={<Update />} />
-              <Route path="/PmCreate" element={<PmCreate />} />
+             
               <Route path="/PmReadNew" element={<PmReadNew />} />
               <Route path="//PmUpdate/:id" element={<PmReadNew />} />
-              <Route path="/UserCreate" element={<UserCreate />} />
+
               <Route path="/UserUpdate/:id" element={<UserUpdate />} />
               <Route path="/View'" element={<View />} />
               <Route path="/CreateRepo" element={<CreateRepo />} />

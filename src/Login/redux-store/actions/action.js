@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import { ngrokUrl } from "../../../Assets/config";
 
 //Create Project
-export const createProject = ({projectId, projectName, projectDescription,projectManagerId,gitRepoLink}) => {
+export const createProject = ({ projectName, projectDescription,projectManagerId,gitRepoLink}) => {
     return async(dispatchU) => {
         try {
             const responseCreate = await axios.post('https://64267bccd24d7e0de470e2b7.mockapi.io/Crud', {
-                projectId,
+                
                 projectName,
                 projectDescription,
                 projectManagerId,
@@ -43,11 +43,11 @@ export const updateProject = ({projectId, projectName, projectDescription, repo}
 
 
 //Create PM
-export const createPM = ({id, name, email,enumRole}) => {
+export const createPM = ({ name, email,enumRole}) => {
     return async(dispatchPMUpdate) => {
         try {
             const responseCreatePM = await axios.post(`https://${ngrokUrl}/api/users/`, {
-                id,
+                
                 name,
                 email,
                 
@@ -65,11 +65,11 @@ export const createPM = ({id, name, email,enumRole}) => {
 
 
 //Update PM
-export const updatePM = ({id, name, email, githubUsername, enumRole}) => {
+export const updatePM = ({ id,name, email, githubUsername, enumRole}) => {
     return async(dispatchPM) => {
         try {
             const responsePMUpdate = await axios.put(`https://${ngrokUrl}/api/users/update/${id}`, {
-                id,
+               
                 name,
                 email,
                 githubUsername,
@@ -87,11 +87,11 @@ export const updatePM = ({id, name, email, githubUsername, enumRole}) => {
 
 //create user
 
-export const createUser = ({id, name, email, enumRole}) => {
+export const createUser = ({ name, email, enumRole}) => {
     return async(dispatchUserUpdate) => {
         try {
             const responseCreateUser = await axios.post(`https://${ngrokUrl}/api/users/`, {
-                id,
+                
                 name,
                 email,
                 
@@ -108,12 +108,12 @@ export const createUser = ({id, name, email, enumRole}) => {
 
 
 //Update USER
-export const updateUser = ({id, name, email, enumRole}) => {
+export const updateUser = ({ id,name, email, enumRole}) => {
     return async(dispatchUser) => {
         // const {id} = useParams();
         try {
             const responseUserUpdate = await axios.put(`https://${ngrokUrl}/api/users/update/${id}`, {
-                id,
+                
                 name,
                 email,
                 

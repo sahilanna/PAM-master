@@ -4,14 +4,30 @@ import { useEffect,useState } from 'react';
 import axios from 'axios';
 import { ngrokUrl } from '../../../../Assets/config';
 import Sidebar from '../../SideBar/SideBar';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid} from 'recharts';
+import { LineChart, Line, XAxis, YAxis} from 'recharts';
+import { BarChart, Bar, CartesianGrid,ResponsiveContainer } from 'recharts';
+
 function Analytics() {
 const[Data,setData]=useState([])
+const [projectCount, setProjectCount]=useState('')
 
 
 
 
+useEffect(() => {
+  fetchProjectCount();
+}, []);
 
+async function fetchProjectCount() {
+  try {
+    const response = await axios.get(`https://${ngrokUrl}/api/projects/count`,{headers: {
+      'ngrok-skip-browser-warning': 'true'
+    }});
+    setProjectCount(response.data);
+  } catch (error) {
+    console.log('Error fetching project count:', error);
+  }
+}
 
 const fetchCount = async () => {
     try {
@@ -93,6 +109,13 @@ fetchCount();
     <Tooltip />
     <Legend />
   </PieChart></div>
+  <div style={{ width: '100%', height: 300 }}>
+  <ResponsiveContainer width="100%" height="100%">
+        <BarChart width={150} height={40} data={projectCount}>
+          <Bar dataKey="uv" fill="#8884d8" />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   </div>
   )
 }

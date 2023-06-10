@@ -8,6 +8,7 @@ import NavBarA from '../Admin/NavbarA';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import '/home/nineleaps/Downloads/PAM-master-master/src/Components/Dashboard/PM/PmCreate.css'
   
 function UserCreate(){
   let navigate=useNavigate();
@@ -31,7 +32,7 @@ function UserCreate(){
       return;
   }
  
-   dispatchUser(createUser({id,name, email, enumRole}));
+   dispatchUser(createUser({name, email, enumRole}));
     navigate('/userRead')
   
   }
@@ -41,13 +42,21 @@ return(
   <div>
 <div className='form-dis'>
 <Form className = 'form-style' onSubmit={handleSubmit}>
+ <Button className='back-button' onClick={handleBack}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Button>
+         <div className='backandheader'>
+        
+
+
   <h1>Add User</h1>
-    <Form.Field>
+  </div>
+    {/* <Form.Field>
           <label style={{ textAlign: 'left' }}>USER ID</label>
           <input name='id' onChange={(e)=>setId(e.target.value)} placeholder='PM Id' />
           {clicked&&id.length<=0?
                  <label style={{color:'red'}}> ID can't be Empty</label>: ""}
-    </Form.Field>
+    </Form.Field> */}
     <Form.Field>
         <label style={{ textAlign: 'left' }}> User Name</label>
         <input name='name' onChange={(e)=>setName(e.target.value)} placeholder='User Name' />
@@ -67,15 +76,10 @@ return(
                  <label style={{color:'red'}}> User's githubname can't be Empty</label>: ""}
     </Form.Field> */}
 
-    <Form.Field>
-        <label style={{ textAlign: 'left' }}>Role</label>
-        <input name='enumRole' onChange={(e)=>setEnumRole(3)} value="3" disabled/>
-    </Form.Field>
+   
     <Button type='submit' onClick={handleSubmit}>Submit</Button>
   </Form>
-  <Button className='back-button' onClick={handleBack}>
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </Button>
+  
   </div>
   </div>
   </div>
