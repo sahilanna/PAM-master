@@ -6,6 +6,7 @@ const Logout = () => {
   const navigate = useNavigate();
 
   sessionStorage.removeItem('role');
+  sessionStorage.clear();
   useEffect(()=>{
   navigate('/Login') 
   console.log("LOGGED OUT")
@@ -20,8 +21,7 @@ const Logout = () => {
   
 
   return (
-    
-
+  
     navigate('/Login')  
   
   );

@@ -68,13 +68,13 @@ export default function UserUpdate() {
       <div className = "form-dis">
       <Form className='form-style'>
       <h1>Update USER</h1>
-        <Form.Field>
+        {/* <Form.Field>
             <label>USER-ID</label>
             <input name='id'
             onChange={(e)=>setId(e.target.value)} 
             placeholder='USER-ID'
             />
-        </Form.Field>
+        </Form.Field> */}
 
         <Form.Field>
             <label>USER-NAME</label>
@@ -93,10 +93,10 @@ export default function UserUpdate() {
         <input name='githubUsername' value = {githubUsername} onChange={(e)=>setGithubUsername(e.target.value)} />
       </Form.Field> */}
 
-        <Form.Field>
+        {/* <Form.Field>
             <label>Role</label>
             <input name='enumRole' onChange={(e)=>setEnumRole(3)} value="3" disabled/>
-        </Form.Field>
+        </Form.Field> */}
     
         <Button type='submit' variant='primary' onClick={sendDataToAPIUser}>Submit</Button>
 

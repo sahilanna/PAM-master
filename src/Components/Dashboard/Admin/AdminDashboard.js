@@ -25,14 +25,14 @@ import Sidebar from '../SideBar/SideBar';
 // } from 'cdbreact';
 import NavBarA from './NavbarA';
 import Read from './Read/Read';
-import { ngrokUrl } from '../../../Assets/config';
+import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import "./AdminDashboard.css"
 
 const AdminDashboard = () => {
 
   const navigate=useNavigate()
-  const getUrl =  `https://${ngrokUrl}/api/projects/allProjects`
-  const delUrl = `https:/${ngrokUrl}/api/projects/delete/`
+  const getUrl =  `https://${ngrokUrlSwe}/api/projects/allProjects`
+  const delUrl = `https:/${ngrokUrlSwe}/api/projects/delete/`
   const [item, setItem] = useState([]);
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
@@ -42,7 +42,7 @@ const AdminDashboard = () => {
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const[file,setFile]=useState(null);
-  
+  const [searchQuery, setSearchQuery] = useState('');
   const [repoName, setRepoName] = useState('');
   const [pmGithubUsername, setPmGithubUsername] = useState('');
   const [userGithubUsername, setUserGithubUsername] = useState('');
@@ -65,6 +65,11 @@ const AdminDashboard = () => {
       console.log(error,'hi');
     })
   }
+
+
+
+
+
   useEffect(() => {
     loaditem();
 }, []);
@@ -74,6 +79,8 @@ const csvDataProj = item.map((entry) => ({
   'project Description': entry.projectDescription
  
 }));
+
+
 
 const handleViewDetails = (project) => {
   setSelectedProject(project);
@@ -87,126 +94,232 @@ const handleCloseDetails = () => {
 React.useEffect(() => {
   handlePaginate(1);
 }, [item]);
+
+
+
 const createOnclick=()=>{
-  navigate('/Create')
+  navigate('/CreateProject')
 }
 
 console.log(item);
+// const handlePaginate = (pageNumber) => {
+//   const indexOfLastItem = pageNumber * itemsPerPage;
+//   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+//   const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+//   setCurrentPageData(currentItems);
+// };
 const handlePaginate = (pageNumber) => {
   const indexOfLastItem = pageNumber * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
   setCurrentPageData(currentItems);
 };
-//posts=item
+
+const handleSearchChange = (e) => {
+  setSearchQuery(e.target.value);
+  handleFilterItems(e.target.value);
+};
+
+const handleFilterItems = (searchQuery) => {
+  const filteredItems = item.filter((item) =>
+    item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  setCurrentPageData(filteredItems.slice(0, itemsPerPage));
+};
+
+
 
   
   const deleteUser = async (projectId) => {
-    await axios.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`);
+    await axios.delete(`https://${ngrokUrlSwe}/api/projects/delete/${projectId}`);
     navigate('/AdminDashboard')
     setShowConfirmDialog(false);
     loaditem();
 };
 
+const filteredItems = item.filter((item) =>
+item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+);
 
+return (
+  <div className='parent-admin'>
+    <div style={{ height: '100vh', overflow: 'scroll initial' }}>
+      <Sidebar />
+    </div>
 
-  return (
-      <div className='parent-admin'>
-        
-      <div style={{ height: '100vh', overflow: 'scroll initial' }}>
-        <Sidebar/>
-          </div>
-          
-          <div className='admin-child'>
-          {/* <br/>
-          <h1 >Projects</h1> */}
-          <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
+    <div className='admin-child'>
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '20px', marginBottom: '30px', marginLeft: '40px', marginRight: '30px' }}>
         <div class="ui left icon input">
-  <input type="text" placeholder="Search PM..."  ></input>
-  <i class="users icon"></i>
-</div>
-
-
-
-<div >
-
-        {item.length > 0 && (
-        <div style={{ marginTop: '20px' }}>
-          <button  class="ui button" onClick={createOnclick} >Create Project</button>
-          <CSVLink data={csvDataProj} filename="user_project_list.csv" className="btn btn-primary">
-            Download CSV
-          </CSVLink>
+          <input type="text" placeholder="Search Project..." value={searchQuery} onChange={handleSearchChange} />
+          <i class="users icon"></i>
         </div>
-        )}
+
+        <div> 
+          {item.length > 0 && (
+            <div style={{ marginTop: '20px' }}>
+              <button class="ui button" onClick={createOnclick}>Create Project</button>
+              <CSVLink data={csvDataProj} filename="user_project_list.csv" className="btn btn-primary">
+                Download CSV
+              </CSVLink>
+            </div>
+          )}
         </div>
+      </div>
+
+      <div style={{ marginLeft: '20px', marginRight: '30px' }}>
+        <table class="ui celled table">
+          <thead>
+            <tr>
+              <th>Project-ID</th>
+              <th>Project-Name</th>
+              <th>Project-Description</th>
+              <th className='text-center'>View</th>
+              <th className='text-center'>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentPageData.map((item, index) => (
+              <tr key={item.projectId}>
+                <td>{item.projectId}</td>
+                <td>{item.projectName}</td>
+                <td>{item.projectDescription}</td>
+                <td className="text-center">
+                  <button
+                    className="btn btn-outline-info mx-2"
+                    onClick={() => handleViewDetails(item)}
+                  >
+                    <FontAwesomeIcon icon={faEye} />
+                  </button>
+                </td>
+                <td className='text-center'>
+                  <Link>
+                    <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(item.projectId)}>
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                    <DialogBox
+                      show={showConfirmDialog === item.projectId}
+                      onClose={() => setShowConfirmDialog(null)}
+                      onConfirm={() => deleteUser(item.projectId)}
+                    />
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div>
+          <div className='pagination'>
+            <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
+          </div>
+          {showProjectDetails && (
+            <ProjectDetails project={selectedProject} onClose={handleCloseDetails} />
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+
+//   return (
+//       <div className='parent-admin'>
+//       <div style={{ height: '100vh', overflow: 'scroll initial' }}>
+//         <Sidebar/>
+//           </div>
+          
+//           <div className='admin-child'>
+//           {/* <br/>
+//           <h1 >Projects</h1> */}
+//           <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
+//         <div class="ui left icon input">
+//   {/* <input type="text" placeholder="Search PM..."  ></input> */}
+//   <input type="text" placeholder="Search Project..." value={searchQuery}
+//             onChange={handleSearchChange} ></input>
+//   <i class="users icon"></i>
+// </div>
+
+
+
+// <div >
+
+//         {item.length > 0 && (
+//         <div style={{ marginTop: '20px' }}>
+//           <button  class="ui button" onClick={createOnclick} >Create Project</button>
+//           <CSVLink data={csvDataProj} filename="user_project_list.csv" className="btn btn-primary">
+//             Download CSV
+//           </CSVLink>
+//         </div>
+//         )}
+//         </div>
   
     
-    </div>
+//     </div>
     
-    <div style={{marginLeft:'20px',marginRight:'30px'}}>
-    <table class="ui celled table">
+//     <div style={{marginLeft:'20px',marginRight:'30px'}}>
+//     <table class="ui celled table">
        
-        <thead>
-            <th>Project-ID</th>
-            <th>Project-Name</th>
-            <th>Project-Description</th>
+//         <thead>
+//             <th>Project-ID</th>
+//             <th>Project-Name</th>
+//             <th>Project-Description</th>
             
-            {/* <th>Repository Name</th> */}
-            {/* <th>PM Github</th>
-            <th>User Github</th>  */}
-            <th className='text-center'>View</th>
-            {/* <th>Edit</th> */}
-            <th className='text-center'>Delete</th>
-        </thead>
+//             {/* <th>Repository Name</th> */}
+//             {/* <th>PM Github</th>
+//             <th>User Github</th>  */}
+//             <th className='text-center'>View</th>
+//             {/* <th>Edit</th> */}
+//             <th className='text-center'>Delete</th>
+//         </thead>
         
-        <tbody>
-          {currentPageData.map((item, index) => (
-            <tr>
-              <td>{item.projectId}</td>
-              <td>{item.projectName}</td>
-              <td>{item.projectDescription}</td>
+//         <tbody>
+//           {currentPageData.map((item, index) => (
+//             <tr>
+//               <td>{item.projectId}</td>
+//               <td>{item.projectName}</td>
+//               <td>{item.projectDescription}</td>
              
          
-              <td className="text-center">
-  <button
-    className="btn btn-outline-info mx-2"
-    onClick={() => handleViewDetails(item)}
-  >
-    <FontAwesomeIcon icon={faEye} />
-  </button>
-</td>             
+//               <td className="text-center">
+//   <button
+//     className="btn btn-outline-info mx-2"
+//     onClick={() => handleViewDetails(item)}
+//   >
+//     <FontAwesomeIcon icon={faEye} />
+//   </button>
+// </td>             
 
-      <td className='text-center'>
-              <Link>
-      <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(item.projectId)}><FontAwesomeIcon icon={faTrash} /></button>
-      <DialogBox
-       show={showConfirmDialog === item.projectId}
-        onClose={() => setShowConfirmDialog(null)}
-        onConfirm={()=>deleteUser(item.projectId)}/>
-        </Link>
-        </td>
-        </tr> ))}
-        </tbody>
-      </table>
+//       <td className='text-center'>
+//               <Link>
+//       <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(item.projectId)}><FontAwesomeIcon icon={faTrash} /></button>
+//       <DialogBox
+//        show={showConfirmDialog === item.projectId}
+//         onClose={() => setShowConfirmDialog(null)}
+//         onConfirm={()=>deleteUser(item.projectId)}/>
+//         </Link>
+//         </td>
+//         </tr> ))}
+//         </tbody>
+//       </table>
     
-      <div>
-      {/* Display items for the current page */}
-      {/* <div className='pagination'>
-      <Pagination
-      data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
-      />
-    </div> */}
-    {showProjectDetails && (
-        <ProjectDetails project={selectedProject} onClose={handleCloseDetails} />
-      )}
-    </div>
+//       <div>
+//       {/* Display items for the current page */}
+//        <div className='pagination'>
+//       <Pagination
+//       data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
+//       />
+//     </div> 
+//     {showProjectDetails && (
+//         <ProjectDetails project={selectedProject} onClose={handleCloseDetails} />
+//       )}
+//     </div>
 
 
-        </div>  
-      </div>
-      </div>
+//         </div>  
+//       </div>
+//       </div>
     
-  );
+//   );
 };
 
 export default AdminDashboard;

@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-import { Form } from 'semantic-ui-react';
+import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
 import axios from 'axios';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import NavBarA from '../NavbarA';
 // import './Create.css';
@@ -13,20 +13,19 @@ import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
 
 
 function CreateRepo() {
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   let [name, setname] = useState('');
   const [isValid, setIsValid] = useState(true);
   const [error, setError] = useState('false');
   const [clicked, setClicked] = useState(false);
-  const token = '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';
-
+  let[description, setDescription]=useState('')
+  const token = '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';
   const handleBack = () => {
     navigate(-1); // Go back one page in history
   };
-
   let handleSubmit = (e) => {
-    const description = 'i am sweda';
+   // const description = 'i am sweda';
     e.preventDefault();
     setClicked(true);
     if (name.length === 0) {
@@ -34,42 +33,55 @@ function CreateRepo() {
     }
     if (name) {
       //  const response = axios.post(`https://${ngrokUrl}/api/repositories/add`, { name });
-      const response=axios.post(`https://${ngrokUrlSwe}/api/repositories/add`,{name})
+      const response=axios.post(`https://${ngrokUrlSwe}/api/repositories/add`,{name,description})
       console.log(name);
-      navigate('/Create');
+      
+      navigate('/repoRead');
     }
   };
+const onClose = ()=>{
+  navigate(-1);
+}
 
   return (
-    <div>
-      <NavBarA />
-      <div>
-        <div className='form-dis'>
-          <div>
-                    <Button className="back-button" onClick={handleBack}>
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </Button>
-              </div>
-          
-        <Form className='form-style'>
-        <h1 style={{ textAlign: 'left' }}>Create New Repository</h1>
+    
+       
+    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}>
+      <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
+      
+        </div>
+        <div style={{paddingLeft:'442px'}}>
+      <Button secondary onClick={onClose}>
+          X
+        </Button>
+        </div>
+        <Modal.Header>Create New Repository</Modal.Header>
+
+        <Modal.Content>
+
+          <Form onSubmit={handleSubmit}>
+
           <Form.Field>
             <label style={{ textAlign: 'left' }}>Name</label>
             <input name='name' onChange={(e) => setname(e.target.value)} placeholder='Name' />
             {clicked && name.length <= 0 ? <label style={{ color: 'red' }}>Repo name can't be Empty</label> : ''}
             <br />
           </Form.Field>
-          <br />
-          <Button onClick={handleSubmit} variant='primary'>
-            Submit
-          </Button>
+          <Form.Field>
+            <label style={{ textAlign: 'left' }}>Description</label>
+            <input name='description' onChange={(e) => setDescription(e.target.value)} placeholder='Description' />
+            {clicked && description.length <= 0 ? <label style={{ color: 'red' }}>Repo descrio can't be Empty</label> : ''}
+            <br />
+          </Form.Field>
+
+          <Button type='submit'>Submit</Button>
         </Form>
-        
-      </div>
-    </div>
-    {/* <div><FooterA/></div> */}
-    </div>
-    
+        </Modal.Content>
+        <Modal.Actions>
+
+        </Modal.Actions>
+        </Modal>
+  
     
   );
 }

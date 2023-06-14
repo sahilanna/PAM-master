@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import { Form} from 'semantic-ui-react'
+import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { createPM } from '../../../Login/redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
 import NavBarP from './NavbarP';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 // import '/home/nineleaps/Downloads/PAM-master-master/src/Components/Dashboard/Read/Read.css'
@@ -39,35 +39,27 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
       navigate('/pmReadNew')
      
     }
+
+    const onClose = ()=>{
+      navigate(-1);
+    }
   
     return(
-      <div>
-      <NavBarP />
-      <div>
-  <div className = "form-dis">
-    {/* <div style={{paddingRight:'470px',flexDirection:'row'}}>
+      <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}>
+      <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
       
-  <Button className='back-button' onClick={handleBack}>
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </Button> </div> */}
-  <Form className='form-style' onSubmit={handleSubmit}>
-  <Button className="back-button" onClick={handleBack}>
-              <FontAwesomeIcon icon={faArrowLeft} />
-            </Button>
- <div className='backandheader'>
+        </div>
+        <div style={{paddingLeft:'442px'}}>
+      <Button secondary onClick={onClose}>
+          X
+        </Button>
+        </div>
  
-  <h1>Add PM</h1>
-  </div>
+  <Modal.Header>Add PM</Modal.Header>
   
-      
-      
-      {/* <Form.Field>
-          <label style={{ textAlign: 'left' }}>Project-Manager ID</label>
-          <input name='id' onChange={(e)=>setId(e.target.value)} placeholder='PM Id' />
-          {clicked&&id.length<=0?
-                 <label style={{color:'red'}}> ID can't be Empty</label>: ""}
-      </Form.Field> */}
-        
+  <Modal.Content>
+  <Form onSubmit={handleSubmit}>
+
       <Form.Field>
           <label style={{ textAlign: 'left' }}>Project-Manager Name</label>
           <input name='name' onChange={(e)=>setName(e.target.value)} placeholder='PM Name' />
@@ -90,9 +82,11 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
       <Button type='submit' onClick={handleSubmit}>Submit</Button>
     </Form>
     
-    </div>
-    </div>
-    </div>
+    </Modal.Content>
+        <Modal.Actions>
+
+        </Modal.Actions>
+        </Modal>
   )
   }
   export default PmCreate;

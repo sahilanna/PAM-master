@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { ngrokUrl } from "../../../Assets/config";
+import { ngrokUrl, ngrokUrlSwe } from "../../../Assets/config";
 
 //Create Project
 export const createProject = ({ projectName, projectDescription,projectManagerId,gitRepoLink}) => {
@@ -46,7 +46,7 @@ export const updateProject = ({projectId, projectName, projectDescription, repo}
 export const createPM = ({ name, email,enumRole}) => {
     return async(dispatchPMUpdate) => {
         try {
-            const responseCreatePM = await axios.post(`https://${ngrokUrl}/api/users/`, {
+            const responseCreatePM = await axios.post(`https://${ngrokUrlSwe}/api/users/`, {
                 
                 name,
                 email,
@@ -90,7 +90,7 @@ export const updatePM = ({ id,name, email, githubUsername, enumRole}) => {
 export const createUser = ({ name, email, enumRole}) => {
     return async(dispatchUserUpdate) => {
         try {
-            const responseCreateUser = await axios.post(`https://${ngrokUrl}/api/users/`, {
+            const responseCreateUser = await axios.post(`https://${ngrokUrlSwe}/api/users/`, {
                 
                 name,
                 email,

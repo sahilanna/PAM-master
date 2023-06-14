@@ -63,6 +63,18 @@
    
     
   }
+  .centered-modal {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height:180px;
+  }
+
+  /* .centered-modal .modal-dialog {
+    width: 300px !important;
+    margin: 0 !important;
+  } */
+
   
   @keyframes fade-in {
     from {

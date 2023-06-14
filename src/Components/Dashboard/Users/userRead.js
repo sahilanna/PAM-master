@@ -15,11 +15,11 @@ import Sidebar from '../SideBar/SideBar'
 
 
 // import './Read.css'
-import { ngrokUrl } from '../../../Assets/config'
+import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config'
 
 function UserRead(){
   const navigate = useNavigate();
-  const getUrl =  `https://${ngrokUrl}/api/users/role/user`;
+  const getUrl =  `https://${ngrokUrlSwe}/api/users/role/user`;
   const delUrl = "";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -55,6 +55,7 @@ function UserRead(){
         console.log(error,'hi');
       })
     };
+    
     useEffect(() => {
       const filteredProjects = item.filter((project) =>
         project.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -77,11 +78,12 @@ function UserRead(){
     React.useEffect(() => {
       handlePaginate(1);
     }, [item]);
+
     const handleSearchChange = (e) => {
       setSearchQuery(e.target.value);
     };
 
-    const handlePaginate = (pageNumber) => {
+      const handlePaginate = (pageNumber) => {
       const indexOfLastItem = pageNumber * itemsPerPage;
       const indexOfFirstItem = indexOfLastItem - itemsPerPage;
       const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
@@ -95,13 +97,13 @@ function UserRead(){
       loaditem();
       navigate('/userRead')
     };
+
   return(
-<div className='parent-admin'>
+  <div className='parent-admin'>
   <div>
     <Sidebar/>
   </div>
  
-  
   <div className='admin-child'>
      <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
         <div class="ui left icon input">
@@ -118,8 +120,7 @@ function UserRead(){
     </div>
     <div style={{marginLeft:'20px',marginRight:'30px'}}>
     <table class="ui celled table">
-        {/* <thead colspan = '5'>
-        </thead> */}
+        
         <thead>
             <th>User ID</th>
             <th>User Name</th>
