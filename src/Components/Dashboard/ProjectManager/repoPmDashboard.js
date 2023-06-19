@@ -5,27 +5,31 @@ import axios from 'axios';
 import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './pmDashboard.css'
+import { ngrokUrlSwe } from '../../../Assets/config';
 
 function RepoPmDashboard() {
-  const [repoid, setrepoid] = useState([]);
+  // const [repoid, setrepoid] = useState([]);
+  const [result, setResult]=useState([])
     
   
   useEffect(() => {
-    const fetchPmid = async () => {
+    const fetchRepo = async () => {
       try {
-        const response = await axios.get('https://b305-106-51-70-135.ngrok-free.app/api/users/2/role/user/projects',{
+        const response = await axios.get(`https://${ngrokUrlSwe}/api/users/403/role/project_manager/projects`,{
           headers : {
             'ngrok-skip-browser-warning': 'true'
       }});
       
         const  data  = response.data;
-        setrepoid(data);
+        console.log('data',data)
+        setResult(data);
+        console.log('result',result)
       } catch (error) {
         console.log('Error fetching PMID:', error);
       }
     };
 
-    fetchPmid();
+    fetchRepo();
   }, []);
 
 
@@ -53,7 +57,7 @@ function RepoPmDashboard() {
     <table class="ui celled table">
        
         <thead>
-            <th>Repository ID</th>
+            
             <th>Repository Name</th>
             <th>Repository Description</th>
             
@@ -66,18 +70,22 @@ function RepoPmDashboard() {
         </thead>
         
         <tbody>
-        
-            <tr>
-              <td></td>
-              <td></td>
-              {/* <td></td> */}
+           {result.map((item, index) => (
+    <tr key={index}>
+          
+          {/* {currentPageData.map((item, index) => (
+            <tr> */}
+            
+              {console.log(item.repositories[0].repoId)}
+              <td>{item.repositories[0].name}</td>
+              <td>{item.repositories[0].description}</td>
+           
               
-         
-              <td>
-  
-        
-        </td>
-        </tr> 
+      
+              
+            </tr>
+           ))}
+          
         </tbody>
       </table>
       </div>

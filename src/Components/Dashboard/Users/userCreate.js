@@ -51,12 +51,7 @@ return(
 
   <h1>Add User</h1>
   </div>
-    {/* <Form.Field>
-          <label style={{ textAlign: 'left' }}>USER ID</label>
-          <input name='id' onChange={(e)=>setId(e.target.value)} placeholder='PM Id' />
-          {clicked&&id.length<=0?
-                 <label style={{color:'red'}}> ID can't be Empty</label>: ""}
-    </Form.Field> */}
+   
     <Form.Field>
         <label style={{ textAlign: 'left' }}> User Name</label>
         <input name='name' onChange={(e)=>setName(e.target.value)} placeholder='User Name' />

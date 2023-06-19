@@ -90,10 +90,11 @@ import CreateRepo from '../Create/CreateRepo';
 import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../SideBar/SideBar';
+import { ngrokUrlSwe } from '../../../../Assets/config';
 
 
 function RepoRead() {
-  const getUrl = 'https://3ecb-106-51-70-135.ngrok-free.app/api/repositories/get';
+  const getUrl = `https://${ngrokUrlSwe}/api/repositories/get`;
 
   const navigate = useNavigate();
   const [name, setname] = useState('');
@@ -135,9 +136,11 @@ function RepoRead() {
     navigate('/CreateRepo');
   };
   const createOnclickProj=()=>{
-    navigate('/Create')
+    navigate('/gitCreate')
   }
-  
+  const deleteOnClick=()=>{
+    navigate('/DeleteRepository')
+  }
 
   return (
     <div className='parent-admin'>
@@ -157,6 +160,7 @@ function RepoRead() {
     
      
         <div>
+          <button className='ui button' onClick={deleteOnClick}>Delete Reposiroty</button>
         <button className="ui button" onClick={createOnclick}>Create Repository</button>
         <button  class="ui button" onClick={createOnclickProj} >Create Project</button>
         </div>
@@ -176,7 +180,7 @@ function RepoRead() {
         <tbody>
           {filteredProjects.map((item, index) => (
             <tr key={index}>
-              <td>{item.id}</td>
+              <td>{item.repoId}</td>
               <td>{item.name}</td>
               <td>{item.description}</td>
             </tr>

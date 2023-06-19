@@ -51,10 +51,18 @@ import userFigmaRead from './Components/Dashboard/UserDashboard/userFigmaRead';
 import PmRequestForm from './Components/Dashboard/ProjectManager/PmRequestForm';
 import PmRequestUser from './Components/Dashboard/Admin/PmRequests/PmRequestUser';
 import Logout from './Login/Logout';
-
-
-
-
+import GitCreate from './Components/Dashboard/Admin/Repository/gitCreate';
+import ProjectAnalytics from './Components/Dashboard/Admin/Analytics/projectAnalytics';
+import Profile from './Components/Dashboard/Admin/Profile';
+import CreateFigmaDetails from './Components/Dashboard/Admin/Figma/createFigmaDetails';
+import UserHistory from './Components/Dashboard/Admin/userHistory/userHistory';
+import AddUserName from './Components/Dashboard/Users/AddUserName';
+import RepoRead from './Components/Dashboard/Admin/Repository/repoRead';
+import AddPm from './Components/Dashboard/Admin/Create/addPm';
+import Analytics from './Components/Dashboard/Admin/Analytics/Analytics';
+import AddUser from './Components/Dashboard/Admin/Create/addUser.js';
+import UserFigmaRead from './Components/Dashboard/UserDashboard/userFigmaRead';
+import UserRepoRead from './Components/Dashboard/UserDashboard/userRepoRead';
 
 
 
@@ -69,9 +77,15 @@ function App() {
               
         <BrowserRouter>
           <Routes>
+          {/* <Route path="/userRepoRead" element={<UserRepoRead />} />
+
+          <Route path="/figmaPmDashboard" element={<FigmaPmDashboard/>} />
+              <Route path="/userFigmaRead" element={<UserFigmaRead/>} /> */}
           <Route path="/Login" element={<Login/>} />
           <Route path="/" element={<LandingPage/>}/>
           <Route path="/Logout" element={<Logout/>}/>
+          <Route path="/FigmaCreate" element={<FigmaCreate />} />
+          
         <Route element={<PrivateRoutes />}>
           <Route path="*" element={<h1>Page Not Found</h1>} />
           </Route>

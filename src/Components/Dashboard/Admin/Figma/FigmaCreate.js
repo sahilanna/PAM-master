@@ -7,21 +7,26 @@ import CreateFigmaDetails from './createFigmaDetails';
 import { ngrokUrlSwe } from '../../../../Assets/config';
 
 import { useLocation } from 'react-router-dom';
+import { number } from 'prop-types';
 
-const FigmaCreate = ({ onClose, figmaURL}) => {
+const FigmaCreate = ({ onClose, figmaURL,Id}) => {
   console.log(figmaURL)
-  const location = useLocation();
-  const figmaId = location && location.state && location.state.figmaId;
+  console.log(Id)
+
+  // const figmaId = location && location.state && location.state.figmaId;
   
- console.log(figmaId)
+ 
   const [url, setUrl] = useState(figmaURL);
   let [selectedUser, setSelectedUser] = useState('');
   const [screenshotImage, setscreenshotImage] = useState(null);
   let[user, setUsers]=useState([])
   const[post,setPost]=useState('')
+  const[figmaId, setFigmaId]=useState(Id)
  
  
-
+  const handleIdChange = (e) => {
+    setFigmaId(e.target.value);
+  };
 
   const handleUrlChange = (e) => {
     setUrl(e.target.value);
@@ -130,6 +135,16 @@ const FigmaCreate = ({ onClose, figmaURL}) => {
       <Modal.Content>
      
         <Form onSubmit={handleSubmit}>
+        <Form.Field>
+            <label>Figma Id</label>
+            <input
+              type='number'
+              placeholder='enter id'
+              value={figmaId}
+              onChange={handleIdChange}
+              readOnly
+            />
+          </Form.Field>
           <Form.Field>
             <label>URL</label>
             <input
@@ -156,7 +171,8 @@ const FigmaCreate = ({ onClose, figmaURL}) => {
             />
           </Form.Field>
           <Form.Field>
-          <div className="Feeds-uplaod-image">
+            <label>Image</label>
+          <div className="Feeds-upload-image">
             <label className="Photo" htmlFor="file-upload">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
                 <i class="fa fa-2x fa-camera"></i>
@@ -172,10 +188,7 @@ const FigmaCreate = ({ onClose, figmaURL}) => {
             </div>
             </Form.Field>
         
-          {/* <Form.Field>
-            <label>Image</label>
-            <Input type="file" accept="image/*" onChange={handleImageUpload} />
-          </Form.Field> */}
+          
           <Button type="submit">Submit</Button>
         </Form>
       </Modal.Content>

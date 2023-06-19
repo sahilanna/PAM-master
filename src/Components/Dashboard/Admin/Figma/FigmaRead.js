@@ -161,21 +161,26 @@ function FigmaRead() {
         }
       });
       setProjects(response.data);
+      console.log(projects)
+      console.log(projects.figmaId)
+      console.log(response.data.figmaId)
+      setFigmaId(projects.figmaId)
+      // console.log(figmaId)
       setFilteredProjects(response.data);
     } catch (error) {
       console.log('Error fetching projects:', error);
     }
   };
 
-  useEffect(() => {
-    const filteredProjects = projects.filter((project) =>
-      project.projectName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredProjects(filteredProjects);
-  }, [searchQuery, projects]);
+  // useEffect(() => {
+  //   const filteredProjects = projects.filter((project) =>
+  //     project.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+  //   );
+  //   setFilteredProjects(filteredProjects);
+  // }, [searchQuery, projects]);
 
   const createFigma = () => {
-    navigate('/createFigmaDetails');
+    navigate('/createFigmaDetails', { state: { figmaId } });
   };
   const handleAddUser = (url, id) => {
     setFigmaURL(url);
@@ -222,6 +227,7 @@ function FigmaRead() {
           <table className="ui celled table">
             <thead>
               <tr>
+                <th>Figma Id</th>
                 <th>Project Name</th>
                 <th>Figma URL</th>
                 <th>ADD User</th>
@@ -229,8 +235,9 @@ function FigmaRead() {
             </thead>
             <tbody>
               {filteredProjects.map((project, index) => (
-                <tr key={project.id}>
-                  <td>{project.projectName}</td>
+                <tr key={project.figmaId}>
+                  <td>{project.figmaId}</td>
+                  <td>{project.projectDTO.projectName}</td>
                   <td>
                     <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">
                       {project.figmaURL}

@@ -15,24 +15,16 @@ import userHistory from './userHistory/userHistory';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { CSVLink } from 'react-csv';
 import Sidebar from '../SideBar/SideBar';
-// import {
-//   CDBSidebar,
-//   CDBSidebarContent,
-//   CDBSidebarFooter,
-//   CDBSidebarHeader,
-//   CDBSidebarMenu,
-//   CDBSidebarMenuItem,
-// } from 'cdbreact';
 import NavBarA from './NavbarA';
 import Read from './Read/Read';
-import { ngrokUrl } from '../../../Assets/config';
+import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import "./AdminDashboard.css"
 
 const AdminDashboard = () => {
 
   const navigate=useNavigate()
-  const getUrl =  `https://${ngrokUrl}/api/projects/allProjects`
-  const delUrl = `https:/${ngrokUrl}/api/projects/delete/`
+  const getUrl =  `https://${ngrokUrlSwe}/api/projects/allProjects`
+  const delUrl = `https:/${ngrokUrlSwe}/api/projects/delete/`
   const [item, setItem] = useState([]);
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('');
@@ -42,38 +34,60 @@ const AdminDashboard = () => {
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const[file,setFile]=useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredProjects, setFilteredProjects] = useState([]);
   
   const [repoName, setRepoName] = useState('');
   const [pmGithubUsername, setPmGithubUsername] = useState('');
   const [userGithubUsername, setUserGithubUsername] = useState('');
+  const access=sessionStorage.getItem('item')
+            const accessToken=access.token
 
   
   const itemsPerPage = 5;
   const { id } = useParams();
 
+  useEffect(() => {
+    loaditem();
+  }, []);
+
   const loaditem = async () => {
   const result = await axios.get(getUrl,{
       headers: {
+        'accessToken':accessToken,
         'ngrok-skip-browser-warning': 'true'
       }}) .then((result) => {
+        console.log(result)
       setItem(result.data);
-      // handleViewDetails(result.data);
-      // setSelectedProject(result.data);
-      // console.log(res, "hello");
+      console.log(result.data)
+      console.log(item)
+     
+   
     })
     .catch((error)=>{
       console.log(error,'hi');
     })
   }
-  useEffect(() => {
-    loaditem();
-}, []);
+  
+    // useEffect(() => {
+    //   const filteredProjects = item.filter((project) =>
+    //     project.name.toLowerCase().includes(searchQuery.toLowerCase())
+    //   );
+    //   setFilteredProjects(filteredProjects);
+    // }, [searchQuery, item]);
+
+
 const csvDataProj = item.map((entry) => ({
   'project Id': entry.projectId,
   'project Name': entry.projectName,
   'project Description': entry.projectDescription
  
 }));
+
+const handleSearchChange = (e) => {
+  setSearchQuery(e.target.value);
+};
+
 
 const handleViewDetails = (project) => {
   setSelectedProject(project);
@@ -88,7 +102,7 @@ React.useEffect(() => {
   handlePaginate(1);
 }, [item]);
 const createOnclick=()=>{
-  navigate('/Create')
+  navigate('/CreateProject')
 }
 
 console.log(item);
@@ -118,8 +132,7 @@ const handlePaginate = (pageNumber) => {
           </div>
           
           <div className='admin-child'>
-          {/* <br/>
-          <h1 >Projects</h1> */}
+          <h1 >Projects</h1>
           <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
         <div class="ui left icon input">
   <input type="text" placeholder="Search PM..."  ></input>
@@ -132,7 +145,7 @@ const handlePaginate = (pageNumber) => {
 
         {item.length > 0 && (
         <div style={{ marginTop: '20px' }}>
-          <button  class="ui button" onClick={createOnclick} >Create Project</button>
+          <button  class="ui button" onClick={createOnclick} >Create Repository</button>
           <CSVLink data={csvDataProj} filename="user_project_list.csv" className="btn btn-primary">
             Download CSV
           </CSVLink>
@@ -147,7 +160,8 @@ const handlePaginate = (pageNumber) => {
     <table class="ui celled table">
        
         <thead>
-            <th>Project-ID</th>
+          <th>Project Id</th>
+           
             <th>Project-Name</th>
             <th>Project-Description</th>
             
@@ -160,11 +174,12 @@ const handlePaginate = (pageNumber) => {
         </thead>
         
         <tbody>
-          {currentPageData.map((item, index) => (
+          {currentPageData.map((dataa ,index) => (
             <tr>
-              <td>{item.projectId}</td>
-              <td>{item.projectName}</td>
-              <td>{item.projectDescription}</td>
+             <td>{dataa.projectId}</td>
+              
+              <td>{dataa.projectName}</td>
+              <td>{dataa.projectDescription}</td>
              
          
               <td className="text-center">
@@ -176,7 +191,7 @@ const handlePaginate = (pageNumber) => {
   </button>
 </td>             
 
-      <td className='text-center'>
+                 <td className='text-center'>
               <Link>
       <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(item.projectId)}><FontAwesomeIcon icon={faTrash} /></button>
       <DialogBox

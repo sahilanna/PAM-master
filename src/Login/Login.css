@@ -23,6 +23,12 @@
 
     /* height: 100vh; */
   }
+  .centered-modal {
+    display: flex;
+    align-items: center;
+   width: '40%';
+   height: '40%';
+  }
   
   .footer {
     background-color: #f5f5f5;
@@ -63,6 +69,14 @@
    
     
   }
+
+  /* .centered-modal .ui.modal {
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  } */
   
   @keyframes fade-in {
     from {

@@ -1,18 +1,22 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from'axios'
 import NavBarLogin from './NavBarLogin';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import './Login.css'
 import { ngrokUrl } from '../Assets/config';
+import { Button } from 'react-bootstrap';
+import { Modal } from 'semantic-ui-react';
+
 //import apiLink from "../ApiConfig"
 function Test() {
+    const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
     const navigate=useNavigate()
     async function handleGoogleLogin(response) {
-        console.log(response);
+        // console.log(response);
         const token=response.credential
-        console.log(token)
+         console.log(token)
         const headers = {
             Authorization: `${token}`,
             'ngrok-skip-browser-warning': 'true'
@@ -22,7 +26,11 @@ function Test() {
             const { data}  = await axios.get(
                 `https://${ngrokUrl}/auth/api/get-email`,
                 { headers })
+                console.log(data)
             sessionStorage.setItem('item', JSON.stringify( data))
+            const access=sessionStorage.getItem('item')
+            const accessToken=access.token
+            console.log(accessToken)
           console.log(data.role)
             if (data.role ==="ADMIN") {
                 navigate('/AdminDashboard', { state: { data } });
@@ -32,14 +40,35 @@ function Test() {
                 
                 navigate('/userProjects', { state: { data } });
             } else {
-                navigate('/Login');
+                   
+                    // navigate('/Login');
             }
         }
         catch (error) {
-            console.log('hi',error);
+             setShowUserNotFoundModal(true);
+            console.log("user not found")
+
+            //console.log('hi',error);
            
         }
     }
+
+    // function decodeIdToken(token) {
+    //     const base64Url = token.split(".")[1];
+    //     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    //     const jsonPayload = decodeURIComponent(
+    //       window
+    //         .atob(base64)
+    //         .split("")
+    //         .map(function (c) {
+    //           return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+    //         })
+    //         .join("")
+    //     );
+  
+    //     return JSON.parse(jsonPayload);
+    //   }
+
     useEffect(() => {
         const clientID='840665959732-ip9sm2ea6l7ds2vbgooum6ec08fl8k3v.apps.googleusercontent.com'
         window.google.accounts.id.initialize({
@@ -69,6 +98,21 @@ function Test() {
       </div>
       <div className="box-container"></div>
       <Footer />
+      <div  style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }}>
+      <Modal open={showUserNotFoundModal} className='centered-modal' >
+        <Modal.Header>User not found</Modal.Header>
+        <Modal.Content >
+          <p>The user was not found. Please try again.</p>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button onClick={() => setShowUserNotFoundModal(false)}>Close</Button>
+        </Modal.Actions>
+      </Modal>
+      </div>
     </div>
     
     );

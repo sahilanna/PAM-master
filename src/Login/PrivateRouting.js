@@ -39,6 +39,14 @@ import Profile from "../Components/Dashboard/Admin/Profile";
 import UserProfile from "../Components/Dashboard/UserDashboard/userProfile";
 import PmProfile from "../Components/Dashboard/ProjectManager/pmprofile";
 import AddUserName from "../Components/Dashboard/Users/AddUserName";
+import ProjectAnalytics from "../Components/Dashboard/Admin/Analytics/projectAnalytics";
+import GitCreate from "../Components/Dashboard/Admin/Repository/gitCreate";
+import CreateProject from "../Components/Dashboard/Admin/Create/CreateProject";
+import PmAddUserName from "../Components/Dashboard/PM/pmAddUsername";
+import DeleteRepository from "../Components/Dashboard/Admin/Repository/deleteRepository";
+
+
+
 
 
 const PrivateRoutes = () => {
@@ -59,6 +67,7 @@ const PrivateRoutes = () => {
         <>
           {role== "ADMIN" && (
             <Routes>
+              <Route path='/Logout' element={<Logout/>}/>
               <Route path="/AdminDashboard" element={<AdminDashboard />} />
               <Route path="/AddUserName" element={<AddUserName/>} />
               <Route path="/Login" element={<Login />} />
@@ -88,11 +97,17 @@ const PrivateRoutes = () => {
               <Route path="/CreateFigmaDetails" element={<CreateFigmaDetails/>} />
               <Route path="/PmRequestUser" element={<PmRequestUser/>} />
               <Route path='/Profile' element={<Profile/>}/>
+              <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/>
+              <Route path='/gitCreate' element={<GitCreate/>}/>
+              <Route path='/CreateProject' element={<CreateProject/>}/>
+              <Route path='/pmAddUserName' element={<PmAddUserName/>}/>
+              <Route path='/deleteRepository' element={<DeleteRepository/>}/>
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           )}
           {role=== "PROJECT_MANAGER" && (
             <Routes>
+               <Route path='/Logout' element={<Logout/>}/>
               <Route path="/pmDashboard" element={<PmDashboard />} />
               <Route path="/figmaPmDashboard" element={<FigmaPmDashboard />} />
               <Route path="/PmRequestForm" element={<PmRequestForm />} />
@@ -104,9 +119,9 @@ const PrivateRoutes = () => {
           )}
           {role === "USER" && (
             <Routes>
+               <Route path='/Logout' element={<Logout/>}/>
               <Route path="/userProjects" element={<UserProjects/>} />
-              <Route path="/userRepoRead" element={<UserRepoRead />} />
-              <Route path="/userFigmaRead" element={<UserFigmaRead/>} />
+             
               <Route path='/userProfile' element={<UserProfile/>}/>
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>

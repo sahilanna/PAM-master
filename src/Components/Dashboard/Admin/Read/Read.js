@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './Read.css'
 import ProjectDetails from './ProjectDetails'
-import { ngrokUrl } from '../../../../Assets/config';
+import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
 import Sidebar from '../../SideBar/SideBar';
 
 
@@ -36,22 +36,25 @@ export default function Read(){
   const [selectedProject, setSelectedProject] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
+  const[dataa,setDataa]=useState('')
   
   
   const [repoName, setRepoName] = useState('');
   const [pmGithubUsername, setPmGithubUsername] = useState('');
   const [userGithubUsername, setUserGithubUsername] = useState('');
+  
 
   
   const itemsPerPage = 5;
   const { id } = useParams();
 
   const loaditem = async () => {
-  const result = await axios.get(`https://${ngrokUrl}/api/projecs/allProjects`,{
+  const result = await axios.get(`https://${ngrokUrlSwe}/api/projecs/allProjects`,{
       headers: {
+      
         'ngrok-skip-browser-warning': 'true'
       }}) .then((result) => {
-      setItem(result.data);
+      setDataa(result.data);
      
     })
     .catch((error)=>{
@@ -124,7 +127,7 @@ const handlePaginate = (pageNumber) => {
         </thead>
         
         <tbody>
-          {currentPageData.map((item, index) => (
+          {dataa.map((item, index) => (
             <tr>
               <td>{item.projectId}</td>
               <td>{item.projectName}</td>

@@ -126,6 +126,9 @@ function PmReadNew() {
   const createOnclick=()=>{
     navigate('/PmCreate')
   }
+  const createOnclickPm=()=>{
+    navigate('/pmAddUserName')
+  }
   
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -150,6 +153,7 @@ function PmReadNew() {
 
 
     <button class="ui button" onClick={createOnclick} >Create PM</button>
+    <button class="ui button" onClick={createOnclickPm} >Add Pm Username</button>
     
     </div>
     <div style={{marginLeft:'20px',marginRight:'30px'}}>
