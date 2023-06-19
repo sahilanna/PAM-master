@@ -7,8 +7,10 @@ import Sidebar from '../../SideBar/SideBar';
 import ProjectAnalytics from './projectAnalytics';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid} from 'recharts';
 import "./Analytics.css"
+import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 function Analytics() {
 const[Data,setData]=useState([])
+const [isLoading, setIsLoading] = useState(true);
 const fetchCount = async () => {
     try {
       const [adminResponse, pmResponse, userResponse] = await Promise.all([
@@ -29,7 +31,8 @@ const fetchCount = async () => {
           }),
        
       ]);
-
+     
+      setIsLoading(false);
       const adminCount = adminResponse.data;
       const pmCount = pmResponse.data;
       const userCount = userResponse.data;
@@ -45,6 +48,7 @@ const fetchCount = async () => {
       console.log(Data)
     } catch (error) {
       console.error(error);
+      setIsLoading(true);
     }
 
 
@@ -58,8 +62,7 @@ fetchCount();
 }, []);
 
  
-
-      const COLORS = ['#FFBB28', '#FF8042', '#0088FE']; 
+  const COLORS = ['#FFBB28', '#FF8042', '#0088FE']; 
   return (
     <div className='parent-adm'>
         
@@ -68,10 +71,16 @@ fetchCount();
           </div>
           
        <div className='try'>
+
+
+        
+       {isLoading ? (
+            <LoadingPage />
+          ) : (
     <div style={{align: "center"}}> 
     <br/>
     <div className='Analytics-components'>
-        <h2>Count</h2>
+        <h2>Count of Admin, PMs and Users</h2>
         
         <PieChart width={300} height={300}>
             
@@ -97,6 +106,7 @@ fetchCount();
         </div>
         </div>
         </div>
+          )}
       </div>
     </div>
  

@@ -8,12 +8,14 @@ import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import axios from 'axios';
+import LoadingPage from '../../../Assets/Loader/LoadingPage';
 
 
 function UserFigmaRead() { 
 
 
   const[figmaUser,setfigmaUser]=useState('')
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchPmid = async () => {
 
@@ -23,16 +25,18 @@ function UserFigmaRead() {
     
     const urlParams = new URLSearchParams(window.location.search);
     // const id = urlParams.get('id');
-    const response = await axios.get(`https://${ngrokUrlSwe}/api/users/452/role/project_manager/projects`,{
+    const response = await axios.get(`https://${ngrokUrlSwe}/api/users/405/role/project_manager/projects`,{
       headers : {
         'ngrok-skip-browser-warning': 'true'
   }});
   console.log(response.data)
   console.log(response.id);
+  setIsLoading(false);
 
     setfigmaUser(response.data);
   } catch (error) {
     console.log('Error fetching PMID:', error);
+    setIsLoading(true);
   }
 };
 
@@ -57,8 +61,12 @@ function UserFigmaRead() {
         </div>
         
         <div style={{marginLeft:'20px',marginRight:'30px'}}>
-        <table class="ui celled table">
+        {isLoading ? (
+            <LoadingPage />
+          ) : (
            
+        <table class="ui celled table">
+       
             <thead>
                 <th>Project Name</th>
                 <th>Figma URL</th>
@@ -97,6 +105,7 @@ function UserFigmaRead() {
             
            
           </table>
+          )}
           </div>
           </div>
     

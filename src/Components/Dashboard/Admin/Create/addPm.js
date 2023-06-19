@@ -51,7 +51,7 @@ const AddPm = () => {
     e.preventDefault();
     setError(true);
     const owner='swe1304';
-    const accessToken='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';
+    const accessToken='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';
 
     let repo = selectedRepo
     const response= axios.post(`https://${ngrokUrlSwe}/api/collaborators/add`,{owner, repo,username,accessToken

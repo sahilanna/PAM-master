@@ -6,21 +6,25 @@ import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './pmDashboard.css'
 import { ngrokUrlSwe } from '../../../Assets/config';
+import LoadingPage from '../../../Assets/Loader/LoadingPage';
 function RepoPmDashboard() {
+  const [isLoading, setIsLoading] = useState(true);
   const [result, setResult]=useState([])
   useEffect(() => {
     const fetchRepo = async () => {
       try {
-        const response = await axios.get(`https://${ngrokUrlSwe}/api/users/403/role/project_manager/projects`,{
+        const response = await axios.get(`https://${ngrokUrlSwe}/api/users/552/role/project_manager/projects`,{
           headers : {
             'ngrok-skip-browser-warning': 'true'
       }});
         const  data  = response.data;
         console.log('data',data)
         setResult(data);
+        setIsLoading(false);
         console.log('result',result)
       } catch (error) {
         console.log('Error fetching PMID:', error);
+        setIsLoading(true)
       }
     };
     fetchRepo();
@@ -38,6 +42,9 @@ function RepoPmDashboard() {
 </div>
     </div>
     <div style={{marginLeft:'20px',marginRight:'30px'}}>
+    {isLoading ? (
+            <LoadingPage />
+          ) : (
     <table class="ui celled table">
         <thead>
             <th>Repository Name</th>
@@ -74,6 +81,7 @@ function RepoPmDashboard() {
 
 
       </table>
+          )}
       </div>
       </div>
     </div>

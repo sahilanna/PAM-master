@@ -3,20 +3,24 @@ import PmSidebar from './pmSidebar';
 import axios from 'axios';
 import { ngrokUrlSwe } from '../../../Assets/config';
 import { useState,useEffect } from 'react';
+import LoadingPage from '../../../Assets/Loader/LoadingPage';
 function FigmaPmDashboard() {
   const [result, setResult]=useState([])
+  const [isLoading, setIsLoading] = useState(true);
   const fetchFigma = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/users/403/role/project_manager/projects`,{
+      const response = await axios.get(`https://${ngrokUrlSwe}/api/users/552/role/project_manager/projects`,{
         headers : {
           'ngrok-skip-browser-warning': 'true'
     }});
       const  data  = response.data;
       console.log('data',data)
+      setIsLoading(false);
       setResult(data);
       console.log('result',result)
     } catch (error) {
       console.log('Error fetching PMID:', error);
+      setIsLoading(true);
     }
   };
   useEffect(() => {
@@ -34,7 +38,10 @@ return (
 <i class="users icon"></i>
 </div>
   </div>
-  <div style={{marginLeft:'20px',marginRight:'30px'}}>
+  <div style={{marginLeft:'20px',marginRight:'30px'}}> 
+  {isLoading ? (
+            <LoadingPage />
+          ) : (
   <table class="ui celled table">
       <thead>
           <th>Project Name</th>
@@ -55,6 +62,7 @@ return (
          ))}
       </tbody>
     </table>
+    )}
     </div>
     </div>
   </div>

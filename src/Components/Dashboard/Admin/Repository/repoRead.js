@@ -5,8 +5,10 @@ import { ngrokUrlSwe } from '../../../../Assets/config';
 import { Modal, Button } from 'semantic-ui-react';
 import Sidebar from '../../SideBar/SideBar';
 import Create from '../Create/Create';
+import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 
 function RepoRead() {
+  const [isLoading, setIsLoading] = useState(true);
   const getUrl = `https://${ngrokUrlSwe}/api/repositories/get`;
   const navigate = useNavigate();
   const [item, setItem] = useState([]);
@@ -26,8 +28,10 @@ function RepoRead() {
         }
       });
       setItem(response.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(true);
     }
   };
 
@@ -60,8 +64,12 @@ function RepoRead() {
        
     
     <div className='parent-admin'>
+     
       <Sidebar/>
+     
+           
       <div className='admin-child'>
+        
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '20px', marginBottom: '30px', marginLeft: '40px', marginRight: '30px' }}>
           <div className="ui left icon input">
             <input type="text" placeholder="Search Repo..." value={searchQuery} onChange={handleSearchChange} />
@@ -74,6 +82,9 @@ function RepoRead() {
           </div>
         </div>
         <div style={{ marginLeft: '20px', marginRight: '30px' }}></div>
+        {isLoading ? (
+            <LoadingPage />
+          ) : (
         <table className="ui celled table">
           <thead>
             <tr>
@@ -92,13 +103,17 @@ function RepoRead() {
             ))}
           </tbody>
         </table>
+          )}
       </div>
+         
       <Modal open={isDrawerOpen} onClose={toggleDrawer} closeIcon style={{ position: 'fixed', right: 0, top: 0 }}>
         <Modal.Header>Create Project</Modal.Header>
         <Modal.Content>
           <Create onClose={toggleDrawer} />
         </Modal.Content>
       </Modal>
+      
+      
     </div>
   );
 }

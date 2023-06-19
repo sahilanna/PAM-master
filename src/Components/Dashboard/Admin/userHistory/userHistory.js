@@ -5,8 +5,10 @@ import './userHistory.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrl } from '../../../../Assets/config';
+import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 
 function UserHistory() {
+  const [isLoading, setIsLoading] = useState(true);
   const [historyData, setHistoryData] = useState([]);
 
   useEffect(() => {
@@ -20,25 +22,31 @@ function UserHistory() {
           'ngrok-skip-browser-warning': 'true'
         }});
       setHistoryData(response.data);
+      setIsLoading(false);
      
     } catch (error) {
       console.log('Error fetching user history:', error);
+      setIsLoading(true);
     }
   }
 
   return (
     <div className='parent-admin'>
-      <div>
+      
         <Sidebar/>
-      </div>
+   
       
       <br />
       <br />
+     
       
       <div className='admin-child'>
       <br/>
       <h1 style={{fontFamily:'sans-serif'}}>User History</h1>
       <div style={{ marginLeft: '20px', marginRight: '30px' }}>
+      {isLoading ? (
+            <LoadingPage />
+          ) : (
         <Table  class="ui celled table">
           <Table.Header>
             <Table.Row>
@@ -80,8 +88,11 @@ function UserHistory() {
             ))}
           </Table.Body>
         </Table>
+         )}
         </div>
+        
       </div>
+         
     </div>
   );
 }

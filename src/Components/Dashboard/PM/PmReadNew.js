@@ -16,16 +16,7 @@ import PmDetails from './PmDetails'
 import { ngrokUrl } from '../../../Assets/config'
 import Sidebar from '../SideBar/SideBar'
 import { ngrokUrlSwe } from '../../../Assets/config'
-// import '/home/nineleaps/Downloads/PAM-master-master/src/Components/Dashboard/Admin/AdminDashboard.css'
-// import  {
-//     CDBSidebar,
-//     CDBSidebarContent,
-//     CDBSidebarFooter,
-//     CDBSidebarHeader,
-//     CDBSidebarMenu,
-//     CDBSidebarMenuItem,
-//   } from 'cdbreact'
-
+import LoadingPage from '../../../Assets/Loader/LoadingPage'
 
 
 function PmReadNew() {
@@ -46,6 +37,7 @@ function PmReadNew() {
     const [selectedProject, setSelectedProject] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   
     const itemsPerPage = 5;
     
@@ -66,12 +58,14 @@ function PmReadNew() {
           
           }}) .then((result) => {
           setItem(result.data);
+          setIsLoading(false);
           console.log(tokenData)
          
           // console.log(res, "hello");
         })
         .catch((error)=>{
           console.log(error,'hi');
+          setIsLoading(true);
           
 
         })
@@ -160,6 +154,9 @@ function PmReadNew() {
     
     </div>
     <div style={{marginLeft:'20px',marginRight:'30px'}}>
+    {isLoading ? (
+            <LoadingPage />
+          ) : (
     <table class="ui celled table">
         {/* <thead colspan = '5'>
         </thead> */}
@@ -220,6 +217,7 @@ function PmReadNew() {
         </tbody>
 
       </table>
+          )}
       </div>
     
     <div className='pagination'>

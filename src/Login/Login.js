@@ -90,7 +90,7 @@ function Test() {
     alignItems: 'center',
     justifyContent: 'center',
   }}>
-    
+    <div className='Modal-cont'>
       <Modal open={showUserNotFoundModal} className='centered-modal'size='mini' >
         <Modal.Header>User not found</Modal.Header>
         <Modal.Content >
@@ -100,6 +100,7 @@ function Test() {
           <Button onClick={() => setShowUserNotFoundModal(false)}>Close</Button>
         </Modal.Actions>
       </Modal>
+      </div>
       </div>
     </div>
     );

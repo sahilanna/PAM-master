@@ -58,6 +58,16 @@ const onClose=()=>{
                 <input name='description' onChange={(e) => setProjectDescription(e.target.value)} placeholder='description' />
               {clicked && projectName.length <= 0 ? <label style={{ color: 'red' }}>project description can't be Empty</label> : ''}
               </Form.Field>
+              <Form.Field>
+                <label style={{ textAlign: 'left' }}>Users</label>
+                <input name='description' onChange={(e) => setProjectDescription(e.target.value)} placeholder='description' />
+              {clicked && projectName.length <= 0 ? <label style={{ color: 'red' }}>project description can't be Empty</label> : ''}
+              </Form.Field>
+              <Form.Field>
+                <label style={{ textAlign: 'left' }}>Pms</label>
+                <input name='description' onChange={(e) => setProjectDescription(e.target.value)} placeholder='description' />
+              {clicked && projectName.length <= 0 ? <label style={{ color: 'red' }}>project description can't be Empty</label> : ''}
+              </Form.Field>
               <Button type='submit'>Submit</Button>
         </Form>
         </Modal.Content>

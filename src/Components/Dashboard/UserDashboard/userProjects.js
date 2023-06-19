@@ -8,6 +8,7 @@ import Logout from '../../../Login/Logout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import { ngrokUrlSwe } from '../../../Assets/config';
+import LoadingPage from '../../../Assets/Loader/LoadingPage';
 
 
 function UserProjects() {
@@ -18,6 +19,7 @@ function UserProjects() {
     const [selectedPmProject, setSelectedPmProject] = useState(null);
     const [showPmProjectDetails, setShowPmProjectDetails] = useState(false);
     const [userid, setUserid] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     
     const navigate=useNavigate()
 
@@ -85,7 +87,11 @@ function UserProjects() {
       </div>
       
       <div style={{marginLeft:'20px',marginRight:'30px'}}>
+      {isLoading ? (
+            <LoadingPage />
+          ) : (
       <table class="ui celled table">
+     
          
           <thead>
               <th>Project-ID</th>
@@ -126,7 +132,10 @@ function UserProjects() {
         />
       )}
    */}
+
+
         </table>
+        )}
         </div>
         </div>
   </div>

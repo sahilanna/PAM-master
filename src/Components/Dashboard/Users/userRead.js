@@ -12,6 +12,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import UserDetails from './UserDetails'
 import Sidebar from '../SideBar/SideBar'
+import LoadingPage from '../../../Assets/Loader/LoadingPage'
+
 
 
 // import './Read.css'
@@ -34,6 +36,7 @@ function UserRead(){
   const { ID } = useParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     loaditem();
   }, []);
@@ -48,11 +51,13 @@ function UserRead(){
           'ngrok-skip-browser-warning': 'true'
         }}) .then((result) => {
         setItem(result.data);
+        setIsLoading(false);
         // console.log(res, "hello");
         navigate('/userRead')
       })
       .catch((error)=>{
         console.log(error,'hi');
+        setIsLoading(true);
       })
     };
     
@@ -119,6 +124,9 @@ function UserRead(){
     
     </div>
     <div style={{marginLeft:'20px',marginRight:'30px'}}>
+    {isLoading ? (
+            <LoadingPage />
+          ) : (
     <table class="ui celled table">
         
         <thead>
@@ -166,6 +174,7 @@ function UserRead(){
           ))}
         </tbody>
       </table>
+          )}
     </div>
     <div className='pagination'>
       {/* Display items for the current page */}
@@ -183,7 +192,7 @@ function UserRead(){
 }
 export default UserRead;
 
-// function UserRead(){
+//nction UserRead(){
 
 //     const navigate = useNavigate();
 //     const getUrl =  "https://225f-106-51-70-135.ngrok-free.app/api/users/role/user";

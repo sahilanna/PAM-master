@@ -9,6 +9,7 @@ import axios from 'axios';
 import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrlSwe } from '../../../../Assets/config';
 import './FigmaRead.css'
+import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 
 function FigmaRead() {
   const [showModal, setShowModal] = useState(false);
@@ -19,6 +20,7 @@ function FigmaRead() {
   const[figmaURL, setFigmaURL]=useState('')
   const[figmaId, setFigmaId]=useState('')
   const[projectId, setProjectId]=useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchProjects();
@@ -40,11 +42,13 @@ function FigmaRead() {
      
       const projectFigmaId=response.data[0].projectDTO.projectId
       console.log(projectFigmaId)
+      setIsLoading(false);
        
       // console.log(figmaId)
       setFilteredProjects(response.data);
     } catch (error) {
       console.log('Error fetching projects:', error); 
+      setIsLoading(true);
     }
   };
   // useEffect(() => {
@@ -85,6 +89,7 @@ function FigmaRead() {
             marginRight: '30px',
           }}
         >
+          
           <div className="ui left icon input">
             <input type="text" placeholder="Search repo..." value={searchQuery} onChange={handleSearchChange} />
             <i className="users icon"></i>
@@ -94,6 +99,9 @@ function FigmaRead() {
           </button>
         </div>
         <div style={{ marginLeft: '20px', marginRight: '30px' }}>
+        {isLoading ? (
+            <LoadingPage />
+          ) : (
           <table className="ui celled table">
             <thead>
               <tr>
@@ -123,6 +131,7 @@ function FigmaRead() {
               ))}
             </tbody>
           </table>
+          )}
         </div>
       </div>
       <div className='model-container'>

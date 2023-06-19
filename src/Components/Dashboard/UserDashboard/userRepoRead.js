@@ -3,24 +3,28 @@ import UserSidebar from './userSidebar'
 import { ngrokUrlSwe } from '../../../Assets/config';
 import axios from 'axios';
 import {useState, useEffect} from 'react'
+import LoadingPage from '../../../Assets/Loader/LoadingPage';
 
 
 function UserRepoRead() {
 
   const [result, setResult]=useState([])
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchRepo = async () => {
       try {
-        const response = await axios.get(`https://${ngrokUrlSwe}/api/users/302/role/user/projects`,{
+        const response = await axios.get(`https://${ngrokUrlSwe}/api/users/405/role/user/projects`,{
           headers : {
             'ngrok-skip-browser-warning': 'true'
       }});
         const  data  = response.data;
         console.log('data',data)
         setResult(data);
+        setIsLoading(false);
         console.log('result',result)
       } catch (error) {
         console.log('Error fetching PMID:', error);
+        setIsLoading(true);
       }
     };
     fetchRepo();
@@ -38,6 +42,9 @@ function UserRepoRead() {
 </div>
     </div>
     <div style={{marginLeft:'20px',marginRight:'30px'}}>
+    {isLoading ? (
+            <LoadingPage />
+          ) : (
     <table class="ui celled table">
         <thead>
             <th>Repository Name</th>
@@ -72,6 +79,8 @@ function UserRepoRead() {
           )}
         </tbody>
       </table>
+          )}
+            
       </div>
       </div>
     </div>
