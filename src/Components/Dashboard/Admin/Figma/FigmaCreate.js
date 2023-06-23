@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
 import axios from 'axios';
 import CreateFigmaDetails from './createFigmaDetails';
-import { ngrokUrlSwe } from '../../../../Assets/config';
-
+import { ngrokUrl } from '../../../../Assets/config';
+import api from '../../api';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,7 +28,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     
     try {
       const response = await axios.put(
-        `https://${ngrokUrlSwe}/api/figmas/${figmaId}/user`,
+        `https://${ngrokUrl}/api/figmas/${figmaId}/user`,
         {
           user: selectedUser,
           screenshotImage: screenshotImage
@@ -66,11 +66,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/projects/${projectId}/users`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/users`);
      console.log(response.data)
      const userNames = response.data.map(project => project.name);
      setUsers(userNames);

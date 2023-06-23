@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Dropdown, Button, Modal } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ngrokUrlSwe } from '../../../Assets/config';
+import { ngrokUrl } from '../../../Assets/config';
 import './Read.css'
 
 
@@ -22,7 +22,7 @@ function AddUserName() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/users/get`, {
+      const response = await axios.get(`https://${ngrokUrl}/api/users/get`, {
         headers: {
           'ngrok-skip-browser-warning': 'true',
         },
@@ -44,7 +44,7 @@ function AddUserName() {
     console.log(githubUsername);
     const username = githubUsername;
     try {
-      const response = await axios.post(`https://${ngrokUrlSwe}/usernames/githubUsername`, {
+      const response = await axios.post(`https://${ngrokUrl}/usernames/githubUsername`, {
         username: username,
         user: {
           id: id,

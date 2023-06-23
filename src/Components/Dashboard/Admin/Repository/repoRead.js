@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import { Modal, Button } from 'semantic-ui-react';
 import Sidebar from '../../SideBar/SideBar';
 import Create from '../Create/Create';
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
+import api from '../../api';
 
 function RepoRead() {
   const [isLoading, setIsLoading] = useState(true);
-  const getUrl = `https://${ngrokUrlSwe}/api/repositories/get`;
+  const getUrl = `https://${ngrokUrl}/api/repositories/get`;
   const navigate = useNavigate();
   const [item, setItem] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -22,11 +23,7 @@ function RepoRead() {
 
   const loadItem = async () => {
     try {
-      const response = await axios.get(getUrl, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/repositories/get`)
       setItem(response.data);
       setIsLoading(false);
     } catch (error) {

@@ -33,7 +33,7 @@ const AddUser = () => {
 
   
    useEffect(() => {
-    fetch(`https://${ngrokUrlSwe}/usernames/role/user`,{
+    fetch(`https://${ngrokUrl}/usernames/role/user`,{
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }}).then((response)=>response.json())
@@ -48,7 +48,7 @@ const AddUser = () => {
     const accessToken='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';
  
     let repo = selectedRepo;
-    const response= axios.post(`https://${ngrokUrlSwe}/api/collaborators/add`,{owner, repo,username,accessToken
+    const response= axios.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
   })
   navigate('/AdminDashboard')
     

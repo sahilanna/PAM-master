@@ -7,6 +7,7 @@ import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrl } from '../../../../Assets/config';
+import api from '../../api';
 
 
 function PmRequestUser() {
@@ -19,11 +20,7 @@ function PmRequestUser() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrl}/api/request/all`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/request/all`);
       setRequestData(response.data);
       setIsLoading(false);
       console.log(response.data)

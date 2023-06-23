@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrl } from '../../../../Assets/config';
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
+import api from '../../api';
 
 function UserHistory() {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,10 +18,7 @@ function UserHistory() {
 
   async function fetchData() {
     try {
-      const response = await axios.get(`https://${ngrokUrl}/api/projects/all`,{
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }});
+      const response = await api.get(`https://${ngrokUrl}/api/projects/all`);
       setHistoryData(response.data);
       setIsLoading(false);
      

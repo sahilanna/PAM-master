@@ -47,12 +47,12 @@ import DeleteRepo from "../Components/Dashboard/Admin/Repository/deleteRepo";
 
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
-    console.log(data.role)
+    console.log(data.enumRole)
     console.log(data)
     
     let user = JSON.parse(data);
     console.log(user.role)
-    const role=user.role
+    const role=user.enumRole
    const id = user ? user.id : null;
     console.log(id)
     // if (!user || !user.role) {

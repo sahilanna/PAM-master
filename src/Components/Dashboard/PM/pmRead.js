@@ -29,7 +29,7 @@ import { ngrokUrl } from '../../../Assets/config'
 export default function PmRead(){
   const navigate = useNavigate();
   // const getUrl =  "https://bc38-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-  const getUrl =  `https://${ngrokUrlSwe}/api/users/role/project_manager`;
+  const getUrl =  `https://${ngrokUrl}/api/users/role/project_manager`;
   const delUrl = "https://77c8-106-51-70-135.ngrok-free.app/api/projects/delete/3";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -104,7 +104,7 @@ const [filteredProjects, setFilteredProjects] = useState([]);
     
 
     const deleteUser = async (id) => {
-      await axios.delete(`https://${ngrokUrlSwe}/api/users/delete/${id}`);
+      await axios.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
 
       navigate('/pmRead')
       setShowConfirmDialog(false);

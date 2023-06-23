@@ -7,7 +7,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../../../Login/Logout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
-import { ngrokUrlSwe } from '../../../Assets/config';
+import { ngrokUrl } from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 
 
@@ -32,7 +32,7 @@ function UserProjects() {
        
       const fetchUserid = async () => {
         try {
-          const response = await axios.get(`https://${ngrokUrlSwe}/api/users/405/role/user/projects`,{
+          const response = await axios.get(`https://${ngrokUrl}/api/users/405/role/user/projects`,{
             headers : {
               'ngrok-skip-browser-warning': 'true'
         }});

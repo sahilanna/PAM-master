@@ -5,8 +5,8 @@ import axios from 'axios';
 import { CSVLink } from 'react-csv';
 import Sidebar from '../../SideBar/SideBar';
 import '../AdminDashboard.css'
-import { ngrokUrlSwe } from '../../../../Assets/config';
-
+import { ngrokUrl } from '../../../../Assets/config';
+import api from '../../api';
 
 
 function Reports() {
@@ -23,11 +23,7 @@ function Reports() {
 
     async function fetchUserProjectList() {
           try {
-            const response = await axios.get(`https://${ngrokUrlSwe}/api/users/getAll`,{
-              headers: {
-                'ngrok-skip-browser-warning': 'true'
-              }
-            });
+            const response = await api.get(`https://${ngrokUrl}/api/users/getAll`);
             setItem(response.data);
             console.log(response);
             setUserProjectlist(response.data);
@@ -39,11 +35,7 @@ function Reports() {
         
         async function fetchOtherTableData() {
           try {
-            const response1 = await axios.get(`https://${ngrokUrlSwe}/api/users/getMultiple`,{
-              headers: {
-                'ngrok-skip-browser-warning': 'true'
-              }
-            });
+            const response1 = await api.get(`https://${ngrokUrl}/api/users/getMultiple`);
             setmitem(response1.data)
             setShowOtherTable(response1.data);
           } catch (error) {

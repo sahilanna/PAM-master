@@ -18,6 +18,8 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import '../Read/Read.css';
 import './Create.css';
 import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import api from '../../api';
+
 
 const Create = () => {
   let navigate = useNavigate();
@@ -75,11 +77,7 @@ const Create = () => {
 
   const fetchRepos = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/repositories/get`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/repositories/get`);
       const repoOptions = response.data.map(repo => ({
         key: repo.repoId,
         text: repo.name,
@@ -94,11 +92,7 @@ const Create = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/projects/allProjects`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/projects/allProjects`);
       const projOptions = response.data.map(proj => ({
         key: proj.projectId,
         text: proj.projectName,
@@ -123,7 +117,7 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const response=axios.put(`https://${ngrokUrlSwe}/api/projects/${projectId}/repository/${repoId}`,)
+    const response=axios.put(`https://${ngrokUrl}/api/projects/${projectId}/repository/${repoId}`,)
     console.log("Check",selectedRepo);
     navigate('/addPm', { state: { selectedRepo } });
 

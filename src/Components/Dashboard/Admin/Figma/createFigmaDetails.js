@@ -3,7 +3,8 @@ import { Form, Button, Dropdown, Modal } from 'semantic-ui-react';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import FigmaCreate from './FigmaCreate';
-import { ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
+import api from '../../api';
 
 function CreateFigmaDetails() {
   const navigate = useNavigate()
@@ -15,6 +16,12 @@ function CreateFigmaDetails() {
   const [figmaId, setFigmaId] = useState(null);
   const [selectedProject, setSelectedProject] = useState('');
   const [isValidUrl, setIsValidUrl] = useState(true);
+
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
 
 
   const validateURL = (url) => {
@@ -28,6 +35,8 @@ function CreateFigmaDetails() {
       return false;
     }
   };
+const headers={AccessToken:accessToken}
+
 
   const handleUrlChange = (e) => {
     const url = e.target.value;
@@ -52,11 +61,7 @@ function CreateFigmaDetails() {
   
   const fetchProjects = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/projects/without-figma-url`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/projects/without-figma-url`);
      
       const figmaProjects = response.data.map(figma => ({
         key: figma.projectId,
@@ -78,13 +83,13 @@ function CreateFigmaDetails() {
     event.preventDefault();
     try {
       
-      const response = await axios.post(`https://${ngrokUrlSwe}/api/figmas/create`, {
+      const response = await api.post(`https://${ngrokUrl}/api/figmas/create`, {
         projectDTO: {
           projectId: selectedProject,
           projectName: selectedProject,
       },
       figmaURL: figmaURL
-      });
+      },{headers});
       
       console.log('API Response:', response.data.id);
       const figmaId=response.data.id;

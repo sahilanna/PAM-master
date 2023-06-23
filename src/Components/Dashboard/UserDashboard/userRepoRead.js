@@ -1,6 +1,6 @@
 import React from 'react'
 import UserSidebar from './userSidebar'
-import { ngrokUrlSwe } from '../../../Assets/config';
+import { ngrokUrl } from '../../../Assets/config';
 import axios from 'axios';
 import {useState, useEffect} from 'react'
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
@@ -13,7 +13,7 @@ function UserRepoRead() {
   useEffect(() => {
     const fetchRepo = async () => {
       try {
-        const response = await axios.get(`https://${ngrokUrlSwe}/api/users/405/role/user/projects`,{
+        const response = await axios.get(`https://${ngrokUrl}/api/users/405/role/user/projects`,{
           headers : {
             'ngrok-skip-browser-warning': 'true'
       }});
