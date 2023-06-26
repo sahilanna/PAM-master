@@ -21,7 +21,7 @@ import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config'
 
 function UserRead(){
   const navigate = useNavigate();
-  const getUrl =  `https://${ngrokUrlSwe}/api/users/role/user`;
+  const getUrl =  `https://${ngrokUrl}/api/users/role/user`;
   const delUrl = "";
   const [item, setItem] = useState([]);
   const [id, setId] = useState('');
@@ -41,6 +41,15 @@ function UserRead(){
     loaditem();
   }, []);
 
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+
+    const headers={AccessToken:accessToken}
+
+
   const addUserName=()=>{
     navigate('/addUserName')
   }
@@ -48,7 +57,8 @@ function UserRead(){
   const loaditem = async () => {
     const result = await axios.get(getUrl,{
         headers: {
-          'ngrok-skip-browser-warning': 'true'
+          'ngrok-skip-browser-warning': 'true',
+          AccessToken: accessToken
         }}) .then((result) => {
         setItem(result.data);
         setIsLoading(false);
@@ -96,7 +106,7 @@ function UserRead(){
     };
 
     const deleteUser = async (id) => {
-      await axios.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
+      await axios.delete(`https://${ngrokUrl}/api/users/delete/${id}`,{headers});
       navigate('/userRead')
       setShowConfirmDialog(false);
       loaditem();

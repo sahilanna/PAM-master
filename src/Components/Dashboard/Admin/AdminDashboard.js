@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Navigate, useParams}  from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrash, faEye, faUpload } from '@fortawesome/free-solid-svg-icons';
 import DialogBox from '../DialogBox/DialogBox';
 import ProjectDetails from './Read/ProjectDetails';
 import 'semantic-ui-css/semantic.min.css';
@@ -20,6 +20,8 @@ import NavBarA from './NavbarA';
 import Read from './Read/Read';
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import "./AdminDashboard.css"
+import { Button } from 'semantic-ui-react';
+import {Modal} from 'semantic-ui-react'
 
 const AdminDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,9 +31,20 @@ const AdminDashboard = () => {
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [fileDialog, setFileDialog]=useState('')
+
+  
+
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+
+    const headers={AccessToken: accessToken}
 
   const navigate = useNavigate();
-  const getUrl = `https://${ngrokUrlSwe}/api/projects/allProjects`;
+  const getUrl = `https://${ngrokUrl}/api/projects/allProjects`;
 
   const itemsPerPage = 5;
   const { id } = useParams();
@@ -40,14 +53,18 @@ const AdminDashboard = () => {
     try {
       const response = await axios.get(getUrl, {
         headers: {
-          'ngrok-skip-browser-warning': 'true'
+          'ngrok-skip-browser-warning': 'true',
+          AccessToken: accessToken
         }
       });
+
+      
       setItem(response.data);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
       setIsLoading(true);
+      
     }
   };
 
@@ -58,6 +75,8 @@ const AdminDashboard = () => {
   useEffect(() => {
     handlePaginate(1);
   }, [item]);
+
+
 
   const csvDataProj = item.map((entry) => ({
     'project Id': entry.projectId,
@@ -99,14 +118,19 @@ const AdminDashboard = () => {
 
   const deleteUser = async (projectId) => {
     try {
-      await axios.delete(`https://${ngrokUrlSwe}/api/projects/delete/${projectId}`);
+      await axios.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`, {headers});
       navigate('/AdminDashboard');
       setShowConfirmDialog(false);
-      loadItems();
+       loadItems();
     } catch (error) {
       console.log(error);
     }
   };
+
+  const addFile=async (projectId)=>{
+      setFileDialog(true)
+    navigate('/addFile' , { state: { projectId } })
+  }
 
   const filteredItems = item.filter((item) =>
     item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -129,9 +153,9 @@ const AdminDashboard = () => {
             {item.length > 0 && (
               <div style={{ marginTop: '20px' }}>
                 <button className='ui button' onClick={createOnclick}>Create Project</button>
-                <CSVLink data={csvDataProj} filename='user_project_list.csv' className='btn btn-primary'>
+               <Button> <CSVLink data={csvDataProj} filename='user_project_list.csv' >
                   Download CSV
-                </CSVLink>
+                </CSVLink> </Button>
               </div>
             )}
           </div>
@@ -150,6 +174,7 @@ const AdminDashboard = () => {
                     <th>Project-Description</th>
                     <th className='text-center'>View</th>
                     <th className='text-center'>Delete</th>
+                    <th className='text-center'>Add Files</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -175,6 +200,11 @@ const AdminDashboard = () => {
                           onClose={() => setShowConfirmDialog(null)}
                           onConfirm={() => deleteUser(item.projectId)}
                         />
+                      </td>
+                      <td className='text-center'>
+                        <button className='btn btn-primary mx-2' onClick={()=>addFile(item.projectId)}>
+                         <FontAwesomeIcon icon={faUpload} />
+                         </button>
                       </td>
                     </tr>
                   ))}

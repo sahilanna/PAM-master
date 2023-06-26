@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import { Modal, Button } from 'semantic-ui-react';
 import Sidebar from '../../SideBar/SideBar';
 import Create from '../Create/Create';
@@ -9,12 +9,17 @@ import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 
 function RepoRead() {
   const [isLoading, setIsLoading] = useState(true);
-  const getUrl = `https://${ngrokUrlSwe}/api/repositories/get`;
+  const getUrl = `https://${ngrokUrl}/api/repositories/get`;
   const navigate = useNavigate();
   const [item, setItem] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
 
   useEffect(() => {
     loadItem();
@@ -24,7 +29,8 @@ function RepoRead() {
     try {
       const response = await axios.get(getUrl, {
         headers: {
-          'ngrok-skip-browser-warning': 'true'
+          'ngrok-skip-browser-warning': 'true',
+          AccessToken: accessToken
         }
       });
       setItem(response.data);

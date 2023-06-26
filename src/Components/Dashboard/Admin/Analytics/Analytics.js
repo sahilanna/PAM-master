@@ -11,22 +11,31 @@ import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 function Analytics() {
 const[Data,setData]=useState([])
 const [isLoading, setIsLoading] = useState(true);
+
+let dataa = sessionStorage.getItem("item");
+let user = JSON.parse(dataa);
+const accessToken=user.token
+console.log(user)
+  console.log(user.token)
 const fetchCount = async () => {
     try {
       const [adminResponse, pmResponse, userResponse] = await Promise.all([
         axios.get(`https://${ngrokUrl}/api/users/count/admin`,{
             headers: {
-              'ngrok-skip-browser-warning': 'true'
+              'ngrok-skip-browser-warning': 'true',
+              AccessToken: accessToken
             }
           }),
           axios.get(`https://${ngrokUrl}/api/users/count/user`,{
             headers: {
-              'ngrok-skip-browser-warning': 'true'
+              'ngrok-skip-browser-warning': 'true',
+              AccessToken: accessToken
             }
           }),
         axios.get(`https://${ngrokUrl}/api/users/count/project_manager`,{
             headers: {
-              'ngrok-skip-browser-warning': 'true'
+              'ngrok-skip-browser-warning': 'true',
+              AccessToken:accessToken
             }
           }),
        

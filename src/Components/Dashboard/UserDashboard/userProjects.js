@@ -7,7 +7,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../../../Login/Logout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
-import { ngrokUrlSwe } from '../../../Assets/config';
+import { ngrokUrl } from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 
 
@@ -20,6 +20,15 @@ function UserProjects() {
     const [showPmProjectDetails, setShowPmProjectDetails] = useState(false);
     const [userid, setUserid] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    let data = sessionStorage.getItem("item");
+    let user = JSON.parse(data);
+    const accessToken=user.token
+    console.log(user)
+      console.log(user.token)
+
+    const  id=user.id
+  console.log(id)
     
     const navigate=useNavigate()
 
@@ -32,16 +41,20 @@ function UserProjects() {
        
       const fetchUserid = async () => {
         try {
-          const response = await axios.get(`https://${ngrokUrlSwe}/api/users/405/role/user/projects`,{
+          const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/user/projects`,{
             headers : {
-              'ngrok-skip-browser-warning': 'true'
+              'ngrok-skip-browser-warning': 'true',
+              AccessToken: accessToken
         }});
+
+        setIsLoading(false)
 
         
           const  userid  = response.data;
           setUserid(userid);
         } catch (error) {
           console.log('Error fetching PMID:', error);
+          setIsLoading(true)
         }
       };
   

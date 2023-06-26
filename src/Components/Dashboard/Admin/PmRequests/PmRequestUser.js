@@ -13,6 +13,16 @@ function PmRequestUser() {
   const [requestData, setRequestData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+ 
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+    
+    const headers={AccessToken:accessToken}
+
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -21,7 +31,8 @@ function PmRequestUser() {
     try {
       const response = await axios.get(`https://${ngrokUrl}/api/request/all`, {
         headers: {
-          'ngrok-skip-browser-warning': 'true'
+          'ngrok-skip-browser-warning': 'true',
+          AccessToken: accessToken
         }
       });
       setRequestData(response.data);
@@ -38,7 +49,7 @@ function PmRequestUser() {
     try {
       const response = await axios.put(
         `https://${ngrokUrl}/api/request/update/${accessRequestId}`,
-        { allowed: true }
+        { allowed: true },{headers}
       );
       if (response.status === 200|| response.status === 204|| response.status === 201) {
         toast.success('User added successfully!', {
@@ -61,7 +72,7 @@ function PmRequestUser() {
     try {
       const response = await axios.put(
         `https://${ngrokUrl}/api/request/update/${accessRequestId}`,
-        { allowed: false }
+        { allowed: false },{headers}
       );
       if (response.status === 200 || response.status === 204) {
         toast.error('Access denied', {

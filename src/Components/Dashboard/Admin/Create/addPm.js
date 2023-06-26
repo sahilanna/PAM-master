@@ -26,6 +26,13 @@ const AddPm = () => {
   let[projectNameA,setProjectNameA]=useState('')
   let[userNameA,setUserNameA]=useState('')
 
+
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+  const  id=user.id
   // console.log("uuuuu",selectedRepo);
 
   const handleUserNameChange=(event,{value})=>{
@@ -39,9 +46,11 @@ const AddPm = () => {
   };
   // console.log("Plz work",selectedRepo)
   useEffect(() => {
-    fetch(`https://${ngrokUrlSwe}/usernames/role/project_manager`,{
+    fetch(`https://${ngrokUrl}/usernames/role/project_manager`,{
       headers: {
-        'ngrok-skip-browser-warning': 'true'
+        'ngrok-skip-browser-warning': 'true',
+        AccessToken:accessToken
+
       }}).then((response)=>response.json())
     .then((data)=>setOptions(data))
   
@@ -54,7 +63,7 @@ const AddPm = () => {
     const accessToken='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';
 
     let repo = selectedRepo
-    const response= axios.post(`https://${ngrokUrlSwe}/api/collaborators/add`,{owner, repo,username,accessToken
+    const response= axios.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
     })
     
     

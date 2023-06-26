@@ -1,17 +1,28 @@
 import React from 'react'
 import PmSidebar from './pmSidebar';
 import axios from 'axios';
-import { ngrokUrlSwe } from '../../../Assets/config';
+import { ngrokUrl } from '../../../Assets/config';
 import { useState,useEffect } from 'react';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 function FigmaPmDashboard() {
   const [result, setResult]=useState([])
   const [isLoading, setIsLoading] = useState(true);
+
+
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+  const  id=user.id
+  console.log(id)
+  
   const fetchFigma = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/users/552/role/project_manager/projects`,{
+      const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`,{
         headers : {
-          'ngrok-skip-browser-warning': 'true'
+          'ngrok-skip-browser-warning': 'true',
+          AccessToken: accessToken
     }});
       const  data  = response.data;
       console.log('data',data)

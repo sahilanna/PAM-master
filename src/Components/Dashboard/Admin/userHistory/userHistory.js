@@ -11,6 +11,12 @@ function UserHistory() {
   const [isLoading, setIsLoading] = useState(true);
   const [historyData, setHistoryData] = useState([]);
 
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -19,7 +25,8 @@ function UserHistory() {
     try {
       const response = await axios.get(`https://${ngrokUrl}/api/projects/all`,{
         headers: {
-          'ngrok-skip-browser-warning': 'true'
+          'ngrok-skip-browser-warning': 'true',
+          AccessToken : accessToken
         }});
       setHistoryData(response.data);
       setIsLoading(false);

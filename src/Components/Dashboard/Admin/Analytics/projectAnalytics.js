@@ -10,17 +10,25 @@ const ProjectAnalytics = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  let dataa = sessionStorage.getItem("item");
+  let user = JSON.parse(dataa);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const activeResponse = await axios.get(`https://${ngrokUrl}/api/projects/count/active`, {
           headers: {
-            'ngrok-skip-browser-warning': 'true'
+            'ngrok-skip-browser-warning': 'true',
+            AccessToken: accessToken
           }
         });
         const inactiveResponse = await axios.get(`https://${ngrokUrl}/api/projects/count/inactive`, {
           headers: {
-            'ngrok-skip-browser-warning': 'true'
+            'ngrok-skip-browser-warning': 'true',
+            AccessToken: accessToken
           }
         });
         setActiveProjects(activeResponse.data);

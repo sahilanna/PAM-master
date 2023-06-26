@@ -5,7 +5,7 @@ import axios from 'axios';
 import { CSVLink } from 'react-csv';
 import Sidebar from '../../SideBar/SideBar';
 import '../AdminDashboard.css'
-import { ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 
 
 
@@ -14,6 +14,12 @@ function Reports() {
     const [showOtherTable, setShowOtherTable] = useState(false);
     const [item, setItem] = useState([]);
     const[mitem,setmitem]=useState([])
+
+    let data = sessionStorage.getItem("item");
+    let user = JSON.parse(data);
+    const accessToken=user.token
+    console.log(user)
+      console.log(user.token)
   
     useEffect(() => {
       fetchUserProjectList();
@@ -23,9 +29,10 @@ function Reports() {
 
     async function fetchUserProjectList() {
           try {
-            const response = await axios.get(`https://${ngrokUrlSwe}/api/users/getAll`,{
+            const response = await axios.get(`https://${ngrokUrl}/api/users/getAll`,{
               headers: {
-                'ngrok-skip-browser-warning': 'true'
+                'ngrok-skip-browser-warning': 'true',
+                AccessToken: accessToken
               }
             });
             setItem(response.data);
@@ -39,9 +46,10 @@ function Reports() {
         
         async function fetchOtherTableData() {
           try {
-            const response1 = await axios.get(`https://${ngrokUrlSwe}/api/users/getMultiple`,{
+            const response1 = await axios.get(`https://${ngrokUrl}/api/users/getMultiple`,{
               headers: {
-                'ngrok-skip-browser-warning': 'true'
+                'ngrok-skip-browser-warning': 'true',
+                AccessToken: accessToken
               }
             });
             setmitem(response1.data)

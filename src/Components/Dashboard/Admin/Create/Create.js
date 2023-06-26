@@ -47,6 +47,20 @@ const Create = () => {
   const[temp1,setTemp1]=useState([])
   const[projItem, setprojItem]=useState('')
 
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+  const  id=user.id
+
+  const headers = {
+    AccessToken: accessToken
+  };
+  
+
+  
+
   const handleBack = () => {
     navigate(-1); 
   };
@@ -75,9 +89,10 @@ const Create = () => {
 
   const fetchRepos = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/repositories/get`, {
+      const response = await axios.get(`https://${ngrokUrl}/api/repositories/get`, {
         headers: {
-          'ngrok-skip-browser-warning': 'true'
+          'ngrok-skip-browser-warning': 'true',
+          AccessToken: accessToken
         }
       });
       const repoOptions = response.data.map(repo => ({
@@ -94,9 +109,10 @@ const Create = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/projects/allProjects`, {
+      const response = await axios.get(`https://${ngrokUrl}/api/projects/allProjects`, {
         headers: {
-          'ngrok-skip-browser-warning': 'true'
+          'ngrok-skip-browser-warning': 'true',
+          AccessToken:accessToken
         }
       });
       const projOptions = response.data.map(proj => ({
@@ -123,7 +139,12 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const response=axios.put(`https://${ngrokUrlSwe}/api/projects/${projectId}/repository/${repoId}`,)
+    const response=axios.put(`https://${ngrokUrl}/api/projects/${projectId}/repository/${repoId}`,
+    { headers }
+  
+      
+   
+)
     console.log("Check",selectedRepo);
     navigate('/addPm', { state: { selectedRepo } });
 

@@ -17,6 +17,16 @@ function UserFigmaRead() {
   const[figmaUser,setfigmaUser]=useState('')
   const [isLoading, setIsLoading] = useState(true);
 
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+    const  id=user.id
+  console.log(id)
+    
+
+
   const fetchPmid = async () => {
 
  
@@ -25,9 +35,10 @@ function UserFigmaRead() {
     
     const urlParams = new URLSearchParams(window.location.search);
     // const id = urlParams.get('id');
-    const response = await axios.get(`https://${ngrokUrlSwe}/api/users/405/role/project_manager/projects`,{
+    const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`,{
       headers : {
-        'ngrok-skip-browser-warning': 'true'
+        'ngrok-skip-browser-warning': 'true',
+        AccessToken: accessToken
   }});
   console.log(response.data)
   console.log(response.id);
@@ -39,6 +50,11 @@ function UserFigmaRead() {
     setIsLoading(true);
   }
 };
+
+
+useEffect(() => {
+  fetchPmid();
+}, []);
 
  
 

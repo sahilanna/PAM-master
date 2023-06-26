@@ -7,7 +7,7 @@ import FigmaCreate from './FigmaCreate';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../SideBar/SideBar';
-import { ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import './FigmaRead.css'
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 
@@ -20,20 +20,28 @@ function FigmaRead() {
   const[figmaURL, setFigmaURL]=useState('')
   const[figmaId, setFigmaId]=useState('')
   const[projectId, setProjectId]=useState('');
-  const [isLoading, setIsLoading] = useState(true);
+   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    fetchProjects();
-  }, []);
+  
+
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+
+
   const fetchProjects = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/figmas/getAll`, {
+      const response = await axios.get(`https://${ngrokUrl}/api/figmas/getAll`, {
         headers: {
-          'ngrok-skip-browser-warning': 'true'
+          'ngrok-skip-browser-warning': 'true',
+          AccessToken: accessToken
         }
       });
       
       console.log(response.data)
+      setIsLoading(false)
       setProjects(response.data);
       // console.log(projects)
       // console.log(projects.figmaId)
@@ -42,15 +50,20 @@ function FigmaRead() {
      
       const projectFigmaId=response.data[0].projectDTO.projectId
       console.log(projectFigmaId)
-      setIsLoading(false);
+      
        
       // console.log(figmaId)
       setFilteredProjects(response.data);
     } catch (error) {
       console.log('Error fetching projects:', error); 
-      setIsLoading(true);
+      setIsLoading(true)
+      
     }
   };
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
   // useEffect(() => {
   //   const filteredProjects = projects.filter((project) =>
   //     project.projectName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -131,7 +144,7 @@ function FigmaRead() {
               ))}
             </tbody>
           </table>
-          )}
+           )} 
         </div>
       </div>
       <div className='model-container'>

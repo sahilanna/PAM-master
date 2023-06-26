@@ -21,6 +21,14 @@ function PmRequestForm() {
   const[projectObj,setProjectObj]=useState([])
   const[requestDescription,setRequestDescription]=useState([])
   const [selectedProjId, setSelectedProjId] = useState('');
+
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+  const  id=user.id
+  console.log(id)
   
     
 
@@ -52,7 +60,8 @@ function PmRequestForm() {
     try {
       const response = await axios.get(`https://${ngrokUrl}/api/projects/allProjects`, {
         headers: {
-          'ngrok-skip-browser-warning': 'true'
+          'ngrok-skip-browser-warning': 'true',
+          AccessToken:accessToken
         }
       });
       // setitem(response.data)
@@ -75,7 +84,8 @@ function PmRequestForm() {
     try {
       const response = await axios.get(`https://${ngrokUrl}/api/users/role/project_manager`, {
         headers: {
-          'ngrok-skip-browser-warning': 'true'
+          'ngrok-skip-browser-warning': 'true',
+          AccessToken:accessToken
         }
       });
      console.log(response.data)
@@ -95,7 +105,9 @@ function PmRequestForm() {
     try {
       const response = await axios.get(`https://${ngrokUrl}/api/users/role/user`, {
         headers: {
-          'ngrok-skip-browser-warning': 'true'
+          'ngrok-skip-browser-warning': 'true',
+          AccessToken: accessToken
+
         }
       });
       console.log(response.data);
@@ -132,6 +144,8 @@ setRequestDescription(e.target.value)
       console.log(requestDescription);
       const pmName =selectedPm;
       console.log(pmName)
+
+      const headers={AccessToken:accessToken}
      
     
       try {
@@ -147,7 +161,7 @@ setRequestDescription(e.target.value)
           
       
         const response = await axios.post(`https://${ngrokUrl}/api/request/`, { pmName, user, project, requestDescription
-        });
+        },{headers});
     
         if (response.data.success) {
           setRequestStatus('Request submitted successfully');

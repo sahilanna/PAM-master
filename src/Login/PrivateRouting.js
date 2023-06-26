@@ -43,18 +43,20 @@ import AddUserName from "../Components/Dashboard/Users/AddUserName";
 import CreateProject from "../Components/Dashboard/Admin/Create/CreateProject";
 import AddPmUserName from "../Components/Dashboard/PM/addPmUsername";
 import DeleteRepo from "../Components/Dashboard/Admin/Repository/deleteRepo";
+import AddFile from "../Components/Dashboard/Admin/Create/addFile";
 
 
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
-    console.log(data.role)
-    console.log(data)
+    // console.log(data.enumRole)
+    // console.log(data)
     
     let user = JSON.parse(data);
-    console.log(user.role)
-    const role=user.role
+    console.log(user.token)
+    console.log(user.enumRole)
+    const role=user.enumRole
    const id = user ? user.id : null;
-    console.log(id)
+    // console.log(id)
     // if (!user || !user.role) {
     //   return <Navigate to="/Login" />
 
@@ -95,6 +97,7 @@ const PrivateRoutes = () => {
               <Route path="/CreateFigmaDetails" element={<CreateFigmaDetails/>} />
               <Route path="/PmRequestUser" element={<PmRequestUser/>} />
               <Route path='/deleteRepo' element={<DeleteRepo/>}/>
+              <Route path='/addFile' element={<AddFile/>}/>
             
               <Route path='/Profile' element={<Profile/>}/>
               <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/>
@@ -123,7 +126,11 @@ const PrivateRoutes = () => {
           {role === "USER" && (
             <Routes>
                <Route path='/Logout' element={<Logout/>}/>
-              <Route path="/userProjects" element={<UserProjects/>} />
+              <Route path='/userProjects' element={<UserProjects/>} />
+              <Route path='/userFigmaRead' element={<UserFigmaRead/>}/>
+              <Route path='/userRepoRead' element={<UserRepoRead/>}/>
+              
+
              
               <Route path='/userProfile' element={<UserProfile/>}/>
               <Route path="*" element={<h1>Page Not Found</h1>} />

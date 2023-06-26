@@ -30,11 +30,19 @@ const PmDashboard = () => {
   const [showPmProjectDetails, setShowPmProjectDetails] = useState(false);
   const [pmid, setPmid] = useState([]);
   const navigate=useNavigate()
-  const { id } = useParams();
+  //const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   setTimeout(() => {
     setIsLoading(false);
   }, 2000);
+
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+  const  id=user.id
+  console.log(id)
 
 
   useEffect(() => {
@@ -44,9 +52,10 @@ const PmDashboard = () => {
         
         const urlParams = new URLSearchParams(window.location.search);
         // const id = urlParams.get('id');
-        const response = await axios.get(`https://${ngrokUrlSwe}/api/users/403/role/project_manager/projects`,{
+        const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`,{
           headers : {
-            'ngrok-skip-browser-warning': 'true'
+            'ngrok-skip-browser-warning': 'true',
+            AccessToken:accessToken
       }});
       console.log(response.data)
       console.log(response.id);

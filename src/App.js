@@ -99,8 +99,7 @@ function App() {
           <Route path="/Login" element={<Login/>} />
           <Route path="/" element={<LandingPage/>}/>
           <Route path="/Logout" element={<Logout/>}/>
-          <Route path="/FigmaCreate" element={<FigmaCreate />} />
-          
+                    
         <Route element={<PrivateRoutes />}>
           
           <Route path="*" element={<h1>Page Not Found</h1>} />

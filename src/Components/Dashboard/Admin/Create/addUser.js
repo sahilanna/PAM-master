@@ -11,6 +11,18 @@ import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
 
 const AddUser = () => {
 
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+  const  id=user.id
+
+  const headers = {
+    AccessToken: accessToken
+  };
+  
+
   
 
   let navigate = useNavigate();
@@ -33,9 +45,10 @@ const AddUser = () => {
 
   
    useEffect(() => {
-    fetch(`https://${ngrokUrlSwe}/usernames/role/user`,{
+    fetch(`https://${ngrokUrl}/usernames/role/user`,{
       headers: {
-        'ngrok-skip-browser-warning': 'true'
+        'ngrok-skip-browser-warning': 'true',
+        AccessToken: accessToken
       }}).then((response)=>response.json())
     .then((data)=>setOptions(data))
 
@@ -48,8 +61,8 @@ const AddUser = () => {
     const accessToken='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';
  
     let repo = selectedRepo;
-    const response= axios.post(`https://${ngrokUrlSwe}/api/collaborators/add`,{owner, repo,username,accessToken
-  })
+    const response= axios.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
+  }, {headers})
   navigate('/AdminDashboard')
     
 }

@@ -6,23 +6,35 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 
 
 
 function CreateProject() {
+  
     const navigate=useNavigate()
       const [projectId, setProjectId] = useState('');
       const [projectName, setProjectName] = useState('');
       const [projectDescription, setProjectDescription] = useState('');
       const [clicked, setClicked] = useState(false);
+
+
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+
+
+      const headers={AccessToken: accessToken}
+
       const handleBack=()=>{
         navigate(-1)
       }
       const handleSubmit=(e)=>{
         e.preventDefault();
         setClicked(true);
-        const response=axios.post(`https://${ngrokUrlSwe}/api/projects/create`,{projectName,projectDescription})
+        const response=axios.post(`https://${ngrokUrl}/api/projects/create`,{projectName,projectDescription},{headers})
         navigate('/AdminDashboard')
       }
 const onClose=()=>{
@@ -58,7 +70,7 @@ const onClose=()=>{
                 <input name='description' onChange={(e) => setProjectDescription(e.target.value)} placeholder='description' />
               {clicked && projectName.length <= 0 ? <label style={{ color: 'red' }}>project description can't be Empty</label> : ''}
               </Form.Field>
-              <Form.Field>
+              {/* <Form.Field>
                 <label style={{ textAlign: 'left' }}>Users</label>
                 <input name='description' onChange={(e) => setProjectDescription(e.target.value)} placeholder='description' />
               {clicked && projectName.length <= 0 ? <label style={{ color: 'red' }}>project description can't be Empty</label> : ''}
@@ -67,7 +79,7 @@ const onClose=()=>{
                 <label style={{ textAlign: 'left' }}>Pms</label>
                 <input name='description' onChange={(e) => setProjectDescription(e.target.value)} placeholder='description' />
               {clicked && projectName.length <= 0 ? <label style={{ color: 'red' }}>project description can't be Empty</label> : ''}
-              </Form.Field>
+              </Form.Field> */}
               <Button type='submit'>Submit</Button>
         </Form>
         </Modal.Content>

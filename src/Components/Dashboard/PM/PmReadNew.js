@@ -23,8 +23,8 @@ function PmReadNew() {
 
     const navigate = useNavigate();
     // const getUrl =  "https://bc38-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-    const getUrl =  `https://${ngrokUrlSwe}/api/users/role/project_manager`;
-    const delUrl = "https://77c8-106-51-70-135.ngrok-free.app/api/projects/delete/3";
+    const getUrl =  `https://${ngrokUrl}/api/users/role/project_manager`;
+    const delUrl = `https://${ngrokUrl}/api/projects/delete/3`;
     const [item, setItem] = useState([]);
     const [id, setId] = useState('');
     const [name, setName] = useState('');
@@ -38,6 +38,15 @@ function PmReadNew() {
     const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+
+    const headers={AccessToken:accessToken}
+  
   
     const itemsPerPage = 5;
     
@@ -53,8 +62,10 @@ function PmReadNew() {
     const loaditem = async () => {
       const result = await axios.get(getUrl,{
           headers: {
-            Authorization: `Bearer ${tokenData}`,
-            'ngrok-skip-browser-warning': 'true'
+            
+            'ngrok-skip-browser-warning': 'true',
+            AccessToken: accessToken
+
           
           }}) .then((result) => {
           setItem(result.data);
@@ -115,7 +126,7 @@ function PmReadNew() {
       
   
       const deleteUser = async (id) => {
-        await axios.delete(`https://${ngrokUrlSwe}/api/users/delete/${id}`);
+        await axios.delete(`https://${ngrokUrlSwe}/api/users/delete/${id}`,{headers});
         navigate('/pmReadNew')
         setShowConfirmDialog(false);
         loaditem();

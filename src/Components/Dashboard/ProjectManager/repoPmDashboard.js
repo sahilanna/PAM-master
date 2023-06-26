@@ -5,17 +5,27 @@ import axios from 'axios';
 import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './pmDashboard.css'
-import { ngrokUrlSwe } from '../../../Assets/config';
+import { ngrokUrl } from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 function RepoPmDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult]=useState([])
+
+
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+  const  id=user.id
+  console.log(id)
   useEffect(() => {
     const fetchRepo = async () => {
       try {
-        const response = await axios.get(`https://${ngrokUrlSwe}/api/users/552/role/project_manager/projects`,{
+        const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`,{
           headers : {
-            'ngrok-skip-browser-warning': 'true'
+            'ngrok-skip-browser-warning': 'true',
+            AccessToken: accessToken
       }});
         const  data  = response.data;
         console.log('data',data)
