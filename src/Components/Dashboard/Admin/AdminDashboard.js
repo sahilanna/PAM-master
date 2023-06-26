@@ -4,8 +4,8 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { Navigate, useParams}  from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash, faEye, faUpload, faFile } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash, faEye, faUpload, faFile, faUser } from '@fortawesome/free-solid-svg-icons';
 import DialogBox from '../DialogBox/DialogBox';
 import ProjectDetails from './Read/ProjectDetails';
 import 'semantic-ui-css/semantic.min.css';
@@ -33,6 +33,7 @@ const AdminDashboard = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [fileDialog, setShowFileDialog]=useState(false)
+  const [viewUserBox, setViewUserBox]=useState(false)
 
 
   let data = sessionStorage.getItem("item");
@@ -92,6 +93,13 @@ const AdminDashboard = () => {
   const createOnclick = () => {
     navigate('/CreateProject');
   };
+
+  const projectUsers=async(projectId)=>{
+    console.log(projectId)
+    setViewUserBox(true);
+  navigate('/projectUsers' , { state: { projectId } })
+
+  }
 
   const viewFile= async (projectId)=>{
 
@@ -191,6 +199,7 @@ const AdminDashboard = () => {
                     <th className='text-center'>Delete</th>
                     <th className='text-center'>Add Files</th>
                     <th className='text-center'>View File</th>
+                    <th className='text-center'>View Users</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -225,6 +234,11 @@ const AdminDashboard = () => {
                       <td className='text-center'>
                         <button className='btn btn-primary mx-2' onClick={()=>viewFile(item.projectId)}>
                          <FontAwesomeIcon icon={faFile} />
+                         </button>
+                      </td>
+                      <td className='text-center'>
+                        <button className='btn btn-primary mx-2' onClick={()=>projectUsers(item.projectId)}>
+                         <FontAwesomeIcon icon={faUser} />
                          </button>
                       </td>
                     </tr>

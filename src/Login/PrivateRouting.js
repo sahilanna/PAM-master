@@ -45,6 +45,7 @@ import AddPmUserName from "../Components/Dashboard/PM/addPmUsername";
 import DeleteRepo from "../Components/Dashboard/Admin/Repository/deleteRepo";
 import AddFile from "../Components/Dashboard/Admin/Create/addFile";
 import ViewFile from "../Components/Dashboard/Admin/Read/ViewFile";
+import ProjectUsers from "../Components/Dashboard/Admin/Read/projectUsers";
 
 
 const PrivateRoutes = () => {
@@ -82,6 +83,7 @@ const PrivateRoutes = () => {
               <Route path="//PmUpdate/:id" element={<PmReadNew />} />
               <Route path="/UserCreate" element={<UserCreate />} />
               <Route path="/UserUpdate/:id" element={<UserUpdate />} />
+              <Route path="/projectUsers" element={<ProjectUsers />} />
             
               <Route path="/CreateRepo" element={<CreateRepo />} />
               <Route path="/addCollab" element={<addCollab />} />
