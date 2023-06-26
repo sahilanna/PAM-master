@@ -8,6 +8,8 @@ import ProjectAnalytics from './projectAnalytics';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid} from 'recharts';
 import "./Analytics.css"
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
+import api from '../../api';
+
 function Analytics() {
 const[Data,setData]=useState([])
 const [isLoading, setIsLoading] = useState(true);
@@ -20,24 +22,9 @@ console.log(user)
 const fetchCount = async () => {
     try {
       const [adminResponse, pmResponse, userResponse] = await Promise.all([
-        axios.get(`https://${ngrokUrl}/api/users/count/admin`,{
-            headers: {
-              'ngrok-skip-browser-warning': 'true',
-              AccessToken: accessToken
-            }
-          }),
-          axios.get(`https://${ngrokUrl}/api/users/count/user`,{
-            headers: {
-              'ngrok-skip-browser-warning': 'true',
-              AccessToken: accessToken
-            }
-          }),
-        axios.get(`https://${ngrokUrl}/api/users/count/project_manager`,{
-            headers: {
-              'ngrok-skip-browser-warning': 'true',
-              AccessToken:accessToken
-            }
-          }),
+        api.get(`https://${ngrokUrl}/api/users/count/admin`),
+          api.get(`https://${ngrokUrl}/api/users/count/user`),
+        api.get(`https://${ngrokUrl}/api/users/count/project_manager`),
        
       ]);
      

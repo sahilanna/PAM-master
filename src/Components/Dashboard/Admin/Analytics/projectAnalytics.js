@@ -3,6 +3,7 @@ import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { ngrokUrl } from '../../../../Assets/config';
 import Sidebar from '../../SideBar/SideBar';
+import api from '../../api';
 
 const ProjectAnalytics = () => {
   const [activeProjects, setActiveProjects] = useState(0);
@@ -19,18 +20,8 @@ const ProjectAnalytics = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const activeResponse = await axios.get(`https://${ngrokUrl}/api/projects/count/active`, {
-          headers: {
-            'ngrok-skip-browser-warning': 'true',
-            AccessToken: accessToken
-          }
-        });
-        const inactiveResponse = await axios.get(`https://${ngrokUrl}/api/projects/count/inactive`, {
-          headers: {
-            'ngrok-skip-browser-warning': 'true',
-            AccessToken: accessToken
-          }
-        });
+        const activeResponse = await api.get(`https://${ngrokUrl}/api/projects/count/active`);
+        const inactiveResponse = await api.get(`https://${ngrokUrl}/api/projects/count/inactive`);
         setActiveProjects(activeResponse.data);
         setInactiveProjects(inactiveResponse.data);
         setLoading(false);

@@ -15,8 +15,9 @@ import './Read.css'
 import PmDetails from './PmDetails'
 import { ngrokUrl } from '../../../Assets/config'
 import Sidebar from '../SideBar/SideBar'
-import { ngrokUrlSwe } from '../../../Assets/config'
+// import { ngrokUrl } from '../../../Assets/config'
 import LoadingPage from '../../../Assets/Loader/LoadingPage'
+import api from '../api'
 
 
 function PmReadNew() {
@@ -24,7 +25,7 @@ function PmReadNew() {
     const navigate = useNavigate();
     // const getUrl =  "https://bc38-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
     const getUrl =  `https://${ngrokUrl}/api/users/role/project_manager`;
-    const delUrl = `https://${ngrokUrl}/api/projects/delete/3`;
+    const delUrl = "https://77c8-106-51-70-135.ngrok-free.app/api/projects/delete/3";
     const [item, setItem] = useState([]);
     const [id, setId] = useState('');
     const [name, setName] = useState('');
@@ -60,14 +61,8 @@ function PmReadNew() {
     console.log(tokenData)
 
     const loaditem = async () => {
-      const result = await axios.get(getUrl,{
-          headers: {
-            
-            'ngrok-skip-browser-warning': 'true',
-            AccessToken: accessToken
-
-          
-          }}) .then((result) => {
+      const result = await api.get(`https://${ngrokUrl}/api/users/role/project_manager`)
+       .then((result) => {
           setItem(result.data);
           setIsLoading(false);
           console.log(tokenData)
@@ -126,7 +121,7 @@ function PmReadNew() {
       
   
       const deleteUser = async (id) => {
-        await axios.delete(`https://${ngrokUrlSwe}/api/users/delete/${id}`,{headers});
+        await axios.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
         navigate('/pmReadNew')
         setShowConfirmDialog(false);
         loaditem();

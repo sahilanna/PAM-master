@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import { ngrokUrlSwe } from '../../../Assets/config';
+import { ngrokUrl } from '../../../Assets/config';
+import api from '../api';
 function AddPmUserName() {
     const navigate=useNavigate()
     const[id,setId]=useState()
@@ -21,11 +22,9 @@ function AddPmUserName() {
     
     const fetchPms = async () => {
       try {
-        const response = await axios.get(`https://${ngrokUrlSwe}/api/users/role/project_manager`, {
-          headers: {
-            'ngrok-skip-browser-warning': 'true'
-          }
-        });
+        const response = await api.get(`https://${ngrokUrl}/api/users/role/project_manager`
+          
+        );
         const userOptions = response.data.map(user => ({
           key: user.id,
           text: user.name,
@@ -44,7 +43,7 @@ function AddPmUserName() {
       console.log(githubUsername)
       const username=githubUsername;
       try {
-        const response = await axios.post(`https://${ngrokUrlSwe}/usernames/githubUsername`, {
+        const response = await api.post(`https://${ngrokUrl}/usernames/githubUsername`, {
            username: username,
         user: {
           id: id},

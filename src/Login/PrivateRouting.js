@@ -48,12 +48,11 @@ import AddFile from "../Components/Dashboard/Admin/Create/addFile";
 
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
-    // console.log(data.enumRole)
-    // console.log(data)
+    console.log(data.enumRole)
+    console.log(data)
     
     let user = JSON.parse(data);
-    console.log(user.token)
-    console.log(user.enumRole)
+    console.log(user.role)
     const role=user.enumRole
    const id = user ? user.id : null;
     // console.log(id)

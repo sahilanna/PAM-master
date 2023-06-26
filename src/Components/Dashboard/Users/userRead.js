@@ -13,7 +13,7 @@ import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import UserDetails from './UserDetails'
 import Sidebar from '../SideBar/SideBar'
 import LoadingPage from '../../../Assets/Loader/LoadingPage'
-
+import api from '../api'
 
 
 // import './Read.css'
@@ -55,11 +55,7 @@ function UserRead(){
   }
 
   const loaditem = async () => {
-    const result = await axios.get(getUrl,{
-        headers: {
-          'ngrok-skip-browser-warning': 'true',
-          AccessToken: accessToken
-        }}) .then((result) => {
+    const result = await api.get(getUrl) .then((result) => {
         setItem(result.data);
         setIsLoading(false);
         // console.log(res, "hello");
@@ -145,7 +141,7 @@ function UserRead(){
             <th>User Email</th>
             {/* <th>User-Github-UserName</th> */}
             <th className='text-center'>View</th>
-            <th className='text-center'>Update</th>
+            {/* <th className='text-center'>Update</th> */}
             <th className='text-center'>Delete</th>
           </thead>
           <tbody>
@@ -163,14 +159,14 @@ function UserRead(){
     <FontAwesomeIcon icon={faEye} />
   </button>
 </td>          
-              <td className='text-center'>
+              {/* <td className='text-center'>
                 <Link
                   className="btn btn-outline-primary mx-2"
                   to={`/userUpdate/${user.id}`}
                 >
                 <FontAwesomeIcon icon={faPen} />
                 </Link>
-                </td>
+                </td> */}
                  <td className='text-center'>
                  <Link>
     <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(user.id)}><FontAwesomeIcon icon={faTrash} /> </button>

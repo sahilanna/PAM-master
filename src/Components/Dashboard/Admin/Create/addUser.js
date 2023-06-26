@@ -62,7 +62,7 @@ const AddUser = () => {
  
     let repo = selectedRepo;
     const response= axios.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
-  }, {headers})
+  })
   navigate('/AdminDashboard')
     
 }

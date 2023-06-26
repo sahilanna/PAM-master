@@ -6,6 +6,7 @@ import { Modal, Button } from 'semantic-ui-react';
 import Sidebar from '../../SideBar/SideBar';
 import Create from '../Create/Create';
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
+import api from '../../api';
 
 function RepoRead() {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,12 +28,7 @@ function RepoRead() {
 
   const loadItem = async () => {
     try {
-      const response = await axios.get(getUrl, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true',
-          AccessToken: accessToken
-        }
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/repositories/get`)
       setItem(response.data);
       setIsLoading(false);
     } catch (error) {

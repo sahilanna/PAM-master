@@ -132,7 +132,8 @@ import { Form, Button, Dropdown, Modal } from 'semantic-ui-react';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import FigmaCreate from './FigmaCreate';
-import { ngrokUrl} from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
+import api from '../../api';
 
 function CreateFigmaDetails() {
   const navigate = useNavigate()
@@ -144,6 +145,9 @@ function CreateFigmaDetails() {
   const [figmaId, setFigmaId] = useState(null);
   const [selectedProject, setSelectedProject] = useState('');
   const [isValidUrl, setIsValidUrl] = useState(true);
+
+
+
   const validateURL = (url) => {
     try {
       const parsedUrl = new URL(url);
@@ -155,6 +159,8 @@ function CreateFigmaDetails() {
       return false;
     }
   };
+
+
 
 
   let data = sessionStorage.getItem("item");
@@ -182,12 +188,8 @@ function CreateFigmaDetails() {
   projectName=item;
   const fetchProjects = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrl}/api/projects/without-figma-url`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true',
-          AccessToken:accessToken
-        }
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/projects/without-figma-url`);
+     
       const figmaProjects = response.data.map(figma => ({
         key: figma.projectId,
         text: figma.projectName,
@@ -205,13 +207,15 @@ function CreateFigmaDetails() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(`https://${ngrokUrl}/api/figmas/create`, {
+      
+      const response = await api.post(`https://${ngrokUrl}/api/figmas/create`, {
         projectDTO: {
           projectId: selectedProject,
           projectName: selectedProject,
       },
       figmaURL: figmaURL
       },{headers});
+      
       console.log('API Response:', response.data.id);
       const figmaId=response.data.id;
       setFigmaId(figmaId)

@@ -9,6 +9,7 @@ import FooterA from '../FooterA';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import api from '../../api';
 
 
 function CreateRepo() {
@@ -32,7 +33,7 @@ function CreateRepo() {
     }
     if (name) {
       //  const response = axios.post(`https://${ngrokUrl}/api/repositories/add`, { name });
-      const response=axios.post(`https://${ngrokUrlSwe}/api/repositories/add`,{name,description})
+      const response=api.post(`https://${ngrokUrl}/api/repositories/add`,{name,description})
       console.log(name);
       
       navigate('/repoRead');

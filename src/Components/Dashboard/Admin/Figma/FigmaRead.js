@@ -10,6 +10,7 @@ import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrl } from '../../../../Assets/config';
 import './FigmaRead.css'
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
+import api from '../../api';
 
 function FigmaRead() {
   const [showModal, setShowModal] = useState(false);
@@ -24,21 +25,23 @@ function FigmaRead() {
 
   
 
+ 
+
+
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
   const accessToken=user.token
   console.log(user)
     console.log(user.token)
 
+    const headers={AccessToken:accessToken}
 
+  useEffect(() => {
+    fetchProjects();
+  }, []);
   const fetchProjects = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrl}/api/figmas/getAll`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true',
-          AccessToken: accessToken
-        }
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/figmas/getAll`);
       
       console.log(response.data)
       setIsLoading(false)
@@ -67,7 +70,7 @@ function FigmaRead() {
   // useEffect(() => {
   //   const filteredProjects = projects.filter((project) =>
   //     project.projectName.toLowerCase().includes(searchQuery.toLowerCase())
-  //   );
+  //   )
   //   setFilteredProjects(filteredProjects);
   // }, [searchQuery, projects]);
   const createFigma = () => {

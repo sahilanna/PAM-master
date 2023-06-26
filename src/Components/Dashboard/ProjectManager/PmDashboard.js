@@ -52,7 +52,7 @@ const PmDashboard = () => {
         
         const urlParams = new URLSearchParams(window.location.search);
         // const id = urlParams.get('id');
-        const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`,{
+        const response = await axios.get(`https://${ngrokUrl}/api/users/403/role/project_manager/projects`,{
           headers : {
             'ngrok-skip-browser-warning': 'true',
             AccessToken:accessToken

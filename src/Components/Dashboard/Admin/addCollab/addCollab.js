@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import api from '../../api'
 
 function addCollab() {
 
@@ -10,7 +11,7 @@ function addCollab() {
         const accessToken='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'
     
 
-            const response= axios.post('https://09d0-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
+            const response= api.post('https://09d0-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
             
               // headers: {
               //   'ngrok-skip-browser-warning': 'true'

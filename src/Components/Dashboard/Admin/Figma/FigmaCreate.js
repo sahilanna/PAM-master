@@ -3,6 +3,7 @@ import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
 import axios from 'axios';
 import CreateFigmaDetails from './createFigmaDetails';
 import { ngrokUrl } from '../../../../Assets/config';
+import api from '../../api';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
@@ -61,13 +62,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   }, [projectId]);
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrl}/api/projects/${projectId}/users`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true',
-          AccessToken:accessToken
-
-        }
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/users`);
      console.log(response.data)
      const userNames = response.data.map(project => project.name);
      setUsers(userNames);

@@ -3,6 +3,7 @@ import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import api from '../../api';
 
 function DeleteRepo() {
 
@@ -12,11 +13,7 @@ function DeleteRepo() {
     let navigate=useNavigate();
     const fetchProjects = async () => {
         try {
-          const response = await axios.get(`https://${ngrokUrlSwe}/api/repositories/get`, {
-            headers: {
-              'ngrok-skip-browser-warning': 'true'
-            }
-          });
+          const response = await api.get(`https://${ngrokUrl}/api/repositories/get`);
           const repoOptions = response.data.map(rep => ({
             key: rep.repoId,
             text: rep.name,
@@ -36,7 +33,7 @@ function DeleteRepo() {
 
           const handleSubmit = (e) => {
             e.preventDefault();
-            const response=axios.delete(`https://${ngrokUrlSwe}/api/repositories/${repoId}`,)
+            const response=axios.delete(`https://${ngrokUrl}/api/repositories/${repoId}`,)
             navigate('/repoRead')
           
           

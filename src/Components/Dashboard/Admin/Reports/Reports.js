@@ -6,7 +6,7 @@ import { CSVLink } from 'react-csv';
 import Sidebar from '../../SideBar/SideBar';
 import '../AdminDashboard.css'
 import { ngrokUrl } from '../../../../Assets/config';
-
+import api from '../../api';
 
 
 function Reports() {
@@ -29,12 +29,7 @@ function Reports() {
 
     async function fetchUserProjectList() {
           try {
-            const response = await axios.get(`https://${ngrokUrl}/api/users/getAll`,{
-              headers: {
-                'ngrok-skip-browser-warning': 'true',
-                AccessToken: accessToken
-              }
-            });
+            const response = await api.get(`https://${ngrokUrl}/api/users/getAll`);
             setItem(response.data);
             console.log(response);
             setUserProjectlist(response.data);
@@ -46,12 +41,7 @@ function Reports() {
         
         async function fetchOtherTableData() {
           try {
-            const response1 = await axios.get(`https://${ngrokUrl}/api/users/getMultiple`,{
-              headers: {
-                'ngrok-skip-browser-warning': 'true',
-                AccessToken: accessToken
-              }
-            });
+            const response1 = await api.get(`https://${ngrokUrl}/api/users/getMultiple`);
             setmitem(response1.data)
             setShowOtherTable(response1.data);
           } catch (error) {

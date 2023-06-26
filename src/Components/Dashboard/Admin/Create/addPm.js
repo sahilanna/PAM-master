@@ -5,12 +5,13 @@ import axios from 'axios';
 import AddUser from './addUser.js';
 import { useDispatch } from 'react-redux';
 import { createPmGithubName } from '../../../../Login/redux-store/actions/action.js';
-import NavBarA from '../NavbarA';
+import NavBarA from '../NavbarA.js';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { ngrokUrl } from '../../../../Assets/config.js';
-import { ngrokUrlSwe } from '../../../../Assets/config.js';
+import api from '../../api.js';
+// import { ngrokUrl } from '../../../../Assets/config.js';
 
 
 const AddPm = () => {
@@ -46,12 +47,7 @@ const AddPm = () => {
   };
   // console.log("Plz work",selectedRepo)
   useEffect(() => {
-    fetch(`https://${ngrokUrl}/usernames/role/project_manager`,{
-      headers: {
-        'ngrok-skip-browser-warning': 'true',
-        AccessToken:accessToken
-
-      }}).then((response)=>response.json())
+    fetch(`https://${ngrokUrl}/usernames/role/project_manager`).then((response)=>response.json())
     .then((data)=>setOptions(data))
   
   }, []);
@@ -63,7 +59,7 @@ const AddPm = () => {
     const accessToken='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';
 
     let repo = selectedRepo
-    const response= axios.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
+    const response= api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
     })
     
     

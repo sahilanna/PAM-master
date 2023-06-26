@@ -22,7 +22,7 @@ function RepoPmDashboard() {
   useEffect(() => {
     const fetchRepo = async () => {
       try {
-        const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`,{
+        const response = await axios.get(`https://${ngrokUrl}/api/users/552/role/project_manager/projects`,{
           headers : {
             'ngrok-skip-browser-warning': 'true',
             AccessToken: accessToken
