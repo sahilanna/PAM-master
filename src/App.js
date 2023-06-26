@@ -23,7 +23,7 @@ import PmUpdate from './Components/Dashboard/PM/pmUpdate';
 import UserCreate from './Components/Dashboard/Users/userCreate';
 import UserRead from './Components/Dashboard/Users/userRead';
 import UserUpdate from './Components/Dashboard/Users/userUpdate';
-import View from './Components/Dashboard/Admin/Read/View';
+
 import CreateRepo from './Components/Dashboard/Admin/Create/CreateRepo';
 import addCollab from './Components/Dashboard/Admin/addCollab/addCollab';
 import addPm from './Components/Dashboard/Admin/Create/addPm';

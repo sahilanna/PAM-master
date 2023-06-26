@@ -14,11 +14,11 @@ function Analytics() {
 const[Data,setData]=useState([])
 const [isLoading, setIsLoading] = useState(true);
 
-let dataa = sessionStorage.getItem("item");
-let user = JSON.parse(dataa);
-const accessToken=user.token
-console.log(user)
-  console.log(user.token)
+// let dataa = sessionStorage.getItem("item");
+// let user = JSON.parse(dataa);
+// const accessToken=user.token
+// console.log(user)
+//   console.log(user.token)
 const fetchCount = async () => {
     try {
       const [adminResponse, pmResponse, userResponse] = await Promise.all([

@@ -8,7 +8,6 @@ import Footer from '../Components/Footer';
 import './Login.css'
 import { ngrokUrl } from '../Assets/config';
 import { Modal } from 'semantic-ui-react';
-
 function Test() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
   const navigate=useNavigate()
@@ -77,16 +76,6 @@ function Test() {
           { theme: "outline", size: "large" }
       );
   }, []);
-
-
-
-
-
-
-
-
-
-
     return (
     <div className="sample1">
       <NavBarLogin />

@@ -9,7 +9,7 @@ import PmReadNew from "../Components/Dashboard/PM/PmReadNew";
 import PmUpdate from "../Components/Dashboard/PM/pmUpdate";
 import UserCreate from "../Components/Dashboard/Users/userCreate";
 import UserUpdate from "../Components/Dashboard/Users/userUpdate";
-import View from "../Components/Dashboard/Admin/Read/View";
+
 import CreateRepo from "../Components/Dashboard/Admin/Create/CreateRepo";
 import Reports from "../Components/Dashboard/Admin/Reports/Reports";
 import PmRequestUser from "../Components/Dashboard/Admin/PmRequests/PmRequestUser";
@@ -44,6 +44,7 @@ import CreateProject from "../Components/Dashboard/Admin/Create/CreateProject";
 import AddPmUserName from "../Components/Dashboard/PM/addPmUsername";
 import DeleteRepo from "../Components/Dashboard/Admin/Repository/deleteRepo";
 import AddFile from "../Components/Dashboard/Admin/Create/addFile";
+import ViewFile from "../Components/Dashboard/Admin/Read/ViewFile";
 
 
 const PrivateRoutes = () => {
@@ -81,7 +82,7 @@ const PrivateRoutes = () => {
               <Route path="//PmUpdate/:id" element={<PmReadNew />} />
               <Route path="/UserCreate" element={<UserCreate />} />
               <Route path="/UserUpdate/:id" element={<UserUpdate />} />
-              <Route path="/View'" element={<View />} />
+            
               <Route path="/CreateRepo" element={<CreateRepo />} />
               <Route path="/addCollab" element={<addCollab />} />
               <Route path="/AddPm" element={<AddPm/>} />

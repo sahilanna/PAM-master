@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Navigate, useParams}  from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash, faEye, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrash, faEye, faUpload, faFile } from '@fortawesome/free-solid-svg-icons';
 import DialogBox from '../DialogBox/DialogBox';
 import ProjectDetails from './Read/ProjectDetails';
 import 'semantic-ui-css/semantic.min.css';
@@ -32,6 +32,14 @@ const AdminDashboard = () => {
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [fileDialog, setShowFileDialog]=useState(false)
+
+
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
   
   // let data = sessionStorage.getItem("item");
   // let user = JSON.parse(data);
@@ -63,6 +71,12 @@ const AdminDashboard = () => {
   useEffect(() => {
     handlePaginate(1);
   }, [item]);
+
+  const addFile=async (projectId, projectName)=>{
+    console.log(projectId)
+    setShowFileDialog(true);
+  navigate('/addFile' , { state: { projectId , projectName} })
+}
   const csvDataProj = item.map((entry) => ({
     'project Id': entry.projectId,
     'project Name': entry.projectName,
@@ -78,6 +92,39 @@ const AdminDashboard = () => {
   const createOnclick = () => {
     navigate('/CreateProject');
   };
+
+  const viewFile= async (projectId)=>{
+
+    
+      const result = await api.get(`https://${ngrokUrl}/api/projects/files?projectId=${projectId}`,{
+      responseType: "blob",
+      contentType: 'application/zip'
+    }) .then((result) => {
+      console.log(result.data)
+      const downloadUrl = window.URL.createObjectURL(
+        new Blob([result.data])
+        
+      );
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.setAttribute("download", "file.data");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      
+         
+          // console.log(res, "hello");
+          navigate('/adminDashboard')
+        })
+        .catch((error)=>{
+          console.log(error,'hi');
+          
+        })
+      
+      
+  }
+
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -143,6 +190,7 @@ const AdminDashboard = () => {
                     <th className='text-center'>View</th>
                     <th className='text-center'>Delete</th>
                     <th className='text-center'>Add Files</th>
+                    <th className='text-center'>View File</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -170,8 +218,13 @@ const AdminDashboard = () => {
                         />
                       </td>
                       <td className='text-center'>
-                        <button className='btn btn-primary mx-2' onClick={()=>AddFile(item.projectId)}>
+                        <button className='btn btn-primary mx-2' onClick={()=>addFile(item.projectId, item.projectName)}>
                          <FontAwesomeIcon icon={faUpload} />
+                         </button>
+                      </td>
+                      <td className='text-center'>
+                        <button className='btn btn-primary mx-2' onClick={()=>viewFile(item.projectId)}>
+                         <FontAwesomeIcon icon={faFile} />
                          </button>
                       </td>
                     </tr>

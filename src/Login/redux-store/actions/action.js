@@ -1,20 +1,21 @@
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { ngrokUrl, ngrokUrlSwe } from "../../../Assets/config";
+import api from "../../../Components/Dashboard/api";
 
 
-let data = sessionStorage.getItem("item");
-let user = JSON.parse(data);
-const accessToken=user.token
-console.log(user)
+// let data = sessionStorage.getItem("item");
+// let user = JSON.parse(data);
+// const accessToken=user.token
+// console.log(user)
  
-  const headers={AccessToken:accessToken}
+//   const headers={AccessToken:accessToken}
 
 //Create Project
 export const createProject = ({ projectName, projectDescription,projectManagerId,gitRepoLink}) => {
     return async(dispatchU) => {
         try {
-            const responseCreate = await axios.post('https://64267bccd24d7e0de470e2b7.mockapi.io/Crud', {
+            const responseCreate = await api.post('https://64267bccd24d7e0de470e2b7.mockapi.io/Crud', {
                 
                 projectName,
                 projectDescription,
@@ -35,7 +36,7 @@ export const createProject = ({ projectName, projectDescription,projectManagerId
 export const updateProject = ({projectId, projectName, projectDescription, repo}) => {
     return async(dispatchU) => {
         try {
-            const responseUpdate = await axios.put(`https://64267bccd24d7e0de470e2b7.mockapi.io/Crud/${projectId}`, {
+            const responseUpdate = await api.put(`https://64267bccd24d7e0de470e2b7.mockapi.io/Crud/${projectId}`, {
                 projectId,
                 projectName,
                 projectDescription,
@@ -54,13 +55,13 @@ export const updateProject = ({projectId, projectName, projectDescription, repo}
 export const createPM = ({ name, email,enumRole}) => {
     return async(dispatchPMUpdate) => {
         try {
-            const responseCreatePM = await axios.post(`https://${ngrokUrl}/api/users/`, {
+            const responseCreatePM = await api.post(`https://${ngrokUrl}/api/users/`, {
                 
                 name,
                 email,
                 enumRole,
                 
-            },{headers})
+            })
             dispatchPMUpdate({type: "createPM", payload: responseCreatePM});
         }
         catch (error){
@@ -75,7 +76,7 @@ export const createPM = ({ name, email,enumRole}) => {
 export const updatePM = ({ id,name, email, githubUsername, enumRole}) => {
     return async(dispatchPM) => {
         try {
-            const responsePMUpdate = await axios.put(`https://${ngrokUrl}/api/users/update/${id}`, {
+            const responsePMUpdate = await api.put(`https://${ngrokUrl}/api/users/update/${id}`, {
                
                 name,
                 email,
@@ -97,12 +98,12 @@ export const updatePM = ({ id,name, email, githubUsername, enumRole}) => {
 export const createUser = ({ name, email, enumRole}) => {
     return async(dispatchUserUpdate) => {
         try {
-            const responseCreateUser = await axios.post(`https://${ngrokUrl}/api/users/`, {
+            const responseCreateUser = await api.post(`https://${ngrokUrl}/api/users/`, {
                 
                 name,
                 email,
                 enumRole
-            }, {headers})
+            })
             dispatchUserUpdate({type: "createUser", payload: responseCreateUser});
         }
         catch (error){
@@ -118,7 +119,7 @@ export const updateUser = ({ id,name, email, enumRole}) => {
     return async(dispatchUser) => {
         // const {id} = useParams();
         try {
-            const responseUserUpdate = await axios.put(`https://${ngrokUrl}/api/users/update/${id}`, {
+            const responseUserUpdate = await api.put(`https://${ngrokUrl}/api/users/update/${id}`, {
                 
                 name,
                 email,
@@ -137,11 +138,11 @@ export const updateUser = ({ id,name, email, enumRole}) => {
 export const createPmGithubName = ({projectName, repo, username}) => {
     return async(dispatchPmGithub) => {
         try {
-            const responseCreatePmGithubName = await axios.post(`https://${ngrokUrl}/api/collaborators/add`, {
+            const responseCreatePmGithubName = await api.post(`https://${ngrokUrl}/api/collaborators/add`, {
                 projectName,
                 repo,
                 username
-            },{headers})
+            })
             dispatchPmGithub({type: "createPmGithubName", payload: responseCreatePmGithubName});
         }
         catch (error){

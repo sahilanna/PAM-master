@@ -1,87 +1,107 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Modal,Button } from 'semantic-ui-react'
-import {useNavigate, useLocation } from 'react-router-dom'
+import {useNavigate, useLocation} from 'react-router-dom'
 import axios from 'axios';
-import { ngrokUrlSwe } from '../../../../Assets/config';
-
+import { ngrokUrl } from '../../../../Assets/config';
+import api from '../../api';
 
 function AddFile() {
+  const navigate = useNavigate();
+  const { state } = useNavigate();
+  const location = useLocation();
+  const { projectId } = location.state || {};
+  const {projectName}= location.state|| {};
+  const[modalfile,setmodalFile]=useState('')
 
-    const { state } = useLocation();
-  let{ projectId } = state || {};
+  let dataa = sessionStorage.getItem("item");
+  let user = JSON.parse(dataa);
+  const accessToken=user.token
+ 
+  
 
- const navigate=useNavigate()
+  const headers={
+    AccessToken:accessToken,
+    contentType: "application/zip"
+  }
+  
 
-    const onClose=()=>{
-        navigate('/adminDashboard')
-    }
+  
 
-    console.log(projectId)
+  const onClose = () => {
+    navigate('/adminDashboard');
+  };
+  const handleModelFileSelect = (e) => {
+    const filee = e.target.files[0];
+    //console.log(filee)
+    setmodalFile(filee);
+    //console.log('hi',modalfile)
+  };
 
+  const data = new FormData();
+  if (modalfile) {
+    data.append('projectFile', modalfile);
    
+    // console.log(modalfile)
+    
+    console.log('hiiii',data)
+  }
 
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const file = event.target.file.files[0];
+  const handleFileUpload = () => {
     
-        // Create a new FormData object and append the file and project ID
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('projectId', projectId);
-    
-        try {
-          // Make a POST request to your backend API
-          const response = await axios.post(`http://${ngrokUrlSwe}/api/projects/uploadpdf?projectId=${projectId}`, formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
-    
-          navigate('/adminDashboard')
-          console.log(response.data);
-        } catch (error) {
-          // Handle any errors
-          console.log(error);
-        }
-      };
-  return (
-    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}>
-    <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
-    
-      </div>
-      <div style={{paddingLeft:'442px'}}>
-    <Button secondary onClick={onClose}>
-        X
-      </Button>
-      </div>
-    <Modal.Header>Add File</Modal.Header>
-
+  
+   const url = `http://${ngrokUrl}/api/projects/upload?projectId=${projectId}`;
+   axios.post(url,data,projectId,{headers})
+   .then((response) => {
+     console.log(response.data);
+     resetFileInputs();
+     navigate('/adminDashboard')
+   })
+   .catch((error) => {
+     console.error(error);
+   });
+  }
+  const resetFileInputs = () => {
+    setmodalFile(null);
+   
+  };
  
 
-        <Modal.Content>
-
-        <Form onSubmit={handleSubmit}>
-  <Form.Field>
-      <label style={{ textAlign: 'left' }} >Project ID </label>
-      <input name='name' placeholder={projectId} readOnly />
-      
-  </Form.Field>
-  <Form.Field>
-      <label style={{ textAlign: 'left' }}>ADD File</label>
-      <input type='file' name='file'  placeholder='FILE' />
-      
-  </Form.Field>
 
 
-        <Button type='submit'>Submit</Button>
-      </Form>
+
+  return (
+    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0', width: '500px', height: '600px' }}>
+      <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
+      <div style={{ paddingLeft: '442px' }}>
+        <Button secondary onClick={onClose}>
+          X
+        </Button>
+      </div>
+     
+
+      <Modal.Content>
+        <Form >
+          <Form.Field>
+            <label style={{ textAlign: 'left' }}>Project Name</label>
+            <input name='name' placeholder={projectName} readOnly />
+          </Form.Field>
+          <Form.Field>
+          <div>
+            <label>Add Help document</label>
+            <input className='text-center' type="file" onChange={handleModelFileSelect} />
+            {File && <div>{File.name}</div>}
+          </div>
+          </Form.Field>
+
+          <Button type='submit' onClick={handleFileUpload}>Submit</Button>
+        </Form>
       </Modal.Content>
-      <Modal.Actions>
+      <Modal.Actions></Modal.Actions>
+    </Modal>
+  );
 
-      </Modal.Actions>
-      </Modal>
-  )
+    
+  
 }
 
 export default AddFile
