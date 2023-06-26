@@ -11,6 +11,7 @@ import { ngrokUrl } from '../../../../Assets/config';
 
 function PmRequestUser() {
   const [requestData, setRequestData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -24,10 +25,12 @@ function PmRequestUser() {
         }
       });
       setRequestData(response.data);
+      setIsLoading(false);
       console.log(response.data)
       console.log(requestData)
     } catch (error) {
       console.log('Error fetching Users:', error);
+      setIsLoading(true);
     }
   };
 
@@ -77,6 +80,7 @@ function PmRequestUser() {
       <Sidebar />
       <div className="admin-child">
         <div style={{ marginLeft: '20px', marginRight: '30px', marginTop: '20px' }}>
+          
         {requestData.length > 0 ? (
           <Table className="ui-celled-table">
             <Table.Header>

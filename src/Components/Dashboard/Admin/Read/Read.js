@@ -98,7 +98,6 @@ const handlePaginate = (pageNumber) => {
   const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
   setCurrentPageData(currentItems);
 };
-//posts=item
 
   
   const deleteUser = async (projectId) => {
@@ -108,8 +107,7 @@ const handlePaginate = (pageNumber) => {
     loaditem();
 };
   return(
-    // <div className="container">
-    // <div className="py-4">
+  
     <div>
       <Sidebar/>
      
@@ -182,9 +180,7 @@ const handlePaginate = (pageNumber) => {
         </tbody>
        
       </table>
-     
       <div>
-      {/* Display items for the current page */}
       <PaginationComponent
       data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
@@ -193,7 +189,6 @@ const handlePaginate = (pageNumber) => {
         <ProjectDetails project={selectedProject} onClose={handleCloseDetails} />
       )}
     </div>
-  // </div>
  )
 }
  

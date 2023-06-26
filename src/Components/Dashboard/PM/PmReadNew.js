@@ -15,23 +15,15 @@ import './Read.css'
 import PmDetails from './PmDetails'
 import { ngrokUrl } from '../../../Assets/config'
 import Sidebar from '../SideBar/SideBar'
-// import '/home/nineleaps/Downloads/PAM-master-master/src/Components/Dashboard/Admin/AdminDashboard.css'
-// import  {
-//     CDBSidebar,
-//     CDBSidebarContent,
-//     CDBSidebarFooter,
-//     CDBSidebarHeader,
-//     CDBSidebarMenu,
-//     CDBSidebarMenuItem,
-//   } from 'cdbreact'
-
+import { ngrokUrlSwe } from '../../../Assets/config'
+import LoadingPage from '../../../Assets/Loader/LoadingPage'
 
 
 function PmReadNew() {
 
     const navigate = useNavigate();
     // const getUrl =  "https://bc38-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-    const getUrl =  `https://${ngrokUrl}/api/users/role/project_manager`;
+    const getUrl =  `https://${ngrokUrlSwe}/api/users/role/project_manager`;
     const delUrl = "https://77c8-106-51-70-135.ngrok-free.app/api/projects/delete/3";
     const [item, setItem] = useState([]);
     const [id, setId] = useState('');
@@ -45,6 +37,7 @@ function PmReadNew() {
     const [selectedProject, setSelectedProject] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   
     const itemsPerPage = 5;
     
@@ -65,16 +58,22 @@ function PmReadNew() {
           
           }}) .then((result) => {
           setItem(result.data);
+          setIsLoading(false);
           console.log(tokenData)
          
           // console.log(res, "hello");
         })
         .catch((error)=>{
           console.log(error,'hi');
+          setIsLoading(true);
           
 
         })
       };
+
+      const addUserName=()=>{
+        navigate('/addPmUserName')
+      }
   
       useEffect(() => {
         const filteredProjects = item.filter((project) =>
@@ -116,7 +115,7 @@ function PmReadNew() {
       
   
       const deleteUser = async (id) => {
-        await axios.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
+        await axios.delete(`https://${ngrokUrlSwe}/api/users/delete/${id}`);
         navigate('/pmReadNew')
         setShowConfirmDialog(false);
         loaditem();
@@ -150,13 +149,17 @@ function PmReadNew() {
             onChange={handleSearchChange} ></input>
   <i class="users icon"></i>
 </div>
+<div>
 
-
+<button className='ui button' onClick={addUserName}>Add Github UserName</button>
     <button class="ui button" onClick={createOnclick} >Create PM</button>
-    <button class="ui button" onClick={createOnclickPm} >Add Pm Username</button>
+    </div>
     
     </div>
     <div style={{marginLeft:'20px',marginRight:'30px'}}>
+    {isLoading ? (
+            <LoadingPage />
+          ) : (
     <table class="ui celled table">
         {/* <thead colspan = '5'>
         </thead> */}
@@ -166,7 +169,7 @@ function PmReadNew() {
             <th>PM-Email</th>
             {/* <th>PM-Github-UserName</th> */}
             <th className='text-center'>View</th>
-            <th className='text-center'>Edit</th>
+            {/* <th className='text-center'>Edit</th> */}
             <th className='text-center'>Delete</th>
          </thead>
          <tbody>
@@ -187,11 +190,11 @@ function PmReadNew() {
     <FontAwesomeIcon icon={faEye} />
   </button>
 </td>             
-              <td className='text-center'>
+              {/* <td className='text-center'>
         <Link className="btn btn-outline-primary mx-2" to={`/PmUpdate/${item.id}`}>
           <FontAwesomeIcon icon={faPen} /> 
         </Link>
-      </td>
+      </td> */}
       <td className='text-center'>
       {/* <div className="dialog-backdrop"> */}
         <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(item.id)}>
@@ -217,6 +220,7 @@ function PmReadNew() {
         </tbody>
 
       </table>
+          )}
       </div>
     
     <div className='pagination'>

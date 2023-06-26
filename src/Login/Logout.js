@@ -21,8 +21,7 @@ const Logout = () => {
   
 
   return (
-    
-
+  
     navigate('/Login')  
   
   );

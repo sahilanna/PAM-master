@@ -1,14 +1,13 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { Button} from 'semantic-ui-react'
 import axios from'axios'
 import NavBarLogin from './NavBarLogin';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import './Login.css'
 import { ngrokUrl } from '../Assets/config';
-import { Button } from 'react-bootstrap';
 import { Modal } from 'semantic-ui-react';
-
 //import apiLink from "../ApiConfig"
 function Test() {
     const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
@@ -22,7 +21,6 @@ function Test() {
             'ngrok-skip-browser-warning': 'true'
           };
           try {
-        
             const { data}  = await axios.get(
                 `https://${ngrokUrl}/auth/api/get-email`,
                 { headers })
@@ -37,7 +35,6 @@ function Test() {
             } else if (data.role=="PROJECT_MANAGER") {
                 navigate('/pmDashboard', { state: { data } });
             } else if (data.role =="USER") {
-                
                 navigate('/userProjects', { state: { data } });
             } else {
                    
@@ -45,14 +42,11 @@ function Test() {
             }
         }
         catch (error) {
-             setShowUserNotFoundModal(true);
+            setShowUserNotFoundModal(true);
             console.log("user not found")
-
-            //console.log('hi',error);
-           
+            console.log('hi',error);
         }
     }
-
     // function decodeIdToken(token) {
     //     const base64Url = token.split(".")[1];
     //     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -65,12 +59,10 @@ function Test() {
     //         })
     //         .join("")
     //     );
-  
     //     return JSON.parse(jsonPayload);
     //   }
-
     useEffect(() => {
-        const clientID='840665959732-ip9sm2ea6l7ds2vbgooum6ec08fl8k3v.apps.googleusercontent.com'
+        const clientID='664601673419-hiir2173k5usfrm159r3ttg9108cpuhi.apps.googleusercontent.com'
         window.google.accounts.id.initialize({
             client_id: clientID,
             callback: handleGoogleLogin
@@ -80,10 +72,7 @@ function Test() {
             { theme: "outline", size: "large" }
         );
     }, []);
-
-    
     return (
-        
     <div className="sample1">
       <NavBarLogin />
       <div className="box-container">
@@ -91,7 +80,6 @@ function Test() {
         <br/>
         <div className="space"></div>
         <br/>
-
       </div>
       <div className="box-container">
         <div id="signIn"></div>
@@ -103,7 +91,8 @@ function Test() {
     alignItems: 'center',
     justifyContent: 'center',
   }}>
-      <Modal open={showUserNotFoundModal} className='centered-modal' >
+    <div className='Modal-cont'>
+      <Modal open={showUserNotFoundModal} className='centered-modal'size='mini' >
         <Modal.Header>User not found</Modal.Header>
         <Modal.Content >
           <p>The user was not found. Please try again.</p>
@@ -113,10 +102,8 @@ function Test() {
         </Modal.Actions>
       </Modal>
       </div>
+      </div>
     </div>
-    
     );
 }
 export default Test;
-
-

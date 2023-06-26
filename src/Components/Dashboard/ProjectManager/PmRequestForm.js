@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {Form,Button,Dropdown} from 'semantic-ui-react'
+import {Form,Button,Dropdown,Modal} from 'semantic-ui-react'
 import { ngrokUrlSwe, ngrokUrl } from '../../../Assets/config';
 import { Navigate, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
@@ -158,30 +158,28 @@ setRequestDescription(e.target.value)
         
       }
     };
-    
+    const onClose =()=>{
+      navigate(-1);
+    }
 
   return (
-    <div>
-      
-   
-      <div className='form-style'>
-      <h1 style={{textAlign:'center'}} >Request Form to add User</h1>
-      <Form onSubmit={handleSubmit}>
-        <Form.Field>
-          <label style={{textAlign:'left'}}>PMs</label>
-          <Dropdown
-            placeholder="Select PM"
-            fluid
-            selection
-            options={pm.map((name, index) => ({
-              key: index,
-              text: name,
-              value: name
-            }))}
-            value={selectedPm}
-            onChange={handlePmChange}
-          />
-        </Form.Field>
+    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}>
+    <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
+    
+      </div>
+      <div style={{paddingLeft:'442px'}}>
+    <Button secondary onClick={onClose}>
+        X
+      </Button>
+      </div>
+    <Modal.Header>Request Form To Add User</Modal.Header>
+
+ 
+
+        <Modal.Content>
+
+        <Form onSubmit={handleSubmit}>
+        
         
         <Form.Field>
           <label style={{textAlign:'left'}}>Projects</label>
@@ -198,6 +196,23 @@ setRequestDescription(e.target.value)
             onChange={handleProjChange}
           />
         </Form.Field>
+        
+        <Form.Field>
+          <label style={{textAlign:'left'}}>PMs</label>
+          <Dropdown
+            placeholder="Select PM"
+            fluid
+            selection
+            options={pm.map((name, index) => ({
+              key: index,
+              text: name,
+              value: name
+            }))}
+            value={selectedPm}
+            onChange={handlePmChange}
+          />
+        </Form.Field>
+
         
         <Form.Field>
           <label style={{textAlign:'left'}}>User</label>
@@ -218,16 +233,15 @@ setRequestDescription(e.target.value)
         <Form.Field>
           <label style={{textAlign:'left'}}>Description:</label>
           <input type="text" id="Description" required onChange={Description} />
-        </Form.Field>
+          </Form.Field>
+     
+     <Button type='submit'>Submit</Button>
+   </Form>
+   </Modal.Content>
+   <Modal.Actions>
 
-        <Button type="submit" primary>
-          Submit Request
-        </Button>
-      </Form>
-      </div>
-
-      <p>{requestStatus}</p>
-    </div>
+   </Modal.Actions>
+   </Modal>
   );
 }
 

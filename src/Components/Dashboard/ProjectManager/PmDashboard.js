@@ -15,6 +15,8 @@ import PmSidebar from './pmSidebar';
 import PmProjectDetails from './pmProjectDetails';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../../../Login/Logout';
+import LoadingPage from '../../../Assets/Loader/LoadingPage';
+
 
   
 
@@ -29,6 +31,11 @@ const PmDashboard = () => {
   const [pmid, setPmid] = useState([]);
   const navigate=useNavigate()
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 2000);
+
 
   useEffect(() => {
     const fetchPmid = async () => {
@@ -43,6 +50,7 @@ const PmDashboard = () => {
       }});
       console.log(response.data)
       console.log(response.id);
+      setIsLoading(false);
 
      
       
@@ -50,6 +58,7 @@ const PmDashboard = () => {
         setPmid(pmid);
       } catch (error) {
         console.log('Error fetching PMID:', error);
+        setIsLoading(true);
       }
     };
 
@@ -97,8 +106,14 @@ const PmDashboard = () => {
   
     
     </div>
+    {isLoading ? (
+        <div>
+          <LoadingPage />
+        </div>
+      ) : (
     
     <div style={{marginLeft:'20px',marginRight:'30px'}}>
+      
     <table class="ui celled table">
        
         <thead>
@@ -139,6 +154,7 @@ const PmDashboard = () => {
 
       </table>
       </div>
+      )}
       </div>
 </div>
   )}

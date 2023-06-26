@@ -1,22 +1,26 @@
 .Analytics-components{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 100%;
+}
+
+.parent-adm{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+   
+}
+
+.try{
     width: 100%;
-    }
-    .parent-adm{
-        display: flex;
-    }
-    .try{
-        width: 100%;
-        flex-grow: 1;
-        overflow-y: auto;
-    }
-    .Analytics-side{
-        display:flex;
-        position: sticky;
-        z-index: 999;
-        left: 0;
-        height: auto;
-    }
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.Analytics-side{
+    display:flex;
+    position: sticky;
+    z-index: 999;
+    left: 0;
+    height: auto;
+}

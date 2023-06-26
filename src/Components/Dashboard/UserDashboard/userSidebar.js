@@ -28,9 +28,9 @@ function UserSidebar() {
           <NavLink exact to="/userProjects" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="list">Projects</CDBSidebarMenuItem>
           </NavLink>
-          {/* <NavLink exact to="/userFigmaRead" activeClassName="activeClicked">
+          <NavLink exact to="/userFigmaRead" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="book">Figma</CDBSidebarMenuItem>
-          </NavLink> */}
+          </NavLink>
           <NavLink exact to="/userRepoRead" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="sticky-note">Repository</CDBSidebarMenuItem>
           </NavLink>

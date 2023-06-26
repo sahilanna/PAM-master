@@ -35,18 +35,14 @@ import UserRepoRead from "../Components/Dashboard/UserDashboard/userRepoRead";
 import UserFigmaRead from "../Components/Dashboard/UserDashboard/userFigmaRead";
 import Logout from "./Logout";
 import Analytics from "../Components/Dashboard/Admin/Analytics/Analytics";
+import ProjectAnalytics from "../Components/Dashboard/Admin/Analytics/projectAnalytics";
 import Profile from "../Components/Dashboard/Admin/Profile";
 import UserProfile from "../Components/Dashboard/UserDashboard/userProfile";
 import PmProfile from "../Components/Dashboard/ProjectManager/pmprofile";
 import AddUserName from "../Components/Dashboard/Users/AddUserName";
-import ProjectAnalytics from "../Components/Dashboard/Admin/Analytics/projectAnalytics";
-import GitCreate from "../Components/Dashboard/Admin/Repository/gitCreate";
 import CreateProject from "../Components/Dashboard/Admin/Create/CreateProject";
-import PmAddUserName from "../Components/Dashboard/PM/pmAddUsername";
-import DeleteRepository from "../Components/Dashboard/Admin/Repository/deleteRepository";
-
-
-
+import AddPmUserName from "../Components/Dashboard/PM/addPmUsername";
+import DeleteRepo from "../Components/Dashboard/Admin/Repository/deleteRepo";
 
 
 const PrivateRoutes = () => {
@@ -67,8 +63,10 @@ const PrivateRoutes = () => {
         <>
           {role== "ADMIN" && (
             <Routes>
-              <Route path='/Logout' element={<Logout/>}/>
-              <Route path="/AdminDashboard" element={<AdminDashboard />} />
+                
+                <Route path="/AddPmUserName" element={<AddPmUserName/>} />
+               <Route path="/AdminDashboard" element={<AdminDashboard />} />
+               <Route path='/CreateProject' element={<CreateProject/>}/>
               <Route path="/AddUserName" element={<AddUserName/>} />
               <Route path="/Login" element={<Login />} />
               <Route path="/Create" element={<Create />} />
@@ -88,7 +86,7 @@ const PrivateRoutes = () => {
               <Route path="/AddPm" element={<AddPm/>} />
               <Route path="/addUser" element={<AddUser />} />
               <Route path="/finalForm" element={<FinalForm />} />
-              <Route path="/NavbarA" element={<NavBarA/>} />             
+              <Route path="/NavbarA" element={<NavBarA/>} />
               <Route path="/repoRead" element={<repoRead/>} />
               <Route path="/FigmaRead" element={<FigmaRead/>} />
               <Route path="/FigmaCreate" element={<FigmaCreate />} />
@@ -96,12 +94,17 @@ const PrivateRoutes = () => {
               <Route path="/Reports" element={<Reports />} />
               <Route path="/CreateFigmaDetails" element={<CreateFigmaDetails/>} />
               <Route path="/PmRequestUser" element={<PmRequestUser/>} />
+              <Route path='/deleteRepo' element={<DeleteRepo/>}/>
+            
               <Route path='/Profile' element={<Profile/>}/>
               <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/>
-              <Route path='/gitCreate' element={<GitCreate/>}/>
-              <Route path='/CreateProject' element={<CreateProject/>}/>
-              <Route path='/pmAddUserName' element={<PmAddUserName/>}/>
-              <Route path='/deleteRepository' element={<DeleteRepository/>}/>
+              {/* <Route path='/gitCreate' element={<GitCreate/>}/> */}
+             
+             {/* <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/> */}
+             <Route path='/Create' element={<Create/>}/>
+             <Route path='/addPm' element={<AddPm/>}/>
+             <Route path='/addUser' element={<AddUser/>}/>
+             
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           )}

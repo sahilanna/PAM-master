@@ -3,12 +3,13 @@ import UserSidebar from './userSidebar';
 import { ngrokUrlSwe } from '../../../Assets/config';
 import axios from 'axios';
 import {useState, useEffect} from 'react'
+import LoadingPage from '../../../Assets/Loader/LoadingPage';
 
 
 function UserRepoRead() {
+
   const [result, setResult]=useState([])
-    
-  
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchRepo = async () => {
       try {
@@ -16,23 +17,18 @@ function UserRepoRead() {
           headers : {
             'ngrok-skip-browser-warning': 'true'
       }});
-      
         const  data  = response.data;
         console.log('data',data)
         setResult(data);
+        setIsLoading(false);
         console.log('result',result)
       } catch (error) {
         console.log('Error fetching PMID:', error);
+        setIsLoading(true);
       }
     };
-
     fetchRepo();
   }, []);
-
-
-
-
-
   return (
     <div className='parent-admin'>
     <div style={{ height: '100vh', overflow: 'scroll initial' }}>
@@ -44,51 +40,49 @@ function UserRepoRead() {
   <input type="text" placeholder="Search Projects..."  ></input>
   <i class="users icon"></i>
 </div>
-
-
-  
-    
     </div>
-    
     <div style={{marginLeft:'20px',marginRight:'30px'}}>
+    {isLoading ? (
+            <LoadingPage />
+          ) : (
     <table class="ui celled table">
-       
         <thead>
-            
             <th>Repository Name</th>
             <th>Repository Description</th>
-            
             {/* <th>Repository Name</th> */}
             {/* <th>PM Github</th>
             <th>User Github</th>  */}
-            
             {/* <th>Edit</th> */}
-            
         </thead>
-        
         <tbody>
-           {result.map((item, index) => (
+        {result && result.length > 0 ? (
+           result.map((item, index) => (
     <tr key={index}>
-          
-          {/* {currentPageData.map((item, index) => (
-            <tr> */}
-            
+         {item.projectName && item.figmaUrl > 0 ? (
+          <>
               {console.log(item.repositories[0].repoId)}
               <td>{item.repositories[0].name}</td>
               <td>{item.repositories[0].description}</td>
-           
-              
-      
-              
+              </>
+         ):(
+           <>
+           <td></td>
+            <td></td>
+          </>
+              )}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="2">No data available</td>
             </tr>
-           ))}
-          
+          )}
         </tbody>
       </table>
+          )}
+            
       </div>
       </div>
-
     </div>
-  )
-}
+)}
 export default UserRepoRead

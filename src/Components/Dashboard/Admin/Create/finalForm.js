@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import NavBarA from '../NavbarA';
-import './Create.css';
+// import './Create.css';
 import { ngrokUrl } from '../../../../Assets/config';
 
 const FinalForm = () => {

@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
 import axios from 'axios';
@@ -7,13 +5,14 @@ import CreateFigmaDetails from './createFigmaDetails';
 import { ngrokUrlSwe } from '../../../../Assets/config';
 
 import { useLocation } from 'react-router-dom';
-import { number } from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
-const FigmaCreate = ({ onClose, figmaURL,Id}) => {
+const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
+  const navigate=useNavigate()
+  
   console.log(figmaURL)
-  console.log(Id)
-
-  // const figmaId = location && location.state && location.state.figmaId;
+  const location = useLocation();
+  //const figmaId = location && location.state && location.state.figmaId;
   
  
   const [url, setUrl] = useState(figmaURL);
@@ -24,11 +23,26 @@ const FigmaCreate = ({ onClose, figmaURL,Id}) => {
   const[figmaId, setFigmaId]=useState(Id)
  
  
-  const handleIdChange = (e) => {
-    setFigmaId(e.target.value);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await axios.put(
+        `https://${ngrokUrlSwe}/api/figmas/${figmaId}/user`,
+        {
+          user: selectedUser,
+          screenshotImage: screenshotImage
+        }
+      );
+      console.log(response.data);
+      navigate('/figmaRead')
+    } catch (error) {
+      console.log('Error Updating Figma User:', error);
+    }
   };
 
-  const handleUrlChange = (e) => {
+  const handleUrlChange =  (e) => {
     setUrl(e.target.value);
   };
 
@@ -41,40 +55,19 @@ const FigmaCreate = ({ onClose, figmaURL,Id}) => {
     setscreenshotImage(file);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-    
-    // const formData = new FormData();
-    // formData.append('image', image);
-
-  selectedUser=user;    
-    // try {
-     
-    //   const response =  axios.post(`https://${ngrokUrlSwe}/api/users`,user );
-
-    //   const names = response.data.map(project => project.projectName);
-    //   setUsers(names);
-    //   console.log(response.data);
-
-      
-    //   setUrl('');
-    //   setSelectedUser('');
-    //   setscreenshotImage(null);
-    //   onClose();
-    // } catch (error) {
-     
-    //   console.error(error);
-    // }
+  // selectedUser=user;    
   
-  };
+  // };
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [projectId]);
   
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrlSwe}/api/users/get`, {
+      const response = await axios.get(`https://${ngrokUrlSwe}/api/projects/${projectId}/users`, {
         headers: {
           'ngrok-skip-browser-warning': 'true'
         }
@@ -87,33 +80,24 @@ const FigmaCreate = ({ onClose, figmaURL,Id}) => {
       console.log('Error fetching Users:', error);
     }
   };
-  const onUpload = (event) => {
+  const onUpload =  (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload =()=> {
+    reader.onload = async()=> {
       const result=reader.result;
-      console.log(result);
-       console.log(figmaId)
-      console.log(selectedUser)
-      setscreenshotImage(result)
-      console.log(screenshotImage)
+      // console.log(result);
+      //  console.log(figmaId)
+      // console.log(selectedUser)
+      setscreenshotImage(result);
+
+      // console.log(screenshotImage)
+      console.log("hihit",figmaId);
       setPost(prevState => ({ ...prevState, image: result }));
-      try {
-        const response = axios.post(`https://${ngrokUrlSwe}/api/figmas/adduser`, figmaId, user, screenshotImage
-       );
-       console.log(response.data)
-       
-    
-      } catch (error) {
-        console.log('Error fetching Users:', error);
-      }
+     
     };
       
-      // setuserregisteration.profileImage(result);
       
-      // console.log('RESULT', reader.result)
-      // setProfilePic(reader.result.toString());
     }
 
     
@@ -193,9 +177,7 @@ const FigmaCreate = ({ onClose, figmaURL,Id}) => {
         </Form>
       </Modal.Content>
       <Modal.Actions>
-        {/* <Button secondary onClick={onClose}>
-          Close
-        </Button> */}
+        
       </Modal.Actions>
     </Modal>
   );

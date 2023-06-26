@@ -13,9 +13,9 @@ const ProjectDetails = ({ project, onClose }) => {
         <p><strong>Project ID:</strong> {project.projectId}</p>
         <p><strong>Project Name:</strong> {project.projectName}</p>
         <p><strong>Project Description:</strong> {project.projectDescription}</p>
-        <p><strong>Repository Name:</strong> {project.repoName}</p>
+        {/* <p><strong>Repository Name:</strong> {project.repoName}</p>
         <p><strong>PM Github:</strong> {project.pmGithubUsername}</p>
-        <p><strong>User Github:</strong> {project.userGithubUsername}</p>
+        <p><strong>User Github:</strong> {project.userGithubUsername}</p> */}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>
