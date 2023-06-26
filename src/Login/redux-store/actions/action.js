@@ -7,8 +7,7 @@ let data = sessionStorage.getItem("item");
 let user = JSON.parse(data);
 const accessToken=user.token
 console.log(user)
-  console.log(user.token)
-
+ 
   const headers={AccessToken:accessToken}
 
 //Create Project
