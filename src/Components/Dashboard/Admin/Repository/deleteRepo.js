@@ -33,7 +33,7 @@ function DeleteRepo() {
 
           const handleSubmit = (e) => {
             e.preventDefault();
-            const response=axios.delete(`https://${ngrokUrl}/api/repositories/${repoId}`,)
+            const response=api.delete(`https://${ngrokUrl}/api/repositories/${repoId}`,)
             navigate('/repoRead')
           
           

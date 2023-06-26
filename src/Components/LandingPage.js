@@ -53,8 +53,9 @@ export class LandingPage extends Component {
 
     <br>
     </br>
+    
   </div>
-  <Footer/>
+  <Footer className="Footer"/>
 </div>
 
 )

@@ -7,16 +7,16 @@ import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './pmDashboard.css'
 import { ngrokUrl } from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
+import api from '../api';
+
+
 function RepoPmDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult]=useState([])
   useEffect(() => {
     const fetchRepo = async () => {
       try {
-        const response = await axios.get(`https://${ngrokUrl}/api/users/552/role/project_manager/projects`,{
-          headers : {
-            'ngrok-skip-browser-warning': 'true'
-      }});
+        const response = await api.get(`https://${ngrokUrl}/api/users/552/role/project_manager/projects`);
         const  data  = response.data;
         console.log('data',data)
         setResult(data);

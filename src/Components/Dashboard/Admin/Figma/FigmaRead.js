@@ -23,13 +23,13 @@ function FigmaRead() {
   const[projectId, setProjectId]=useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  let data = sessionStorage.getItem("item");
-  let user = JSON.parse(data);
-  const accessToken=user.token
-  console.log(user)
-    console.log(user.token)
+  // let data = sessionStorage.getItem("item");
+  // let user = JSON.parse(data);
+  // const accessToken=user.token
+  // console.log(user)
+  //   console.log(user.token)
 
-    const headers={AccessToken:accessToken}
+  //   const headers={AccessToken:accessToken}
 
   useEffect(() => {
     fetchProjects();

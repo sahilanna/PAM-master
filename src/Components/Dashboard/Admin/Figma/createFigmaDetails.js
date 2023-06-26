@@ -17,11 +17,11 @@ function CreateFigmaDetails() {
   const [selectedProject, setSelectedProject] = useState('');
   const [isValidUrl, setIsValidUrl] = useState(true);
 
-  let data = sessionStorage.getItem("item");
-  let user = JSON.parse(data);
-  const accessToken=user.token
-  console.log(user)
-    console.log(user.token)
+  // let data = sessionStorage.getItem("item");
+  // let user = JSON.parse(data);
+  // const accessToken=user.token
+  // console.log(user)
+  //   console.log(user.token)
 
 
   const validateURL = (url) => {
@@ -35,7 +35,7 @@ function CreateFigmaDetails() {
       return false;
     }
   };
-const headers={AccessToken:accessToken}
+// const headers={AccessToken:accessToken}
 
 
   const handleUrlChange = (e) => {
@@ -89,7 +89,7 @@ const headers={AccessToken:accessToken}
           projectName: selectedProject,
       },
       figmaURL: figmaURL
-      },{headers});
+      });
       
       console.log('API Response:', response.data.id);
       const figmaId=response.data.id;

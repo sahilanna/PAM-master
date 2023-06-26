@@ -39,10 +39,43 @@ const AddPm = () => {
     navigate(-1); 
   };
   // console.log("Plz work",selectedRepo)
-  useEffect(() => {
-    fetch(`https://${ngrokUrl}/usernames/role/project_manager`).then((response)=>response.json())
-    .then((data)=>setOptions(data))
+  // useEffect(() => {
+  //   fetch(`https://${ngrokUrl}/usernames/role/project_manager`).then((response)=>response.json())
+  //   .then((data)=>setOptions(data))
   
+  // }, []);
+  // useEffect(() => {
+  //   const fetchUsernames = async () => {
+  //     try {
+  //       const response = await api.get(`https://${ngrokUrl}/usernames/role/project_manager`);
+  //       setOptions(response.data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchUsernames();
+  // }, []);
+  useEffect(() => {
+    const fetchUsernames = async () => {
+      try {
+        const response = await api.get(`https://${ngrokUrl}/usernames/role/project_manager`);
+        const data = response.data;
+  
+        // Assuming the response data is an array of strings
+        const dropdownOptions = data.map((name, index) => ({
+          key: index,
+          text: name,
+          value: name
+        }));
+  
+        setOptions(dropdownOptions);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchUsernames();
   }, []);
 
   const handleSubmit=(e)=>{

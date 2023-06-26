@@ -43,7 +43,9 @@ import AddUserName from "../Components/Dashboard/Users/AddUserName";
 import CreateProject from "../Components/Dashboard/Admin/Create/CreateProject";
 import AddPmUserName from "../Components/Dashboard/PM/addPmUsername";
 import DeleteRepo from "../Components/Dashboard/Admin/Repository/deleteRepo";
-
+import AddFile from "../Components/Dashboard/Admin/Create/addFile";
+import ProjectUsers from "../Components/Dashboard/Admin/Read/projectUsers";
+import AddUserProject from "../Components/Dashboard/Admin/Create/addUserProject";
 
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
@@ -95,6 +97,9 @@ const PrivateRoutes = () => {
               <Route path="/CreateFigmaDetails" element={<CreateFigmaDetails/>} />
               <Route path="/PmRequestUser" element={<PmRequestUser/>} />
               <Route path='/deleteRepo' element={<DeleteRepo/>}/>
+              <Route path='/addFile' element={<AddFile/>}/>
+              <Route path='/projectUsers' element={<ProjectUsers/>}/>
+              <Route path='/addUserProject' element={<AddUserProject/>}/>
             
               <Route path='/Profile' element={<Profile/>}/>
               <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/>

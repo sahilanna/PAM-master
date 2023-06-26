@@ -8,10 +8,9 @@ import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import api from '../../api';
 
 const AddUser = () => {
-
-  
 
   let navigate = useNavigate();
   const [options, setOptions] = useState([]);
@@ -32,15 +31,31 @@ const AddUser = () => {
   };
 
   
-   useEffect(() => {
-    fetch(`https://${ngrokUrl}/usernames/role/user`,{
-      headers: {
-        'ngrok-skip-browser-warning': 'true'
-      }}).then((response)=>response.json())
-    .then((data)=>setOptions(data))
+  //  useEffect(() => {
+  //   fetch(`https://${ngrokUrl}/usernames/role/user`,{
+  //     headers: {
+  //       'ngrok-skip-browser-warning': 'true'
+  //     }}).then((response)=>response.json())
+  //   .then((data)=>setOptions(data))
 
   
+  // }, []);
+
+  useEffect(() => {
+    const fetchUsernames = async () => {
+      try {
+        const response = await api.get(`https://${ngrokUrl}/usernames/role/user`);
+        setOptions(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUsernames();
   }, []);
+
+
+
 
   const handleSubmit=(e)=>{
     e.preventDefault();
@@ -48,7 +63,7 @@ const AddUser = () => {
     const accessToken='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';
  
     let repo = selectedRepo;
-    const response= axios.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
+    const response= api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
   })
   navigate('/AdminDashboard')
     
@@ -69,7 +84,7 @@ const onClose=()=>{
           X
         </Button>
         </div>
-        <Modal.Header>Create New Repository</Modal.Header>
+        <Modal.Header>Add User</Modal.Header>
 
         <Modal.Content>
 

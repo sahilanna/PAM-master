@@ -4,15 +4,15 @@ import axios from 'axios';
 import { ngrokUrl} from '../../../Assets/config';
 import { useState,useEffect } from 'react';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
+import api from '../api';
+
+
 function FigmaPmDashboard() {
   const [result, setResult]=useState([])
   const [isLoading, setIsLoading] = useState(true);
   const fetchFigma = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrl}/api/users/552/role/project_manager/projects`,{
-        headers : {
-          'ngrok-skip-browser-warning': 'true'
-    }});
+      const response = await api.get(`https://${ngrokUrl}/api/users/552/role/project_manager/projects`);
       const  data  = response.data;
       console.log('data',data)
       setIsLoading(false);

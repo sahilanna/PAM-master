@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ngrokUrl } from '../../../Assets/config';
 import './Read.css'
+import api from '../api';
 
 
 function AddUserName() {
@@ -22,11 +23,7 @@ function AddUserName() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrl}/api/users/get`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true',
-        },
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/users/get`);
       const userOptions = response.data.map((user) => ({
         key: user.id,
         text: user.name,
@@ -44,7 +41,7 @@ function AddUserName() {
     console.log(githubUsername);
     const username = githubUsername;
     try {
-      const response = await axios.post(`https://${ngrokUrl}/usernames/githubUsername`, {
+      const response = await api.post(`https://${ngrokUrl}/usernames/githubUsername`, {
         username: username,
         user: {
           id: id,

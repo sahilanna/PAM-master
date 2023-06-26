@@ -9,6 +9,7 @@ import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import axios from 'axios';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
+import api from '../api';
 
 
 function UserFigmaRead() { 
@@ -25,10 +26,7 @@ function UserFigmaRead() {
     
     const urlParams = new URLSearchParams(window.location.search);
     // const id = urlParams.get('id');
-    const response = await axios.get(`https://${ngrokUrl}/api/users/405/role/project_manager/projects`,{
-      headers : {
-        'ngrok-skip-browser-warning': 'true'
-  }});
+    const response = await api.get(`https://${ngrokUrl}/api/users/405/role/project_manager/projects`);
   console.log(response.data)
   console.log(response.id);
   setIsLoading(false);

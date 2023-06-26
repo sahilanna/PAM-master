@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
 import axios from 'axios';
@@ -49,15 +47,23 @@ const Create = () => {
   const[temp1,setTemp1]=useState([])
   const[projItem, setprojItem]=useState('')
 
+
   const handleBack = () => {
     navigate(-1); 
   };
 
+//   let data = sessionStorage.getItem("item");
+//   let user = JSON.parse(data);
+//   const accessToken=user.token
+//   console.log(user)
+//     console.log(user.token)
+
+// const headers={AccessToken:accessToken}
 
 
   const handleRepoChange=(e, { value, options})=>{
     const selectedRepo = options.find((option) => option.value === value);
-    setrepoId(e)  
+    setrepoId(value)  
     // console.log("repoValue",value)
     setSelectedRepo(selectedRepo.text);
   }
@@ -117,7 +123,8 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const response=axios.put(`https://${ngrokUrl}/api/projects/${projectId}/repository/${repoId}`,)
+    console.log("repoid", repoId)
+    const response=api.put(`https://${ngrokUrl}/api/projects/${projectId}/repository/${repoId}`)
     console.log("Check",selectedRepo);
     navigate('/addPm', { state: { selectedRepo } });
 

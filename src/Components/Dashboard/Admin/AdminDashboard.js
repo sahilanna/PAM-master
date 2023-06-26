@@ -4,8 +4,8 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { Navigate, useParams}  from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser } from '@fortawesome/free-solid-svg-icons';
 import DialogBox from '../DialogBox/DialogBox';
 import ProjectDetails from './Read/ProjectDetails';
 import 'semantic-ui-css/semantic.min.css';
@@ -20,8 +20,11 @@ import NavBarA from './NavbarA';
 import Read from './Read/Read';
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import "./AdminDashboard.css"
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import api from '../api';
+
+import ProjectUsers from './Read/projectUsers';
+
 
 const AdminDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,16 +34,38 @@ const AdminDashboard = () => {
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  
-  // let data = sessionStorage.getItem("item");
-  // let user = JSON.parse(data);
-  // const accessToken=user.token
-  // console.log(user)
-  //   console.log(user.token)
+  // const[FileDialog,setFileDialog]=useState(false)
+  const [showFileDialog, setShowFileDialog] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const[viewUserBox, setViewUserBox]=useState(false)
+
   const navigate = useNavigate();
   // const getUrl = `https://${ngrokUrl}/api/projects/allProjects`;
   const itemsPerPage = 5;
   const { id } = useParams();  
+
+  const viewFile= async (projectId)=>{
+    const result = await api.get(`https://${ngrokUrl}/api/projects/files?projectId=${projectId}`,{
+    responseType: "blob",
+    contentType: 'application/zip'
+  }) .then((result) => {
+    console.log(result.data)
+    const downloadUrl = window.URL.createObjectURL(
+      new Blob([result.data])
+    );
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.setAttribute("download", "file.data");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+        // console.log(res, "hello");
+        navigate('/adminDashboard')
+      })
+      .catch((error)=>{
+        console.log(error,'hi');
+      })
+}
 
   const loadItems = async () => {
     try {
@@ -71,6 +96,17 @@ const AdminDashboard = () => {
   const handleCloseDetails = () => {
     setShowProjectDetails(false);
   };
+
+//   const addEmploye=async (projectId, projectName)=>{
+//     setShowFileDialog(true);
+//   navigate('/addEmploye' , { state: { projectId,projectName } })
+// }
+
+  const addFile=async (projectId, projectName)=>{
+    setShowFileDialog(true);
+  navigate('/addFile' , { state: { projectId,projectName } })
+}
+
   const createOnclick = () => {
     navigate('/CreateProject');
   };
@@ -80,6 +116,17 @@ const AdminDashboard = () => {
     const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
     setCurrentPageData(currentItems);
   };
+  const projectUsers=async(projectId, projectName)=>{
+    console.log(projectId)
+    setViewUserBox(true);
+  navigate('/projectUsers' , { state: { projectId, projectName } })
+  }
+
+
+  // const handleAdd = () => {
+  //   setShowModal(true);
+  // };
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     handleFilterItems(e.target.value);
@@ -111,7 +158,7 @@ const AdminDashboard = () => {
       <div className='admin-child'>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '20px', marginBottom: '30px', marginLeft: '40px', marginRight: '30px' }}>
           <div className='ui left icon input'>
-            <input type='text' placeholder='Search Project...' value={searchQuery} onChange={handleSearchChange} />
+            <input type='text' placeholder='Search Project...' value={searchQuery} onChange={handleSearchChange} readOnly/>
             <i className='users icon'></i>
           </div>
           <div>
@@ -138,6 +185,12 @@ const AdminDashboard = () => {
                     <th>Project-Description</th>
                     <th className='text-center'>View</th>
                     <th className='text-center'>Delete</th>
+                   
+                    <th className='text-center'>Add Files</th>
+                    <th className='text-center'>View Files</th>
+                    <th className='text-center'>view User</th>
+
+                      
                   </tr>
                 </thead>
                 <tbody>
@@ -164,10 +217,35 @@ const AdminDashboard = () => {
                           onConfirm={() => deleteUser(item.projectId)}
                         />
                       </td>
+                    
+                    
+                    
+
+                      <td className='text-center'>
+                        <button className='btn btn-primary mx-2' onClick={()=>addFile(item.projectId, item.projectName)}>
+                         <FontAwesomeIcon icon={faUpload} />
+                         </button>
+                      </td>
+                      <td className='text-center'>
+                        <button className='btn btn-primary mx-2' onClick={()=>viewFile(item.projectId)}>
+                         <FontAwesomeIcon icon={faFile} />
+                         </button>
+                      </td>
+                      <td className='text-center'>
+                        <button className='btn btn-primary mx-2' onClick={()=>projectUsers(item.projectId,item.projectName)}>
+                         <FontAwesomeIcon icon={faUser} />
+                         </button>
+                      </td>
+
                     </tr>
                   ))}
                 </tbody>
               </table>
+              {/* {showModal && (
+  <AddUsersModal showModal={showModal} onClose={() => setShowModal(false)} />
+)} */}
+
+              {showFileDialog && <addFile onClose={() => setShowFileDialog(false)} />}
               <div>
                 <div className='pagination'>
                   <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />

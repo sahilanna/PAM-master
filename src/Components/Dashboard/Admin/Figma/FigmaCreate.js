@@ -27,7 +27,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     e.preventDefault();
     
     try {
-      const response = await axios.put(
+      const response = await api.put(
         `https://${ngrokUrl}/api/figmas/${figmaId}/user`,
         {
           user: selectedUser,
@@ -90,12 +90,8 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
       console.log("hihit",figmaId);
       setPost(prevState => ({ ...prevState, image: result }));
      
-    };
-      
-      
+    }; 
     }
-
-    
 
   return (
     <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}>

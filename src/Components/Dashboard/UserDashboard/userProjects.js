@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import { ngrokUrl } from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
+import api from '../api';
 
 
 function UserProjects() {
@@ -32,10 +33,7 @@ function UserProjects() {
        
       const fetchUserid = async () => {
         try {
-          const response = await axios.get(`https://${ngrokUrl}/api/users/405/role/user/projects`,{
-            headers : {
-              'ngrok-skip-browser-warning': 'true'
-        }});
+          const response = await api.get(`https://${ngrokUrl}/api/users/405/role/user/projects`);
 
         
           const  userid  = response.data;

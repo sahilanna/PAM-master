@@ -33,7 +33,7 @@ function PmRequestUser() {
 
   const AcceptRequest = async (accessRequestId) => {
     try {
-      const response = await axios.put(
+      const response = await api.put(
         `https://${ngrokUrl}/api/request/update/${accessRequestId}`,
         { allowed: true }
       );
@@ -56,7 +56,7 @@ function PmRequestUser() {
 
   const DeclineRequest = async (accessRequestId) => {
     try {
-      const response = await axios.put(
+      const response = await api.put(
         `https://${ngrokUrl}/api/request/update/${accessRequestId}`,
         { allowed: false }
       );

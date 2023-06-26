@@ -75,7 +75,7 @@ function RepoRead() {
           <div>
           <button className="ui button" onClick={createOnclickDel}>Delete Repository</button>
             <button className="ui button" onClick={createOnclick}>Create Repository</button>
-            <button className="ui button" onClick={toggleDrawer}>Create Project</button>
+            <button className="ui button" onClick={toggleDrawer}>Add Project Git</button>
           </div>
         </div>
         <div style={{ marginLeft: '20px', marginRight: '30px' }}></div>

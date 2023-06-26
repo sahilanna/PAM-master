@@ -112,7 +112,7 @@ function PmReadNew() {
       
   
       const deleteUser = async (id) => {
-        await axios.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
+        await api.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
         navigate('/pmReadNew')
         setShowConfirmDialog(false);
         loaditem();

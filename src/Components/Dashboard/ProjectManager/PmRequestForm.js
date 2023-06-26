@@ -4,7 +4,7 @@ import {Form,Button,Dropdown,Modal} from 'semantic-ui-react'
 import { ngrokUrlSwe, ngrokUrl } from '../../../Assets/config';
 import { Navigate, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
-
+import api from '../api';
 
 function PmRequestForm() {
   const navigate = useNavigate()
@@ -50,11 +50,7 @@ function PmRequestForm() {
   }, []);
   const fetchProjects = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrl}/api/projects/allProjects`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/projects/allProjects`);
       // setitem(response.data)
       setProjectObj(response.data)
      console.log(response.data)
@@ -73,11 +69,7 @@ function PmRequestForm() {
   }, [])
   const fetchPms = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrl}/api/users/role/project_manager`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/users/role/project_manager`);
      console.log(response.data)
      const pmNames = response.data.map(pm => pm.name);
      setPms(pmNames);
@@ -93,11 +85,7 @@ function PmRequestForm() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrl}/api/users/role/user`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/users/role/user`);
       console.log(response.data);
       
   
@@ -146,7 +134,7 @@ setRequestDescription(e.target.value)
           }
           
       
-        const response = await axios.post(`https://${ngrokUrl}/api/request/`, { pmName, user, project, requestDescription
+        const response = await api.post(`https://${ngrokUrl}/api/request/`, { pmName, user, project, requestDescription
         });
     
         if (response.data.success) {

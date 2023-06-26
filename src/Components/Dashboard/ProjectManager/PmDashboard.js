@@ -16,9 +16,8 @@ import PmProjectDetails from './pmProjectDetails';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../../../Login/Logout';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
+import api from '../api';
 
-
-  
 
 const PmDashboard = () => {
  
@@ -44,10 +43,7 @@ const PmDashboard = () => {
         
         const urlParams = new URLSearchParams(window.location.search);
         // const id = urlParams.get('id');
-        const response = await axios.get(`https://${ngrokUrl}/api/users/403/role/project_manager/projects`,{
-          headers : {
-            'ngrok-skip-browser-warning': 'true'
-      }});
+        const response = await api.get(`https://${ngrokUrl}/api/users/403/role/project_manager/projects`);
       console.log(response.data)
       console.log(response.id);
       setIsLoading(false);
