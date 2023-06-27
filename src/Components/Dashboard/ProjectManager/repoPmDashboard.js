@@ -13,10 +13,21 @@ import api from '../api';
 function RepoPmDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult]=useState([])
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+  const  id=user.id
+  console.log(id)
   useEffect(() => {
     const fetchRepo = async () => {
       try {
-        const response = await api.get(`https://${ngrokUrl}/api/users/552/role/project_manager/projects`);
+        const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`,{
+          headers : {
+            'ngrok-skip-browser-warning': 'true',
+            AccessToken: accessToken
+      }});
         const  data  = response.data;
         console.log('data',data)
         setResult(data);
@@ -55,14 +66,16 @@ function RepoPmDashboard() {
             {/* <th>Edit</th> */}
         </thead>
         <tbody>
-  {result && result.length > 0 ? (
-    result.map((item, index) => (
-      <tr key={index}>
-        {item.repositories && item.repositories.length > 0 ? (
-          <>
-            <td>{item.repositories[0].name}</td>
-            <td>{item.repositories[0].description}</td>
-          </>
+        {result && result.length > 0 ? (
+  result.map((item, index) => (
+    <tr key={index}>
+      {item.repositories && item.repositories.length > 0 ? (
+        item.repositories.map((repo, repoIndex) => (
+          <React.Fragment key={repoIndex}>
+            <td>{repo.name}</td>
+            <td>{repo.description}</td>
+            </React.Fragment>
+        ))
         ) : (
           <>
             <td></td>
@@ -77,9 +90,6 @@ function RepoPmDashboard() {
     </tr>
   )}
 </tbody>
-
-
-
       </table>
           )}
       </div>
@@ -87,5 +97,4 @@ function RepoPmDashboard() {
     </div>
   )
 }
-
 export default RepoPmDashboard

@@ -10,10 +10,17 @@ function UserRepoRead() {
 
   const [result, setResult]=useState([])
   const [isLoading, setIsLoading] = useState(true);
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+  const  id=user.id
+console.log(id)
   useEffect(() => {
     const fetchRepo = async () => {
       try {
-        const response = await api.get(`https://${ngrokUrl}/api/users/405/role/user/projects`);
+        const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/user/projects`);
         const  data  = response.data;
         console.log('data',data)
         setResult(data);
@@ -53,15 +60,16 @@ function UserRepoRead() {
         </thead>
         <tbody>
         {result && result.length > 0 ? (
-           result.map((item, index) => (
+  result.map((item, index) => (
     <tr key={index}>
-         {item.projectName && item.figmaUrl > 0 ? (
-          <>
-              {console.log(item.repositories[0].repoId)}
-              <td>{item.repositories[0].name}</td>
-              <td>{item.repositories[0].description}</td>
-              </>
-         ):(
+      {item.repositories && item.repositories.length > 0 ? (
+        item.repositories.map((repo, repoIndex) => (
+          <React.Fragment key={repoIndex}>
+            <td>{repo.name}</td>
+            <td>{repo.description}</td>
+            </React.Fragment>
+        ))
+        ) : (
            <>
            <td></td>
             <td></td>

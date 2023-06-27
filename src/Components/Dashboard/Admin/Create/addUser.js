@@ -60,12 +60,12 @@ const AddUser = () => {
   const handleSubmit=(e)=>{
     e.preventDefault();
     const owner='swe1304';
-    const accessToken='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';
+    const accessToken='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';
  
     let repo = selectedRepo;
     const response= api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
   })
-  navigate('/AdminDashboard')
+  navigate('/repoRead')
     
 }
 const onClose=()=>{

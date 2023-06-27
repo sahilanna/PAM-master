@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { ngrokUrl } from '../../../../Assets/config.js';
 import api from '../../api.js';
-// import { ngrokUrl } from '../../../../Assets/config.js';
+
 
 
 const AddPm = () => {
@@ -44,11 +44,32 @@ const AddPm = () => {
   //   .then((data)=>setOptions(data))
   
   // }, []);
+  useEffect(() => {
+    const fetchUsernames = async () => {
+      try {
+        const response = await api.get(`https://${ngrokUrl}/usernames/role/project_manager`);
+        setOptions(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUsernames();
+  }, []);
   // useEffect(() => {
   //   const fetchUsernames = async () => {
   //     try {
   //       const response = await api.get(`https://${ngrokUrl}/usernames/role/project_manager`);
-  //       setOptions(response.data);
+  //       const data = response.data;
+  
+  //       // Assuming the response data is an array of strings
+  //       const dropdownOptions = data.map((name, index) => ({
+  //         key: index,
+  //         text: name,
+  //         value: name
+  //       }));
+  
+  //       setOptions(dropdownOptions);
   //     } catch (error) {
   //       console.error(error);
   //     }
@@ -56,33 +77,12 @@ const AddPm = () => {
 
   //   fetchUsernames();
   // }, []);
-  useEffect(() => {
-    const fetchUsernames = async () => {
-      try {
-        const response = await api.get(`https://${ngrokUrl}/usernames/role/project_manager`);
-        const data = response.data;
-  
-        // Assuming the response data is an array of strings
-        const dropdownOptions = data.map((name, index) => ({
-          key: index,
-          text: name,
-          value: name
-        }));
-  
-        setOptions(dropdownOptions);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  
-    fetchUsernames();
-  }, []);
 
   const handleSubmit=(e)=>{
     e.preventDefault();
     setError(true);
     const owner='swe1304';
-    const accessToken='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';
+    const accessToken='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';
 
     let repo = selectedRepo
     const response= api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken

@@ -22,15 +22,11 @@ function FigmaRead() {
   const[figmaId, setFigmaId]=useState('')
   const[projectId, setProjectId]=useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPageData, setCurrentPageData] = useState([]);
+  const itemsPerPage = 5;
 
-  // let data = sessionStorage.getItem("item");
-  // let user = JSON.parse(data);
-  // const accessToken=user.token
-  // console.log(user)
-  //   console.log(user.token)
 
-  //   const headers={AccessToken:accessToken}
-
+  
   useEffect(() => {
     fetchProjects();
   }, []);
@@ -38,30 +34,21 @@ function FigmaRead() {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/figmas/getAll`);
       
-      console.log(response.data)
+
       setProjects(response.data);
-      // console.log(projects)
-      // console.log(projects.figmaId)
-      // console.log(response.data.figmaId)
       setFigmaId(projects.figmaId)
      
       const projectFigmaId=response.data[0].projectDTO.projectId
-      console.log(projectFigmaId)
+     
       setIsLoading(false);
-       
-      // console.log(figmaId)
+      
       setFilteredProjects(response.data);
     } catch (error) {
       console.log('Error fetching projects:', error); 
       setIsLoading(true);
     }
   };
-  // useEffect(() => {
-  //   const filteredProjects = projects.filter((project) =>
-  //     project.projectName.toLowerCase().includes(searchQuery.toLowerCase())
-  //   );
-  //   setFilteredProjects(filteredProjects);
-  // }, [searchQuery, projects]);
+  
   const createFigma = () => {
     navigate('/createFigmaDetails', { state: { figmaId } });
   };
@@ -71,12 +58,36 @@ function FigmaRead() {
     setProjectId(projectId);
     setShowModal(true);
   };
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
+ 
   const closeModal = () => {
     setShowModal(false);
   };
+
+  const handlePaginate = (pageNumber) => {
+    const indexOfLastItem = pageNumber * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+    setCurrentPageData(currentItems);
+  };
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    handleFilterItems(e.target.value);
+  };
+  const handleFilterItems = (searchQuery) => {
+    // const filteredItems = projects.filter((item) =>
+    //   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+      const filteredItems = projects && projects.filter((item) =>
+  item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setCurrentPageData(filteredItems.slice(0, itemsPerPage));
+  };
+  const filteredItems = projects.filter((item) =>
+    item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
+  useEffect(() => {
+    handlePaginate(1);
+  }, [projects]);
   return (
     <div className='parent-admin'>
       <Sidebar/>
@@ -117,7 +128,7 @@ function FigmaRead() {
               </tr>
             </thead>
             <tbody>
-              {filteredProjects.map((project, index) => (
+              {currentPageData.map((project, index) => (
                 <tr key={project.figmaId}>
                   <td>{project.figmaId}</td>
                   <td>{project.projectDTO.projectName}</td>

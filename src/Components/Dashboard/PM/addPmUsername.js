@@ -15,7 +15,7 @@ function AddPmUserName() {
     const[selectedUser,setSelectedUser]=useState('')
     const [showInvalidUsernameModal, setShowInvalidUsernameModal] = useState(false);
   const [showUserExistModal, setShowUserExistModal] = useState(false);
-    const accessToken='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'
+    const accessToken='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'
     useEffect(() => {
       fetchPms();
     }, []);
@@ -52,7 +52,7 @@ function AddPmUserName() {
         });
         console.log('API Response:', response.data.id);
         
-        navigate('/userRead');
+        navigate('/pmReadNew');
         
       } catch (error) {
         const errorMessage=error.response.data
@@ -101,7 +101,7 @@ function AddPmUserName() {
           X
         </Button>
         </div>
-        <Modal.Header>Add Project</Modal.Header>
+        <Modal.Header>Add PM UserName</Modal.Header>
 
    
   

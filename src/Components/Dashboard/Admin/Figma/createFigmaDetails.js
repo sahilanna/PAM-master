@@ -81,6 +81,9 @@ function CreateFigmaDetails() {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!isValidUrl) {
+      return;
+    }
     try {
       
       const response = await api.post(`https://${ngrokUrl}/api/figmas/create`, {
@@ -149,7 +152,7 @@ function CreateFigmaDetails() {
             )}
           </Form.Field>
         
-        <Button type='submit'>Submit</Button>
+          <Button type='submit'  disabled={!isValidUrl}>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>

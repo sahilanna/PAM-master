@@ -43,14 +43,14 @@ function AddUserProject() {
     fetchUsers();
   }, []);
    const handleUserChange = (event, { value }) => {
-    setItem(value)
+    setItem(value);
     setSelectedUser(value);
-    console.log(selectedUser)
-    console.log(user)
-    // console.log(user[0].value)
-    // userId=user[0].value
-    setuserId(user[0].value)
-    // console.log("hi",userId)
+    const selectedUserObj = user.find(userObj => userObj.value === value);
+    if (selectedUserObj) {
+      const selectedUserId = selectedUserObj.value;
+      setuserId(selectedUserId);
+      console.log(selectedUserId);
+    }
   
   };
 

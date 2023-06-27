@@ -15,7 +15,7 @@ function AddUserName() {
   const [selectedUser, setSelectedUser] = useState('');
   const [showInvalidUsernameModal, setShowInvalidUsernameModal] = useState(false);
   const [showUserExistModal, setShowUserExistModal] = useState(false);
-  const accessToken = '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';
+  const accessToken = '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';
 
   useEffect(() => {
     fetchUsers();
@@ -23,7 +23,7 @@ function AddUserName() {
 
   const fetchUsers = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/users/get`);
+      const response = await api.get(`https://${ngrokUrl}/api/users/role/user`);
       const userOptions = response.data.map((user) => ({
         key: user.id,
         text: user.name,

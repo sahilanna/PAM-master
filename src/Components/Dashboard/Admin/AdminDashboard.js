@@ -110,6 +110,12 @@ const AdminDashboard = () => {
   const createOnclick = () => {
     navigate('/CreateProject');
   };
+  // const handlePaginate = (pageNumber) => {
+  //   const indexOfLastItem = pageNumber * itemsPerPage;
+  //   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  //   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  //   setCurrentPageData(currentItems);
+  // };
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -131,12 +137,18 @@ const AdminDashboard = () => {
     setSearchQuery(e.target.value);
     handleFilterItems(e.target.value);
   };
+
   const handleFilterItems = (searchQuery) => {
     const filteredItems = item.filter((item) =>
       item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setCurrentPageData(filteredItems.slice(0, itemsPerPage));
   };
+
+
+  const filteredItems = item.filter((item) =>
+    item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   const deleteUser = async (projectId) => {
     try {
       await api.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`);
@@ -147,9 +159,7 @@ const AdminDashboard = () => {
       console.log(error);
     }
   };
-  const filteredItems = item.filter((item) =>
-    item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+ 
   return (
     <div className='parent-admin'>
       <div style={{ height: '100vh', overflow: 'scroll initial' }}>
@@ -157,8 +167,8 @@ const AdminDashboard = () => {
       </div>
       <div className='admin-child'>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '20px', marginBottom: '30px', marginLeft: '40px', marginRight: '30px' }}>
-          <div className='ui left icon input'>
-            <input type='text' placeholder='Search Project...' value={searchQuery} onChange={handleSearchChange} readOnly/>
+        <div className='ui left icon input'>
+            <input type='text' placeholder='Search Project...' value={searchQuery} onChange={handleSearchChange} />
             <i className='users icon'></i>
           </div>
           <div>
@@ -183,12 +193,13 @@ const AdminDashboard = () => {
                     <th>Project-ID</th>
                     <th>Project-Name</th>
                     <th>Project-Description</th>
-                    <th className='text-center'>View</th>
-                    <th className='text-center'>Delete</th>
+                    {/* <th className='text-center'>View</th> */}
+                    
                    
                     <th className='text-center'>Add Files</th>
                     <th className='text-center'>View Files</th>
                     <th className='text-center'>view User</th>
+                    <th className='text-center'>Delete</th>
 
                       
                   </tr>
@@ -199,28 +210,15 @@ const AdminDashboard = () => {
                       <td>{item.projectId}</td>
                       <td>{item.projectName}</td>
                       <td>{item.projectDescription}</td>
-                      <td className='text-center'>
+                      {/* <td className='text-center'>
                         <button
                           className='btn btn-outline-info mx-2'
                           onClick={() => handleViewDetails(item)}
                         >
                           <FontAwesomeIcon icon={faEye} />
                         </button>
-                      </td>
-                      <td className='text-center'>
-                        <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(item.projectId)}>
-                          <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                        <DialogBox
-                          show={showConfirmDialog === item.projectId}
-                          onClose={() => setShowConfirmDialog(null)}
-                          onConfirm={() => deleteUser(item.projectId)}
-                        />
-                      </td>
-                    
-                    
-                    
-
+                      </td> */}
+                     
                       <td className='text-center'>
                         <button className='btn btn-primary mx-2' onClick={()=>addFile(item.projectId, item.projectName)}>
                          <FontAwesomeIcon icon={faUpload} />
@@ -235,6 +233,16 @@ const AdminDashboard = () => {
                         <button className='btn btn-primary mx-2' onClick={()=>projectUsers(item.projectId,item.projectName)}>
                          <FontAwesomeIcon icon={faUser} />
                          </button>
+                      </td>
+                      <td className='text-center'>
+                        <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(item.projectId)}>
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                        <DialogBox
+                          show={showConfirmDialog === item.projectId}
+                          onClose={() => setShowConfirmDialog(null)}
+                          onConfirm={() => deleteUser(item.projectId)}
+                        />
                       </td>
 
                     </tr>

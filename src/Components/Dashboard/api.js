@@ -6,7 +6,7 @@ const getAccessToken = () => {
   if(!token){
   const auth = JSON.parse(sessionStorage.getItem("item"));
   token = auth.token;
-  console.log("token",token)
+  
   }
   return token;
 };

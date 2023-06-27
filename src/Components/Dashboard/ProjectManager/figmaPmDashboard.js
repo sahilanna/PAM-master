@@ -10,9 +10,16 @@ import api from '../api';
 function FigmaPmDashboard() {
   const [result, setResult]=useState([])
   const [isLoading, setIsLoading] = useState(true);
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+  const  id=user.id
+  console.log(id)
   const fetchFigma = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/users/552/role/project_manager/projects`);
+      const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`);
       const  data  = response.data;
       console.log('data',data)
       setIsLoading(false);
@@ -38,7 +45,7 @@ return (
 <i class="users icon"></i>
 </div>
   </div>
-  <div style={{marginLeft:'20px',marginRight:'30px'}}> 
+  <div style={{marginLeft:'20px',marginRight:'30px'}}>
   {isLoading ? (
             <LoadingPage />
           ) : (
@@ -49,17 +56,26 @@ return (
           <th>Figma URL</th>
       </thead>
       <tbody>
-         {result.map((item, index) => (
+      {result && result.length > 0 ? (
+         result.map((item, index) => (
   <tr key={index}>
         {/* {currentPageData.map((item, index) => (
           <tr> */}
-            {console.log(item.figma.figmaUrl)}
+            <>
             <td>{item.projectName}</td>
             <td>{item.projectDescription}</td>
             <a href={item.figma.figmaURL} target="_blank" rel="noopener noreferrer">{item.figma.figmaURL}
                   </a>
-          </tr>
-         ))}
+                  </>
+                  <>
+                  </>
+        </tr>
+        ))
+        ) : (
+         <tr>
+           <td colSpan="2">No data available</td>
+         </tr>
+       )}
       </tbody>
     </table>
     )}

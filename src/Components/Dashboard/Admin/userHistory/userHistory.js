@@ -40,7 +40,7 @@ function UserHistory() {
       
       <div className='admin-child'>
       <br/>
-      <h1 style={{fontFamily:'sans-serif'}}>User History</h1>
+      <h1 style={{fontFamily:'sans-serif'}}>Project History</h1>
       <div style={{ marginLeft: '20px', marginRight: '30px' }}>
       {isLoading ? (
             <LoadingPage />

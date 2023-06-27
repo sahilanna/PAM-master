@@ -17,30 +17,34 @@ function UserFigmaRead() {
 
   const[figmaUser,setfigmaUser]=useState('')
   const [isLoading, setIsLoading] = useState(true);
-
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+    const  id=user.id
+  console.log(id)
   const fetchPmid = async () => {
-
- 
-      
   try {
-    
     const urlParams = new URLSearchParams(window.location.search);
     // const id = urlParams.get('id');
-    const response = await api.get(`https://${ngrokUrl}/api/users/405/role/project_manager/projects`);
+    const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/user/projects`,{
+      headers : {
+        'ngrok-skip-browser-warning': 'true',
+        AccessToken: accessToken
+  }});
   console.log(response.data)
   console.log(response.id);
   setIsLoading(false);
-
     setfigmaUser(response.data);
   } catch (error) {
     console.log('Error fetching PMID:', error);
     setIsLoading(true);
   }
 };
-
- 
-
-  
+useEffect(() => {
+  fetchPmid();
+}, []);
     return (
         <div className='parent-admin'>
         <div style={{ height: '100vh', overflow: 'scroll initial' }}>
@@ -52,46 +56,37 @@ function UserFigmaRead() {
       <input type="text" placeholder="Search Projects..."  ></input>
       <i class="users icon"></i>
     </div>
-    
-    
-      
-        
         </div>
-        
         <div style={{marginLeft:'20px',marginRight:'30px'}}>
         {isLoading ? (
             <LoadingPage />
           ) : (
-           
         <table class="ui celled table">
-       
             <thead>
                 <th>Project Name</th>
                 <th>Figma URL</th>
-                
-                
                 {/* <th>Repository Name</th> */}
                 {/* <th>PM Github</th>
                 <th>User Github</th>  */}
-                
                 {/* <th>Edit</th> */}
-                
             </thead>
             <tbody>
   {figmaUser && figmaUser.length > 0 ? (
     figmaUser.map((item, index) => (
       <tr key={index}>
-        {item.projectName && item.figmaUrl > 0 ? (
-          <>
-            <td>{item.projectName}</td>
-            <td>{item.figmaUrl}</td>
-          </>
-        ) : (
-          <>
-            <td></td>
-            <td></td>
-          </>
-        )}
+       {item.projectName && item.figma ? (
+  <>
+    <td>{item.projectName}</td>
+    <td><a href={item.figma.figmaURL} target="_blank" rel="noopener noreferrer">
+                      {item.figma.figmaURL}
+                    </a></td>
+  </>
+) : (
+  <>
+    <td></td>
+    <td></td>
+  </>
+)}
       </tr>
     ))
   ) : (
@@ -100,15 +95,11 @@ function UserFigmaRead() {
     </tr>
   )}
 </tbody>
-            
-           
           </table>
           )}
           </div>
           </div>
-    
         </div>
   )
 }
-
 export default UserFigmaRead
