@@ -33,6 +33,9 @@ function DeleteRepo() {
 
           const handleSubmit = (e) => {
             e.preventDefault();
+            if(!selectedRepo){
+              return
+            }
             const response=axios.delete(`https://${ngrokUrl}/api/repositories/${repoId}`,)
             navigate('/repoRead')
           
@@ -77,7 +80,7 @@ function DeleteRepo() {
             />
           </Form.Field>
 
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' primary disabled={!selectedRepo}>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>

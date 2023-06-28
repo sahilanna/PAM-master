@@ -7,10 +7,11 @@ import FigmaCreate from './FigmaCreate';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../SideBar/SideBar';
-import { ngrokUrl } from '../../../../Assets/config';
+import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
 import './FigmaRead.css'
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
+import DialogBox from '../../DialogBox/DialogBox';
 
 function FigmaRead() {
   const [showModal, setShowModal] = useState(false);
@@ -21,8 +22,12 @@ function FigmaRead() {
   const[figmaURL, setFigmaURL]=useState('')
   const[figmaId, setFigmaId]=useState('')
   const[projectId, setProjectId]=useState('');
+  const [currentPageData, setCurrentPageData] = useState([]);
    const [isLoading, setIsLoading] = useState(true);
-
+   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+   const itemsPerPage = 5;
+   
+   
   
 
  
@@ -35,6 +40,8 @@ function FigmaRead() {
     console.log(user.token)
 
     const headers={AccessToken:accessToken}
+
+
 
   useEffect(() => {
     fetchProjects();
@@ -64,9 +71,53 @@ function FigmaRead() {
     }
   };
 
+  const handleDeleteUrl=async (figmaId)=>{
+    try {
+      await api.delete(`https://${ngrokUrl}/api/figmas/${figmaId}`);
+      navigate('/FigmaRead');
+      setShowConfirmDialog(false);
+       fetchProjects()
+    } catch (error) {
+      console.log(error);
+    }
+
+
+  }
+
+  useEffect(() => {
+    handlePaginate(1);
+  }, [projects]);
+
+
   useEffect(() => {
     fetchProjects();
   }, []);
+
+  const handlePaginate = (pageNumber) => {
+    const indexOfLastItem = pageNumber * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+    setCurrentPageData(currentItems);
+  };
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    handleFilterItems(e.target.value);
+  };
+  const handleFilterItems = (searchQuery) => {
+    // const filteredItems = projects.filter((item) =>
+    //   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+      const filteredItems = projects && projects.filter((item) =>
+  item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+
+    );
+    setCurrentPageData(filteredItems.slice(0, itemsPerPage));
+  };
+  const filteredItems = projects.filter((item) =>
+    item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+   
+
+    
   // useEffect(() => {
   //   const filteredProjects = projects.filter((project) =>
   //     project.projectName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -82,9 +133,7 @@ function FigmaRead() {
     setProjectId(projectId);
     setShowModal(true);
   };
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
+  
   const closeModal = () => {
     setShowModal(false);
   };
@@ -125,10 +174,11 @@ function FigmaRead() {
                 <th>Project Name</th>
                 <th>Figma URL</th>
                 <th>ADD User</th>
+                <th>Delete URL</th>
               </tr>
             </thead>
             <tbody>
-              {filteredProjects.map((project, index) => (
+              {currentPageData.map((project, index) => (
                 <tr key={project.figmaId}>
                   <td>{project.figmaId}</td>
                   <td>{project.projectDTO.projectName}</td>
@@ -140,8 +190,19 @@ function FigmaRead() {
                   <td>
                     <Button color="blue" icon labelPosition="left" onClick={() => handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
                       <Icon name="plus" />
-                      Add
+                      
                     </Button>
+                  </td>
+                  <td>
+                    <Button color="red" icon labelPosition="left" onClick={() => setShowConfirmDialog( project.figmaId)}>
+                      <Icon name="minus" />
+                      
+                    </Button>
+                    <DialogBox
+                          show={showConfirmDialog === project.figmaId}
+                          onClose={() => setShowConfirmDialog(null)}
+                          onConfirm={() => handleDeleteUrl(project.figmaId)}
+                        />
                   </td>
                 </tr>
               ))}

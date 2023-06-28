@@ -26,7 +26,7 @@ function Test() {
        // console.log(headers)
         try {
           const { data}  = await axios.get(
-              `https://d80a-106-51-70-135.ngrok-free.app/auth/api/get-email`,
+              `https://${ngrokUrl}/auth/api/get-email`,
              {headers})
               // console.log(data)
           sessionStorage.setItem('item', JSON.stringify( data))

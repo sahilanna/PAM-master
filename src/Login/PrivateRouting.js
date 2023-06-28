@@ -46,6 +46,7 @@ import DeleteRepo from "../Components/Dashboard/Admin/Repository/deleteRepo";
 import AddFile from "../Components/Dashboard/Admin/Create/addFile";
 import ViewFile from "../Components/Dashboard/Admin/Read/ViewFile";
 import ProjectUsers from "../Components/Dashboard/Admin/Read/projectUsers";
+import AddUserProject from "../Components/Dashboard/Admin/Create/addUserProject";
 
 
 const PrivateRoutes = () => {
@@ -100,6 +101,7 @@ const PrivateRoutes = () => {
               <Route path="/PmRequestUser" element={<PmRequestUser/>} />
               <Route path='/deleteRepo' element={<DeleteRepo/>}/>
               <Route path='/addFile' element={<AddFile/>}/>
+              <Route path='/addUserProject' element={<AddUserProject/>}/>
             
               <Route path='/Profile' element={<Profile/>}/>
               <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/>

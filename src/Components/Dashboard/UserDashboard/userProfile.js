@@ -13,7 +13,7 @@ const UserProfile = () => {
   const id=pdata.id
   const pname=pdata.name;
   const pemail=pdata.email;
-  const prole=pdata.role;
+  const prole=pdata.enumRole;
   console.log(pname)
 
 

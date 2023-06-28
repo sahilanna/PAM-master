@@ -7,7 +7,9 @@ import LoadingPage from '../../../Assets/Loader/LoadingPage';
 function FigmaPmDashboard() {
   const [result, setResult]=useState([])
   const [isLoading, setIsLoading] = useState(true);
-
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPageData, setCurrentPageData] = useState([]);
+    const itemsPerPage = 5;
 
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
@@ -19,7 +21,7 @@ function FigmaPmDashboard() {
   
   const fetchFigma = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrl}/api/users/552/role/project_manager/projects`,{
+      const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`,{
         headers : {
           'ngrok-skip-browser-warning': 'true',
           AccessToken: accessToken
@@ -37,6 +39,33 @@ function FigmaPmDashboard() {
   useEffect(() => {
   fetchFigma();
 }, []);
+
+const handlePaginate = (pageNumber) => {
+  const indexOfLastItem = pageNumber * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  setCurrentPageData(currentItems);
+};
+const handleSearchChange = (e) => {
+  setSearchQuery(e.target.value);
+  handleFilterItems(e.target.value);
+};
+const handleFilterItems = (searchQuery) => {
+  // const filteredItems = projects.filter((item) =>
+  //   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredItems = result && result.filter((item) =>
+item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+
+  );
+  setCurrentPageData(filteredItems.slice(0, itemsPerPage));
+};
+const filteredItems = result.filter((item) =>
+  item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+)
+
+useEffect(() => {
+handlePaginate(1);
+}, [result]);
 return (
   <div className='parent-admin'>
   <div style={{ height: '100vh', overflow: 'scroll initial' }}>
@@ -45,7 +74,7 @@ return (
      <div className='admin-child'>
         <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
       <div class="ui left icon input">
-<input type="text" placeholder="Search Projects..."  ></input>
+<input type="text" placeholder="Search Projects..." onChange={handleSearchChange} value={searchQuery} ></input>
 <i class="users icon"></i>
 </div>
   </div>
@@ -60,17 +89,28 @@ return (
           <th>Figma URL</th>
       </thead>
       <tbody>
-         {result.map((item, index) => (
+      {result && result.length > 0 ? (
+         currentPageData.map((item, index) => (
   <tr key={index}>
         {/* {currentPageData.map((item, index) => (
           <tr> */}
-            {console.log(item.figma.figmaUrl)}
+            <>
             <td>{item.projectName}</td>
             <td>{item.projectDescription}</td>
-            <a href={item.figma.figmaURL} target="_blank" rel="noopener noreferrer">{item.figma.figmaURL}
+            <a href={item.figmaURL} target="_blank" rel="noopener noreferrer">{item.figma.figmaURL}
                   </a>
-          </tr>
-         ))}
+                  </>
+                  <>
+                  </>
+        
+        
+        </tr>
+        ))
+        ) : (
+         <tr> 
+           <td colSpan="2">No data available</td>
+         </tr>
+       )}
       </tbody>
     </table>
     )}

@@ -71,7 +71,7 @@ const Create = () => {
 
   const handleRepoChange=(e, { value, options})=>{
     const selectedRepo = options.find((option) => option.value === value);
-    setrepoId(e)  
+    setrepoId(value)  
     // console.log("repoValue",value)
     setSelectedRepo(selectedRepo.text);
   }
@@ -142,7 +142,7 @@ const Create = () => {
 
   return (
     
-    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}>
+    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}dimmer="blurring">
       <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
       
         </div>
@@ -185,7 +185,7 @@ const Create = () => {
             />
           </Form.Field>
   
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' primary disabled={!projectId || !repoId}>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>

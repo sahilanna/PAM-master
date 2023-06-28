@@ -6,7 +6,7 @@ import AddUser from './addUser.js';
 import { useDispatch } from 'react-redux';
 import { createPmGithubName } from '../../../../Login/redux-store/actions/action.js';
 import NavBarA from '../NavbarA.js';
-import { Button } from 'react-bootstrap';
+import { Button } from 'semantic-ui-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { ngrokUrl } from '../../../../Assets/config.js';
@@ -20,6 +20,7 @@ const AddPm = () => {
   const [options, setOptions] = useState([]);
   const [error,setError]=useState('false');
   let navigate = useNavigate()
+  const [formError, setFormError] = useState('');
   const { state } = useLocation();
   let{ selectedRepo } = state || {};
   // selectedRepo = selectedRepo || '';
@@ -77,7 +78,7 @@ const AddPm = () => {
     
       </div>
       <div style={{paddingLeft:'460px'}}>
-    <Button secondary onClick={onClose}>
+    <Button  onClick={onClose}>
         X
       </Button>
       </div>
@@ -109,8 +110,9 @@ const AddPm = () => {
                onChange={handleUserNameChange}
             />
             </Form.Field>
+            {formError && <p style={{ color: 'red' }}>{formError}</p>}
 
-<Button type='submit'>Submit</Button>
+<Button type='submit' primary disabled={!selectedRepo || !username}>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>

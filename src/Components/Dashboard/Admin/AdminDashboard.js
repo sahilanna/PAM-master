@@ -195,7 +195,7 @@ const AdminDashboard = () => {
                     <th>Project-ID</th>
                     <th>Project-Name</th>
                     <th>Project-Description</th>
-                    <th className='text-center'>View</th>
+                    {/* <th className='text-center'>View</th> */}
                     <th className='text-center'>Delete</th>
                     <th className='text-center'>Add Files</th>
                     <th className='text-center'>View File</th>
@@ -208,14 +208,14 @@ const AdminDashboard = () => {
                       <td>{item.projectId}</td>
                       <td>{item.projectName}</td>
                       <td>{item.projectDescription}</td>
-                      <td className='text-center'>
+                      {/* <td className='text-center'>
                         <button
                           className='btn btn-outline-info mx-2'
                           onClick={() => handleViewDetails(item)}
                         >
                           <FontAwesomeIcon icon={faEye} />
                         </button>
-                      </td>
+                      </td> */}
                       <td className='text-center'>
                         <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(item.projectId)}>
                           <FontAwesomeIcon icon={faTrash} />

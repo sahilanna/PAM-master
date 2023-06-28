@@ -13,13 +13,17 @@ import LoadingPage from '../../../Assets/Loader/LoadingPage';
 
 function UserProjects() {
     const [item, setItem] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredProjects, setFilteredProjects] = useState([]);
     const [projectId, setProjectId] = useState('');
     const [projectName, setProjectName] = useState('');
     const [projectDescription, setProjectDescription] = useState('');
     const [selectedPmProject, setSelectedPmProject] = useState(null);
     const [showPmProjectDetails, setShowPmProjectDetails] = useState(false);
     const [userid, setUserid] = useState([]);
+    const [currentPageData, setCurrentPageData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const itemsPerPage = 5;
 
     let data = sessionStorage.getItem("item");
     let user = JSON.parse(data);
@@ -41,7 +45,7 @@ function UserProjects() {
        
       const fetchUserid = async () => {
         try {
-          const response = await axios.get(`https://${ngrokUrl}/api/users/405/role/user/projects`,{
+          const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/user/projects`,{
             headers : {
               'ngrok-skip-browser-warning': 'true',
               AccessToken: accessToken
@@ -60,6 +64,35 @@ function UserProjects() {
   
       fetchUserid();
     }, []);
+
+    const handlePaginate = (pageNumber) => {
+      const indexOfLastItem = pageNumber * itemsPerPage;
+      const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+      setCurrentPageData(currentItems);
+    };
+    const handleSearchChange = (e) => {
+      setSearchQuery(e.target.value);
+      handleFilterItems(e.target.value);
+    };
+    const handleFilterItems = (searchQuery) => {
+      // const filteredItems = projects.filter((item) =>
+      //   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+        const filteredItems = userid && userid.filter((item) =>
+    item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+  
+      );
+      setCurrentPageData(filteredItems.slice(0, itemsPerPage));
+    };
+    const filteredItems = userid.filter((item) =>
+      item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+
+  useEffect(() => { 
+    handlePaginate(1);
+  }, [userid]);
+
+     
     
   
   
@@ -86,7 +119,7 @@ function UserProjects() {
          <div className='admin-child'>
             <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
           <div class="ui left icon input">
-    <input type="text" placeholder="Search Projects..."  ></input>
+    <input type="text" placeholder="Search Projects..." value={searchQuery} onChange={handleSearchChange} ></input>
     <i class="users icon"></i>
     <div style={{paddingLeft:'660px',paddingTop:'20px'}}>
       
@@ -109,45 +142,43 @@ function UserProjects() {
           <thead>
               <th>Project-ID</th>
               <th>Project-Name</th>
-              {/* <th>Project-Description</th> */}
-              
-              {/* <th>Repository Name</th> */}
-              {/* <th>PM Github</th>
-              <th>User Github</th>  */}
+             
               <th>project Description</th>
-              {/* <th>Edit</th> */}
+              
               
           </thead>
           
           <tbody>
-             {userid.map((item, index) => (
+          {userid && userid.length > 0 ? (
+             currentPageData.map((item, index) => (
       <tr key={index}>
-            
+        <>            
             {/* {currentPageData.map((item, index) => (
               <tr> */}
                 <td>{item.projectId}</td>
                 <td>{item.projectName}</td>
                 <td>{item.projectDescription}</td>
-               
+                </>
                 
-  
-       
-        
-                
+           <>
+           
+          </>
+              
+
+
               </tr>
-             ))}
+            ))
+             ) : (
+              <tr> 
+                <td colSpan="2">No data available</td>
+              </tr>
+            )}
             
           </tbody>
-          {/* {selectedPmProject && (
-        <PmProjectDetails
-          project={selectedPmProject}
-          onClose={handleCloseDetails}
-        />
-      )}
-   */}
-
+      
 
         </table>
+
         )}
         </div>
         </div>

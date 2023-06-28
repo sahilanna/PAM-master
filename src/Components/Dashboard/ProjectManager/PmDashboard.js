@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
 import { useState,useEffect } from 'react';
-// import Projects from '../Admin/Home';
 import { NavLink } from 'react-router-dom';
-// import './AdminDashboard.css';
 import {Button,Icon} from 'semantic-ui-react'
 import { Navigate, useParams}  from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
@@ -17,9 +15,6 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../../../Login/Logout';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 
-
-  
-
 const PmDashboard = () => {
  
   const [item, setItem] = useState([]);
@@ -28,8 +23,12 @@ const PmDashboard = () => {
   const [projectDescription, setProjectDescription] = useState('');
   const [selectedPmProject, setSelectedPmProject] = useState(null);
   const [showPmProjectDetails, setShowPmProjectDetails] = useState(false);
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [pmid, setPmid] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate=useNavigate()
+  const [currentPageData, setCurrentPageData] = useState([]);
+  const itemsPerPage = 5;
   //const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   setTimeout(() => {
@@ -44,6 +43,11 @@ const PmDashboard = () => {
   const  id=user.id
   console.log(id)
 
+  useEffect(() => {
+    handlePaginate(1);
+  }, [item]);
+
+
 
   useEffect(() => {
     const fetchPmid = async () => {
@@ -52,7 +56,7 @@ const PmDashboard = () => {
         
         const urlParams = new URLSearchParams(window.location.search);
         // const id = urlParams.get('id');
-        const response = await axios.get(`https://${ngrokUrl}/api/users/403/role/project_manager/projects`,{
+        const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`,{
           headers : {
             'ngrok-skip-browser-warning': 'true',
             AccessToken:accessToken
@@ -60,6 +64,7 @@ const PmDashboard = () => {
       console.log(response.data)
       console.log(response.id);
       setIsLoading(false);
+      setItem(response.data)
 
      
       
@@ -78,6 +83,30 @@ const PmDashboard = () => {
     navigate('/PmRequestForm')
 
   }
+
+  const handlePaginate = (pageNumber) => {
+    const indexOfLastItem = pageNumber * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+    setCurrentPageData(currentItems);
+  };
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    handleFilterItems(e.target.value);
+  };
+  const handleFilterItems = (searchQuery) => {
+    // const filteredItems = projects.filter((item) =>
+    //   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+      const filteredItems = item && item.filter((item) =>
+  item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+
+    );
+    setCurrentPageData(filteredItems.slice(0, itemsPerPage));
+  };
+  const filteredItems = item.filter((item) =>
+    item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+   
 
 
   // const handleViewDetails = (pmid) => {
@@ -105,7 +134,7 @@ const PmDashboard = () => {
        <div className='admin-child'>
           <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
         <div class="ui left icon input">
-  <input type="text" placeholder="Search Projects..."  ></input>
+  <input type="text" placeholder="Search Projects..." value={searchQuery} onChange={handleSearchChange}  ></input>
   <i class="users icon"></i>
  
    
@@ -138,11 +167,13 @@ const PmDashboard = () => {
         </thead>
         
         <tbody>
-           {pmid.map((item, index) => (
+          {pmid && pmid.length>0 ? (
+           currentPageData.map((item, index) => (
     <tr key={index}>
           
           {/* {currentPageData.map((item, index) => (
             <tr> */}
+             <>
               <td>{item.projectId}</td>
               <td>{item.projectName}</td>
               <td>{item.projectDescription}</td>
@@ -153,10 +184,18 @@ const PmDashboard = () => {
                       Add
                     </Button>
                   </td>
+                  </>
+                  <>
+                  </>
       
               
             </tr>
-           ))}
+           ))
+          ):(
+            <tr>
+            <td colSpan="2">No data available</td>
+          </tr>
+        )}
           
         </tbody>
      

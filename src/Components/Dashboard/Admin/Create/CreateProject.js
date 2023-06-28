@@ -16,6 +16,7 @@ function CreateProject() {
     const [projectName, setProjectName] = useState('');
     const [projectDescription, setProjectDescription] = useState('');
     const [clicked, setClicked] = useState(false);
+    const [formError, setFormError] = useState('');
 // let data = sessionStorage.getItem("item");
 // let user = JSON.parse(data);
 // const accessToken=user.token
@@ -26,6 +27,10 @@ function CreateProject() {
       navigate(-1)
     }
     const handleSubmit=(e)=>{
+      if (!projectName || !projectDescription) {
+        setFormError('Please fill in all the fields.');
+        return;
+      }
       e.preventDefault();
       setClicked(true);
       const response=api.post(`https://${ngrokUrl}/api/projects/create`,{projectName,projectDescription})
@@ -49,25 +54,16 @@ navigate(-1);
             <Form.Field>
               <label style={{ textAlign: 'left' }}>Project-Name</label>
               <input name='name' onChange={(e) => setProjectName(e.target.value)} placeholder='Name' />
-            {clicked && projectName.length <= 0 ? <label style={{ color: 'red' }}>project name can't be Empty</label> : ''}
+            
             <br />
             </Form.Field>
             <Form.Field>
               <label style={{ textAlign: 'left' }}>Project Description</label>
               <input name='description' onChange={(e) => setProjectDescription(e.target.value)} placeholder='description' />
-            {clicked && projectName.length <= 0 ? <label style={{ color: 'red' }}>project description can't be Empty</label> : ''}
+           
             </Form.Field>
-            {/* <Form.Field>
-              <label style={{ textAlign: 'left' }}>Users</label>
-              <input name='description' onChange={(e) => setProjectDescription(e.target.value)} placeholder='description' />
-            {clicked && projectName.length <= 0 ? <label style={{ color: 'red' }}>project description can't be Empty</label> : ''}
-            </Form.Field>
-            <Form.Field>
-              <label style={{ textAlign: 'left' }}>Pms</label>
-              <input name='description' onChange={(e) => setProjectDescription(e.target.value)} placeholder='description' />
-            {clicked && projectName.length <= 0 ? <label style={{ color: 'red' }}>project description can't be Empty</label> : ''}
-            </Form.Field> */}
-            <Button type='submit'>Submit</Button>
+            
+            <Button type='submit' primary disabled={!projectName || !projectDescription}  >Submit</Button>
       </Form>
       </Modal.Content>
       <Modal.Actions>

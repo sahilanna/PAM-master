@@ -4,7 +4,7 @@ import { useNavigate,useLocation } from "react-router-dom";
 import axios from 'axios';
 import AddPm from './addPm';
 import NavBarA from '../NavbarA';
-import { Button } from 'react-bootstrap';
+import { Button } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
@@ -110,7 +110,7 @@ const onClose=()=>{
             />
 
     </Form.Field>
-    <Button type='submit'>Submit</Button>
+    <Button type='submit' primary disabled={!username|| !selectedRepo}>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>

@@ -27,6 +27,9 @@ function CreateRepo() {
   let handleSubmit = (e) => {
    // const description = 'i am sweda';
     e.preventDefault();
+    if(!name || !description){
+      return
+    }
     setClicked(true);
     if (name.length === 0) {
       return;
@@ -74,7 +77,7 @@ const onClose = ()=>{
             <br />
           </Form.Field>
 
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' primary disabled={!name || !description}>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>
