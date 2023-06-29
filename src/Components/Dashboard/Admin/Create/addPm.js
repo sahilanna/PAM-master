@@ -6,10 +6,10 @@ import AddUser from './addUser.js';
 import { useDispatch } from 'react-redux';
 import { createPmGithubName } from '../../../../Login/redux-store/actions/action.js';
 import NavBarA from '../NavbarA.js';
-import { Button } from 'react-bootstrap';
+import { Button } from 'semantic-ui-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { ngrokUrl } from '../../../../Assets/config.js';
+import { ngrokUrl, gitAccessToken } from '../../../../Assets/config.js';
 import api from '../../api.js';
 
 
@@ -26,6 +26,8 @@ const AddPm = () => {
   const[username,setusername]= useState([]);
   let[projectNameA,setProjectNameA]=useState('')
   let[userNameA,setUserNameA]=useState('')
+
+  const accessToken=gitAccessToken
 
   // console.log("uuuuu",selectedRepo);
 
@@ -82,7 +84,7 @@ const AddPm = () => {
     e.preventDefault();
     setError(true);
     const owner='swe1304';
-    const accessToken='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';
+   
 
     let repo = selectedRepo
     const response= api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
@@ -103,7 +105,7 @@ const AddPm = () => {
     
       </div>
       <div style={{paddingLeft:'460px'}}>
-    <Button secondary onClick={onClose}>
+    <Button secondary  onClick={onClose}>
         X
       </Button>
       </div>
@@ -136,7 +138,7 @@ const AddPm = () => {
             />
             </Form.Field>
 
-<Button type='submit'>Submit</Button>
+<Button type='submit' primary>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>

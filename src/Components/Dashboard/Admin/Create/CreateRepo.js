@@ -9,7 +9,7 @@ import NavBarA from '../NavbarA';
 import FooterA from '../FooterA';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { gitAccessToken, ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
 import api from '../../api';
 
 
@@ -21,11 +21,14 @@ function CreateRepo() {
   const [error, setError] = useState('false');
   const [clicked, setClicked] = useState(false);
   let[description, setDescription]=useState('')
-  const token = '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';
+  const token = gitAccessToken
   const handleBack = () => {
     navigate(-1); // Go back one page in history
   };
   let handleSubmit = (e) => {
+    if(!name ||!description){
+      return
+    }
    // const description = 'i am sweda';
     e.preventDefault();
     setClicked(true);
@@ -75,7 +78,7 @@ const onClose = ()=>{
             <br />
           </Form.Field>
 
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' primary disabled={!name || !description}>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>

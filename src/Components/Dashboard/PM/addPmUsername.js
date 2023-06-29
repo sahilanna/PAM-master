@@ -117,10 +117,6 @@ function AddPmUserName() {
             selection
             options={users}
             onChange={selectedUserChange}
-              
-              
-            
-            // value={}
           
           />
           </Form.Field>

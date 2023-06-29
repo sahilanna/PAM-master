@@ -86,61 +86,6 @@ function PmRequestUser() {
     }
   };
   
-  
-
-  // const AcceptRequest = async (accessRequestId) => {
-  //   try {
-  //     const response = await api.put(
-  //       `https://${ngrokUrl}/api/request/update/${accessRequestId}`,
-  //       { allowed: true }
-  //     );
-  
-  //     if (response.status === 200 || response.status === 204 || response.status === 201) {
-  //       const id = response.data.user.id;
-  //       const projectId = response.data.project.projectId;
-  //       console.log(id)
-  //       console.log(projectId)
-  
-  //       try {
-  //         const secondResponse = await api.put(
-  //           `https://${ngrokUrl}/api/projects/${projectId}/users/${id}`
-  //         );
-  
-  //         if (secondResponse.status === 200 || secondResponse.status === 204 || secondResponse.status === 201) {
-  //           toast.success('User added successfully!', {
-  //             position: toast.POSITION.TOP_RIGHT,
-  //             autoClose: 3000,
-  //           });
-  
-  //           fetchData();
-  //         } else {
-  //           toast.error('Failed to add user. Please try again.', {
-  //             position: toast.POSITION.TOP_RIGHT,
-  //             autoClose: 3000,
-  //           });
-  //         }
-  //       } catch (error) {
-  //         console.log('Error adding user:', error);
-  //         toast.error('Failed to add user. Please try again.', {
-  //           position: toast.POSITION.TOP_RIGHT,
-  //           autoClose: 3000,
-  //         });
-  //       }
-  //     } else {
-  //       toast.error('Failed to update request. Please try again.', {
-  //         position: toast.POSITION.TOP_RIGHT,
-  //         autoClose: 3000,
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.log('Error updating request:', error);
-  //     toast.error('Failed to update request. Please try again.', {
-  //       position: toast.POSITION.TOP_RIGHT,
-  //       autoClose: 3000,
-  //     });
-  //   }
-  // };
-  
 
   const DeclineRequest = async (accessRequestId) => {
     try {
@@ -164,7 +109,13 @@ function PmRequestUser() {
     <div className="parent-admin">
       <Sidebar />
       <div className="admin-child">
-        <div style={{ marginLeft: '20px', marginRight: '30px', marginTop: '20px' }}>
+        <div style={{  marginLeft: '20px',
+            marginRight: '30px',
+            marginTop: '-70px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%', }}>
           
         {requestData.length > 0 ? (
           <Table className="ui-celled-table">

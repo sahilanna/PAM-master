@@ -21,6 +21,8 @@ function UserProjects() {
   const [showPmProjectDetails, setShowPmProjectDetails] = useState(false);
   const [userid, setUserid] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
   const accessToken=user.token
@@ -35,11 +37,7 @@ console.log(id)
   useEffect(() => {
     const fetchUserid = async () => {
       try {
-        const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/user/projects`,{
-          headers : {
-            'ngrok-skip-browser-warning': 'true',
-            AccessToken: accessToken
-      }});
+        const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/user/projects`);
       setIsLoading(false)
         const  userid  = response.data;
         setUserid(userid);
@@ -50,6 +48,10 @@ console.log(id)
     };
     fetchUserid();
   }, []);
+  const filteredProjects = userid.filter((item) =>
+  item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
   // const handleViewDetails = (pmid) => {
   //   setSelectedPmProject(pmid);
   //   setShowPmProjectDetails(true);
@@ -66,7 +68,13 @@ console.log(id)
        <div className='admin-child'>
           <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
         <div class="ui left icon input">
-  <input type="text" placeholder="Search Projects..."  ></input>
+        <input
+  type="text"
+  placeholder="Search Projects..."
+  value={searchQuery}
+  onChange={(e) => setSearchQuery(e.target.value)}
+/>
+
   <i class="users icon"></i>
   <div style={{paddingLeft:'660px',paddingTop:'20px'}}>
   </div>
@@ -83,26 +91,21 @@ console.log(id)
             <th>project Description</th>
         </thead>
         <tbody>
-        {userid && userid.length > 0 ? (
-           userid.map((item, index) => (
-    <tr key={index}>
-      <>
-          {/* {currentPageData.map((item, index) => (
-            <tr> */}
-              <td>{item.projectId}</td>
-              <td>{item.projectName}</td>
-              <td>{item.projectDescription}</td>
-              </>
-         <>
-        </>
-            </tr>
-          ))
-           ) : (
-            <tr>
-              <td colSpan="2">No data available</td>
-            </tr>
-          )}
-        </tbody>
+  {filteredProjects.length > 0 ? (
+    filteredProjects.map((item, index) => (
+      <tr key={index}>
+        <td>{item.projectId}</td>
+        <td>{item.projectName}</td>
+        <td>{item.projectDescription}</td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="3">No matching projects found</td>
+    </tr>
+  )}
+</tbody>
+
       </table>
       )}
       </div>

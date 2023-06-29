@@ -4,10 +4,10 @@ import { useNavigate,useLocation } from "react-router-dom";
 import axios from 'axios';
 import AddPm from './addPm';
 import NavBarA from '../NavbarA';
-import { Button } from 'react-bootstrap';
+import { Button } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { gitAccessToken, ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
 import api from '../../api';
 
 const AddUser = () => {
@@ -60,7 +60,7 @@ const AddUser = () => {
   const handleSubmit=(e)=>{
     e.preventDefault();
     const owner='swe1304';
-    const accessToken='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';
+    const accessToken= gitAccessToken
  
     let repo = selectedRepo;
     const response= api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
@@ -112,7 +112,7 @@ const onClose=()=>{
             />
 
     </Form.Field>
-    <Button type='submit'>Submit</Button>
+    <Button type='submit'primary>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>

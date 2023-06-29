@@ -13,6 +13,10 @@ import api from '../api';
 function RepoPmDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult]=useState([])
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPageData, setCurrentPageData] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const itemsPerPage = 5;
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
   const accessToken=user.token
@@ -40,6 +44,30 @@ function RepoPmDashboard() {
     };
     fetchRepo();
   }, []);
+  const handlePaginate = (pageNumber) => {
+    const indexOfLastItem = pageNumber * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+    setCurrentPageData(currentItems);
+  };
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    handleFilterItems(e.target.value);
+  };
+  const handleFilterItems = (searchQuery) => {
+    // const filteredItems = projects.filter((item) =>
+    //   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+      const filteredItems = result && result.filter((item) =>
+  item.repositories[0].name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setCurrentPageData(filteredItems.slice(0, itemsPerPage));
+  };
+  const filteredItems = result.filter((item) =>
+    item.repositories[0].name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+useEffect(() => {
+  handlePaginate(1);
+}, [result]);
   return (
     <div className='parent-admin'>
     <div style={{ height: '100vh', overflow: 'scroll initial' }}>
@@ -48,7 +76,7 @@ function RepoPmDashboard() {
        <div className='admin-child'>
           <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
         <div class="ui left icon input">
-  <input type="text" placeholder="Search Projects..."  ></input>
+  <input type="text" placeholder="Search Projects..." onChange={handleSearchChange} value={searchQuery} ></input>
   <i class="users icon"></i>
 </div>
     </div>
@@ -67,7 +95,7 @@ function RepoPmDashboard() {
         </thead>
         <tbody>
         {result && result.length > 0 ? (
-  result.map((item, index) => (
+  currentPageData.map((item, index) => (
     <tr key={index}>
       {item.repositories && item.repositories.length > 0 ? (
         item.repositories.map((repo, repoIndex) => (

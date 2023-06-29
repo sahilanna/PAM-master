@@ -59,6 +59,10 @@ function AddUserProject() {
     const handleSubmit=async (e)=>{
         
         e.preventDefault();
+        if(!selectedUser)
+        {
+          return ;
+        }
         setClicked(true);
         try{
             // console.log("hi",userId)
@@ -105,7 +109,7 @@ function AddUserProject() {
             />
             </Form.Field>
             
-            <Button type='submit' onClick={handleSubmit}>Submit</Button>
+            <Button type='submit' primary disabled={!selectedUser} onClick={handleSubmit}>Submit</Button>
       </Form>
       </Modal.Content>
       <Modal.Actions>

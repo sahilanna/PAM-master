@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Table, TableCell,Icon } from 'semantic-ui-react';
@@ -37,9 +38,8 @@ function UserHistory() {
       <br />
       <br />
      
-      
       <div className='admin-child'>
-      <br/>
+     
       <h1 style={{fontFamily:'sans-serif'}}>Project History</h1>
       <div style={{ marginLeft: '20px', marginRight: '30px' }}>
       {isLoading ? (

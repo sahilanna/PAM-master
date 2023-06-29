@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Dropdown, Input, Icon } from 'semantic-ui-react';
 import FigmaCreate from './FigmaCreate';
@@ -11,6 +8,8 @@ import { ngrokUrl } from '../../../../Assets/config';
 import './FigmaRead.css'
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
+import DialogBox from '../../DialogBox/DialogBox';
+
 
 function FigmaRead() {
   const [showModal, setShowModal] = useState(false);
@@ -24,6 +23,7 @@ function FigmaRead() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 5;
+  const[showConfirmDialog, setShowConfirmDialog]=useState(false)
 
 
   
@@ -58,6 +58,17 @@ function FigmaRead() {
     setProjectId(projectId);
     setShowModal(true);
   };
+
+  const handleDeleteUrl=async (figmaId)=>{
+    try {
+      await api.delete(`https://${ngrokUrl}/api/figmas/${figmaId}`);
+      navigate('/FigmaRead');
+      setShowConfirmDialog(false);
+       fetchProjects()
+    } catch (error) {
+      console.log(error);
+    }
+  }
  
   const closeModal = () => {
     setShowModal(false);
@@ -74,8 +85,7 @@ function FigmaRead() {
     handleFilterItems(e.target.value);
   };
   const handleFilterItems = (searchQuery) => {
-    // const filteredItems = projects.filter((item) =>
-    //   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+    
       const filteredItems = projects && projects.filter((item) =>
   item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -93,7 +103,7 @@ function FigmaRead() {
       <Sidebar/>
       <div className='admin-child'>
         <br/>
-        <h1 style={{ textAlign: 'center' }}>Figma</h1>
+        {/* <h1 style={{ textAlign: 'center' }}>Figma</h1> */}
         <div
           style={{
             display: 'flex',
@@ -125,6 +135,7 @@ function FigmaRead() {
                 <th>Project Name</th>
                 <th>Figma URL</th>
                 <th>ADD User</th>
+                <th>Delete URL</th>
               </tr>
             </thead>
             <tbody>
@@ -142,6 +153,16 @@ function FigmaRead() {
                       <Icon name="plus" />
                       Add
                     </Button>
+                  </td>
+                  <td>
+                    <Button color="red" icon labelPosition="left" onClick={() => setShowConfirmDialog( project.figmaId)}>
+                      <Icon name="minus" />
+                    </Button>
+                    <DialogBox
+                          show={showConfirmDialog === project.figmaId}
+                          onClose={() => setShowConfirmDialog(null)}
+                          onConfirm={() => handleDeleteUrl(project.figmaId)}
+                        />
                   </td>
                 </tr>
               ))}

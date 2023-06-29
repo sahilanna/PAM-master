@@ -19,7 +19,7 @@ const PmProfile = () => {
     return (
       <div className='parent-admi'>  
       <div style={{ height: '100vh', overflow: 'scroll initial' }}>
-        <pmSidebar/>
+        <PmSidebar/>
       </div>
       <div className='admin-chil'>
         <div className="profile-paren">
