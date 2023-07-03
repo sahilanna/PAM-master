@@ -36,7 +36,7 @@ export default class NavBar extends Component {
               
              GitHub:-
              <NavDropdown.Divider />
-             
+           
              Figma:
              <NavDropdown.Divider />
             </NavDropdown>

@@ -69,6 +69,9 @@ import LoadingPage from './Assets/Loader/LoadingPage';
 
 
 
+
+
+
 function App() {
   
   return (
@@ -95,13 +98,14 @@ function App() {
               <Route path="/AddUserName" element={<AddUserName/>} />
               <Route path="/Login" element={<Login />} />
               <Route path="/Create" element={<Create />} /> */}
+              <Route path='/Analytics' element={<Analytics/>}/>
                 {/* <Route path='/CreateProject' element={<CreateProject/>}/> */}
           <Route path='/LoadingPage' element={<LoadingPage/>}/>
           <Route path='/faq' element={<Faq/>}/>
           <Route path="/Login" element={<Login/>} />
           <Route path="/" element={<LandingPage/>}/>
           <Route path="/Logout" element={<Logout/>}/>
-                    
+          <Route path='/faq' element={<Faq/>}/>
         <Route element={<PrivateRoutes />}>
           
           <Route path="*" element={<h1>Page Not Found</h1>} />

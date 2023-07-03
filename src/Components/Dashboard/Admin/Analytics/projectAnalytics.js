@@ -4,8 +4,11 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'rec
 import { ngrokUrl } from '../../../../Assets/config';
 import Sidebar from '../../SideBar/SideBar';
 import api from '../../api';
+import { useNavigate } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
 
-const ProjectAnalytics = () => {
+const ProjectAnalytics = ({ onBackClick }) => {
+  const navigate =useNavigate()
   const [activeProjects, setActiveProjects] = useState(0);
   const [inactiveProjects, setInactiveProjects] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -46,14 +49,22 @@ const ProjectAnalytics = () => {
     { status: 'Active', ActiveProjects: activeProjects },
     { status: 'Inactive', InactiveProjects: inactiveProjects },
   ];
+  const handleBackClick=()=>{
+    navigate('/Analytics')
+  }
+  
+  
+
   return (
     <div className='parent-admin'>
-      <div style={{ height: '100vh', overflow: 'scroll initial' }}>
-        {/* <Sidebar/> */}
-      </div>
+      <Sidebar />
+   
+      <div className='main-content'>
+        <div className='Analytics-components'>
       <div style={{ textAlign: 'center' }}>
+        
+        <h1> Project Status </h1>
         <br/>
-        <h2>Project Status</h2>
         <BarChart width={500} height={300} data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="status" />
@@ -63,6 +74,10 @@ const ProjectAnalytics = () => {
           <Bar dataKey="ActiveProjects" fill="#8884d8" />
           <Bar dataKey="InactiveProjects" fill="#82ca9d" />
         </BarChart>
+        <br/>
+              <Button primary onClick={handleBackClick}>Back</Button>
+      </div>
+      </div>
       </div>
       
     </div>

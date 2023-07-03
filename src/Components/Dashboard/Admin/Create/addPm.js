@@ -9,9 +9,9 @@ import NavBarA from '../NavbarA.js';
 import { Button } from 'semantic-ui-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { ngrokUrl } from '../../../../Assets/config.js';
+import { ngrokUrl, gitAccessToken } from '../../../../Assets/config.js';
 import api from '../../api.js';
-// import { ngrokUrl } from '../../../../Assets/config.js';
+
 
 
 const AddPm = () => {
@@ -28,14 +28,9 @@ const AddPm = () => {
   let[projectNameA,setProjectNameA]=useState('')
   let[userNameA,setUserNameA]=useState('')
 
+  const accessToken=gitAccessToken
 
-  let data = sessionStorage.getItem("item");
-  let user = JSON.parse(data);
-  const accessToken=user.token
-  console.log(user)
-    console.log(user.token)
-  const  id=user.id
-  // console.log("uuuuu",selectedRepo);
+ 
 
   const handleUserNameChange=(event,{value})=>{
     setusername(value)
@@ -47,17 +42,50 @@ const AddPm = () => {
     navigate(-1); 
   };
   // console.log("Plz work",selectedRepo)
-  useEffect(() => {
-    fetch(`https://${ngrokUrl}/usernames/role/project_manager`).then((response)=>response.json())
-    .then((data)=>setOptions(data))
+  // useEffect(() => {
+  //   fetch(`https://${ngrokUrl}/usernames/role/project_manager`).then((response)=>response.json())
+  //   .then((data)=>setOptions(data))
   
+  // }, []);
+  useEffect(() => {
+    const fetchUsernames = async () => {
+      try {
+        const response = await api.get(`https://${ngrokUrl}/usernames/role/project_manager`);
+        setOptions(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUsernames();
   }, []);
+  // useEffect(() => {
+  //   const fetchUsernames = async () => {
+  //     try {
+  //       const response = await api.get(`https://${ngrokUrl}/usernames/role/project_manager`);
+  //       const data = response.data;
+  
+  //       // Assuming the response data is an array of strings
+  //       const dropdownOptions = data.map((name, index) => ({
+  //         key: index,
+  //         text: name,
+  //         value: name
+  //       }));
+  
+  //       setOptions(dropdownOptions);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchUsernames();
+  // }, []);
 
   const handleSubmit=(e)=>{
     e.preventDefault();
     setError(true);
     const owner='swe1304';
-    const accessToken='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';
+   
 
     let repo = selectedRepo
     const response= api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
@@ -78,7 +106,7 @@ const AddPm = () => {
     
       </div>
       <div style={{paddingLeft:'460px'}}>
-    <Button  onClick={onClose}>
+    <Button secondary  onClick={onClose}>
         X
       </Button>
       </div>
@@ -112,7 +140,7 @@ const AddPm = () => {
             </Form.Field>
             {formError && <p style={{ color: 'red' }}>{formError}</p>}
 
-<Button type='submit' primary disabled={!selectedRepo || !username}>Submit</Button>
+<Button type='submit' primary>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>

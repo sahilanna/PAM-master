@@ -15,7 +15,7 @@ function AddPmUserName() {
     const[selectedUser,setSelectedUser]=useState('')
     const [showInvalidUsernameModal, setShowInvalidUsernameModal] = useState(false);
   const [showUserExistModal, setShowUserExistModal] = useState(false);
-    const accessToken='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'
+    const accessToken='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'
     useEffect(() => {
       fetchPms();
     }, []);
@@ -52,7 +52,7 @@ function AddPmUserName() {
         });
         console.log('API Response:', response.data.id);
         
-        navigate('/userRead');
+        navigate('/pmReadNew');
         
       } catch (error) {
         const errorMessage=error.response.data
@@ -101,7 +101,7 @@ function AddPmUserName() {
           X
         </Button>
         </div>
-        <Modal.Header>Add Project</Modal.Header>
+        <Modal.Header>Add PM UserName</Modal.Header>
 
    
   
@@ -110,23 +110,19 @@ function AddPmUserName() {
           <Form onSubmit={handleSubmit}>
 
     <Form.Field>
-          <label style={{textAlign:'left'}}>PM</label>
+          <label style={{textAlign:'left'}}>PM<span style={{ color: 'red' }}>*</span></label>
           <Dropdown
             placeholder="Select PM"
             fluid
             selection
             options={users}
             onChange={selectedUserChange}
-              
-              
-            
-            // value={}
           
           />
           </Form.Field>
           
       <Form.Field>
-        <label style={{textAlign:'left'}}>Github Username</label>
+        <label style={{textAlign:'left'}}>Github Username<span style={{ color: 'red' }}>*</span></label>
         <input
           placeholder="Enter github username"
           value={githubUsername}
@@ -134,7 +130,7 @@ function AddPmUserName() {
         />
       </Form.Field>
      
-      <Button type='submit'>Submit</Button>
+      <Button type='submit'primary disabled={!setSelectedUser || !githubUsername}>Submit</Button>
         </Form>
 
         </Modal.Content>

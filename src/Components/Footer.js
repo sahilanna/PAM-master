@@ -39,10 +39,10 @@ const Footer = () => {
             <p>@{new Date().getFullYear()} All rigts reserved.</p>
           </div>
           <div className="sb_footer-below-links">
+           
             <a href="/faq">
-            
-              <div style={{marginRight:'40px'}}>
-                <p>FAQs</p>
+              <div>
+                <p style={{marginRight:'35px'}}> FAQs</p>
               </div>
             </a>
           </div>

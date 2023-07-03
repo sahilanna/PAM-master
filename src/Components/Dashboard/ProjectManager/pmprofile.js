@@ -13,13 +13,13 @@ const PmProfile = () => {
   const id=pdata.id
   const pname=pdata.name;
   const pemail=pdata.email;
-  const prole=pdata.role;
+  const prole=pdata.enumRole;
   console.log(pname)
 
     return (
       <div className='parent-admi'>  
       <div style={{ height: '100vh', overflow: 'scroll initial' }}>
-        <pmSidebar/>
+        <PmSidebar/>
       </div>
       <div className='admin-chil'>
         <div className="profile-paren">

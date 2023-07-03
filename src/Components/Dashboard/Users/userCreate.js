@@ -59,13 +59,13 @@ return(
 
           <Form onSubmit={handleSubmit}>
     <Form.Field>
-        <label style={{ textAlign: 'left' }}> User Name</label>
+        <label style={{ textAlign: 'left' }}> User Name<span style={{ color: 'red' }}>*</span></label>
         <input name='name' onChange={(e)=>setName(e.target.value)} placeholder='User Name' />
         {clicked&&name.length<=0?
                <label style={{color:'red'}}> Name can't be Empty</label>: ""}
     </Form.Field>
     <Form.Field>
-        <label style={{ textAlign: 'left' }}>User Email-ID</label>
+        <label style={{ textAlign: 'left' }}>User Email-ID<span style={{ color: 'red' }}>*</span></label>
         <input type='email' name='email' onChange={(e)=>setEmail(e.target.value)} placeholder='EMAIL' />
         {clicked&&email.length<=0?
                <label style={{color:'red'}}>  Email can't be Empty</label>: ""}

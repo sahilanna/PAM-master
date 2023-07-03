@@ -13,6 +13,7 @@ import api from '../../api';
 function PmRequestUser() {
   const [requestData, setRequestData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const[resData, setresData]=useState('')
 
  
   let data = sessionStorage.getItem("item");
@@ -33,40 +34,72 @@ function PmRequestUser() {
       const response = await api.get(`https://${ngrokUrl}/api/request/all`);
       setRequestData(response.data);
       setIsLoading(false);
-      console.log(response.data)
-      console.log(requestData)
+       console.log(requestData)
+      requestData.forEach((request) => {
+        const userId = request.user.id; 
+        const projectId = request.project.projectId;
+  
+        console.log(userId);
+        console.log(projectId);
+  
+        
+      });
+
+
+
     } catch (error) {
       console.log('Error fetching Users:', error);
       setIsLoading(true);
     }
   };
 
-  const AcceptRequest = async (accessRequestId) => {
+  const AcceptRequest = async (accessRequestId, id, projectId) => {
     try {
-      const response = await axios.put(
+      const response = await api.put(
         `https://${ngrokUrl}/api/request/update/${accessRequestId}`,
         { allowed: true },{headers}
       );
-      if (response.status === 200|| response.status === 204|| response.status === 201) {
-        toast.success('User added successfully!', {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-        });
-        fetchData();
+    console.log("Helllo",response);
+      if (response.status === 200 || response.status === 204 || response.status === 201) {
+        
+        
+  
+        const secondResponse = await api.put(
+          `https://${ngrokUrl}/api/projects/${projectId}/users/${id}`
+        );
+  
+        if (secondResponse.status === 200 || secondResponse.status === 204 || secondResponse.status === 201) {
+          toast.success('User added successfully!', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000,
+          });
+  
+          fetchData();
+        } else {
+          toast.error('Failed to add user. Please try again.', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000,
+          });
+        }
       } else {
-        toast.error('Failed to add user. Please try again.', {
+        toast.error('Failed to update request. Please try again.', {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
         });
       }
     } catch (error) {
-      console.log('Error adding user:', error);
+      console.log('Error updating request:', error);
+      toast.error('Failed to update request. Please try again.', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      });
     }
   };
+  
 
   const DeclineRequest = async (accessRequestId) => {
     try {
-      const response = await axios.put(
+      const response = await api.put(
         `https://${ngrokUrl}/api/request/update/${accessRequestId}`,
         { allowed: false },{headers}
       );
@@ -86,7 +119,13 @@ function PmRequestUser() {
     <div className="parent-admin">
       <Sidebar />
       <div className="admin-child">
-        <div style={{ marginLeft: '20px', marginRight: '30px', marginTop: '20px' }}>
+        <div style={{  marginLeft: '20px',
+            marginRight: '30px',
+            marginTop: '-70px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%', }}>
           
         {requestData.length > 0 ? (
           <Table className="ui-celled-table">
@@ -112,7 +151,7 @@ function PmRequestUser() {
                   <Table.Cell>{item.user?.name}</Table.Cell>
                   <Table.Cell>{item.requestDescription}</Table.Cell>
                   <Table.Cell>
-                    <Button color="green" onClick={() => AcceptRequest(item.accessRequestId)}>
+                    <Button color="green" onClick={() => AcceptRequest(item.accessRequestId,item.user.id, item.project.projectId)}>
                       Accept
                     </Button>
                     <Button color="red" onClick={() => DeclineRequest(item.accessRequestId)}>

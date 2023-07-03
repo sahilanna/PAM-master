@@ -1,15 +1,6 @@
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { ngrokUrl, ngrokUrlSwe } from "../../../Assets/config";
-import api from "../../../Components/Dashboard/api";
-
-
-// let data = sessionStorage.getItem("item");
-// let user = JSON.parse(data);
-// const accessToken=user.token
-// console.log(user)
- 
-//   const headers={AccessToken:accessToken}
 
 //Create Project
 export const createProject = ({ projectName, projectDescription,projectManagerId,gitRepoLink}) => {

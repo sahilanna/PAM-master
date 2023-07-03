@@ -13,23 +13,19 @@ const Profile = () => {
   const id=pdata.id
   const pname=pdata.name;
   const pemail=pdata.email;
-  const prole=pdata.role;
+  const prole=pdata.enumRole;
   console.log(pname)
 
     return (
      
-     
-    
-
-       
           <div className='parent-admi'>  
-            <div style={{ height: '100vh', overflow: 'scroll initial' }}>
+           
               <Sidebar/>
-            </div>
-            <div className='admin-chil'>
-              <div className="profile-paren">
-                <div className="profile-details">
-                  <div className="profile-imag">
+            
+            <div className='admin-chil'> 
+               <div className="profile-paren">
+                 <div className="profile-details">
+                   <div className="profile-imag"> 
                     <h1>PROFILE</h1>
                     <FontAwesomeIcon icon={faUser} size="7x" />
                 

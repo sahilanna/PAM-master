@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ngrokUrl } from '../../../Assets/config';
 import './Read.css'
+import api from '../api';
 
 
 function AddUserName() {
@@ -14,7 +15,7 @@ function AddUserName() {
   const [selectedUser, setSelectedUser] = useState('');
   const [showInvalidUsernameModal, setShowInvalidUsernameModal] = useState(false);
   const [showUserExistModal, setShowUserExistModal] = useState(false);
-  const accessToken = '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';
+  const accessToken = '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';
 
   useEffect(() => {
     fetchUsers();
@@ -22,11 +23,7 @@ function AddUserName() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrl}/api/users/get`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true',
-        },
-      });
+      const response = await api.get(`https://${ngrokUrl}/api/users/role/user`);
       const userOptions = response.data.map((user) => ({
         key: user.id,
         text: user.name,
@@ -44,7 +41,7 @@ function AddUserName() {
     console.log(githubUsername);
     const username = githubUsername;
     try {
-      const response = await axios.post(`https://${ngrokUrl}/usernames/githubUsername`, {
+      const response = await api.post(`https://${ngrokUrl}/usernames/githubUsername`, {
         username: username,
         user: {
           id: id,
@@ -98,7 +95,7 @@ function AddUserName() {
         <Modal.Content>
           <Form onSubmit={handleSubmit}>
             <Form.Field>
-              <label style={{ textAlign: 'left' }}>Users</label>
+              <label style={{ textAlign: 'left' }}>Users<span style={{ color: 'red' }}>*</span></label>
               <Dropdown
                 placeholder="Select User"
                 fluid
@@ -109,7 +106,7 @@ function AddUserName() {
             </Form.Field>
             <br />
             <Form.Field>
-              <label style={{ textAlign: 'left' }}>github Username</label>
+              <label style={{ textAlign: 'left' }}>Github Username<span style={{ color: 'red' }}>*</span></label>
               <input
                 placeholder="Enter github username"
                 value={githubUsername}

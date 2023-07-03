@@ -36,12 +36,7 @@ export default class NavBarLogin extends Component {
               
              GitHub:-
              <NavDropdown.Divider />
-             JIRA:
-             <NavDropdown.Divider />
-             JENKINS:
-             <NavDropdown.Divider />
-             SLACK:
-             <NavDropdown.Divider />
+            
              Figma:
              <NavDropdown.Divider />
             </NavDropdown>

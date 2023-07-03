@@ -4,13 +4,15 @@ import axios from 'axios';
 import { ngrokUrl} from '../../../Assets/config';
 import { useState,useEffect } from 'react';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
+import api from '../api';
+
+
 function FigmaPmDashboard() {
   const [result, setResult]=useState([])
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPageData, setCurrentPageData] = useState([]);
     const itemsPerPage = 5;
-
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
   const accessToken=user.token
@@ -18,14 +20,9 @@ function FigmaPmDashboard() {
     console.log(user.token)
   const  id=user.id
   console.log(id)
-  
   const fetchFigma = async () => {
     try {
-      const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`,{
-        headers : {
-          'ngrok-skip-browser-warning': 'true',
-          AccessToken: accessToken
-    }});
+      const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`);
       const  data  = response.data;
       console.log('data',data)
       setIsLoading(false);
@@ -39,7 +36,6 @@ function FigmaPmDashboard() {
   useEffect(() => {
   fetchFigma();
 }, []);
-
 const handlePaginate = (pageNumber) => {
   const indexOfLastItem = pageNumber * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -55,14 +51,12 @@ const handleFilterItems = (searchQuery) => {
   //   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
     const filteredItems = result && result.filter((item) =>
 item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
-
   );
   setCurrentPageData(filteredItems.slice(0, itemsPerPage));
 };
 const filteredItems = result.filter((item) =>
   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
 )
-
 useEffect(() => {
 handlePaginate(1);
 }, [result]);
@@ -78,7 +72,7 @@ return (
 <i class="users icon"></i>
 </div>
   </div>
-  <div style={{marginLeft:'20px',marginRight:'30px'}}> 
+  <div style={{marginLeft:'20px',marginRight:'30px'}}>
   {isLoading ? (
             <LoadingPage />
           ) : (
@@ -102,12 +96,10 @@ return (
                   </>
                   <>
                   </>
-        
-        
         </tr>
         ))
         ) : (
-         <tr> 
+         <tr>
            <td colSpan="2">No data available</td>
          </tr>
        )}

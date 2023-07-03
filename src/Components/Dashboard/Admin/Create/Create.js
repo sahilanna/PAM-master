@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
 import axios from 'axios';
@@ -49,24 +47,18 @@ const Create = () => {
   const[temp1,setTemp1]=useState([])
   const[projItem, setprojItem]=useState('')
 
-  let data = sessionStorage.getItem("item");
-  let user = JSON.parse(data);
-  const accessToken=user.token
-  console.log(user)
-    console.log(user.token)
-  const  id=user.id
-
-  const headers = {
-    AccessToken: accessToken
-  };
-  
-
-  
 
   const handleBack = () => {
     navigate(-1); 
   };
 
+//   let data = sessionStorage.getItem("item");
+//   let user = JSON.parse(data);
+//   const accessToken=user.token
+//   console.log(user)
+//     console.log(user.token)
+
+// const headers={AccessToken:accessToken}
 
 
   const handleRepoChange=(e, { value, options})=>{
@@ -131,7 +123,8 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const response=axios.put(`https://${ngrokUrl}/api/projects/${projectId}/repository/${repoId}`,)
+    console.log("repoid", repoId)
+    const response=api.put(`https://${ngrokUrl}/api/projects/${projectId}/repository/${repoId}`)
     console.log("Check",selectedRepo);
     navigate('/addPm', { state: { selectedRepo } });
 
@@ -159,7 +152,7 @@ const Create = () => {
 
           <Form onSubmit={handleSubmit}>
             <Form.Field>
-            <label style={{ textAlign: 'left' }}>Project-Name</label>
+            <label style={{ textAlign: 'left' }}>Project-Name<span style={{ color: 'red' }}>*</span></label>
            
             <Dropdown
               placeholder="Select project"
@@ -173,7 +166,7 @@ const Create = () => {
            
   
           <Form.Field>
-            <label style={{ textAlign: 'left' }}>REPO</label>
+            <label style={{ textAlign: 'left' }}>REPO<span style={{ color: 'red' }}>*</span></label>
            
             <Dropdown
               placeholder="Select Repo"
@@ -185,7 +178,7 @@ const Create = () => {
             />
           </Form.Field>
   
-          <Button type='submit' primary disabled={!projectId || !repoId}>Submit</Button>
+          <Button type='submit' primary>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>

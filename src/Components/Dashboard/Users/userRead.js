@@ -102,7 +102,7 @@ function UserRead(){
     };
 
     const deleteUser = async (id) => {
-      await axios.delete(`https://${ngrokUrl}/api/users/delete/${id}`,{headers});
+      await api.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
       navigate('/userRead')
       setShowConfirmDialog(false);
       loaditem();
@@ -145,6 +145,7 @@ function UserRead(){
             <th className='text-center'>Delete</th>
           </thead>
           <tbody>
+          
           {filteredProjects.map((user, index) => (
             <tr>
               <td>{user.id}</td>

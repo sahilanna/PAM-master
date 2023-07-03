@@ -36,7 +36,7 @@ function DeleteRepo() {
             if(!selectedRepo){
               return
             }
-            const response=axios.delete(`https://${ngrokUrl}/api/repositories/${repoId}`,)
+            const response=api.delete(`https://${ngrokUrl}/api/repositories/${repoId}`,)
             navigate('/repoRead')
           
           
@@ -65,11 +65,12 @@ function DeleteRepo() {
             X
           </Button>
         </div>
-        <Modal.Header>REPO</Modal.Header>
+        <Modal.Header>Delete Repo</Modal.Header>
         <Modal.Content>
           <Form onSubmit={handleSubmit}>
            
            <Form.Field>
+           <label style={{ textAlign: 'left' }}>Select Repo<span style={{ color: 'red' }}>*</span></label>
             <Dropdown
               placeholder="Select Repo"
               fluid

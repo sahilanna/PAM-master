@@ -26,3 +26,16 @@
     color: #0000FF;
   }
   
+  .centered-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 370px;
+    height: 300px;
+   
+  }
+
+ 
+ 
+ 
+  

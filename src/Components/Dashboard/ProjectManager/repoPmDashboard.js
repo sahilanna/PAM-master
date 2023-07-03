@@ -7,6 +7,9 @@ import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './pmDashboard.css'
 import { ngrokUrl } from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
+import api from '../api';
+
+
 function RepoPmDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult]=useState([])
@@ -14,8 +17,6 @@ function RepoPmDashboard() {
   const [currentPageData, setCurrentPageData] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const itemsPerPage = 5;
-
-
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
   const accessToken=user.token
@@ -43,7 +44,6 @@ function RepoPmDashboard() {
     };
     fetchRepo();
   }, []);
-
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -59,18 +59,15 @@ function RepoPmDashboard() {
     //   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
       const filteredItems = result && result.filter((item) =>
   item.repositories[0].name.toLowerCase().includes(searchQuery.toLowerCase())
-
     );
     setCurrentPageData(filteredItems.slice(0, itemsPerPage));
   };
   const filteredItems = result.filter((item) =>
     item.repositories[0].name.toLowerCase().includes(searchQuery.toLowerCase())
   )
-
 useEffect(() => {
   handlePaginate(1);
 }, [result]);
-
   return (
     <div className='parent-admin'>
     <div style={{ height: '100vh', overflow: 'scroll initial' }}>
@@ -79,7 +76,7 @@ useEffect(() => {
        <div className='admin-child'>
           <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
         <div class="ui left icon input">
-  <input type="text" placeholder="Search Projects..." onChange={handleSearchChange} val ></input>
+  <input type="text" placeholder="Search Projects..." onChange={handleSearchChange} value={searchQuery} ></input>
   <i class="users icon"></i>
 </div>
     </div>
@@ -121,9 +118,6 @@ useEffect(() => {
     </tr>
   )}
 </tbody>
-
-
-
       </table>
           )}
       </div>
@@ -131,5 +125,4 @@ useEffect(() => {
     </div>
   )
 }
-
 export default RepoPmDashboard

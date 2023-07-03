@@ -7,23 +7,10 @@ import NavBarA from '../NavbarA';
 import { Button } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { gitAccessToken, ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import api from '../../api';
 
 const AddUser = () => {
-
-  let data = sessionStorage.getItem("item");
-  let user = JSON.parse(data);
-  const accessToken=user.token
-  console.log(user)
-    console.log(user.token)
-  const  id=user.id
-
-  const headers = {
-    AccessToken: accessToken
-  };
-  
-
-  
 
   let navigate = useNavigate();
   const [options, setOptions] = useState([]);
@@ -44,26 +31,41 @@ const AddUser = () => {
   };
 
   
-   useEffect(() => {
-    fetch(`https://${ngrokUrl}/usernames/role/user`,{
-      headers: {
-        'ngrok-skip-browser-warning': 'true',
-        AccessToken: accessToken
-      }}).then((response)=>response.json())
-    .then((data)=>setOptions(data))
+  //  useEffect(() => {
+  //   fetch(`https://${ngrokUrl}/usernames/role/user`,{
+  //     headers: {
+  //       'ngrok-skip-browser-warning': 'true'
+  //     }}).then((response)=>response.json())
+  //   .then((data)=>setOptions(data))
 
   
+  // }, []);
+
+  useEffect(() => {
+    const fetchUsernames = async () => {
+      try {
+        const response = await api.get(`https://${ngrokUrl}/usernames/role/user`);
+        setOptions(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUsernames();
   }, []);
+
+
+
 
   const handleSubmit=(e)=>{
     e.preventDefault();
     const owner='swe1304';
-    const accessToken='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';
+    const accessToken= gitAccessToken
  
     let repo = selectedRepo;
-    const response= axios.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
+    const response= api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
   })
-  navigate('/AdminDashboard')
+  navigate('/repoRead')
     
 }
 const onClose=()=>{
@@ -82,7 +84,7 @@ const onClose=()=>{
           X
         </Button>
         </div>
-        <Modal.Header>Create New Repository</Modal.Header>
+        <Modal.Header>Add User</Modal.Header>
 
         <Modal.Content>
 
@@ -110,7 +112,7 @@ const onClose=()=>{
             />
 
     </Form.Field>
-    <Button type='submit' primary disabled={!username|| !selectedRepo}>Submit</Button>
+    <Button type='submit'primary>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>

@@ -146,6 +146,11 @@ function CreateFigmaDetails() {
   const [selectedProject, setSelectedProject] = useState('');
   const [isValidUrl, setIsValidUrl] = useState(true);
 
+  // let data = sessionStorage.getItem("item");
+  // let user = JSON.parse(data);
+  // const accessToken=user.token
+  // console.log(user)
+  //   console.log(user.token)
 
 
   const validateURL = (url) => {
@@ -159,6 +164,7 @@ function CreateFigmaDetails() {
       return false;
     }
   };
+// const headers={AccessToken:accessToken}
 
 
 
@@ -207,7 +213,7 @@ function CreateFigmaDetails() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!isValidUrl) {
-      return; 
+      return;
     }
     try {
       
@@ -217,7 +223,7 @@ function CreateFigmaDetails() {
           projectName: selectedProject,
       },
       figmaURL: figmaURL
-      },{headers});
+      });
       
       console.log('API Response:', response.data.id);
       const figmaId=response.data.id;
@@ -245,7 +251,7 @@ function CreateFigmaDetails() {
           <Modal.Content>
           <Form onSubmit={handleSubmit}>
       <Form.Field>
-            <label style={{textAlign:'left'}}>Projects</label>
+            <label style={{textAlign:'left'}}>Projects<span style={{ color: 'red' }}>*</span></label>
             <Dropdown
               placeholder="Select Project"
               fluid
@@ -255,7 +261,7 @@ function CreateFigmaDetails() {
             />
             </Form.Field>
             <Form.Field>
-            <label style={{ textAlign: 'left' }}>Figma URL</label>
+            <label style={{ textAlign: 'left' }}>Figma URL<span style={{ color: 'red' }}>*</span></label>
             <input
               type='text'
               placeholder="Enter Figma URL"
@@ -267,7 +273,8 @@ function CreateFigmaDetails() {
               <p className="error-message">Invalid Figma URL</p>
             )}
           </Form.Field>
-        <Button type='submit'  disabled={!isValidUrl}>Submit</Button>
+        
+          <Button type='submit'  disabled={!isValidUrl}>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>

@@ -76,6 +76,8 @@ function Test() {
           { theme: "outline", size: "large" }
       );
   }, []);
+
+
     return (
     <div className="sample1">
       <NavBarLogin />
