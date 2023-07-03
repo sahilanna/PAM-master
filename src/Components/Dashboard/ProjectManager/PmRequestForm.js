@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Form,Button,Dropdown,Modal} from 'semantic-ui-react'
 import { ngrokUrlSwe, ngrokUrl } from '../../../Assets/config';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import api from '../api';
 function PmRequestForm() {
   const navigate = useNavigate()
+  const location = useLocation();
+  const { projectId } = location.state || {};
   const [requestStatus, setRequestStatus] = useState('');
   let [projectName, setProjectName] = useState('');
   const[users,setUsers]=useState([])
@@ -22,6 +24,7 @@ function PmRequestForm() {
   const [selectedProjId, setSelectedProjId] = useState('');
   let profileData = sessionStorage.getItem("item");
   let pdata = JSON.parse(profileData);
+
   console.log(profileData)
   const id=pdata.id
   const pname=pdata.name;
@@ -80,7 +83,7 @@ function PmRequestForm() {
   }, [])
   const fetchUsers = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/users/role/user`);
+      const response = await api.get(`https://${ngrokUrl}/api/users/withoutProject?role=user&projectId=${projectId}`);
       console.log(response.data);
       if (Array.isArray(response.data)) {
         const userNames = response.data.map(users => users.name);
@@ -168,20 +171,24 @@ console.log(pmName)
           />
         </Form.Field> */}
         <Form.Field>
-          <label style={{textAlign:'left'}}>User</label>
-          <Dropdown
-            placeholder="Select User"
-            fluid
-            selection
-            options={users.map((name, index) => ({
-              key: index,
-              text: name,
-              value: name
-            }))}
-            value={selectedUser}
-            onChange={handleUserChange}
-          />
-        </Form.Field>
+  <label style={{ textAlign: 'left' }}>User</label>
+  {users.length > 0 ? (
+    <Dropdown
+      placeholder="Select User"
+      fluid
+      selection
+      options={users.map((name, index) => ({
+        key: index,
+        text: name,
+        value: name
+      }))}
+      value={selectedUser}
+      onChange={handleUserChange}
+    />
+  ) : (
+    <p>No users available</p>
+  )}
+</Form.Field>
         <Form.Field>
           <label style={{textAlign:'left'}}>Description:</label>
           <input type="text" id="Description" required onChange={Description} />

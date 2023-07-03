@@ -67,8 +67,8 @@ const PmDashboard = () => {
     };
     fetchPmid();
   }, []);
-  const navigateForm=()=>{
-    navigate('/PmRequestForm')
+  const navigateForm=(projectId)=>{
+    navigate('/PmRequestForm',{ state: { projectId} })
   }
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
@@ -139,7 +139,7 @@ const PmDashboard = () => {
               <td>{item.projectName}</td>
               <td>{item.projectDescription}</td>
               <td>
-                    <Button color="blue" icon labelPosition="left" onClick={navigateForm}>
+                    <Button color="blue" icon labelPosition="left" onClick={()=>navigateForm(item.projectId)}>
                       <Icon name="plus" />
                       Add
                     </Button>

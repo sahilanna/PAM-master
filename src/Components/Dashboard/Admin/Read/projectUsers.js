@@ -80,7 +80,7 @@ function ProjectUsers({ open, onClose,projectId,projectName }) {
 
   return (
    
-    <Modal open={open} onClose={onClose} style={{ top: '170px', height: '300px', width: '700px' }} className="centered-modal1">
+    <Modal open={open} onClose={onClose} style={{ top: '170px', height: 'auto', width: '700px' }} className="centered-modal1">
       <Modal.Header style={{top:'80px'}}>Add Employee to Project
       <Button  color="green" floated="right" onClick={handleAddEmployee}>
               Add Employee

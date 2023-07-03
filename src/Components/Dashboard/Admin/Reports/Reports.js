@@ -111,13 +111,26 @@ function Reports() {
                 </tr>
               </thead>
               <tbody>
-                {currentRows.map((entry, index) => (
+                {/* {currentRows.map((entry, index) => (
                   <tr key={entry.userId}>
                     <td>{entry.userId}</td>
                     <td>{entry.userName}</td>
                     <td>{entry.projectNames.join(', ')}</td>
                   </tr>
-                ))}
+                ))} */}
+                {currentRows.map((entry, index) => (
+  <tr key={entry.userId}>
+    <td>{entry.userId}</td>
+    <td>{entry.userName}</td>
+    <td>
+      {entry.projectNames.length > 0 ? (
+        entry.projectNames.join(', ')
+      ) : (
+        <span style={{ fontStyle: 'italic' }}>No projects</span>
+      )}
+    </td>
+  </tr>
+))}
               </tbody>
             </table>
             {item.length > 0 && (
