@@ -38,7 +38,7 @@ const fetchCount = async () => {
 
       setData([
         { name: 'Admins', count: adminCount },
-        { name: 'Project Managers', count: pmCount },
+       
         { name: 'Users', count: userCount }
       ]);
       console.log(Data)

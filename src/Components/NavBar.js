@@ -13,7 +13,7 @@ export default class NavBar extends Component {
         
       <img src={logo} alt="Logo" style={{
         marginLeft: '-60px',width: '50px',height: '50px'}}/>
-        <Navbar.Brand className='heading' href="#href"> Project Access Management </Navbar.Brand>
+        <Navbar.Brand className='heading' Link="/"> Project Access Management </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
@@ -36,12 +36,7 @@ export default class NavBar extends Component {
               
              GitHub:-
              <NavDropdown.Divider />
-             JIRA:
-             <NavDropdown.Divider />
-             JENKINS:
-             <NavDropdown.Divider />
-             SLACK:
-             <NavDropdown.Divider />
+             
              Figma:
              <NavDropdown.Divider />
             </NavDropdown>

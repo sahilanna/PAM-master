@@ -39,24 +39,10 @@ const Footer = () => {
             <p>@{new Date().getFullYear()} All rigts reserved.</p>
           </div>
           <div className="sb_footer-below-links">
-            <a href="/terms">
-              <div>
-                <p>Terms and conditions</p>
-              </div>
-            </a>
-            <a href="/p">
-              <div>
-                <p>Privacy</p>
-              </div>
-            </a>
-            <a href="/s">
-              <div>
-                <p>security</p>
-              </div>
-            </a>
-            <a href="/c">
-              <div>
-                <p>Cookie</p>
+            <a href="/faq">
+            
+              <div style={{marginRight:'40px'}}>
+                <p>FAQs</p>
               </div>
             </a>
           </div>

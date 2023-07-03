@@ -23,6 +23,7 @@ import PmUpdate from './Components/Dashboard/PM/pmUpdate';
 import UserCreate from './Components/Dashboard/Users/userCreate';
 import UserRead from './Components/Dashboard/Users/userRead';
 import UserUpdate from './Components/Dashboard/Users/userUpdate';
+import Faq from './Components/faq.js'
 
 import CreateRepo from './Components/Dashboard/Admin/Create/CreateRepo';
 import addCollab from './Components/Dashboard/Admin/addCollab/addCollab';
@@ -96,6 +97,7 @@ function App() {
               <Route path="/Create" element={<Create />} /> */}
                 {/* <Route path='/CreateProject' element={<CreateProject/>}/> */}
           <Route path='/LoadingPage' element={<LoadingPage/>}/>
+          <Route path='/faq' element={<Faq/>}/>
           <Route path="/Login" element={<Login/>} />
           <Route path="/" element={<LandingPage/>}/>
           <Route path="/Logout" element={<Logout/>}/>

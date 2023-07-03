@@ -8,7 +8,7 @@ import NavBarA from '../NavbarA';
 import FooterA from '../FooterA';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl, ngrokUrlSwe, gitAccessToken } from '../../../../Assets/config';
 import api from '../../api';
 
 

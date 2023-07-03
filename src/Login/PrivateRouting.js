@@ -9,6 +9,7 @@ import PmReadNew from "../Components/Dashboard/PM/PmReadNew";
 import PmUpdate from "../Components/Dashboard/PM/pmUpdate";
 import UserCreate from "../Components/Dashboard/Users/userCreate";
 import UserUpdate from "../Components/Dashboard/Users/userUpdate";
+import Faq from "../Components/faq";
 
 import CreateRepo from "../Components/Dashboard/Admin/Create/CreateRepo";
 import Reports from "../Components/Dashboard/Admin/Reports/Reports";
