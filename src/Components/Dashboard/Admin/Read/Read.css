@@ -91,6 +91,14 @@
   flex-direction:center;
 }
 
+.centered-modal1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 370px;
+}
+
+
 
 @media only screen and (max-width: 500px) {
   .form-display {

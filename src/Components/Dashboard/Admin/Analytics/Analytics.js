@@ -9,10 +9,14 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
 import "./Analytics.css";
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
+import { Button } from 'semantic-ui-react';
+import { useNavigate } from 'react-router-dom';
 
 function Analytics() {
   const [Data, setData] = useState([]);
+  const navigate =useNavigate()
   const [isLoading, setIsLoading] = useState(true);
+  const [showProjectAnalytics, setShowProjectAnalytics] = useState(false);
   
   const fetchCount = async () => {
     try {
@@ -29,8 +33,8 @@ function Analytics() {
 
       setData([
         { name: 'Admins', count: adminCount },
-        { name: 'Project Managers', count: pmCount },
-        { name: 'Users', count: userCount }
+        { name: 'Users', count: userCount },
+        { name: 'Project Managers', count: pmCount }
       ]);
     } catch (error) {
       console.error(error);
@@ -44,6 +48,10 @@ function Analytics() {
 
   const COLORS = ['#FFBB28', '#FF8042', '#0088FE'];
 
+  const handleNextClick = () => {
+    navigate('/projectAnalytics')
+  };
+
   return (
     <div className='parent-adm'>
       <Sidebar />
@@ -51,7 +59,9 @@ function Analytics() {
         <div className='Analytics-components'>
           {isLoading ? (
             <LoadingPage />
-          ) : (
+          ) : showProjectAnalytics ? (
+            <ProjectAnalytics />
+            ) : (
             <>
               <h2>Count of Admin, PMs, and Users</h2>
               <PieChart width={300} height={300}>
@@ -71,9 +81,11 @@ function Analytics() {
                 <Tooltip />
                 <Legend />
               </PieChart>
-              <div style={{ textAlign: 'center' }}>
+              <br/>
+              <Button primary onClick={handleNextClick}>Next</Button>
+              {/* <div style={{ textAlign: 'center' }}>
                 <ProjectAnalytics />
-              </div>
+              </div> */}
             </>
           )}
         </div>
@@ -83,6 +95,7 @@ function Analytics() {
 }
 
 export default Analytics;
+
 
 
 

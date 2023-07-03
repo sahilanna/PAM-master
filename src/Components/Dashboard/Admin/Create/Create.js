@@ -152,7 +152,7 @@ const Create = () => {
 
           <Form onSubmit={handleSubmit}>
             <Form.Field>
-            <label style={{ textAlign: 'left' }}>Project-Name</label>
+            <label style={{ textAlign: 'left' }}>Project-Name<span style={{ color: 'red' }}>*</span></label>
            
             <Dropdown
               placeholder="Select project"
@@ -166,7 +166,7 @@ const Create = () => {
            
   
           <Form.Field>
-            <label style={{ textAlign: 'left' }}>REPO</label>
+            <label style={{ textAlign: 'left' }}>REPO<span style={{ color: 'red' }}>*</span></label>
            
             <Dropdown
               placeholder="Select Repo"

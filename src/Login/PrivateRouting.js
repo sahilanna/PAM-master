@@ -35,7 +35,7 @@ import UserRepoRead from "../Components/Dashboard/UserDashboard/userRepoRead";
 import UserFigmaRead from "../Components/Dashboard/UserDashboard/userFigmaRead";
 import Logout from "./Logout";
 import Analytics from "../Components/Dashboard/Admin/Analytics/Analytics";
-import ProjectAnalytics from "../Components/Dashboard/Admin/Analytics/projectAnalytics";
+
 import Profile from "../Components/Dashboard/Admin/Profile";
 import UserProfile from "../Components/Dashboard/UserDashboard/userProfile";
 import PmProfile from "../Components/Dashboard/ProjectManager/pmprofile";
@@ -46,6 +46,12 @@ import DeleteRepo from "../Components/Dashboard/Admin/Repository/deleteRepo";
 import AddFile from "../Components/Dashboard/Admin/Create/addFile";
 import ProjectUsers from "../Components/Dashboard/Admin/Read/projectUsers";
 import AddUserProject from "../Components/Dashboard/Admin/Create/addUserProject";
+import ProjectAnalytics from "../Components/Dashboard/Admin/Analytics/projectAnalytics";
+import Faq from "../Components/faq";
+import ProjectPms from "../Components/Dashboard/Admin/Read/projectPms";
+import AddPmProject from "../Components/Dashboard/Admin/Create/addPmProject";
+
+
 
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
@@ -75,7 +81,7 @@ const PrivateRoutes = () => {
               <Route path="/Read" element={<Read/>} />
               <Route path="/RepoRead" element={<RepoRead/>} />
               <Route path="/UserRead" element={<UserRead/>} />
-              <Route path='/Analytics' element={<Analytics/>}/>
+              {/* <Route path='/Analytics' element={<Analytics/>}/> */}
               <Route path="/Update/:projectId" element={<Update />} />
               <Route path="/PmCreate" element={<PmCreate />} />
               <Route path="/PmReadNew" element={<PmReadNew />} />
@@ -100,9 +106,15 @@ const PrivateRoutes = () => {
               <Route path='/addFile' element={<AddFile/>}/>
               <Route path='/projectUsers' element={<ProjectUsers/>}/>
               <Route path='/addUserProject' element={<AddUserProject/>}/>
+              <Route path='/projectPms' element={<ProjectPms/>}/>
+              <Route path='/addPmProject' element={<AddPmProject/>}/>
             
               <Route path='/Profile' element={<Profile/>}/>
-              <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/>
+              
+              <Route path='/ProjectAnalytics' element={<ProjectAnalytics/>}/>
+              <Route path='/Analytics' element={<Analytics/>}/>
+              
+
               {/* <Route path='/gitCreate' element={<GitCreate/>}/> */}
              
              {/* <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/> */}

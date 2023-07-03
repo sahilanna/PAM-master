@@ -51,13 +51,13 @@ navigate(-1);
         <Modal.Content>
         <Form onSubmit={handleSubmit}>
             <Form.Field>
-              <label style={{ textAlign: 'left' }}>Project-Name</label>
+              <label style={{ textAlign: 'left' }}>Project-Name<span style={{ color: 'red' }}>*</span></label>
               <input name='name' onChange={(e) => setProjectName(e.target.value)} placeholder='Name' />
           
             <br />
             </Form.Field>
             <Form.Field>
-              <label style={{ textAlign: 'left' }}>Project Description</label>
+              <label style={{ textAlign: 'left' }}>Project Description<span style={{ color: 'red' }}>*</span></label>
               <input name='description' onChange={(e) => setProjectDescription(e.target.value)} placeholder='description' />
             
             </Form.Field>

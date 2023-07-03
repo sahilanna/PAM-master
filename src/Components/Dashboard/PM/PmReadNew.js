@@ -167,7 +167,12 @@ function PmReadNew() {
             <th className='text-center'>Delete</th>
          </thead>
          <tbody>
-           {filteredProjects.map((item, index) => (
+          {filteredProjects.length === 0 ? (
+                  <tr>
+                    <td colSpan='3'>No data available</td>
+                  </tr>
+          ):(
+           filteredProjects.map((item, index) => (
     <tr key={index}>
           
           {/* {currentPageData.map((item, index) => (
@@ -210,7 +215,7 @@ function PmReadNew() {
       
               
             </tr>
-          ))}
+          )))}
         </tbody>
 
       </table>

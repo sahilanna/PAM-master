@@ -95,7 +95,7 @@ function AddUserName() {
         <Modal.Content>
           <Form onSubmit={handleSubmit}>
             <Form.Field>
-              <label style={{ textAlign: 'left' }}>Users</label>
+              <label style={{ textAlign: 'left' }}>Users<span style={{ color: 'red' }}>*</span></label>
               <Dropdown
                 placeholder="Select User"
                 fluid
@@ -106,7 +106,7 @@ function AddUserName() {
             </Form.Field>
             <br />
             <Form.Field>
-              <label style={{ textAlign: 'left' }}>github Username</label>
+              <label style={{ textAlign: 'left' }}>Github Username<span style={{ color: 'red' }}>*</span></label>
               <input
                 placeholder="Enter github username"
                 value={githubUsername}

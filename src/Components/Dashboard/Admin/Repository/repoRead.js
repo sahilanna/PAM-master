@@ -97,13 +97,19 @@ function RepoRead() {
                 </tr>
               </thead>
               <tbody>
-                {filteredProjects.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.repoId}</td>
-                    <td>{item.name}</td>
-                    <td>{item.description}</td>
+                {filteredProjects.length === 0 ? (
+                  <tr>
+                    <td colSpan='3'>No data available</td>
                   </tr>
-                ))}
+                ) : (
+                  filteredProjects.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.repoId}</td>
+                      <td>{item.name}</td>
+                      <td>{item.description}</td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           )}
@@ -114,6 +120,8 @@ function RepoRead() {
 }
 
 export default RepoRead;
+
+
 
 
 

@@ -23,7 +23,14 @@ function PmRequestForm() {
   const [selectedProjId, setSelectedProjId] = useState('');
   
     
-
+  let profileData = sessionStorage.getItem("item");
+  let pdata = JSON.parse(profileData);
+  console.log(profileData)
+  const id=pdata.id
+  const pname=pdata.name;
+  const pemail=pdata.email;
+  const prole=pdata.enumRole;
+  console.log(pname)
 
   const handleUserChange = (event, { value }) => {
     const selectedUserObj = userObj.find(userr => userr.name === value);
@@ -109,7 +116,8 @@ projectName=item;
 setRequestDescription(e.target.value)
 }  
 
- 
+const pmName = pname;
+console.log(pmName)
   
   const handleSubmit = async (e) => {
 
@@ -118,8 +126,7 @@ setRequestDescription(e.target.value)
       console.log(selectedUserId)
       console.log(selectedProjId);
       console.log(requestDescription);
-      const pmName =selectedPm;
-      console.log(pmName)
+      
      
     
       try {
@@ -185,7 +192,7 @@ setRequestDescription(e.target.value)
           />
         </Form.Field>
         
-        <Form.Field>
+        {/* <Form.Field>
           <label style={{textAlign:'left'}}>PMs</label>
           <Dropdown
             placeholder="Select PM"
@@ -199,7 +206,7 @@ setRequestDescription(e.target.value)
             value={selectedPm}
             onChange={handlePmChange}
           />
-        </Form.Field>
+        </Form.Field> */}
 
         
         <Form.Field>

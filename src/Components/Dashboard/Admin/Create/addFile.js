@@ -79,7 +79,7 @@ function AddFile() {
           </Form.Field>
           <Form.Field>
             <div>
-              <label>Add Help document</label>
+              <label>Add Help document<span style={{ color: 'red' }}>*</span></label>
               <input className="text-center" type="file" onChange={handleModelFileSelect} />
               {modalfile && <div>{modalfile.name}</div>}
               {fileErrorMessage && <div style={{ color: 'red' }}>{fileErrorMessage}</div>}

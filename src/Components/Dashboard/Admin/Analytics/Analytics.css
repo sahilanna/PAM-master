@@ -14,6 +14,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-top: 80px;
   }
   
   .Analytics-side {
@@ -22,8 +23,13 @@
     z-index: 999;
     left: 0;
     height: auto;
-    padding-right: 20px; /* Adjust the padding as needed */
+    padding-right: 20px;
     overflow-y: auto;
+    
+  }
+  .btn-primary{
+    margin-top:15px;
+    
   }
   
 

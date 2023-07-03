@@ -9,6 +9,8 @@ import './FigmaRead.css'
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import DialogBox from '../../DialogBox/DialogBox';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 function FigmaRead() {
@@ -85,19 +87,21 @@ function FigmaRead() {
     handleFilterItems(e.target.value);
   };
   const handleFilterItems = (searchQuery) => {
-    
-      const filteredItems = projects && projects.filter((item) =>
-  item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredItems = projects.filter((item) =>
+      item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
     );
+    setFilteredProjects(filteredItems);
     setCurrentPageData(filteredItems.slice(0, itemsPerPage));
   };
+
   const filteredItems = projects.filter((item) =>
     item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  );
 
   useEffect(() => {
     handlePaginate(1);
-  }, [projects]);
+  }, [filteredProjects]);
+
   return (
     <div className='parent-admin'>
       <Sidebar/>
@@ -115,7 +119,6 @@ function FigmaRead() {
             marginRight: '30px',
           }}
         >
-          
           <div className="ui left icon input">
             <input type="text" placeholder="Search repo..." value={searchQuery} onChange={handleSearchChange} />
             <i className="users icon"></i>
@@ -125,58 +128,60 @@ function FigmaRead() {
           </button>
         </div>
         <div style={{ marginLeft: '20px', marginRight: '30px' }}>
-        {isLoading ? (
+          {isLoading ? (
             <LoadingPage />
+          ) : filteredProjects.length === 0 ? (
+            <p>No data available</p>
           ) : (
-          <table className="ui celled table">
-            <thead>
-              <tr>
-                <th>Figma Id</th>
-                <th>Project Name</th>
-                <th>Figma URL</th>
-                <th>ADD User</th>
-                <th>Delete URL</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentPageData.map((project, index) => (
-                <tr key={project.figmaId}>
-                  <td>{project.figmaId}</td>
-                  <td>{project.projectDTO.projectName}</td>
-                  <td>
-                    <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">
-                      {project.figmaURL}
-                    </a>
-                  </td>
-                  <td>
-                    <Button color="blue" icon labelPosition="left" onClick={() => handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
-                      <Icon name="plus" />
-                      Add
-                    </Button>
-                  </td>
-                  <td>
-                    <Button color="red" icon labelPosition="left" onClick={() => setShowConfirmDialog( project.figmaId)}>
-                      <Icon name="minus" />
-                    </Button>
-                    <DialogBox
-                          show={showConfirmDialog === project.figmaId}
-                          onClose={() => setShowConfirmDialog(null)}
-                          onConfirm={() => handleDeleteUrl(project.figmaId)}
-                        />
-                  </td>
+            <table className="ui celled table">
+              <thead>
+                <tr>
+                  <th >Figma Id</th>
+                  <th >Project Name</th>
+                  <th >Figma URL</th>
+                  <th className="text-center">Add User</th>
+                  <th className="text-center">Delete URL</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {currentPageData.map((project, index) => (
+                  <tr key={project.figmaId}>
+                    <td>{project.figmaId}</td>
+                    <td>{project.projectDTO.projectName}</td>
+                    <td>
+                      <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">
+                        {project.figmaURL}
+                      </a>
+                    </td>
+
+                    <td className="text-center">
+                    <button className="btn btn-primary mx-2" onClick={() =>  handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
+                      <FontAwesomeIcon icon={faUser} />
+                      </button>
+                    </td>
+                    
+                    <td className="text-center">
+                    <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(project.figmaId)}>
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                     
+                      <DialogBox
+                        show={showConfirmDialog === project.figmaId}
+                        onClose={() => setShowConfirmDialog(null)}
+                        onConfirm={() => handleDeleteUrl(project.figmaId)}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           )}
         </div>
       </div>
       <div className='model-container'>
-      <div className="modal-content-container">
-      {showModal && <FigmaCreate onClose={closeModal} figmaURL={figmaURL} figmaId={figmaId} projectId={projectId} />}
-
-      {/* {showModal && <FigmaCreate onClose={closeModal} figmaURL={figmaURL} figmaId={figmaId} />} */}
-    </div>
+        <div className="modal-content-container">
+          {showModal && <FigmaCreate onClose={closeModal} figmaURL={figmaURL} figmaId={figmaId} projectId={projectId} />}
+        </div>
       </div>
     </div>
   );

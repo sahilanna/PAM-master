@@ -110,7 +110,7 @@ function AddPmUserName() {
           <Form onSubmit={handleSubmit}>
 
     <Form.Field>
-          <label style={{textAlign:'left'}}>PM</label>
+          <label style={{textAlign:'left'}}>PM<span style={{ color: 'red' }}>*</span></label>
           <Dropdown
             placeholder="Select PM"
             fluid
@@ -122,7 +122,7 @@ function AddPmUserName() {
           </Form.Field>
           
       <Form.Field>
-        <label style={{textAlign:'left'}}>Github Username</label>
+        <label style={{textAlign:'left'}}>Github Username<span style={{ color: 'red' }}>*</span></label>
         <input
           placeholder="Enter github username"
           value={githubUsername}
@@ -130,7 +130,7 @@ function AddPmUserName() {
         />
       </Form.Field>
      
-      <Button type='submit'>Submit</Button>
+      <Button type='submit'primary disabled={!setSelectedUser || !githubUsername}>Submit</Button>
         </Form>
 
         </Modal.Content>

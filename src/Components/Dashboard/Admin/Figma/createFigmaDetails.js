@@ -128,7 +128,7 @@ function CreateFigmaDetails() {
           <Form onSubmit={handleSubmit}>
    
       <Form.Field>
-            <label style={{textAlign:'left'}}>Projects</label>
+            <label style={{textAlign:'left'}}>Projects<span style={{ color: 'red' }}>*</span></label>
             <Dropdown
               placeholder="Select Project"
               fluid
@@ -139,7 +139,7 @@ function CreateFigmaDetails() {
             </Form.Field>
 
             <Form.Field>
-            <label style={{ textAlign: 'left' }}>Figma URL</label>
+            <label style={{ textAlign: 'left' }}>Figma URL<span style={{ color: 'red' }}>*</span></label>
             <input
               type='text'
               placeholder="Enter Figma URL"

@@ -103,7 +103,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
           X
         </Button>
         </div>
-      <Modal.Header>Add Project</Modal.Header>
+      <Modal.Header>Add User</Modal.Header>
     
        
       
@@ -111,7 +111,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
      
         <Form onSubmit={handleSubmit}>
           <Form.Field>
-            <label>URL</label>
+            <label>URL<span style={{ color: 'red' }}>*</span></label>
             <input
               type="text"
               placeholder="Enter URL"
@@ -121,7 +121,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
             />
           </Form.Field>
           <Form.Field>
-            <label>User</label>
+            <label>User<span style={{ color: 'red' }}>*</span></label>
             <Dropdown
               placeholder="Select User"
               fluid
@@ -136,7 +136,9 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
             />
           </Form.Field>
           <Form.Field>
+          <label>Upload Screenshot<span style={{ color: 'red' }}>*</span></label>
           <div className="Feeds-uplaod-image">
+            
             <label className="Photo" htmlFor="file-upload">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
                 <i class="fa fa-2x fa-camera"></i>

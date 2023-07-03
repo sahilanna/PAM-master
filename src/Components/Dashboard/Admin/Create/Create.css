@@ -73,3 +73,14 @@
     width:55px;
  
   }
+  .centered-modal-OTP {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 440px;
+    height: 278px;
+    top:100px;
+    
+  }
+  
+  
