@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, Modal, Form } from 'semantic-ui-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
@@ -19,83 +19,102 @@ function ProjectPms({ open, onClose,projectId,projectName }) {
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  // const { projectId } = location.state || {};
-  //    const {projectName}= location.state|| {};
-  // const projectIdd=projectId
-  // let projectIddd=projectIdd
-  console.log(projectName)
-  console.log(projectId)
+   const [showOTPMoal, setShowOTPMoal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [otp, setOtp] = useState('');
+  const [selectedUserId, setSelectedUserId] = useState('');
+
+
+  // console.log(projectName)
+  // console.log(projectId)
 
   const navigate = useNavigate();
 
-//   useEffect(() => {
-//     getPms();
-//   }, []);
 
+const getUsers = async () => {
+    setIsLoading(true);
+    try {
+      const response = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/users/project_manager`);
+      setPms(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
 
-//   const getPms = async () => {
-//     setIsLoading(true);
-//     try {
-//       const response = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/users`);
-//       setPms(response.data);
-//       setIsLoading(false);
-//     } catch (error) {
-//       console.log(error);
-//       setIsLoading(false);
-//     }
-//   };
-
-useEffect(() => {
-    const getPms = async () => {
-      setIsLoading(true);
-      try {
-        const response = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/users/project_manager`);
-        setPms(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-        setIsLoading(false);
-      }
-    };
-
-    getPms();
+   useEffect(() => {
+    getUsers();
   }, [projectId]);
 
+   const handleAddEmployee = () => {
+    navigate('/addPmProject', { state: { projectId, projectName } });
+  };
 
+   const handleSubmit = (userId) => {
+    setSelectedUserId(userId);
+    setShowConfirmDialog(true);
+  };
 
-  const deletePm = async (userId) => {
+  const handleConfirmDelete = async () => {
     try {
-      await api.delete(`https://${ngrokUrl}/api/projects/${projectId}/users/${userId}`);
-      setShowConfirmDialog(false);
-      pms();
+      const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
+        phoneNumber: '+91 7032051235',
+      });
+
+      if (otpResponse.status === 200) {
+        setSelectedUserId(selectedUserId);
+        setShowConfirmDialog(false);
+        setShowOTPMoal(true);
+      } else {
+        console.log('OTP generation failed');
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleAddPm = () => {
-    console.log('proo',projectName)
-          navigate('/addPmProject', { state: { projectId, projectName } });
+  const handleCancelDelete = () => {
+    setShowConfirmDialog(false);
   };
+
+  const handleOTPSubmit = async (e) => {
+    e.preventDefault();
+
+    const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/verify`, {
+      otp: otp,
+    });
+    
+    if (otpSubmissionResponse.status === 200) {
+      await api.delete(`https://${ngrokUrl}/api/projects/${projectId}/users/${selectedUserId}`);
+      getUsers();
+      setShowOTPMoal(false);
+    } else {
+      setErrorMessage('Invalid OTP. Please try again.');
+    }
+  };
+
+  const handleOTPClose = () => {
+    setShowOTPMoal(false);
+  };
+
+  const handleModalClose = () => {
+    onClose();
+  };
+
 
 
 
   return (
    
-    <Modal open={open} onClose={onClose} style={{ top: '170px', height: '300px', width: '700px' }} className="centered-modal1">
-      <Modal.Header style={{top:'80px'}}>Add PM to Project
-      <Button  color="green" floated="right" onClick={handleAddPm}>
+    <Modal open={open} onClose={handleModalClose} style={{ top: '170px', height: 'auto', width: '700px' }} className="centered-modal1">
+      <Modal.Header style={{top:'80px'}}>Project Manager
+      <Button  color="green" floated="right" onClick={handleAddEmployee}>
               Add PM
             </Button>
       </Modal.Header>
       <Modal.Content>
-        {/* <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '20px', marginBottom: '30px', marginLeft: '40px', marginRight: '30px' }}>
-          <div style={{ marginTop: '20px' }}>
-            <Button  color="green" floated="right" onClick={handleAddEmployee}>
-              Add Employee
-            </Button>
-          </div>
-        </div> */}
+      
 
         <div style={{ marginLeft: '20px', marginRight: '30px' }}>
           {isLoading ? (
@@ -104,10 +123,10 @@ useEffect(() => {
             <table className="ui celled table">
               <thead>
                 <tr>
-                  <th>User ID</th>
-                  <th>User Name</th>
-                  <th>User Email</th>
-                  <th>Delete User</th>
+                  <th>PM ID</th>
+                  <th>PM Name</th>
+                  <th>PM Email</th>
+                  <th>Delete PM</th>
                 </tr>
               </thead>
               <tbody>
@@ -118,17 +137,13 @@ useEffect(() => {
                       <td>{user.name}</td>
                       <td>{user.email}</td>
                       <td>
-              <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(user.id)}><FontAwesomeIcon icon={faTrash} /> </button>
-  <DialogBox
-      show={showConfirmDialog === user.id}
-      onClose={() => setShowConfirmDialog(null)}
-       onConfirm={()=>deletePm(user.id)}/> </td>
-                     
+              <button className='btn btn-danger mx-2' onClick={() =>  handleSubmit(user.id)}><FontAwesomeIcon icon={faTrash} /> </button>
+                 </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="4">No users found</td>
+                    <td colSpan="4">No PM found</td>
                   </tr>
                 )}
               </tbody>
@@ -137,9 +152,31 @@ useEffect(() => {
         </div>
       </Modal.Content>
       <Modal.Actions>
-          <Button onClick={onClose}>Close</Button>
+        <Button onClick={handleModalClose}>Close</Button>
+      </Modal.Actions>
+      {/* OTP Modal */}
+      <Modal open={showOTPMoal} onClose={handleOTPClose} style={{ width: '500px' }} className="centered-modal-OTP">
+        <Modal.Header>Enter OTP</Modal.Header>
+        <Modal.Content>
+          <Form onSubmit={handleOTPSubmit}>
+            <div className="form-field">
+              <label>OTP sent to '+91 7032051235'</label>
+              <input type="text" name="otp" onChange={(e) => setOtp(e.target.value)} />
+            </div>
+            <p>{errorMessage}</p>
+            <Button type="submit" primary>
+              Submit OTP
+            </Button>
+          </Form>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button onClick={handleOTPClose}>Cancel</Button>
         </Modal.Actions>
+      </Modal>
+      {/* Confirm Delete Dialog */}
+      <DialogBox show={showConfirmDialog} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
     </Modal>
+  
    
   );
 }

@@ -38,10 +38,7 @@ function DeleteRepo() {
             }
             const response=api.delete(`https://${ngrokUrl}/api/repositories/${repoId}`,)
             navigate('/repoRead')
-          
-          
-            
-            
+         
           };
 
 
@@ -49,7 +46,6 @@ function DeleteRepo() {
             const selectedRepo = options.find((option) => option.value === value);
             setRepoId(value)  
             console.log(repoId)
-            // console.log("repoValue",value)
             setSelectedRepo(selectedRepo.text);
           }
 
@@ -58,8 +54,8 @@ function DeleteRepo() {
           }
     
   return (
-    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0', width: '500px', height: '600px' }}>
-        <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
+    <Modal open={true} onClose={onClose} style={{ width: '500px' }} className='create-Project-Modal'>
+        <div style={{ paddingTop: '5px' }}></div>
         <div style={{ paddingLeft: '442px' }}>
           <Button secondary onClick={onClose}>
             X

@@ -16,7 +16,10 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   const navigate = useNavigate();
   const [fdata, setFdata] = useState();
   const [namesFile, setNamesFile] = useState([]);
+  const[repoName, setRepoName]=useState('')
+
   const[repo, setRepo]= useState([])
+  const[figmaLink, setFigmaLink]=useState([])
 
   const handleAddEmployee = () => {
     setShowAddUserProject(true);
@@ -39,69 +42,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     setShowConfirmDialog(false);
   };
 
-  // const viewFile = async (projectId) => {
-  //   try {
-  //     const response = await api.get(`https://${ngrokUrl}/api/projects/files?projectId=${projectId}`, {
-  //       responseType: 'blob',
-  //       contentType: 'application/zip',
-  //     });
-  //     const files = response.data;
-  //     setFileData(files);
-  //     const namesArray = files.map(obj => obj.fileName);
-  //     setNamesFile(namesArray);
-  //     for (let i = 0; i < files.length; i++) {
-  //       const file = files[i];
-  //       setFileNames(prevFileNames => [...prevFileNames, file.fileName]);
-  //       await downloadFile(file.data, namesArray[i]);
-  //     }
-  //     navigate('/adminDashboard');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  
-  // const downloadFile = (fdata, fileName) => {
-  //   return new Promise(async (resolve) => {
-  //     try {
-  //       console.log(fdata)
-  //       const response = await fetch(fdata);
-  //       console.log(response)
-  //       const data = await response.blob();
-  //       const downloadUrl = window.URL.createObjectURL(data);
-  //       const link = document.createElement("a");
-  //       link.href = downloadUrl;
-  //       link.setAttribute("download", fileName);
-  //       document.body.appendChild(link);
-  //       link.click();
-  //       link.remove();
-  //       await new Promise(resolve => setTimeout(resolve, 1000));
-  //       resolve();
-  //     } catch (error) {
-  //       console.log(`Error downloading file ${fileName}:`, error);
-  //       resolve();
-  //     }
-  //   });
-  // };
-  
 
-  // const viewFile = async (projectId) => {
-  //   try {
-  //     const response = await api.get(`https://${ngrokUrl}/api/projects/files?projectId=${projectId}`, );
-  //     const files = response.data;
-  //     setFileData(files); // Update: Set fileData directly with the response data
-  //     const namesArray = files.map(obj => obj.fileName);
-  //     const fileDownload = files.map(obj => obj.data);
-  //     setNamesFile(namesArray);
-  //     for (let i = 0; i < files.length; i++) {
-  //       const file = files[i];
-  //       setFileNames(prevFileNames => [...prevFileNames, file.fileName]);
-  //       await downloadFile(fileDownload[i], namesArray[i]);
-  //     }
-  //     navigate('/adminDashboard');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const viewFile = async (projectId) => {
     const result = await api.get(`https://${ngrokUrl}/api/projects/files?projectId=${projectId}`, {
@@ -127,7 +68,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     try {
       const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
       setRepo(response.data);
-      console.log(repo)
+      // console.log(repo)
       
     } catch (error) {
       console.log(error);
@@ -139,6 +80,32 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     loadItems();
   }, []);
 
+
+  const loadRepo = async () => {
+    try {
+      const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
+      setRepo(response.data);
+      setRepoName(response.data.name)
+      console.log(repo)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    loadRepo();
+  }, []);
+  const loadFigma = async () => {
+    try {
+      const response = await api.get(`https://${ngrokUrl}/api/figmas/project/${projectId}`, {});
+      setFigmaLink(response.data);
+      console.log(figmaLink)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    loadFigma();
+  }, []);
   
 
   const downloadFile = (fdata, fileName) => {
@@ -200,7 +167,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
         </Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <p>
+          <p>
               <strong>Project ID:</strong> {projectId}
             </p>
             <p>
@@ -220,7 +187,19 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     <ul>
       {repo.map((repo, index) => (
         <li key={index}>{repo.name}</li>
-      ))}
+      ))} 
+    </ul>
+    
+  ) : (
+    '-'
+  )}
+            </p>
+            <p>
+              <strong>Figma Link:</strong> {figmaLink.length > 0 ? (
+    <ul>
+      <a href={figmaLink}>
+          <li>{figmaLink}</li>
+        </a>
     </ul>
   ) : (
     '-'

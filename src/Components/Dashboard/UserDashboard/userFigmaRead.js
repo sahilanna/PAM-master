@@ -65,57 +65,58 @@ function UserFigmaRead() {
      handlePaginate(1);
    }, [figmaUser]);
      return (
-         <div className='parent-admin'>
-         <div style={{ height: '100vh', overflow: 'scroll initial' }}>
-             <UserSidebar/>
-             </div>
-            <div className='admin-child'>
-               <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
-             <div class="ui left icon input">
-       <input type="text" placeholder="Search Projects..." value={searchQuery} onChange={handleSearchChange} ></input>
-       <i class="users icon"></i>
-     </div>
-         </div>
-         <div style={{marginLeft:'20px',marginRight:'30px'}}>
-         {isLoading ? (
-             <LoadingPage />
-           ) : (
-         <table class="ui celled table">
-             <thead>
-                 <th>Project Name</th>
-                 <th>Figma URL</th>
-               
-             </thead>
-             <tbody>
-   {figmaUser && figmaUser.length > 0 ? (
-     currentPageData.map((item, index) => (
-       <tr key={index}>
-        {item.projectName && item.figma ? (
-   <>
-     <td>{item.projectName}</td>
-     <td><a href={item.figma.figmaURL} target="_blank" rel="noopener noreferrer">
-                       {item.figma.figmaURL}
-                     </a></td>
-   </>
- ) : (
-   <>
-     <td></td>
-     <td></td>
-   </>
- )}
-       </tr>
-     ))
-   ) : (
-     <tr>
-       <td colSpan="2">No data available</td>
-     </tr>
-   )}
- </tbody>
-           </table>
-           )}
-           </div>
-           </div>
-         </div>
+      <div className='parent-admin'>
+      <div style={{ height: '100vh', overflow: 'scroll initial' }}>
+          <UserSidebar/>
+          </div>
+         <div className='admin-child'>
+            <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
+          <div class="ui left icon input">
+    <input type="text" placeholder="Search Projects..." value={searchQuery} onChange={handleSearchChange} ></input>
+    <i class="users icon"></i>
+  </div>
+      </div>
+      <div style={{marginLeft:'20px',marginRight:'30px'}}>
+      {isLoading ? (
+          <LoadingPage />
+        ) : (
+      <table class="ui celled table">
+          <thead>
+              <th>Project Name</th>
+              <th>Figma URL</th>
+          </thead>
+          <tbody>
+{figmaUser && figmaUser.length > 0 ? (
+ currentPageData.map((item, index) => (
+   <tr key={index}>
+     {item.projectName && item.figma && item.figma.figmaURL ? (
+       <>
+         <td>{item.projectName}</td>
+         <td>
+           <a href={item.figma.figmaURL} target="_blank" rel="noopener noreferrer">
+             {item.figma.figmaURL}
+           </a>
+         </td>
+       </>
+     ) : (
+       <>
+         <td>{item.projectName}</td>
+         <td>No URL</td>
+       </>
+     )}
+   </tr>
+ ))
+) : (
+ <tr>
+   <td colSpan="2">No data available</td>
+ </tr>
+)}
+</tbody>
+        </table>
+        )}
+        </div>
+        </div>
+      </div>
    )
  }
  export default UserFigmaRead
