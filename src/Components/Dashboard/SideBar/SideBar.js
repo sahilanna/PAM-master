@@ -16,7 +16,7 @@ function Sidebar() {
     
       <CDBSidebar textColor="#fff" backgroundColor="#333">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-          <a href="/LandingPage" className="text-decoration-none" style={{ color: 'inherit' }}>
+          <a href="/adminDashboard" className="text-decoration-none" style={{ color: 'inherit' }}>
             PAM
           </a>
         </CDBSidebarHeader>

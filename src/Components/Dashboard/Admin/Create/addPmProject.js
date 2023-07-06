@@ -56,7 +56,7 @@ function AddPmProject() {
 
     try {
       const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
-        phoneNumber: '+91 7032051235',
+        phoneNumber: '+91 8884763231',
       });
 
       console.log(otpResponse);
@@ -96,7 +96,7 @@ function AddPmProject() {
   };
 
   return (
-    <Modal open onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0', width: '500px', height: '600px' }}>
+    <Modal open onClose={onClose} style={{ width: '500px', height:'400px'}} className='create-Project-Modal'>
       <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
       <div style={{ paddingLeft: '442px' }}>
         <Button secondary onClick={onClose}>

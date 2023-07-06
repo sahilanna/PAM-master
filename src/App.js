@@ -29,6 +29,7 @@ import Profile from './Components/Dashboard/Admin/Profile';
 import ProjectAnalytics from './Components/Dashboard/Admin/Analytics/projectAnalytics';
 import LoadingPage from './Assets/Loader/LoadingPage';
 import Faq from "./Components/faq";
+import IpAddress from './Assets/ipAddress';
 
 
 
@@ -63,6 +64,7 @@ function App() {
               <Route path="/Login" element={<Login />} />
               <Route path="/Create" element={<Create />} /> */}
               <Route path='/Analytics' element={<Analytics/>}/>
+              <Route path='/ipAddress' element={<IpAddress/>}/>
                 {/* <Route path='/CreateProject' element={<CreateProject/>}/> */}
           <Route path='/LoadingPage' element={<LoadingPage/>}/>
           <Route path="/Login" element={<Login/>} />

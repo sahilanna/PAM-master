@@ -94,7 +94,7 @@ function AddUserProject() {
 
     try {
       const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
-        phoneNumber: '+91 7032051235',
+        phoneNumber: '+91 8884763231',
       });
 
       console.log(otpResponse);
@@ -105,6 +105,8 @@ function AddUserProject() {
     }
   };
 
+
+
   const handleOTPSubmit = async (e) => {
     e.preventDefault();
 
@@ -112,20 +114,25 @@ function AddUserProject() {
       const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/verify`, {
         otp: otpp,
       });
+      console.log(otpSubmissionResponse.data)
 
-      if (otpSubmissionResponse.status === 200) {
+      if (otpSubmissionResponse.data == true) {
         const addUserResponse = await api.put(`https://${ngrokUrl}/api/projects/${projectId}/users/${userId}`, {
           projectId: projectId,
           userId: userId,
         });
+       navigate('/adminDashboard')
 
-        navigate('/AdminDashboard');
-      } else {
+       
+        
+      } else if(otpSubmissionResponse.data==false){
         setErrorMessage('Invalid OTP. Please try again.');
+        console.log(otpSubmissionResponse.response)
       }
     } catch (error) {
       console.log('Error:', error);
-      setErrorMessage('Invalid OTP. Please try again.');
+      setErrorMessage('something went wrong');
+      console.log(errorMessage)
     }
   };
 
@@ -134,8 +141,8 @@ function AddUserProject() {
   };
 
   return (
-    <Modal open onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0', width: '500px', height: '600px' }}>
-      <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
+    <Modal open onClose={onClose}  style={{ width: '500px' }} className='create-Project-Modal'>
+      <div style={{paddingTop: '6px' }}></div>
       <div style={{ paddingLeft: '442px' }}>
         <Button secondary onClick={onClose}>
           X
@@ -167,11 +174,11 @@ function AddUserProject() {
         <Modal.Content>
           <Form onSubmit={handleOTPSubmit}>
             <div className="form-field">
-              <label>OTP</label>
+              <label>OTP sent to +917032051235'</label>
               <input type="text" name="otp" onChange={(e) => setotpp(e.target.value)} />
             </div>
             <p>{errorMessage}</p>
-            <Button type="submit" primary>
+            <Button type="submit"  primary>
               Submit OTP
             </Button>
           </Form>

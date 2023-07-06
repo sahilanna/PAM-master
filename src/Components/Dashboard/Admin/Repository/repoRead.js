@@ -29,6 +29,7 @@ function RepoRead() {
       const response = await api.get(`https://${ngrokUrl}/api/repositories/get`);
       setItem(response.data);
       setIsLoading(false);
+   
     } catch (error) {
       setIsLoading(true);
     }
@@ -96,7 +97,8 @@ function RepoRead() {
             <table className='ui celled table'>
               <thead>
                 <tr>
-                  <th>Repo ID</th>
+                  <th>S.No.</th>
+                  {/* <th>Repo ID</th> */}
                   <th>Repo Name</th>
                   <th>Repo Description</th>
                 </tr>
@@ -109,7 +111,8 @@ function RepoRead() {
                 ) : (
                   filteredProjects.map((item, index) => (
                     <tr key={index}>
-                      <td>{item.repoId}</td>
+                      <td>{index+1}</td>
+                      {/* <td>{item.repoId}</td> */}
                       <td>{item.name}</td>
                       <td>{item.description}</td>
                     </tr>

@@ -136,7 +136,8 @@ function FigmaRead() {
             <table className="ui celled table">
               <thead>
                 <tr>
-                  <th >Figma Id</th>
+                  <th>S.No.</th>
+                  {/* <th >Figma Id</th> */}
                   <th >Project Name</th>
                   <th >Figma URL</th>
                   <th className="text-center">Add User</th>
@@ -146,7 +147,8 @@ function FigmaRead() {
               <tbody>
                 {currentPageData.map((project, index) => (
                   <tr key={project.figmaId}>
-                    <td>{project.figmaId}</td>
+                    <td>{index+1}</td>
+                    {/* <td>{project.figmaId}</td> */}
                     <td>{project.projectDTO.projectName}</td>
                     <td>
                       <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">

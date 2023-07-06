@@ -9,7 +9,6 @@ import PmReadNew from "../Components/Dashboard/PM/PmReadNew";
 import PmUpdate from "../Components/Dashboard/PM/pmUpdate";
 import UserCreate from "../Components/Dashboard/Users/userCreate";
 import UserUpdate from "../Components/Dashboard/Users/userUpdate";
-import Faq from "../Components/faq";
 
 import CreateRepo from "../Components/Dashboard/Admin/Create/CreateRepo";
 import Reports from "../Components/Dashboard/Admin/Reports/Reports";
@@ -36,7 +35,6 @@ import UserRepoRead from "../Components/Dashboard/UserDashboard/userRepoRead";
 import UserFigmaRead from "../Components/Dashboard/UserDashboard/userFigmaRead";
 import Logout from "./Logout";
 import Analytics from "../Components/Dashboard/Admin/Analytics/Analytics";
-
 import Profile from "../Components/Dashboard/Admin/Profile";
 import UserProfile from "../Components/Dashboard/UserDashboard/userProfile";
 import PmProfile from "../Components/Dashboard/ProjectManager/pmprofile";
@@ -48,31 +46,25 @@ import AddFile from "../Components/Dashboard/Admin/Create/addFile";
 import ProjectUsers from "../Components/Dashboard/Admin/Read/projectUsers";
 import AddUserProject from "../Components/Dashboard/Admin/Create/addUserProject";
 import ProjectAnalytics from "../Components/Dashboard/Admin/Analytics/projectAnalytics";
-
+import Faq from "../Components/faq";
 import ProjectPms from "../Components/Dashboard/Admin/Read/projectPms";
 import AddPmProject from "../Components/Dashboard/Admin/Create/addPmProject";
-
-
-
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
     console.log(data.enumRole)
     console.log(data)
-    
     let user = JSON.parse(data);
     console.log(user.role)
     const role=user.enumRole
    const id = user ? user.id : null;
-    // console.log(id)
+    console.log(id)
     // if (!user || !user.role) {
     //   return <Navigate to="/Login" />
-
     // }
     return (
         <>
           {role== "ADMIN" && (
             <Routes>
-                
                 <Route path="/AddPmUserName" element={<AddPmUserName/>} />
                <Route path="/AdminDashboard" element={<AdminDashboard />} />
                <Route path='/CreateProject' element={<CreateProject/>}/>
@@ -89,8 +81,7 @@ const PrivateRoutes = () => {
               <Route path="//PmUpdate/:id" element={<PmReadNew />} />
               <Route path="/UserCreate" element={<UserCreate />} />
               <Route path="/UserUpdate/:id" element={<UserUpdate />} />
-              <Route path="/projectUsers" element={<ProjectUsers />} />
-            
+              {/* <Route path="/View'" element={<View />} /> */}
               <Route path="/CreateRepo" element={<CreateRepo />} />
               <Route path="/addCollab" element={<addCollab />} />
               <Route path="/AddPm" element={<AddPm/>} />
@@ -110,51 +101,37 @@ const PrivateRoutes = () => {
               <Route path='/addUserProject' element={<AddUserProject/>}/>
               <Route path='/projectPms' element={<ProjectPms/>}/>
               <Route path='/addPmProject' element={<AddPmProject/>}/>
-            
               <Route path='/Profile' element={<Profile/>}/>
-              
               <Route path='/ProjectAnalytics' element={<ProjectAnalytics/>}/>
               <Route path='/Analytics' element={<Analytics/>}/>
-              
-
               {/* <Route path='/gitCreate' element={<GitCreate/>}/> */}
-             
              {/* <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/> */}
              <Route path='/Create' element={<Create/>}/>
              <Route path='/addPm' element={<AddPm/>}/>
              <Route path='/addUser' element={<AddUser/>}/>
-             
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           )}
           {role=== "PROJECT_MANAGER" && (
             <Routes>
-               <Route path='/Logout' element={<Logout/>}/>
               <Route path="/pmDashboard" element={<PmDashboard />} />
               <Route path="/figmaPmDashboard" element={<FigmaPmDashboard />} />
               <Route path="/PmRequestForm" element={<PmRequestForm />} />
               <Route path="/repoPmDashboard" element={<RepoPmDashboard/>} />
               <Route path='/pmProfile' element={<PmProfile/>}/>
-              
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           )}
           {role === "USER" && (
             <Routes>
-               <Route path='/Logout' element={<Logout/>}/>
-              <Route path='/userProjects' element={<UserProjects/>} />
-              <Route path='/userFigmaRead' element={<UserFigmaRead/>}/>
-              <Route path='/userRepoRead' element={<UserRepoRead/>}/>
-              
-
-             
+              <Route path="/userProjects" element={<UserProjects/>} />
+              <Route path="/userRepoRead" element={<UserRepoRead />} />
+              <Route path="/userFigmaRead" element={<UserFigmaRead/>} />
               <Route path='/userProfile' element={<UserProfile/>}/>
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           )}
         </>
       );
-
 }
-
 export default PrivateRoutes;

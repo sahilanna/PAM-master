@@ -170,7 +170,8 @@ function PmReadNew() {
         {/* <thead colspan = '5'>
         </thead> */}
         <thead>
-            <th>PM-ID</th>
+            {/* <th>PM-ID</th> */}
+            <th>S.No.</th>
             <th>PM-Name</th>
             <th>PM-Email</th>
             {/* <th>PM-Github-UserName</th> */}
@@ -189,7 +190,8 @@ function PmReadNew() {
           
           {/* {currentPageData.map((item, index) => (
             <tr> */}
-              <td>{item.id}</td>
+              {/* <td>{item.id}</td> */}
+              <td>{index+1}</td>
               <td>{item.name}</td>
               <td>{item.email}</td>
              

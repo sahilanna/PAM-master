@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Navigate, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEye,faUserCircle,faUserAstronaut} from '@fortawesome/free-solid-svg-icons';
 import DialogBox from '../DialogBox/DialogBox';
 import ProjectDetails from './Read/ProjectDetails';
 import 'semantic-ui-css/semantic.min.css';
@@ -25,6 +25,7 @@ import { Button, Icon } from 'semantic-ui-react';
 import api from '../api';
 import ProjectPms from './Read/projectPms';
 import ProjectUsers from './Read/projectUsers';
+import { FaUserAstronaut } from 'react-icons/fa';
 
 const AdminDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -45,6 +46,11 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const itemsPerPage = 5;
   const { id } = useParams();
+
+  useEffect(() => {
+    loadItems();
+  }, []);
+
 
   const viewFile = async (projectId) => {
     const result = await api.get(`https://${ngrokUrl}/api/projects/files?projectId=${projectId}`, {
@@ -161,6 +167,7 @@ const AdminDashboard = () => {
     try {
       await api.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`);
       setShowConfirmDialog(false);
+      navigate('/adminDashboard')
        loadItems();
     } catch (error) {
       console.log(error);
@@ -206,23 +213,32 @@ const AdminDashboard = () => {
               <table className="ui celled table">
                 <thead>
                   <tr>
-                    {/* <th>Project-ID</th> */}
+                    
+                    <th>S.No.</th>
                     <th>Project-Name</th>
-                    {/* <th>Project-Description</th> */}
+                    
                     <th className="text-center">View</th>
                     <th className="text-center">Users</th>
                     <th className="text-center">PMs</th>
-                    {/* <th className="text-center">Delete</th> */}
+            
                   </tr>
 
 
                 </thead>
                 <tbody>
-                  {currentPageData.map((item, index) => (
+                {currentPageData.length === 0 ? (
+    <tr>
+      <td colSpan="5" >
+        No data available
+      </td>
+    </tr>
+  ) : (
+                  currentPageData.map((item, index) => (
                     <tr key={item.projectId}>
-                      {/* <td>{item.projectId}</td> */}
+                      
+                      <td>{index+1}</td>
                       <td>{item.projectName}</td>
-                      {/* <td>{item.projectDescription}</td> */}
+                      
                       <td className="text-center">
                         <button className="btn btn-primary mx-2" onClick={() => handleViewDetails(item)}>
                           <FontAwesomeIcon icon={faEye} />
@@ -231,7 +247,7 @@ const AdminDashboard = () => {
                       
                       <td className="text-center">
                       <button className="btn btn-primary mx-2" onClick={() =>  handleOpenProjectUsers(item)}>
-                      <FontAwesomeIcon icon={faUser} />
+                      <FontAwesomeIcon icon={faUserAstronaut} />
                       </button>
                           
                       <ProjectUsers
@@ -247,7 +263,7 @@ const AdminDashboard = () => {
                         
                       <td className="text-center">
                       <button className="btn btn-primary mx-2" onClick={() =>  handleOpenProjectPms(item)}>
-                      <FontAwesomeIcon icon={faUser} />
+                      <FontAwesomeIcon icon={faUserCircle} />
                       </button>
                           
                       <ProjectPms
@@ -260,20 +276,8 @@ const AdminDashboard = () => {
                       
                        </td>
 
-                       
-                       
-                      {/* <td className="text-center">
-                        <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(item.projectId)}>
-                          <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                        <DialogBox
-                          show={showConfirmDialog === item.projectId}
-                          onClose={() => setShowConfirmDialog(null)}
-                          onConfirm={() => deleteUser(item.projectId)}
-                        />
-                      </td> */}
                     </tr>
-                  ))}
+                  )))}
                 </tbody>
               </table>
               <div className="pagination">

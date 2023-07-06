@@ -58,8 +58,8 @@ function DeleteRepo() {
           }
     
   return (
-    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0', width: '500px', height: '600px' }}>
-        <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
+    <Modal open={true} onClose={onClose}  style={{ width: '500px', height:'350px' }} className='create-Project-Modal'>
+        <div style={{ paddingTop: '5px' }}></div>
         <div style={{ paddingLeft: '442px' }}>
           <Button secondary onClick={onClose}>
             X
