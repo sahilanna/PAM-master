@@ -41,6 +41,15 @@ function UserRead(){
     loaditem();
   }, []);
 
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+
+    const headers={AccessToken:accessToken}
+
+
   const addUserName=()=>{
     navigate('/addUserName')
   }
@@ -127,7 +136,8 @@ function UserRead(){
     <table class="ui celled table">
         
         <thead>
-            <th>User ID</th>
+            {/* <th>User ID</th> */}
+            <th>S.No.</th>
             <th>User Name</th>
             <th>User Email</th>
             {/* <th>User-Github-UserName</th> */}
@@ -146,7 +156,8 @@ function UserRead(){
           
           filteredProjects.map((user, index) => (
             <tr>
-              <td>{user.id}</td>
+              {/* <td>{user.id}</td> */}
+              <td>{index+1}</td>
               <td>{user.name}</td>
               <td>{user.email}</td>
               {/* <td>{user.githubUsername}</td> */}

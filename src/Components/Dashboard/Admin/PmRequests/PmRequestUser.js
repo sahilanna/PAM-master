@@ -15,6 +15,16 @@ function PmRequestUser() {
   const [isLoading, setIsLoading] = useState(true);
   const[resData, setresData]=useState('')
 
+ 
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+    
+    const headers={AccessToken:accessToken}
+
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -47,7 +57,7 @@ function PmRequestUser() {
     try {
       const response = await api.put(
         `https://${ngrokUrl}/api/request/update/${accessRequestId}`,
-        { allowed: true }
+        { allowed: true },{headers}
       );
     console.log("Helllo",response);
       if (response.status === 200 || response.status === 204 || response.status === 201) {
@@ -91,7 +101,7 @@ function PmRequestUser() {
     try {
       const response = await api.put(
         `https://${ngrokUrl}/api/request/update/${accessRequestId}`,
-        { allowed: false }
+        { allowed: false },{headers}
       );
       if (response.status === 200 || response.status === 204) {
         toast.error('Access denied', {

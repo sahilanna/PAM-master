@@ -111,7 +111,8 @@ function Reports() {
                 </tr>
               </thead>
               <tbody>
-              {currentRows.map((entry, index) => (
+              
+                {currentRows.map((entry, index) => (
   <tr key={entry.userId}>
     <td>{entry.userId}</td>
     <td>{entry.userName}</td>
@@ -184,5 +185,4 @@ function Reports() {
 }
 
 export default Reports;
-
 

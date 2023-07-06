@@ -24,18 +24,20 @@ function CreateRepo() {
     navigate(-1); // Go back one page in history
   };
 
-  let handleSubmit = (e) => {
+  let handleSubmit =async (e) => {
     if (!name || !description) {
       return;
     }
     e.preventDefault();
+    if(!name || !description){
+      return
+    }
     setClicked(true);
     if (name.length === 0) {
       return;
     }
     if (name) {
-      // const response = axios.post(`https://${ngrokUrl}/api/repositories/add`, { name });
-      const response = api.post(`https://${ngrokUrl}/api/repositories/add`, { name, description });
+      const response = await api.post(`https://${ngrokUrl}/api/repositories/add`, { name, description });
       console.log(name);
       navigate('/repoRead');
     }
@@ -46,8 +48,8 @@ function CreateRepo() {
   }
 
   return (
-    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0', width: '500px', height: '600px' }}>
-      <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
+    <Modal open={true} onClose={onClose}  style={{ width: '500px' }} className='create-Project-Modal'>
+      <div style={{ paddingTop: '6px' }}></div>
       <div style={{ paddingLeft: '442px' }}>
         <Button secondary onClick={onClose}>X</Button>
       </div>

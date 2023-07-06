@@ -20,6 +20,7 @@ const AddPm = () => {
   const [options, setOptions] = useState([]);
   const [error,setError]=useState('false');
   let navigate = useNavigate()
+  const [formError, setFormError] = useState('');
   const { state } = useLocation();
   let{ selectedRepo } = state || {};
   // selectedRepo = selectedRepo || '';
@@ -137,6 +138,7 @@ const AddPm = () => {
                onChange={handleUserNameChange}
             />
             </Form.Field>
+            {formError && <p style={{ color: 'red' }}>{formError}</p>}
 
 <Button type='submit' primary>Submit</Button>
         </Form>

@@ -16,6 +16,13 @@ const UserProfile = () => {
   const prole=pdata.enumRole;
   console.log(pname)
 
+
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+
     return (
     
           <div className='parent-admi'>  

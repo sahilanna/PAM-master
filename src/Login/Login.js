@@ -8,7 +8,6 @@ import Footer from '../Components/Footer';
 import './Login.css'
 import { ngrokUrl } from '../Assets/config';
 import { Modal } from 'semantic-ui-react';
-
 function Test() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
   const navigate=useNavigate()
@@ -102,7 +101,7 @@ function Test() {
       <Modal open={showUserNotFoundModal} className='centered-modal'size='mini' >
         <Modal.Header>User not found</Modal.Header>
         <Modal.Content >
-          <p>The user was not found. Please try again.</p>
+          <p>This user was not found. Please try again.</p>
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={() => setShowUserNotFoundModal(false)}>Close</Button>

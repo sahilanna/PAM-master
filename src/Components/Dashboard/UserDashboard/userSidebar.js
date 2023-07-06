@@ -16,7 +16,7 @@ function UserSidebar() {
     
     <CDBSidebar textColor="#fff" backgroundColor="#333">
       <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-        <a href="/LandingPage" className="text-decoration-none" style={{ color: 'inherit' }}>
+        <a href="/userProjects" className="text-decoration-none" style={{ color: 'inherit' }}>
           PAM
         </a>
       </CDBSidebarHeader>
@@ -34,9 +34,13 @@ function UserSidebar() {
           <NavLink exact to="/userRepoRead" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="sticky-note">Repository</CDBSidebarMenuItem>
           </NavLink>
+          {/* <NavLink exact to="/userFigmaDashboard" activeClassName="activeClicked">
+            <CDBSidebarMenuItem icon="arrow-left">Figma</CDBSidebarMenuItem>
+          </NavLink> */}
           <NavLink exact to="/Logout" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="arrow-left">Logout</CDBSidebarMenuItem>
           </NavLink>
+
           </CDBSidebarMenu>
           </CDBSidebarContent>
           </CDBSidebar>

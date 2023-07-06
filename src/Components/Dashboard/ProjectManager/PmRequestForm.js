@@ -5,7 +5,6 @@ import { ngrokUrlSwe, ngrokUrl } from '../../../Assets/config';
 import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import api from '../api';
-
 function PmRequestForm() {
   const navigate = useNavigate()
   const location = useLocation();
@@ -25,6 +24,7 @@ function PmRequestForm() {
   const [selectedProjId, setSelectedProjId] = useState('');
   let profileData = sessionStorage.getItem("item");
   let pdata = JSON.parse(profileData);
+
   console.log(profileData)
   const id=pdata.id
   const pname=pdata.name;

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'semantic-ui-react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -5,15 +6,12 @@ import axios from 'axios';
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import Sidebar from '../../SideBar/SideBar';
 import api from '../../api';
-import { ngrokUrl } from '../../../../Assets/config';
+import { ngrokUrl, gitAccessToken } from '../../../../Assets/config';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import AddUserProject from '../Create/addUserProject'; 
+import AddUserProject from '../Create/addUserProject';
 import './Read.css';
-
-
-
 function ProjectPms({ open, onClose,projectId,projectName }) {
   const [pms, setPms] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,14 +21,12 @@ function ProjectPms({ open, onClose,projectId,projectName }) {
   const [errorMessage, setErrorMessage] = useState('');
   const [otp, setOtp] = useState('');
   const [selectedUserId, setSelectedUserId] = useState('');
-
-
-  // console.log(projectName)
-  // console.log(projectId)
-
+  const[repo, setRepo]= useState([])
+  const[repoName, setRepoName]=useState('')
+  const[username, setUserName]=useState('')
+  console.log(projectName)
+  console.log(projectId)
   const navigate = useNavigate();
-
-
 const getUsers = async () => {
     setIsLoading(true);
     try {
@@ -42,31 +38,46 @@ const getUsers = async () => {
       setIsLoading(false);
     }
   };
-
    useEffect(() => {
     getUsers();
   }, [projectId]);
+  useEffect(() => {
+    loadRepo();
+  }, []);
 
+  const loadRepo = async () => {
+    try {
+      const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
+      setRepo(response.data);
+     
+
+      const name=repo[0].name
+     
+      setRepoName(name)
+      console.log(repoName)
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  };
    const handleAddEmployee = () => {
     navigate('/addPmProject', { state: { projectId, projectName } });
   };
-
    const handleSubmit = (userId) => {
     setSelectedUserId(userId);
     setShowConfirmDialog(true);
   };
-
   const handleConfirmDelete = async () => {
     try {
       const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
-        phoneNumber: '+91 7032051235',
+        phoneNumber: '+91 8884763231',
       });
-
-      if (otpResponse.status === 200) {
+      if (otpResponse.data === 'OTP sent') {
         setSelectedUserId(selectedUserId);
         setShowConfirmDialog(false);
         setShowOTPMoal(true);
-      } else {
+      } else if(otpResponse.response==false){
         console.log('OTP generation failed');
       }
     } catch (error) {
@@ -74,39 +85,47 @@ const getUsers = async () => {
     }
   };
 
+  const owner="swe1304"
+  const params= {
+    owner: owner,
+    repo: repoName,
+    username: username,
+    accessToken: gitAccessToken
+  }
   const handleCancelDelete = () => {
     setShowConfirmDialog(false);
   };
-
   const handleOTPSubmit = async (e) => {
     e.preventDefault();
-
+    try{
     const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/verify`, {
       otp: otp,
     });
-    
-    if (otpSubmissionResponse.status === 200) {
-      await api.delete(`https://${ngrokUrl}/api/projects/${projectId}/users/${selectedUserId}`);
+    if (otpSubmissionResponse.data ==true) {
+      await api.delete(`https://${ngrokUrl}/api/projects/${projectId}/users/${selectedUserId}/repo`,{ data: {
+        owner: owner,
+        repo: repoName,
+        username: username,
+        accessToken: gitAccessToken
+      }});
       getUsers();
       setShowOTPMoal(false);
-    } else {
+    } else if(otpSubmissionResponse.data==false) {
       setErrorMessage('Invalid OTP. Please try again.');
     }
+  }
+  catch(error){
+    console.log(error)
+    setErrorMessage('Something went wrong, please try again')
+  }
   };
-
   const handleOTPClose = () => {
     setShowOTPMoal(false);
   };
-
   const handleModalClose = () => {
     onClose();
   };
-
-
-
-
   return (
-   
     <Modal open={open} onClose={handleModalClose} style={{ top: '170px', height: 'auto', width: '700px' }} className="centered-modal1">
       <Modal.Header style={{top:'80px'}}>Project Manager
       <Button  color="green" floated="right" onClick={handleAddEmployee}>
@@ -114,8 +133,6 @@ const getUsers = async () => {
             </Button>
       </Modal.Header>
       <Modal.Content>
-      
-
         <div style={{ marginLeft: '20px', marginRight: '30px' }}>
           {isLoading ? (
             <LoadingPage />
@@ -123,9 +140,10 @@ const getUsers = async () => {
             <table className="ui celled table">
               <thead>
                 <tr>
-                  <th>PM ID</th>
+               
                   <th>PM Name</th>
                   <th>PM Email</th>
+                  <th>gitHubUsername</th>
                   <th>Delete PM</th>
                 </tr>
               </thead>
@@ -133,11 +151,12 @@ const getUsers = async () => {
                 {pms && pms.length > 0 ? (
                   pms.map((user) => (
                     <tr key={user.id}>
-                      <td>{user.id}</td>
+                      
                       <td>{user.name}</td>
                       <td>{user.email}</td>
+                      <td>{user.gitHubUsername ? user.gitHubUsername : '--'}</td>
                       <td>
-              <button className='btn btn-danger mx-2' onClick={() =>  handleSubmit(user.id)}><FontAwesomeIcon icon={faTrash} /> </button>
+              <button className='btn btn-danger mx-2' onClick={() =>  handleSubmit(user.id, user.gitHubUsername)}><FontAwesomeIcon icon={faTrash} /> </button>
                  </td>
                     </tr>
                   ))
@@ -156,11 +175,11 @@ const getUsers = async () => {
       </Modal.Actions>
       {/* OTP Modal */}
       <Modal open={showOTPMoal} onClose={handleOTPClose} style={{ width: '500px' }} className="centered-modal-OTP">
-        <Modal.Header>Enter OTP</Modal.Header>
+        <Modal.Header>Enter OTP sent to '+91 7032051235'</Modal.Header>
         <Modal.Content>
           <Form onSubmit={handleOTPSubmit}>
             <div className="form-field">
-              <label>OTP sent to '+91 7032051235'</label>
+              <label>OTP</label>
               <input type="text" name="otp" onChange={(e) => setOtp(e.target.value)} />
             </div>
             <p>{errorMessage}</p>
@@ -176,11 +195,6 @@ const getUsers = async () => {
       {/* Confirm Delete Dialog */}
       <DialogBox show={showConfirmDialog} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
     </Modal>
-  
-   
   );
 }
-
 export default ProjectPms;
-
-

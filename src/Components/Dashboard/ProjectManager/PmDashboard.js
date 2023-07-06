@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
 import { useState,useEffect } from 'react';
-// import Projects from '../Admin/Home';
 import { NavLink } from 'react-router-dom';
-// import './AdminDashboard.css';
 import {Button,Icon} from 'semantic-ui-react'
 import { Navigate, useParams}  from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +15,6 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../../../Login/Logout';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
-
 
 const PmDashboard = () => {
   const [item, setItem] = useState([]);
@@ -70,8 +67,8 @@ const PmDashboard = () => {
     };
     fetchPmid();
   }, []);
-  const navigateForm=()=>{
-    navigate('/PmRequestForm')
+  const navigateForm=(projectId)=>{
+    navigate('/PmRequestForm',{ state: { projectId} })
   }
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
@@ -142,7 +139,7 @@ const PmDashboard = () => {
               <td>{item.projectName}</td>
               <td>{item.projectDescription}</td>
               <td>
-                    <Button color="blue" icon labelPosition="left" onClick={navigateForm}>
+                    <Button color="blue" icon labelPosition="left" onClick={()=>navigateForm(item.projectId)}>
                       <Icon name="plus" />
                       Add
                     </Button>

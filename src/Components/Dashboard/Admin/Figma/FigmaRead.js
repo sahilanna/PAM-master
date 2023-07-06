@@ -4,7 +4,7 @@ import FigmaCreate from './FigmaCreate';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../../SideBar/SideBar';
-import { ngrokUrl } from '../../../../Assets/config';
+import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
 import './FigmaRead.css'
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
@@ -36,7 +36,6 @@ function FigmaRead() {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/figmas/getAll`);
       
-
       setProjects(response.data);
       setFigmaId(projects.figmaId)
      
@@ -47,7 +46,8 @@ function FigmaRead() {
       setFilteredProjects(response.data);
     } catch (error) {
       console.log('Error fetching projects:', error); 
-      setIsLoading(true);
+      setIsLoading(true)
+      
     }
   };
   
@@ -136,7 +136,8 @@ function FigmaRead() {
             <table className="ui celled table">
               <thead>
                 <tr>
-                  <th >Figma Id</th>
+                  <th>S.No.</th>
+                  {/* <th >Figma Id</th> */}
                   <th >Project Name</th>
                   <th >Figma URL</th>
                   <th className="text-center">Add User</th>
@@ -146,7 +147,8 @@ function FigmaRead() {
               <tbody>
                 {currentPageData.map((project, index) => (
                   <tr key={project.figmaId}>
-                    <td>{project.figmaId}</td>
+                    <td>{index+1}</td>
+                    {/* <td>{project.figmaId}</td> */}
                     <td>{project.projectDTO.projectName}</td>
                     <td>
                       <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">

@@ -64,7 +64,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
       });
   };
 
-  const loadItems = async () => {
+  const loadRepo = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
       setRepo(response.data);
@@ -77,35 +77,27 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   };
   
   useEffect(() => {
-    loadItems();
-  }, []);
-
-
-  const loadRepo = async () => {
-    try {
-      const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
-      setRepo(response.data);
-      setRepoName(response.data.name)
-      console.log(repo)
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
     loadRepo();
   }, []);
+
+
   const loadFigma = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/figmas/project/${projectId}`, {});
       setFigmaLink(response.data);
       console.log(figmaLink)
+      
     } catch (error) {
       console.log(error);
+      
     }
   };
+
   useEffect(() => {
     loadFigma();
   }, []);
+
+
   
 
   const downloadFile = (fdata, fileName) => {
@@ -200,6 +192,19 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
       <a href={figmaLink}>
           <li>{figmaLink}</li>
         </a>
+    </ul>
+  ) : (
+    '-'
+  )}
+            </p>
+            <p>
+              <strong>Figma Link:</strong> {figmaLink.length > 0 ? (
+    <ul>
+      
+      <a href={figmaLink}>
+          <li>{figmaLink}</li>
+        </a>
+    
     </ul>
   ) : (
     '-'

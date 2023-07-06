@@ -26,6 +26,12 @@
 
   
   }
+  .centered-modal {
+    display: flex;
+    align-items: center;
+   width: '40%';
+   height: '40%';
+  }
   
   .footer {
     background-color: #f5f5f5;

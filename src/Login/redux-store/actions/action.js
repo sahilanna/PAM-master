@@ -51,7 +51,6 @@ export const createPM = ({ name, email,enumRole}) => {
                 
                 name,
                 email,
-                
                 enumRole,
                 
             })
@@ -69,7 +68,7 @@ export const createPM = ({ name, email,enumRole}) => {
 export const updatePM = ({ id,name, email, githubUsername, enumRole}) => {
     return async(dispatchPM) => {
         try {
-            const responsePMUpdate = await axios.put(`https://${ngrokUrl}/api/users/update/${id}`, {
+            const responsePMUpdate = await api.put(`https://${ngrokUrl}/api/users/update/${id}`, {
                
                 name,
                 email,
@@ -95,7 +94,6 @@ export const createUser = ({ name, email, enumRole}) => {
                 
                 name,
                 email,
-                
                 enumRole
             })
             dispatchUserUpdate({type: "createUser", payload: responseCreateUser});
@@ -113,7 +111,7 @@ export const updateUser = ({ id,name, email, enumRole}) => {
     return async(dispatchUser) => {
         // const {id} = useParams();
         try {
-            const responseUserUpdate = await axios.put(`https://${ngrokUrl}/api/users/update/${id}`, {
+            const responseUserUpdate = await api.put(`https://${ngrokUrl}/api/users/update/${id}`, {
                 
                 name,
                 email,

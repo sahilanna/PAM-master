@@ -17,18 +17,18 @@ function CreateProject() {
     const [projectName, setProjectName] = useState('');
     const [projectDescription, setProjectDescription] = useState('');
     const [clicked, setClicked] = useState(false);
+    const [formError, setFormError] = useState('');
 
     const handleBack=()=>{
       navigate(-1)
     }
-    const handleSubmit= async (e)=>{
-
+    const handleSubmit = async (e)=>{
       e.preventDefault();
       if(!projectDescription||!projectName){
         return
       }
       setClicked(true);
-      const response =  await api.post(`https://${ngrokUrl}/api/projects/create`,{projectName,projectDescription})
+      const response = await api.post(`https://${ngrokUrl}/api/projects/create`,{projectName,projectDescription})
       navigate('/AdminDashboard')
     }
 const onClose=()=>{

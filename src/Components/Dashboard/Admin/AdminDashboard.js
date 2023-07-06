@@ -25,6 +25,7 @@ import { Button, Icon } from 'semantic-ui-react';
 import api from '../api';
 import ProjectPms from './Read/projectPms';
 import ProjectUsers from './Read/projectUsers';
+import { FaUserAstronaut } from 'react-icons/fa';
 
 const AdminDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -45,6 +46,11 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const itemsPerPage = 5;
   const { id } = useParams();
+
+  useEffect(() => {
+    loadItems();
+  }, []);
+
 
   const viewFile = async (projectId) => {
     const result = await api.get(`https://${ngrokUrl}/api/projects/files?projectId=${projectId}`, {
@@ -74,6 +80,7 @@ const AdminDashboard = () => {
     } catch (error) {
       console.log(error);
       setIsLoading(true);
+      
     }
   };
   
@@ -160,7 +167,8 @@ const AdminDashboard = () => {
     try {
       await api.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`);
       setShowConfirmDialog(false);
-      loadItems();
+      navigate('/adminDashboard')
+       loadItems();
     } catch (error) {
       console.log(error);
     }
@@ -200,27 +208,30 @@ const AdminDashboard = () => {
               <table className="ui celled table">
                 <thead>
                   <tr>
-                    <th>S.No.</th> 
+                    
+                    <th>S.No.</th>
                     <th>Project-Name</th>
+                    
                     <th className="text-center">View</th>
                     <th className="text-center">Users</th>
                     <th className="text-center">PMs</th>
+            
                   </tr>
                 </thead>
                 <tbody>
                 {currentPageData.length === 0 ? (
     <tr>
-      <td colSpan="5" className="text-center">
+      <td colSpan="5" >
         No data available
       </td>
     </tr>
   ) : (
                   currentPageData.map((item, index) => (
                     <tr key={item.projectId}>
-                     
-                      <td>{index + 1}</td> 
+                      
+                      <td>{index+1}</td>
                       <td>{item.projectName}</td>
-                     
+                      
                       <td className="text-center">
                         <button className="btn btn-primary mx-2" onClick={() => handleViewDetails(item)}>
                           <FontAwesomeIcon icon={faEye} />

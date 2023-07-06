@@ -14,6 +14,12 @@ const ProjectAnalytics = ({ onBackClick }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  let dataa = sessionStorage.getItem("item");
+  let user = JSON.parse(dataa);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+
   useEffect(() => {
     const fetchData = async () => {
       try {

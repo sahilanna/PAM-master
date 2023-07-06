@@ -88,17 +88,26 @@ return (
   <tr key={index}>
         {/* {currentPageData.map((item, index) => (
           <tr> */}
+           {item.projectName && item.figma ? (
             <>
             <td>{item.projectName}</td>
             <td>{item.projectDescription}</td>
-            <a href={item.figma.figmaURL} target="_blank" rel="noopener noreferrer">{item.figma.figmaURL}
-                  </a>
+           <td><a href={item.figma.figmaURL} target="_blank" rel="noopener noreferrer">{item.figma.figmaURL}
+                  </a></td>
                   </>
-                  <>
-                  </>
-        </tr>
-        ))
+                  
+                  
+        
+        
         ) : (
+          <>
+            <td>{item.projectName}</td>
+            <td>No URL</td>
+          </>
+        )}
+      </tr>
+    ))
+  ) : (
          <tr>
            <td colSpan="2">No data available</td>
          </tr>

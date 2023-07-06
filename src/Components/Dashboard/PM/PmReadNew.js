@@ -35,6 +35,15 @@ function PmReadNew() {
     const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+
+    const headers={AccessToken:accessToken}
+  
   
     const itemsPerPage = 5;
     
@@ -114,6 +123,9 @@ function PmReadNew() {
   const createOnclick=()=>{
     navigate('/PmCreate')
   }
+  const createOnclickPm=()=>{
+    navigate('/pmAddUserName')
+  }
   
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -149,8 +161,8 @@ function PmReadNew() {
     <table class="ui celled table">
        
         <thead>
-            <th>S.No.</th>
            
+            <th>S.No.</th>
             <th>PM-Name</th>
             <th>PM-Email</th>
           
@@ -167,7 +179,7 @@ function PmReadNew() {
            filteredProjects.map((item, index) => (
     <tr key={index}>
           
-       
+          
               <td>{index+1}</td>
               <td>{item.name}</td>
               <td>{item.email}</td>

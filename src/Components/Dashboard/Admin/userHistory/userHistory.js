@@ -15,6 +15,12 @@ function UserHistory() {
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
 
+  let data = sessionStorage.getItem("item");
+  let user = JSON.parse(data);
+  const accessToken=user.token
+  console.log(user)
+    console.log(user.token)
+
   useEffect(() => {
     fetchData();
   }, []);

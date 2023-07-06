@@ -6,33 +6,36 @@ import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
 const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   const navigate=useNavigate()
-  
   console.log(figmaURL)
   const location = useLocation();
-  //const figmaId = location && location.state && location.state.figmaId;
+
+  let data = sessionStorage.getItem("item");
+  let userr = JSON.parse(data);
+  const accessToken=userr.token
+  console.log(userr)
+    console.log(userr.token)
+
+    const headers={AccessToken:accessToken}
+
   
+  //const figmaId = location && location.state && location.state.figmaId;
  console.log(figmaId)
   const [url, setUrl] = useState(figmaURL);
   let [selectedUser, setSelectedUser] = useState('');
   const [screenshotImage, setscreenshotImage] = useState(null);
   let[user, setUsers]=useState([])
   const[post,setPost]=useState('')
- 
- 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     try {
       const response = await api.put(
         `https://${ngrokUrl}/api/figmas/${figmaId}/user`,
         {
           user: selectedUser,
           screenshotImage: screenshotImage
-        }
+        }, {headers}
       );
       console.log(response.data);
       navigate('/figmaRead')
@@ -40,37 +43,29 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
       console.log('Error Updating Figma User:', error);
     }
   };
-
   const handleUrlChange =  (e) => {
     setUrl(e.target.value);
   };
-
   const handleUserChange = (e, { value }) => {
     setSelectedUser(value);
   };
-
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     setscreenshotImage(file);
   };
-
   // const handleSubmit = (e) => {
   //   e.preventDefault();
-
-  // selectedUser=user;    
-  
+  // selectedUser=user;
   // };
   useEffect(() => {
     fetchUsers();
   }, [projectId]);
-  
   const fetchUsers = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/users`);
      console.log(response.data)
      const userNames = response.data.map(project => project.name);
      setUsers(userNames);
-  
     } catch (error) {
       console.log('Error fetching Users:', error);
     }
@@ -85,7 +80,6 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
       //  console.log(figmaId)
       // console.log(selectedUser)
       setscreenshotImage(result);
-
       // console.log(screenshotImage)
       console.log("hihit",figmaId);
       setPost(prevState => ({ ...prevState, image: result }));
@@ -96,7 +90,6 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   return (
     <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}>
       <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
-      
         </div>
         <div style={{paddingLeft:'442px'}}>
       <Button secondary onClick={onClose}>
@@ -108,7 +101,6 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
        
       
       <Modal.Content>
-     
         <Form onSubmit={handleSubmit}>
           <Form.Field>
             <label>URL<span style={{ color: 'red' }}>*</span></label>
@@ -153,18 +145,12 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
               />
             </div>
             </Form.Field>
-        
-          
           <Button type="submit">Submit</Button>
         </Form>
       </Modal.Content>
       <Modal.Actions>
-        
       </Modal.Actions>
     </Modal>
   );
 };
-
 export default FigmaCreate;
-
-
