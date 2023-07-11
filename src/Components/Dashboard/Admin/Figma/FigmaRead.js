@@ -12,7 +12,7 @@ import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from '../../Pagination/Pagination';
 import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt } from '@fortawesome/free-solid-svg-icons';
-
+import Pagination from '../../Pagination/Pagination';
 
 function FigmaRead() {
   const [showModal, setShowModal] = useState(false);
@@ -40,7 +40,7 @@ function FigmaRead() {
       setIsLoading(false);
       setFilteredProjects(response.data);
     } catch (error) {
-      console.log('Error fetching projects:', error); 
+      console.log('Error fetching projects:', error);
       setIsLoading(true)
     }
   };
@@ -70,7 +70,6 @@ function FigmaRead() {
   const closeModal = () => {
     setShowModal(false);
   };
-
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -90,15 +89,12 @@ function FigmaRead() {
     setFilteredProjects(filteredItems);
     setCurrentPageData(filteredItems.slice(0, itemsPerPage));
   };
-
   const filteredItems = projects.filter((item) =>
     item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
   useEffect(() => {
     handlePaginate(1);
   }, [filteredProjects]);
-
   return (
     <div className='parent-admin'>
       <Sidebar/>
@@ -151,7 +147,9 @@ function FigmaRead() {
                         </a>
                       </td>
                       <td className="text-center">
-                        <button className="btn btn-primary mx-2" onClick={() => handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
+
+                        <button className="btn btn-outline-primary mx-2" onClick={() => handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
+
                           <FontAwesomeIcon icon={faUser} />
                         </button>
                       </td>
@@ -184,6 +182,5 @@ function FigmaRead() {
     </div>
   );
 }
-
 
 export default FigmaRead;

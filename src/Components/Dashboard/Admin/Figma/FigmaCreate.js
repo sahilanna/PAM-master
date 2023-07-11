@@ -19,8 +19,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
 
     const headers={AccessToken:accessToken}
 
-  
-  //const figmaId = location && location.state && location.state.figmaId;
+
  console.log(figmaId)
   const [url, setUrl] = useState(figmaURL);
   let [selectedUser, setSelectedUser] = useState('');
@@ -53,10 +52,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     const file = e.target.files[0];
     setscreenshotImage(file);
   };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  // selectedUser=user;
-  // };
+ 
   useEffect(() => {
     fetchUsers();
   }, [projectId]);
@@ -76,11 +72,9 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     reader.readAsDataURL(file);
     reader.onload = async()=> {
       const result=reader.result;
-      // console.log(result);
-      //  console.log(figmaId)
-      // console.log(selectedUser)
+      
       setscreenshotImage(result);
-      // console.log(screenshotImage)
+      
       console.log("hihit",figmaId);
       setPost(prevState => ({ ...prevState, image: result }));
      
@@ -88,8 +82,8 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     }
 
   return (
-    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}>
-      <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
+    <Modal open={true} onClose={onClose} style={{ width: '500px' }} className='create-Project-Modal'>
+      <div style={{paddingTop:'5px'}}>
         </div>
         <div style={{paddingLeft:'442px'}}>
       <Button secondary onClick={onClose}>

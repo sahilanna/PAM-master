@@ -2,7 +2,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { ngrokUrl, ngrokUrlSwe } from "../../../Assets/config";
 import api from "../../../Components/Dashboard/api";
-
+import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer, toast} from 'react-toastify'
 //Create Project
 export const createProject = ({ projectName, projectDescription,projectManagerId,gitRepoLink}) => {
     return async(dispatchU) => {
@@ -15,10 +16,19 @@ export const createProject = ({ projectName, projectDescription,projectManagerId
                 
                 gitRepoLink
             })
+            toast.success('Project created successfully!', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 3000,
+              })
             dispatchU({type: "createProject", payload: responseCreate});
+            
         }
         catch (error){
             console.log(error);
+            toast.error('Failed. Please try again.', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 3000,
+              });
         }
     };
 };
@@ -96,6 +106,7 @@ export const createUser = ({ name, email, enumRole}) => {
                 email,
                 enumRole
             })
+
             dispatchUserUpdate({type: "createUser", payload: responseCreateUser});
         }
         catch (error){

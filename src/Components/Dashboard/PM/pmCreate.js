@@ -5,11 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { createPM } from '../../../Login/redux-store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
 import NavBarP from './NavbarP';
-// import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-// import '/home/nineleaps/Downloads/PAM-master-master/src/Components/Dashboard/Read/Read.css'
-// import '/home/nineleaps/Downloads/PAM-master-master/src/Components/Dashboard/PM/PmCreate.css'
 
 function PmCreate() {
   let navigate = useNavigate();
@@ -41,7 +38,7 @@ function PmCreate() {
   };
 
   return (
-    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0', width: '500px', height: '600px' }}>
+    <Modal open={true} onClose={onClose}  style={{ width: '500px' }} className='create-Project-Modal'>
       <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
       <div style={{ paddingLeft: '442px' }}>
         <Button secondary onClick={onClose}>X</Button>

@@ -13,16 +13,30 @@ export class LandingPage extends Component {
     return (
       <div className='sample'>
         <NavBar />
-    
-            <div className='at-item'>Build</div>
-            <div className='at-item'>Better</div>
-            <div className='at-item'>Together</div>
-    
-       
-        
 
-     
-    
+        <div>
+          <div className='at-container'>
+            <div className='at-item'>Build-Better-Together</div>
+          </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br/>
+        <div className="container-fluid text-center bg-grey">
+          <div className="row">
+            <div className="col-md-6 text-left">
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "centre" }}>
+                <h2 style={{ color: "white" }}>Manage Projects With One Tool</h2>
+                <h3 style={{ color: "white" }}>What we have created</h3>
+                <h3 style={{ color: "white" }}>
+                   All-in-one project management tool to streamline projects
+                </h3>
+                <h3 style={{ color: "white" }}> Collaborate with your team, and track progress effectively.</h3>
+              </div>
+            </div>
+            <div className="col-md-6">
+
               <div className="image-carousel-container">
                 <Carousel slide={true}>
                   <Carousel.Item>
@@ -50,7 +64,12 @@ export class LandingPage extends Component {
                   </Carousel.Item>
                 </Carousel>
               </div>
-        
+
+            </div>
+          </div>
+          <br />
+        </div>
+
         <Footer className="Footer" />
       </div>
     );
@@ -58,3 +77,5 @@ export class LandingPage extends Component {
 }
 
 export default LandingPage;
+
+

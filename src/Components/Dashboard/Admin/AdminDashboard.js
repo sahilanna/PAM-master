@@ -169,6 +169,7 @@ const AdminDashboard = () => {
       setShowConfirmDialog(false);
       navigate('/adminDashboard')
        loadItems();
+       
     } catch (error) {
       console.log(error);
     }

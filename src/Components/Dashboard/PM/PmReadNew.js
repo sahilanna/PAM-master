@@ -186,7 +186,9 @@ function PmReadNew() {
              
               <td className='text-center'>
   <button
-    className="btn btn-primary mx-2"
+
+    className="btn btn-outline-primary mx-2"
+
     onClick={() => handleViewDetails(item)}
   >
     <FontAwesomeIcon icon={faEye} />

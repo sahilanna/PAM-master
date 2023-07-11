@@ -33,7 +33,6 @@ function RepoRead() {
   useEffect(() => {
     loadItem();
   }, []);
-
   useEffect(() => {
     handlePaginate(1);
   }, [item]);
@@ -47,18 +46,15 @@ function RepoRead() {
       setIsLoading(true);
     }
   };
-
   useEffect(() => {
     const filteredProjects = item.filter((project) =>
       project.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredProjects(filteredProjects);
   }, [searchQuery, item]);
-
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
-
   const createOnclick = () => {
     navigate('/CreateRepo');
   };
@@ -69,7 +65,6 @@ function RepoRead() {
     const currentItems = filteredProjects.slice(indexOfFirstItem, indexOfLastItem);
     setCurrentPageData(currentItems);
   };
-
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
     navigate('/Create');

@@ -64,8 +64,8 @@ const PmDashboard = () => {
     };
     fetchPmid();
   }, []);
-  const navigateForm=(projectId)=>{
-    navigate('/PmRequestForm',{ state: { projectId} })
+  const navigateForm=(projectId, projectName)=>{
+    navigate('/PmRequestForm',{ state: { projectId, projectName} })
   }
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
@@ -87,7 +87,7 @@ const PmDashboard = () => {
   const filteredItems = item.filter((item) =>
     item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
   )
-  
+
   return (
       <div className='parent-admin'>
       <div style={{ height: '100vh', overflow: 'scroll initial' }}>
@@ -113,7 +113,7 @@ const PmDashboard = () => {
             {/* <th>Repository Name</th> */}
             {/* <th>PM Github</th>
             <th>User Github</th>  */}
-            <th>project Description</th>
+            <th>Project-Description</th>
             <th>Add User</th>
             {/* <th>Edit</th> */}
         </thead>
@@ -128,7 +128,7 @@ const PmDashboard = () => {
               <td>{item.projectName}</td>
               <td>{item.projectDescription}</td>
               <td>
-                    <Button color="blue" icon labelPosition="left" onClick={()=>navigateForm(item.projectId)}>
+                    <Button color="blue" icon labelPosition="left" onClick={()=>navigateForm(item.projectId, item.projectName)}>
                       <Icon name="plus" />
                       Add
                     </Button>

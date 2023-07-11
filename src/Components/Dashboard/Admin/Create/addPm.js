@@ -15,36 +15,27 @@ import api from '../../api.js';
 
 
 const AddPm = () => {
-  
-  
   const [options, setOptions] = useState([]);
   const [repo, setRepo] = useState('');
   const [error,setError]=useState('false');
   let navigate = useNavigate()
   const [formError, setFormError] = useState('');
   const { state } = useLocation();
- 
+
   const[username,setusername]= useState([]);
   let[projectNameA,setProjectNameA]=useState('')
   let[userNameA,setUserNameA]=useState('')
-  
   const[repoId,setRepoId]=useState('')
   const[selectedRepo, setSelectedRepo]=useState('')
 
   const accessToken=gitAccessToken
-
- 
-
   const handleUserNameChange=(event,{value})=>{
     setusername(value)
-
   }
- 
-
   const handleBack = () => {
-    navigate(-1); 
+    navigate(-1);
   };
-  
+
   useEffect(() => {
     const fetchUsernames = async () => {
       try {
@@ -61,10 +52,9 @@ const AddPm = () => {
         console.error(error);
       }
     };
-
     fetchUsernames();
   }, []);
-  
+
   const handleSubmit=(e)=>{
     e.preventDefault();
     if(!selectedRepo){
@@ -72,15 +62,16 @@ const AddPm = () => {
     }
     setError(true);
     const owner='swe1304';
-   
-
     let repo = selectedRepo
     const response= api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
     })
-    
-    
     navigate('/addUser', { state: { selectedRepo } });
-    
+  }
+  const handleRepoChange=(e, { value, options})=>{
+    const selectedRepo = options.find((option) => option.value === value);
+    setRepoId(value)
+    console.log(repoId)
+    setSelectedRepo(selectedRepo.text);
   }
 
 
@@ -93,12 +84,10 @@ const AddPm = () => {
   const onClose=()=>{
     navigate(-1);
   }
-  
- 
   return (
     <Modal open={true} onClose={onClose} style={{ width: '500px', height:'450px' }} className='create-Project-Modal'>
     <div style={{paddingTop:'6px'}}>
-    
+
       </div>
       <div style={{paddingLeft:'440px'}}>
     <Button secondary  onClick={onClose}>
@@ -106,11 +95,8 @@ const AddPm = () => {
       </Button>
       </div>
       <Modal.Header>Add PM</Modal.Header>
-
       <Modal.Content>
-
         <Form onSubmit={handleSubmit}>
-
         <Form.Field>
            <label style={{ textAlign: 'left' }}>Select Repo<span style={{ color: 'red' }}>*</span></label>
             <Dropdown
@@ -123,10 +109,9 @@ const AddPm = () => {
             />
           </Form.Field>
 
-
         <Form.Field>
   <label style={{ textAlign: 'left' }}>PM Username<span style={{ color: 'red' }}>*</span></label>
- 
+
   <Dropdown
               placeholder="Select Username"
               fluid
@@ -146,12 +131,10 @@ const AddPm = () => {
         </Form>
         </Modal.Content>
         <Modal.Actions>
-
         </Modal.Actions>
         </Modal>
   );
 };
-
 export default AddPm;
 
 
