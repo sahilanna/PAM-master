@@ -39,6 +39,7 @@ console.log(id)
       try {
         const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/user/projects`);
       setIsLoading(false)
+      console.log(response.data)
         const  userid  = response.data;
         setUserid(userid);
       } catch (error) {

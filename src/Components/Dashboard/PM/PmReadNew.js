@@ -49,7 +49,7 @@ function PmReadNew() {
     const headers={AccessToken:accessToken}
   
   
-    const itemsPerPage = 5;
+    const itemsPerPage = 4;
     
   
     const { ID } = useParams();
@@ -197,7 +197,7 @@ function PmReadNew() {
              
               <td className='text-center'>
   <button
-    className="btn btn-outline-info mx-2"
+    className="btn btn-outline-primary mx-2"
     onClick={() => handleViewDetails(item)}
   >
     <FontAwesomeIcon icon={faEye} />

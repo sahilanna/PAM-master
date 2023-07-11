@@ -155,6 +155,9 @@ function CreateFigmaDetails() {
 
   const validateURL = (url) => {
     try {
+      if(figmaURL.length==0||selectedProject.length==0){
+      return;
+      }
       const parsedUrl = new URL(url);
       return (
         parsedUrl.hostname === 'www.figma.com' &&
@@ -239,7 +242,7 @@ function CreateFigmaDetails() {
     navigate(-1);
   }
   return (
-    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}>
+    <Modal open={true} onClose={onClose}  style={{ width: '500px' }} className='create-Project-Modal'>
       <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
         </div>
         <div style={{paddingLeft:'442px'}}>

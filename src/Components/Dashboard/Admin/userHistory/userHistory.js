@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Table, Icon, Button } from 'semantic-ui-react';
 import './userHistory.css';
+import 'semantic-ui-css/semantic.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrl } from '../../../../Assets/config';
@@ -64,7 +65,7 @@ function UserHistory() {
                 {/* Table Header */}
                 <Table.Header>
                   <Table.Row>
-                    <Table.HeaderCell>Project Id</Table.HeaderCell>
+                    {/* <Table.HeaderCell>Project Id</Table.HeaderCell> */}
                     <Table.HeaderCell>Project Name</Table.HeaderCell>
                     <Table.HeaderCell>Project Description</Table.HeaderCell>
                     <Table.HeaderCell>Last Updated</Table.HeaderCell>
@@ -76,7 +77,7 @@ function UserHistory() {
                 <Table.Body>
                   {currentItems.map((entry) => (
                     <Table.Row key={entry.projectId}>
-                      <Table.Cell>{entry.projectId}</Table.Cell>
+                      {/* <Table.Cell>{entry.projectId}</Table.Cell> */}
                       <Table.Cell>{entry.projectName}</Table.Cell>
                       <Table.Cell>{entry.projectDescription}</Table.Cell>
                       <Table.Cell style={{ color: 'blue' }}>
@@ -101,17 +102,19 @@ function UserHistory() {
               </Table>
 
               {/* Pagination */}
+              <div className='pagination'>
               <div style={{ marginTop: '20px', textAlign: 'center' }} >
                 {Array.from({ length: pageNumbers }, (_, index) => index + 1).map((pageNumber) => (
                   <Button primary
                     key={pageNumber}
                     className={` ${pageNumber === currentPage ? 'active' : ''}`}
-                    style={{ color: pageNumber === currentPage ? 'blue' : 'white' }}
+                    style={{ color: pageNumber === currentPage ? '' : 'white' }}
                     onClick={() => handlePaginate(pageNumber)}
                   >
                     {pageNumber}
                   </Button>
                 ))}
+              </div>
               </div>
             </>
           )}

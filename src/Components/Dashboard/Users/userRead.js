@@ -30,7 +30,7 @@ function UserRead(){
   const [enumRole,setEnumRole]=useState('3');
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [currentPageData, setCurrentPageData] = useState([]);
-  const itemsPerPage = 5;
+  const itemsPerPage = 4;
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const { ID } = useParams();
@@ -163,8 +163,9 @@ function UserRead(){
               {/* <td>{user.githubUsername}</td> */}
               <td className='text-center'>
   <button
-    className="btn btn-outline-info mx-2"
+    className="btn btn-outline-primary mx-2" 
     onClick={() => handleViewDetails(user)}
+    
   >
     <FontAwesomeIcon icon={faEye} />
   </button>

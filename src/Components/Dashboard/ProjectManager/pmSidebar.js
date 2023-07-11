@@ -29,7 +29,7 @@ function PmSidebar() {
       <CDBSidebarContent className="sidebar-content">
         <CDBSidebarMenu>
         <NavLink exact to="/pmprofile" activeClassName="activeClicked">
-            <CDBSidebarMenuItem icon="list">My Profile</CDBSidebarMenuItem>
+            <CDBSidebarMenuItem icon="user">My Profile</CDBSidebarMenuItem>
           </NavLink>
           <NavLink exact to="/pmDashboard" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="list">Projects</CDBSidebarMenuItem>
@@ -40,6 +40,9 @@ function PmSidebar() {
           <NavLink exact to="/repoPmDashboard" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="sticky-note">Repository</CDBSidebarMenuItem>
           </NavLink>
+          {/* <NavLink exact to="/statusPm" activeClassName="activeClicked">
+            <CDBSidebarMenuItem icon="check">Status</CDBSidebarMenuItem>
+          </NavLink> */}
           <NavLink exact to="/Login" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="arrow-left">Logout</CDBSidebarMenuItem>
           </NavLink>

@@ -1,4 +1,4 @@
-import { MoonLoader } from "react-spinners";
+import { FadeLoader } from "react-spinners";
 import React, { useState, useEffect, CSSProperties } from 'react'
 import './LoadingPage.css'
 
@@ -10,9 +10,9 @@ const LoadingPage = () => {
     return (
     < div className="loader-container">
         
-        <MoonLoader
+        <FadeLoader
             loading={loading}
-            size={100}
+            size={80}
             aria-label="Loading Spinner"
             data-testid="loader"
             color="black"

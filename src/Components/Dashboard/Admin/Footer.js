@@ -1,5 +1,6 @@
 import React from "react";
-//import "/home/nineleaps/Downloads/vc-pr/vc-pr/src/css/Footer.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub, faInstagram, faFigma, faJira, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import './Footer.css'
 const Footer = () => {
   return (
@@ -9,9 +10,10 @@ const Footer = () => {
           <div className="sb_footer-links_div">
             <h4>For Business</h4>
             <a href="https://www.linkedin.com/company/nineleaps/mycompany/">
-              <p>LinkedIn</p>
+              <p><FontAwesomeIcon icon={faLinkedin}/>LinkedIn</p>
             </a>
             <a href="https://github.com/">
+            <p><FontAwesomeIcon icon={faGithub}/>LinkedIn</p>
               <p>GitHub</p>
             </a>   
             </div>
@@ -19,11 +21,13 @@ const Footer = () => {
             <h4>Social media</h4>
             <a href="https://instagram.com/nineleaps_tech?igshid=MGU3ZTQzNzY=">
             <p>Instagram</p>
+            <p><FontAwesomeIcon icon={faInstagram}/>LinkedIn</p>
             </a>
             </div>
             <div className="sb_footer-links_div">
             <h4>Social media</h4>
             <a href="https://www.figma.com/">
+            <p><FontAwesomeIcon icon={faFigma}/>LinkedIn</p>
             <p>Figma</p>
             </a>
             <a href="https://www.atlassian.com/">

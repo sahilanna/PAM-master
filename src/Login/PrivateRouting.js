@@ -49,6 +49,7 @@ import ProjectAnalytics from "../Components/Dashboard/Admin/Analytics/projectAna
 import Faq from "../Components/faq";
 import ProjectPms from "../Components/Dashboard/Admin/Read/projectPms";
 import AddPmProject from "../Components/Dashboard/Admin/Create/addPmProject";
+import StatusPm from "../Components/Dashboard/ProjectManager/statusPm";
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
     console.log(data.enumRole)
@@ -119,6 +120,7 @@ const PrivateRoutes = () => {
               <Route path="/PmRequestForm" element={<PmRequestForm />} />
               <Route path="/repoPmDashboard" element={<RepoPmDashboard/>} />
               <Route path='/pmProfile' element={<PmProfile/>}/>
+              <Route path='/statusPm' element={<StatusPm/>}/>
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           )}

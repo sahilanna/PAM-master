@@ -49,11 +49,7 @@ const PmDashboard = () => {
       try {
         const urlParams = new URLSearchParams(window.location.search);
         // const id = urlParams.get('id');
-        const response = await axios.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`,{
-          headers : {
-            'ngrok-skip-browser-warning': 'true',
-            AccessToken:accessToken
-      }});
+        const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`);
       console.log(response.data)
       console.log(response.id);
       setIsLoading(false);
@@ -67,8 +63,8 @@ const PmDashboard = () => {
     };
     fetchPmid();
   }, []);
-  const navigateForm=(projectId)=>{
-    navigate('/PmRequestForm',{ state: { projectId} })
+  const navigateForm=(projectId, projectName)=>{
+    navigate('/PmRequestForm',{ state: { projectId, projectName} })
   }
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
@@ -81,8 +77,6 @@ const PmDashboard = () => {
     handleFilterItems(e.target.value);
   };
   const handleFilterItems = (searchQuery) => {
-    // const filteredItems = projects.filter((item) =>
-    //   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
       const filteredItems = item && item.filter((item) =>
   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -91,14 +85,6 @@ const PmDashboard = () => {
   const filteredItems = item.filter((item) =>
     item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
   )
-  // const handleViewDetails = (pmid) => {
-  //   setSelectedPmProject(pmid);
-  //   setShowPmProjectDetails(true);
-  // };
-  // const handleCloseDetails = () => {
-  //   setSelectedPmProject(null);
-  //   setShowPmProjectDetails(false);
-  // };
   return (
       <div className='parent-admin'>
       <div style={{ height: '100vh', overflow: 'scroll initial' }}>
@@ -124,7 +110,7 @@ const PmDashboard = () => {
             {/* <th>Repository Name</th> */}
             {/* <th>PM Github</th>
             <th>User Github</th>  */}
-            <th>project Description</th>
+            <th>Project-Description</th>
             <th>Add User</th>
             {/* <th>Edit</th> */}
         </thead>
@@ -139,7 +125,7 @@ const PmDashboard = () => {
               <td>{item.projectName}</td>
               <td>{item.projectDescription}</td>
               <td>
-                    <Button color="blue" icon labelPosition="left" onClick={()=>navigateForm(item.projectId)}>
+                    <Button color="blue" icon labelPosition="left" onClick={()=>navigateForm(item.projectId, item.projectName)}>
                       <Icon name="plus" />
                       Add
                     </Button>

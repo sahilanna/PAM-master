@@ -13,12 +13,10 @@ function Reports() {
   const [showOtherTable, setShowOtherTable] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
-
   useEffect(() => {
     fetchUserProjectList();
     fetchOtherTableData();
   }, []);
-
   async function fetchUserProjectList() {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/users/getAll`);
@@ -27,7 +25,6 @@ function Reports() {
       console.log('Error fetching user project list:', error);
     }
   }
-
   async function fetchOtherTableData() {
     try {
       const response1 = await api.get(`https://${ngrokUrl}/api/users/getMultiple`);
@@ -36,37 +33,29 @@ function Reports() {
       console.log('Error fetching other table data:', error);
     }
   }
-
   const handleTableClick = () => {
     setShowOtherTable(false);
   };
-
   const handleOtherTableClick = () => {
     setShowOtherTable(true);
   };
-
   const csvData1 = item.map((entry) => ({
     'User Id': entry.userId,
     'User Name': entry.userName,
     Projects: entry.projectNames.join(', '),
   }));
-
   const csvData2 = mitem.map((entry) => ({
     'User Id': entry.userId,
     'User Name': entry.userName,
     Projects: entry.projectNames.join(', '),
   }));
-
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = item.slice(indexOfFirstRow, indexOfLastRow);
-
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
   const pageNumbers = Math.ceil(item.length / rowsPerPage);
-
   const renderPaginationButtons = () => {
     const buttons = [];
     for (let i = 1; i <= pageNumbers; i++) {
@@ -82,7 +71,6 @@ function Reports() {
     }
     return buttons;
   };
-
   return (
     <div className='parent-admin'>
       <div>
@@ -90,14 +78,18 @@ function Reports() {
       </div>
       <div className='admin-child'>
         <br />
-
-        <div>
-          <Button style={{ marginRight: '20px' }} onClick={handleTableClick}>
-            User Project List
-          </Button>
-          <Button onClick={handleOtherTableClick}>
-            Users With Multiple Project Access
-          </Button>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <button className='ui button' onClick={handleTableClick}>
+            Employees Project List
+          </button>
+          <button className='ui button' onClick={handleOtherTableClick}>
+            Employees With Multiple Project Access
+          </button>
+          {item.length > 0 && (
+            <CSVLink data={csvData1} filename="user_project_list.csv">
+              <button className='ui button'>Download CSV</button>
+            </CSVLink>
+          )}
         </div>
         <br /><br />
         {item.length > 0 && !showOtherTable && (
@@ -105,45 +97,27 @@ function Reports() {
             <table className="ui celled table">
               <thead>
                 <tr>
-                  <th>User Id</th>
-                  <th>User Name</th>
+                
+                  <th>Employee Name</th>
                   <th>Projects</th>
                 </tr>
               </thead>
               <tbody>
-                {/* {currentRows.map((entry, index) => (
-                  <tr key={entry.userId}>
-                    <td>{entry.userId}</td>
-                    <td>{entry.userName}</td>
-                    <td>{entry.projectNames.join(', ')}</td>
-                  </tr>
-                ))} */}
                 {currentRows.map((entry, index) => (
-  <tr key={entry.userId}>
-    <td>{entry.userId}</td>
-    <td>{entry.userName}</td>
-    <td>
-      {entry.projectNames.length > 0 ? (
-        entry.projectNames.join(', ')
-      ) : (
-        <span style={{ fontStyle: 'italic' }}>No projects</span>
-      )}
-    </td>
-  </tr>
-))}
+                  <tr key={entry.userId}>
+                    {/* <td>{entry.userId}</td> */}
+                    <td>{entry.userName}</td>
+                    <td>
+                      {entry.projectNames.length > 0 ? (
+                        entry.projectNames.join(', ')
+                      ) : (
+                        <span style={{ fontStyle: 'italic' }}>No projects</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
-            {item.length > 0 && (
-              <div style={{ marginTop: '20px' }}>
-                <CSVLink
-                  data={csvData1}
-                  filename="user_project_list.csv"
-                  className="btn btn-primary"
-                >
-                  Download CSV
-                </CSVLink>
-              </div>
-            )}
             <div style={{ marginTop: '20px' }}>
               {renderPaginationButtons()}
             </div>
@@ -154,15 +128,15 @@ function Reports() {
             <table className="ui celled table">
               <thead>
                 <tr>
-                  <th>User Id</th>
-                  <th>User Name</th>
+                 
+                  <th>Employee Name</th>
                   <th>Projects</th>
                 </tr>
               </thead>
               <tbody>
                 {mitem.map((entry, index) => (
                   <tr key={entry.userId}>
-                    <td>{entry.userId}</td>
+                    {/* <td>{entry.userId}</td> */}
                     <td>{entry.userName}</td>
                     <td>{entry.projectNames.join(', ')}</td>
                   </tr>
@@ -171,12 +145,8 @@ function Reports() {
             </table>
             {mitem.length > 0 && (
               <div style={{ marginTop: '20px' }}>
-                <CSVLink
-                  data={csvData2}
-                  filename="user_project_list.csv"
-                  className="btn btn-primary"
-                >
-                  Download CSV
+                <CSVLink data={csvData2} filename="user_project_list.csv">
+                  <button className='ui button'>Download CSV</button>
                 </CSVLink>
               </div>
             )}
@@ -190,5 +160,5 @@ function Reports() {
   );
 }
 
-export default Reports;
+export default Reports
 

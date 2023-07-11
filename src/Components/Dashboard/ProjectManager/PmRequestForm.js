@@ -10,7 +10,7 @@ function PmRequestForm() {
   const location = useLocation();
   const { projectId } = location.state || {};
   const [requestStatus, setRequestStatus] = useState('');
-  let [projectName, setProjectName] = useState('');
+  let {projectName} = location.state||{};
   const[users,setUsers]=useState([])
   const [proj,setproj]=useState([])
   let [selectedUser, setSelectedUser] = useState('');
@@ -38,46 +38,47 @@ function PmRequestForm() {
       setSelectedUserId(selectedUserObj.id);
     }
   };
-  const handleProjChange = (event, { value }) => {
-    const selectedProjObj = projectObj.find(pro => pro.projectName === value);
-    if (selectedProjObj) {
-      setSelectedProjId(value);
-      setSelectedProjId(selectedProjObj.projectId);
-    }
-    setitem(value);
-  };
+  console.log(projectName)
+  // const handleProjChange = (event, { value }) => {
+  //   const selectedProjObj = projectObj.find(pro => pro.projectName === value);
+  //   if (selectedProjObj) {
+  //     setSelectedProjId(value);
+  //     setSelectedProjId(selectedProjObj.projectId);
+  //   }
+  //   setitem(value);
+  // };
   const handlePmChange = (e, { value }) => {
     setSelectedPm(value);
   };
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-  const fetchProjects = async () => {
-    try {
-      const response = await api.get(`https://${ngrokUrl}/api/projects/allProjects`);
-      // setitem(response.data)
-      setProjectObj(response.data)
-     console.log(response.data)
-     console.log(response.data.projectId)
-     const projectNames = response.data.map(project => project.projectName);
-     setproj(projectNames);
-    } catch (error) {
-      console.log('Error fetching Users:', error);
-    }
-  };
-  useEffect(() => {
-    fetchPms();
-  }, [])
-  const fetchPms = async () => {
-    try {
-      const response = await api.get(`https://${ngrokUrl}/api/users/role/project_manager`);
-     console.log(response.data)
-     const pmNames = response.data.map(pm => pm.name);
-     setPms(pmNames);
-    } catch (error) {
-      console.log('Error fetching Users:', error);
-    }
-  };
+  // useEffect(() => {
+  //   fetchProjects();
+  // }, []);
+  // const fetchProjects = async () => {
+  //   try {
+  //     const response = await api.get(`https://${ngrokUrl}/api/projects/allProjects`);
+  //     // setitem(response.data)
+  //     setProjectObj(response.data)
+  //    console.log(response.data)
+  //    console.log(response.data.projectId)
+  //    const projectNames = response.data.map(project => project.projectName);
+  //    setproj(projectNames);
+  //   } catch (error) {
+  //     console.log('Error fetching Users:', error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchPms();
+  // }, [])
+  // const fetchPms = async () => {
+  //   try {
+  //     const response = await api.get(`https://${ngrokUrl}/api/users/role/project_manager`);
+  //    console.log(response.data)
+  //    const pmNames = response.data.map(pm => pm.name);
+  //    setPms(pmNames);
+  //   } catch (error) {
+  //     console.log('Error fetching Users:', error);
+  //   }
+  // };
   useEffect(() => {
     fetchUsers();
   }, [])
@@ -96,7 +97,7 @@ function PmRequestForm() {
       console.log('Error fetching Users:', error);
     }
   };
-projectName=item;
+// projectName=item;
  const Description=(e)=>
 {
 setRequestDescription(e.target.value)
@@ -113,7 +114,7 @@ console.log(pmName)
               id: selectedUserId,
           }
         const  project={
-              projectId: selectedProjId,
+              projectId: projectId,
           }
         const response = await api.post(`https://${ngrokUrl}/api/request/`, { pmName, user, project, requestDescription
         });
@@ -141,8 +142,8 @@ console.log(pmName)
         <Modal.Content>
         <Form onSubmit={handleSubmit}>
         <Form.Field>
-          <label style={{textAlign:'left'}}>Projects</label>
-          <Dropdown
+          <label style={{textAlign:'left'}}>Project Name</label>
+          {/* <Dropdown
             placeholder="Select Project"
             fluid
             selection
@@ -153,7 +154,10 @@ console.log(pmName)
             }))}
             value={item}
             onChange={handleProjChange}
-          />
+          /> */}
+          <input name="name" placeholder={projectName} readOnly />
+
+
         </Form.Field>
         {/* <Form.Field>
           <label style={{textAlign:'left'}}>PMs</label>
