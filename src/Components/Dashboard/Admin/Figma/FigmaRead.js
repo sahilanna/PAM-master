@@ -10,6 +10,7 @@ import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Pagination from '../../Pagination/Pagination';
 import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -27,33 +28,27 @@ function FigmaRead() {
   const itemsPerPage = 5;
   const[showConfirmDialog, setShowConfirmDialog]=useState(false)
 
-
-  
   useEffect(() => {
     fetchProjects();
   }, []);
+
   const fetchProjects = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/figmas/getAll`);
-      
       setProjects(response.data);
-      setFigmaId(projects.figmaId)
-     
-      const projectFigmaId=response.data[0].projectDTO.projectId
-     
+      setFigmaId(response.data[0].figmaId);
       setIsLoading(false);
-      
       setFilteredProjects(response.data);
     } catch (error) {
       console.log('Error fetching projects:', error); 
       setIsLoading(true)
-      
     }
   };
-  
+
   const createFigma = () => {
     navigate('/createFigmaDetails', { state: { figmaId } });
   };
+
   const handleAddUser = (url, id, projectId, figmaId) => {
     setFigmaURL(url);
     setFigmaId(id);
@@ -61,17 +56,17 @@ function FigmaRead() {
     setShowModal(true);
   };
 
-  const handleDeleteUrl=async (figmaId)=>{
+  const handleDeleteUrl = async (figmaId) => {
     try {
       await api.delete(`https://${ngrokUrl}/api/figmas/${figmaId}`);
       navigate('/FigmaRead');
       setShowConfirmDialog(false);
-       fetchProjects()
+      fetchProjects();
     } catch (error) {
       console.log(error);
     }
-  }
- 
+  };
+
   const closeModal = () => {
     setShowModal(false);
   };
@@ -82,10 +77,12 @@ function FigmaRead() {
     const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
     setCurrentPageData(currentItems);
   };
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     handleFilterItems(e.target.value);
   };
+
   const handleFilterItems = (searchQuery) => {
     const filteredItems = projects.filter((item) =>
       item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -107,7 +104,6 @@ function FigmaRead() {
       <Sidebar/>
       <div className='admin-child'>
         <br/>
-        {/* <h1 style={{ textAlign: 'center' }}>Figma</h1> */}
         <div
           style={{
             display: 'flex',
@@ -133,50 +129,50 @@ function FigmaRead() {
           ) : filteredProjects.length === 0 ? (
             <p>No data available</p>
           ) : (
-            <table className="ui celled table">
-              <thead>
-                <tr>
-                  <th>S.No.</th>
-                  {/* <th >Figma Id</th> */}
-                  <th >Project Name</th>
-                  <th >Figma URL</th>
-                  <th className="text-center">Add User</th>
-                  <th className="text-center">Delete URL</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentPageData.map((project, index) => (
-                  <tr key={project.figmaId}>
-                    <td>{index+1}</td>
-                    {/* <td>{project.figmaId}</td> */}
-                    <td>{project.projectDTO.projectName}</td>
-                    <td>
-                      <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">
-                        {project.figmaURL}
-                      </a>
-                    </td>
-
-                    <td className="text-center">
-                    <button className="btn btn-primary mx-2" onClick={() =>  handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
-                      <FontAwesomeIcon icon={faUser} />
-                      </button>
-                    </td>
-                    
-                    <td className="text-center">
-                    <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(project.figmaId)}>
+            <>
+              <table className="ui celled table">
+                <thead>
+                  <tr>
+                    <th>S.No.</th>
+                    <th>Project Name</th>
+                    <th>Figma URL</th>
+                    <th className="text-center">Add User</th>
+                    <th className="text-center">Delete URL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentPageData.map((project, index) => (
+                    <tr key={project.figmaId}>
+                      <td>{index + 1}</td>
+                      <td>{project.projectDTO.projectName}</td>
+                      <td>
+                        <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">
+                          {project.figmaURL}
+                        </a>
+                      </td>
+                      <td className="text-center">
+                        <button className="btn btn-primary mx-2" onClick={() => handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
+                          <FontAwesomeIcon icon={faUser} />
+                        </button>
+                      </td>
+                      <td className="text-center">
+                        <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(project.figmaId)}>
                           <FontAwesomeIcon icon={faTrash} />
                         </button>
-                     
-                      <DialogBox
-                        show={showConfirmDialog === project.figmaId}
-                        onClose={() => setShowConfirmDialog(null)}
-                        onConfirm={() => handleDeleteUrl(project.figmaId)}
-                      />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                        <DialogBox
+                          show={showConfirmDialog === project.figmaId}
+                          onClose={() => setShowConfirmDialog(null)}
+                          onConfirm={() => handleDeleteUrl(project.figmaId)}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className='pagination'>
+                <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
+              </div>
+            </>
           )}
         </div>
       </div>
@@ -188,5 +184,6 @@ function FigmaRead() {
     </div>
   );
 }
+
 
 export default FigmaRead;

@@ -6,30 +6,43 @@ import Create from '../Create/Create';
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import { ngrokUrl } from '../../../../Assets/config';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import DialogBox from '../../DialogBox/DialogBox';
+import Pagination from '../../Pagination/Pagination';
+
 
 function RepoRead() {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [item, setItem] = useState([]);
+  const [currentPageData, setCurrentPageData] = useState([]);
+  const [repoId, setRepoId] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  let data = sessionStorage.getItem("item");
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+
+  const itemsPerPage = 4;
+  let data = sessionStorage.getItem('item');
   let user = JSON.parse(data);
-  const accessToken=user.token
-  console.log(user)
-    console.log(user.token)
+  const accessToken = user.token;
+  console.log(user);
+  console.log(user.token);
 
   useEffect(() => {
     loadItem();
   }, []);
+
+  useEffect(() => {
+    handlePaginate(1);
+  }, [item]);
 
   const loadItem = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/repositories/get`);
       setItem(response.data);
       setIsLoading(false);
-   
     } catch (error) {
       setIsLoading(true);
     }
@@ -50,13 +63,31 @@ function RepoRead() {
     navigate('/CreateRepo');
   };
 
-  const createOnclickDel = () => {
-    navigate('/deleteRepo');
+  const handlePaginate = (pageNumber) => {
+    const indexOfLastItem = pageNumber * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredProjects.slice(indexOfFirstItem, indexOfLastItem);
+    setCurrentPageData(currentItems);
   };
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
     navigate('/Create');
+  };
+
+  const toggleDrawer1 = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+    navigate('/AddPm');
+  };
+
+  const deleteUser = async (repoId) => {
+    try {
+      await api.delete(`https://${ngrokUrl}/api/repositories/${repoId}`);
+      setShowConfirmDialog(false);
+      loadItem();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -75,18 +106,23 @@ function RepoRead() {
           }}
         >
           <div className='ui left icon input'>
-            <input type='text' placeholder='Search Repo...' value={searchQuery} onChange={handleSearchChange} />
+            <input
+              type='text'
+              placeholder='Search Repo...'
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
             <i className='users icon'></i>
           </div>
           <div>
-            <button className='ui button' onClick={createOnclickDel}>
-              Delete Repository
-            </button>
             <button className='ui button' onClick={createOnclick}>
               Create Repository
             </button>
             <button className='ui button' onClick={toggleDrawer}>
               Add Project Git
+            </button>
+            <button className='ui button' onClick={toggleDrawer1}>
+              Add Collaborators
             </button>
           </div>
         </div>
@@ -94,56 +130,53 @@ function RepoRead() {
           {isLoading ? (
             <LoadingPage />
           ) : (
-            <table className='ui celled table'>
-              <thead>
-                <tr>
-                  <th>S.No.</th>
-                  
-                  <th>Repo Name</th>
-                  <th>Repo Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredProjects.length === 0 ? (
+            <>
+              <table className='ui celled table'>
+                <thead>
                   <tr>
-                    <td colSpan='3'>No data available</td>
+                    <th>S.No.</th>
+                    <th>Repo Name</th>
+                    <th>Repo Description</th>
+                    <th className='text-center'>Delete</th>
                   </tr>
-                ) : (
-                  filteredProjects.map((item, index) => (
-                    <tr key={index}>
-                      <td>{index+1}</td>
-                      
-                      <td>{item.name}</td>
-                      <td>{item.description}</td>
+                </thead>
+                <tbody>
+                  {currentPageData.length === 0 ? (
+                    <tr>
+                      <td colSpan='4'>No data available</td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ) : (
+                    currentPageData.map((item, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item.name}</td>
+                        <td>{item.description}</td>
+                        <td className='text-center'>
+                          <button
+                            className='btn btn-danger mx-2'
+                            onClick={() => setShowConfirmDialog(item.id)}
+                          >
+                            <FontAwesomeIcon icon={faTrash} />
+                          </button>
+                          <DialogBox
+                            show={showConfirmDialog === item.id}
+                            onClose={() => setShowConfirmDialog(null)}
+                            onConfirm={() => deleteUser(item.repoId)}
+                          />
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+              <div className='pagination'>
+                <Pagination data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
+              </div>
+            </>
           )}
         </div>
       </div>
     </div>
   );
 }
-
 export default RepoRead;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

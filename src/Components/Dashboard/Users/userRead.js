@@ -16,7 +16,7 @@ import LoadingPage from '../../../Assets/Loader/LoadingPage'
 import api from '../api'
 
 
-// import './Read.css'
+
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config'
 
 function UserRead(){
@@ -30,7 +30,7 @@ function UserRead(){
   const [enumRole,setEnumRole]=useState('3');
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [currentPageData, setCurrentPageData] = useState([]);
-  const itemsPerPage = 5;
+  const itemsPerPage = 4;
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const { ID } = useParams();
@@ -58,7 +58,6 @@ function UserRead(){
     const result = await api.get(getUrl) .then((result) => {
         setItem(result.data);
         setIsLoading(false);
-        // console.log(res, "hello");
         navigate('/userRead')
       })
       .catch((error)=>{
@@ -136,13 +135,13 @@ function UserRead(){
     <table class="ui celled table">
         
         <thead>
-            {/* <th>User ID</th> */}
+           
             <th>S.No.</th>
             <th>User Name</th>
             <th>User Email</th>
-            {/* <th>User-Github-UserName</th> */}
+            
             <th className='text-center'>View</th>
-            {/* <th className='text-center'>Update</th> */}
+            
             <th className='text-center'>Delete</th>
           </thead>
           <tbody>
@@ -169,22 +168,15 @@ function UserRead(){
     <FontAwesomeIcon icon={faEye} />
   </button>
 </td>          
-              {/* <td className='text-center'>
-                <Link
-                  className="btn btn-outline-primary mx-2"
-                  to={`/userUpdate/${user.id}`}
-                >
-                <FontAwesomeIcon icon={faPen} />
-                </Link>
-                </td> */}
+              
                  <td className='text-center'>
-                 <Link>
+                 
     <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(user.id)}><FontAwesomeIcon icon={faTrash} /> </button>
     <DialogBox
      show={showConfirmDialog === user.id}
       onClose={() => setShowConfirmDialog(null)}
       onConfirm={()=>deleteUser(user.id)}/>
-      </Link>
+
               </td>
             </tr>
           )))}

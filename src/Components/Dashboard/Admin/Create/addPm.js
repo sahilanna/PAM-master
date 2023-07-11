@@ -18,15 +18,18 @@ const AddPm = () => {
   
   
   const [options, setOptions] = useState([]);
+  const [repo, setRepo] = useState('');
   const [error,setError]=useState('false');
   let navigate = useNavigate()
   const [formError, setFormError] = useState('');
   const { state } = useLocation();
-  let{ selectedRepo } = state || {};
-  // selectedRepo = selectedRepo || '';
+ 
   const[username,setusername]= useState([]);
   let[projectNameA,setProjectNameA]=useState('')
   let[userNameA,setUserNameA]=useState('')
+  
+  const[repoId,setRepoId]=useState('')
+  const[selectedRepo, setSelectedRepo]=useState('')
 
   const accessToken=gitAccessToken
 
@@ -41,17 +44,19 @@ const AddPm = () => {
   const handleBack = () => {
     navigate(-1); 
   };
-  // console.log("Plz work",selectedRepo)
-  // useEffect(() => {
-  //   fetch(`https://${ngrokUrl}/usernames/role/project_manager`).then((response)=>response.json())
-  //   .then((data)=>setOptions(data))
   
-  // }, []);
   useEffect(() => {
     const fetchUsernames = async () => {
       try {
         const response = await api.get(`https://${ngrokUrl}/usernames/role/project_manager`);
         setOptions(response.data);
+        const res = await api.get(`https://${ngrokUrl}/api/repositories/get`);
+          const repoOptions = res.data.map(rep => ({
+            key: rep.repoId,
+            text: rep.name,
+            value: rep.repoId
+          }));
+          setRepo(repoOptions);
       } catch (error) {
         console.error(error);
       }
@@ -59,30 +64,12 @@ const AddPm = () => {
 
     fetchUsernames();
   }, []);
-  // useEffect(() => {
-  //   const fetchUsernames = async () => {
-  //     try {
-  //       const response = await api.get(`https://${ngrokUrl}/usernames/role/project_manager`);
-  //       const data = response.data;
   
-  //       // Assuming the response data is an array of strings
-  //       const dropdownOptions = data.map((name, index) => ({
-  //         key: index,
-  //         text: name,
-  //         value: name
-  //       }));
-  
-  //       setOptions(dropdownOptions);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchUsernames();
-  // }, []);
-
   const handleSubmit=(e)=>{
     e.preventDefault();
+    if(!selectedRepo){
+      return
+    }
     setError(true);
     const owner='swe1304';
    
@@ -95,17 +82,25 @@ const AddPm = () => {
     navigate('/addUser', { state: { selectedRepo } });
     
   }
+
+
+  const handleRepoChange=(e, { value, options})=>{
+    const selectedRepo = options.find((option) => option.value === value);
+    setRepoId(value)  
+    console.log(repoId)
+    setSelectedRepo(selectedRepo.text);
+  }
   const onClose=()=>{
     navigate(-1);
   }
   
  
   return (
-    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}>
-    <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
+    <Modal open={true} onClose={onClose} style={{ width: '500px', height:'450px' }} className='create-Project-Modal'>
+    <div style={{paddingTop:'6px'}}>
     
       </div>
-      <div style={{paddingLeft:'460px'}}>
+      <div style={{paddingLeft:'440px'}}>
     <Button secondary  onClick={onClose}>
         X
       </Button>
@@ -117,13 +112,20 @@ const AddPm = () => {
         <Form onSubmit={handleSubmit}>
 
         <Form.Field>
-          <label style={{ textAlign: 'left' }}>Repository Name</label>
-          <input name="repoName" value={selectedRepo || ''} readOnly />
-        </Form.Field>
+           <label style={{ textAlign: 'left' }}>Select Repo<span style={{ color: 'red' }}>*</span></label>
+            <Dropdown
+              placeholder="Select Repo"
+              fluid
+              selection
+              options={repo}
+              // value={item1}
+              onChange={handleRepoChange}
+            />
+          </Form.Field>
 
 
         <Form.Field>
-  <label style={{ textAlign: 'left' }}>PM Username</label>
+  <label style={{ textAlign: 'left' }}>PM Username<span style={{ color: 'red' }}>*</span></label>
  
   <Dropdown
               placeholder="Select Username"
@@ -140,7 +142,7 @@ const AddPm = () => {
             </Form.Field>
             {formError && <p style={{ color: 'red' }}>{formError}</p>}
 
-<Button type='submit' primary>Submit</Button>
+<Button type='submit' primary disabled={!selectedRepo}>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>

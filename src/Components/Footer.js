@@ -1,5 +1,8 @@
 import React from "react";
 //import "/home/nineleaps/Downloads/vc-pr/vc-pr/src/css/Footer.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub, faInstagram, faFigma, faJira, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+
 import './Footer.css'
 const Footer = () => {
   return (
@@ -9,25 +12,25 @@ const Footer = () => {
           <div className="sb_footer-links_div">
             <h4>For Business</h4>
             <a href="https://www.linkedin.com/company/nineleaps/mycompany/">
-              <p>LinkedIn</p>
+              <p><FontAwesomeIcon icon={faLinkedin} /> LinkedIn</p>
             </a>
             <a href="https://github.com/">
-              <p>GitHub</p>
+              <p><FontAwesomeIcon icon={faGithub} /> GitHub</p>
             </a>   
             </div>
            <div className="sb_footer-links_div">
             <h4>Social media</h4>
             <a href="https://instagram.com/nineleaps_tech?igshid=MGU3ZTQzNzY=">
-            <p>Instagram</p>
+            <p><FontAwesomeIcon icon={faInstagram} /> Instagram</p>
             </a>
             </div>
             <div className="sb_footer-links_div">
             <h4>Tools</h4>
             <a href="https://www.figma.com/">
-            <p>Figma</p>
+            <p> <FontAwesomeIcon icon={faFigma} /> Figma</p>
             </a>
             <a href="https://www.atlassian.com/">
-              <p>Jira</p>
+              <p><FontAwesomeIcon icon={faJira} /> Jira</p>
             </a>
             
             

@@ -30,16 +30,6 @@ const AddUser = () => {
     navigate(-1); 
   };
 
-  
-  //  useEffect(() => {
-  //   fetch(`https://${ngrokUrl}/usernames/role/user`,{
-  //     headers: {
-  //       'ngrok-skip-browser-warning': 'true'
-  //     }}).then((response)=>response.json())
-  //   .then((data)=>setOptions(data))
-
-  
-  // }, []);
 
   useEffect(() => {
     const fetchUsernames = async () => {
@@ -75,11 +65,11 @@ const onClose=()=>{
   return (
   
        
-    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}>
-      <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
+    <Modal open={true} onClose={onClose} style={{ width: '500px', height:'450px' }} className='create-Project-Modal'>
+      <div style={{paddingTop:'6px'}}>
       
         </div>
-        <div style={{paddingLeft:'460px'}}>
+        <div style={{paddingLeft:'440px'}}>
       <Button secondary onClick={onClose}>
           X
         </Button>
@@ -96,7 +86,7 @@ const onClose=()=>{
         </Form.Field>
        
         <Form.Field>
-  <label style={{ textAlign: 'left' }}>User Username</label>
+  <label style={{ textAlign: 'left' }}>User Username<span style={{ color: 'red' }}>*</span></label>
  
 <Dropdown
               placeholder="Select Username"

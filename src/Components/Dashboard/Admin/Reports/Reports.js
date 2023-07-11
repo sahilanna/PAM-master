@@ -6,6 +6,7 @@ import Sidebar from '../../SideBar/SideBar';
 import '../AdminDashboard.css';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
+import Pagination from '../../Pagination/Pagination';
 
 function Reports() {
   const [item, setItem] = useState([]);
@@ -91,13 +92,18 @@ function Reports() {
       <div className='admin-child'>
         <br />
 
-        <div>
-          <Button style={{ marginRight: '20px' }} onClick={handleTableClick}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <button className='ui button' onClick={handleTableClick}>
             User Project List
-          </Button>
-          <Button onClick={handleOtherTableClick}>
+          </button>
+          <button className='ui button' onClick={handleOtherTableClick}>
             Users With Multiple Project Access
-          </Button>
+          </button>
+          {item.length > 0 && (
+            <CSVLink data={csvData1} filename="user_project_list.csv">
+              <button className='ui button'>Download CSV</button>
+            </CSVLink>
+          )}
         </div>
         <br /><br />
         {item.length > 0 && !showOtherTable && (
@@ -111,33 +117,21 @@ function Reports() {
                 </tr>
               </thead>
               <tbody>
-              
                 {currentRows.map((entry, index) => (
-  <tr key={entry.userId}>
-    <td>{entry.userId}</td>
-    <td>{entry.userName}</td>
-    <td>
-      {entry.projectNames.length > 0 ? (
-        entry.projectNames.join(', ')
-      ) : (
-        <span style={{ fontStyle: 'italic' }}>No projects</span>
-      )}
-    </td>
-  </tr>
-))}
+                  <tr key={entry.userId}>
+                    <td>{entry.userId}</td>
+                    <td>{entry.userName}</td>
+                    <td>
+                      {entry.projectNames.length > 0 ? (
+                        entry.projectNames.join(', ')
+                      ) : (
+                        <span style={{ fontStyle: 'italic' }}>No projects</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
-            {item.length > 0 && (
-              <div style={{ marginTop: '20px' }}>
-                <CSVLink
-                  data={csvData1}
-                  filename="user_project_list.csv"
-                  className="btn btn-primary"
-                >
-                  Download CSV
-                </CSVLink>
-              </div>
-            )}
             <div style={{ marginTop: '20px' }}>
               {renderPaginationButtons()}
             </div>
@@ -165,12 +159,8 @@ function Reports() {
             </table>
             {mitem.length > 0 && (
               <div style={{ marginTop: '20px' }}>
-                <CSVLink
-                  data={csvData2}
-                  filename="user_project_list.csv"
-                  className="btn btn-primary"
-                >
-                  Download CSV
+                <CSVLink data={csvData2} filename="user_project_list.csv">
+                  <button className='ui button'>Download CSV</button>
                 </CSVLink>
               </div>
             )}

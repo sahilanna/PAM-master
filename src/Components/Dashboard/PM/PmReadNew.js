@@ -45,7 +45,7 @@ function PmReadNew() {
     const headers={AccessToken:accessToken}
   
   
-    const itemsPerPage = 5;
+    const itemsPerPage = 4;
     
   
     const { ID } = useParams();

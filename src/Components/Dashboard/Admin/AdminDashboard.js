@@ -44,7 +44,7 @@ const AdminDashboard = () => {
   const [showProjectPmModal, setshowProjectPmModal]=useState(false)
 
   const navigate = useNavigate();
-  const itemsPerPage = 5;
+  const itemsPerPage = 4;
   const { id } = useParams();
 
   useEffect(() => {

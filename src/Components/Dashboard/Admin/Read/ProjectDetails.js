@@ -11,7 +11,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   const { projectId, projectName, projectDescription } = project;
   const [showAddUserProject, setShowAddUserProject] = useState(false);
   const [fileData, setFileData] = useState([]);
-  const [fileNames, setFileNames] = useState([]);
+ 
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const navigate = useNavigate();
   const [fdata, setFdata] = useState();
@@ -24,6 +24,24 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   const handleAddEmployee = () => {
     setShowAddUserProject(true);
   };
+
+  useEffect(() => {
+    displayFile();
+  }, []);
+
+
+  const displayFile=async()=>{
+    try{
+    const result = await api.get(`https://${ngrokUrl}/api/projects/files?projectId=${projectId}`)
+    setNamesFile(result.data)
+    console.log(namesFile)
+    }
+    catch(error){
+      console.log('error', error)
+    }
+  }
+
+
 
   const handleCloseAddUserProject = () => {
     setShowAddUserProject(false);
@@ -44,8 +62,10 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
 
 
 
-  const viewFile = async (projectId) => {
-    const result = await api.get(`https://${ngrokUrl}/api/projects/files?projectId=${projectId}`, {
+  const downloadFile = async (filename) => {
+    console.log('hiiiiiiiiiiiiiiiiiiii')
+    console.log(namesFile)
+    const result = await api.get(`https://${ngrokUrl}/api/projects/files/${filename}?projectId=${projectId}`, {
       responseType: 'blob',
       contentType: 'application/zip',
     })
@@ -68,6 +88,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     try {
       const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
       setRepo(response.data);
+
       // console.log(repo)
       
     } catch (error) {
@@ -100,29 +121,29 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
 
   
 
-  const downloadFile = (fdata, fileName) => {
-    return new Promise(async (resolve) => {
-      try {
-        const response = await fetch(fdata);
-        console.log(fdata)
-        console.log(response)
-        // const data = await response.blob();
-        // const downloadUrl = window.URL.createObjectURL(data);
-        const downloadUrl = window.URL.createObjectURL(new Blob([fdata]));
-        const link = document.createElement("a");
-        link.href = downloadUrl;
-        link.setAttribute("download", fileName);
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        resolve();
-      } catch (error) {
-        console.log(`Error downloading file ${fileName}:`, error);
-        resolve();
-      }
-    });
-  };
+  // const downloadFile = (fdata, fileName) => {
+  //   return new Promise(async (resolve) => {
+  //     try {
+  //       const response = await fetch(fdata);
+  //       console.log(fdata)
+  //       console.log(response)
+  //       // const data = await response.blob();
+  //       // const downloadUrl = window.URL.createObjectURL(data);
+  //       const downloadUrl = window.URL.createObjectURL(new Blob([fdata]));
+  //       const link = document.createElement("a");
+  //       link.href = downloadUrl;
+  //       link.setAttribute("download", fileName);
+  //       document.body.appendChild(link);
+  //       link.click();
+  //       link.remove();
+  //       await new Promise(resolve => setTimeout(resolve, 1000));
+  //       resolve();
+  //     } catch (error) {
+  //       console.log(`Error downloading file ${fileName}:`, error);
+  //       resolve();
+  //     }
+  //   });
+  // };
 
   return (
     <>
@@ -135,11 +156,11 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
       <Modal open={!showAddUserProject} onClose={onClose} style={{ width: '700px' }} className="centered-modal">
         <Modal.Header>
           Project Details
-          {showAddEmployeeButton && (
-            <Button color="green" floated="right" onClick={() => viewFile(projectId)}>
+          {/* {showAddEmployeeButton && (
+            <Button color="green" floated="right" onClick={() => displayFile(projectId)}>
               Download
             </Button>
-          )}
+          )} */}
           {showAddFileButton && (
             <Button color="blue" floated="right" onClick={() => onAddFile(projectId, projectName)}>
               Add File
@@ -197,19 +218,31 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     '-'
   )}
             </p>
-            <p>
-              <strong>Figma Link:</strong> {figmaLink.length > 0 ? (
-    <ul>
-      
-      <a href={figmaLink}>
-          <li>{figmaLink}</li>
-        </a>
-    
+            {/* <p>
+              <strong>Help Documents:</strong> {namesFile.length > 0 ? (
+                  <ul>
+                  {namesFile.map((repo, index) => (
+                    <li key={index}>{repo}</li>
+                  ))}
     </ul>
   ) : (
     '-'
   )}
-            </p>
+            </p> */}
+            <p>
+      <strong>Help Documents:</strong>
+      {namesFile.length > 0 ? (
+        <ul>
+          {namesFile.map((filename, index) => (
+            <li key={index}>
+              <button onClick={() => downloadFile(filename)}>{filename}</button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        '-'
+      )}
+    </p>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
