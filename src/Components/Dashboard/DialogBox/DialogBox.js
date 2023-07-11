@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 // import Display from '../PM/Display';
 import { props } from 'react-select';
+import PropTypes from 'prop-types';
 const DialogBox = (props) => {
   const {show,onClose,onConfirm}=props
   return (
@@ -22,11 +23,7 @@ const DialogBox = (props) => {
     </Modal>
   );
 };
-// DialogBox.propTypes = {
-//   show: PropTypes.bool.isRequired,
-//   onClose: PropTypes.func.isRequired,
-//   onConfirm: PropTypes.func.isRequired,
-// };
+
 export default DialogBox;
 
 

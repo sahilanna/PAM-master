@@ -27,7 +27,7 @@ function UserFigmaRead() {
    const fetchPmid = async () => {
    try {
      const urlParams = new URLSearchParams(window.location.search);
-     // const id = urlParams.get('id');
+     
      const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/user/projects`);
    console.log(response.data)
    console.log(response.id);

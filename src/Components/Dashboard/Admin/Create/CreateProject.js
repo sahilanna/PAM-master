@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
+import './Create.css';
 
 
 function CreateProject() {

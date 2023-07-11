@@ -306,19 +306,25 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   const { projectId, projectName, projectDescription } = project;
   const [showAddUserProject, setShowAddUserProject] = useState(false);
   const [fileData, setFileData] = useState([]);
+
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const navigate = useNavigate();
   const [fdata, setFdata] = useState();
   const [namesFile, setNamesFile] = useState([]);
   const[repoName, setRepoName]=useState('')
+
   const[repo, setRepo]= useState([])
   const[figmaLink, setFigmaLink]=useState([])
   const handleAddEmployee = () => {
     setShowAddUserProject(true);
   };
+
   useEffect(() => {
     displayFile();
   }, []);
+
+
+
   const displayFile=async()=>{
     try{
     const result = await api.get(`https://${ngrokUrl}/api/projects/files?projectId=${projectId}`)
@@ -329,6 +335,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
       console.log('error', error)
     }
   }
+
   const handleCloseAddUserProject = () => {
     setShowAddUserProject(false);
   };
@@ -342,6 +349,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   const cancelDeleteProject = () => {
     setShowConfirmDialog(false);
   };
+
   const downloadFile = async (filename) => {
     console.log('hiiiiiiiiiiiiiiiiiiii')
     console.log(namesFile)
@@ -367,7 +375,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     try {
       const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
       setRepo(response.data);
-      // console.log(repo)
+
     } catch (error) {
       console.log(error);
     }
@@ -388,6 +396,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     loadFigma();
   }, []);
   
+
   return (
     <>
       {showAddUserProject && (
@@ -442,8 +451,9 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     <ul>
       {repo.map((repo, index) => (
         <li key={index}>{repo.name}</li>
-      ))}
+      ))} 
     </ul>
+    
   ) : (
     ''
   )}
@@ -476,7 +486,9 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
         <ul>
           {namesFile.map((filename, index) => (
             <li key={index}>
+
               <span onClick={() => downloadFile(filename)}>{filename}</span>
+
             </li>
           ))}
         </ul>

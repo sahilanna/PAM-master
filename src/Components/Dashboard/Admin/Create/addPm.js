@@ -21,11 +21,13 @@ const AddPm = () => {
   let navigate = useNavigate()
   const [formError, setFormError] = useState('');
   const { state } = useLocation();
+
   const[username,setusername]= useState([]);
   let[projectNameA,setProjectNameA]=useState('')
   let[userNameA,setUserNameA]=useState('')
   const[repoId,setRepoId]=useState('')
   const[selectedRepo, setSelectedRepo]=useState('')
+
   const accessToken=gitAccessToken
   const handleUserNameChange=(event,{value})=>{
     setusername(value)
@@ -33,6 +35,7 @@ const AddPm = () => {
   const handleBack = () => {
     navigate(-1);
   };
+
   useEffect(() => {
     const fetchUsernames = async () => {
       try {
@@ -51,6 +54,7 @@ const AddPm = () => {
     };
     fetchUsernames();
   }, []);
+
   const handleSubmit=(e)=>{
     e.preventDefault();
     if(!selectedRepo){
@@ -69,12 +73,21 @@ const AddPm = () => {
     console.log(repoId)
     setSelectedRepo(selectedRepo.text);
   }
+
+
+  const handleRepoChange=(e, { value, options})=>{
+    const selectedRepo = options.find((option) => option.value === value);
+    setRepoId(value)  
+    console.log(repoId)
+    setSelectedRepo(selectedRepo.text);
+  }
   const onClose=()=>{
     navigate(-1);
   }
   return (
     <Modal open={true} onClose={onClose} style={{ width: '500px', height:'450px' }} className='create-Project-Modal'>
     <div style={{paddingTop:'6px'}}>
+
       </div>
       <div style={{paddingLeft:'440px'}}>
     <Button secondary  onClick={onClose}>
@@ -95,8 +108,10 @@ const AddPm = () => {
               onChange={handleRepoChange}
             />
           </Form.Field>
+
         <Form.Field>
   <label style={{ textAlign: 'left' }}>PM Username<span style={{ color: 'red' }}>*</span></label>
+
   <Dropdown
               placeholder="Select Username"
               fluid
@@ -111,6 +126,7 @@ const AddPm = () => {
             />
             </Form.Field>
             {formError && <p style={{ color: 'red' }}>{formError}</p>}
+
 <Button type='submit' primary disabled={!selectedRepo}>Submit</Button>
         </Form>
         </Modal.Content>

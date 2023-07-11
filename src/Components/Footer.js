@@ -7,6 +7,7 @@ import './Footer.css'
 const Footer = () => {
   return (
     <div className="Footer">
+
     <div className="sb_footer_section_padding">
       <div className="sb_footer-links">
         <div className="sb_footer-links_div">
@@ -17,6 +18,7 @@ const Footer = () => {
           <a href="https://github.com/">
             <p><FontAwesomeIcon icon={faGithub} /> GitHub</p>
           </a>
+
           </div>
          <div className="sb_footer-links_div">
           <h4>Social media</h4>

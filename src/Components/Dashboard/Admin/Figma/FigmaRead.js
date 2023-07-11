@@ -10,6 +10,7 @@ import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Pagination from '../../Pagination/Pagination';
 import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import Pagination from '../../Pagination/Pagination';
 
@@ -26,9 +27,11 @@ function FigmaRead() {
   const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 5;
   const[showConfirmDialog, setShowConfirmDialog]=useState(false)
+
   useEffect(() => {
     fetchProjects();
   }, []);
+
   const fetchProjects = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/figmas/getAll`);
@@ -41,15 +44,18 @@ function FigmaRead() {
       setIsLoading(true)
     }
   };
+
   const createFigma = () => {
     navigate('/createFigmaDetails', { state: { figmaId } });
   };
+
   const handleAddUser = (url, id, projectId, figmaId) => {
     setFigmaURL(url);
     setFigmaId(id);
     setProjectId(projectId);
     setShowModal(true);
   };
+
   const handleDeleteUrl = async (figmaId) => {
     try {
       await api.delete(`https://${ngrokUrl}/api/figmas/${figmaId}`);
@@ -60,6 +66,7 @@ function FigmaRead() {
       console.log(error);
     }
   };
+
   const closeModal = () => {
     setShowModal(false);
   };
@@ -69,10 +76,12 @@ function FigmaRead() {
     const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
     setCurrentPageData(currentItems);
   };
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     handleFilterItems(e.target.value);
   };
+
   const handleFilterItems = (searchQuery) => {
     const filteredItems = projects.filter((item) =>
       item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -138,7 +147,9 @@ function FigmaRead() {
                         </a>
                       </td>
                       <td className="text-center">
+
                         <button className="btn btn-outline-primary mx-2" onClick={() => handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
+
                           <FontAwesomeIcon icon={faUser} />
                         </button>
                       </td>
@@ -171,4 +182,5 @@ function FigmaRead() {
     </div>
   );
 }
+
 export default FigmaRead;

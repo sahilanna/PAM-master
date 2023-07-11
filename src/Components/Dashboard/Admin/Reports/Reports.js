@@ -6,6 +6,7 @@ import Sidebar from '../../SideBar/SideBar';
 import '../AdminDashboard.css';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
+import Pagination from '../../Pagination/Pagination';
 
 function Reports() {
   const [item, setItem] = useState([]);
@@ -78,12 +79,14 @@ function Reports() {
       </div>
       <div className='admin-child'>
         <br />
+
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <button className='ui button' onClick={handleTableClick}>
             Employees Project List
           </button>
           <button className='ui button' onClick={handleOtherTableClick}>
             Employees With Multiple Project Access
+
           </button>
           {item.length > 0 && (
             <CSVLink data={csvData1} filename="user_project_list.csv">

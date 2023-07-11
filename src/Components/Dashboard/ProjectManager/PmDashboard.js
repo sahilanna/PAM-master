@@ -50,6 +50,7 @@ const PmDashboard = () => {
         const urlParams = new URLSearchParams(window.location.search);
         // const id = urlParams.get('id');
         const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`);
+
       console.log(response.data)
       console.log(response.id);
       setIsLoading(false);
@@ -77,6 +78,7 @@ const PmDashboard = () => {
     handleFilterItems(e.target.value);
   };
   const handleFilterItems = (searchQuery) => {
+
       const filteredItems = item && item.filter((item) =>
   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -85,6 +87,7 @@ const PmDashboard = () => {
   const filteredItems = item.filter((item) =>
     item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
   )
+
   return (
       <div className='parent-admin'>
       <div style={{ height: '100vh', overflow: 'scroll initial' }}>

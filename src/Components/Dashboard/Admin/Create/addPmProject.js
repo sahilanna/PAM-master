@@ -18,7 +18,7 @@ function AddPmProject() {
 
   const fetchPms = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/users/role/project_manager`);
+      const response = await api.get(`https://${ngrokUrl}/api/users/withoutProject?role=project_manager&projectId=${projectId}`);
       const projUsers = response.data.map((projU) => ({
         key: projU.id,
         text: projU.name,
@@ -107,13 +107,13 @@ function AddPmProject() {
       <Modal.Content>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
-            <label style={{ textAlign: 'left' }}>Project-Name</label>
+            <label style={{ textAlign: 'left' }}>Project-Name<span style={{ color: 'red' }}>*</span></label>
             <input name="name" placeholder={projectName} readOnly />
             <br />
           </Form.Field>
           <Form.Field>
-            <label>PM</label>
-            <Dropdown placeholder="Select User" fluid selection options={user} onChange={handleUserChange} />
+            <label>PM<span style={{ color: 'red' }}>*</span></label>
+            <Dropdown placeholder="Select PM" fluid selection options={user} onChange={handleUserChange} />
           </Form.Field>
 
           <Button type="submit" primary onClick={handleSubmit}>

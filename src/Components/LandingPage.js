@@ -1,20 +1,19 @@
-import React, { Component } from 'react'
-import './LandingPage.css'
+import React, { Component } from 'react';
+import './LandingPage.css';
 import { IconName } from "react-icons/fa";
-// import NoTransitionExample from './LandingPgCarousel';
 import Carousel from 'react-bootstrap/Carousel';
 import NavBar from './NavBar';
-import Footer from'./Footer'
-import photo1 from '../Assets/photo1.jpeg'
-import photo2 from '../Assets/photo2.avif'
-import photo3 from '../Assets/photo3.avif'
-
+import Footer from './Footer';
+import photo1 from '../Assets/photo.jpg';
+import photo2 from '../Assets/photo2.avif';
+import photo3 from '../Assets/photo3.avif';
 
 export class LandingPage extends Component {
   render() {
     return (
       <div className='sample'>
         <NavBar />
+
         <div>
           <div className='at-container'>
             <div className='at-item'>Build-Better-Together</div>
@@ -37,6 +36,7 @@ export class LandingPage extends Component {
               </div>
             </div>
             <div className="col-md-6">
+
               <div className="image-carousel-container">
                 <Carousel slide={true}>
                   <Carousel.Item>
@@ -46,6 +46,7 @@ export class LandingPage extends Component {
                       style={{ maxWidth: "90%", height: "370px" }}
                     />
                   </Carousel.Item>
+
                   <Carousel.Item>
                     <img
                       src={photo2}
@@ -53,6 +54,7 @@ export class LandingPage extends Component {
                       style={{ maxWidth: "90%", height: "370px" }}
                     />
                   </Carousel.Item>
+
                   <Carousel.Item>
                     <img
                       src={photo3}
@@ -62,13 +64,18 @@ export class LandingPage extends Component {
                   </Carousel.Item>
                 </Carousel>
               </div>
+
             </div>
           </div>
           <br />
         </div>
+
         <Footer className="Footer" />
       </div>
     );
   }
 }
+
 export default LandingPage;
+
+
