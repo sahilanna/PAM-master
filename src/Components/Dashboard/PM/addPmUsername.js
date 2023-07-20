@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {Modal, Form, Dropdown, Button } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios';
 import { ngrokUrl, gitAccessToken } from '../../../Assets/config';
 import api from '../api';
 function AddPmUserName() {

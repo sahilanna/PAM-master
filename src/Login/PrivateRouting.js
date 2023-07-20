@@ -5,7 +5,6 @@ import PmCreate from "../Components/Dashboard/PM/pmCreate";
 import Create from "../Components/Dashboard/Admin/Create/Create";
 import PmReadNew from "../Components/Dashboard/PM/PmReadNew";
 import UserCreate from "../Components/Dashboard/Users/userCreate";
-import UserUpdate from "../Components/Dashboard/Users/userUpdate";
 import UserAnalytics from "../Components/Dashboard/UserDashboard/userAnalytics";
 import CreateRepo from "../Components/Dashboard/Admin/Create/CreateRepo";
 import Reports from "../Components/Dashboard/Admin/Reports/Reports";

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import './Login.css'
 import { ngrokUrl } from '../Assets/config';
-import { Modal } from 'semantic-ui-react';
 import styled from 'styled-components';
 function Test() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
