@@ -22,19 +22,21 @@ function RepoRead() {
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+
   const itemsPerPage = 4;
   let data = sessionStorage.getItem('item');
   let user = JSON.parse(data);
   const accessToken = user.token;
   console.log(user);
   console.log(user.token);
+
   useEffect(() => {
     loadItem();
   }, []);
 
   useEffect(() => {
     handlePaginate(1);
-  }, [filteredProjects]);
+  }, [item]);
 
   const loadItem = async () => {
     try {
@@ -65,6 +67,7 @@ function RepoRead() {
   const createOnclick = () => {
     navigate('/CreateRepo');
   };
+
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -75,10 +78,12 @@ function RepoRead() {
     setIsDrawerOpen(!isDrawerOpen);
     navigate('/Create');
   };
+
   const toggleDrawer1 = () => {
     setIsDrawerOpen(!isDrawerOpen);
     navigate('/AddPm');
   };
+
   const deleteUser = async (repoId) => {
     try {
       await api.delete(`https://${ngrokUrl}/api/repositories/delete/${repoId}`);
@@ -88,6 +93,7 @@ function RepoRead() {
       console.log(error);
     }
   };
+
   return (
     <div className='parent-admin'>
       <Sidebar />

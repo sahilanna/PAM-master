@@ -9,7 +9,6 @@ import Carousel from 'react-bootstrap/Carousel'
 import AdminDashboard from './Components/Dashboard/Admin/AdminDashboard'
 import Pagination from './Components/Dashboard/Pagination/Pagination';
 import Update from './Components/Dashboard/Admin/Update/Update';
-import Delete from './Components/Dashboard/Admin/Delete/Delete';
 import {BrowserRouter as Router , Route,Routes, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './Login/redux-store/store';

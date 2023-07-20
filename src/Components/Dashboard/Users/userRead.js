@@ -16,7 +16,7 @@ import LoadingPage from '../../../Assets/Loader/LoadingPage'
 import api from '../api'
 
 
-// import './Read.css'
+
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config'
 
 function UserRead(){
@@ -58,7 +58,6 @@ function UserRead(){
     const result = await api.get(getUrl) .then((result) => {
         setItem(result.data);
         setIsLoading(false);
-        // console.log(res, "hello");
         navigate('/userRead')
       })
       .catch((error)=>{
@@ -136,13 +135,13 @@ function UserRead(){
     <table class="ui celled table">
         
         <thead>
-            {/* <th>User ID</th> */}
+           
             <th>S.No.</th>
             <th>User Name</th>
             <th>User Email</th>
-            {/* <th>User-Github-UserName</th> */}
+            
             <th className='text-center'>View</th>
-            {/* <th className='text-center'>Update</th> */}
+            
             <th className='text-center'>Delete</th>
           </thead>
           <tbody>
@@ -163,7 +162,9 @@ function UserRead(){
               {/* <td>{user.githubUsername}</td> */}
               <td className='text-center'>
   <button
+
     className="btn btn-outline-primary mx-2" 
+
     onClick={() => handleViewDetails(user)}
     
   >
@@ -172,13 +173,13 @@ function UserRead(){
 </td>          
               
                  <td className='text-center'>
-                 <Link>
+                 
     <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(user.id)}><FontAwesomeIcon icon={faTrash} /> </button>
     <DialogBox
      show={showConfirmDialog === user.id}
       onClose={() => setShowConfirmDialog(null)}
       onConfirm={()=>deleteUser(user.id)}/>
-      </Link>
+
               </td>
             </tr>
           )))}
@@ -202,100 +203,4 @@ function UserRead(){
 }
 export default UserRead;
 
-//nction UserRead(){
 
-//     const navigate = useNavigate();
-//     const getUrl =  "https://225f-106-51-70-135.ngrok-free.app/api/users/role/user";
-    
-//     // https://2063-106-51-70-135.ngrok-free.app/api/users/2
-//     const delUrl = "";
-//     const [item, setItem] = useState([]);
-//     const [id, setId] = useState('');
-//     const [name, setName] = useState('');
-//     const [email, setEmail] = useState('');
-//     const [enumRole,setEnumRole]=useState('3');
-//     const { ID } = useParams();
-    
-//     useEffect(() => {
-//       loaditem();
-//     }, []);
-
-//     const loaditem = async () => {
-//       const result = await axios.get(getUrl,{
-//           headers: {
-//             'ngrok-skip-browser-warning': 'true'
-//           }}) .then((result) => {
-//           setItem(result.data);
-//           // console.log(res, "hello");
-//         })
-//         .catch((error)=>{
-//           console.log(error,'hi');
-//         })
-//       };
-//       const deleteUser = async (id) => {
-//         await axios.delete(`https://225f-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
-//         loaditem();
-//       };
-//     return(
-// <div>
-//     <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-//     <CDBSidebar textColor="#fff" backgroundColor="#333">
-//       <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>USERS
-//         </CDBSidebarHeader>
-//       <CDBSidebarContent className="sidebar-content">
-//           <CDBSidebarMenu>
-//             <NavLink exact to="/" activeClassName="activeClicked">
-//               <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
-//             </NavLink>
-//             <NavLink exact to="/Roles" activeClassName="activeClicked">
-//               <CDBSidebarMenuItem icon="user">Role</CDBSidebarMenuItem>
-//             </NavLink>
-//             <NavLink exact to="/userCreate" activeClassName="activeClicked">
-//               <CDBSidebarMenuItem icon="chart-line">Create User</CDBSidebarMenuItem>
-//             </NavLink>
-//             </CDBSidebarMenu>
-//             </CDBSidebarContent>
-//             </CDBSidebar>
-//             <div className="container">
-//       <div className="py-4">
-//         <table className="table border shadow">
-//           {/* <thead colspan = '5'>
-//           </thead> */}
-//           <tbody>
-//           <tr>
-//               <th className='col'>User ID</th>
-//               <th className='col'>User Name</th>
-//               <th className='col'>User Email</th>
-//               <th className='col'>Update</th>
-//               <th className='col'>Delete</th>
-//             </tr>
-//             {item.map((user, index) => (
-//               <tr>
-//                 <td>{user.id}</td>
-//                 <td>{user.name}</td>
-//                 <td>{user.email}</td>
-//                 <td>
-//                   <Link
-//                     className="btn btn-outline-primary mx-2"
-//                     to={`/userUpdate/${user.id}`}
-//                   >
-//                     Update
-//                   </Link>
-//                   </td>
-//                    <td>
-//                   <button className="btn btn-danger mx-2"
-//                     onClick={() => deleteUser(user.id)}>
-//                     Delete
-//                   </button>
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-//     </div>
-//   </div>
-//   </div>
-// )
-// }
-// export default UserRead;

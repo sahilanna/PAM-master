@@ -15,6 +15,7 @@ function AddUserProject() {
   const [errorMessage, setErrorMessage] = useState('');
   const [otpp, setotpp] = useState('');
   const [user, setUsers] = useState([]);
+  
 
   const fetchUsers = async () => {
     try {
@@ -114,12 +115,12 @@ function AddUserProject() {
       <Modal.Content>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
-            <label style={{ textAlign: 'left' }}>Project-Name</label>
+            <label style={{ textAlign: 'left' }}>Project-Name<span style={{ color: 'red' }}>*</span></label>
             <input name="name" placeholder={projectName} readOnly />
             <br />
           </Form.Field>
           <Form.Field>
-            <label>User</label>
+            <label>User<span style={{ color: 'red' }}>*</span></label>
             <Dropdown placeholder="Select User" fluid selection options={user} onChange={handleUserChange} />
           </Form.Field>
 
@@ -132,7 +133,7 @@ function AddUserProject() {
 
       {/* OTP Modal */}
       <Modal open={showOTPMoal} onClose={handleOTPClose} style={{ width: '500px' }} className="centered-modal-OTP">
-        <Modal.Header>Enter OTP</Modal.Header>
+        <Modal.Header>Enter OTP </Modal.Header>
         <Modal.Content>
           <Form onSubmit={handleOTPSubmit}>
             <div className="form-field">
@@ -154,4 +155,5 @@ function AddUserProject() {
 }
 
 export default AddUserProject;
+
 

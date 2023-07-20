@@ -38,10 +38,7 @@ function DeleteRepo() {
             }
             const response=api.delete(`https://${ngrokUrl}/api/repositories/${repoId}`,)
             navigate('/repoRead')
-          
-          
-            
-            
+         
           };
 
 
@@ -49,7 +46,6 @@ function DeleteRepo() {
             const selectedRepo = options.find((option) => option.value === value);
             setRepoId(value)  
             console.log(repoId)
-            // console.log("repoValue",value)
             setSelectedRepo(selectedRepo.text);
           }
 

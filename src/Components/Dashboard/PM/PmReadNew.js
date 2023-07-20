@@ -15,7 +15,6 @@ import './Read.css'
 import PmDetails from './PmDetails'
 import { ngrokUrl } from '../../../Assets/config'
 import Sidebar from '../SideBar/SideBar'
-// import { ngrokUrl } from '../../../Assets/config'
 import LoadingPage from '../../../Assets/Loader/LoadingPage'
 import api from '../api'
 
@@ -23,9 +22,6 @@ import api from '../api'
 function PmReadNew() {
 
     const navigate = useNavigate();
-    // const getUrl =  "https://bc38-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-    const getUrl =  `https://${ngrokUrl}/api/users/role/project_manager`;
-    const delUrl = "https://77c8-106-51-70-135.ngrok-free.app/api/projects/delete/3";
     const [item, setItem] = useState([]);
     const [id, setId] = useState('');
     const [name, setName] = useState('');
@@ -56,24 +52,20 @@ function PmReadNew() {
     useEffect(() => {
       loaditem();
     }, []);
-
+   
     const tokenData=localStorage.getItem('userData')
-    console.log(tokenData)
 
     const loaditem = async () => {
       const result = await api.get(`https://${ngrokUrl}/api/users/role/project_manager`)
        .then((result) => {
           setItem(result.data);
           setIsLoading(false);
-          console.log(tokenData)
-         
-          
+        
+        
         })
         .catch((error)=>{
           console.log(error,'hi');
           setIsLoading(true);
-          
-
         })
       };
 
@@ -173,7 +165,7 @@ function PmReadNew() {
             <th>S.No.</th>
             <th>PM-Name</th>
             <th>PM-Email</th>
-            
+          
             <th className='text-center'>View</th>
             
             <th className='text-center'>Delete</th>
@@ -187,20 +179,22 @@ function PmReadNew() {
            filteredProjects.map((item, index) => (
     <tr key={index}>
           
-  
+          
               <td>{index+1}</td>
               <td>{item.name}</td>
               <td>{item.email}</td>
              
               <td className='text-center'>
   <button
+
     className="btn btn-outline-primary mx-2"
+
     onClick={() => handleViewDetails(item)}
   >
     <FontAwesomeIcon icon={faEye} />
   </button>
 </td>             
-            
+         
       <td className='text-center'>
       
         <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(item.id)}>

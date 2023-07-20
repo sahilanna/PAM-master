@@ -176,7 +176,11 @@ const AdminDashboard = () => {
     }
   };
 
- 
+  // const handleOpenProjectUsers = (projectId, projectName) => {
+  //   setSelectedProject(projectId,projectName);
+  //   setShowProjectUsersModal(true);
+  // };
+
 
 
   return (
@@ -227,8 +231,6 @@ const AdminDashboard = () => {
                     <th className="text-center">PMs</th>
             
                   </tr>
-
-
                 </thead>
                 <tbody>
                 {currentPageData.length === 0 ? (
@@ -280,7 +282,6 @@ const AdminDashboard = () => {
                      
                       
                        </td>
-
                     </tr>
                   )))}
                 </tbody>

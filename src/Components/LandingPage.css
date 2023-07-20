@@ -1,11 +1,12 @@
-.sample{
+
+.sample {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: rgb(2,0,36);
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(22,22,124,1) 100%, rgba(0,212,255,1) 100%);
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(22, 22, 124, 1) 100%, rgba(0, 212, 255, 1) 100%);
   padding: 1px;
-  position:relative;
+  position: relative;
 }
 .Footer {
   background-color: #F5F5F5;
@@ -35,6 +36,7 @@ p {
     padding: 20px;
     margin-top: 60px;
     margin-right: 47%;
+
 }
 .col-md-6{
   display: flex;
@@ -50,6 +52,7 @@ p {
   animation-delay: 0s;
   animation-fill-mode: both;
 }
+
 @keyframes slide-in {
   0% {
     transform: translateX(100%);
@@ -63,7 +66,9 @@ p {
 .image-carousel-container {
   display: flex;
   justify-content: flex-start;
+
 }
+
 div.at-container {
     display: flex;
     align-items: center;
@@ -134,4 +139,6 @@ carousel-caption {
   .heading {
     padding: 5px;
   }
+
 }
+

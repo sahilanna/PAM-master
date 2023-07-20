@@ -128,8 +128,6 @@ const Create = () => {
     console.log("repoid", repoId)
     const response=api.put(`https://${ngrokUrl}/api/projects/${projectId}/repository/${repoId}`)
     console.log("Check",selectedRepo);
-    navigate('/repoRead')
-   
 
     setClicked(true);
     

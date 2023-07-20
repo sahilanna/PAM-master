@@ -24,6 +24,7 @@ const AddUser = () => {
   const handleBack = () => {
     navigate(-1);
   };
+
   useEffect(() => {
     const fetchUsernames = async () => {
       try {
@@ -48,8 +49,10 @@ const onClose=()=>{
   navigate(-1);
 }
   return (
+
     <Modal open={true} onClose={onClose} style={{ width: '500px', height:'450px' }} className='create-Project-Modal'>
       <div style={{paddingTop:'6px'}}>
+
         </div>
         <div style={{paddingLeft:'440px'}}>
       <Button secondary onClick={onClose}>
@@ -65,6 +68,7 @@ const onClose=()=>{
         </Form.Field>
         <Form.Field>
   <label style={{ textAlign: 'left' }}>User Username<span style={{ color: 'red' }}>*</span></label>
+
 <Dropdown
               placeholder="Select Username"
               fluid
