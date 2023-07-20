@@ -41,9 +41,9 @@ color: #ffffff;
                 <h2 style={{ color: "white" }}><StyledText>Manage Projects With One Tool</StyledText></h2>
                 <h3 style={{ color: "white" }}><StyledText>What we have created :</StyledText></h3>
                 <h3 style={{ color: "white" }}><StyledText>
-                  ->All-in-one project management tool to streamline projects</StyledText>
+                  All-in-one project management tool to streamline projects</StyledText>
                 </h3>
-                <h3 style={{ color: "white" }}> <StyledText>->Collaborate with your team, and track progress effectively.</StyledText></h3>
+                <h3 style={{ color: "white" }}> <StyledText>Collaborate with your team, and track progress effectively.</StyledText></h3>
               
               </div>
             </div>

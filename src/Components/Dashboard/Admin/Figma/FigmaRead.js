@@ -12,7 +12,7 @@ import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from '../../Pagination/Pagination';
 import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt } from '@fortawesome/free-solid-svg-icons';
-import Pagination from '../../Pagination/Pagination';
+
 
 function FigmaRead() {
   const [showModal, setShowModal] = useState(false);

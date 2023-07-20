@@ -75,12 +75,12 @@ const AddPm = () => {
   }
 
 
-  const handleRepoChange=(e, { value, options})=>{
-    const selectedRepo = options.find((option) => option.value === value);
-    setRepoId(value)  
-    console.log(repoId)
-    setSelectedRepo(selectedRepo.text);
-  }
+  // const handleRepoChange=(e, { value, options})=>{
+  //   const selectedRepo = options.find((option) => option.value === value);
+  //   setRepoId(value)  
+  //   console.log(repoId)
+  //   setSelectedRepo(selectedRepo.text);
+  // }
   const onClose=()=>{
     navigate(-1);
   }
