@@ -39,6 +39,7 @@ function PmSidebar() {
           <NavLink exact to="/repoPmDashboard" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="sticky-note">Repository</CDBSidebarMenuItem>
           </NavLink>
+         
           {/* <NavLink exact to="/statusPm" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="check">Status</CDBSidebarMenuItem>
           </NavLink> */}

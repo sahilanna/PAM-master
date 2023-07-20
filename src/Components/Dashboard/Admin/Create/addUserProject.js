@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Modal, Dropdown } from 'semantic-ui-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../../api';
-import { ngrokUrl } from '../../../../Assets/config';
+import { ngrokUrl, gitAccessToken } from '../../../../Assets/config';
 import './Create.css';
 
 function AddUserProject() {
@@ -136,7 +136,7 @@ function AddUserProject() {
         <Modal.Content>
           <Form onSubmit={handleOTPSubmit}>
             <div className="form-field">
-              <label>OTP sent to +917032051235'</label>
+              <label>OTP sent to +918884763231'</label>
               <input type="text" name="otp" onChange={(e) => setotpp(e.target.value)} />
             </div>
             <p>{errorMessage}</p>

@@ -44,7 +44,7 @@ function Sidebar() {
             </NavLink>
             
             <NavLink exact to="/userHistory" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="bookmark">User History</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="bookmark">Project History</CDBSidebarMenuItem>
             </NavLink>
 
             <NavLink exact to="/Reports" activeClassName="activeClicked">

@@ -28,7 +28,7 @@ const AddUser = () => {
   }, []);
   const handleSubmit=(e)=>{
     e.preventDefault();
-    const owner='swe1304';
+    const owner='Bindushree-0906';
     const accessToken= gitAccessToken
     let repo = selectedRepo;
     api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken

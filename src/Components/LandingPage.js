@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './LandingPage.css';
+import { IconName } from "react-icons/fa";
+ import styled from 'styled-components';
+// import NoTransitionExample from './LandingPgCarousel';
 import Carousel from 'react-bootstrap/Carousel';
 import NavBar from './NavBar';
 import Footer from './Footer';
@@ -8,14 +11,23 @@ import photo2 from '../Assets/photo2.avif';
 import photo3 from '../Assets/photo3.avif';
 
 export class LandingPage extends Component {
+  
   render() {
+
+const StyledText = styled.p`
+font-family: 'Montserrat';
+color: #ffffff;
+;
+
+`;
+
     return (
       <div className='sample'>
         <NavBar />
 
         <div>
           <div className='at-container'>
-            <div className='at-item'>Build-Better-Together</div>
+          <div className='at-item'> <StyledText> Build-Better-Together</StyledText></div>
           </div>
         </div>
         <br />
@@ -26,12 +38,13 @@ export class LandingPage extends Component {
           <div className="row">
             <div className="col-md-6 text-left">
               <div style={{ display: "flex", flexDirection: "column", alignItems: "centre" }}>
-                <h2 style={{ color: "white" }}>Manage Projects With One Tool</h2>
-                <h3 style={{ color: "white" }}>What we have created</h3>
-                <h3 style={{ color: "white" }}>
-                   All-in-one project management tool to streamline projects
+                <h2 style={{ color: "white" }}><StyledText>Manage Projects With One Tool</StyledText></h2>
+                <h3 style={{ color: "white" }}><StyledText>What we have created :</StyledText></h3>
+                <h3 style={{ color: "white" }}><StyledText>
+                  All-in-one project management tool to streamline projects</StyledText>
                 </h3>
-                <h3 style={{ color: "white" }}> Collaborate with your team, and track progress effectively.</h3>
+                <h3 style={{ color: "white" }}> <StyledText>Collaborate with your team, and track progress effectively.</StyledText></h3>
+              
               </div>
             </div>
             <div className="col-md-6">

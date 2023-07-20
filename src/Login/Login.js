@@ -6,10 +6,17 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import './Login.css'
 import { ngrokUrl } from '../Assets/config';
-
+import { Modal } from 'semantic-ui-react';
+import styled from 'styled-components';
 function Test() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
   const navigate=useNavigate()
+  const StyledText = styled.p`
+font-family: 'Montserrat';
+color: #ffffff;
+;
+
+`;
   async function handleGoogleLogin(response) {
       
       const token=response.credential
@@ -65,7 +72,7 @@ function Test() {
       return JSON.parse(jsonPayload);
     }
   useEffect(() => {
-      const clientID='664601673419-hiir2173k5usfrm159r3ttg9108cpuhi.apps.googleusercontent.com'
+      const clientID='840665959732-ip9sm2ea6l7ds2vbgooum6ec08fl8k3v.apps.googleusercontent.com'
       window.google.accounts.id.initialize({
           client_id: clientID,
           callback: handleGoogleLogin
@@ -81,7 +88,9 @@ function Test() {
     <div className="sample1">
       <NavBarLogin />
       <div className="box-container">
-        <div className="welcome-message">Welcome to our Website!</div>
+        <div className="welcome-message"><StyledText>Welcome to our Website!</StyledText>
+       </div>
+
         <br/>
         <div className="space"></div>
         <br/>

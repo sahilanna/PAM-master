@@ -87,8 +87,13 @@ function Reports() {
             Employees With Multiple Project Access
 
           </button>
-          {item.length > 0 && (
+          {item.length > 0 && !showOtherTable && (
             <CSVLink data={csvData1} filename="user_project_list.csv">
+              <button className='ui button'>Download CSV</button>
+            </CSVLink>
+          )}
+          {mitem.length > 0 && showOtherTable && (
+            <CSVLink data={csvData2} filename="user_multiple_projects.csv">
               <button className='ui button'>Download CSV</button>
             </CSVLink>
           )}
@@ -99,7 +104,6 @@ function Reports() {
             <table className="ui celled table">
               <thead>
                 <tr>
-                
                   <th>Employee Name</th>
                   <th>Projects</th>
                 </tr>
@@ -107,7 +111,6 @@ function Reports() {
               <tbody>
                 {currentRows.map((entry, index) => (
                   <tr key={entry.userId}>
-                    {/* <td>{entry.userId}</td> */}
                     <td>{entry.userName}</td>
                     <td>
                       {entry.projectNames.length > 0 ? (
@@ -130,7 +133,6 @@ function Reports() {
             <table className="ui celled table">
               <thead>
                 <tr>
-                 
                   <th>Employee Name</th>
                   <th>Projects</th>
                 </tr>
@@ -138,20 +140,12 @@ function Reports() {
               <tbody>
                 {mitem.map((entry, index) => (
                   <tr key={entry.userId}>
-                    {/* <td>{entry.userId}</td> */}
                     <td>{entry.userName}</td>
                     <td>{entry.projectNames.join(', ')}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            {mitem.length > 0 && (
-              <div style={{ marginTop: '20px' }}>
-                <CSVLink data={csvData2} filename="user_project_list.csv">
-                  <button className='ui button'>Download CSV</button>
-                </CSVLink>
-              </div>
-            )}
             <div style={{ marginTop: '20px' }}>
               {renderPaginationButtons()}
             </div>

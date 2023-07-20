@@ -17,8 +17,8 @@ function Analytics() {
     try {
       const [adminResponse, pmResponse, userResponse] = await Promise.all([
         api.get(`https://${ngrokUrl}/api/users/count/admin`),
-        api.get(`https://${ngrokUrl}/api/users/count/user`),
         api.get(`https://${ngrokUrl}/api/users/count/project_manager`),
+        api.get(`https://${ngrokUrl}/api/users/count/user`),
       ]);
 
       setIsLoading(false);

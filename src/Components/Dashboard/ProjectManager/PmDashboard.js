@@ -90,7 +90,7 @@ const PmDashboard = () => {
     <div style={{marginLeft:'20px',marginRight:'30px'}}>
     <table class="ui celled table">
         <thead>
-            <th>Project-ID</th>
+            {/* <th>Project-ID</th> */}
             <th>Project-Name</th>
            
             <th>Project-Description</th>
@@ -103,7 +103,7 @@ const PmDashboard = () => {
     <tr key={item.projectId}>
          
              <>
-              <td>{item.projectId}</td>
+              {/* <td>{item.projectId}</td> */}
               <td>{item.projectName}</td>
               <td>{item.projectDescription}</td>
               <td>

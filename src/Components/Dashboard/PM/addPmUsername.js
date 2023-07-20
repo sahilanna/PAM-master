@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import {Modal, Form, Dropdown, Button } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom'
-import { ngrokUrl } from '../../../Assets/config';
+import axios from 'axios';
+import { ngrokUrl, gitAccessToken } from '../../../Assets/config';
 import api from '../api';
 function AddPmUserName() {
     const navigate=useNavigate()
@@ -11,7 +12,7 @@ function AddPmUserName() {
     const[selectedUser,setSelectedUser]=useState('')
     const [showInvalidUsernameModal, setShowInvalidUsernameModal] = useState(false);
   const [showUserExistModal, setShowUserExistModal] = useState(false);
-    const accessToken='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'
+    const accessToken=gitAccessToken
     useEffect(() => {
       fetchPms();
     }, []);

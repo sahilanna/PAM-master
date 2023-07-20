@@ -66,7 +66,7 @@ console.log(id)
         ) : (
     <table class="ui celled table">
         <thead>
-            <th>Project-ID</th>
+            {/* <th>Project-ID</th> */}
             <th>Project-Name</th>
             <th>project Description</th>
         </thead>

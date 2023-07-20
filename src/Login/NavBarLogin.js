@@ -32,10 +32,10 @@ export default class NavBarLogin extends Component {
             </NavDropdown>
             <NavDropdown title="Tools" id="collasible-nav-dropdown">
               
-             GitHub:-
+             GitHub
              <NavDropdown.Divider />
             
-             Figma:
+             Figma
              <NavDropdown.Divider />
             </NavDropdown>
           </Nav>

@@ -7,7 +7,7 @@ const PmDetails = ({ project, onClose }) => {
   return (
     <Modal show={true} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Project Details</Modal.Title>
+        <Modal.Title>PM Details</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p><strong>PM ID: </strong> {project.id}</p>

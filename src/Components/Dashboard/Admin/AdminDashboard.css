@@ -9,6 +9,11 @@
   padding: 10px;
 }
 
+.project-managers-box {
+  height: 147px; 
+}
+
+
 .button-container {
   display: flex;
   flex-direction: column;

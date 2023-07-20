@@ -189,4 +189,3 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
 export default ProjectDetails;
 
 
-
