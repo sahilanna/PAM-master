@@ -19,8 +19,7 @@ function PmRequestUser() {
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
   const accessToken=user.token
-  console.log(user)
-    console.log(user.token)
+ 
     
     const headers={AccessToken:accessToken}
 
@@ -33,9 +32,10 @@ function PmRequestUser() {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/request/all`);
       setRequestData(response.data);
+      console.log(response.data)
       setIsLoading(false);
        console.log(requestData)
-      requestData.forEach((request) => {
+    requestData.forEach((request) => {
         const userId = request.user.id; 
         const projectId = request.project.projectId;
   

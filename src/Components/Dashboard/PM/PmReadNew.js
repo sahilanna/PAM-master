@@ -56,7 +56,7 @@ function PmReadNew() {
     useEffect(() => {
       loaditem();
     }, []);
-    // const tokenData = localStorage.getItem('userData').replaceAll('"','');
+
     const tokenData=localStorage.getItem('userData')
     console.log(tokenData)
 
@@ -67,7 +67,7 @@ function PmReadNew() {
           setIsLoading(false);
           console.log(tokenData)
          
-          // console.log(res, "hello");
+          
         })
         .catch((error)=>{
           console.log(error,'hi');
@@ -167,16 +167,15 @@ function PmReadNew() {
             <LoadingPage />
           ) : (
     <table class="ui celled table">
-        {/* <thead colspan = '5'>
-        </thead> */}
+       
         <thead>
-            {/* <th>PM-ID</th> */}
+           
             <th>S.No.</th>
             <th>PM-Name</th>
             <th>PM-Email</th>
-            {/* <th>PM-Github-UserName</th> */}
+            
             <th className='text-center'>View</th>
-            {/* <th className='text-center'>Edit</th> */}
+            
             <th className='text-center'>Delete</th>
          </thead>
          <tbody>
@@ -188,9 +187,7 @@ function PmReadNew() {
            filteredProjects.map((item, index) => (
     <tr key={index}>
           
-          {/* {currentPageData.map((item, index) => (
-            <tr> */}
-              {/* <td>{item.id}</td> */}
+  
               <td>{index+1}</td>
               <td>{item.name}</td>
               <td>{item.email}</td>
@@ -203,13 +200,9 @@ function PmReadNew() {
     <FontAwesomeIcon icon={faEye} />
   </button>
 </td>             
-              {/* <td className='text-center'>
-        <Link className="btn btn-outline-primary mx-2" to={`/PmUpdate/${item.id}`}>
-          <FontAwesomeIcon icon={faPen} /> 
-        </Link>
-      </td> */}
+            
       <td className='text-center'>
-      {/* <div className="dialog-backdrop"> */}
+      
         <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(item.id)}>
           <FontAwesomeIcon icon={faTrash} />   
         </button>

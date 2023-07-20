@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import { ngrokUrl } from '../../../Assets/config';
+import { ngrokUrl, gitAccessToken } from '../../../Assets/config';
 import api from '../api';
 function AddPmUserName() {
     const navigate=useNavigate()
@@ -15,7 +15,7 @@ function AddPmUserName() {
     const[selectedUser,setSelectedUser]=useState('')
     const [showInvalidUsernameModal, setShowInvalidUsernameModal] = useState(false);
   const [showUserExistModal, setShowUserExistModal] = useState(false);
-    const accessToken='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'
+    const accessToken=gitAccessToken
     useEffect(() => {
       fetchPms();
     }, []);

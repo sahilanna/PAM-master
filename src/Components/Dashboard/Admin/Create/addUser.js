@@ -16,7 +16,6 @@ const AddUser = () => {
   const [error,setError]=useState('false');
   const { state } = useLocation();
   const { selectedRepo } = state || {};
-  // const[username,setusername]= useState([]);
   const [userNameB,setUserNameB]=useState('')
   const[username,setusername]=useState([]);
   const handleUserNameBChange=(event,{value})=>{
@@ -38,7 +37,7 @@ const AddUser = () => {
   }, []);
   const handleSubmit=(e)=>{
     e.preventDefault();
-    const owner='swe1304';
+    const owner='Bindushree-0906';
     const accessToken= gitAccessToken
     let repo = selectedRepo;
     const response= api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken

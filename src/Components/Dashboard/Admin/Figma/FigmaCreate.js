@@ -36,8 +36,10 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
           screenshotImage: screenshotImage
         }, {headers}
       );
-      console.log(response.data);
+      
       navigate('/figmaRead')
+      onClose(); 
+
     } catch (error) {
       console.log('Error Updating Figma User:', error);
     }

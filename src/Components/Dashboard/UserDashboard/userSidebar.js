@@ -37,6 +37,9 @@ function UserSidebar() {
           {/* <NavLink exact to="/userFigmaDashboard" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="arrow-left">Figma</CDBSidebarMenuItem>
           </NavLink> */}
+          <NavLink exact to="/userAnalytics" activeClassName="activeClicked">
+            <CDBSidebarMenuItem icon="cog">Analytics</CDBSidebarMenuItem>
+          </NavLink>
           <NavLink exact to="/Logout" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="arrow-left">Logout</CDBSidebarMenuItem>
           </NavLink>

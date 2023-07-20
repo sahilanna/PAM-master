@@ -367,7 +367,6 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     try {
       const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
       setRepo(response.data);
-      // console.log(repo)
     } catch (error) {
       console.log(error);
     }
@@ -387,7 +386,6 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   useEffect(() => {
     loadFigma();
   }, []);
-  
   return (
     <>
       {showAddUserProject && (
@@ -494,7 +492,6 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   );
 };
 export default ProjectDetails;
-
 
 
 

@@ -148,7 +148,7 @@ function UserRead(){
           <tbody>
           {filteredProjects.length === 0 ? (
     <tr>
-      <td colSpan="5" className="text-center">
+      <td colSpan='1' className="text-center">
         No data available
       </td>
     </tr>
@@ -170,14 +170,7 @@ function UserRead(){
     <FontAwesomeIcon icon={faEye} />
   </button>
 </td>          
-              {/* <td className='text-center'>
-                <Link
-                  className="btn btn-outline-primary mx-2"
-                  to={`/userUpdate/${user.id}`}
-                >
-                <FontAwesomeIcon icon={faPen} />
-                </Link>
-                </td> */}
+              
                  <td className='text-center'>
                  <Link>
     <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(user.id)}><FontAwesomeIcon icon={faTrash} /> </button>

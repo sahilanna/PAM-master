@@ -105,7 +105,7 @@ const PmDashboard = () => {
     <div style={{marginLeft:'20px',marginRight:'30px'}}>
     <table class="ui celled table">
         <thead>
-            <th>Project-ID</th>
+            {/* <th>Project-ID</th> */}
             <th>Project-Name</th>
             {/* <th>Repository Name</th> */}
             {/* <th>PM Github</th>
@@ -121,7 +121,7 @@ const PmDashboard = () => {
           {/* {currentPageData.map((item, index) => (
             <tr> */}
              <>
-              <td>{item.projectId}</td>
+              {/* <td>{item.projectId}</td> */}
               <td>{item.projectName}</td>
               <td>{item.projectDescription}</td>
               <td>

@@ -9,7 +9,7 @@ import PmReadNew from "../Components/Dashboard/PM/PmReadNew";
 import PmUpdate from "../Components/Dashboard/PM/pmUpdate";
 import UserCreate from "../Components/Dashboard/Users/userCreate";
 import UserUpdate from "../Components/Dashboard/Users/userUpdate";
-
+import UserAnalytics from "../Components/Dashboard/UserDashboard/userAnalytics";
 import CreateRepo from "../Components/Dashboard/Admin/Create/CreateRepo";
 import Reports from "../Components/Dashboard/Admin/Reports/Reports";
 import PmRequestUser from "../Components/Dashboard/Admin/PmRequests/PmRequestUser";
@@ -127,6 +127,7 @@ const PrivateRoutes = () => {
           {role === "USER" && (
             <Routes>
               <Route path="/userProjects" element={<UserProjects/>} />
+              <Route path="/userAnalytics" element={<UserAnalytics/>} />
               <Route path="/userRepoRead" element={<UserRepoRead />} />
               <Route path="/userFigmaRead" element={<UserFigmaRead/>} />
               <Route path='/userProfile' element={<UserProfile/>}/>

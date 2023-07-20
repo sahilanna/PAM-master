@@ -155,9 +155,7 @@ function CreateFigmaDetails() {
 
   const validateURL = (url) => {
     try {
-      if(figmaURL.length==0||selectedProject.length==0){
-      return;
-      }
+     
       const parsedUrl = new URL(url);
       return (
         parsedUrl.hostname === 'www.figma.com' &&
@@ -167,11 +165,8 @@ function CreateFigmaDetails() {
       return false;
     }
   };
-// const headers={AccessToken:accessToken}
 
-
-
-
+  
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
   const accessToken=user.token

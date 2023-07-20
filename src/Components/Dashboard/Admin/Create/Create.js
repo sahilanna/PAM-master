@@ -42,7 +42,9 @@ const Create = () => {
   const[project,setProject]=useState([])
   const[item1,setitem1]=useState([])
   const[selectedProject,setSelectedProject]=useState('')
+
   const[selectedRepo,setSelectedRepo]=useState('')
+  
   const[temp,setTemp]=useState([])
   const[temp1,setTemp1]=useState([])
   const[projItem, setprojItem]=useState('')
@@ -126,6 +128,7 @@ const Create = () => {
     console.log("repoid", repoId)
     const response=api.put(`https://${ngrokUrl}/api/projects/${projectId}/repository/${repoId}`)
     console.log("Check",selectedRepo);
+    navigate('/repoRead')
    
 
     setClicked(true);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Dropdown, Button, Modal } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ngrokUrl } from '../../../Assets/config';
+import { ngrokUrl, gitAccessToken } from '../../../Assets/config';
 import './Read.css'
 import api from '../api';
 
@@ -15,8 +15,7 @@ function AddUserName() {
   const [selectedUser, setSelectedUser] = useState('');
   const [showInvalidUsernameModal, setShowInvalidUsernameModal] = useState(false);
   const [showUserExistModal, setShowUserExistModal] = useState(false);
-  const accessToken = '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';
-
+  const accessToken = gitAccessToken
   useEffect(() => {
     fetchUsers();
   }, []);

@@ -146,13 +146,12 @@ const handleSearch = (event) => {
     <div>
       <div style={{marginLeft:'20px',marginRight:'30px'}}>
     <table class="ui celled table">
-        {/* <thead colspan = '5'>
-        </thead> */}
+      
         <thead>
             <th>PM-ID</th>
             <th>PM-Name</th>
             <th>PM-Email</th>
-            {/* <th>PM-Github-UserName</th> */}
+          
             <th>View</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -161,8 +160,7 @@ const handleSearch = (event) => {
            {filteredProjects.map((item, index) => (
     <tr key={index}>
           
-          {/* {currentPageData.map((item, index) => (
-            <tr> */}
+          
               <td>{item.id}</td>
               <td>{item.name}</td>
               <td>{item.email}</td>
@@ -181,7 +179,7 @@ const handleSearch = (event) => {
         </Link>
       </td>
       <td>
-      {/* <div className="dialog-backdrop"> */}
+
         <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(item.id)}>
           <FontAwesomeIcon icon={faTrash} />   
         </button>
@@ -208,7 +206,7 @@ const handleSearch = (event) => {
       </div>
      
     <div className='pagination'>
-      {/* Display items for the current page */}
+   
       <Pagination
       data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
@@ -225,87 +223,3 @@ const handleSearch = (event) => {
 }
 
 
-
-
-{/* // export default function PmRead(){
-
-//     const navigate = useNavigate();
-//     const getUrl =  "https://b619-106-51-70-135.ngrok-free.app/api/users/role/project_manager";
-//     const delUrl = "https://b619-106-51-70-135.ngrok-free.app/api/projects/delete/3";   
-//     const [item, setItem] = useState([]);
-//     const [id, setId] = useState('');
-//     const [name, setName] = useState('');
-//     const [email, setEmail] = useState('');
-//     const [enumRole,setEnumRole]=useState('2');
-//     const { ID } = useParams();
-
-//     useEffect(() => {
-//       loaditem();
-//     }, []);
-
-//     const loaditem = async () => {
-//       const result = await axios.get(getUrl,{
-//           headers: {
-//             'ngrok-skip-browser-warning': 'true'
-//           }}) .then((result) => {
-//           setItem(result.data);
-//           // console.log(res, "hello");
-//         })
-//         .catch((error)=>{
-//           console.log(error,'hi');
-//         })
-//       };
-
-//       const deleteUser = async (id) => {
-//         await axios.delete(`https://cc0f-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
-//         loaditem();
-//       };
-
-//     return(
-// <div>
-// <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-//     <CDBSidebar textColor="#fff" backgroundColor="#333">
-//       <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-//         </CDBSidebarHeader>
-//       <CDBSidebarContent className="sidebar-content">
-//           <CDBSidebarMenu>
-//             <NavLink exact to="/" activeClassName="activeClicked">
-//               <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
-//             </NavLink>
-//             <NavLink exact to="/Roles" activeClassName="activeClicked">
-//               <CDBSidebarMenuItem icon="user">Role</CDBSidebarMenuItem>
-//             </NavLink>
-//             <NavLink exact to="/pmCreate" activeClassName="activeClicked">
-//               <CDBSidebarMenuItem icon="chart-line">Create PM</CDBSidebarMenuItem>
-//             </NavLink>
-//             </CDBSidebarMenu>
-//             </CDBSidebarContent>
-//             </CDBSidebar>
-//       <div className="container">
-//       <div className="py-4">
-//         <table className="table border shadow">
-//           {/* <thead colspan = '5'>
-            
-//           </thead> */}
-{/* //           <tbody>
-//           <tr>
-//               <th className='col'>PM-ID</th>
-//               <th className='col'>PM-Name</th>
-//               <th className='col'>PM-Email</th>
-//               <th className='col'>Update</th>
-//               <th className='col'>Delete</th>
-//             </tr>
-//             {item.map((user, index) => ( */}
-{/* //               <tr>
-//                 <td>{user.id}</td>
-//                 <td>{user.name}</td>
-//                 <td>{user.email}</td>
-                
-//                 <td>
-//                   <Link */}
-{/* //                     className="btn btn-outline-primary mx-2"
-//                     to={`/PmUpdate/${user.id}`} 
-//                   >
-//                     Update */}
-//                 
-//           

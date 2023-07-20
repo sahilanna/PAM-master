@@ -87,7 +87,7 @@ console.log(id)
         ) : (
     <table class="ui celled table">
         <thead>
-            <th>Project-ID</th>
+            {/* <th>Project-ID</th> */}
             <th>Project-Name</th>
             <th>project Description</th>
         </thead>
@@ -95,7 +95,7 @@ console.log(id)
   {filteredProjects.length > 0 ? (
     filteredProjects.map((item, index) => (
       <tr key={index}>
-        <td>{item.projectId}</td>
+        {/* <td>{item.projectId}</td> */}
         <td>{item.projectName}</td>
         <td>{item.projectDescription}</td>
       </tr>

@@ -31,9 +31,11 @@ function RepoRead() {
   useEffect(() => {
     loadItem();
   }, []);
+
   useEffect(() => {
     handlePaginate(1);
-  }, [item]);
+  }, [filteredProjects]);
+
   const loadItem = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/repositories/get`);
@@ -49,9 +51,17 @@ function RepoRead() {
     );
     setFilteredProjects(filteredProjects);
   }, [searchQuery, item]);
+
   const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
+    const query = e.target.value;
+    setSearchQuery(query);
+    const filteredProjects = item.filter((project) =>
+      project.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setCurrentPageData(filteredProjects.slice(0, itemsPerPage));
   };
+
+
   const createOnclick = () => {
     navigate('/CreateRepo');
   };
@@ -71,7 +81,7 @@ function RepoRead() {
   };
   const deleteUser = async (repoId) => {
     try {
-      await api.delete(`https://${ngrokUrl}/api/repositories/${repoId}`);
+      await api.delete(`https://${ngrokUrl}/api/repositories/delete/${repoId}`);
       setShowConfirmDialog(false);
       loadItem();
     } catch (error) {

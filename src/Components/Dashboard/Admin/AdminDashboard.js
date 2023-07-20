@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
@@ -26,6 +25,8 @@ import api from '../api';
 import ProjectPms from './Read/projectPms';
 import ProjectUsers from './Read/projectUsers';
 import { FaUserAstronaut } from 'react-icons/fa';
+import AdminHeader from './adminHeader';
+
 
 const AdminDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +45,7 @@ const AdminDashboard = () => {
   const [showProjectPmModal, setshowProjectPmModal]=useState(false)
 
   const navigate = useNavigate();
-  const itemsPerPage = 4;
+  const itemsPerPage = 3;
   const { id } = useParams();
 
   useEffect(() => {
@@ -175,19 +176,22 @@ const AdminDashboard = () => {
     }
   };
 
-  // const handleOpenProjectUsers = (projectId, projectName) => {
-  //   setSelectedProject(projectId,projectName);
-  //   setShowProjectUsersModal(true);
-  // };
-
+ 
 
 
   return (
     <div className="parent-admin">
+     
+
+
       <div style={{ height: '100vh', overflow: 'scroll initial' }}>
         <Sidebar />
       </div>
       <div className="admin-child">
+      
+      <AdminHeader/>
+      
+      
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '20px', marginBottom: '30px', marginLeft: '40px', marginRight: '30px' }}>
           <div className="ui left icon input">
             <input type="text" placeholder="Search Project..." value={searchQuery} onChange={handleSearchChange} />
