@@ -1,5 +1,4 @@
 import React from 'react'
-import { Card, Icon } from 'semantic-ui-react';
 import UserSidebar from './userSidebar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -19,7 +18,6 @@ const UserProfile = () => {
 
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
-  const accessToken=user.token
   console.log(user)
     console.log(user.token)
 
@@ -37,7 +35,7 @@ const UserProfile = () => {
                   <FontAwesomeIcon icon={faUser} size="7x" />
               
                   <div className='profile-chil'>
-                  {/* <label>Name</label>   */}
+                  
                   <b>Name</b>
                   <p>{pname}</p>
     

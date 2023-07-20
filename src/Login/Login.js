@@ -1,34 +1,33 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import { Button} from 'semantic-ui-react'
-import axios from'axios'
+import React, { useEffect, useState }  from 'react';
+import { Button, Modal } from 'semantic-ui-react'
+import api from '../Components/Dashboard/api';
 import NavBarLogin from './NavBarLogin';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import './Login.css'
 import { ngrokUrl } from '../Assets/config';
-import { Modal } from 'semantic-ui-react';
+
 function Test() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
   const navigate=useNavigate()
   async function handleGoogleLogin(response) {
-      // console.log(response);
+      
       const token=response.credential
-      //  console.log(token)
+     
        const decodedToken = decodeIdToken(token);
        const emailToVerify = decodedToken.email;
        console.log(emailToVerify)
       const headers = {
-          // Authorization: `${token}`,
+         
           'ngrok-skip-browser-warning': 'true',
           emailToVerify: `${emailToVerify}`
         };
-       // console.log(headers)
+      
         try {
-          const { data}  = await axios.get(
+          const { data}  = await api.get(
               `https://${ngrokUrl}/auth/api/get-email`,
              {headers})
-              // console.log(data)
+              
           sessionStorage.setItem('item', JSON.stringify( data))
           const access=sessionStorage.getItem('item')
           let user = JSON.parse(access);
@@ -42,7 +41,7 @@ function Test() {
           } else if (data.enumRole ==="USER") {
               navigate('/userProjects', { state: { data } });
           } else {
-                  // navigate('/Login');
+              navigate('/');
           }
       }
       catch (error) {

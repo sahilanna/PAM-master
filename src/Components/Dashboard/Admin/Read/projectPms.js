@@ -1,21 +1,19 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'semantic-ui-react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
-import LoadingPage from '../../../../Assets/Loader/LoadingPage';
-import Sidebar from '../../SideBar/SideBar';
+import { useNavigate } from 'react-router-dom';
 import api from '../../api';
 import { ngrokUrl, gitAccessToken } from '../../../../Assets/config';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import AddUserProject from '../Create/addUserProject';
+import LoadingPage from '../../../../Assets/Loader/LoadingPage';
+
 import './Read.css';
 function ProjectPms({ open, onClose,projectId,projectName }) {
   const [pms, setPms] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const location = useLocation();
+  
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
    const [showOTPMoal, setShowOTPMoal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -23,7 +21,8 @@ function ProjectPms({ open, onClose,projectId,projectName }) {
   const [selectedUserId, setSelectedUserId] = useState('');
   const[repo, setRepo]= useState([])
   const[repoName, setRepoName]=useState('')
-  const[username, setUserName]=useState('')
+  
+  const username='';
   console.log(projectName)
   console.log(projectId)
   const navigate = useNavigate();
@@ -74,10 +73,9 @@ const getUsers = async () => {
         phoneNumber: '+91 8884763231',
       });
       if (otpResponse.data === 'OTP sent') {
-        setSelectedUserId(selectedUserId);
         setShowConfirmDialog(false);
         setShowOTPMoal(true);
-      } else if(otpResponse.response==false){
+      } else if(otpResponse.response===false){
         console.log('OTP generation failed');
       }
     } catch (error) {
@@ -85,13 +83,7 @@ const getUsers = async () => {
     }
   };
 
-  const owner="swe1304"
-  const params= {
-    owner: owner,
-    repo: repoName,
-    username: username,
-    accessToken: gitAccessToken
-  }
+  
   const handleCancelDelete = () => {
     setShowConfirmDialog(false);
   };
@@ -101,16 +93,16 @@ const getUsers = async () => {
     const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/verify`, {
       otp: otp,
     });
-    if (otpSubmissionResponse.data ==true) {
+    if (otpSubmissionResponse.data ===true) {
       await api.delete(`https://${ngrokUrl}/api/projects/${projectId}/users/${selectedUserId}/repo`,{ data: {
-        owner: owner,
+        owner: 'swe1304',
         repo: repoName,
         username: username,
         accessToken: gitAccessToken
       }});
       getUsers();
       setShowOTPMoal(false);
-    } else if(otpSubmissionResponse.data==false) {
+    } else if(otpSubmissionResponse.data===false) {
       setErrorMessage('Invalid OTP. Please try again.');
     }
   }
@@ -156,7 +148,7 @@ const getUsers = async () => {
                       <td>{user.email}</td>
                       <td>{user.gitHubUsername ? user.gitHubUsername : '--'}</td>
                       <td>
-              <button className='btn btn-danger mx-2' onClick={() =>  handleSubmit(user.id, user.gitHubUsername)}><FontAwesomeIcon icon={faTrash} /> </button>
+              <button className='btn btn-danger mx-2' onClick={() =>  handleSubmit(user.id)}><FontAwesomeIcon icon={faTrash} /> </button>
                  </td>
                     </tr>
                   ))

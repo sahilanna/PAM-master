@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
-import axios from 'axios';
-import CreateFigmaDetails from './createFigmaDetails';
+import { Modal, Button, Form, Dropdown } from 'semantic-ui-react';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
+
 const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   const navigate=useNavigate()
   console.log(figmaURL)
-  const location = useLocation();
-
+ 
   let data = sessionStorage.getItem("item");
   let userr = JSON.parse(data);
   const accessToken=userr.token
@@ -42,16 +39,14 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
       console.log('Error Updating Figma User:', error);
     }
   };
+  console.log(post);
   const handleUrlChange =  (e) => {
     setUrl(e.target.value);
   };
   const handleUserChange = (e, { value }) => {
     setSelectedUser(value);
   };
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    setscreenshotImage(file);
-  };
+  
  
   useEffect(() => {
     fetchUsers();

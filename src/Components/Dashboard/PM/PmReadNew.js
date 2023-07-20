@@ -1,16 +1,9 @@
-import React from 'react'
-import { useState,useEffect } from 'react'
-import { Button, Item,  Table } from 'semantic-ui-react'
-import axios from 'axios'
-import {Link, NavLink, useNavigate, useParams } from 'react-router-dom'
-import { useReducer } from 'react'
-import PmCreate from './pmCreate'
-import NavBar from '../../NavBar'
-import PmUpdate from './pmUpdate'
+import React, { useState,useEffect } from 'react'
+import {useNavigate } from 'react-router-dom'
 import DialogBox from '../DialogBox/DialogBox'
 import Pagination from '../Pagination/Pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './Read.css'
 import PmDetails from './PmDetails'
 import { ngrokUrl } from '../../../Assets/config'
@@ -23,40 +16,28 @@ function PmReadNew() {
 
     const navigate = useNavigate();
     const [item, setItem] = useState([]);
-    const [id, setId] = useState('');
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [enumRole,setEnumRole]=useState('2');
+  
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const [currentPageData, setCurrentPageData] = useState([]);
-    const[githubUsername,setgithubUsername]=useState('')
+    
     const [showProjectDetails, setShowProjectDetails] = useState(false);
     const [selectedProject, setSelectedProject] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  let data = sessionStorage.getItem("item");
-  let user = JSON.parse(data);
-  const accessToken=user.token
-  console.log(user)
-    console.log(user.token)
-
-    const headers={AccessToken:accessToken}
-  
   
     const itemsPerPage = 4;
-    
+    console.log(currentPageData);
   
-    const { ID } = useParams();
     useEffect(() => {
       loaditem();
     }, []);
    
-    const tokenData=localStorage.getItem('userData')
+   
 
     const loaditem = async () => {
-      const result = await api.get(`https://${ngrokUrl}/api/users/role/project_manager`)
+     await api.get(`https://${ngrokUrl}/api/users/role/project_manager`)
        .then((result) => {
           setItem(result.data);
           setIsLoading(false);
@@ -123,14 +104,9 @@ function PmReadNew() {
   const createOnclick=()=>{
     navigate('/PmCreate')
   }
-  const createOnclickPm=()=>{
-    navigate('/pmAddUserName')
-  }
   
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
-  };
   
+
   return (
 
 <div className='parent-admin'>
@@ -177,7 +153,7 @@ function PmReadNew() {
                   </tr>
           ):(
            filteredProjects.map((item, index) => (
-    <tr key={index}>
+    <tr key={item.id}>
           
           
               <td>{index+1}</td>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './LandingPage.css';
-import { IconName } from "react-icons/fa";
 import Carousel from 'react-bootstrap/Carousel';
 import NavBar from './NavBar';
 import Footer from './Footer';

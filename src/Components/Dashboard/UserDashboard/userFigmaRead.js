@@ -1,13 +1,6 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import UserSidebar from './userSidebar'
-import { useState,useEffect } from 'react';
-import {Button,Icon} from 'semantic-ui-react'
-import { Navigate, useParams}  from 'react-router-dom'
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
-import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
-import axios from 'axios';
+import { ngrokUrl} from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
 
@@ -19,14 +12,14 @@ function UserFigmaRead() {
  const itemsPerPage=5;
    let data = sessionStorage.getItem("item");
    let user = JSON.parse(data);
-   const accessToken=user.token
+  
    console.log(user)
      console.log(user.token)
      const  id=user.id
    console.log(id)
    const fetchPmid = async () => {
    try {
-     const urlParams = new URLSearchParams(window.location.search);
+      new URLSearchParams(window.location.search);
      
      const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/user/projects`);
    console.log(response.data)
@@ -52,12 +45,11 @@ function UserFigmaRead() {
        handleFilterItems(e.target.value);
      };
      const handleFilterItems = (searchQuery) => {
-      
-         const filteredItems = figmaUser&& figmaUser.filter((item) =>
-     item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
-       );
-       setCurrentPageData(filteredItems.slice(0, itemsPerPage));
-     };
+      const filteredItems = figmaUser?.filter((item) =>
+        item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setCurrentPageData(filteredItems?.slice(0, itemsPerPage));
+    };
      const filteredItems = figmaUser.filter((item) =>
       item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
      )
@@ -89,7 +81,7 @@ function UserFigmaRead() {
              <tbody>
   {figmaUser && figmaUser.length > 0 ? (
     currentPageData.map((item, index) => (
-      <tr key={index}>
+      <tr key={item.id}>
         {item.projectName && item.figma && item.figma.figmaURL ? (
           <>
             <td>{item.projectName}</td>

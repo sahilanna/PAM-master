@@ -1,11 +1,6 @@
-import React from 'react'
-import { useState,useEffect } from 'react';
-import {Form, Button, Modal, Dropdown, Dimmer} from 'semantic-ui-react'
-import NavBarA from '../NavbarA';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import React,  { useState  } from 'react'
+import {Form, Button, Modal } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 import './Create.css';
@@ -13,22 +8,20 @@ import './Create.css';
 
 function CreateProject() {
   const navigate=useNavigate()
-    const [projectId, setProjectId] = useState('');
+    
     const [projectName, setProjectName] = useState('');
     const [projectDescription, setProjectDescription] = useState('');
     const [clicked, setClicked] = useState(false);
-    const [formError, setFormError] = useState('');
-
-    const handleBack=()=>{
-      navigate(-1)
-    }
+    
+  console.log(clicked);
+  
     const handleSubmit = async (e)=>{
       e.preventDefault();
       if(!projectDescription||!projectName){
         return
       }
       setClicked(true);
-      const response = await api.post(`https://${ngrokUrl}/api/projects/create`,{projectName,projectDescription})
+      await api.post(`https://${ngrokUrl}/api/projects/create`,{projectName,projectDescription})
       navigate('/AdminDashboard')
     }
 const onClose=()=>{

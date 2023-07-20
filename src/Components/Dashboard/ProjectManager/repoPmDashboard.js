@@ -1,9 +1,5 @@
-import React from 'react'
+import React, { useEffect,useState } from 'react'
 import PmSidebar from './pmSidebar'
-import { useEffect,useState } from 'react';
-import axios from 'axios';
-import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './pmDashboard.css'
 import { ngrokUrl } from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
@@ -18,7 +14,6 @@ function RepoPmDashboard() {
   const itemsPerPage = 5;
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
-  const accessToken = user.token;
   const id = user.id;
 
   useEffect(() => {
@@ -88,11 +83,11 @@ function RepoPmDashboard() {
               </thead>
               <tbody>
                 {filteredProjects && filteredProjects.length > 0 ? (
-                  currentPageData.map((item, index) => (
-                    <tr key={index}>
+                  currentPageData.map((item) => (
+                    <tr key={item.projectId}>
                       {item.repositories && item.repositories.length > 0 ? (
-                        item.repositories.map((repo, repoIndex) => (
-                          <React.Fragment key={repoIndex}>
+                        item.repositories.map((repo) => (
+                          <React.Fragment key={repo.repositoyId}>
                             <td>{repo.name}</td>
                             <td>{repo.description}</td>
                           </React.Fragment>

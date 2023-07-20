@@ -1,8 +1,6 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import PmSidebar from './pmSidebar';
-import axios from 'axios';
 import { ngrokUrl} from '../../../Assets/config';
-import { useState,useEffect } from 'react';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
 
@@ -15,7 +13,7 @@ function FigmaPmDashboard() {
     const itemsPerPage = 5;
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
-  const accessToken=user.token
+ 
   console.log(user)
     console.log(user.token)
   const  id=user.id
@@ -47,13 +45,12 @@ const handleSearchChange = (e) => {
   handleFilterItems(e.target.value);
 };
 const handleFilterItems = (searchQuery) => {
-  // const filteredItems = projects.filter((item) =>
-  //   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
-    const filteredItems = result && result.filter((item) =>
-item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredItems = result?.filter((item) =>
+    item?.projectName?.toLowerCase().includes(searchQuery?.toLowerCase())
   );
-  setCurrentPageData(filteredItems.slice(0, itemsPerPage));
+  setCurrentPageData(filteredItems?.slice(0, itemsPerPage));
 };
+
 const filteredItems = result.filter((item) =>
   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
 )
@@ -84,10 +81,9 @@ return (
       </thead>
       <tbody>
       {result && result.length > 0 ? (
-         currentPageData.map((item, index) => (
-  <tr key={index}>
-        {/* {currentPageData.map((item, index) => (
-          <tr> */}
+         currentPageData.map((item) => (
+  <tr key={item.projectId}>
+       
            {item.projectName && item.figma ? (
             <>
             <td>{item.projectName}</td>

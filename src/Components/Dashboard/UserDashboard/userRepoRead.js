@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UserSidebar from './userSidebar';
 import { ngrokUrl } from '../../../Assets/config';
-import axios from 'axios';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
 
@@ -12,7 +11,7 @@ function UserRepoRead() {
   const [isLoading, setIsLoading] = useState(true);
   let data = sessionStorage.getItem('item');
   let user = JSON.parse(data);
-  const accessToken = user.token;
+ 
   console.log(user);
   console.log(user.token);
   const id = user.id;
@@ -91,16 +90,16 @@ function UserRepoRead() {
             </thead>
             <tbody>
               {filteredResult && filteredResult.length > 0 ? (
-                filteredResult.map((item, index) => (
+                filteredResult.map((item) => (
                   item.repositories && item.repositories.length > 0 ? (
-                    item.repositories.map((repo, repoIndex) => (
-                      <tr key={repoIndex}>
+                    item.repositories.map((repo) => (
+                      <tr key={repo.id}>
                         <td>{repo.name}</td>
                         <td>{repo.description}</td>
                       </tr>
                     ))
                   ) : (
-                    <tr key={index}>
+                    <tr key={item.id}>
                       <td colSpan="2">No repositories available</td>
                     </tr>
                   )

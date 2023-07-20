@@ -76,7 +76,7 @@ function AddPmProject() {
       });
 
       if (otpSubmissionResponse.status === 200) {
-        const addUserResponse = await api.put(`https://${ngrokUrl}/api/projects/${projectId}/users/${userId}`, {
+         await api.put(`https://${ngrokUrl}/api/projects/${projectId}/users/${userId}`, {
           projectId: projectId,
           userId: userId,
         });

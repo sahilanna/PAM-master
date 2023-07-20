@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Modal } from 'semantic-ui-react';
 import Sidebar from '../../SideBar/SideBar';
-import Create from '../Create/Create';
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import { ngrokUrl } from '../../../../Assets/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import DialogBox from '../../DialogBox/DialogBox';
 import Pagination from '../../Pagination/Pagination';
 
@@ -17,7 +15,6 @@ function RepoRead() {
   const navigate = useNavigate();
   const [item, setItem] = useState([]);
   const [currentPageData, setCurrentPageData] = useState([]);
-  const [repoId, setRepoId] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -26,7 +23,7 @@ function RepoRead() {
   const itemsPerPage = 4;
   let data = sessionStorage.getItem('item');
   let user = JSON.parse(data);
-  const accessToken = user.token;
+ 
   console.log(user);
   console.log(user.token);
 
@@ -142,7 +139,7 @@ function RepoRead() {
                     </tr>
                   ) : (
                     currentPageData.map((item, index) => (
-                      <tr key={index}>
+                      <tr key={item.id}>
                         <td>{index + 1}</td>
                         <td>{item.name}</td>
                         <td>{item.description}</td>

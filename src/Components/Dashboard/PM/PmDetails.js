@@ -13,7 +13,7 @@ const PmDetails = ({ project, onClose }) => {
         <p><strong>PM ID: </strong> {project.id}</p>
         <p><strong>PM Name:</strong>  {project.name}</p>
         <p><strong>PM Email:</strong>  {project.email}</p>
-        {/* <p><strong>PM Github Username:</strong>  {project.githubUsername}</p> */}
+  
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'semantic-ui-react';
-import axios from 'axios';
 import { CSVLink } from 'react-csv';
 import Sidebar from '../../SideBar/SideBar';
 import '../AdminDashboard.css';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
-import Pagination from '../../Pagination/Pagination';
+
 
 function Reports() {
   const [item, setItem] = useState([]);

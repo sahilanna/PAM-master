@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import  {
     CDBSidebar,
     CDBSidebarContent,
-    CDBSidebarFooter,
     CDBSidebarHeader,
     CDBSidebarMenu,
     CDBSidebarMenuItem,
@@ -34,9 +33,6 @@ function UserSidebar() {
           <NavLink exact to="/userRepoRead" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="sticky-note">Repository</CDBSidebarMenuItem>
           </NavLink>
-          {/* <NavLink exact to="/userFigmaDashboard" activeClassName="activeClicked">
-            <CDBSidebarMenuItem icon="arrow-left">Figma</CDBSidebarMenuItem>
-          </NavLink> */}
           <NavLink exact to="/Logout" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="arrow-left">Logout</CDBSidebarMenuItem>
           </NavLink>
@@ -44,10 +40,7 @@ function UserSidebar() {
           </CDBSidebarMenu>
           </CDBSidebarContent>
           </CDBSidebar>
-         
-
-
-     
+       
       </div>
   )
 }

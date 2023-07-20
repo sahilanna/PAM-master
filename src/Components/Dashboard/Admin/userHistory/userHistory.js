@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Table, Icon, Button } from 'semantic-ui-react';
 import './userHistory.css';
 import 'semantic-ui-css/semantic.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrl } from '../../../../Assets/config';
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
-import Pagination from '../../Pagination/Pagination';
+
 
 function UserHistory() {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +16,7 @@ function UserHistory() {
 
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
-  const accessToken=user.token
+
   console.log(user)
     console.log(user.token)
 
@@ -37,7 +35,7 @@ function UserHistory() {
     }
   }
 
-  // Calculate the index of the first and last item to be displayed on the current page
+  
   const indexOfLastItem = currentPage * rowsPerPage;
   const indexOfFirstItem = indexOfLastItem - rowsPerPage;
   const currentItems = historyData.slice(indexOfFirstItem, indexOfLastItem);

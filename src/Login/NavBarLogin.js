@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import {Navbar, Nav, NavDropdown, Container} from 'react-bootstrap'
 import logo from '../Assets/logo.png'
 import './Login.css'
@@ -32,7 +31,6 @@ export default class NavBarLogin extends Component {
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Tools" id="collasible-nav-dropdown">
-              {/* <NavDropdown.Item href="#action/3.1">Tools</NavDropdown.Item> */}
               
              GitHub:-
              <NavDropdown.Divider />
@@ -41,10 +39,7 @@ export default class NavBarLogin extends Component {
              <NavDropdown.Divider />
             </NavDropdown>
           </Nav>
-          {/* <Nav>
-            <Link to='/Login'>Login</Link> */}
-            {/* <Nav.Link href="#deets">Login</Nav.Link> */}
-                      {/* </Nav> */}
+       
         </Navbar.Collapse>
       </Container>
     </Navbar>

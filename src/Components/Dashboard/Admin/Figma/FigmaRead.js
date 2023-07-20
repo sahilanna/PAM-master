@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Dropdown, Input, Icon } from 'semantic-ui-react';
 import FigmaCreate from './FigmaCreate';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import Sidebar from '../../SideBar/SideBar';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import './FigmaRead.css'
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from '../../Pagination/Pagination';
-import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt } from '@fortawesome/free-solid-svg-icons';
-import Pagination from '../../Pagination/Pagination';
+import { faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+
 
 function FigmaRead() {
   const [showModal, setShowModal] = useState(false);
@@ -95,6 +93,8 @@ function FigmaRead() {
   useEffect(() => {
     handlePaginate(1);
   }, [filteredProjects]);
+
+  
   return (
     <div className='parent-admin'>
       <Sidebar/>
@@ -120,59 +120,62 @@ function FigmaRead() {
           </button>
         </div>
         <div style={{ marginLeft: '20px', marginRight: '30px' }}>
-          {isLoading ? (
-            <LoadingPage />
-          ) : filteredProjects.length === 0 ? (
-            <p>No data available</p>
-          ) : (
-            <>
-              <table className="ui celled table">
-                <thead>
-                  <tr>
-                    <th>S.No.</th>
-                    <th>Project Name</th>
-                    <th>Figma URL</th>
-                    <th className="text-center">Add User</th>
-                    <th className="text-center">Delete URL</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentPageData.map((project, index) => (
-                    <tr key={project.figmaId}>
-                      <td>{index + 1}</td>
-                      <td>{project.projectDTO.projectName}</td>
-                      <td>
-                        <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">
-                          {project.figmaURL}
-                        </a>
-                      </td>
-                      <td className="text-center">
+  {isLoading ? (
+    <LoadingPage />
+  ) : (
+    <>
+      {filteredProjects.length === 0 ? (
+        <p>No data available</p>
+      ) : (
+        <>
+          <table className="ui celled table">
+            <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Project Name</th>
+                <th>Figma URL</th>
+                <th className="text-center">Add User</th>
+                <th className="text-center">Delete URL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentPageData.map((project, index) => (
+                <tr key={project.figmaId}>
+                  <td>{index + 1}</td>
+                  <td>{project.projectDTO.projectName}</td>
+                  <td>
+                    <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">
+                      {project.figmaURL}
+                    </a>
+                  </td>
+                  <td className="text-center">
+                    <button className="btn btn-outline-primary mx-2" onClick={() => handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
+                      <FontAwesomeIcon icon={faUser} />
+                    </button>
+                  </td>
+                  <td className="text-center">
+                    <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(project.figmaId)}>
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                    <DialogBox
+                      show={showConfirmDialog === project.figmaId}
+                      onClose={() => setShowConfirmDialog(null)}
+                      onConfirm={() => handleDeleteUrl(project.figmaId)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className='pagination'>
+            <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
+          </div>
+        </>
+      )}
+    </>
+  )}
+</div>
 
-                        <button className="btn btn-outline-primary mx-2" onClick={() => handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
-
-                          <FontAwesomeIcon icon={faUser} />
-                        </button>
-                      </td>
-                      <td className="text-center">
-                        <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(project.figmaId)}>
-                          <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                        <DialogBox
-                          show={showConfirmDialog === project.figmaId}
-                          onClose={() => setShowConfirmDialog(null)}
-                          onConfirm={() => handleDeleteUrl(project.figmaId)}
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <div className='pagination'>
-                <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
-              </div>
-            </>
-          )}
-        </div>
       </div>
       <div className='model-container'>
         <div className="modal-content-container">

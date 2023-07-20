@@ -1,5 +1,4 @@
 import React from 'react'
-import { Card, Icon } from 'semantic-ui-react';
 import Sidebar from '../SideBar/SideBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -30,7 +29,6 @@ const Profile = () => {
                     <FontAwesomeIcon icon={faUser} size="7x" />
                 
                     <div className='profile-chil'>
-                    {/* <label>Name</label>   */}
                     <b>Name</b>
                     <p>{pname}</p>
       

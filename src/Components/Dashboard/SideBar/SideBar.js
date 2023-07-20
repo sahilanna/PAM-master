@@ -1,6 +1,5 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
-import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
 import  {
     CDBSidebar,
     CDBSidebarContent,
@@ -29,13 +28,6 @@ function Sidebar() {
               <CDBSidebarMenuItem icon="list">Projects</CDBSidebarMenuItem>
             </NavLink>
 
-            {/* <NavLink exact to="/tables" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">Notifications</CDBSidebarMenuItem>
-            </NavLink> */}
-
-            {/* <NavLink exact to="/analytics" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="chart-line">Reports</CDBSidebarMenuItem>
-            </NavLink> */}
             <NavLink exact to="/repoRead" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="sticky-note">Repos</CDBSidebarMenuItem>
             </NavLink>
@@ -68,12 +60,6 @@ function Sidebar() {
               <CDBSidebarMenuItem icon="arrow-left">Logout</CDBSidebarMenuItem>
             </NavLink>
 
-            {/* <div className='row'>
-              <NavDropdown title="Role">
-                <NavDropdown.Item style={{ color: 'black' }} as={Link} to="/pmRead">Project Manager</NavDropdown.Item>
-                <NavDropdown.Item style={{ color: 'black' }} as={Link} to="/userRead">User</NavDropdown.Item>
-              </NavDropdown>
-            </div> */}
           </CDBSidebarMenu>
         </CDBSidebarContent>
         <CDBSidebarFooter style={{ textAlign: 'center' }}>

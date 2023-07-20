@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'semantic-ui-react';
-import axios from 'axios';
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import { ngrokUrl, gitAccessToken } from '../../../../Assets/config';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import AddUserProject from '../Create/addUserProject';
 import './Read.css';
 import { useNavigate } from 'react-router-dom';
 function ProjectUsers({ open, onClose, projectId, projectName }) {
@@ -45,10 +43,6 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
       setRepo(response.data);
-     
-
-      const name=repo[0].name
-     
       setRepoName(repo[0].name)
       console.log(repoName)
       
@@ -75,10 +69,9 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
       });
       console.log(otpResponse)
       if ( otpResponse.data==='OTP sent') {
-        setSelectedUserId(selectedUserId);
         setShowConfirmDialog(false);
         setShowOTPMoal(true);
-      } else if(otpResponse.response==false) {
+      } else if(otpResponse.response===false) {
         console.log('OTP generation failed');
       }
     } catch (error) {
@@ -99,7 +92,7 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
       otp: otp,
     });
     console.log(otpSubmissionResponse)
-    if (otpSubmissionResponse.data ==true) {
+    if (otpSubmissionResponse.data ===true) {
      
       await api.delete(`https://${ngrokUrl}/api/projects/${projectId}/users/${selectedUserId}/repo`, {
         data: {
@@ -113,7 +106,7 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
       getUsers();
       setShowOTPMoal(false);
     }
-     else if(otpSubmissionResponse.data==false) {
+     else if(!otpSubmissionResponse.data) {
       setErrorMessage('Invalid OTP. Please try again.');
     }
   }
@@ -179,7 +172,7 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
       <Modal.Actions>
         <Button onClick={handleModalClose}>Close</Button>
       </Modal.Actions>
-      {/* OTP Modal */}
+    
       <Modal open={showOTPMoal} onClose={handleOTPClose} style={{ width: '500px' }} className="centered-modal-OTP">
         <Modal.Header>Enter OTP </Modal.Header>
         <Modal.Content>
@@ -198,7 +191,7 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
           <Button onClick={handleOTPClose}>Cancel</Button>
         </Modal.Actions>
       </Modal>
-      {/* Confirm Delete Dialog */}
+  
       <DialogBox show={showConfirmDialog} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
     </Modal>
   );

@@ -1,30 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Dropdown, Modal} from 'semantic-ui-react';
+import { Form, Dropdown, Modal, Button} from 'semantic-ui-react';
 import { useNavigate,useLocation } from "react-router-dom";
-import axios from 'axios';
-import AddPm from './addPm';
-import NavBarA from '../NavbarA';
-import { Button } from 'semantic-ui-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { gitAccessToken, ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { gitAccessToken, ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 
 const AddUser = () => {
   let navigate = useNavigate();
   const [options, setOptions] = useState([]);
-  const [error,setError]=useState('false');
   const { state } = useLocation();
   const { selectedRepo } = state || {};
-  // const[username,setusername]= useState([]);
-  const [userNameB,setUserNameB]=useState('')
   const[username,setusername]=useState([]);
   const handleUserNameBChange=(event,{value})=>{
     setusername(value)
   }
-  const handleBack = () => {
-    navigate(-1);
-  };
+ 
 
   useEffect(() => {
     const fetchUsernames = async () => {
@@ -42,7 +31,7 @@ const AddUser = () => {
     const owner='swe1304';
     const accessToken= gitAccessToken
     let repo = selectedRepo;
-    const response= api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
+    api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
   })
   navigate('/repoRead')
 }

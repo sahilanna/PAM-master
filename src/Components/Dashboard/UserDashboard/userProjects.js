@@ -1,39 +1,25 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import PmSidebar from '../ProjectManager/pmSidebar';
+import React, { useState, useEffect } from 'react'
 import UserSidebar from './userSidebar';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import Logout from '../../../Login/Logout';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router-dom';
+
 import { ngrokUrl } from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
 
 
 function UserProjects() {
-  const [item, setItem] = useState([]);
-  const [projectId, setProjectId] = useState('');
-  const [projectName, setProjectName] = useState('');
-  const [projectDescription, setProjectDescription] = useState('');
-  const [selectedPmProject, setSelectedPmProject] = useState(null);
-  const [showPmProjectDetails, setShowPmProjectDetails] = useState(false);
+
   const [userid, setUserid] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
-  const accessToken=user.token
+  
   console.log(user)
     console.log(user.token)
   const  id=user.id
 console.log(id)
-  const navigate=useNavigate()
-  const handleLogout=()=>{
-    navigate('/Logout')
-  }
+  
   useEffect(() => {
     const fetchUserid = async () => {
       try {
@@ -53,14 +39,7 @@ console.log(id)
   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
 );
 
-  // const handleViewDetails = (pmid) => {
-  //   setSelectedPmProject(pmid);
-  //   setShowPmProjectDetails(true);
-  // };
-  // const handleCloseDetails = () => {
-  //   setSelectedPmProject(null);
-  //   setShowPmProjectDetails(false);
-  // };
+ 
   return (
       <div className='parent-admin'>
       <div style={{ height: '100vh', overflow: 'scroll initial' }}>
@@ -94,7 +73,7 @@ console.log(id)
         <tbody>
   {filteredProjects.length > 0 ? (
     filteredProjects.map((item, index) => (
-      <tr key={index}>
+      <tr key={item.id}>
         <td>{item.projectId}</td>
         <td>{item.projectName}</td>
         <td>{item.projectDescription}</td>
