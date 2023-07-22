@@ -130,6 +130,7 @@ const Create = () => {
     console.log("Check",selectedRepo);
 
     setClicked(true);
+    navigate('/repoRead');
     
     
   };

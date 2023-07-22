@@ -216,7 +216,7 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
   const [errorMessage, setErrorMessage] = useState('');
   const [otp, setOtp] = useState('');
   const [selectedUserId, setSelectedUserId] = useState('');
-  const[repo, setRepo]= useState([])
+ 
   const[repoName, setRepoName]=useState('')
   const[username, setUserName]=useState('')
   const navigate = useNavigate();
@@ -240,7 +240,8 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
   const loadRepo = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
-      setRepo(response.data);
+    const repo=response.data
+
       setRepoName(repo[0].name)
       console.log(repoName)
     } catch (error) {
@@ -253,7 +254,8 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
   const handleSubmit = (userId, username) => {
     setSelectedUserId(userId);
     setUserName(username)
-    console.log(username)
+    console.log('username',username)
+    console.log('repo', repoName)
     setShowConfirmDialog(true);
   };
   const handleConfirmDelete = async () => {

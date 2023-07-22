@@ -226,9 +226,10 @@ function ProjectPms({ open, onClose,projectId,projectName }) {
   const [selectedUserId, setSelectedUserId] = useState('');
   const[repo, setRepo]= useState([])
   const[repoName, setRepoName]=useState('')
-  const username='';
-  console.log(projectName)
-  console.log(projectId)
+  const[username, setUserName]=useState('')
+  
+  // console.log(projectName)
+  // console.log(projectId)
   const navigate = useNavigate();
 const getUsers = async () => {
     setIsLoading(true);
@@ -244,29 +245,35 @@ const getUsers = async () => {
    useEffect(() => {
     getUsers();
   }, [projectId]);
-  useEffect(() => {
-    loadRepo();
-  }, []);
+  
   const loadRepo = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
-      setRepo(response.data);
-      const name=repo[0].name
-      setRepoName(name)
+      const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`);
+     
+      const repoo=response.data
+      setRepoName(repoo[0].name)
       console.log(repoName)
     } catch (error) {
       console.log(error);
     }
   };
+  useEffect(() => {
+    loadRepo();
+  }, [projectId]);
    const handleAddEmployee = () => {
     navigate('/addPmProject', { state: { projectId, projectName } });
   };
-   const handleSubmit = (userId) => {
+   const handleSubmit = (userId, username) => {
+    console.log('repo',repoName)
+      console.log('username', username)
+      setUserName(username)
     setSelectedUserId(userId);
     setShowConfirmDialog(true);
   };
   const handleConfirmDelete = async () => {
     try {
+      console.log('repo',repoName)
+      console.log('username', username)
       const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
         phoneNumber: '+91 8884763231',
       });
@@ -342,7 +349,7 @@ const getUsers = async () => {
                       <td>{user.email}</td>
                       <td>{user.gitHubUsername ? user.gitHubUsername : '--'}</td>
                       <td>
-              <button className='btn btn-danger mx-2' onClick={() =>  handleSubmit(user.id)}><FontAwesomeIcon icon={faTrash} /> </button>
+              <button className='btn btn-danger mx-2' onClick={() =>  handleSubmit(user.id,user.gitHubUsername)}><FontAwesomeIcon icon={faTrash} /> </button>
                  </td>
                     </tr>
                   ))
