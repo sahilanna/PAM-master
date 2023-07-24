@@ -314,7 +314,7 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
     onClose();
   };
   return (
-    <Modal open={open} onClose={handleModalClose} style={{ top: '170px', height: 'auto', width: '700px' }} className="centered-modal1">
+    <Modal open={open} onClose={handleModalClose} style={{ top: '170px', height: 'auto', width: '670px' }} className="centered-modal1">
       <Modal.Header style={{ top: '80px' }}>
         Users
         <Button color="green" floated="right" onClick={handleAddEmployee}>
