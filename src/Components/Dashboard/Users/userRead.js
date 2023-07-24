@@ -91,10 +91,10 @@ function UserRead(){
       setShowProjectDetails(false);
     };
 
-    const viewActivity=(userId ,username)=>{
-      setShowUserActivity(true)
+    const viewActivity=(id ,username)=>{
+      // setShowUserActivity(true)
       
-      navigate('/userActivity',  { state: { userId,username } })
+      navigate('/userActivity',  { state: { id,username } })
 
     }
 
@@ -109,7 +109,10 @@ function UserRead(){
       const handlePaginate = (pageNumber) => {
       const indexOfLastItem = pageNumber * itemsPerPage;
       const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-      const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+      const currentItems =filteredProjects.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+      );
       setCurrentPageData(currentItems);
     };
     const handleCloseUserActivity = () => {
@@ -170,7 +173,7 @@ function UserRead(){
     </tr>
   ) : (
           
-          filteredProjects.map((user, index) => (
+          currentPageData.map((user, index) => (
             <tr>
               {/* <td>{user.id}</td> */}
               <td>{index+1}</td>
@@ -198,7 +201,8 @@ function UserRead(){
       onConfirm={()=>deleteUser(user.id)}/>
 
               </td>
-              <td className='text-center'><button className="btn btn-outline-primary mx-2" onClick={()=>viewActivity(user.id, user.name)}  > <FontAwesomeIcon icon={faEye} /></button>
+              <td className='text-center'><button className="btn btn-outline-primary mx-2" 
+              onClick={()=>viewActivity(user.id, user.name)}  > <FontAwesomeIcon icon={faEye} /></button>
            
               </td>
             </tr>
@@ -211,7 +215,7 @@ function UserRead(){
     <div className='pagination'>
       {/* Display items for the current page */}
       <Pagination
-      data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
+      data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
     </div>
     {showProjectDetails && (

@@ -44,7 +44,7 @@ function PmSidebar() {
           {/* <NavLink exact to="/statusPm" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="check">Status</CDBSidebarMenuItem>
           </NavLink> */}
-          <NavLink exact to="/Login" activeClassName="activeClicked">
+          <NavLink exact to="/Logout" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="arrow-left">Logout</CDBSidebarMenuItem>
           </NavLink>
           </CDBSidebarMenu>

@@ -107,7 +107,10 @@ function PmReadNew() {
       const handlePaginate = (pageNumber) => {
         const indexOfLastItem = pageNumber * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-        const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+        const currentItems =filteredProjects.slice(
+          indexOfFirstItem,
+          indexOfLastItem
+        );
         setCurrentPageData(currentItems);
       };
       
@@ -130,6 +133,13 @@ function PmReadNew() {
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
+  const viewActivity=(id ,username)=>{
+    // setShowUserActivity(true)
+    
+    navigate('/userActivity',  { state: { id,username } })
+
+  }
+
   
   return (
 
@@ -168,7 +178,9 @@ function PmReadNew() {
           
             <th className='text-center'>View</th>
             
+            
             <th className='text-center'>Delete</th>
+            <th className='text-center'>Activity</th>
          </thead>
          <tbody>
           {filteredProjects.length === 0 ? (
@@ -176,7 +188,7 @@ function PmReadNew() {
                     <td colSpan='3'>No data available</td>
                   </tr>
           ):(
-           filteredProjects.map((item, index) => (
+          currentPageData.map((item, index) => (
     <tr key={index}>
           
           
@@ -213,6 +225,10 @@ function PmReadNew() {
       </div>
     )}
       </td>
+      <td className='text-center'><button className="btn btn-outline-primary mx-2" 
+              onClick={()=>viewActivity(item.id, item.name)}  > <FontAwesomeIcon icon={faEye} /></button>
+           
+              </td>
       
               
             </tr>
@@ -226,7 +242,7 @@ function PmReadNew() {
     <div className='pagination'>
       
       <Pagination
-      data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
+      data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
     </div>
     {showProjectDetails && (
