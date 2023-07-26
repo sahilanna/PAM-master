@@ -1,39 +1,39 @@
 import React, { useEffect, useState }  from 'react';
 import { Button, Modal } from 'semantic-ui-react'
-import api from '../Components/Dashboard/api';
+import axios from 'axios';
 import NavBarLogin from './NavBarLogin';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import './Login.css'
 import { ngrokUrl } from '../Assets/config';
 import styled from 'styled-components';
+
 function Test() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
   const navigate=useNavigate()
   const StyledText = styled.p`
 font-family: 'Montserrat';
-color: #ffffff;
+color: #FFFFFF;
 ;
-
 `;
   async function handleGoogleLogin(response) {
-      
-      const token=response.credential
      
+      const token=response.credential
+      //  console.log(token)
        const decodedToken = decodeIdToken(token);
        const emailToVerify = decodedToken.email;
        console.log(emailToVerify)
       const headers = {
-         
+          // Authorization: `${token}`,
           'ngrok-skip-browser-warning': 'true',
           emailToVerify: `${emailToVerify}`
         };
-      
+       // console.log(headers)
         try {
-          const { data}  = await api.get(
+          const { data}  = await axios.get(
               `https://${ngrokUrl}/auth/api/get-email`,
              {headers})
-              
+              // console.log(data)
           sessionStorage.setItem('item', JSON.stringify( data))
           const access=sessionStorage.getItem('item')
           let user = JSON.parse(access);
@@ -47,7 +47,7 @@ color: #ffffff;
           } else if (data.enumRole ==="USER") {
               navigate('/userProjects', { state: { data } });
           } else {
-              navigate('/');
+                  // navigate('/Login');
           }
       }
       catch (error) {
@@ -81,15 +81,12 @@ color: #ffffff;
           { theme: "outline", size: "large" }
       );
   }, []);
-
-
     return (
     <div className="sample1">
       <NavBarLogin />
       <div className="box-container">
         <div className="welcome-message"><StyledText>Welcome to our Website!</StyledText>
        </div>
-
         <br/>
         <div className="space"></div>
         <br/>
@@ -119,4 +116,6 @@ color: #ffffff;
     </div>
     );
 }
+
+
 export default Test;

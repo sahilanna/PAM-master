@@ -63,7 +63,7 @@ function AddFile() {
     <Modal
       open={true}
       onClose={onClose}
-      style={{ position: 'fixed', right: '-80px', top: '0', width: '500px', height: '600px' }}
+      style={{ top: '170px', height: 'auto', width: '500px' }}
     >
       <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
       <div style={{ paddingLeft: '442px' }}>

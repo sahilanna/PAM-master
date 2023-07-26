@@ -32,13 +32,13 @@ export default class NavBar extends Component {
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Tools" id="collasible-nav-dropdown">
-              {/* <NavDropdown.Item href="#action/3.1">Tools</NavDropdown.Item> */}
+            <NavDropdown.Item href="#action/3.1"> GitHub <NavDropdown.Divider />
+            Figma
               
-              GitHub
+             
              <NavDropdown.Divider />
            
-              Figma
-             <NavDropdown.Divider />
+             </NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Nav>

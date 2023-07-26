@@ -88,7 +88,10 @@ function PmReadNew() {
       const handlePaginate = (pageNumber) => {
         const indexOfLastItem = pageNumber * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-        const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+        const currentItems =filteredProjects.slice(
+          indexOfFirstItem,
+          indexOfLastItem
+        );
         setCurrentPageData(currentItems);
       };
       
@@ -152,7 +155,7 @@ function PmReadNew() {
                     <td colSpan='3'>No data available</td>
                   </tr>
           ):(
-           filteredProjects.map((item, index) => (
+           currentPageData.map((item, index) => (
     <tr key={item.id}>
           
           
@@ -202,7 +205,7 @@ function PmReadNew() {
     <div className='pagination'>
       
       <Pagination
-      data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
+      data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
     </div>
     {showProjectDetails && (

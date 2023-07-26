@@ -104,7 +104,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
           <AddUserProject projectId={projectId} projectName={projectName} onClose={handleCloseAddUserProject} />
         </Modal>
       )}
-      <Modal open={!showAddUserProject} onClose={onClose} style={{ width: '700px' }} className="centered-modal">
+      <Modal open={!showAddUserProject} onClose={onClose} style={{top: '120px', left:'280px', width: '600px' }} className="centered-modal">
         <Modal.Header>
           Project Details
          

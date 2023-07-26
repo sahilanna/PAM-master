@@ -74,7 +74,10 @@ function UserRead(){
       const handlePaginate = (pageNumber) => {
       const indexOfLastItem = pageNumber * itemsPerPage;
       const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-      const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+      const currentItems =filteredProjects.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+      );
       setCurrentPageData(currentItems);
     };
 
@@ -131,7 +134,7 @@ function UserRead(){
     </tr>
   ) : (
           
-          filteredProjects.map((user, index) => (
+          currentPageData.map((user, index) => (
             <tr key={user.id}>
              
               <td>{index+1}</td>
@@ -167,7 +170,7 @@ function UserRead(){
     <div className='pagination'>
       
       <Pagination
-      data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
+      data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
     </div>
     {showProjectDetails && (

@@ -22,8 +22,9 @@ function ProjectPms({ open, onClose,projectId,projectName }) {
   const [selectedUserId, setSelectedUserId] = useState('');
   const[repo, setRepo]= useState([])
   const[repoName, setRepoName]=useState('')
+  const[username, setUserName]=useState('')
   
-  const username='';
+  
   console.log(projectName)
   console.log(projectId)
   const navigate = useNavigate();
@@ -43,12 +44,13 @@ const getUsers = async () => {
   }, [projectId]);
   useEffect(() => {
     loadRepo();
-  }, []);
+  }, [projectId]);
+
   const loadRepo = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
-      setRepo(response.data);
-      const name=repo[0].name
+      const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`);
+      const repoo=response.data
+      const name=repoo[0].name
       setRepoName(name)
       console.log(repoName)
     } catch (error) {
@@ -58,9 +60,12 @@ const getUsers = async () => {
    const handleAddEmployee = () => {
     navigate('/addPmProject', { state: { projectId, projectName } });
   };
-   const handleSubmit = (userId) => {
+   const handleSubmit = (userId, username) => {
     setSelectedUserId(userId);
     setShowConfirmDialog(true);
+    setUserName(username)
+    console.log(username);
+    console.log(repoName);
   };
   const handleConfirmDelete = async () => {
     try {
@@ -113,7 +118,7 @@ const getUsers = async () => {
     onClose();
   };
   return (
-    <Modal open={open} onClose={handleModalClose} style={{ top: '170px', height: 'auto', width: '700px' }} className="centered-modal1">
+    <Modal open={open} onClose={handleModalClose} style={{ top: '170px', height: 'auto', width: '670px' }} className="centered-modal1">
       <Modal.Header style={{top:'80px'}}>Project Manager
       <Button  color="green" floated="right" onClick={handleAddEmployee}>
               Add PM
@@ -141,7 +146,7 @@ const getUsers = async () => {
                       <td>{user.email}</td>
                       <td>{user.gitHubUsername ? user.gitHubUsername : '--'}</td>
                       <td>
-              <button className='btn btn-danger mx-2' onClick={() =>  handleSubmit(user.id)}><FontAwesomeIcon icon={faTrash} /> </button>
+              <button className='btn btn-danger mx-2' onClick={() =>  handleSubmit(user.id, user.gitHubUsername)}><FontAwesomeIcon icon={faTrash} /> </button>
                  </td>
                     </tr>
                   ))
