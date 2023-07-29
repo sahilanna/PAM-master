@@ -32,7 +32,7 @@ color: #FFFFFF;
        // console.log(headers)
         try {
           const { data}  = await axios.get(
-              `https://${ngrokUrlSwe}/auth/api/get-email`,
+              `https://${ngrokUrl}/auth/api/get-email`,
              {headers})
               // console.log(data)
           sessionStorage.setItem('item', JSON.stringify( data))
