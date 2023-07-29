@@ -40,6 +40,8 @@ import AddUserProject from "../Components/Dashboard/Admin/Create/addUserProject"
 import ProjectAnalytics from "../Components/Dashboard/Admin/Analytics/projectAnalytics";
 import ProjectPms from "../Components/Dashboard/Admin/Read/projectPms";
 import AddPmProject from "../Components/Dashboard/Admin/Create/addPmProject";
+import DriveRead from "../Components/Dashboard/Admin/Drive/driveRead";
+import CreateDriveDetails from "../Components/Dashboard/Admin/Drive/createDriveDetails";
 
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
@@ -91,6 +93,8 @@ const PrivateRoutes = () => {
              <Route path='/Create' element={<Create/>}/>
              <Route path='/addPm' element={<AddPm/>}/>
              <Route path='/addUser' element={<AddUser/>}/>
+             <Route path='/driveRead' element={<DriveRead/>}/>
+             <Route path='/createdriveDetails' element={<CreateDriveDetails/>}/>
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           )}

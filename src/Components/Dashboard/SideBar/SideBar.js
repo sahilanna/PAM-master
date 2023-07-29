@@ -42,6 +42,10 @@ function Sidebar() {
             <NavLink exact to="/figmaRead" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="book">Figma</CDBSidebarMenuItem>
             </NavLink>
+
+            <NavLink exact to="/driveRead" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="shopping-bag">G-Drive</CDBSidebarMenuItem>
+            </NavLink>
             
             <NavLink exact to="/userHistory" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="bookmark">Project History</CDBSidebarMenuItem>

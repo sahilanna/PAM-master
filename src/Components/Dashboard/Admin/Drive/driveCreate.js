@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Dropdown } from 'semantic-ui-react';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 import { useNavigate  } from 'react-router-dom';
 
-const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
+const DriveCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   const navigate=useNavigate()
   console.log(figmaURL)
  
@@ -27,7 +27,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     e.preventDefault();
     try {
       const response = await api.put(
-        `https://${ngrokUrlSwe}/api/figmas/${figmaId}/user`,
+        `https://${ngrokUrl}/api/figmas/${figmaId}/user`,
         {
           user: selectedUser,
           screenshotImage: screenshotImage
@@ -55,7 +55,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   }, [projectId]);
   const fetchUsers = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrlSwe}/api/projects/${projectId}/users`);
+      const response = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/users`);
      console.log(response.data)
      const userNames = response.data.map(project => project.name);
      setUsers(userNames);
@@ -144,4 +144,4 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     </Modal>
   );
 };
-export default FigmaCreate;
+export default DriveCreate;

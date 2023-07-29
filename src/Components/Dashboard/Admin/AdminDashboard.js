@@ -8,7 +8,7 @@ import Pagination from '../Pagination/Pagination';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import { CSVLink } from 'react-csv';
 import Sidebar from '../SideBar/SideBar';
-import { ngrokUrl } from '../../../Assets/config';
+import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import './AdminDashboard.css';
 import { Button } from 'semantic-ui-react';
 import api from '../api';
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
 
   const loadItems = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/projects/allProjects`, {});
+      const response = await api.get(`https://${ngrokUrlSwe}/api/projects/allProjects`, {});
       setItem(response.data);
       setIsLoading(false);
     } catch (error) {

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import FigmaCreate from './FigmaCreate';
+import DriveCreate from './driveCreate';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
-import './FigmaRead.css'
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import DialogBox from '../../DialogBox/DialogBox';
@@ -12,7 +11,7 @@ import Pagination from '../../Pagination/Pagination';
 import { faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 
 
-function FigmaRead() {
+function DriveRead() {
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
@@ -32,7 +31,7 @@ function FigmaRead() {
 
   const fetchProjects = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrlSwe}/api/figmas/getAll`);
+      const response = await api.get(`https://${ngrokUrl}/api/figmas/getAll`);
       setProjects(response.data);
       setFigmaId(response.data[0].figmaId);
       setIsLoading(false);
@@ -43,8 +42,8 @@ function FigmaRead() {
     }
   };
 
-  const createFigma = () => {
-    navigate('/createFigmaDetails', { state: { figmaId } });
+  const createDrive = () => {
+    navigate('/createDriveDetails', { state: { figmaId } });
   };
 
   const handleAddUser = (url, id, projectId, figmaId) => {
@@ -57,7 +56,7 @@ function FigmaRead() {
   const handleDeleteUrl = async (figmaId) => {
     try {
       await api.delete(`https://${ngrokUrlSwe}/api/figmas/${figmaId}`);
-      navigate('/FigmaRead');
+      navigate('/DriveRead');
       setShowConfirmDialog(false);
       fetchProjects();
     } catch (error) {
@@ -112,11 +111,11 @@ function FigmaRead() {
           }}
         >
           <div className="ui left icon input">
-            <input type="text" placeholder="Search repo..." value={searchQuery} onChange={handleSearchChange} />
+            <input type="text" placeholder="Search Project" value={searchQuery} onChange={handleSearchChange} />
             <i className="users icon"></i>
           </div>
-          <button className="ui button" onClick={createFigma}>
-            Create Figma
+          <button className="ui button" onClick={createDrive}>
+            Create Drive
           </button>
         </div>
         <div style={{ marginLeft: '20px', marginRight: '30px' }}>
@@ -133,9 +132,9 @@ function FigmaRead() {
               <tr>
                 <th>S.No.</th>
                 <th>Project Name</th>
-                <th>Figma URL</th>
+                <th>Drive Link</th>
                 <th className="text-center">Add User</th>
-                <th className="text-center">Delete URL</th>
+                <th className="text-center">Delete Drive</th>
               </tr>
             </thead>
             <tbody>
@@ -179,11 +178,11 @@ function FigmaRead() {
       </div>
       <div className='model-container'>
         <div className="modal-content-container">
-          {showModal && <FigmaCreate onClose={closeModal} figmaURL={figmaURL} figmaId={figmaId} projectId={projectId} />}
+          {showModal && <DriveCreate onClose={closeModal} figmaURL={figmaURL} figmaId={figmaId} projectId={projectId} />}
         </div>
       </div>
     </div>
   );
 }
 
-export default FigmaRead;
+export default DriveRead;

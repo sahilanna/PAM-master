@@ -4,41 +4,24 @@ import {  useNavigate } from 'react-router-dom';
 import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
 import api from '../../api';
 
-function CreateFigmaDetails() {
+function CreateDriveDetails() {
   const navigate = useNavigate()
   let [projectName, setProjectName] = useState('');
   const [figmaURL, setFigmaUrl] = useState('');
   const [proj,setproj]=useState([])
   let[item,setitem]=useState('')
-  const [figmaId, setFigmaId] = useState(null);
+  const [driveId, setDriveId] = useState(null);
   const [selectedProject, setSelectedProject] = useState('');
   const [isValidUrl, setIsValidUrl] = useState(true);
+  const [folderName, setFolderName] = useState('');
 
- 
 
-  const validateURL = (url) => {
-    try {
-     
-      const parsedUrl = new URL(url);
-      return (
-        parsedUrl.hostname === 'www.figma.com' &&
-        parsedUrl.pathname.startsWith('/files/')
-      );
-    } catch (_) {
-      return false;
-    }
-  };
 
   console.log(projectName);
   console.log(item);
-  console.log(figmaId);
 
 
-  const handleUrlChange = (e) => {
-    const url = e.target.value;
-    setFigmaUrl(url);
-    setIsValidUrl(validateURL(url));
-  };
+
   const handleProjChange = (event, { value }) => {
     setitem(value);
     setSelectedProject(value)
@@ -66,23 +49,21 @@ function CreateFigmaDetails() {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!isValidUrl) {
+    if (!selectedProject || !folderName) {
       return;
     }
     try {
       
-      const response = await api.post(`https://${ngrokUrlSwe}/api/figmas/create`, {
-        projectDTO: {
+      const response = await api.post(`https://${ngrokUrlSwe}/api/createfolder`, {
           projectId: selectedProject,
-          projectName: selectedProject,
+          folderName: folderName,
       },
-      figmaURL: figmaURL
-      });
+    );
       
       console.log('API Response:', response.data.id);
-      const figmaId=response.data.id;
-      setFigmaId(figmaId)
-      navigate('/figmaRead', { state: { figmaId } });
+      const driveId=response.data.id;
+      setDriveId(driveId)
+      navigate('/driveRead', { state: { driveId } });
       setProjectName('');
       setFigmaUrl('');
     } catch (error) {
@@ -114,21 +95,19 @@ function CreateFigmaDetails() {
                onChange={handleProjChange}
             />
             </Form.Field>
+
             <Form.Field>
-            <label style={{ textAlign: 'left' }}>Figma URL<span style={{ color: 'red' }}>*</span></label>
-            <input
-              type='text'
-              placeholder="Enter Figma URL"
-              value={figmaURL}
-              onChange={handleUrlChange}
-              className={!isValidUrl ? 'error' : ''}
-            />
-            {!isValidUrl && (
-              <p className="error-message">Invalid Figma URL</p>
-            )}
-          </Form.Field>
+    <label style={{ textAlign: 'left' }}>Folder Name<span style={{ color: 'red' }}>*</span></label>
+    <input
+      type="text"
+      placeholder="Enter Folder Name"
+      value={folderName}
+      onChange={(e) => setFolderName(e.target.value)}
+    />
+  </Form.Field>
+           
         
-          <Button type='submit'  disabled={!isValidUrl}>Submit</Button>
+          <Button type='submit'  disabled={!selectedProject ||  !folderName}>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>
@@ -138,4 +117,4 @@ function CreateFigmaDetails() {
 }
 
 
-export default CreateFigmaDetails;
+export default CreateDriveDetails;

@@ -5,8 +5,9 @@ import NavBarLogin from './NavBarLogin';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import './Login.css'
-import { ngrokUrl } from '../Assets/config';
+import { ngrokUrl, ngrokUrlSwe } from '../Assets/config';
 import styled from 'styled-components';
+import GoogleLogin from 'react-google-login';
 
 function Test() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
@@ -31,7 +32,7 @@ color: #FFFFFF;
        // console.log(headers)
         try {
           const { data}  = await axios.get(
-              `https://${ngrokUrl}/auth/api/get-email`,
+              `https://${ngrokUrlSwe}/auth/api/get-email`,
              {headers})
               // console.log(data)
           sessionStorage.setItem('item', JSON.stringify( data))
