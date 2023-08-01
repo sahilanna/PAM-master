@@ -1,7 +1,7 @@
 import React, { useState,useEffect} from 'react';
 import {Button,Icon} from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
-import { ngrokUrl } from '../../../Assets/config';
+import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import PmSidebar from './pmSidebar';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';

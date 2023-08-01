@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef  } from 'react';
 import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
 import { ngrokUrl } from '../../../../Assets/config';
 import Sidebar from '../../SideBar/SideBar';
@@ -7,11 +7,16 @@ import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import { Button } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
+import { CSVLink } from 'react-csv';
+
+
 
 function Analytics() {
   const [Data, setData] = useState([]);
   const navigate =useNavigate()
   const [isLoading, setIsLoading] = useState(true);
+  const [csvData, setCSVData] = useState([]);
+  const csvLinkRef = useRef(null); 
 
   const fetchCount = async () => {
     try {
@@ -47,6 +52,14 @@ function Analytics() {
     navigate('/projectAnalytics')
   };
 
+  const handleDownloadCSV = () => {
+    const csvData = Data.map((entry) => ({ Name: entry.name, Count: entry.count }));
+    setCSVData(csvData);
+    csvLinkRef.current.link.click();
+  };
+  
+  
+
   return (
     <div className='parent-adm'>
     <Sidebar />
@@ -75,8 +88,18 @@ function Analytics() {
                   <Tooltip />
                   <Legend />
                 </PieChart>
+                  
                 <br/>
+                <div >
                 <Button primary onClick={handleNextClick}>Next</Button>
+                <Button secondary onClick={handleDownloadCSV}>Download CSV</Button>
+                <CSVLink
+                  data={csvData}
+                  filename={"chart_data.csv"}
+                  className="hidden"
+                  ref={csvLinkRef}
+                />
+                </div>
               </>
             
           </>

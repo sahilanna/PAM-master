@@ -25,12 +25,17 @@
 
 .profile-imag {
   margin-right: 20px;
-  
+   position: relative;
   padding: 30px;
   border-radius: 15px;
   width: 400px;
   background-color:rgb(238, 245, 245);
   box-shadow: 10px 10px 5px #aaaaaa;
+}
+.edit-button {
+  position: absolute;
+  top: 20px; 
+  right: 20px; 
 }
 
 .profile-imag p,.profile-imag b{

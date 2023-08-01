@@ -39,7 +39,7 @@ const AdminDashboard = () => {
 
   const loadItems = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrlSwe}/api/projects/allProjects`, {});
+      const response = await api.get(`https://${ngrokUrl}/api/projects/allProjects`, {});
       setItem(response.data);
       setIsLoading(false);
     } catch (error) {

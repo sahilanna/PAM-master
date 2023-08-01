@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { ngrokUrl } from '../../../../Assets/config';
 import Sidebar from '../../SideBar/SideBar';
@@ -11,6 +11,8 @@ const ProjectAnalytics = ({ onBackClick }) => {
   const [activeProjects, setActiveProjects] = useState(0);
   const [inactiveProjects, setInactiveProjects] = useState(0);
   const [error, setError] = useState(null);
+  const [csvData, setCSVData] = useState([]);
+  const csvLinkRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +42,18 @@ const ProjectAnalytics = ({ onBackClick }) => {
     navigate('/Analytics');
   };
 
+  const handleDownloadCSV = () => {
+    const csvData = data.map((entry) => ({ Status: entry.status, Projects: entry.ActiveProjects || entry.InactiveProjects }));
+    setCSVData(csvData);
+
+    const csvContent = "data:text/csv;charset=utf-8," + csvData.map(e => Object.values(e).join(",")).join("\n");
+    const encodedUri = encodeURI(csvContent);
+    csvLinkRef.current.href = encodedUri;
+    csvLinkRef.current.target = "_blank";
+    csvLinkRef.current.download = "project_status_data.csv";
+    csvLinkRef.current.click();
+  };
+
   return (
     <div className='parent-admin'>
       <Sidebar />
@@ -59,6 +73,8 @@ const ProjectAnalytics = ({ onBackClick }) => {
             </BarChart>
             <br />
             <Button primary onClick={handleBackClick}>Back</Button>
+            <Button secondary onClick={handleDownloadCSV}>Download CSV</Button>
+            <a href="#" ref={csvLinkRef} style={{ display: 'none' }}>Download CSV</a>
           </div>
         </div>
       </div>
