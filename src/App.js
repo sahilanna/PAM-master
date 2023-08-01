@@ -29,6 +29,7 @@ import ProjectAnalytics from './Components/Dashboard/Admin/Analytics/projectAnal
 import LoadingPage from './Assets/Loader/LoadingPage';
 import Faq from "./Components/faq";
 import IpAddress from './Assets/ipAddress';
+import AddUserToSharedDrive from './Components/Dashboard/Admin/Drive/addUserToDrive';
 
 
 
@@ -62,7 +63,7 @@ function App() {
               <Route path="/AddUserName" element={<AddUserName/>} />
               <Route path="/Login" element={<Login />} />
               <Route path="/Create" element={<Create />} /> */}
-              <Route path='/userActivity' element={<UserActivity/>}/>
+            <Route path='addUserToDrive' element={<AddUserToSharedDrive/>}/>
               <Route path='/ipAddress' element={<IpAddress/>}/>
                 {/* <Route path='/CreateProject' element={<CreateProject/>}/> */}
           <Route path='/LoadingPage' element={<LoadingPage/>}/>
