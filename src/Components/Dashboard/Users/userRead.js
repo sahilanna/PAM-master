@@ -17,13 +17,16 @@ import api from '../api'
 
 
 
+
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config'
+import UserActivity from './userActivity'
 
 function UserRead(){
   const navigate = useNavigate();
   const getUrl =  `https://${ngrokUrl}/api/users/role/user`;
   const delUrl = "";
   const [item, setItem] = useState([]);
+  const[showUserActivity, setShowUserActivity]=useState(false)
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -77,6 +80,9 @@ function UserRead(){
       setSelectedProject(project);
       setShowProjectDetails(true);
     };
+    // const viewActivity=(id)={
+    //   setShowUserActivity()
+    // }
     const createOnclick=()=>{
       navigate('/userCreate')
     }
@@ -84,6 +90,13 @@ function UserRead(){
     const handleCloseDetails = () => {
       setShowProjectDetails(false);
     };
+
+    const viewActivity=(id ,username)=>{
+      // setShowUserActivity(true)
+      
+      navigate('/userActivity',  { state: { id,username } })
+
+    }
 
     React.useEffect(() => {
       handlePaginate(1);
@@ -96,9 +109,15 @@ function UserRead(){
       const handlePaginate = (pageNumber) => {
       const indexOfLastItem = pageNumber * itemsPerPage;
       const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-      const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+      const currentItems =filteredProjects.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+      );
       setCurrentPageData(currentItems);
     };
+    const handleCloseUserActivity = () => {
+      setShowUserActivity(false);
+    }
 
     const deleteUser = async (id) => {
       await api.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
@@ -143,6 +162,7 @@ function UserRead(){
             <th className='text-center'>View</th>
             
             <th className='text-center'>Delete</th>
+            <th className='text-center'>Activity</th>
           </thead>
           <tbody>
           {filteredProjects.length === 0 ? (
@@ -153,7 +173,7 @@ function UserRead(){
     </tr>
   ) : (
           
-          filteredProjects.map((user, index) => (
+          currentPageData.map((user, index) => (
             <tr>
               {/* <td>{user.id}</td> */}
               <td>{index+1}</td>
@@ -181,8 +201,13 @@ function UserRead(){
       onConfirm={()=>deleteUser(user.id)}/>
 
               </td>
+              <td className='text-center'><button className="btn btn-outline-primary mx-2" 
+              onClick={()=>viewActivity(user.id, user.name)}  > <FontAwesomeIcon icon={faEye} /></button>
+           
+              </td>
             </tr>
           )))}
+          
         </tbody>
       </table>
           )}
@@ -190,7 +215,7 @@ function UserRead(){
     <div className='pagination'>
       {/* Display items for the current page */}
       <Pagination
-      data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
+      data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
     </div>
     {showProjectDetails && (

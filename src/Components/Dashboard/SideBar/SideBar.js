@@ -33,9 +33,9 @@ function Sidebar() {
               <CDBSidebarMenuItem icon="table">Notifications</CDBSidebarMenuItem>
             </NavLink> */}
 
-            {/* <NavLink exact to="/analytics" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="chart-line">Reports</CDBSidebarMenuItem>
-            </NavLink> */}
+            <NavLink exact to="/driveDetails" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="chart-line">Drive</CDBSidebarMenuItem>
+            </NavLink>
             <NavLink exact to="/repoRead" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="sticky-note">Repos</CDBSidebarMenuItem>
             </NavLink>

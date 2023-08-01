@@ -13,7 +13,7 @@ import {BrowserRouter as Router , Route,Routes, BrowserRouter } from 'react-rout
 import { Provider } from 'react-redux';
 import store from './Login/redux-store/store';
 import PrivateRoutes from './Login/PrivateRouting';
-
+import UserActivity from './Components/Dashboard/Users/userActivity';
 import Logout from './Login/Logout';
 import AddPm from './Components/Dashboard/Admin/Create/addPm';
 import AddUser from './Components/Dashboard/Admin/Create/addUser.js';
@@ -29,6 +29,7 @@ import ProjectAnalytics from './Components/Dashboard/Admin/Analytics/projectAnal
 import LoadingPage from './Assets/Loader/LoadingPage';
 import Faq from "./Components/faq";
 import IpAddress from './Assets/ipAddress';
+import AddUserToSharedDrive from './Components/Dashboard/Admin/Drive/addUserToDrive';
 
 
 
@@ -62,7 +63,7 @@ function App() {
               <Route path="/AddUserName" element={<AddUserName/>} />
               <Route path="/Login" element={<Login />} />
               <Route path="/Create" element={<Create />} /> */}
-              <Route path='/Analytics' element={<Analytics/>}/>
+            <Route path='addUserToDrive' element={<AddUserToSharedDrive/>}/>
               <Route path='/ipAddress' element={<IpAddress/>}/>
                 {/* <Route path='/CreateProject' element={<CreateProject/>}/> */}
           <Route path='/LoadingPage' element={<LoadingPage/>}/>

@@ -85,6 +85,7 @@ function UserRepoRead() {
           <table class="ui celled table">
             <thead>
               <tr>
+                <th>Project Name</th>
                 <th>Repository Name</th>
                 <th>Repository Description</th>
               </tr>
@@ -95,6 +96,7 @@ function UserRepoRead() {
                   item.repositories && item.repositories.length > 0 ? (
                     item.repositories.map((repo, repoIndex) => (
                       <tr key={repoIndex}>
+                        <td>{item.projectName}</td>
                         <td>{repo.name}</td>
                         <td>{repo.description}</td>
                       </tr>

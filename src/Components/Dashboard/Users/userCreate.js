@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 // import '/home/nineleaps/Downloads/PAM-master-master/src/Components/Dashboard/PM/PmCreate.css'
   
-function UserCreate(){
+function UserCreate() {
   let navigate=useNavigate();
   const dispatchUser = useDispatch();
   const [id, setId] = useState('');

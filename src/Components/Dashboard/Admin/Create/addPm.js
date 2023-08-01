@@ -74,6 +74,12 @@ const AddPm = () => {
     setSelectedRepo(selectedRepo.text);
   }
 
+  const handleSkip=()=>{
+    navigate('/addUser', { state: { selectedRepo } });
+
+
+  }
+
 
   // const handleRepoChange=(e, { value, options})=>{
   //   const selectedRepo = options.find((option) => option.value === value);
@@ -128,7 +134,13 @@ const AddPm = () => {
             {formError && <p style={{ color: 'red' }}>{formError}</p>}
 
 <Button type='submit' primary disabled={!selectedRepo}>Submit</Button>
+<Button style={{marginLeft:'380px'}} type='submit' primary onClick={handleSkip}>Skip</Button>
+
+        
+        
         </Form>
+       
+
         </Modal.Content>
         <Modal.Actions>
         </Modal.Actions>
