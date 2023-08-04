@@ -45,6 +45,9 @@ import PmNotification from "../Components/Dashboard/ProjectManager/pmNotificatio
 import AddUserToSharedDrive from "../Components/Dashboard/Admin/Drive/addUserToDrive";
 import DriveDetails from "../Components/Dashboard/Admin/Drive/driveDetails";
 import CreateDriveDetails from "../Components/Dashboard/Admin/Drive/createDriveDetails";
+import DriveRead from "../Components/Dashboard/Admin/Drive/driveRead";
+
+
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
     console.log(data.enumRole)

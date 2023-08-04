@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 
 const ProjectAnalytics = ({ onBackClick }) => {
-  const navigate = useNavigate();
+  
   const navigate = useNavigate();
   const [activeProjects, setActiveProjects] = useState(0);
   const [inactiveProjects, setInactiveProjects] = useState(0);

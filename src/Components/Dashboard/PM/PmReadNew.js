@@ -92,10 +92,7 @@ function PmReadNew() {
           indexOfFirstItem,
           indexOfLastItem
         );
-        const currentItems =filteredProjects.slice(
-          indexOfFirstItem,
-          indexOfLastItem
-        );
+       
         setCurrentPageData(currentItems);
       };
       

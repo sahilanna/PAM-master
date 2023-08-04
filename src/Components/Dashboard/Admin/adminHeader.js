@@ -54,7 +54,7 @@ function AdminHeader() {
     <Grid columns={3} stackable>
       <Grid.Column>
         <Segment raised>
-          <div>
+        <div>
             <Placeholder.Header>
               <FontAwesomeIcon icon={faProjectDiagram} style={{ color: 'blue' }} />
             </Placeholder.Header>
@@ -64,13 +64,13 @@ function AdminHeader() {
               <Placeholder.Line length='short' style={{ color: 'blue' }} />
               <span style={{ color: 'blue', fontSize: '24px', fontWeight: 'bold' }}>{projects}</span>
             </Placeholder.Paragraph>
-          </div>
+        </div>
         </Segment>
       </Grid.Column>
 
       <Grid.Column>
         <Segment raised>
-          <div>
+         <div>
             <Placeholder.Header>
               <FontAwesomeIcon icon={faUserAstronaut} style={{ color: 'green' }} />
             </Placeholder.Header>
@@ -81,26 +81,27 @@ function AdminHeader() {
               <span style={{ color: 'green', fontSize: '24px', fontWeight: 'bold' }}>{users}</span>
             </Placeholder.Paragraph>
           </div>
-          </div>
         </Segment>
       </Grid.Column>
 
       <Grid.Column>
         <Segment raised className="project-managers-box"> 
-          <div>
+         <div>
             <Placeholder.Header>
               <FontAwesomeIcon icon={faUserCircle} style={{ color: 'orange' }} />
             </Placeholder.Header>
             <Placeholder.Paragraph>
               <span style={{ color: 'orange', fontWeight: 'bold' }}>Project Managers</span>
+             
               <Placeholder.Line style={{ color: 'orange' }} />
               <span style={{ color: 'orange', fontSize: '24px', fontWeight: 'bold' }}>{pms}</span>
             </Placeholder.Paragraph>
-          </div>
+         </div>
         </Segment>
       </Grid.Column>
     </Grid>
   );
 }
+
 
 export default AdminHeader;

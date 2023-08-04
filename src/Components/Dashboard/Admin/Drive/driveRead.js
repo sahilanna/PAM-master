@@ -17,8 +17,8 @@ function DriveRead() {
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
-  const[figmaURL, setFigmaURL]=useState('')
-  const[figmaId, setFigmaId]=useState('')
+  const[driveURL, setdriveURL]=useState('')
+  const[driveId, setdriveId]=useState('')
   const[projectId, setProjectId]=useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [currentPageData, setCurrentPageData] = useState([]);
@@ -31,9 +31,9 @@ function DriveRead() {
 
   const fetchProjects = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/figmas/getAll`);
+      const response = await api.get(`https://${ngrokUrl}/getAllGoogleDrives`);
       setProjects(response.data);
-      setFigmaId(response.data[0].figmaId);
+      setdriveId(response.data[0].driveId);
       setIsLoading(false);
       setFilteredProjects(response.data);
     } catch (error) {
@@ -43,19 +43,19 @@ function DriveRead() {
   };
 
   const createDrive = () => {
-    navigate('/createDriveDetails', { state: { figmaId } });
+    navigate('/createDriveDetails', { state: { driveId } });
   };
 
-  const handleAddUser = (url, id, projectId, figmaId) => {
-    setFigmaURL(url);
-    setFigmaId(id);
+  const handleAddUser = (url, id, projectId, driveId) => {
+    setdriveURL(url);
+    setdriveId(id);
     setProjectId(projectId);
     setShowModal(true);
   };
 
-  const handleDeleteUrl = async (figmaId) => {
+  const handleDeleteUrl = async (driveId) => {
     try {
-      await api.delete(`https://${ngrokUrlSwe}/api/figmas/${figmaId}`);
+      await api.delete(`https://${ngrokUrl}/deleteGoogleDriveById/${driveId}`);
       navigate('/DriveRead');
       setShowConfirmDialog(false);
       fetchProjects();
@@ -133,33 +133,29 @@ function DriveRead() {
                 <th>S.No.</th>
                 <th>Project Name</th>
                 <th>Drive Link</th>
-                <th className="text-center">Add User</th>
+              
                 <th className="text-center">Delete Drive</th>
               </tr>
             </thead>
             <tbody>
               {currentPageData.map((project, index) => (
-                <tr key={project.figmaId}>
+                <tr key={project.driveId}>
                   <td>{index + 1}</td>
                   <td>{project.projectDTO.projectName}</td>
                   <td>
-                    <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">
-                      {project.figmaURL}
+                    <a href={project.driveLink} target="_blank" rel="noopener noreferrer">
+                      {project.driveLink}
                     </a>
                   </td>
+                  
                   <td className="text-center">
-                    <button className="btn btn-outline-primary mx-2" onClick={() => handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
-                      <FontAwesomeIcon icon={faUser} />
-                    </button>
-                  </td>
-                  <td className="text-center">
-                    <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(project.figmaId)}>
+                    <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(project.driveId)}>
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
                     <DialogBox
-                      show={showConfirmDialog === project.figmaId}
+                      show={showConfirmDialog === project.driveId}
                       onClose={() => setShowConfirmDialog(null)}
-                      onConfirm={() => handleDeleteUrl(project.figmaId)}
+                      onConfirm={() => handleDeleteUrl(project.driveId)}
                     />
                   </td>
                 </tr>
@@ -178,7 +174,7 @@ function DriveRead() {
       </div>
       <div className='model-container'>
         <div className="modal-content-container">
-          {showModal && <DriveCreate onClose={closeModal} figmaURL={figmaURL} figmaId={figmaId} projectId={projectId} />}
+          {showModal && <DriveCreate onClose={closeModal} driveURL={driveURL} driveId={driveId} projectId={projectId} />}
         </div>
       </div>
     </div>
