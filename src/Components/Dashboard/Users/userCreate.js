@@ -6,7 +6,7 @@ import { createUser } from '../../../Login/redux-store/actions/action';
 import { useDispatch } from 'react-redux';
 
   
-function UserCreate(){
+function UserCreate() {
   let navigate=useNavigate();
   const dispatchUser = useDispatch();
   

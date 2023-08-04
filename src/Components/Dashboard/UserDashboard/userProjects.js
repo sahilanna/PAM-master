@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import UserSidebar from './userSidebar';
-
 import { ngrokUrl } from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
+import PmProjectDetails from '../ProjectManager/pmProjectDetails';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 
 function UserProjects() {
+  const [item, setItem] = useState([]);
+  const [showUserProjectDetails, setShowUserProjectDetails] = useState(false);
+  const [projectId, setProjectId] = useState('');
+  const [projectName, setProjectName] = useState('');
+  const [projectDescription, setProjectDescription] = useState('');
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const [userid, setUserid] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-
+  const [searchQuery, setSearchQuery] = useState(''); 
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
   
@@ -38,6 +45,16 @@ console.log(id)
   const filteredProjects = userid.filter((item) =>
   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
 );
+
+const handleProjectDetails=(project)=>{
+  setSelectedProject(project)
+  setShowUserProjectDetails(true)
+
+}
+
+const handleCloseDetails=()=>{
+  setShowUserProjectDetails(false)
+}
 
  
   return (
@@ -69,6 +86,7 @@ console.log(id)
             {/* <th>Project-ID</th> */}
             <th>Project-Name</th>
             <th>project Description</th>
+            <th className='text-center'>View</th>
         </thead>
         <tbody>
   {filteredProjects.length > 0 ? (
@@ -77,6 +95,14 @@ console.log(id)
         <td>{item.projectId}</td>
         <td>{item.projectName}</td>
         <td>{item.projectDescription}</td>
+        <td className='text-center'>
+                        <button
+                          className="btn btn-outline-primary mx-2"
+                          onClick={() => handleProjectDetails(item)}
+                        >
+                          <FontAwesomeIcon icon={faEye} />
+                        </button>
+                      </td>
       </tr>
     ))
   ) : (
@@ -87,6 +113,9 @@ console.log(id)
 </tbody>
 
       </table>
+      )}
+      {showUserProjectDetails && (
+        <PmProjectDetails project={selectedProject} onClose={handleCloseDetails} />
       )}
       </div>
       </div>

@@ -92,6 +92,10 @@ function PmReadNew() {
           indexOfFirstItem,
           indexOfLastItem
         );
+        const currentItems =filteredProjects.slice(
+          indexOfFirstItem,
+          indexOfLastItem
+        );
         setCurrentPageData(currentItems);
       };
       
@@ -108,8 +112,17 @@ function PmReadNew() {
     navigate('/PmCreate')
   }
   
-  
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+  const viewActivity=(id ,username)=>{
+    // setShowUserActivity(true)
+    
+    navigate('/userActivity',  { state: { id,username } })
 
+  }
+
+  
   return (
 
 <div className='parent-admin'>
@@ -147,7 +160,9 @@ function PmReadNew() {
           
             <th className='text-center'>View</th>
             
+            
             <th className='text-center'>Delete</th>
+            <th className='text-center'>Activity</th>
          </thead>
          <tbody>
           {filteredProjects.length === 0 ? (
@@ -192,6 +207,10 @@ function PmReadNew() {
       </div>
     )}
       </td>
+      <td className='text-center'><button className="btn btn-outline-primary mx-2" 
+              onClick={()=>viewActivity(item.id, item.name)}  > <FontAwesomeIcon icon={faEye} /></button>
+           
+              </td>
       
               
             </tr>

@@ -8,12 +8,22 @@ import UserDetails from './UserDetails'
 import Sidebar from '../SideBar/SideBar'
 import LoadingPage from '../../../Assets/Loader/LoadingPage'
 import api from '../api'
-import { ngrokUrl } from '../../../Assets/config'
+
+
+
+
+import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config'
+import UserActivity from './userActivity'
 
 function UserRead(){
   const navigate = useNavigate();
   const getUrl =  `https://${ngrokUrl}/api/users/role/user`;
   const [item, setItem] = useState([]);
+  const[showUserActivity, setShowUserActivity]=useState(false)
+  const [id, setId] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [enumRole,setEnumRole]=useState('3');
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 4;
@@ -55,6 +65,9 @@ function UserRead(){
       setSelectedProject(project);
       setShowProjectDetails(true);
     };
+    // const viewActivity=(id)={
+    //   setShowUserActivity()
+    // }
     const createOnclick=()=>{
       navigate('/userCreate')
     }
@@ -62,6 +75,13 @@ function UserRead(){
     const handleCloseDetails = () => {
       setShowProjectDetails(false);
     };
+
+    const viewActivity=(id ,username)=>{
+      // setShowUserActivity(true)
+      
+      navigate('/userActivity',  { state: { id,username } })
+
+    }
 
     React.useEffect(() => {
       handlePaginate(1);
@@ -80,6 +100,9 @@ function UserRead(){
       );
       setCurrentPageData(currentItems);
     };
+    const handleCloseUserActivity = () => {
+      setShowUserActivity(false);
+    }
 
     const deleteUser = async (id) => {
       await api.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
@@ -124,6 +147,7 @@ function UserRead(){
             <th className='text-center'>View</th>
             
             <th className='text-center'>Delete</th>
+            <th className='text-center'>Activity</th>
           </thead>
           <tbody>
           {filteredProjects.length === 0 ? (
@@ -159,10 +183,14 @@ function UserRead(){
      show={showConfirmDialog === user.id}
       onClose={() => setShowConfirmDialog(null)}
       onConfirm={()=>deleteUser(user.id)}/>
-
+              </td>
+              <td className='text-center'><button className="btn btn-outline-primary mx-2" 
+              onClick={()=>viewActivity(user.id, user.name)}  > <FontAwesomeIcon icon={faEye} /></button>
+           
               </td>
             </tr>
           )))}
+          
         </tbody>
       </table>
           )}

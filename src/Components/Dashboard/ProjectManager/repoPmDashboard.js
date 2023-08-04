@@ -51,73 +51,76 @@ const handleSearchInputChange = (event) => {
   setFilteredResult(filtered);
 };
 
-return (
-  <div className="parent-admin">
-  <div style={{ height: '100vh', overflow: 'scroll initial' }}>
-    <PmSidebar />
-  </div>
-  <div className="admin-child">
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: '20px',
-        marginBottom: '30px',
-        marginLeft: '40px',
-        marginRight: '30px',
-      }}
-    >
-      <div class="ui left icon input">
-        <input
-          type="text"
-          placeholder="Search Projects..."
-          value={searchQuery}
-          onChange={handleSearchInputChange}
-        />
-        <i class="users icon"></i>
+  return (
+    <div className="parent-admin">
+    <div style={{ height: '100vh', overflow: 'scroll initial' }}>
+      <PmSidebar />
+    </div>
+    <div className="admin-child">
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginTop: '20px',
+          marginBottom: '30px',
+          marginLeft: '40px',
+          marginRight: '30px',
+        }}
+      >
+        <div class="ui left icon input">
+          <input
+            type="text"
+            placeholder="Search Projects..."
+            value={searchQuery}
+            onChange={handleSearchInputChange}
+          />
+          <i class="users icon"></i>
+        </div>
+      </div>
+      <div style={{ marginLeft: '20px', marginRight: '30px' }}>
+        {isLoading ? (
+          <LoadingPage />
+        ) : (
+          <table class="ui celled table">
+            <thead>
+              <tr>
+                <th>Project Name</th>
+                <th>Repository Name</th>
+                <th>Repository Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredResult && filteredResult.length > 0 ? (
+                filteredResult.map((item, index) => (
+                  
+                  item.repositories && item.repositories.length > 0 ? (
+                    item.repositories.map((repo, repoIndex) => (
+                      <tr key={repoIndex}>
+                        <td>{item.projectName}</td>
+                        <td>{repo.name}</td>
+                        <td>{repo.description}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr key={index}>
+                     
+                    </tr>
+                  )
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="2">No data available</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
-    <div style={{ marginLeft: '20px', marginRight: '30px' }}>
-      {isLoading ? (
-        <LoadingPage />
-      ) : (
-        <table class="ui celled table">
-          <thead>
-            <tr>
-              <th>Repository Name</th>
-              <th>Repository Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredResult && filteredResult.length > 0 ? (
-              filteredResult.map((item, index) => (
-                item.repositories && item.repositories.length > 0 ? (
-                  item.repositories.map((repo, repoIndex) => (
-                    <tr key={repoIndex}>
-                      <td>{repo.name}</td>
-                      <td>{repo.description}</td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr key={index}>
-                   
-                  </tr>
-                )
-              ))
-            ) : (
-              <tr>
-                <td colSpan="2">No data available</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      )}
-    </div>
   </div>
-</div>
-
-);
+  
+  );
 }
 
 

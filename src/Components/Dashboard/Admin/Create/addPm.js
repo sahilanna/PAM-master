@@ -58,6 +58,12 @@ const AddPm = () => {
     setSelectedRepo(selectedRepo.text);
   }
 
+  const handleSkip=()=>{
+    navigate('/addUser', { state: { selectedRepo } });
+
+
+  }
+
 
   
   const onClose=()=>{
@@ -107,7 +113,13 @@ const AddPm = () => {
          
 
 <Button type='submit' primary disabled={!selectedRepo}>Submit</Button>
+<Button style={{marginLeft:'380px'}} type='submit' primary onClick={handleSkip}>Skip</Button>
+
+        
+        
         </Form>
+       
+
         </Modal.Content>
         <Modal.Actions>
         </Modal.Actions>

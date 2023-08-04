@@ -40,9 +40,11 @@ import AddUserProject from "../Components/Dashboard/Admin/Create/addUserProject"
 import ProjectAnalytics from "../Components/Dashboard/Admin/Analytics/projectAnalytics";
 import ProjectPms from "../Components/Dashboard/Admin/Read/projectPms";
 import AddPmProject from "../Components/Dashboard/Admin/Create/addPmProject";
-import DriveRead from "../Components/Dashboard/Admin/Drive/driveRead";
+import UserActivity from "../Components/Dashboard/Users/userActivity"; 
+import PmNotification from "../Components/Dashboard/ProjectManager/pmNotification";
+import AddUserToSharedDrive from "../Components/Dashboard/Admin/Drive/addUserToDrive";
+import DriveDetails from "../Components/Dashboard/Admin/Drive/driveDetails";
 import CreateDriveDetails from "../Components/Dashboard/Admin/Drive/createDriveDetails";
-
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
     console.log(data.enumRole)
@@ -90,6 +92,12 @@ const PrivateRoutes = () => {
               <Route path='/Profile' element={<Profile/>}/>
               <Route path='/ProjectAnalytics' element={<ProjectAnalytics/>}/>
               <Route path='/Analytics' element={<Analytics/>}/>
+              <Route path='/userActivity' element={<UserActivity/>}/>
+              <Route path='/addUserToDrive' element={<AddUserToSharedDrive/>}/>
+              <Route path='/createDriveDetails' element={<CreateDriveDetails/>}/>
+              {/* <Route path='/gitCreate' element={<GitCreate/>}/> */}
+             {/* <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/> */}
+             <Route path='/driveDetails' element={<DriveDetails/>}/>
              <Route path='/Create' element={<Create/>}/>
              <Route path='/addPm' element={<AddPm/>}/>
              <Route path='/addUser' element={<AddUser/>}/>
@@ -105,6 +113,8 @@ const PrivateRoutes = () => {
               <Route path="/PmRequestForm" element={<PmRequestForm />} />
               <Route path="/repoPmDashboard" element={<RepoPmDashboard/>} />
               <Route path='/pmProfile' element={<PmProfile/>}/>
+              <Route path='/pmNotification' element={<PmNotification/>}/>
+              
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           )}

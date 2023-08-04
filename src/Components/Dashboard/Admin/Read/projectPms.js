@@ -49,14 +49,17 @@ const getUsers = async () => {
   const loadRepo = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`);
+     
       const repoo=response.data
-      const name=repoo[0].name
-      setRepoName(name)
+      setRepoName(repoo[0].name)
       console.log(repoName)
     } catch (error) {
       console.log(error);
     }
   };
+  useEffect(() => {
+    loadRepo();
+  }, [projectId]);
    const handleAddEmployee = () => {
     navigate('/addPmProject', { state: { projectId, projectName } });
   };
@@ -69,6 +72,8 @@ const getUsers = async () => {
   };
   const handleConfirmDelete = async () => {
     try {
+      console.log('repo',repoName)
+      console.log('username', username)
       const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
         phoneNumber: '+91 8884763231',
       });
@@ -146,7 +151,7 @@ const getUsers = async () => {
                       <td>{user.email}</td>
                       <td>{user.gitHubUsername ? user.gitHubUsername : '--'}</td>
                       <td>
-              <button className='btn btn-danger mx-2' onClick={() =>  handleSubmit(user.id, user.gitHubUsername)}><FontAwesomeIcon icon={faTrash} /> </button>
+              <button className='btn btn-danger mx-2' onClick={() =>  handleSubmit(user.id,user.gitHubUsername)}><FontAwesomeIcon icon={faTrash} /> </button>
                  </td>
                     </tr>
                   ))

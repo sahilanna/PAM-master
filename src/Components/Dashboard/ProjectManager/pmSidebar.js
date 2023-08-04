@@ -33,17 +33,20 @@ function PmSidebar() {
           <NavLink exact to="/pmDashboard" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="list">Projects</CDBSidebarMenuItem>
           </NavLink>
-          <NavLink exact to="/figmaPmDashboard" activeClassName="activeClicked">
+          {/* <NavLink exact to="/figmaPmDashboard" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="book">Figma</CDBSidebarMenuItem>
-          </NavLink>
+          </NavLink> */}
           <NavLink exact to="/repoPmDashboard" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="sticky-note">Repository</CDBSidebarMenuItem>
+          </NavLink>
+          <NavLink exact to="/pmNotification" activeClassName="activeClicked">
+            <CDBSidebarMenuItem icon="bell">Notification</CDBSidebarMenuItem>
           </NavLink>
          
           {/* <NavLink exact to="/statusPm" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="check">Status</CDBSidebarMenuItem>
           </NavLink> */}
-          <NavLink exact to="/Login" activeClassName="activeClicked">
+          <NavLink exact to="/Logout" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="arrow-left">Logout</CDBSidebarMenuItem>
           </NavLink>
           </CDBSidebarMenu>

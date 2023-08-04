@@ -81,6 +81,7 @@ function AdminHeader() {
               <span style={{ color: 'green', fontSize: '24px', fontWeight: 'bold' }}>{users}</span>
             </Placeholder.Paragraph>
           </div>
+          </div>
         </Segment>
       </Grid.Column>
 
