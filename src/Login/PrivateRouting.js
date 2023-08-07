@@ -51,9 +51,10 @@ import ProjectPms from "../Components/Dashboard/Admin/Read/projectPms";
 import AddPmProject from "../Components/Dashboard/Admin/Create/addPmProject";
 import UserActivity from "../Components/Dashboard/Users/userActivity"; 
 import PmNotification from "../Components/Dashboard/ProjectManager/pmNotification";
-import AddUserToSharedDrive from "../Components/Dashboard/Admin/Drive/addUserToDrive";
+
 import DriveDetails from "../Components/Dashboard/Admin/Drive/driveDetails";
 import CreateDriveDetails from "../Components/Dashboard/Admin/Drive/createDriveDetails";
+import ShowAllNotification from "../Components/Dashboard/ProjectManager/showAllNotification";
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
     console.log(data.enumRole)
@@ -110,7 +111,7 @@ const PrivateRoutes = () => {
               <Route path='/ProjectAnalytics' element={<ProjectAnalytics/>}/>
               <Route path='/Analytics' element={<Analytics/>}/>
               <Route path='/userActivity' element={<UserActivity/>}/>
-              <Route path='/addUserToDrive' element={<AddUserToSharedDrive/>}/>
+             
               <Route path='/createDriveDetails' element={<CreateDriveDetails/>}/>
               {/* <Route path='/gitCreate' element={<GitCreate/>}/> */}
              {/* <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/> */}
@@ -129,6 +130,7 @@ const PrivateRoutes = () => {
               <Route path="/repoPmDashboard" element={<RepoPmDashboard/>} />
               <Route path='/pmProfile' element={<PmProfile/>}/>
               <Route path='/pmNotification' element={<PmNotification/>}/>
+              <Route path='/showAllNotification' element={<ShowAllNotification/>}/>
               
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>

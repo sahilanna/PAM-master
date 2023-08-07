@@ -30,7 +30,7 @@ function PmRequestUser() {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/request/all`);
+      const response = await api.get(`https://${ngrokUrl}/api/request/allActive`);
       setRequestData(response.data);
       console.log(response.data)
       setIsLoading(false);

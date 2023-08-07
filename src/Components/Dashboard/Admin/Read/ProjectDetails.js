@@ -305,7 +305,11 @@ import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
 const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileButton, onAddFile, onDeleteProject }) => {
   const { projectId, projectName, projectDescription } = project;
   const [showAddUserProject, setShowAddUserProject] = useState(false);
-  const [fileData, setFileData] = useState([]);
+  const [driveData, setDriveData] = useState('');
+  const[driveLink, setDriveLink]=useState('')
+  const[count, setCount]=useState('')
+  
+
 
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const navigate = useNavigate();
@@ -322,6 +326,55 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   useEffect(() => {
     displayFile();
   }, []);
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+  const countEmp = async (projectId) => {
+    try {
+      const result = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/count`,{});
+       setCount(result.data)
+       console.log(count)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+ 
+  function CountCell({ projectId }) {
+    const [count, setCount] = useState(null);
+  
+    useEffect(() => {
+      fetchCount(projectId); // Fetch count when the projectId changes
+    }, [projectId]);
+  
+    async function fetchCount(projectId) {
+      try {
+        const result = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/count`, {});
+        setCount(result.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  
+    return <>{count !== null ? count : '-'}</>// Display count or loading message
+  }
+  
+  
+  const fetchProjects = async () => {
+    try {
+      const response = await api.get(`https://${ngrokUrl}/getGoogleDriveByProjectId/${projectId}`);
+      // setDriveData(response.data)
+    const driveDataa=response.data
+      setDriveData(driveDataa)
+
+      console.log('drive', driveDataa.driveLink)
+      setDriveLink(driveDataa.driveLink)
+      console.log(driveLink)
+      
+    } catch (error) {
+      console.log('Error fetching projects:', error);
+     
+    }
+  };
 
 
 
@@ -437,16 +490,11 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
             <p>
               <strong>Project Name:</strong> {projectName}
             </p>
+            <p><strong>Count of employees: </strong><CountCell projectId={projectId} /></p>
             <p>
               <strong>Project Description:</strong> {projectDescription}
             </p>
-            {/* <p>
-              <strong>Help Documents:</strong>
-              {namesFile.map((obj, index) => (
-                <p key={index}>{obj}</p>
-              ))}
-            </p> */}
-            <p>
+                       <p>
               <strong>Repo Name:</strong> {repo.length > 0 ? (
     <ul>
       {repo.map((repo, index) => (
@@ -469,26 +517,19 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     '-'
   )}
             </p>
-            {/* <p>
-              <strong>Help Documents:</strong> {namesFile.length > 0 ? (
-                  <ul>
-                  {namesFile.map((repo, index) => (
-                    <li key={index}>{repo}</li>
-                  ))}
-    </ul>
-  ) : (
-    '-'
-  )}
-            </p> */}
+           
             <p>
       <strong>Help Documents:</strong>
       {namesFile.length > 0 ? (
         <ul>
           {namesFile.map((filename, index) => (
             <li key={index}>
+              <b> 
 
-              <span onClick={() => downloadFile(filename)}>{filename}</span>
-
+<a href="#" onClick={() => downloadFile(filename)}>
+            {filename}
+          </a>
+          </b>
             </li>
           ))}
         </ul>
@@ -496,6 +537,17 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
         '-'
       )}
     </p>
+    <p>
+  <strong>Drive Link</strong> {driveLink ? (
+    <ul>
+      <a href={driveLink}>
+        <li>{driveLink}</li>
+      </a>
+    </ul>
+  ) : (
+    '-'
+  )}
+</p>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>

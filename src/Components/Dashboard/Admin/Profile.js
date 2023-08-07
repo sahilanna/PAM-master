@@ -57,7 +57,7 @@ const Profile = () => {
                <div className="profile-paren">
                  <div className="profile-details">
                    <div className="profile-imag">
-                   <Button onClick={handleOpenEditModal} className="edit-button">Edit</Button>
+                   {/* <Button onClick={handleOpenEditModal} className="edit-button">Edit</Button> */}
                 
                     <h1>PROFILE</h1>
                     <FontAwesomeIcon icon={faUser} size="7x" />

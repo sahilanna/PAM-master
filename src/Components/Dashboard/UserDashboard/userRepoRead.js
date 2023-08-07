@@ -91,28 +91,25 @@ function UserRepoRead() {
               </tr>
             </thead>
             <tbody>
-              {filteredResult && filteredResult.length > 0 ? (
-                filteredResult.map((item, index) => (
-                  item.repositories && item.repositories.length > 0 ? (
-                    item.repositories.map((repo, repoIndex) => (
-                      <tr key={repoIndex}>
-                        <td>{item.projectName}</td>
-                        <td>{repo.name}</td>
-                        <td>{repo.description}</td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr key={index}>
-                      <td colSpan="2">No repositories available</td>
-                    </tr>
-                  )
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="2">No data available</td>
-                </tr>
-              )}
-            </tbody>
+  {filteredResult.length > 0 ? (
+    filteredResult.map((item, index) => (
+      item.repositories.length > 0 && (
+        item.repositories.map((repo, repoIndex) => (
+          <tr key={repoIndex}>
+            {repoIndex === 0 && <td rowSpan={item.repositories.length}>{item.projectName}</td>}
+            <td>{repo.name}</td>
+            <td>{repo.description}</td>
+          </tr>
+        ))
+      )
+    ))
+  ) : (
+    <tr>
+      <td colSpan="3">No data available</td>
+    </tr>
+  )}
+</tbody>
+
           </table>
         )}
       </div>

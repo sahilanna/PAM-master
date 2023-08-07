@@ -49,6 +49,7 @@ const AdminDashboard = () => {
   const [addFileButtonVisible, setAddFileButtonVisible] = useState(false);
   const [showProjectUsersModal, setShowProjectUsersModal] = useState(false);
   const [showProjectPmModal, setshowProjectPmModal]=useState(false)
+  const[count, setCount]=useState('')
 
   const navigate = useNavigate();
   const itemsPerPage = 3;
@@ -56,7 +57,18 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     loadItems();
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await api.get(`https://${ngrokUrl}/api/request/allActive`);  
+    }
+
+    catch (error) {
+      console.log('Error fetching Users:', error);
+    }
+  };
 
 
   const viewFile = async (projectId) => {
@@ -99,12 +111,12 @@ const AdminDashboard = () => {
     handlePaginate(1);
   }, [item]);
 
-  const csvDataProj =
-
- item.map((entry) => ({
-    'project Id': entry.projectId,
-    'project Name': entry.projectName,
-    'project Description': entry.projectDescription,
+  const csvDataProj = item.map((entry) => ({
+    'Project ID': entry.projectId,
+    'Project Name': entry.projectName,
+    'Project Description': entry.projectDescription,
+    'Project Manager': entry.users.find((user) => user.enumRole === 'PROJECT_MANAGER')?.name || 'N/A',
+    'Users': entry.users.filter((user) => user.enumRole === 'USER').map((user) => user.name).join(', '),
   }));
 
   const handleViewDetails = (project) => {
@@ -181,11 +193,24 @@ const AdminDashboard = () => {
       console.log(error);
     }
   };
+  useEffect(() => {
+    countEmp()
+  }, []);
 
-  // const handleOpenProjectUsers = (projectId, projectName) => {
-  //   setSelectedProject(projectId,projectName);
-  //   setShowProjectUsersModal(true);
-  // };
+
+  const countEmp = async (projectId) => {
+    try {
+      const result = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/count`,{});
+       setCount(result.data)
+       console.log(count)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+ 
+
+
+
 
 
 
@@ -212,9 +237,9 @@ const AdminDashboard = () => {
               <div>
                 <button className="ui button" onClick={createOnclick}>Create Project</button>
                 <Button>
-                  <CSVLink data={csvDataProj} filename="user_project_list.csv">
-                    Download CSV
-                  </CSVLink>
+                <CSVLink data={csvDataProj} filename="projects_data.csv">
+                <button className="ui button">Download CSV</button>
+              </CSVLink>
                 </Button>
                 <ToastContainer/>
               </div>
@@ -232,6 +257,7 @@ const AdminDashboard = () => {
                     
                     <th>S.No.</th>
                     <th>Project-Name</th>
+                    {/* <th>Count of employees</th> */}
                     
                     <th className="text-center">View</th>
                     <th className="text-center">Users</th>
@@ -252,6 +278,9 @@ const AdminDashboard = () => {
                       
                       <td>{index+1}</td>
                       <td>{item.projectName}</td>
+                      {/* <td>
+              <CountCell projectId={item.projectId} />
+            </td> */}
                       
                       <td className="text-center">
                         <button className="btn btn-primary mx-2" onClick={() => handleViewDetails(item)}>

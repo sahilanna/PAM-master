@@ -2,11 +2,15 @@ import React from 'react'
 import PmSidebar from './pmSidebar'
 import { useState, useEffect } from 'react'
 import api from '../api'
+import { useNavigate } from 'react-router-dom'
 import { ngrokUrl } from '../../../Assets/config'
 import {toast, ToastContainer} from 'react-toastify'
 import {Button} from 'semantic-ui-react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 function PmNotification() {
+  const navigate=useNavigate()
     const[notification, setNotification]=useState([])
     const[accessRequestId, setAccessRequestId]=useState([])
     let data = sessionStorage.getItem("item");
@@ -17,7 +21,7 @@ function PmNotification() {
     const pmName=user.name
     const fetchNotification = async () => {
         try {
-          const response = await api.get(`https://${ngrokUrl}/api/request/notiPM?pmName=${pmName}`);
+          const response = await api.get(`https://${ngrokUrl}/api/request/unread/PM?pmName=${pmName}`);
           console.log(response.data);
           setNotification(response.data)
           const requestId = response.data[0].accessRequestId;
@@ -55,9 +59,12 @@ function PmNotification() {
                
             } catch (error) {
               console.log(error);
-            }
-          
+            }   
         
+      }
+
+      const goToNotification=()=>{
+        navigate('/showAllNotification')
       }
 
   return (
@@ -67,12 +74,14 @@ function PmNotification() {
     </div>
     
     <div style={{marginLeft:'20px',marginRight:'30px'}}>
-    <div style={{marginTop:'80px'}}>
-    <table class="ui celled table">
+    <div style={{marginTop:'80px', marginLeft:'280px'}}>
+      <div style={{paddingLeft:'350px'}}> <Button onClick={goToNotification}>Show All</Button></div>
+     
+    <table class="ui celled table" >
         <thead>
            
             <th>Notification</th>
-            <th>Close</th>
+            <th>Mark as Read</th>
             
         </thead>
         <tbody>
@@ -81,9 +90,10 @@ function PmNotification() {
    
           
             <tr key={index}>
-              <td>{item.response}</td>
+              <td><b>{item.response}</b></td>
               <td>
-                <Button style={{color:'red'}} onClick={() => onDeleteNotification(item.accessRequestId)}>X</Button>
+                <Button style={{color:'blue'}}  onClick={() => onDeleteNotification(item.accessRequestId)}>
+                  <FontAwesomeIcon icon={faCheck} className="read-icon" /></Button>
               </td>
             </tr>         
                  
@@ -91,7 +101,7 @@ function PmNotification() {
            ))
           ):(
             <tr>
-            <td colSpan="2">No data available</td>
+            <td colSpan="2">No unread notifications</td>
           </tr>
         )}
         </tbody>

@@ -29,9 +29,7 @@ function Sidebar() {
               <CDBSidebarMenuItem icon="list">Projects</CDBSidebarMenuItem>
             </NavLink>
 
-            {/* <NavLink exact to="/tables" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">Notifications</CDBSidebarMenuItem>
-            </NavLink> */}
+            
 
             <NavLink exact to="/driveDetails" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="chart-line">Drive</CDBSidebarMenuItem>

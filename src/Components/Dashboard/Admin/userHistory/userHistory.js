@@ -14,7 +14,7 @@ function UserHistory() {
   const [isLoading, setIsLoading] = useState(true);
   const [historyData, setHistoryData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 5;
+  const rowsPerPage = 7;
 
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
@@ -29,7 +29,14 @@ function UserHistory() {
   async function fetchData() {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/projects/all`);
-      setHistoryData(response.data);
+      const sortedData = response.data.slice().sort((a, b) => {
+       
+        if (a.status !== b.status) {
+          return a.status ? 1 : -1; 
+        }
+        return a.projectId - b.projectId; 
+      });
+      setHistoryData(sortedData);
       setIsLoading(false);
     } catch (error) {
       console.log('Error fetching user history:', error);
@@ -101,7 +108,7 @@ function UserHistory() {
                 </Table.Body>
               </Table>
 
-              {/* Pagination */}
+             
               <div className='pagination'>
               <div style={{ marginTop: '20px', textAlign: 'center' }} >
                 {Array.from({ length: pageNumbers }, (_, index) => index + 1).map((pageNumber) => (

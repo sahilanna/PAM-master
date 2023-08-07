@@ -44,6 +44,7 @@ const PmProjectDetails = ({ project, onClose }) => {
         <p><strong>Project ID: </strong> {project.projectId}</p>
         <p><strong>Project Name:</strong>  {project.projectName}</p>
         <p><strong>Figma URL: </strong><a href={project.figma.figmaURL}>{project.figma.figmaURL}</a></p>
+        <p><strong>Drive Link: </strong><a href={project.googleDrive.driveLink}>{project.googleDrive.driveLink}</a></p>
         {/* <p><strong>Repo Name: </strong>{project.repositories[0].repo.name}</p> */}
         <p><strong>project Description: </strong>  {project.projectDescription}</p>
         {/* <p><strong>PM Github Username:</strong>  {project.githubUsername}</p> */}
