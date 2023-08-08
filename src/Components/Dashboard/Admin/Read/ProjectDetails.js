@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, Modal,Form } from 'semantic-ui-react';
 import './projectDetailsNew.css';
 import AddUserProject from '../Create/addUserProject';
 import DialogBox from '../../DialogBox/DialogBox';
@@ -8,9 +8,20 @@ import api from '../../api';
 import { ngrokUrl } from '../../../../Assets/config';
 
 
-const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileButton, onAddFile, onDeleteProject }) => {
+
+const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileButton, onAddFile, deleteProject }) => {
   const { projectId, projectName, projectDescription } = project;
   const [showAddUserProject, setShowAddUserProject] = useState(false);
+  const [driveData, setDriveData] = useState('');
+  const[driveLink, setDriveLink]=useState('')
+  const[count, setCount]=useState('')
+   const [otp, setOtp] = useState('');
+  const [showOTPMoal, setShowOTPMoal] = useState(false);
+   const [errorMessage, setErrorMessage] = useState('');
+  
+
+
+
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const navigate = useNavigate();
   const [namesFile, setNamesFile] = useState([]);
@@ -21,6 +32,105 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   useEffect(() => {
     displayFile();
   }, []);
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+  const countEmp = async (projectId) => {
+    try {
+      const result = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/count`,{});
+       setCount(result.data)
+       console.log(count)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+    const handleOTPClose = () => {
+    setShowOTPMoal(false);
+  };
+  const handleModalClose = () => {
+    onClose();
+  };
+ 
+  function CountCell({ projectId }) {
+    const [count, setCount] = useState(null);
+  
+    useEffect(() => {
+      fetchCount(projectId); // Fetch count when the projectId changes
+    }, [projectId]);
+  
+    async function fetchCount(projectId) {
+      try {
+        const result = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/count`, {});
+        setCount(result.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  
+    return <>{count !== null ? count : '-'}</>// Display count or loading message
+  }
+
+
+
+  const handleConfirmDelete = async () => {
+    try {
+      const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
+        phoneNumber: '+91 9928931610',
+      });
+      console.log(otpResponse);
+      if (otpResponse.data === 'OTP sent') {
+        setShowConfirmDialog(false);
+        setShowOTPMoal(true);
+      } else if (otpResponse.response === false) {
+        console.log('OTP generation failed');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleCancelDelete = () => {
+    setShowConfirmDialog(false);
+  };
+  const handleOTPSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/verify`, {
+        otp: otp,
+      });
+      console.log(otpSubmissionResponse);
+      if (otpSubmissionResponse.data === true) {
+        await api.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`);
+        setShowOTPMoal(false);
+      
+      } else if (!otpSubmissionResponse.data) {
+        setErrorMessage('Invalid OTP. Please try again.');
+      }
+    } catch (error) {
+      console.log('Error:', error);
+      setErrorMessage('Something went wrong. Please try again.');
+    }
+  };
+
+
+  
+  const owner="Bindushree-0906"
+ 
+  const fetchProjects = async () => {
+    try {
+      const response = await api.get(`https://${ngrokUrl}/getGoogleDriveByProjectId/${projectId}`);
+      // setDriveData(response.data)
+    const driveDataa=response.data
+      setDriveData(driveDataa)
+
+      console.log('drive', driveDataa.driveLink)
+      setDriveLink(driveDataa.driveLink)
+      console.log(driveLink)
+      
+    } catch (error) {
+      console.log('Error fetching projects:', error);
+     
+    }
+  };
 
 
   const displayFile = async () => {
@@ -44,7 +154,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     setShowConfirmDialog(true);
   };
   const confirmDeleteProject = async () => {
-    await onDeleteProject(projectId);
+    await deleteProject(projectId);
     setShowConfirmDialog(false);
   };
   const cancelDeleteProject = () => {
@@ -52,8 +162,9 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   };
 
   const downloadFile = async (filename) => {
-   
-    await api.get(`https://${ngrokUrl}/api/projects/files/${filename}?projectId=${projectId}`, {
+
+    const result = await api.get(`https://${ngrokUrl}/api/projects/files/${filename}?projectId=${projectId}`, {
+
       responseType: 'blob',
       contentType: 'application/zip',
     })
@@ -107,7 +218,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
       <Modal open={!showAddUserProject} onClose={onClose} style={{top: '120px', left:'280px', width: '600px' }} className="centered-modal">
         <Modal.Header>
           Project Details
-         
+
           {showAddFileButton && (
             <Button color="blue" floated="right" onClick={() => onAddFile(projectId, projectName)}>
               Add File
@@ -124,6 +235,29 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
             message="Are you sure you want to delete this project?"
             afterConfirm={() => navigate('/adminDashboard')}
           />
+          <Modal
+    open={showOTPMoal}
+    onClose={handleOTPClose}
+    style={{ width: '500px', height:'320px' }}
+    className="centered-modal-OTP"
+  >
+    <Modal.Header>Enter OTP</Modal.Header>
+    <Modal.Content>
+      <Form onSubmit={handleOTPSubmit}>
+        <div className="form-field">
+          <label>OTP sent to '+91 9928931610'</label>
+          <input type="text" name="otp" onChange={(e) => setOtp(e.target.value)} />
+        </div>
+        <p>{errorMessage}</p>
+        <Button type="submit" primary>
+          Submit OTP
+        </Button>
+      </Form>
+    </Modal.Content>
+    <Modal.Actions>
+      <Button onClick={handleOTPClose}>Cancel</Button>
+    </Modal.Actions>
+  </Modal>
         </Modal.Header>
         <Modal.Content>
           <Modal.Description>
@@ -133,11 +267,13 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
             <p>
               <strong>Project Name:</strong> {projectName}
             </p>
+            <p><strong>Count of employees: </strong><CountCell projectId={projectId} /></p>
             <p>
               <strong>Project Description:</strong> {projectDescription}
             </p>
-           
-            <p>
+
+                       <p>
+
               <strong>Repo Name:</strong> {repo.length > 0 ? (
     <ul>
       {repo.map((repoItem) => (
@@ -160,15 +296,20 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     '-'
   )}
             </p>
-            
+
             <p>
       <strong>Help Documents:</strong>
       {namesFile.length > 0 ? (
         <ul>
-          {namesFile.map((file) => (
-            <li key={file.id}>
 
-              <span onClick={() => downloadFile(file.filename)}>{file.filename}</span>
+          {namesFile.map((filename, index) => (
+            <li key={index}>
+              <b> 
+
+<a href="#" onClick={() => downloadFile(filename)}>
+            {filename}
+          </a>
+          </b>
 
             </li>
           ))}
@@ -177,11 +318,42 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
         '-'
       )}
     </p>
+    <p>
+  <strong>Drive Link</strong> {driveLink ? (
+    <ul>
+      <a href={driveLink}>
+        <li>{driveLink}</li>
+      </a>
+    </ul>
+  ) : (
+    '-'
+  )}
+</p>
           </Modal.Description>
         </Modal.Content>
+       
         <Modal.Actions>
-          <Button onClick={onClose}>Close</Button>
+        <Button onClick={handleModalClose}>Close</Button>
+      </Modal.Actions>
+      <Modal open={showOTPMoal} onClose={handleOTPClose} style={{ width: '500px' }} className="centered-modal-OTP">
+        <Modal.Header>Enter OTP </Modal.Header>
+        <Modal.Content>
+          <Form onSubmit={handleOTPSubmit}>
+            <div className="form-field">
+              <label>OTP sent to '+91 9928931610'</label>
+              <input type="text" name="otp" onChange={(e) => setOtp(e.target.value)} />
+            </div>
+            <p>{errorMessage}</p>
+            <Button type="submit" primary>
+              Submit OTP
+            </Button>
+          </Form>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button onClick={handleOTPClose}>Cancel</Button>
         </Modal.Actions>
+      </Modal>
+      <DialogBox show={showConfirmDialog} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
       </Modal>
     </>
   );

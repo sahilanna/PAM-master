@@ -8,6 +8,7 @@ import ProfileEdit from './profileEdit';
 import api from '../api';
 import { ngrokUrl } from '../../../Assets/config';
 
+
 const Profile = () => {
   let profileData = sessionStorage.getItem("item");
   let pdata = JSON.parse(profileData);
@@ -57,7 +58,7 @@ const Profile = () => {
                <div className="profile-paren">
                  <div className="profile-details">
                    <div className="profile-imag">
-                   <Button onClick={handleOpenEditModal} className="edit-button">Edit</Button>
+                   {/* <Button onClick={handleOpenEditModal} className="edit-button">Edit</Button> */}
                 
                     <h1>PROFILE</h1>
                     <FontAwesomeIcon icon={faUser} size="7x" />

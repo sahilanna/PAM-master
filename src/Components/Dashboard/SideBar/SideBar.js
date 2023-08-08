@@ -28,6 +28,7 @@ function Sidebar() {
               <CDBSidebarMenuItem icon="list">Projects</CDBSidebarMenuItem>
             </NavLink>
 
+
             <NavLink exact to="/repoRead" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="sticky-note">Repos</CDBSidebarMenuItem>
             </NavLink>
