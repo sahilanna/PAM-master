@@ -45,12 +45,12 @@ function ViewUserVerification() {
         X
       </Button>
       </div>
-    <Modal.Header>Screenshot</Modal.Header>
-  
+    {/* <Modal.Header>Screenshot</Modal.Header>
+   */}
      
     
     <Modal.Content style={{display: 'flex', justifyContent: 'center'}} >
-    {modalImage && <img src={modalImage} alt="No Image" height='250px' width='250px' />}
+    {modalImage && <img src={modalImage} alt="No Image" height='350px' width='550px' />}
      
     </Modal.Content>
     
