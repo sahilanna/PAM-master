@@ -1,32 +1,42 @@
-import axios from "axios";
-import { useParams } from "react-router-dom";
-
+import { ngrokUrl} from "../../../Assets/config";
+import api from "../../../Components/Dashboard/api";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast} from 'react-toastify'
 //Create Project
-export const createProject = ({projectId, projectName, projectDescription,projectManagerId,gitRepoLink}) => {
+export const createProject = ({ projectName, projectDescription,projectManagerId,gitRepoLink}) => {
     return async(dispatchU) => {
         try {
-            const responseCreate = await axios.post('https://64267bccd24d7e0de470e2b7.mockapi.io/Crud', {
-                projectId,
+            const responseCreate = await api.post('https://64267bccd24d7e0de470e2b7.mockapi.io/Crud', {
+                
                 projectName,
                 projectDescription,
                 projectManagerId,
                 
                 gitRepoLink
             })
+            toast.success('Project created successfully!', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 3000,
+              })
             dispatchU({type: "createProject", payload: responseCreate});
+            
         }
         catch (error){
             console.log(error);
+            toast.error('Failed. Please try again.', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 3000,
+              });
         }
     };
 };
 
-// `https://225f-106-51-70-135.ngrok-free.app/api/projects/update/${projectId}`
+
 //Update Project
 export const updateProject = ({projectId, projectName, projectDescription, repo}) => {
     return async(dispatchU) => {
         try {
-            const responseUpdate = await axios.put(`https://64267bccd24d7e0de470e2b7.mockapi.io/Crud/${projectId}`, {
+            const responseUpdate = await api.put(`https://64267bccd24d7e0de470e2b7.mockapi.io/Crud/${projectId}`, {
                 projectId,
                 projectName,
                 projectDescription,
@@ -42,14 +52,13 @@ export const updateProject = ({projectId, projectName, projectDescription, repo}
 
 
 //Create PM
-export const createPM = ({id, name, email, githubUsername,enumRole}) => {
+export const createPM = ({ name, email,enumRole}) => {
     return async(dispatchPMUpdate) => {
         try {
-            const responseCreatePM = await axios.post('https://b1de-106-51-70-135.ngrok-free.app/api/users/', {
-                id,
+            const responseCreatePM = await api.post(`https://${ngrokUrl}/api/users/`, {
+                
                 name,
                 email,
-                githubUsername,
                 enumRole,
                 
             })
@@ -64,13 +73,14 @@ export const createPM = ({id, name, email, githubUsername,enumRole}) => {
 
 
 //Update PM
-export const updatePM = ({id, name, email, enumRole}) => {
+export const updatePM = ({ id,name, email, githubUsername, enumRole}) => {
     return async(dispatchPM) => {
         try {
-            const responsePMUpdate = await axios.put(`https://bc38-106-51-70-135.ngrok-free.app/api/users/update/${id}`, {
-                id,
+            const responsePMUpdate = await api.put(`https://${ngrokUrl}/api/users/update/${id}`, {
+               
                 name,
                 email,
+                githubUsername,
                 enumRole
             })
             dispatchPM({type: "updatePM", payload: responsePMUpdate});
@@ -85,16 +95,16 @@ export const updatePM = ({id, name, email, enumRole}) => {
 
 //create user
 
-export const createUser = ({id, name, email, githubUsername, enumRole}) => {
+export const createUser = ({ name, email, enumRole}) => {
     return async(dispatchUserUpdate) => {
         try {
-            const responseCreateUser = await axios.post('https://b1de-106-51-70-135.ngrok-free.app/api/users/', {
-                id,
+            const responseCreateUser = await api.post(`https://${ngrokUrl}/api/users/`, {
+                
                 name,
                 email,
-                githubUsername,
                 enumRole
             })
+
             dispatchUserUpdate({type: "createUser", payload: responseCreateUser});
         }
         catch (error){
@@ -106,14 +116,15 @@ export const createUser = ({id, name, email, githubUsername, enumRole}) => {
 
 
 //Update USER
-export const updateUser = ({id, name, email, enumRole}) => {
+export const updateUser = ({ id,name, email, enumRole}) => {
     return async(dispatchUser) => {
-        // const {id} = useParams();
+        
         try {
-            const responseUserUpdate = await axios.put(`https://bc38-106-51-70-135.ngrok-free.app/api/users/update/${id}`, {
-                id,
+            const responseUserUpdate = await api.put(`https://${ngrokUrl}/api/users/update/${id}`, {
+                
                 name,
                 email,
+                
                 enumRole
             })
             dispatchUser({type: "updatePM", payload: responseUserUpdate});
@@ -128,7 +139,7 @@ export const updateUser = ({id, name, email, enumRole}) => {
 export const createPmGithubName = ({projectName, repo, username}) => {
     return async(dispatchPmGithub) => {
         try {
-            const responseCreatePmGithubName = await axios.post('https://b1de-106-51-70-135.ngrok-free.app/api/collaborators/add', {
+            const responseCreatePmGithubName = await api.post(`https://${ngrokUrl}/api/collaborators/add`, {
                 projectName,
                 repo,
                 username
@@ -141,20 +152,3 @@ export const createPmGithubName = ({projectName, repo, username}) => {
     };
 };
 
-
-//Read
-// export const readProject = ({projectId, projectName, projectDescription}) => {
-//     return async(dispatch) => {
-//         try {
-//             const responseRead = await axios.get('https://6429847d5a40b82da4d494b2.mockapi.io/PAM', {
-//                 projectId,
-//                 projectName,
-//                 projectDescription,
-//             })
-//             dispatch({type: "readProject", payload: responseRead});
-//         }
-//         catch (error){
-//             console.log(error);
-//         }
-//     };
-// };

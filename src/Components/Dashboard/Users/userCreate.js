@@ -1,73 +1,75 @@
-import React, {useState, useEffect} from 'react'
-import { Form, Button} from 'semantic-ui-react'
-import axios from 'axios';
+import React, {useState} from 'react'
+import { Modal, Button, Form } from 'semantic-ui-react'
+
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../../Login/redux-store/actions/action';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
   
-function UserCreate(){
+function UserCreate() {
   let navigate=useNavigate();
   const dispatchUser = useDispatch();
-  const [id, setId] = useState('');
+  
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const[enumRole,setEnumRole] = useState('3');
-  const [error,setError]=useState('false');
-  const [githubUsername, setgithubUsername] = useState('');
-  const[tools,settools]=useState('');
+  const enumRole = 3;
+ 
   const[clicked,setClicked]= useState(false);
 
-  const handleBack = () =>{
-    navigate(-1);
-  }
  const handleSubmit=(e)=>{
     e.preventDefault();
     setClicked(true);
-    if(name.length==0 || email.length==0 || githubUsername.length==0){
+    if(name.length==0 || email.length==0 ){
       return;
   }
  
-   dispatchUser(createUser({id,name, email, githubUsername, enumRole}));
+   dispatchUser(createUser({name, email, enumRole}));
     navigate('/userRead')
   
   }
+
+  const onClose =()=>{
+    navigate(-1);
+  }
+   
 return(
-<div className='form-display'>
-<Form className = 'form-style' onSubmit={handleSubmit}>
-  <h1>Add User</h1>
+   <Modal open={true} onClose={onClose}  style={{ width: '500px' }} className='create-Project-Modal'>
+      <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
+      
+        </div>
+        <div style={{paddingLeft:'442px'}}>
+      <Button secondary onClick={onClose}>
+          X
+        </Button>
+        </div>
+      <Modal.Header>Add User</Modal.Header>
+
+   
+  
+          <Modal.Content>
+
+          <Form onSubmit={handleSubmit}>
     <Form.Field>
-          <label>USER ID</label>
-          <input name='id' onChange={(e)=>setId(e.target.value)} placeholder='PM Id' />
-          {clicked&&id.length<=0?
-                 <label style={{color:'red'}}> ID can't be Empty</label>: ""}
-    </Form.Field>
-    <Form.Field>
-        <label>User Name</label>
+        <label style={{ textAlign: 'left' }}> User Name<span style={{ color: 'red' }}>*</span></label>
         <input name='name' onChange={(e)=>setName(e.target.value)} placeholder='User Name' />
         {clicked&&name.length<=0?
                <label style={{color:'red'}}> Name can't be Empty</label>: ""}
     </Form.Field>
     <Form.Field>
-        <label>User Email-ID</label>
+        <label style={{ textAlign: 'left' }}>User Email-ID<span style={{ color: 'red' }}>*</span></label>
         <input type='email' name='email' onChange={(e)=>setEmail(e.target.value)} placeholder='EMAIL' />
         {clicked&&email.length<=0?
                <label style={{color:'red'}}>  Email can't be Empty</label>: ""}
     </Form.Field>
-    <Form.Field>
-          <label>User's Github Name</label>
-          <input type='text' name='githubUsername' onChange={(e)=>setgithubUsername(e.target.value)} placeholder='User Github githubUsername' />
-          {clicked&&githubUsername.length<=0?
-                 <label style={{color:'red'}}> User's githubname can't be Empty</label>: ""}
-    </Form.Field>
+  
+  
+          <Button type='submit'>Submit</Button>
+        </Form>
+        </Modal.Content>
+        <Modal.Actions>
 
-    <Form.Field>
-        <label>Role</label>
-        <input name='enumRole' onChange={(e)=>setEnumRole(3)} value="3" disabled/>
-    </Form.Field>
-    <Button type='submit' onClick={handleSubmit}>Submit</Button>
-  </Form>
-  <Button className = 'back-button' onClick={handleBack}> Back </Button>
-  </div>
+        </Modal.Actions>
+        </Modal>
 )
 }
 export default UserCreate;

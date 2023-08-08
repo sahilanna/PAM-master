@@ -1,239 +1,214 @@
 import React, {useEffect, useState} from 'react'
-import { Button, Table } from 'semantic-ui-react'
-import axios from 'axios'
-import { NavLink, useNavigate, useParams } from 'react-router-dom'
-import {Link}  from 'react-router-dom'
-import { useReducer } from 'react'
-import UserCreate from './userCreate'
-import NavBar from '../../NavBar'
+import { useNavigate } from 'react-router-dom'
 import Pagination from '../Pagination/Pagination'
 import DialogBox from '../DialogBox/DialogBox'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
-// import './Read.css'
-import  {
-  CDBSidebar,
-  CDBSidebarContent,
-  CDBSidebarFooter,
-  CDBSidebarHeader,
-  CDBSidebarMenu,
-  CDBSidebarMenuItem,
-} from 'cdbreact'
+import { faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import UserDetails from './UserDetails'
+import Sidebar from '../SideBar/SideBar'
+import LoadingPage from '../../../Assets/Loader/LoadingPage'
+import api from '../api'
+
+
+
+
+import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config'
+import UserActivity from './userActivity'
 
 function UserRead(){
   const navigate = useNavigate();
-  const getUrl =  "https://118b-106-51-70-135.ngrok-free.app/api/users/role/user";
-  const delUrl = "";
+  const getUrl =  `https://${ngrokUrl}/api/users/role/user`;
   const [item, setItem] = useState([]);
+  const[showUserActivity, setShowUserActivity]=useState(false)
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [enumRole,setEnumRole]=useState('3');
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [currentPageData, setCurrentPageData] = useState([]);
-  const itemsPerPage = 5;
-  const { ID } = useParams();
+  const itemsPerPage = 4;
+  const [showProjectDetails, setShowProjectDetails] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
   useEffect(() => {
     loaditem();
   }, []);
+
+  console.log(currentPageData)
+  const addUserName=()=>{
+    navigate('/addUserName')
+  }
+
   const loaditem = async () => {
-    const result = await axios.get(getUrl,{
-        headers: {
-          'ngrok-skip-browser-warning': 'true'
-        }}) .then((result) => {
+    await api.get(getUrl).then((result) => {
         setItem(result.data);
-        // console.log(res, "hello");
+        setIsLoading(false);
         navigate('/userRead')
       })
       .catch((error)=>{
         console.log(error,'hi');
+        setIsLoading(true);
       })
     };
+    
+    useEffect(() => {
+      const filteredProjects = item.filter((project) =>
+        project.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredProjects(filteredProjects);
+    }, [searchQuery, item]);
+
+    const handleViewDetails = (project) => {
+      setSelectedProject(project);
+      setShowProjectDetails(true);
+    };
+    // const viewActivity=(id)={
+    //   setShowUserActivity()
+    // }
+    const createOnclick=()=>{
+      navigate('/userCreate')
+    }
+  
+    const handleCloseDetails = () => {
+      setShowProjectDetails(false);
+    };
+
+    const viewActivity=(id ,username)=>{
+      // setShowUserActivity(true)
+      
+      navigate('/userActivity',  { state: { id,username } })
+
+    }
 
     React.useEffect(() => {
       handlePaginate(1);
     }, [item]);
 
-    const handlePaginate = (pageNumber) => {
-      const indexOfLastItem = pageNumber * itemsPerPage;
-      const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-      const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
-      setCurrentPageData(currentItems);
+    const handleSearchChange = (e) => {
+      setSearchQuery(e.target.value);
     };
 
+      const handlePaginate = (pageNumber) => {
+      const indexOfLastItem = pageNumber * itemsPerPage;
+      const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      const currentItems =filteredProjects.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+      );
+      setCurrentPageData(currentItems);
+    };
+    const handleCloseUserActivity = () => {
+      setShowUserActivity(false);
+    }
+
     const deleteUser = async (id) => {
-      await axios.delete(`https://7b96-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
+      await api.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
       navigate('/userRead')
       setShowConfirmDialog(false);
       loaditem();
       navigate('/userRead')
     };
+
   return(
-<div>
-  <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-  <CDBSidebar textColor="#fff" backgroundColor="#333">
-    <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}> Users
-      </CDBSidebarHeader>
-    <CDBSidebarContent className="sidebar-content">
-        <CDBSidebarMenu>
-          <NavLink exact to="/AdminDashboard" activeClassName="activeClicked">
-            <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
-          </NavLink>
-          <NavLink exact to="/userCreate" activeClassName="activeClicked">
-            <CDBSidebarMenuItem icon="chart-line">Create User</CDBSidebarMenuItem>
-          </NavLink>
-          </CDBSidebarMenu>
-          </CDBSidebarContent>
-          </CDBSidebar>
-          {/* <div className="container">
-    <div className="py-4"> */}
-      <table class = "table">
-        {/* <thead colspan = '5'>
-        </thead> */}
+  <div className='parent-admin'>
+  <div>
+    <Sidebar/>
+  </div>
+ 
+  <div className='admin-child'>
+     <div style={{display:'flex', flexDirection:'row',justifyContent:'space-between',marginTop:'20px',marginBottom:'30px',marginLeft:'40px',marginRight:'30px'}}>
+        <div class="ui left icon input">
+  <input type="text" placeholder="Search user..." value={searchQuery}
+            onChange={handleSearchChange} ></input>
+  <i class="users icon"></i>
+</div>
+    
+    <div>
+    <button className='ui button' onClick={addUserName}>Add Github UserName</button>
+    <button class="ui button" onClick={createOnclick} >Create User</button>
+    </div>
+    
+    </div>
+    <div style={{marginLeft:'20px',marginRight:'30px'}}>
+    {isLoading ? (
+            <LoadingPage />
+          ) : (
+    <table class="ui celled table">
+        
         <thead>
-            <th>User ID</th>
+           
+            <th>S.No.</th>
             <th>User Name</th>
             <th>User Email</th>
-            <th>User-Github-UserName</th>
-            <th>Update</th>
-            <th>Delete</th>
+            
+            <th className='text-center'>View</th>
+            
+            <th className='text-center'>Delete</th>
+            <th className='text-center'>Activity</th>
           </thead>
           <tbody>
-          {currentPageData.map((user, index) => (
-            <tr>
-              <td>{user.id}</td>
+          {filteredProjects.length === 0 ? (
+    <tr>
+      <td colSpan='1' className="text-center">
+        No data available
+      </td>
+    </tr>
+  ) : (
+          
+          currentPageData.map((user, index) => (
+            <tr key={user.id}>
+             
+              <td>{index+1}</td>
               <td>{user.name}</td>
               <td>{user.email}</td>
-              <td>{user.githubUsername}</td>
-              <td>
-                <Link
-                  className="btn btn-outline-primary mx-2"
-                  to={`/userUpdate/${user.id}`}
-                >
-                <FontAwesomeIcon icon={faPen} />
-                </Link>
-                </td>
-                 <td>
-                 <Link>
-    <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(true)}><FontAwesomeIcon icon={faTrash} /> </button>
+              <td className='text-center'>
+  <button
+
+    className="btn btn-outline-primary mx-2" 
+
+    onClick={() => handleViewDetails(user)}
+    
+  >
+    <FontAwesomeIcon icon={faEye} />
+  </button>
+</td>          
+              
+                 <td className='text-center'>
+                 
+    <button className='btn btn-danger mx-2' onClick={() => setShowConfirmDialog(user.id)}><FontAwesomeIcon icon={faTrash} /> </button>
     <DialogBox
-     show={showConfirmDialog}
-      onClose={() => setShowConfirmDialog(false)}
+     show={showConfirmDialog === user.id}
+      onClose={() => setShowConfirmDialog(null)}
       onConfirm={()=>deleteUser(user.id)}/>
-      </Link>
+              </td>
+              <td className='text-center'><button className="btn btn-outline-primary mx-2" 
+              onClick={()=>viewActivity(user.id, user.name)}  > <FontAwesomeIcon icon={faEye} /></button>
+           
               </td>
             </tr>
-          ))}
+          )))}
+          
         </tbody>
       </table>
+          )}
     </div>
     <div className='pagination'>
-      {/* Display items for the current page */}
+      
       <Pagination
-      data={item} itemsPerPage={itemsPerPage} paginate={handlePaginate}
+      data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
     </div>
+    {showProjectDetails && (
+        <UserDetails project={selectedProject} onClose={handleCloseDetails} />
+      )}
   </div>
-// </div>
-// </div>
+ </div>
+
 )
 }
 export default UserRead;
 
-// function UserRead(){
 
-//     const navigate = useNavigate();
-//     const getUrl =  "https://225f-106-51-70-135.ngrok-free.app/api/users/role/user";
-    
-//     // https://2063-106-51-70-135.ngrok-free.app/api/users/2
-//     const delUrl = "";
-//     const [item, setItem] = useState([]);
-//     const [id, setId] = useState('');
-//     const [name, setName] = useState('');
-//     const [email, setEmail] = useState('');
-//     const [enumRole,setEnumRole]=useState('3');
-//     const { ID } = useParams();
-    
-//     useEffect(() => {
-//       loaditem();
-//     }, []);
-
-//     const loaditem = async () => {
-//       const result = await axios.get(getUrl,{
-//           headers: {
-//             'ngrok-skip-browser-warning': 'true'
-//           }}) .then((result) => {
-//           setItem(result.data);
-//           // console.log(res, "hello");
-//         })
-//         .catch((error)=>{
-//           console.log(error,'hi');
-//         })
-//       };
-//       const deleteUser = async (id) => {
-//         await axios.delete(`https://225f-106-51-70-135.ngrok-free.app/api/users/delete/${id}`);
-//         loaditem();
-//       };
-//     return(
-// <div>
-//     <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-//     <CDBSidebar textColor="#fff" backgroundColor="#333">
-//       <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>USERS
-//         </CDBSidebarHeader>
-//       <CDBSidebarContent className="sidebar-content">
-//           <CDBSidebarMenu>
-//             <NavLink exact to="/" activeClassName="activeClicked">
-//               <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
-//             </NavLink>
-//             <NavLink exact to="/Roles" activeClassName="activeClicked">
-//               <CDBSidebarMenuItem icon="user">Role</CDBSidebarMenuItem>
-//             </NavLink>
-//             <NavLink exact to="/userCreate" activeClassName="activeClicked">
-//               <CDBSidebarMenuItem icon="chart-line">Create User</CDBSidebarMenuItem>
-//             </NavLink>
-//             </CDBSidebarMenu>
-//             </CDBSidebarContent>
-//             </CDBSidebar>
-//             <div className="container">
-//       <div className="py-4">
-//         <table className="table border shadow">
-//           {/* <thead colspan = '5'>
-//           </thead> */}
-//           <tbody>
-//           <tr>
-//               <th className='col'>User ID</th>
-//               <th className='col'>User Name</th>
-//               <th className='col'>User Email</th>
-//               <th className='col'>Update</th>
-//               <th className='col'>Delete</th>
-//             </tr>
-//             {item.map((user, index) => (
-//               <tr>
-//                 <td>{user.id}</td>
-//                 <td>{user.name}</td>
-//                 <td>{user.email}</td>
-//                 <td>
-//                   <Link
-//                     className="btn btn-outline-primary mx-2"
-//                     to={`/userUpdate/${user.id}`}
-//                   >
-//                     Update
-//                   </Link>
-//                   </td>
-//                    <td>
-//                   <button className="btn btn-danger mx-2"
-//                     onClick={() => deleteUser(user.id)}>
-//                     Delete
-//                   </button>
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-//     </div>
-//   </div>
-//   </div>
-// )
-// }
-// export default UserRead;

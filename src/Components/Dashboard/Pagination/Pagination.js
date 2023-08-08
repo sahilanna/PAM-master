@@ -1,35 +1,4 @@
-// import React, { useState } from "react";
-// import { Pagination } from "react-bootstrap";
 
-// const PaginationComponent = ({data, itemsPerPage, totalItems, paginate }) => {
-//   const [activePage, setActivePage] = useState(1);
-//   const pageNumbers = [];
-
-//   for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
-//     pageNumbers.push(i);
-//   }
-
-//   const handlePageClick = (pageNumber) => {
-//     setActivePage(pageNumber);
-//     paginate(pageNumber);
-//   };
-
-//   return (
-//     <Pagination>
-//       {pageNumbers.map((number) => (
-//         <Pagination.Item
-//           key={number}
-//           active={number === activePage}
-//           onClick={() => handlePageClick(number)}
-//         >
-//           {number}
-//         </Pagination.Item>
-//       ))}
-//     </Pagination>
-//   );
-// };
-
-// export default PaginationComponent;
 
 import React, { useState } from "react";
 
@@ -38,7 +7,7 @@ const Pagination = ({ data, itemsPerPage, paginate }) => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  data.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
 

@@ -1,86 +1,83 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Dropdown, Modal, Button} from 'semantic-ui-react';
 import { useNavigate,useLocation } from "react-router-dom";
-import axios from 'axios';
-import AddPm from './addPm';
-
+import { gitAccessToken, ngrokUrl } from '../../../../Assets/config';
+import api from '../../api';
 
 const AddUser = () => {
-  
-
-
-  console.log("rendering.......")
-
   let navigate = useNavigate();
   const [options, setOptions] = useState([]);
-  const [error,setError]=useState('false');
   const { state } = useLocation();
-  const { projectNameA, repo, projectDescription, userNameA } = state || {};
-  console.log(userNameA)
-  // console.log(repo)
-  
-  const[username,setusername]=useState('');
-  // const { projectName, repo } = useLocation();
-   useEffect(() => {
-    fetch(`https://118b-106-51-70-135.ngrok-free.app/api/users/role/user`,{
-      headers: {
-        'ngrok-skip-browser-warning': 'true'
-      }}).then((response)=>response.json())
-    .then((data)=>setOptions(data))
-  
+  const { selectedRepo } = state || {};
+  const[username,setusername]=useState([]);
+  const handleUserNameBChange=(event,{value})=>{
+    setusername(value)
+  }
+ 
+
+  useEffect(() => {
+    const fetchUsernames = async () => {
+      try {
+        const response = await api.get(`https://${ngrokUrl}/usernames/role/user`);
+        setOptions(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUsernames();
   }, []);
   const handleSubmit=(e)=>{
     e.preventDefault();
-    const owner='swe1304';
-    const accessToken='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';
-    if(!projectNameA||!options||projectNameA.length===0 ||  options.length === 0){
-      setError(true)
-  }
-
-  if(projectNameA && options)
-  {
-    // dispatchPmGithub(createPmGithubName({projectName, repo, username}));
-    const response= axios.post('https://118b-106-51-70-135.ngrok-free.app/api/collaborators/add',{owner, repo,username,accessToken
-    })
-    // navigate('/AdminDashboard')
-    navigate('/finalForm', { state: { projectNameA, repo, projectDescription, userNameA, username } });
-  }
+    const owner='Bindushree-0906';
+    const accessToken= gitAccessToken
+    let repo = selectedRepo;
+    api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
+  })
+  navigate('/repoRead')
 }
- 
+const onClose=()=>{
+  navigate(-1);
+}
   return (
-    
-    <div className="form-display">
-      {/* {console.log("rendering again...........")} */}
-      <Form className="form-style">
-        <h1> Add User to Repo</h1>
 
-        <Form.Field>
-          <label style={{ textAlign: 'left' }}>Project Name</label>
-          <input name="projectNameA" value={projectNameA ||''} readOnly/>
-        </Form.Field>
+    <Modal open={true} onClose={onClose} style={{ width: '500px', height:'450px' }} className='create-Project-Modal'>
+      <div style={{paddingTop:'6px'}}>
 
+        </div>
+        <div style={{paddingLeft:'440px'}}>
+      <Button secondary onClick={onClose}>
+          X
+        </Button>
+        </div>
+        <Modal.Header>Add User</Modal.Header>
+        <Modal.Content>
+          <Form onSubmit={handleSubmit}>
         <Form.Field>
           <label style={{ textAlign: 'left' }}>Repository Name</label>
-          <input name="repoName" value={repo || ''} readOnly  />
+          <input name="repoName" value={selectedRepo || ''} readOnly  />
         </Form.Field>
         <Form.Field>
-          <label style={{ textAlign: 'left' }}>User Username</label>
-          <select onChange={(e) => setusername(e.target.value)}>
-            {options.map((item, index) => (
-              <option key={item.githubUsername} value={item.githubUsername}>
-                {item.githubUsername}
-              </option>
-            ))}
-          </select>
-        </Form.Field>
+  <label style={{ textAlign: 'left' }}>User Username<span style={{ color: 'red' }}>*</span></label>
 
-
-        <Button type='submit' onClick={handleSubmit}>Submit</Button>
-      </Form>
-    </div>
-  );
-};
-
-
-
+<Dropdown
+              placeholder="Select Username"
+              fluid
+              selection
+              options={options.map((name, index) => ({
+                key: index,
+                text: name,
+                value: name
+              }))}
+              value={username}
+               onChange={handleUserNameBChange}
+            />
+    </Form.Field>
+    <Button type='submit'primary>Submit</Button>
+        </Form>
+        </Modal.Content>
+        <Modal.Actions>
+        </Modal.Actions>
+        </Modal>
+  )
+}
 export default AddUser;

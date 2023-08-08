@@ -1,12 +1,10 @@
 const initialstate = [];
 
 const createPMReducer = (state = initialstate, action) => {
-    switch (action.type){
-        case 'createPM':
-            return state = action.payload;
-        default:
-            return state;
+    if (action.type === 'createPM'){
+        return action.payload;        
     }
+    return state;
 }
 
 export default createPMReducer; 
