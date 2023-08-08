@@ -9,11 +9,13 @@ import { ngrokUrl } from '../../../../Assets/config';
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import Pagination from '../../Pagination/Pagination';
+import { CSVLink } from 'react-csv';
 
 function UserHistory() {
   const [isLoading, setIsLoading] = useState(true);
   const [historyData, setHistoryData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+ 
   const rowsPerPage = 7;
 
   let data = sessionStorage.getItem("item");
@@ -43,6 +45,12 @@ function UserHistory() {
       setIsLoading(true);
     }
   }
+  const csvDataProj = historyData.map((entry) => ({
+    'Project ID': entry.projectId,
+    'Project Name': entry.projectName,
+    'Project Description': entry.projectDescription,
+    'Status':  entry.status ? 'Inactive' : 'Active',
+  }));
 
   // Calculate the index of the first and last item to be displayed on the current page
   const indexOfLastItem = currentPage * rowsPerPage;
@@ -56,6 +64,8 @@ function UserHistory() {
 
   const pageNumbers = Math.ceil(historyData.length / rowsPerPage);
 
+  
+
   return (
     <div className='parent-admin'>
       <Sidebar />
@@ -64,11 +74,15 @@ function UserHistory() {
       <div className='admin-child'>
         <h1 style={{ fontFamily: 'sans-serif' }}>Project History</h1>
         <div style={{ marginLeft: '20px', marginRight: '30px' }}>
+        <CSVLink style={{paddingLeft:'790px'}} data={csvDataProj} filename="project_history_data.csv">
+                <button className="ui button">Download CSV</button>
+              </CSVLink>
           {isLoading ? (
             <LoadingPage />
           ) : (
             <>
               <Table class='ui celled table'>
+             
                 {/* Table Header */}
                 <Table.Header>
                   <Table.Row>

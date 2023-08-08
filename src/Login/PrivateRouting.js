@@ -51,7 +51,7 @@ import ProjectPms from "../Components/Dashboard/Admin/Read/projectPms";
 import AddPmProject from "../Components/Dashboard/Admin/Create/addPmProject";
 import UserActivity from "../Components/Dashboard/Users/userActivity"; 
 import PmNotification from "../Components/Dashboard/ProjectManager/pmNotification";
-
+import ViewUserVerification from "../Components/Dashboard/Admin/Figma/viewUserVerification";
 import DriveDetails from "../Components/Dashboard/Admin/Drive/driveDetails";
 import CreateDriveDetails from "../Components/Dashboard/Admin/Drive/createDriveDetails";
 import ShowAllNotification from "../Components/Dashboard/ProjectManager/showAllNotification";
@@ -111,7 +111,7 @@ const PrivateRoutes = () => {
               <Route path='/ProjectAnalytics' element={<ProjectAnalytics/>}/>
               <Route path='/Analytics' element={<Analytics/>}/>
               <Route path='/userActivity' element={<UserActivity/>}/>
-             
+              <Route path='/viewUserVerification' element={<ViewUserVerification/>}/>
               <Route path='/createDriveDetails' element={<CreateDriveDetails/>}/>
               {/* <Route path='/gitCreate' element={<GitCreate/>}/> */}
              {/* <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/> */}

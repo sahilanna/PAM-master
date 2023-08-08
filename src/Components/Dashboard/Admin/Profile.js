@@ -8,6 +8,7 @@ import ProfileEdit from './profileEdit';
 import api from '../api';
 import { ngrokUrl } from '../../../Assets/config';
 
+
 const Profile = () => {
   let profileData = sessionStorage.getItem("item");
   let pdata = JSON.parse(profileData);

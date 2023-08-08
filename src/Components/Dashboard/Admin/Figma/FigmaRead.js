@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Dropdown, Input, Icon } from 'semantic-ui-react';
+import { Button, Form, Dropdown, Input, Icon } from 'semantic-ui-react';
 import FigmaCreate from './FigmaCreate';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -11,7 +11,9 @@ import api from '../../api';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from '../../Pagination/Pagination';
-import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import Modal from 'react-bootstrap/Modal';
+import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt, faStreetView } from '@fortawesome/free-solid-svg-icons';
+import ViewUserVerification from './viewUserVerification';
 
 
 function FigmaRead() {
@@ -27,6 +29,13 @@ function FigmaRead() {
   const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 5;
   const[showConfirmDialog, setShowConfirmDialog]=useState(false)
+  const [imageData, setImageData] = useState(null);
+  const [showVerificationImage, setShowVerificationImage] = useState(false);
+  const [showModall, setShowModall] = useState(false); // State for modal visibility
+  const [modalImage, setModalImage] = useState(null); 
+  const[figmaIdVerify, setFigmaIdVerify]=useState(null)
+  
+
 
   useEffect(() => {
     fetchProjects();
@@ -44,6 +53,14 @@ function FigmaRead() {
       setIsLoading(true)
     }
   };
+
+
+
+
+  
+const handleDisplayVerification=(figmaId)=>{
+  navigate('/viewUserVerification',{state:{figmaId}})
+}
 
   const createFigma = () => {
     navigate('/createFigmaDetails', { state: { figmaId } });
@@ -69,6 +86,7 @@ function FigmaRead() {
 
   const closeModal = () => {
     setShowModal(false);
+    setShowModall(false)
   };
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
@@ -132,8 +150,9 @@ function FigmaRead() {
                     <th>S.No.</th>
                     <th>Project Name</th>
                     <th>Figma URL</th>
-                    <th className="text-center">Add User</th>
+                    <th className="text-center">User verification</th>
                     <th className="text-center">Delete URL</th>
+                    <th className="text-center">View User verification</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -163,10 +182,19 @@ function FigmaRead() {
                           onConfirm={() => handleDeleteUrl(project.figmaId)}
                         />
                       </td>
+                      <td className="text-center">
+  <button
+    className="btn btn-outline-primary mx-2"
+    onClick={() => handleDisplayVerification(project.figmaId)}
+  >
+    <FontAwesomeIcon icon={faStreetView} />
+  </button>
+</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+              
               <div className='pagination'>
                 <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
               </div>
@@ -178,7 +206,11 @@ function FigmaRead() {
         <div className="modal-content-container">
           {showModal && <FigmaCreate onClose={closeModal} figmaURL={figmaURL} figmaId={figmaId} projectId={projectId} />}
         </div>
+       
+       
+
       </div>
+      
     </div>
   );
 }

@@ -182,7 +182,7 @@ const AdminDashboard = () => {
     item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const deleteUser = async (projectId) => {
+  const deleteProject = async (projectId) => {
     try {
       await api.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`);
       setShowConfirmDialog(false);
@@ -236,11 +236,11 @@ const AdminDashboard = () => {
             {item.length > 0 && (
               <div>
                 <button className="ui button" onClick={createOnclick}>Create Project</button>
-                <Button>
+               
                 <CSVLink data={csvDataProj} filename="projects_data.csv">
                 <button className="ui button">Download CSV</button>
               </CSVLink>
-                </Button>
+                
                 <ToastContainer/>
               </div>
             )}
@@ -332,7 +332,7 @@ const AdminDashboard = () => {
     showAddEmployeeButton={addEmployeeButtonVisible}
     showAddFileButton={addFileButtonVisible}
     onAddFile={addFile}
-    onDeleteProject={deleteUser}
+    onDeleteProject={deleteProject}
   />
 )}
             </>
