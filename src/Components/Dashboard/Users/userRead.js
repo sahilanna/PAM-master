@@ -1,15 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import { Button,  Table } from 'semantic-ui-react'
-import axios from 'axios'
-import { NavLink, useNavigate, useParams } from 'react-router-dom'
-import {Link}  from 'react-router-dom'
-import { useReducer } from 'react'
-import UserCreate from './userCreate'
-import NavBar from '../../NavBar'
+import { useNavigate } from 'react-router-dom'
 import Pagination from '../Pagination/Pagination'
 import DialogBox from '../DialogBox/DialogBox'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import UserDetails from './UserDetails'
 import Sidebar from '../SideBar/SideBar'
 import LoadingPage from '../../../Assets/Loader/LoadingPage'
@@ -24,7 +18,6 @@ import UserActivity from './userActivity'
 function UserRead(){
   const navigate = useNavigate();
   const getUrl =  `https://${ngrokUrl}/api/users/role/user`;
-  const delUrl = "";
   const [item, setItem] = useState([]);
   const[showUserActivity, setShowUserActivity]=useState(false)
   const [id, setId] = useState('');
@@ -36,29 +29,21 @@ function UserRead(){
   const itemsPerPage = 4;
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const { ID } = useParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  
   useEffect(() => {
     loaditem();
   }, []);
 
-  let data = sessionStorage.getItem("item");
-  let user = JSON.parse(data);
-  const accessToken=user.token
-  console.log(user)
-    console.log(user.token)
-
-    const headers={AccessToken:accessToken}
-
-
+  console.log(currentPageData)
   const addUserName=()=>{
     navigate('/addUserName')
   }
 
   const loaditem = async () => {
-    const result = await api.get(getUrl) .then((result) => {
+    await api.get(getUrl).then((result) => {
         setItem(result.data);
         setIsLoading(false);
         navigate('/userRead')
@@ -174,12 +159,11 @@ function UserRead(){
   ) : (
           
           currentPageData.map((user, index) => (
-            <tr>
-              {/* <td>{user.id}</td> */}
+            <tr key={user.id}>
+             
               <td>{index+1}</td>
               <td>{user.name}</td>
               <td>{user.email}</td>
-              {/* <td>{user.githubUsername}</td> */}
               <td className='text-center'>
   <button
 
@@ -199,7 +183,6 @@ function UserRead(){
      show={showConfirmDialog === user.id}
       onClose={() => setShowConfirmDialog(null)}
       onConfirm={()=>deleteUser(user.id)}/>
-
               </td>
               <td className='text-center'><button className="btn btn-outline-primary mx-2" 
               onClick={()=>viewActivity(user.id, user.name)}  > <FontAwesomeIcon icon={faEye} /></button>
@@ -213,7 +196,7 @@ function UserRead(){
           )}
     </div>
     <div className='pagination'>
-      {/* Display items for the current page */}
+      
       <Pagination
       data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />
@@ -223,7 +206,7 @@ function UserRead(){
       )}
   </div>
  </div>
-// </div>
+
 )
 }
 export default UserRead;

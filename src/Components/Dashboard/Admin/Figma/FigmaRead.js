@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+
 import { Button, Form, Dropdown, Input, Icon } from 'semantic-ui-react';
+
 import FigmaCreate from './FigmaCreate';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
 import './FigmaRead.css'
@@ -11,9 +12,11 @@ import api from '../../api';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from '../../Pagination/Pagination';
+
 import Modal from 'react-bootstrap/Modal';
 import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt, faStreetView } from '@fortawesome/free-solid-svg-icons';
 import ViewUserVerification from './viewUserVerification';
+
 
 
 function FigmaRead() {
@@ -75,7 +78,7 @@ const handleDisplayVerification=(figmaId)=>{
 
   const handleDeleteUrl = async (figmaId) => {
     try {
-      await api.delete(`https://${ngrokUrl}/api/figmas/${figmaId}`);
+      await api.delete(`https://${ngrokUrlSwe}/api/figmas/${figmaId}`);
       navigate('/FigmaRead');
       setShowConfirmDialog(false);
       fetchProjects();
@@ -113,6 +116,8 @@ const handleDisplayVerification=(figmaId)=>{
   useEffect(() => {
     handlePaginate(1);
   }, [filteredProjects]);
+
+  
   return (
     <div className='parent-admin'>
       <Sidebar/>
@@ -138,6 +143,7 @@ const handleDisplayVerification=(figmaId)=>{
           </button>
         </div>
         <div style={{ marginLeft: '20px', marginRight: '30px' }}>
+
           {isLoading ? (
             <LoadingPage />
           ) : filteredProjects.length === 0 ? (
@@ -201,6 +207,7 @@ const handleDisplayVerification=(figmaId)=>{
             </>
           )}
         </div>
+
       </div>
       <div className='model-container'>
         <div className="modal-content-container">

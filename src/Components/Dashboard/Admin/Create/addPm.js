@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Dropdown, Modal } from 'semantic-ui-react';
-import { useNavigate,useLocation } from "react-router-dom";
-import axios from 'axios';
-import AddUser from './addUser.js';
-import { useDispatch } from 'react-redux';
-import { createPmGithubName } from '../../../../Login/redux-store/actions/action.js';
-import NavBarA from '../NavbarA.js';
-import { Button } from 'semantic-ui-react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { Form, Dropdown, Modal, Button } from 'semantic-ui-react';
+import { useNavigate } from "react-router-dom";
 import { ngrokUrl, gitAccessToken } from '../../../../Assets/config.js';
 import api from '../../api.js';
 
@@ -17,14 +9,9 @@ import api from '../../api.js';
 const AddPm = () => {
   const [options, setOptions] = useState([]);
   const [repo, setRepo] = useState('');
-  const [error,setError]=useState('false');
+  
   let navigate = useNavigate()
-  const [formError, setFormError] = useState('');
-  const { state } = useLocation();
-
   const[username,setusername]= useState([]);
-  let[projectNameA,setProjectNameA]=useState('')
-  let[userNameA,setUserNameA]=useState('')
   const[repoId,setRepoId]=useState('')
   const[selectedRepo, setSelectedRepo]=useState('')
 
@@ -32,9 +19,7 @@ const AddPm = () => {
   const handleUserNameChange=(event,{value})=>{
     setusername(value)
   }
-  const handleBack = () => {
-    navigate(-1);
-  };
+ 
 
   useEffect(() => {
     const fetchUsernames = async () => {
@@ -60,10 +45,9 @@ const AddPm = () => {
     if(!selectedRepo){
       return
     }
-    setError(true);
     const owner='Bindushree-0906';
     let repo = selectedRepo
-    const response= api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
+      api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
     })
     navigate('/addUser', { state: { selectedRepo } });
   }
@@ -81,12 +65,7 @@ const AddPm = () => {
   }
 
 
-  // const handleRepoChange=(e, { value, options})=>{
-  //   const selectedRepo = options.find((option) => option.value === value);
-  //   setRepoId(value)  
-  //   console.log(repoId)
-  //   setSelectedRepo(selectedRepo.text);
-  // }
+  
   const onClose=()=>{
     navigate(-1);
   }
@@ -110,7 +89,7 @@ const AddPm = () => {
               fluid
               selection
               options={repo}
-              // value={item1}
+              
               onChange={handleRepoChange}
             />
           </Form.Field>
@@ -131,7 +110,7 @@ const AddPm = () => {
                onChange={handleUserNameChange}
             />
             </Form.Field>
-            {formError && <p style={{ color: 'red' }}>{formError}</p>}
+         
 
 <Button type='submit' primary disabled={!selectedRepo}>Submit</Button>
 <Button style={{marginLeft:'380px'}} type='submit' primary onClick={handleSkip}>Skip</Button>

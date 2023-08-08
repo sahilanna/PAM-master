@@ -1,16 +1,13 @@
-import React,  { useEffect, useState, useRef  }  from 'react';
+import React, { useEffect, useState, useRef  } from 'react';
 import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
 import { ngrokUrl } from '../../../../Assets/config';
 import Sidebar from '../../SideBar/SideBar';
-import ProjectAnalytics from './projectAnalytics';
 import "./Analytics.css";
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import { Button } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
-
-
 function Analytics() {
   const [Data, setData] = useState([]);
   const navigate =useNavigate()

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import {Navbar, Nav, NavDropdown, Container} from 'react-bootstrap'
-import logo from '../Assets/logo.png'
+import logo1 from '../Assets/logo1.png'
 import './Login.css'
 
 export default class NavBarLogin extends Component {
@@ -11,7 +10,7 @@ export default class NavBarLogin extends Component {
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
         
-      <img src={logo} alt="Logo" style={{
+      <img src={logo1} alt="Logo" style={{
         marginLeft: '-60px',width: '50px',height: '50px'}}/>
         <Navbar.Brand className='heading' href="/"> Project Access Management </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
@@ -34,14 +33,14 @@ export default class NavBarLogin extends Component {
             <NavDropdown title="Tools" id="collasible-nav-dropdown">
             <NavDropdown.Item href="#action/3.1"> GitHub <NavDropdown.Divider />
             Figma
+              
+             
              <NavDropdown.Divider />
+           
              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          {/* <Nav>
-            <Link to='/Login'>Login</Link> */}
-            {/* <Nav.Link href="#deets">Login</Nav.Link> */}
-                      {/* </Nav> */}
+       
         </Navbar.Collapse>
       </Container>
     </Navbar>

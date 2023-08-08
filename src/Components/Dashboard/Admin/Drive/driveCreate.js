@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Dropdown } from 'semantic-ui-react';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 import { useNavigate  } from 'react-router-dom';
 
-const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
+const DriveCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   const navigate=useNavigate()
   console.log(figmaURL)
  
@@ -144,4 +144,4 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     </Modal>
   );
 };
-export default FigmaCreate;
+export default DriveCreate;

@@ -1,8 +1,5 @@
-import React, { Fragment } from 'react';
-import { useState,useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState,useEffect} from 'react';
 import {Button,Icon} from 'semantic-ui-react'
-import { Navigate, useParams}  from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
@@ -11,9 +8,6 @@ import DialogBox from '../DialogBox/DialogBox';
 import axios from 'axios';
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import PmSidebar from './pmSidebar';
-import PmProjectDetails from './pmProjectDetails';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import Logout from '../../../Login/Logout';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
 
@@ -36,7 +30,7 @@ const PmDashboard = () => {
   }, 2000);
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
-  const accessToken=user.token
+ 
   console.log(user)
     console.log(user.token)
   const  id=user.id
@@ -53,8 +47,7 @@ const PmDashboard = () => {
   useEffect(() => {
     const fetchPmid = async () => {
       try {
-        const urlParams = new URLSearchParams(window.location.search);
-        // const id = urlParams.get('id');
+       new URLSearchParams(window.location.search);
         const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`);
 
       console.log(response.data)
@@ -119,11 +112,10 @@ const PmDashboard = () => {
     handleFilterItems(e.target.value);
   };
   const handleFilterItems = (searchQuery) => {
-
-      const filteredItems = item && item.filter((item) =>
-  item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredItems = item?.filter((item) =>
+      item?.projectName?.toLowerCase().includes(searchQuery?.toLowerCase())
     );
-    setCurrentPageData(filteredItems.slice(0, itemsPerPage));
+    setCurrentPageData(filteredItems?.slice(0, itemsPerPage));
   };
   const filteredItems = item.filter((item) =>
     item.projectName.toLowerCase().includes(searchQuery.toLowerCase())

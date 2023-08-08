@@ -1,5 +1,4 @@
 import React from "react";
-//import "/home/nineleaps/Downloads/vc-pr/vc-pr/src/css/Footer.css";
 import './FooterA.css';
 const FooterA = () => {
   return (

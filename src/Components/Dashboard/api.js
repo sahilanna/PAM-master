@@ -50,7 +50,7 @@ api.interceptors.response.use(
           api.defaults.headers.common["AccessToken"] = token;
           return api(originalConfig);
         } catch (_error) {
-          if (_error.response && _error.response.data) {
+          if (_error.response?.data) {
             return Promise.reject(_error.response.data);
           }
           return Promise.reject(_error);

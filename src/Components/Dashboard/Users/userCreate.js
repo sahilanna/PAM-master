@@ -1,30 +1,21 @@
-import React, {useState, useEffect} from 'react'
-import { Modal, Button, Form, Dropdown, Input} from 'semantic-ui-react'
-import axios from 'axios';
+import React, {useState} from 'react'
+import { Modal, Button, Form } from 'semantic-ui-react'
+
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../../Login/redux-store/actions/action';
-import { useDispatch, useSelector } from 'react-redux';
-import NavBarA from '../Admin/NavbarA';
-// import { Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-// import '/home/nineleaps/Downloads/PAM-master-master/src/Components/Dashboard/PM/PmCreate.css'
+import { useDispatch } from 'react-redux';
+
   
 function UserCreate() {
   let navigate=useNavigate();
   const dispatchUser = useDispatch();
-  const [id, setId] = useState('');
+  
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const[enumRole,setEnumRole] = useState('3');
-  const [error,setError]=useState('false');
-  const [githubUsername, setgithubUsername] = useState('');
-  const[tools,settools]=useState('');
+  const enumRole = 3;
+ 
   const[clicked,setClicked]= useState(false);
 
-  const handleBack = () =>{
-    navigate(-1);
-  }
  const handleSubmit=(e)=>{
     e.preventDefault();
     setClicked(true);

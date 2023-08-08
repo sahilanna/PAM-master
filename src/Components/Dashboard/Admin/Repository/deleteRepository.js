@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import axios from 'axios';
-import { Form, Button, Dropdown } from 'semantic-ui-react';
-import { ngrokUrlSwe } from '../../../../Assets/config';
+import {  Button } from 'semantic-ui-react';
+
 
 function DeleteRepository() {
-    const[selectedRepo, setSelectedRepo]=useState('')
+    
     const[repo, setRepo]=useEffect([])
+    console.log(repo);
 
     let dataa = sessionStorage.getItem("item");
     let user = JSON.parse(dataa);
@@ -34,34 +35,10 @@ function DeleteRepository() {
           console.log('Error fetching Users:', error);
         }
 
-       
-
-    //     const handleRepoChange = (e, { value }) => {
-    //         setSelectedRepo(value);
-    //       };
     }
 
   return (
     <div>
-       
-        {/* <Form.Field>
-            <label>User</label>
-            <Dropdown
-              placeholder="Select User"
-              fluid
-              selection
-              onChange={handleRepoChange}
-              options={repo.map((name, index) => ({
-                key: index,
-                text: name,
-                value: name
-              }))}
-              value={selectedRepo}
-             
-              
-            />
-          </Form.Field>
-          </Form> */}
           <Button type="submit">Submit</Button>
 
     </div>

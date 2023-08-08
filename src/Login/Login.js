@@ -1,25 +1,26 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import { Button} from 'semantic-ui-react'
-import axios from'axios'
+import React, { useEffect, useState }  from 'react';
+import { Button, Modal } from 'semantic-ui-react'
+import axios from 'axios';
 import NavBarLogin from './NavBarLogin';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import './Login.css'
-import { ngrokUrl } from '../Assets/config';
-import { Modal } from 'semantic-ui-react';
+import { ngrokUrl, ngrokUrlSwe } from '../Assets/config';
 import styled from 'styled-components';
+import logo1 from '../Assets/logo1.png'
+import GoogleLogin from 'react-google-login';
+
 function Test() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
+  const [isGoogleButtonRendered, setIsGoogleButtonRendered] = useState(false);
   const navigate=useNavigate()
   const StyledText = styled.p`
 font-family: 'Montserrat';
-color: #ffffff;
+color: #FFFFFF;
 ;
-
 `;
   async function handleGoogleLogin(response) {
-      // console.log(response);
+     
       const token=response.credential
       //  console.log(token)
        const decodedToken = decodeIdToken(token);
@@ -72,29 +73,38 @@ color: #ffffff;
       );
       return JSON.parse(jsonPayload);
     }
-  useEffect(() => {
-      const clientID='840665959732-ip9sm2ea6l7ds2vbgooum6ec08fl8k3v.apps.googleusercontent.com'
-      window.google.accounts.id.initialize({
+    useEffect(() => {
+      const clientID = '664601673419-hiir2173k5usfrm159r3ttg9108cpuhi.apps.googleusercontent.com';
+  
+      if (!isGoogleButtonRendered) {
+        window.google.accounts.id.initialize({
           client_id: clientID,
-          callback: handleGoogleLogin
-      });
-      window.google.accounts.id.renderButton(
-          document.getElementById("signIn") || document.createElement("div"),
-          { theme: "outline", size: "large" }
-      );
-  }, []);
-
-
+          callback: handleGoogleLogin,
+        });
+        window.google.accounts.id.renderButton(document.getElementById('signIn') || document.createElement('div'), {
+          theme: 'outline',
+          size: 'large',
+        });
+        setIsGoogleButtonRendered(true);
+      }
+    }, [isGoogleButtonRendered]);
     return (
     <div className="sample1">
       <NavBarLogin />
       <div className="box-container">
-        <div className="welcome-message"><StyledText>Welcome to our Website!</StyledText>
+    
+        <div className="welcome-message"><StyledText>Welcome to PAM</StyledText>
        </div>
 
-        <br/>
-        <div className="space"></div>
-        <br/>
+       </div>
+       <div className="box-container">
+        <div>
+          <img src={logo1} alt="Logo" style={{width:'235px', height:'300px',paddingTop:'40px'}}/>
+        
+      </div>
+     
+        {/* <div className="space"></div> */}
+        
       </div>
       <div className="box-container">
         <div id="signIn"></div>
@@ -119,6 +129,9 @@ color: #ffffff;
       </div>
       </div>
     </div>
+    
     );
 }
+
+
 export default Test;

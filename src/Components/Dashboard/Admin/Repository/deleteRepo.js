@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
-import axios from 'axios';
+import { Modal, Button, Form, Dropdown } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 
 function DeleteRepo() {
@@ -36,7 +35,7 @@ function DeleteRepo() {
             if(!selectedRepo){
               return
             }
-            const response=api.delete(`https://${ngrokUrl}/api/repositories/${repoId}`,)
+            api.delete(`https://${ngrokUrl}/api/repositories/${repoId}`,)
             navigate('/repoRead')
          
           };
@@ -72,7 +71,6 @@ function DeleteRepo() {
               fluid
               selection
               options={repo}
-              // value={item1}
               onChange={handleRepoChange}
             />
           </Form.Field>

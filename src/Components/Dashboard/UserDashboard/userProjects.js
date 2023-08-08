@@ -1,17 +1,11 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import PmSidebar from '../ProjectManager/pmSidebar';
+import React, { useState, useEffect } from 'react'
 import UserSidebar from './userSidebar';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import Logout from '../../../Login/Logout';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router-dom';
 import { ngrokUrl } from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
 import PmProjectDetails from '../ProjectManager/pmProjectDetails';
-import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 
 function UserProjects() {
@@ -24,19 +18,15 @@ function UserProjects() {
 
   const [userid, setUserid] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-
+  const [searchQuery, setSearchQuery] = useState(''); 
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
-  const accessToken=user.token
+  
   console.log(user)
     console.log(user.token)
   const  id=user.id
 console.log(id)
-  const navigate=useNavigate()
-  const handleLogout=()=>{
-    navigate('/Logout')
-  }
+  
   useEffect(() => {
     const fetchUserid = async () => {
       try {
@@ -55,6 +45,7 @@ console.log(id)
   const filteredProjects = userid.filter((item) =>
   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
 );
+
 const handleProjectDetails=(project)=>{
   setSelectedProject(project)
   setShowUserProjectDetails(true)
@@ -65,15 +56,7 @@ const handleCloseDetails=()=>{
   setShowUserProjectDetails(false)
 }
 
-
-  // const handleViewDetails = (pmid) => {
-  //   setSelectedPmProject(pmid);
-  //   setShowPmProjectDetails(true);
-  // };
-  // const handleCloseDetails = () => {
-  //   setSelectedPmProject(null);
-  //   setShowPmProjectDetails(false);
-  // };
+ 
   return (
       <div className='parent-admin'>
       <div style={{ height: '100vh', overflow: 'scroll initial' }}>
@@ -108,8 +91,8 @@ const handleCloseDetails=()=>{
         <tbody>
   {filteredProjects.length > 0 ? (
     filteredProjects.map((item, index) => (
-      <tr key={index}>
-        {/* <td>{item.projectId}</td> */}
+      <tr key={item.id}>
+        <td>{item.projectId}</td>
         <td>{item.projectName}</td>
         <td>{item.projectDescription}</td>
         <td className='text-center'>
