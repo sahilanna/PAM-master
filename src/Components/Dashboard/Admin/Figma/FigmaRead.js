@@ -32,7 +32,7 @@ function FigmaRead() {
 
   const fetchProjects = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrlSwe}/api/figmas/getAll`);
+      const response = await api.get(`https://${ngrokUrl}/api/figmas/getAll`);
       setProjects(response.data);
       setFigmaId(response.data[0].figmaId);
       setIsLoading(false);

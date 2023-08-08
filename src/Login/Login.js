@@ -7,10 +7,12 @@ import Footer from '../Components/Footer';
 import './Login.css'
 import { ngrokUrl, ngrokUrlSwe } from '../Assets/config';
 import styled from 'styled-components';
+import logo1 from '../Assets/logo1.png'
 import GoogleLogin from 'react-google-login';
 
 function Test() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
+  const [isGoogleButtonRendered, setIsGoogleButtonRendered] = useState(false);
   const navigate=useNavigate()
   const StyledText = styled.p`
 font-family: 'Montserrat';
@@ -71,26 +73,38 @@ color: #FFFFFF;
       );
       return JSON.parse(jsonPayload);
     }
-  useEffect(() => {
-      const clientID='664601673419-hiir2173k5usfrm159r3ttg9108cpuhi.apps.googleusercontent.com'
-      window.google.accounts.id.initialize({
+    useEffect(() => {
+      const clientID = '664601673419-hiir2173k5usfrm159r3ttg9108cpuhi.apps.googleusercontent.com';
+  
+      if (!isGoogleButtonRendered) {
+        window.google.accounts.id.initialize({
           client_id: clientID,
-          callback: handleGoogleLogin
-      });
-      window.google.accounts.id.renderButton(
-          document.getElementById("signIn") || document.createElement("div"),
-          { theme: "outline", size: "large" }
-      );
-  }, []);
+          callback: handleGoogleLogin,
+        });
+        window.google.accounts.id.renderButton(document.getElementById('signIn') || document.createElement('div'), {
+          theme: 'outline',
+          size: 'large',
+        });
+        setIsGoogleButtonRendered(true);
+      }
+    }, [isGoogleButtonRendered]);
     return (
     <div className="sample1">
       <NavBarLogin />
       <div className="box-container">
-        <div className="welcome-message"><StyledText>Welcome to our Website!</StyledText>
+    
+        <div className="welcome-message"><StyledText>Welcome to PAM</StyledText>
        </div>
-        <br/>
-        <div className="space"></div>
-        <br/>
+
+       </div>
+       <div className="box-container">
+        <div>
+          <img src={logo1} alt="Logo" style={{width:'235px', height:'300px',paddingTop:'40px'}}/>
+        
+      </div>
+     
+        {/* <div className="space"></div> */}
+        
       </div>
       <div className="box-container">
         <div id="signIn"></div>
@@ -115,6 +129,7 @@ color: #FFFFFF;
       </div>
       </div>
     </div>
+    
     );
 }
 

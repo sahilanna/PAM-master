@@ -67,13 +67,7 @@ const AdminDashboard = () => {
     handlePaginate(1);
   }, [item]);
 
-  const csvDataProj =
-
- item.map((entry) => ({
-    'project Id': entry.projectId,
-    'project Name': entry.projectName,
-    'project Description': entry.projectDescription,
-  }));
+ 
 
   const handleViewDetails = (project) => {
     setSelectedProject(project);
@@ -149,6 +143,15 @@ const AdminDashboard = () => {
     }
   };
 
+  const csvDataProj = item.map((entry) => ({
+    'Project ID': entry.projectId,
+    'Project Name': entry.projectName,
+    'Project Description': entry.projectDescription,
+    'Project Manager': entry.users.find((user) => user.enumRole === 'PROJECT_MANAGER')?.name || 'N/A',
+    'Users': entry.users.filter((user) => user.enumRole === 'USER').map((user) => user.name).join(', '),
+  }));
+  
+
   
 
 
@@ -164,7 +167,7 @@ const AdminDashboard = () => {
       
       <AdminHeader/>
       
-      
+
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '20px', marginBottom: '30px', marginLeft: '40px', marginRight: '30px' }}>
           <div className="ui left icon input">
             <input type="text" placeholder="Search Project..." value={searchQuery} onChange={handleSearchChange} />
@@ -174,11 +177,9 @@ const AdminDashboard = () => {
             {item.length > 0 && (
               <div>
                 <button className="ui button" onClick={createOnclick}>Create Project</button>
-                <Button>
-                  <CSVLink data={csvDataProj} filename="user_project_list.csv">
-                    Download CSV
-                  </CSVLink>
-                </Button>
+                <CSVLink data={csvDataProj} filename="projects_data.csv">
+                <button className="ui button">Download CSV</button>
+              </CSVLink>
                 <ToastContainer/>
               </div>
             )}
@@ -189,6 +190,9 @@ const AdminDashboard = () => {
             <LoadingPage />
           ) : (
             <>
+            {/* <CSVLink data={csvDataProj} filename="projects_data.csv">
+                <button className="ui button">Download CSV</button>
+              </CSVLink> */}
               <table className="ui celled table">
                 <thead>
                   <tr>

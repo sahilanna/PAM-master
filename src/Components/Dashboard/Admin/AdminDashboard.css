@@ -22,6 +22,18 @@
   margin-top: 10px;
 }
 
+.active-button {
+  background-color: #007bff; /* Blue color for the active button */
+  color: #fff;
+}
+
+.inactive-button {
+  background-color: #f8f9fa; /* Default color for the inactive button */
+  color: #333;
+}
+
+
+
 @media (min-width: 576px) {
   /* Small devices (576px and up) */
   .parent-admin {
@@ -37,6 +49,8 @@
 
   }
 }
+
+
 
 
 @media (min-width: 768px) {
@@ -62,21 +76,3 @@
 
 
 
-
-
-/* 
-  .parent-admin{
-    display: flex;
-    flex-direction: row;
-  }
-
-  .admin-child{
-    width: 100%;
-  }
-  .text-center {
-    text-align: center;
-  }
-
-  .ui.button{
-    height: 35px;
-  } */
