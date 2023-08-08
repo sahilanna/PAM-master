@@ -13,6 +13,7 @@ import Faq from "./Components/faq";
 import IpAddress from './Assets/ipAddress';
 
 
+
 function App() {
   
   return (
@@ -23,7 +24,9 @@ function App() {
               
         <BrowserRouter>
           <Routes>
+
           <Route path='/ipAddress' element={<IpAddress/>}/>
+
           <Route path='/LoadingPage' element={<LoadingPage/>}/>
           <Route path="/Login" element={<Login/>} />
           <Route path="/" element={<LandingPage/>}/>

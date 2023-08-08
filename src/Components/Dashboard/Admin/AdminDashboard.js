@@ -38,13 +38,25 @@ const AdminDashboard = () => {
   const [addFileButtonVisible, setAddFileButtonVisible] = useState(false);
   const [showProjectUsersModal, setShowProjectUsersModal] = useState(false);
   const [showProjectPmModal, setshowProjectPmModal]=useState(false)
+  const[count, setCount]=useState('')
 
   const navigate = useNavigate();
   const itemsPerPage = 3;
   
   useEffect(() => {
     loadItems();
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await api.get(`https://${ngrokUrl}/api/request/allActive`);  
+    }
+
+    catch (error) {
+      console.log('Error fetching Users:', error);
+    }
+  };
 
 
   const loadItems = async () => {
@@ -67,7 +79,7 @@ const AdminDashboard = () => {
     handlePaginate(1);
   }, [item]);
 
- 
+
 
   const handleViewDetails = (project) => {
     setSelectedProject(project);
@@ -132,7 +144,7 @@ const AdminDashboard = () => {
     item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const deleteUser = async (projectId) => {
+  const deleteProject = async (projectId) => {
     try {
       await api.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`);
       navigate('/adminDashboard')
@@ -142,6 +154,23 @@ const AdminDashboard = () => {
       console.log(error);
     }
   };
+  useEffect(() => {
+    countEmp()
+  }, []);
+
+
+  const countEmp = async (projectId) => {
+    try {
+      const result = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/count`,{});
+       setCount(result.data)
+       console.log(count)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+ 
+
+
 
   const csvDataProj = item.map((entry) => ({
     'Project ID': entry.projectId,
@@ -177,9 +206,13 @@ const AdminDashboard = () => {
             {item.length > 0 && (
               <div>
                 <button className="ui button" onClick={createOnclick}>Create Project</button>
+
+               
                 <CSVLink data={csvDataProj} filename="projects_data.csv">
                 <button className="ui button">Download CSV</button>
               </CSVLink>
+                
+
                 <ToastContainer/>
               </div>
             )}
@@ -199,6 +232,7 @@ const AdminDashboard = () => {
                     
                     <th>S.No.</th>
                     <th>Project-Name</th>
+                    {/* <th>Count of employees</th> */}
                     
                     <th className="text-center">View</th>
                     <th className="text-center">Users</th>
@@ -219,6 +253,9 @@ const AdminDashboard = () => {
                       
                       <td>{index+1}</td>
                       <td>{item.projectName}</td>
+                      {/* <td>
+              <CountCell projectId={item.projectId} />
+            </td> */}
                       
                       <td className="text-center">
                         <button className="btn btn-primary mx-2" onClick={() => handleViewDetails(item)}>
@@ -270,7 +307,7 @@ const AdminDashboard = () => {
     showAddEmployeeButton={addEmployeeButtonVisible}
     showAddFileButton={addFileButtonVisible}
     onAddFile={addFile}
-    onDeleteProject={deleteUser}
+    onDeleteProject={deleteProject}
   />
 )}
             </>

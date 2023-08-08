@@ -13,6 +13,7 @@ function UserHistory() {
   const [isLoading, setIsLoading] = useState(true);
   const [historyData, setHistoryData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [item, setItem] = useState([]);
@@ -20,6 +21,7 @@ function UserHistory() {
   
   const [showOtherTable, setShowOtherTable] = useState(false);
   const rowsPerPage = 5;
+
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
   const accessToken=user.token
@@ -33,6 +35,7 @@ function UserHistory() {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/projects/all`);
       const sortedData = response.data.slice().sort((a, b) => {
+
         if (a.status !== b.status) {
           return a.status ? 1 : -1;
         }
@@ -40,12 +43,19 @@ function UserHistory() {
       });
       setHistoryData(sortedData);
       setFilteredProjects(sortedData);
+
       setIsLoading(false);
     } catch (error) {
       console.log('Error fetching user history:', error);
       setIsLoading(true);
     }
   }
+  const csvDataProj = historyData.map((entry) => ({
+    'Project ID': entry.projectId,
+    'Project Name': entry.projectName,
+    'Project Description': entry.projectDescription,
+    'Status':  entry.status ? 'Inactive' : 'Active',
+  }));
 
   useEffect(() => {
     const filteredData = historyData.filter((entry) =>
@@ -85,11 +95,14 @@ function UserHistory() {
   const indexOfFirstItem = indexOfLastItem - rowsPerPage;
   const currentItems = filteredProjects.slice(indexOfFirstItem, indexOfLastItem);
 
+  
+
   return (
     <div className="parent-admin">
       <Sidebar />
       <br />
       <br />
+
       <div className="admin-child">
       <br/><br/>
       <div style={{ marginLeft: '20px', marginRight: '30px' }}>
@@ -107,11 +120,14 @@ function UserHistory() {
               <button className="ui button">Download CSV</button>
             </CSVLink>
           </div>
+
           {isLoading ? (
             <LoadingPage />
           ) : (
             <>
+
               <Table class="ui celled table">
+
                 <Table.Header>
                   <Table.Row>
                   <Table.HeaderCell>S.No.</Table.HeaderCell>
@@ -143,12 +159,14 @@ function UserHistory() {
                   ))}
                 </Table.Body>
               </Table>
+
                <div className="pagination">
                 <Pagination
                   data={filteredProjects}
                   itemsPerPage={rowsPerPage}
                   paginate={handlePaginate}
                 />
+
               </div>
             </>
           )}

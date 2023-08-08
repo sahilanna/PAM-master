@@ -5,6 +5,10 @@ import { Grid, Placeholder, Segment } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle, faUserAstronaut, faProjectDiagram } from '@fortawesome/free-solid-svg-icons';
 import './AdminDashboard.css'; 
+import document from '/home/nineleaps/PAM-master/src/Assets/document.gif'
+import user from '/home/nineleaps/PAM-master/src/Assets/user.gif'
+import podcast from '/home/nineleaps/PAM-master/src/Assets/podcast.png';
+
 
 function AdminHeader() {
   const [users, setUsers] = useState('');
@@ -56,7 +60,8 @@ function AdminHeader() {
         <Segment raised>
         <div>
             <Placeholder.Header>
-              <FontAwesomeIcon icon={faProjectDiagram} style={{ color: 'blue' }} />
+              {/* <FontAwesomeIcon icon={faProjectDiagram} style={{ color: 'blue' }} /> */}
+              <img src={document} alt="Icon" style={{ width: '40px', height: '40px' }} />
             </Placeholder.Header>
             <Placeholder.Paragraph>
               <Placeholder.Line length='medium' style={{ color: 'blue', fontWeight: 'bold' }} />
@@ -72,7 +77,7 @@ function AdminHeader() {
         <Segment raised>
          <div>
             <Placeholder.Header>
-              <FontAwesomeIcon icon={faUserAstronaut} style={{ color: 'green' }} />
+            <img src={user} alt="Icon" style={{ width: '50px', height: '40px' }} />
             </Placeholder.Header>
             <Placeholder.Paragraph>
               <Placeholder.Line length='medium' style={{ color: 'green', fontWeight: 'bold' }} />
@@ -85,10 +90,10 @@ function AdminHeader() {
       </Grid.Column>
 
       <Grid.Column>
-        <Segment raised className="project-managers-box"> 
+        <Segment raised> 
          <div>
             <Placeholder.Header>
-              <FontAwesomeIcon icon={faUserCircle} style={{ color: 'orange' }} />
+            <img src={podcast} alt="Icon" style={{ width: '50px', height: '40px' }} />
             </Placeholder.Header>
             <Placeholder.Paragraph>
               <span style={{ color: 'orange', fontWeight: 'bold' }}>Project Managers</span>
