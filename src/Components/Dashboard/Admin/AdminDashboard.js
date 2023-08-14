@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { Navigate, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye,faUserCircle,faUserAstronaut} from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +11,6 @@ import { CSVLink } from 'react-csv';
 import Sidebar from '../SideBar/SideBar';
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import './AdminDashboard.css';
-import { Button } from 'semantic-ui-react';
 import api from '../api';
 import ProjectPms from './Read/projectPms';
 import ProjectUsers from './Read/projectUsers';
@@ -189,7 +184,7 @@ const AdminDashboard = () => {
      
 
 
-      <div style={{ height: '100vh', overflow: 'scroll initial' }}>
+      <div style={{ height: '100vh' }}>
         <Sidebar />
       </div>
       <div className="admin-child">

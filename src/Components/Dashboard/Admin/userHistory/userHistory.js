@@ -50,12 +50,7 @@ function UserHistory() {
       setIsLoading(true);
     }
   }
-  const csvDataProj = historyData.map((entry) => ({
-    'Project ID': entry.projectId,
-    'Project Name': entry.projectName,
-    'Project Description': entry.projectDescription,
-    'Status':  entry.status ? 'Inactive' : 'Active',
-  }));
+
 
   useEffect(() => {
     const filteredData = historyData.filter((entry) =>

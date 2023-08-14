@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Form } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../SideBar/SideBar';
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
@@ -9,9 +8,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import DialogBox from '../../DialogBox/DialogBox';
 import Pagination from '../../Pagination/Pagination';
+import { Button, Modal, Form } from 'semantic-ui-react';
 
 
-function RepoRead(onClose) {
+
+function RepoRead() {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [item, setItem] = useState([]);
@@ -19,11 +20,19 @@ function RepoRead(onClose) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedRepoId, setSelectedRepoId] = useState('');
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [showOTPMoal, setShowOTPMoal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [otp, setOtp] = useState('');
+  const [selectedRepoId, setSelectedRepoId] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+
+
+   const handleDeleteRepo = (repoId) => {
+    setSelectedRepoId(repoId);
+    setShowOTPMoal(true);
+  };
 
   const itemsPerPage = 4;
   let data = sessionStorage.getItem('item');
@@ -87,30 +96,18 @@ function RepoRead(onClose) {
   };
 
   const deleteUser = async (repoId) => {
-    setSelectedRepoId(repoId);
-    console.log(selectedRepoId);
-    setShowConfirmDialog(true);
-  };
-
-  const handleConfirmDelete = async () => {
     try {
-      const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
-        phoneNumber: '+91 9928931610',
-      });
-      console.log(otpResponse);
-      if (otpResponse.data === 'OTP sent') {
-        setShowConfirmDialog(false);
-        setShowOTPMoal(true);
-      } else if (otpResponse.response === false) {
-        console.log('OTP generation failed');
-      }
+      await api.delete(`https://${ngrokUrl}/api/repositories/delete/${repoId}`);
+      setShowConfirmDialog(false);
+      loadItem();
     } catch (error) {
       console.log(error);
     }
   };
 
-
-  
+  const handleConfirmDelete = async () => {
+    deleteUser(selectedRepoId);
+  };
 
   const handleCancelDelete = () => {
     setShowConfirmDialog(false);
@@ -119,35 +116,30 @@ function RepoRead(onClose) {
 
   const handleOTPSubmit = async (e) => {
     e.preventDefault();
+    
     try {
       const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/verify`, {
         otp: otp,
       });
-      console.log(otpSubmissionResponse);
+      
       if (otpSubmissionResponse.data === true) {
         await api.delete(`https://${ngrokUrl}/api/repositories/delete/${selectedRepoId}`);
         setShowOTPMoal(false);
         loadItem();
-      } else if (!otpSubmissionResponse.data) {
+      } else {
         setErrorMessage('Invalid OTP. Please try again.');
       }
     } catch (error) {
       console.log('Error:', error);
-      setErrorMessage('Something went wrong. Please try again.');
+      setErrorMessage('Something went wrong, Please try again.');
     }
   };
 
   const handleOTPClose = () => {
     setShowOTPMoal(false);
   };
-  const handleModalClose = () => {
-    onClose();
-  };
 
   
-
-
-
   return (
     <div className='parent-admin'>
       <Sidebar />
@@ -206,45 +198,21 @@ function RepoRead(onClose) {
                   ) : (
                     currentPageData.map((item, index) => (
                       <tr key={item.id}>
-                        <td>{index + 1}</td>
+                        <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
                         <td>{item.name}</td>
                         <td>{item.description}</td>
                         <td className='text-center'>
                           <button
                             className='btn btn-danger mx-2'
-                            onClick={() => deleteUser(item.repoId)}
+                            onClick={() => handleDeleteRepo(item.repoId)}
                           >
                             <FontAwesomeIcon icon={faTrash} />
                           </button>
                           <DialogBox
-    show={showConfirmDialog}
-    onClose={handleCancelDelete}
-    onConfirm={handleConfirmDelete}
-  />
-
-  <Modal
-    open={showOTPMoal}
-    onClose={handleOTPClose}
-    style={{ width: '500px', height:'30px' }}
-    className="centered-modal-OTP"
-  >
-    <Modal.Header>Enter OTP</Modal.Header>
-    <Modal.Content>
-      <Form onSubmit={handleOTPSubmit}>
-        <div className="form-field">
-          <label>OTP sent to '+91 9928931610'</label>
-          <input type="text" name="otp" onChange={(e) => setOtp(e.target.value)} />
-        </div>
-        <p>{errorMessage}</p>
-        <Button type="submit" primary>
-          Submit OTP
-        </Button>
-      </Form>
-    </Modal.Content>
-    <Modal.Actions>
-      <Button onClick={handleOTPClose}>Cancel</Button>
-    </Modal.Actions>
-  </Modal>
+                            show={showConfirmDialog === item.id}
+                            onClose={() => setShowConfirmDialog(null)}
+                            onConfirm={() => deleteUser(item.repoId)}
+                          />
                         </td>
                       </tr>
                     ))
@@ -256,10 +224,19 @@ function RepoRead(onClose) {
               </div>
             </>
           )}
+          <Modal open = {showConfirmDialog} onClose={handleCancelDelete} className="centered-modal-confirm">
+          <Modal.Header>Confirm Delete</Modal.Header>
+          <Modal.Content>
+            Are you sure you want to delete this repository?
+          </Modal.Content>
+          <Modal.Actions>
+            <Button onClick={handleCancelDelete}>Cancel</Button>
+            <Button color='red' onClick={handleConfirmDelete}>Delete</Button>
+          </Modal.Actions>
+        </Modal>
         </div>
       </div>
     </div>
-    
   );
 }
 export default RepoRead;
