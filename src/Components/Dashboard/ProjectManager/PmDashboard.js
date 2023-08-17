@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import {ToastContainer, toast} from 'react-toastify'
-import DialogBox from '../DialogBox/DialogBox';
-import axios from 'axios';
+
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import PmSidebar from './pmSidebar';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
+import PmProjectDetails from './pmProjectDetails';
 
 
 const PmDashboard = () => {

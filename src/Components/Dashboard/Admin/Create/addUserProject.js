@@ -57,7 +57,7 @@ function AddUserProject() {
 
     try {
       const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
-        phoneNumber: '+91 8884763231',
+        phoneNumber: '+91 9928931610',
       });
 
       console.log(otpResponse);
@@ -136,7 +136,7 @@ function AddUserProject() {
         <Modal.Content>
           <Form onSubmit={handleOTPSubmit}>
             <div className="form-field">
-              <label>OTP sent to +918884763231'</label>
+              <label>OTP sent to +919928931610'</label>
               <input type="text" name="otp" onChange={(e) => setotpp(e.target.value)} />
             </div>
             <p>{errorMessage}</p>

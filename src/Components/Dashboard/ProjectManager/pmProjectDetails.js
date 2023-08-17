@@ -1,10 +1,8 @@
-import React from 'react'
-import { Modal, Button } from 'react-bootstrap';
-import { useState,useEffect } from 'react';
+import React, {useState,useEffect} from 'react'
+import { Modal, Button } from 'semantic-ui-react';
 import { ngrokUrl} from '../../../Assets/config';
-import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
-import PmDashboard from './PmDashboard';
+import './pmDashboard.css'
 const PmProjectDetails = ({ project, onClose }) => {
 
   const [isLoading, setIsLoading] = useState(true);
@@ -36,11 +34,11 @@ const PmProjectDetails = ({ project, onClose }) => {
   if (!project) return null;
 
   return (
-    <Modal show={true} onHide={onClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Project Details</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+    <Modal className='custom-dialog2' open={true} onClose={onClose}>
+      
+        <Modal.Header>Project Details</Modal.Header>
+    
+      <Modal.Content>
         <p><strong>Project ID: </strong> {project.projectId}</p>
         <p><strong>Project Name:</strong>  {project.projectName}</p>
         <p><strong>Figma URL: </strong><a href={project.figma.figmaURL}>{project.figma.figmaURL}</a></p>
@@ -48,12 +46,12 @@ const PmProjectDetails = ({ project, onClose }) => {
         {/* <p><strong>Repo Name: </strong>{project.repositories[0].repo.name}</p> */}
         <p><strong>project Description: </strong>  {project.projectDescription}</p>
         {/* <p><strong>PM Github Username:</strong>  {project.githubUsername}</p> */}
-      </Modal.Body>
-      <Modal.Footer>
+      </Modal.Content>
+      <Modal.Actions>
         <Button variant="secondary" onClick={onClose}>
           Close
         </Button>
-      </Modal.Footer>
+      </Modal.Actions>
     </Modal>
   );
 };

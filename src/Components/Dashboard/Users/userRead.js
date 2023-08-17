@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Pagination from '../Pagination/Pagination'
 import DialogBox from '../DialogBox/DialogBox'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEye, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import UserDetails from './UserDetails'
 import Sidebar from '../SideBar/SideBar'
 import LoadingPage from '../../../Assets/Loader/LoadingPage'
@@ -146,8 +146,8 @@ function UserRead(){
             
             <th className='text-center'>View</th>
             
-            <th className='text-center'>Delete</th>
             <th className='text-center'>Activity</th>
+            <th className='text-center'>Delete</th>
           </thead>
           <tbody>
           {filteredProjects.length === 0 ? (
@@ -174,7 +174,11 @@ function UserRead(){
   >
     <FontAwesomeIcon icon={faEye} />
   </button>
-</td>          
+</td>        
+<td className='text-center'><button className="btn btn-outline-primary mx-2" 
+              onClick={()=>viewActivity(user.id, user.name)}  > <FontAwesomeIcon icon={faUserCircle} /></button>
+           
+              </td>  
               
                  <td className='text-center'>
                  
@@ -184,10 +188,7 @@ function UserRead(){
       onClose={() => setShowConfirmDialog(null)}
       onConfirm={()=>deleteUser(user.id)}/>
               </td>
-              <td className='text-center'><button className="btn btn-outline-primary mx-2" 
-              onClick={()=>viewActivity(user.id, user.name)}  > <FontAwesomeIcon icon={faEye} /></button>
-           
-              </td>
+             
             </tr>
           )))}
           

@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { Navigate, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye,faUserCircle,faUserAstronaut} from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +12,6 @@ import CustomSidebar from '../SideBar/SideBar';
 
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import './AdminDashboard.css';
-import { Button } from 'semantic-ui-react';
 import api from '../api';
 import ProjectPms from './Read/projectPms';
 import ProjectUsers from './Read/projectUsers';
@@ -192,6 +187,7 @@ const AdminDashboard = () => {
 
       <div style={{ height: '100vh', overflow: 'scroll initial' }}>
       <CustomSidebar/>
+
       </div>
       <div className="admin-child">
       
@@ -259,13 +255,13 @@ const AdminDashboard = () => {
             </td> */}
                       
                       <td className="text-center">
-                        <button className="btn btn-primary mx-2" onClick={() => handleViewDetails(item)}>
+                        <button className="btn btn-outline-primary mx-2" onClick={() => handleViewDetails(item)}>
                           <FontAwesomeIcon icon={faEye} />
                         </button>
                       </td>
                       
                       <td className="text-center">
-                      <button className="btn btn-primary mx-2" onClick={() =>  handleOpenProjectUsers(item)}>
+                      <button className="btn btn-outline-primary mx-2" onClick={() =>  handleOpenProjectUsers(item)}>
                       <FontAwesomeIcon icon={faUserAstronaut} />
                       </button>
                           
@@ -281,7 +277,7 @@ const AdminDashboard = () => {
 
                         
                       <td className="text-center">
-                      <button className="btn btn-primary mx-2" onClick={() =>  handleOpenProjectPms(item)}>
+                      <button className="btn btn-outline-primary mx-2" onClick={() =>  handleOpenProjectPms(item)}>
                       <FontAwesomeIcon icon={faUserCircle} />
                       </button>
                           
@@ -298,9 +294,13 @@ const AdminDashboard = () => {
                   )))}
                 </tbody>
               </table>
-              <div className="pagination">
+              {/* <div className="pagination">
                 <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
-              </div>
+              </div> */}
+              <div className="pagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+  <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
+</div>
+
               {showProjectDetails && (
   <ProjectDetails
     project={selectedProject}

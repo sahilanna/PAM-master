@@ -22,6 +22,7 @@ function  CustomSidebar() {
 
 
 
+
       
       <NavLink style={{fontSize:'16px'}}
       exact to="/profile" activeClassName="activeClicked">
@@ -121,11 +122,13 @@ function  CustomSidebar() {
       {/* Add other menu items as needed */}
     </Sidebar>
 
+
     {/* Main Content */}
     <div style={{ marginLeft: '250px', transition: 'margin 0.3s' }}>
       {/* Your main content here */}
     </div>
   </div>
+
   
   )
 }

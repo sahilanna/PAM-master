@@ -23,6 +23,10 @@ p {
 .heading{
     color: antiquewhite;
     font-style: italic;
+    margin-left: 10px;
+    
+
+    
 }
 .at-item {
     color: whitesmoke; font-weight:bold; font-size:3.5em;
@@ -51,6 +55,10 @@ p {
   animation-timing-function: ease;
   animation-delay: 0s;
   animation-fill-mode: both;
+}
+.ui.menu .menu>.item:before {
+  display: none;
+  
 }
 
 @keyframes slide-in {

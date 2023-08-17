@@ -13,8 +13,8 @@ import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from '../../Pagination/Pagination';
 
-import Modal from 'react-bootstrap/Modal';
-import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt, faStreetView } from '@fortawesome/free-solid-svg-icons';
+
+import { faTrash,  faUser, faStreetView } from '@fortawesome/free-solid-svg-icons';
 import ViewUserVerification from './viewUserVerification';
 
 
