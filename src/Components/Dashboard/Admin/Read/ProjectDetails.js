@@ -6,7 +6,8 @@ import DialogBox from '../../DialogBox/DialogBox';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api';
 import { ngrokUrl } from '../../../../Assets/config';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
 const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileButton, onAddFile, deleteProject }) => {
@@ -146,6 +147,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
       console.log('Error retrieving files: ', error);
     }
   };
+  
 
   const handleCloseAddUserProject = () => {
     setShowAddUserProject(false);
@@ -182,6 +184,28 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
         console.log(error, 'hi');
       });
   };
+
+  // const handleDeleteFile = async (fileId) => {
+  //   try {
+  //     await api.delete(`https://${ngrokUrl}/api/projects/files/${fileId}`);
+  //     displayFile();
+  //   } catch (error) {
+  //     console.log('Error deleting file: ', error);
+  //   }
+  // };
+
+  const handleDeleteFile = async (helpDocumentId) => {
+    try {
+      await api.delete(`https://${ngrokUrl}/api/projects/files/${helpDocumentId}`);
+      // Remove the deleted file from the namesFile list
+      setNamesFile(prevNamesFile => prevNamesFile.filter(file => file.helpDocumentId !== helpDocumentId));
+    } catch (error) {
+      console.log('Error deleting file: ', error);
+    }
+  };
+  
+
+  
   const loadRepo = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
@@ -298,26 +322,34 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
             </p>
 
             <p>
-      <strong>Help Documents:</strong>
-      {namesFile.length > 0 ? (
-        <ul>
+  <strong>Help Documents:</strong>
+  {namesFile.length > 0 ? (
+    <ul>
+      {namesFile.map((filename, index) => (
+        <li key={index} className="file-item">
+          <div className="file-info">
+            <a href="#" onClick={() => downloadFile(filename.fileName)}>
+              {filename.fileName}
+            </a>
+          </div>
+          <div className="delete-button">
+            <button
+              className="btn btn-danger"
+              onClick={() => handleDeleteFile(filename.helpDocumentId
+                )}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    '-'
+  )}
+</p>
 
-          {namesFile.map((filename, index) => (
-            <li key={index}>
-              <b> 
 
-<a href="#" onClick={() => downloadFile(filename)}>
-            {filename}
-          </a>
-          </b>
-
-            </li>
-          ))}
-        </ul>
-      ) : (
-        '-'
-      )}
-    </p>
     <p>
   <strong>Drive Link</strong> {driveLink ? (
     <ul>

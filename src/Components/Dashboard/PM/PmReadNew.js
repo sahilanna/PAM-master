@@ -3,7 +3,7 @@ import {useNavigate } from 'react-router-dom'
 import DialogBox from '../DialogBox/DialogBox'
 import Pagination from '../Pagination/Pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEye, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import './Read.css'
 import PmDetails from './PmDetails'
 import { ngrokUrl } from '../../../Assets/config'
@@ -158,8 +158,8 @@ function PmReadNew() {
             <th className='text-center'>View</th>
             
             
-            <th className='text-center'>Delete</th>
             <th className='text-center'>Activity</th>
+            <th className='text-center'>Delete</th>
          </thead>
          <tbody>
           {filteredProjects.length === 0 ? (
@@ -184,7 +184,11 @@ function PmReadNew() {
   >
     <FontAwesomeIcon icon={faEye} />
   </button>
-</td>             
+</td>  
+<td className='text-center'><button className="btn btn-outline-primary mx-2" 
+              onClick={()=>viewActivity(item.id, item.name)}  > <FontAwesomeIcon icon={faUserCircle} /></button>
+           
+              </td>           
          
       <td className='text-center'>
       
@@ -204,10 +208,7 @@ function PmReadNew() {
       </div>
     )}
       </td>
-      <td className='text-center'><button className="btn btn-outline-primary mx-2" 
-              onClick={()=>viewActivity(item.id, item.name)}  > <FontAwesomeIcon icon={faEye} /></button>
-           
-              </td>
+     
       
               
             </tr>

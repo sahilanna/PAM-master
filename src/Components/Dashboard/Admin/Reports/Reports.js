@@ -11,7 +11,6 @@ import Pagination from '../../Pagination/Pagination';
 function Reports() {
   const [item, setItem] = useState([]);
   const [mitem, setMItem] = useState([]);
-  
   const [showOtherTable, setShowOtherTable] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;

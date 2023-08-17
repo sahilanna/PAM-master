@@ -30,3 +30,11 @@ margin-right: 30px;
 
    
 }
+.custom-dialog1 {
+    width: 35% !important; 
+    max-height: 41vh; 
+    margin: auto;
+    margin-left: 40%!important;
+    margin-top: 10%!important  
+
+}

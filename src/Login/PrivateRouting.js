@@ -1,52 +1,52 @@
-import React from "react";
+import React, {lazy, Suspense} from "react";
 import {BrowserRouter as Router,  Route,Routes } from 'react-router-dom';
-import AdminDashboard from "../Components/Dashboard/Admin/AdminDashboard";
-import PmCreate from "../Components/Dashboard/PM/pmCreate";
-import Create from "../Components/Dashboard/Admin/Create/Create";
-import PmReadNew from "../Components/Dashboard/PM/PmReadNew";
-import UserCreate from "../Components/Dashboard/Users/userCreate";
-import UserAnalytics from "../Components/Dashboard/UserDashboard/userAnalytics";
-import CreateRepo from "../Components/Dashboard/Admin/Create/CreateRepo";
-import Reports from "../Components/Dashboard/Admin/Reports/Reports";
-import PmRequestUser from "../Components/Dashboard/Admin/PmRequests/PmRequestUser";
-import PmRequestForm from "../Components/Dashboard/ProjectManager/PmRequestForm";
-import AddPm from "../Components/Dashboard/Admin/Create/addPm";
-import AddUser from "../Components/Dashboard/Admin/Create/addUser";
-import FigmaRead from "../Components/Dashboard/Admin/Figma/FigmaRead";
-import FigmaCreate from "../Components/Dashboard/Admin/Figma/FigmaCreate";
-import FigmaPmDashboard from "../Components/Dashboard/ProjectManager/figmaPmDashboard";
-import RepoPmDashboard from "../Components/Dashboard/ProjectManager/repoPmDashboard";
-import CreateFigmaDetails from "../Components/Dashboard/Admin/Figma/createFigmaDetails";
-import UserHistory from "../Components/Dashboard/Admin/userHistory/userHistory";
-import UserProjects from "../Components/Dashboard/UserDashboard/userProjects";
-import NavBarA from "../Components/Dashboard/Admin/NavbarA";
-import Login from './Login'
-import RepoRead from "../Components/Dashboard/Admin/Repository/repoRead";
-import UserRead from "../Components/Dashboard/Users/userRead";
-import PmDashboard from "../Components/Dashboard/ProjectManager/PmDashboard";
-import UserRepoRead from "../Components/Dashboard/UserDashboard/userRepoRead";
-import UserFigmaRead from "../Components/Dashboard/UserDashboard/userFigmaRead";
-import Analytics from "../Components/Dashboard/Admin/Analytics/Analytics";
-import Profile from "../Components/Dashboard/Admin/Profile";
-import UserProfile from "../Components/Dashboard/UserDashboard/userProfile";
-import PmProfile from "../Components/Dashboard/ProjectManager/pmprofile";
-import AddUserName from "../Components/Dashboard/Users/AddUserName";
-import CreateProject from "../Components/Dashboard/Admin/Create/CreateProject";
-import AddPmUserName from "../Components/Dashboard/PM/addPmUsername";
-import DeleteRepo from "../Components/Dashboard/Admin/Repository/deleteRepo";
-import AddFile from "../Components/Dashboard/Admin/Create/addFile";
-import ProjectUsers from "../Components/Dashboard/Admin/Read/projectUsers";
-import AddUserProject from "../Components/Dashboard/Admin/Create/addUserProject";
-import ProjectAnalytics from "../Components/Dashboard/Admin/Analytics/projectAnalytics";
-import ProjectPms from "../Components/Dashboard/Admin/Read/projectPms";
-import AddPmProject from "../Components/Dashboard/Admin/Create/addPmProject";
-import UserActivity from "../Components/Dashboard/Users/userActivity"; 
-import PmNotification from "../Components/Dashboard/ProjectManager/pmNotification";
-import ViewUserVerification from "../Components/Dashboard/Admin/Figma/viewUserVerification";
-import DriveDetails from "../Components/Dashboard/Admin/Drive/driveDetails";
-import CreateDriveDetails from "../Components/Dashboard/Admin/Drive/createDriveDetails";
-import ShowAllNotification from "../Components/Dashboard/ProjectManager/showAllNotification";
-import DriveRead from "../Components/Dashboard/Admin/Drive/driveRead";
+
+const LazyAdminDashboard = lazy(() =>  import("../Components/Dashboard/Admin/AdminDashboard"));
+const LazyPmCreate = lazy(() => import("../Components/Dashboard/PM/pmCreate"));
+const LazyCreate = lazy(()=> import("../Components/Dashboard/Admin/Create/Create"));
+const LazyPmReadNew = lazy(() => import("../Components/Dashboard/PM/PmReadNew"));
+const LazyUserCreate = lazy(() => import("../Components/Dashboard/Users/userCreate"));
+const LazyUserAnalytics = lazy(() => import("../Components/Dashboard/UserDashboard/userAnalytics"));
+const LazyCreateRepo = lazy(() => import("../Components/Dashboard/Admin/Create/CreateRepo"));
+const LazyReports = lazy(() => import("../Components/Dashboard/Admin/Reports/Reports"));
+const LazyPmRequestUser = lazy(() => import("../Components/Dashboard/Admin/PmRequests/PmRequestUser"));
+const LazyPmRequestForm = lazy(() => import("../Components/Dashboard/ProjectManager/PmRequestForm"));
+const LazyAddPm = lazy(() => import("../Components/Dashboard/Admin/Create/addPm"));
+const LazyAddUser = lazy(() => import("../Components/Dashboard/Admin/Create/addUser"));
+const LazyFigmaRead = lazy(() => import( "../Components/Dashboard/Admin/Figma/FigmaRead"));
+const LazyFigmaCreate = lazy(() => import( "../Components/Dashboard/Admin/Figma/FigmaCreate"));
+const LazyFigmaPmDashboard = lazy(() => import( "../Components/Dashboard/ProjectManager/figmaPmDashboard"));
+const LazyRepoPmDashboard = lazy(() => import("../Components/Dashboard/ProjectManager/repoPmDashboard"));
+const LazyCreateFigmaDetails = lazy(() => import( "../Components/Dashboard/Admin/Figma/createFigmaDetails"));
+const LazyUserHistory = lazy(() => import( "../Components/Dashboard/Admin/userHistory/userHistory"));
+const LazyUserProjects = lazy(() => import( "../Components/Dashboard/UserDashboard/userProjects"));
+const LazyLogin = lazy(() => import( './Login'))
+const LazyRepoRead = lazy(() => import( "../Components/Dashboard/Admin/Repository/repoRead"));
+const LazyUserRead = lazy(() => import( "../Components/Dashboard/Users/userRead"));
+const LazyPmDashboard = lazy(() => import( "../Components/Dashboard/ProjectManager/PmDashboard"));
+const LazyUserRepoRead = lazy(() => import("../Components/Dashboard/UserDashboard/userRepoRead"));
+const LazyUserFigmaRead = lazy(() => import( "../Components/Dashboard/UserDashboard/userFigmaRead"));
+const LazyAnalytics = lazy(() => import( "../Components/Dashboard/Admin/Analytics/Analytics"));
+const LazyProfile = lazy(() => import( "../Components/Dashboard/Admin/Profile"));
+const LazyUserProfile = lazy(() => import( "../Components/Dashboard/UserDashboard/userProfile"));
+const LazyPmProfile = lazy(() => import( "../Components/Dashboard/ProjectManager/pmprofile"));
+const LazyAddUserName = lazy(() => import( "../Components/Dashboard/Users/AddUserName"));
+const LazyCreateProject = lazy(() => import( "../Components/Dashboard/Admin/Create/CreateProject"));
+const LazyAddPmUserName = lazy(() => import( "../Components/Dashboard/PM/addPmUsername"));
+const LazyDeleteRepo = lazy(() => import( "../Components/Dashboard/Admin/Repository/deleteRepo"));
+const LazyAddFile = lazy(() => import( "../Components/Dashboard/Admin/Create/addFile"));
+const LazyProjectUsers = lazy(() => import( "../Components/Dashboard/Admin/Read/projectUsers"));
+const LazyAddUserProject = lazy(() => import( "../Components/Dashboard/Admin/Create/addUserProject"));
+const LazyProjectAnalytics = lazy(() => import( "../Components/Dashboard/Admin/Analytics/projectAnalytics"));
+const LazyProjectPms = lazy(() => import("../Components/Dashboard/Admin/Read/projectPms"));
+const LazyAddPmProject = lazy(() => import( "../Components/Dashboard/Admin/Create/addPmProject"));
+const LazyUserActivity = lazy(() => import( "../Components/Dashboard/Users/userActivity")); 
+const LazyPmNotification = lazy(() => import( "../Components/Dashboard/ProjectManager/pmNotification"));
+const LazyViewUserVerification = lazy(() => import( "../Components/Dashboard/Admin/Figma/viewUserVerification"));
+const LazyDriveDetails = lazy(() => import("../Components/Dashboard/Admin/Drive/driveDetails"));
+const LazyCreateDriveDetails = lazy(() => import("../Components/Dashboard/Admin/Drive/createDriveDetails"));
+const LazyShowAllNotification = lazy(() => import("../Components/Dashboard/ProjectManager/showAllNotification"));
+const LazyDriveRead = lazy(() => import( "../Components/Dashboard/Admin/Drive/driveRead"));
 
 
 
@@ -64,74 +64,78 @@ const PrivateRoutes = () => {
         <>
           {role === "ADMIN" && (
             <Routes>
-                <Route path="/AddPmUserName" element={<AddPmUserName/>} />
-               <Route path="/AdminDashboard" element={<AdminDashboard />} />
-               <Route path='/CreateProject' element={<CreateProject/>}/>
-              <Route path="/AddUserName" element={<AddUserName/>} />
-              <Route path="/Login" element={<Login />} />
-              <Route path="/Create" element={<Create />} />
-              <Route path="/RepoRead" element={<RepoRead/>} />
-              <Route path="/UserRead" element={<UserRead/>} />
-              <Route path="/PmCreate" element={<PmCreate />} />
-              <Route path="/PmReadNew" element={<PmReadNew />} />
-              <Route path="//PmUpdate/:id" element={<PmReadNew />} />
-              <Route path="/UserCreate" element={<UserCreate />} />
-              <Route path="/CreateRepo" element={<CreateRepo />} />
-              <Route path="/addCollab" element={<addCollab />} />
-              <Route path="/AddPm" element={<AddPm/>} />
-              <Route path="/addUser" element={<AddUser />} />
-              <Route path="/NavbarA" element={<NavBarA/>} />
-              <Route path="/repoRead" element={<repoRead/>} />
-              <Route path="/FigmaRead" element={<FigmaRead/>} />
-              <Route path="/FigmaCreate" element={<FigmaCreate />} />
-              <Route path="/UserHistory" element={<UserHistory />} />
-              <Route path="/Reports" element={<Reports />} />
-              <Route path="/CreateFigmaDetails" element={<CreateFigmaDetails/>} />
-              <Route path="/PmRequestUser" element={<PmRequestUser/>} />
-              <Route path='/deleteRepo' element={<DeleteRepo/>}/>
-              <Route path='/addFile' element={<AddFile/>}/>
-              <Route path='/projectUsers' element={<ProjectUsers/>}/>
-              <Route path='/addUserProject' element={<AddUserProject/>}/>
-              <Route path='/projectPms' element={<ProjectPms/>}/>
-              <Route path='/addPmProject' element={<AddPmProject/>}/>
-              <Route path='/Profile' element={<Profile/>}/>
-              <Route path='/ProjectAnalytics' element={<ProjectAnalytics/>}/>
-              <Route path='/Analytics' element={<Analytics/>}/>
-              <Route path='/userActivity' element={<UserActivity/>}/>
-              <Route path='/viewUserVerification' element={<ViewUserVerification/>}/>
-              <Route path='/createDriveDetails' element={<CreateDriveDetails/>}/>
+             
+             <Route path="/AddPmUserName" element={<Suspense fallback={<div>Loading...</div>}><LazyAddPmUserName /></Suspense>} />
+              <Route path="/AdminDashboard" element={<Suspense fallback={<div>Loading...</div>}><LazyAdminDashboard/></Suspense>} />
+              <Route path='/CreateProject' element={<Suspense fallback={<div>Loading...</div>}><LazyCreateProject/></Suspense>}/>
+              <Route path="/AddUserName" element={<Suspense fallback={<div>Loading...</div>}><LazyAddUserName/></Suspense>} />
+              <Route path="/Login" element={<Suspense fallback={<div>Loading...</div>}><LazyLogin /></Suspense>} />
+              <Route path="/Create" element={<Suspense fallback={<div>Loading...</div>}><LazyCreate /></Suspense>} />
+              <Route path="/RepoRead" element={<Suspense fallback={<div>Loading...</div>}><LazyRepoRead/></Suspense>} />
+              <Route path="/UserRead" element={<Suspense fallback={<div>Loading...</div>}><LazyUserRead/></Suspense>} />
+              <Route path="/PmCreate" element={<Suspense fallback={<div>Loading...</div>}><LazyPmCreate /></Suspense>} />
+              <Route path="/PmReadNew" element={<Suspense fallback={<div>Loading...</div>}><LazyPmReadNew /></Suspense>} />
+              <Route path="//PmUpdate/:id" element={<Suspense fallback={<div>Loading...</div>}><LazyPmReadNew /></Suspense>} />
+              <Route path="/UserCreate" element={<Suspense fallback={<div>Loading...</div>}><LazyUserCreate /></Suspense>} />
+              <Route path="/CreateRepo" element={<Suspense fallback={<div>Loading...</div>}><LazyCreateRepo /></Suspense>} />
+              {/* <Route path="/addCollab" element={<LazyaddCollab />} /> */}
+              <Route path="/AddPm" element={<Suspense fallback={<div>Loading...</div>}><LazyAddPm/></Suspense>} />
+              <Route path="/addUser" element={<Suspense fallback={<div>Loading...</div>}><LazyAddUser /></Suspense>} />
+              <Route path="/repoRead" element={<Suspense fallback={<div>Loading...</div>}><LazyRepoRead/></Suspense>} />
+              <Route path="/FigmaRead" element={<Suspense fallback={<div>Loading...</div>}><LazyFigmaRead/></Suspense>} />
+              <Route path="/FigmaCreate" element={<Suspense fallback={<div>Loading...</div>}><LazyFigmaCreate /></Suspense>} />
+              <Route path="/UserHistory" element={<Suspense fallback={<div>Loading...</div>}><LazyUserHistory /></Suspense>} />
+              <Route path="/Reports" element={<Suspense fallback={<div>Loading...</div>}><LazyReports /></Suspense>} />
+              <Route path="/CreateFigmaDetails" element={<Suspense fallback={<div>Loading...</div>}><LazyCreateFigmaDetails/></Suspense>} />
+              <Route path="/PmRequestUser" element={<Suspense fallback={<div>Loading...</div>}><LazyPmRequestUser/></Suspense>} />
+              <Route path='/deleteRepo' element={<Suspense fallback={<div>Loading...</div>}><LazyDeleteRepo/></Suspense>}/>
+              <Route path='/addFile' element={<Suspense fallback={<div>Loading...</div>}><LazyAddFile/></Suspense>}/>
+              <Route path='/projectUsers' element={<Suspense fallback={<div>Loading...</div>}><LazyProjectUsers/></Suspense>}/>
+              <Route path='/addUserProject' element={<Suspense fallback={<div>Loading...</div>}><LazyAddUserProject/></Suspense>}/>
+              <Route path='/projectPms' element={<Suspense fallback={<div>Loading...</div>}><LazyProjectPms/></Suspense>}/>
+              <Route path='/addPmProject' element={<Suspense fallback={<div>Loading...</div>}><LazyAddPmProject/></Suspense>}/>
+              <Route path='/Profile' element={<Suspense fallback={<div>Loading...</div>}><LazyProfile/></Suspense>}/>
+              <Route path='/ProjectAnalytics' element={<Suspense fallback={<div>Loading...</div>}><LazyProjectAnalytics/></Suspense>}/>
+              <Route path='/Analytics' element={<Suspense fallback={<div>Loading...</div>}><LazyAnalytics/></Suspense>}/>
+              <Route path='/userActivity' element={<Suspense fallback={<div>Loading...</div>}><LazyUserActivity/></Suspense>}/>
+              <Route path='/viewUserVerification' element={<Suspense fallback={<div>Loading...</div>}><LazyViewUserVerification/></Suspense>}/>
+              <Route path='/createDriveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyCreateDriveDetails/></Suspense>}/>
               {/* <Route path='/gitCreate' element={<GitCreate/>}/> */}
              {/* <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/> */}
-             <Route path='/driveDetails' element={<DriveDetails/>}/>
-             <Route path='/Create' element={<Create/>}/>
-             <Route path='/addPm' element={<AddPm/>}/>
-             <Route path='/addUser' element={<AddUser/>}/>
-             <Route path='/driveRead' element={<DriveRead/>}/>
-             <Route path='/createdriveDetails' element={<CreateDriveDetails/>}/>
+             <Route path='/driveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyDriveDetails/></Suspense>}/>
+             <Route path='/Create' element={<Suspense fallback={<div>Loading...</div>}><LazyCreate/></Suspense>}/>
+             <Route path='/addPm' element={<Suspense fallback={<div>Loading...</div>}><LazyAddPm/></Suspense>}/>
+             <Route path='/addUser' element={<Suspense fallback={<div>Loading...</div>}><LazyAddUser/></Suspense>}/>
+             <Route path='/driveRead' element={<Suspense fallback={<div>Loading...</div>}><LazyDriveRead/></Suspense>}/>
+             <Route path='/createdriveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyCreateDriveDetails/></Suspense>}/>
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           )}
           {role === "PROJECT_MANAGER" && (
             <Routes>
-              <Route path="/pmDashboard" element={<PmDashboard />} />
-              <Route path="/figmaPmDashboard" element={<FigmaPmDashboard />} />
-              <Route path="/PmRequestForm" element={<PmRequestForm />} />
-              <Route path="/repoPmDashboard" element={<RepoPmDashboard/>} />
-              <Route path='/pmProfile' element={<PmProfile/>}/>
-              <Route path='/pmNotification' element={<PmNotification/>}/>
-              <Route path='/showAllNotification' element={<ShowAllNotification/>}/>
+              
+              <Route path="/pmDashboard" element={<Suspense fallback={<div>Loading...</div>}><LazyPmDashboard /></Suspense>} />
+              <Route path="/figmaPmDashboard" element={<Suspense fallback={<div>Loading...</div>}><LazyFigmaPmDashboard /></Suspense>} />
+              <Route path="/PmRequestForm" element={<Suspense fallback={<div>Loading...</div>}><LazyPmRequestForm /></Suspense>} />
+              <Route path="/repoPmDashboard" element={<Suspense fallback={<div>Loading...</div>}><LazyRepoPmDashboard/></Suspense>} />
+              <Route path='/pmProfile' element={<Suspense fallback={<div>Loading...</div>}><LazyPmProfile/></Suspense>}/>
+              <Route path='/pmNotification' element={<Suspense fallback={<div>Loading...</div>}><LazyPmNotification/></Suspense>}/>
+              <Route path='/showAllNotification' element={<Suspense fallback={<div>Loading...</div>}><LazyShowAllNotification/></Suspense>}/>
               
               <Route path="*" element={<h1>Page Not Found</h1>} />
+             
             </Routes>
           )}
           {role === "USER" && (
             <Routes>
-              <Route path="/userProjects" element={<UserProjects/>} />
-              <Route path="/userAnalytics" element={<UserAnalytics/>} />
-              <Route path="/userRepoRead" element={<UserRepoRead />} />
-              <Route path="/userFigmaRead" element={<UserFigmaRead/>} />
-              <Route path='/userProfile' element={<UserProfile/>}/>
+              
+              <Route path="/userProjects" element={<Suspense fallback={<div>Loading...</div>}><LazyUserProjects/></Suspense>} />
+              <Route path="/userAnalytics" element={<Suspense fallback={<div>Loading...</div>}><LazyUserAnalytics/></Suspense>} />
+              <Route path="/userRepoRead" element={<Suspense fallback={<div>Loading...</div>}><LazyUserRepoRead /></Suspense>} />
+              <Route path="/userFigmaRead" element={<Suspense fallback={<div>Loading...</div>}><LazyUserFigmaRead/></Suspense>} />
+              <Route path='/userProfile' element={<Suspense fallback={<div>Loading...</div>}><LazyUserProfile/></Suspense>}/>
               <Route path="*" element={<h1>Page Not Found</h1>} />
+              
             </Routes>
           )}
         </>

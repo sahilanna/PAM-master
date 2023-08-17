@@ -1,6 +1,6 @@
+import React, { Suspense } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-multi-carousel/lib/styles.css';
 import LandingPage from './Components/LandingPage';
 import Login from './Login/Login';
 import { Route,Routes, BrowserRouter } from 'react-router-dom';
@@ -32,7 +32,7 @@ function App() {
           <Route path="/" element={<LandingPage/>}/>
           <Route path="/Logout" element={<Logout/>}/>
           <Route path='/faq' element={<Faq/>}/>
-        <Route element={<PrivateRoutes />}>
+        <Route element={ <Suspense fallback={<div>Loading...</div>}><PrivateRoutes /></Suspense>}>
           
           <Route path="*" element={<h1>Page Not Found</h1>} />
           </Route>

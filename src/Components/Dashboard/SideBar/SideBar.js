@@ -11,15 +11,14 @@ import  {
 
 function Sidebar() {
   return (
-    <div style={{ height: '100vh', overflow: 'scroll initial' }}>
-    
+   
       <CDBSidebar textColor="#fff" backgroundColor="#333">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
           <a href="/adminDashboard" className="text-decoration-none" style={{ color: 'inherit' }}>
             PAM
           </a>
         </CDBSidebarHeader>
-        <CDBSidebarContent className="sidebar-content">
+        <CDBSidebarContent className="sidebar-content" style={{ height: '100vh' }}>
           <CDBSidebarMenu>
           <NavLink exact to="/profile" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="user">My Profile</CDBSidebarMenuItem>
@@ -75,7 +74,7 @@ function Sidebar() {
           ></div>
         </CDBSidebarFooter>
       </CDBSidebar>
-      </div>
+   
   
   )
 }

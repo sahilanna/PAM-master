@@ -1,4 +1,4 @@
-import { FadeLoader } from "react-spinners";
+import { Dimmer, Loader, } from "semantic-ui-react";
 import React, { useState, useEffect } from 'react'
 import './LoadingPage.css'
 
@@ -10,13 +10,9 @@ const LoadingPage = () => {
     return (
     < div className="loader-container">
         
-        <FadeLoader
-            loading={loading}
-            size={80}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-            color="black"
-        />
+        <Dimmer active={loading}>
+        <Loader size="small">Loading</Loader>
+        </Dimmer>
     
         </div>
     )
