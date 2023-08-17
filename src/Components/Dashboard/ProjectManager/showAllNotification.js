@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react'
 import PmSidebar from './pmSidebar'
 import { ngrokUrl } from '../../../Assets/config'
 import api from '../api'
-import { Button } from 'semantic-ui-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import ClearAllDialogue from './clearAllDialogue'
-import { Modal } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
 function ShowAllNotification() {

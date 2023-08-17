@@ -42,4 +42,21 @@
     font-size: 18px;
     color: #af1818;
   }
+
+  .custom-dialog2 {
+    width: 40% !important; 
+    max-height: 55vh; 
+    margin: auto;
+    margin-left: 40%!important;
+    margin-top: 10%!important  
+
+}
+ .custom-dialog3 {
+    width: 40% !important; 
+    max-height: 32vh; 
+    margin: auto;
+    margin-left: 40%!important;
+    margin-top: 10%!important  
+
+}
   

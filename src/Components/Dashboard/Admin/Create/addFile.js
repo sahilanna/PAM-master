@@ -3,6 +3,7 @@ import { Form, Modal, Button } from 'semantic-ui-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
+import './Create.css';
 
 function AddFile() {
   const navigate = useNavigate();
@@ -64,6 +65,7 @@ function AddFile() {
       open={true}
       onClose={onClose}
       style={{ top: '170px', height: 'auto', width: '500px' }}
+      className='create-Project-Modal'
     >
       <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
       <div style={{ paddingLeft: '442px' }}>

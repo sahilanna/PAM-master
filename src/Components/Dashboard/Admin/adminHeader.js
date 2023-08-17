@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { ngrokUrl } from '../../../Assets/config';
 import api from '../api';
 import { Grid, Placeholder, Segment } from 'semantic-ui-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faUserAstronaut, faProjectDiagram } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faUserCircle, faUserAstronaut, faProjectDiagram } from '@fortawesome/free-solid-svg-icons';
 import './AdminDashboard.css'; 
 import document from '/home/nineleaps/PAM-master/src/Assets/document.gif'
 import user from '/home/nineleaps/PAM-master/src/Assets/user.gif'
 import presentation from '/home/nineleaps/PAM-master/src/Assets/presentation.gif';
+
 
 
 function AdminHeader() {
