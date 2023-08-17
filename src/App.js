@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-multi-carousel/lib/styles.css';
 import LandingPage from './Components/LandingPage';
 import Login from './Login/Login';
 import { Route,Routes, BrowserRouter } from 'react-router-dom';

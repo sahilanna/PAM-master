@@ -204,7 +204,7 @@ function RepoRead() {
                         <td className='text-center'>
                           <button
                             className='btn btn-danger mx-2'
-                            onClick={() => handleDeleteRepo(item.repoId)}
+                            onClick={() => setShowConfirmDialog(item.id)}
                           >
                             <FontAwesomeIcon icon={faTrash} />
                           </button>
@@ -219,7 +219,7 @@ function RepoRead() {
                   )}
                 </tbody>
               </table>
-              <div className='pagination'>
+              <div className='pagination' style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
                 <Pagination data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
               </div>
             </>

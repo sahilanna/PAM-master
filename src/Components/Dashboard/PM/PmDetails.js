@@ -1,25 +1,23 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button } from 'semantic-ui-react';
+import './PmCreate.css'
 
 const PmDetails = ({ project, onClose }) => {
   if (!project) return null;
 
   return (
-    <Modal show={true} onHide={onClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>PM Details</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <p><strong>PM ID: </strong> {project.id}</p>
-        <p><strong>PM Name:</strong>  {project.name}</p>
-        <p><strong>PM Email:</strong>  {project.email}</p>
-  
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
+    <Modal className="custom-dialog1" open={true} onClose={onClose}>
+      <Modal.Header>PM Details</Modal.Header>
+      <Modal.Content>
+        <p><strong>PM ID:</strong> {project.id}</p>
+        <p><strong>PM Name:</strong> {project.name}</p>
+        <p><strong>PM Email:</strong> {project.email}</p>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button color="grey" onClick={onClose}>
           Close
         </Button>
-      </Modal.Footer>
+      </Modal.Actions>
     </Modal>
   );
 };

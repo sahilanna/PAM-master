@@ -20,7 +20,6 @@ const LazyRepoPmDashboard = lazy(() => import("../Components/Dashboard/ProjectMa
 const LazyCreateFigmaDetails = lazy(() => import( "../Components/Dashboard/Admin/Figma/createFigmaDetails"));
 const LazyUserHistory = lazy(() => import( "../Components/Dashboard/Admin/userHistory/userHistory"));
 const LazyUserProjects = lazy(() => import( "../Components/Dashboard/UserDashboard/userProjects"));
-const LazyNavBarA = lazy(() => import( "../Components/Dashboard/Admin/NavbarA"));
 const LazyLogin = lazy(() => import( './Login'))
 const LazyRepoRead = lazy(() => import( "../Components/Dashboard/Admin/Repository/repoRead"));
 const LazyUserRead = lazy(() => import( "../Components/Dashboard/Users/userRead"));
@@ -82,7 +81,6 @@ const PrivateRoutes = () => {
               {/* <Route path="/addCollab" element={<LazyaddCollab />} /> */}
               <Route path="/AddPm" element={<Suspense fallback={<div>Loading...</div>}><LazyAddPm/></Suspense>} />
               <Route path="/addUser" element={<Suspense fallback={<div>Loading...</div>}><LazyAddUser /></Suspense>} />
-              <Route path="/NavbarA" element={<Suspense fallback={<div>Loading...</div>}><LazyNavBarA/></Suspense>} />
               <Route path="/repoRead" element={<Suspense fallback={<div>Loading...</div>}><LazyRepoRead/></Suspense>} />
               <Route path="/FigmaRead" element={<Suspense fallback={<div>Loading...</div>}><LazyFigmaRead/></Suspense>} />
               <Route path="/FigmaCreate" element={<Suspense fallback={<div>Loading...</div>}><LazyFigmaCreate /></Suspense>} />

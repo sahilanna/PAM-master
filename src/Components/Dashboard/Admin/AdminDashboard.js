@@ -253,13 +253,13 @@ const AdminDashboard = () => {
             </td> */}
                       
                       <td className="text-center">
-                        <button className="btn btn-primary mx-2" onClick={() => handleViewDetails(item)}>
+                        <button className="btn btn-outline-primary mx-2" onClick={() => handleViewDetails(item)}>
                           <FontAwesomeIcon icon={faEye} />
                         </button>
                       </td>
                       
                       <td className="text-center">
-                      <button className="btn btn-primary mx-2" onClick={() =>  handleOpenProjectUsers(item)}>
+                      <button className="btn btn-outline-primary mx-2" onClick={() =>  handleOpenProjectUsers(item)}>
                       <FontAwesomeIcon icon={faUserAstronaut} />
                       </button>
                           
@@ -275,7 +275,7 @@ const AdminDashboard = () => {
 
                         
                       <td className="text-center">
-                      <button className="btn btn-primary mx-2" onClick={() =>  handleOpenProjectPms(item)}>
+                      <button className="btn btn-outline-primary mx-2" onClick={() =>  handleOpenProjectPms(item)}>
                       <FontAwesomeIcon icon={faUserCircle} />
                       </button>
                           
@@ -292,9 +292,13 @@ const AdminDashboard = () => {
                   )))}
                 </tbody>
               </table>
-              <div className="pagination">
+              {/* <div className="pagination">
                 <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
-              </div>
+              </div> */}
+              <div className="pagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+  <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
+</div>
+
               {showProjectDetails && (
   <ProjectDetails
     project={selectedProject}

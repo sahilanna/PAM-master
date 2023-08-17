@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from '../../Pagination/Pagination';
 
 
-import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt, faStreetView } from '@fortawesome/free-solid-svg-icons';
+import { faTrash,  faUser, faStreetView } from '@fortawesome/free-solid-svg-icons';
 import ViewUserVerification from './viewUserVerification';
 
 

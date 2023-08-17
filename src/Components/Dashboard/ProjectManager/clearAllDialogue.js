@@ -1,25 +1,26 @@
-import React from 'react'
-import Modal from 'react-bootstrap/Modal';
-import { Button } from 'react-bootstrap';
+import React from 'react';
+import { Modal, Button, Header } from 'semantic-ui-react';
+import './pmDashboard.css'
 
 function ClearAllDialogue(props) {
-    const {show,onClose,onConfirm}=props
-    return (
-        <Modal show={show} onHide={onClose}>
-        <Modal.Header closeButton>
-          <Modal.Title><strong>Confirm Clear</strong></Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure you want to clear all the notifications?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button variant="danger" onClick={onConfirm}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  };
+    const { show, onClose, onConfirm } = props;
 
-export default ClearAllDialogue
+    return (
+        <Modal className="custom-dialog3" open={show} onClose={onClose}>
+            <Header icon="exclamation triangle" content="Confirm Clear" />
+            <Modal.Content>
+                <p>Are you sure you want to clear all the notifications?</p>
+            </Modal.Content>
+            <Modal.Actions>
+                <Button color="grey" onClick={onClose}>
+                    Cancel
+                </Button>
+                <Button color="red" onClick={onConfirm}>
+                    Delete
+                </Button>
+            </Modal.Actions>
+        </Modal>
+    );
+}
+
+export default ClearAllDialogue;

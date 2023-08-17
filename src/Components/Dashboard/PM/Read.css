@@ -79,6 +79,15 @@
   opacity: 1;
   
 }
+.red-box {
+  background-color: red;
+}
+
+.white-trash-icon {
+  color: white;
+}
+
+
 
 @media only screen and (max-width: 500px) {
   .form-display {

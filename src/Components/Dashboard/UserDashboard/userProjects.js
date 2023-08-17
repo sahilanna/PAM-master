@@ -83,7 +83,7 @@ const handleCloseDetails=()=>{
         ) : (
     <table class="ui celled table">
         <thead>
-            {/* <th>Project-ID</th> */}
+            <th>Project-ID</th>
             <th>Project-Name</th>
             <th>project Description</th>
             <th className='text-center'>View</th>
