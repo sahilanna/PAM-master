@@ -121,7 +121,7 @@ function PmRequestUser() {
       <div className="admin-child">
         <div style={{  marginLeft: '20px',
             marginRight: '30px',
-            marginTop: '-70px',
+            marginTop: '70px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',

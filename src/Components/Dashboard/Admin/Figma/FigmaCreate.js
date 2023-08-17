@@ -7,6 +7,7 @@ import api from '../../api';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
+  const[figmaUser, setFigmaUser]=useState('')
   const navigate=useNavigate()
   console.log(figmaURL)
   const location = useLocation();
@@ -19,7 +20,6 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
 
     const headers={AccessToken:accessToken}
 
-
  console.log(figmaId)
   const [url, setUrl] = useState(figmaURL);
   let [selectedUser, setSelectedUser] = useState('');
@@ -29,10 +29,10 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.put(
+      const response = await api.post(
         `https://${ngrokUrl}/api/figmas/${figmaId}/user`,
         {
-          user: selectedUser,
+          user: figmaUser,
           screenshotImage: screenshotImage
         }, {headers}
       );
@@ -48,7 +48,10 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     setUrl(e.target.value);
   };
   const handleUserChange = (e, { value }) => {
-    setSelectedUser(value);
+    setSelectedUser(value)
+    setFigmaUser(value)
+    console.log('user',figmaUser);
+    console.log(value)
   };
   const handleImageUpload = (e) => {
     const file = e.target.files[0];

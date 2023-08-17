@@ -16,7 +16,7 @@ import userHistory from './userHistory/userHistory';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import { CSVLink } from 'react-csv';
-import Sidebar from '../SideBar/SideBar';
+import CustomSidebar from '../SideBar/SideBar';
 import NavBarA from './NavbarA';
 import Read from './Read/Read';
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
@@ -220,7 +220,7 @@ const AdminDashboard = () => {
 
 
       <div style={{ height: '100vh', overflow: 'scroll initial' }}>
-        <Sidebar />
+      <CustomSidebar/>
       </div>
       <div className="admin-child">
       

@@ -7,7 +7,7 @@ import { faEye, faUserCircle, faUserAstronaut, faProjectDiagram } from '@fortawe
 import './AdminDashboard.css'; 
 import document from '/home/nineleaps/PAM-master/src/Assets/document.gif'
 import user from '/home/nineleaps/PAM-master/src/Assets/user.gif'
-import podcast from '/home/nineleaps/PAM-master/src/Assets/podcast.png';
+import presentation from '/home/nineleaps/PAM-master/src/Assets/presentation.gif';
 
 
 function AdminHeader() {
@@ -93,7 +93,7 @@ function AdminHeader() {
         <Segment raised> 
          <div>
             <Placeholder.Header>
-            <img src={podcast} alt="Icon" style={{ width: '50px', height: '40px' }} />
+            <img src={presentation} alt="Icon" style={{ width: '50px', height: '40px' }} />
             </Placeholder.Header>
             <Placeholder.Paragraph>
               <span style={{ color: 'orange', fontWeight: 'bold' }}>Project Managers</span>

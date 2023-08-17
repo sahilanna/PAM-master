@@ -100,7 +100,7 @@ const PrivateRoutes = () => {
               <Route path="/UserHistory" element={<UserHistory />} />
               <Route path="/Reports" element={<Reports />} />
               <Route path="/CreateFigmaDetails" element={<CreateFigmaDetails/>} />
-              <Route path="/PmRequestUser" element={<PmRequestUser/>} />
+              <Route path='PmRequestUser' element={<PmRequestUser/>} />
               <Route path='/deleteRepo' element={<DeleteRepo/>}/>
               <Route path='/addFile' element={<AddFile/>}/>
               <Route path='/projectUsers' element={<ProjectUsers/>}/>
