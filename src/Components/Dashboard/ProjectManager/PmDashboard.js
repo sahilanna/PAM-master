@@ -10,6 +10,7 @@ import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import PmSidebar from './pmSidebar';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
+import PmProjectDetails from './pmProjectDetails';
 
 
 const PmDashboard = () => {
