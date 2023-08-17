@@ -3,59 +3,48 @@ import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 import { Modal } from 'semantic-ui-react';
 import { Button } from 'semantic-ui-react';
+import axios from 'axios';
+
 import { useLocation, useNavigate } from 'react-router-dom';
-
-function ViewUserVerification() {
-
-  const [imageData, setImageData] = useState(null);
+const ViewUserVerification = () => {
   const location = useLocation();
-  const navigatee = useNavigate()
+  const navigate = useNavigate();
   const figmaId = location.state ? location.state.figmaId : null;
 
-  
-  const [showVerificationImage, setShowVerificationImage] = useState(false);
-  const [showModall, setShowModall] = useState(false); // State for modal visibility
-  const [modalImage, setModalImage] = useState(null); 
-  const[figmaIdVerify, setFigmaIdVerify]=useState(null)
+  const [figmaScreenshots, setFigmaScreenshots] = useState([]);
 
-  console.log(figmaId)
-
-  const fetchScreenshot = async() => {
-    try {
-      const response = await api.get(`https://${ngrokUrl}/api/figmas/${figmaId}/screenshots`, { responseType: 'arraybuffer' });
-    const blob = new Blob([response.data], { type: 'image/jpeg' }); // Adjust the type based on your response data
-    setModalImage(URL.createObjectURL(blob));
-     
-    } catch (error) {
-      console.log('Error fetching projects:', error);
-    }
+  const downloadFile = async () => {
+   
+    const result = await api.get(`https://${ngrokUrl}/api/figmas/${figmaId}/screenshots`, {
+      responseType: 'blob',
+      contentType: 'application/zip',
+    })
+    const scdata=result.data
+      .then((result) => {
+        const downloadUrl = window.URL.createObjectURL(new Blob([scdata[0].screeshotImage]));
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.setAttribute('download', 'file.data');
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        navigate('/adminDashboard');
+      })
+      .catch((error) => {
+        console.log(error, 'hi');
+      });
   };
+
   useEffect(() => {
-    fetchScreenshot()
+    downloadFile();
   }, []);
-  const onClose=()=>{
-    navigatee(-1);
-  }
 
   return (
-    <Modal open={true} onClose={onClose}  style={{ width: '700px' }} className='create-Project-Modal'>
-    
-      <div style={{paddingLeft:'642px'}}>
-    <Button secondary onClick={onClose}>
-        X
-      </Button>
-      </div>
-    {/* <Modal.Header>Screenshot</Modal.Header>
-   */}
+    <div>
+      <h1>View User Verification</h1>
      
-    
-    <Modal.Content style={{display: 'flex', justifyContent: 'center'}} >
-    {modalImage && <img src={modalImage} alt="No Image" height='350px' width='550px' />}
-     
-    </Modal.Content>
-    
-  </Modal>
-  )
-}
+    </div>
+  );
+};
 
-export default ViewUserVerification
+export default ViewUserVerification;

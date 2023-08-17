@@ -8,7 +8,8 @@ import 'semantic-ui-css/semantic.min.css';
 import Pagination from '../Pagination/Pagination';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import { CSVLink } from 'react-csv';
-import Sidebar from '../SideBar/SideBar';
+import CustomSidebar from '../SideBar/SideBar';
+
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import './AdminDashboard.css';
 import api from '../api';
@@ -184,8 +185,9 @@ const AdminDashboard = () => {
      
 
 
-      <div style={{ height: '100vh' }}>
-        <Sidebar />
+      <div style={{ height: '100vh', overflow: 'scroll initial' }}>
+      <CustomSidebar/>
+
       </div>
       <div className="admin-child">
       

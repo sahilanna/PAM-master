@@ -20,6 +20,10 @@ import ViewUserVerification from './viewUserVerification';
 
 
 function FigmaRead() {
+  const [userData, setUserData] = useState({
+    user: '',
+    screenshotImageURL: '',
+  });
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
@@ -61,9 +65,35 @@ function FigmaRead() {
 
 
   
-const handleDisplayVerification=(figmaId)=>{
-  navigate('/viewUserVerification',{state:{figmaId}})
-}
+  const handleDisplayVerification = async (figmaId) => {
+    try {
+      const response = await api.get(`https://${ngrokUrl}/api/figmas/${figmaId}/screenshots`);
+      const data = response.data; // Assuming response.data is the array of objects
+  
+      if (data.length > 0) {
+        const screenshotImageURL = data[0].screenshotImageURL;
+        const user = data[0].user;
+  
+        // Trigger image download
+        const link = document.createElement('a');
+        link.href = screenshotImageURL;
+        link.download = `${user}_screenshot.png`;
+        link.click();
+      } else {
+        console.error('No data found');
+      }
+    } catch (error) {
+      console.error('Error handling display verification:', error);
+    }
+  };
+
+// useEffect(() => {
+//   downloadFile();
+// }, []);
+
+
+
+
 
   const createFigma = () => {
     navigate('/createFigmaDetails', { state: { figmaId } });

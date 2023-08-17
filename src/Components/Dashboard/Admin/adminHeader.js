@@ -5,9 +5,10 @@ import { Grid, Placeholder, Segment } from 'semantic-ui-react';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faUserCircle, faUserAstronaut, faProjectDiagram } from '@fortawesome/free-solid-svg-icons';
 import './AdminDashboard.css'; 
-import document from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/document.gif'
-import user from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/user.gif'
-import presentation from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/presentation.gif';
+import document from '/home/nineleaps/PAM-master/src/Assets/document.gif'
+import user from '/home/nineleaps/PAM-master/src/Assets/user.gif'
+import presentation from '/home/nineleaps/PAM-master/src/Assets/presentation.gif';
+
 
 
 function AdminHeader() {

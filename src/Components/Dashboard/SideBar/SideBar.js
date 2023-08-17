@@ -1,82 +1,136 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
-import  {
-    CDBSidebar,
-    CDBSidebarContent,
-    CDBSidebarFooter,
-    CDBSidebarHeader,
-    CDBSidebarMenu,
-    CDBSidebarMenuItem,
-  } from 'cdbreact'
+import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
+import { Sidebar,Menu, Icon} from 'semantic-ui-react';
+import { useState } from 'react';
+import '/home/nineleaps/PAM-master/src/Components/Dashboard/SideBar/SideBar.css'
 
-function Sidebar() {
+function  CustomSidebar() {
+ 
   return (
+    <div>
    
-      <CDBSidebar textColor="#fff" backgroundColor="#333">
-        <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-          <a href="/adminDashboard" className="text-decoration-none" style={{ color: 'inherit' }}>
-            PAM
-          </a>
-        </CDBSidebarHeader>
-        <CDBSidebarContent className="sidebar-content" style={{ height: '100vh' }}>
-          <CDBSidebarMenu>
-          <NavLink exact to="/profile" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">My Profile</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/AdminDashboard" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="list">Projects</CDBSidebarMenuItem>
-            </NavLink>
+    <Sidebar as={Menu} animation="overlay" visible vertical inverted style={{ textAlign: 'left' }}>
+      <Menu.Item className="custom-menu-item" >
+        <a href="/adminDashboard" className="text-decoration-none" style={{ color: 'inherit' }}>
+        <span style={{ marginRight: '90px' , fontSize:'30px'}}> PAM</span>
+        </a>
+      </Menu.Item>
+      <br/>
+      
+      <br/>
 
 
-            <NavLink exact to="/repoRead" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="sticky-note">Repos</CDBSidebarMenuItem>
-            </NavLink>
 
-            <NavLink exact to="/pmReadNew" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="users">PMs</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/userRead" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="users">Users</CDBSidebarMenuItem>
-            </NavLink>
-           
-            <NavLink exact to="/figmaRead" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="book">Figma</CDBSidebarMenuItem>
-            </NavLink>
 
-            <NavLink exact to="/driveRead" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="shopping-bag">G-Drive</CDBSidebarMenuItem>
-            </NavLink>
-            
-            <NavLink exact to="/userHistory" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="bookmark">Project History</CDBSidebarMenuItem>
-            </NavLink>
+      
+      <NavLink style={{fontSize:'16px'}}
+      exact to="/profile" activeClassName="activeClicked">
+                 <span style={{ marginLeft: '30px' }}><Icon name="user" /></span>
+                 <span style={{ marginLeft: '10px' }}>Profile</span>
+         
+        </NavLink>
+        <br/>
+        <br/>
+      
 
-            <NavLink exact to="/Reports" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="file">Reports</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/PmRequestUser" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="bell">PM Requests</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/Analytics" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="cog">Analytics</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/Logout" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="arrow-left">Logout</CDBSidebarMenuItem>
-            </NavLink>
-
-          </CDBSidebarMenu>
-        </CDBSidebarContent>
-        <CDBSidebarFooter style={{ textAlign: 'center' }}>
-          <div
-            style={{
-              padding: '20px 5px',
-            }}
-          ></div>
-        </CDBSidebarFooter>
-      </CDBSidebar>
+        <NavLink style={{fontSize:'16px'}} exact to="/AdminDashboard" activeClassName="activeClicked">
    
+      <span style={{ marginLeft: '30px' }}><Icon name="list" /></span>
+      <span style={{ marginLeft: '10px' }}>Projects</span>
+  </NavLink>
+  <br/>
+  <br/>
+       
+
+      <NavLink style={{fontSize:'16px'}} exact to="/repoRead" activeClassName="activeClicked">
+      <span style={{ marginLeft: '30px' }}><Icon name="sticky note" /></span>
+          <span style={{ marginLeft: '10px' }}>Repos</span>
+     
+      </NavLink>
+      <br/>
+        <br/>
+      <NavLink style={{fontSize:'16px'}} exact to="/userRead" activeClassName="activeClicked">
+      <span style={{ marginLeft: '30px' }}>  <Icon name="users" /> </span>
+          <span style={{ marginLeft: '10px' }}>Users</span>
+     
+      </NavLink>
+     
+        <br/>
+      <br/>
+      <NavLink style={{fontSize:'16px'}} exact to="/pmReadNew" activeClassName="activeClicked">
+      <span style={{ marginLeft: '30px' }}> <Icon name="users" /> </span>
+          <span style={{ marginLeft: '10px' }}>PMs</span>
+     
+      </NavLink>
+     
+        <br/>
+      <br/>
+      <NavLink style={{fontSize:'16px'}} exact to="/figmaRead" activeClassName="activeClicked">
+      <span style={{ marginLeft: '30px' }}><Icon name="book" /></span>
+          <span style={{ marginLeft: '10px' }}>Figma</span>
+     
+      </NavLink>
+      <br/>
+        <br/>
+      <NavLink style={{fontSize:'16px'}} exact to="/driveDetails" activeClassName="activeClicked">
+      <span style={{ marginLeft: '30px' }}><Icon name="shopping bag" /></span>
+          <span style={{ marginLeft: '10px' }}>G-Drive</span>
+     
+      </NavLink>
+      <br/>
+        <br/>
+      <NavLink style={{fontSize:'16px'}} exact to="/userHistory" activeClassName="activeClicked">
+      <span style={{ marginLeft: '30px' }}><Icon name="sticky note" /></span>
+          <span style={{ marginLeft: '10px' }}>Project History</span>
+     
+      </NavLink>
+      <br/>
+        <br/>
+      <NavLink style={{fontSize:'16px'}} exact to="/reports" activeClassName="activeClicked">
+      <span style={{ marginLeft: '30px' }}><Icon name="file" /></span>
+          <span style={{ marginLeft: '10px' }}>Reports</span>
+     
+      </NavLink>
+      <br/>
+        <br/>
+      <NavLink style={{fontSize:'16px'}} exact to="/PmRequestUser" activeClassName="activeClicked">
+      <span style={{ marginLeft: '30px' }}> <Icon name="bell" /></span>
+          <span style={{ marginLeft: '10px' }}>PM Requests</span>
+      </NavLink>
+       <br/>
+        <br/>
+      <NavLink style={{fontSize:'16px'}} exact to="/Analytics" activeClassName="activeClicked">
+      <span style={{ marginLeft: '30px' }}><Icon name="cog" /></span>
+          <span style={{ marginLeft: '10px' }}>Analytics</span>
+     
+      </NavLink>
+      <br/>
+        <br/>
+      <NavLink style={{fontSize:'16px'}} exact to="/Logout" activeClassName="activeClicked">
+      <span style={{ marginLeft: '30px' }}><Icon name="arrow left" /></span>
+          <span style={{ marginLeft: '10px' }}>Logout</span>
+     
+      </NavLink>
+     
+     
+    
+     
+     
+     
+   
+      {/* Add other menu items as needed */}
+    </Sidebar>
+
+
+    {/* Main Content */}
+    <div style={{ marginLeft: '250px', transition: 'margin 0.3s' }}>
+      {/* Your main content here */}
+    </div>
+  </div>
+
   
   )
 }
 
-export default Sidebar;
+export default  CustomSidebar;

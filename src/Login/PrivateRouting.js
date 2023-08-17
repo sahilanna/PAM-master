@@ -64,6 +64,7 @@ const PrivateRoutes = () => {
         <>
           {role === "ADMIN" && (
             <Routes>
+
              
              <Route path="/AddPmUserName" element={<Suspense fallback={<div>Loading...</div>}><LazyAddPmUserName /></Suspense>} />
               <Route path="/AdminDashboard" element={<Suspense fallback={<div>Loading...</div>}><LazyAdminDashboard/></Suspense>} />
@@ -100,6 +101,7 @@ const PrivateRoutes = () => {
               <Route path='/userActivity' element={<Suspense fallback={<div>Loading...</div>}><LazyUserActivity/></Suspense>}/>
               <Route path='/viewUserVerification' element={<Suspense fallback={<div>Loading...</div>}><LazyViewUserVerification/></Suspense>}/>
               <Route path='/createDriveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyCreateDriveDetails/></Suspense>}/>
+
               {/* <Route path='/gitCreate' element={<GitCreate/>}/> */}
              {/* <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/> */}
              <Route path='/driveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyDriveDetails/></Suspense>}/>
