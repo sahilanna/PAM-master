@@ -1,5 +1,5 @@
 import { FadeLoader } from "react-spinners";
-import React, { useState, useEffect, CSSProperties } from 'react'
+import React, { useState, useEffect } from 'react'
 import './LoadingPage.css'
 
 const LoadingPage = () => {

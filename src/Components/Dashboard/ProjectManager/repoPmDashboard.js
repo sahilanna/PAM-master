@@ -1,59 +1,55 @@
-import React from 'react'
+import React, { useEffect,useState } from 'react'
 import PmSidebar from './pmSidebar'
-import { useEffect,useState } from 'react';
-import axios from 'axios';
-import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import './pmDashboard.css'
 import { ngrokUrl } from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
 
 function RepoPmDashboard() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [result, setResult] = useState([]);
-  const [filteredResult, setFilteredResult] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  let data = sessionStorage.getItem('item');
-  let user = JSON.parse(data);
-  const accessToken = user.token;
-  console.log(user);
-  console.log(user.token);
-  const id = user.id;
-  console.log(id);
+const [searchQuery, setSearchQuery] = useState('');
+const [result, setResult] = useState([]);
+const [filteredResult, setFilteredResult] = useState([]);
+const [isLoading, setIsLoading] = useState(true);
+let data = sessionStorage.getItem('item');
+let user = JSON.parse(data);
+const accessToken = user.token;
+console.log(user);
+console.log(user.token);
+const id = user.id;
+console.log(id);
 
-  useEffect(() => {
-    const fetchRepo = async () => {
-      try {
-        const response = await api.get(
-          `https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`
-        );
-        const data = response.data;
-        console.log('data', data);
-        setResult(data);
-        setFilteredResult(data);
-        setIsLoading(false);
-        console.log('result', result);
-      } catch (error) {
-        console.log('Error fetching PMID:', error);
-        setIsLoading(true);
-      }
-    };
-    fetchRepo();
-  }, []);
-
-  const handleSearchInputChange = (event) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-
-    const filtered = result.filter((item) =>
-      item.repositories.some((repo) =>
-        repo.name.toLowerCase().includes(query.toLowerCase())
-      )
-    );
-
-    setFilteredResult(filtered);
+useEffect(() => {
+  const fetchRepo = async () => {
+    try {
+      const response = await api.get(
+        `https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`
+      );
+      const data = response.data;
+      console.log('data', data);
+      setResult(data);
+      setFilteredResult(data);
+      setIsLoading(false);
+      console.log('result', result);
+    } catch (error) {
+      console.log('Error fetching PMID:', error);
+      setIsLoading(true);
+    }
   };
+  fetchRepo();
+}, []);
+
+const handleSearchInputChange = (event) => {
+  const query = event.target.value;
+  setSearchQuery(query);
+
+  const filtered = result.filter((item) =>
+    item.repositories.some((repo) =>
+      repo.name.toLowerCase().includes(query.toLowerCase())
+    )
+  );
+
+  setFilteredResult(filtered);
+};
 
   return (
     <div className="parent-admin">
@@ -126,5 +122,6 @@ function RepoPmDashboard() {
   
   );
 }
+
 
 export default RepoPmDashboard;

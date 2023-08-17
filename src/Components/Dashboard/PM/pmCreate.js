@@ -1,27 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { Modal, Button, Form } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import { createPM } from '../../../Login/redux-store/actions/action';
-import { useDispatch, useSelector } from 'react-redux';
-import NavBarP from './NavbarP';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux';
 
 function PmCreate() {
   let navigate = useNavigate();
   const dispatchPM = useDispatch();
-  const [id, setId] = useState('');
   const [name, setName] = useState('');
-  const [githubUsername, setgithubUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [enumRole, setEnumRole] = useState('2');
-  const [error, setError] = useState('false');
+  const enumRole = 2;
   const [clicked, setClicked] = useState(false);
 
-  const handleBack = () => {
-    navigate(-1); // Go back one page in history
-  };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,19 +53,14 @@ function PmCreate() {
             <input type='email' name='email' onChange={(e) => setEmail(e.target.value)} placeholder='EMAIL' />
             {clicked && email.length <= 0 ? <label style={{ color: 'red' }}> Email can't be Empty</label> : ''}
           </Form.Field>
-          {/* <Form.Field>
-          <label style={{ textAlign: 'left' }}>PM UserName</label>
-          <input type='text' name='githubUsername' onChange={(e)=>setgithubUsername(e.target.value)} placeholder='PM UserName' />
-          {clicked&&githubUsername.length<=0?
-                 <label style={{color:'red'}}> PM UserName can't be Empty</label>: ""}
-      </Form.Field> */}
+         
 
           <Button type='submit' onClick={handleSubmit}>Submit</Button>
         </Form>
       </Modal.Content>
 
       <Modal.Actions></Modal.Actions>
-    </Modal>
+    </Modal> 
   );
 }
 

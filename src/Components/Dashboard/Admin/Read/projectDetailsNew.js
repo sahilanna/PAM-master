@@ -1,7 +1,5 @@
 import React from 'react'
-import CreateRepo from '../Create/CreateRepo'
 import { useNavigate } from 'react-router-dom'
-import { Route } from 'react-router-dom';
 import './projectDetailsNew.css'
 import { Button } from 'semantic-ui-react';
 

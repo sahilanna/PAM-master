@@ -1,5 +1,4 @@
 import React from "react";
-//import "/home/nineleaps/Downloads/vc-pr/vc-pr/src/css/Footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faInstagram, faFigma, faJira, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 

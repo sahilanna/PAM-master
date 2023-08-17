@@ -1,9 +1,7 @@
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import { ngrokUrl, ngrokUrlSwe } from "../../../Assets/config";
+import { ngrokUrl} from "../../../Assets/config";
 import api from "../../../Components/Dashboard/api";
 import 'react-toastify/dist/ReactToastify.css';
-import {ToastContainer, toast} from 'react-toastify'
+import { toast} from 'react-toastify'
 //Create Project
 export const createProject = ({ projectName, projectDescription,projectManagerId,gitRepoLink}) => {
     return async(dispatchU) => {
@@ -33,7 +31,7 @@ export const createProject = ({ projectName, projectDescription,projectManagerId
     };
 };
 
-// `https://225f-106-51-70-135.ngrok-free.app/api/projects/update/${projectId}`
+
 //Update Project
 export const updateProject = ({projectId, projectName, projectDescription, repo}) => {
     return async(dispatchU) => {
@@ -120,7 +118,7 @@ export const createUser = ({ name, email, enumRole}) => {
 //Update USER
 export const updateUser = ({ id,name, email, enumRole}) => {
     return async(dispatchUser) => {
-        // const {id} = useParams();
+        
         try {
             const responseUserUpdate = await api.put(`https://${ngrokUrl}/api/users/update/${id}`, {
                 
@@ -154,20 +152,3 @@ export const createPmGithubName = ({projectName, repo, username}) => {
     };
 };
 
-
-//Read
-// export const readProject = ({projectId, projectName, projectDescription}) => {
-//     return async(dispatch) => {
-//         try {
-//             const responseRead = await axios.get('https://6429847d5a40b82da4d494b2.mockapi.io/PAM', {
-//                 projectId,
-//                 projectName,
-//                 projectDescription,
-//             })
-//             dispatch({type: "readProject", payload: responseRead});
-//         }
-//         catch (error){
-//             console.log(error);
-//         }
-//     };
-// };

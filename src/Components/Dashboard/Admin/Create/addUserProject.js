@@ -79,8 +79,8 @@ function AddUserProject() {
       });
       console.log(otpSubmissionResponse.data)
 
-      if (otpSubmissionResponse.data == true) {
-        const addUserResponse = await api.put(`https://${ngrokUrl}/api/projects/${projectId}/users/${userId}`, {
+      if (otpSubmissionResponse.data === true) {
+         await api.put(`https://${ngrokUrl}/api/projects/${projectId}/users/${userId}`, {
           projectId: projectId,
           userId: userId,
         });
@@ -88,7 +88,7 @@ function AddUserProject() {
 
        
         
-      } else if(otpSubmissionResponse.data==false){
+      } else if(otpSubmissionResponse.data===false){
         setErrorMessage('Invalid OTP. Please try again.');
         console.log(otpSubmissionResponse.response)
       }
@@ -131,7 +131,6 @@ function AddUserProject() {
       </Modal.Content>
       <Modal.Actions></Modal.Actions>
 
-      {/* OTP Modal */}
       <Modal open={showOTPMoal} onClose={handleOTPClose} style={{ width: '500px' }} className="centered-modal-OTP">
         <Modal.Header>Enter OTP </Modal.Header>
         <Modal.Content>

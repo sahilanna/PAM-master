@@ -1,28 +1,14 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form, Dropdown, Input } from 'semantic-ui-react';
-import axios from 'axios';
-// import { Button } from 'react-bootstrap';
+import { Modal, Button, Form } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
-import NavBarA from '../NavbarA';
-// import './Create.css';
-import FooterA from '../FooterA';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { gitAccessToken, ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 
 function CreateRepo() {
   const navigate = useNavigate();
   let [name, setname] = useState('');
-  const [isValid, setIsValid] = useState(true);
-  const [error, setError] = useState('false');
   const [clicked, setClicked] = useState(false);
   let [description, setDescription] = useState('');
-  const token = gitAccessToken;
-
-  const handleBack = () => {
-    navigate(-1); // Go back one page in history
-  };
 
   let handleSubmit =async (e) => {
     if (!name || !description) {
@@ -37,7 +23,7 @@ function CreateRepo() {
       return;
     }
     if (name) {
-      const response = await api.post(`https://${ngrokUrl}/api/repositories/add`, { name, description });
+      await api.post(`https://${ngrokUrl}/api/repositories/add`, { name, description });
       console.log(name);
       navigate('/repoRead');
     }

@@ -1,8 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { Table, Button,Modal } from 'semantic-ui-react';
-import { Navigate } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Table, Button } from 'semantic-ui-react';
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../../SideBar/SideBar';
@@ -13,8 +10,8 @@ import api from '../../api';
 function PmRequestUser() {
   const [requestData, setRequestData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const[resData, setresData]=useState('')
-
+  
+  console.log(isLoading);
  
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);

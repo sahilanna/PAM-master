@@ -28,14 +28,14 @@ const Signup = () => {
 
       
       console.log('success')
-      //console.log(response.data);
+     
       const token=response.data;
       console.log(token)
       navigate('/PmReadNew')
 
     } catch (error) {
-        console.log("hiiiiiiiiii")
-      // Handle error
+        
+      
       console.log(error);
     }
   };

@@ -1,11 +1,10 @@
 import React, { useState, useEffect} from 'react'
-import {Form, Dropdown, Button} from 'semantic-ui-react'
+import {Form, Dropdown, Button, Modal} from 'semantic-ui-react'
 import NavBarA from '../Admin/NavbarA'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom'
-import { Modal } from 'semantic-ui-react';
- //import './userCreate.css'
+
  import axios from 'axios';
  import { ngrokUrlSwe } from '../../../Assets/config';
 
@@ -19,6 +18,8 @@ function PmAddUserName() {
     const[showUserExistModal, setshowUserExistModal]=useState(false)
     const [showInvalidUsernameModal, setShowInvalidUsernameModal] = useState(false);
     const accessToken='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'
+
+    console.log(selectedUser);
     useEffect(() => {
       fetchPms();
     }, []);

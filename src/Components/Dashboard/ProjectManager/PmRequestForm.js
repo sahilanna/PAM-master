@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import {Form,Button,Dropdown,Modal} from 'semantic-ui-react'
-import { ngrokUrlSwe, ngrokUrl } from '../../../Assets/config';
-import { Navigate, useNavigate, useLocation } from 'react-router-dom';
+import {ngrokUrl } from '../../../Assets/config';
+import { useNavigate, useLocation } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import api from '../api';
 function PmRequestForm() {
@@ -12,25 +11,18 @@ function PmRequestForm() {
   const [requestStatus, setRequestStatus] = useState('');
   let {projectName} = location.state||{};
   const[users,setUsers]=useState([])
-  const [proj,setproj]=useState([])
   let [selectedUser, setSelectedUser] = useState('');
-  const[item,setitem]=useState('');
-  let [selectedPm, setSelectedPm] = useState([]);
-  const[pm,setPms]=useState([])
+  
   const [selectedUserId, setSelectedUserId] = useState('');
   const[userObj,setUserObj]=useState([])
-  const[projectObj,setProjectObj]=useState([])
   const[requestDescription,setRequestDescription]=useState([])
-  const [selectedProjId, setSelectedProjId] = useState('');
   let profileData = sessionStorage.getItem("item");
   let pdata = JSON.parse(profileData);
 
   console.log(profileData)
-  const id=pdata.id
-  const pname=pdata.name;
-  const pemail=pdata.email;
-  const prole=pdata.enumRole;
-  console.log(pname)
+  console.log(requestStatus)
+  const pmName=pdata.name;
+  
   const handleUserChange = (event, { value }) => {
     const selectedUserObj = userObj.find(userr => userr.name === value);
     if (selectedUserObj) {
@@ -39,46 +31,8 @@ function PmRequestForm() {
     }
   };
   console.log(projectName)
-  // const handleProjChange = (event, { value }) => {
-  //   const selectedProjObj = projectObj.find(pro => pro.projectName === value);
-  //   if (selectedProjObj) {
-  //     setSelectedProjId(value);
-  //     setSelectedProjId(selectedProjObj.projectId);
-  //   }
-  //   setitem(value);
-  // };
-  const handlePmChange = (e, { value }) => {
-    setSelectedPm(value);
-  };
-  // useEffect(() => {
-  //   fetchProjects();
-  // }, []);
-  // const fetchProjects = async () => {
-  //   try {
-  //     const response = await api.get(`https://${ngrokUrl}/api/projects/allProjects`);
-  //     // setitem(response.data)
-  //     setProjectObj(response.data)
-  //    console.log(response.data)
-  //    console.log(response.data.projectId)
-  //    const projectNames = response.data.map(project => project.projectName);
-  //    setproj(projectNames);
-  //   } catch (error) {
-  //     console.log('Error fetching Users:', error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchPms();
-  // }, [])
-  // const fetchPms = async () => {
-  //   try {
-  //     const response = await api.get(`https://${ngrokUrl}/api/users/role/project_manager`);
-  //    console.log(response.data)
-  //    const pmNames = response.data.map(pm => pm.name);
-  //    setPms(pmNames);
-  //   } catch (error) {
-  //     console.log('Error fetching Users:', error);
-  //   }
-  // };
+  
+ 
   useEffect(() => {
     fetchUsers();
   }, [])
@@ -97,17 +51,15 @@ function PmRequestForm() {
       console.log('Error fetching Users:', error);
     }
   };
-// projectName=item;
+
  const Description=(e)=>
 {
 setRequestDescription(e.target.value)
 }
-const pmName = pname;
-console.log(pmName)
+
   const handleSubmit = async (e) => {
       e.preventDefault();
       console.log(selectedUserId)
-      console.log(selectedProjId);
       console.log(requestDescription);
       try {
          const user={
@@ -143,37 +95,10 @@ console.log(pmName)
         <Form onSubmit={handleSubmit}>
         <Form.Field>
           <label style={{textAlign:'left'}}>Project Name</label>
-          {/* <Dropdown
-            placeholder="Select Project"
-            fluid
-            selection
-            options={proj.map((name, index) => ({
-              key: index,
-              text: name,
-              value: name
-            }))}
-            value={item}
-            onChange={handleProjChange}
-          /> */}
+        
           <input name="name" placeholder={projectName} readOnly />
-
-
-        </Form.Field>
-        {/* <Form.Field>
-          <label style={{textAlign:'left'}}>PMs</label>
-          <Dropdown
-            placeholder="Select PM"
-            fluid
-            selection
-            options={pm.map((name, index) => ({
-              key: index,
-              text: name,
-              value: name
-            }))}
-            value={selectedPm}
-            onChange={handlePmChange}
-          />
-        </Form.Field> */}
+    </Form.Field>
+  
         <Form.Field>
   <label style={{ textAlign: 'left' }}>User</label>
   {users.length > 0 ? (

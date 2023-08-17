@@ -5,7 +5,7 @@ import AddUserProject from '../Create/addUserProject';
 import DialogBox from '../../DialogBox/DialogBox';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 
 
 
@@ -21,18 +21,14 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   
 
 
+
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const navigate = useNavigate();
-  const [fdata, setFdata] = useState();
   const [namesFile, setNamesFile] = useState([]);
-  const[repoName, setRepoName]=useState('')
-
   const[repo, setRepo]= useState([])
   const[figmaLink, setFigmaLink]=useState([])
-  const handleAddEmployee = () => {
-    setShowAddUserProject(true);
-  };
 
+ 
   useEffect(() => {
     displayFile();
   }, []);
@@ -137,17 +133,19 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   };
 
 
-
-  const displayFile=async()=>{
-    try{
-    const result = await api.get(`https://${ngrokUrl}/api/projects/files?projectId=${projectId}`)
-    setNamesFile(result.data)
-    console.log(namesFile)
+  const displayFile = async () => {
+    try {
+      const result = await api.get(`https://${ngrokUrl}/api/projects/files?projectId=${projectId}`);
+      if (Array.isArray(result.data)) {
+        setNamesFile(result.data);
+        console.log(namesFile);
+      } else {
+        console.log('Invalid data format: ', result.data);
+      }
+    } catch (error) {
+      console.log('Error retrieving files: ', error);
     }
-    catch(error){
-      console.log('error', error)
-    }
-  }
+  };
 
   const handleCloseAddUserProject = () => {
     setShowAddUserProject(false);
@@ -164,8 +162,9 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   };
 
   const downloadFile = async (filename) => {
-   
+
     const result = await api.get(`https://${ngrokUrl}/api/projects/files/${filename}?projectId=${projectId}`, {
+
       responseType: 'blob',
       contentType: 'application/zip',
     })
@@ -216,10 +215,10 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
           <AddUserProject projectId={projectId} projectName={projectName} onClose={handleCloseAddUserProject} />
         </Modal>
       )}
-      <Modal open={!showAddUserProject} onClose={onClose} style={{top: '105px', left:'280px', width: '600px' }} className="centered-modal">
+      <Modal open={!showAddUserProject} onClose={onClose} style={{top: '120px', left:'280px', width: '600px' }} className="centered-modal">
         <Modal.Header>
           Project Details
-      
+
           {showAddFileButton && (
             <Button color="blue" floated="right" onClick={() => onAddFile(projectId, projectName)}>
               Add File
@@ -272,11 +271,13 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
             <p>
               <strong>Project Description:</strong> {projectDescription}
             </p>
+
                        <p>
+
               <strong>Repo Name:</strong> {repo.length > 0 ? (
     <ul>
-      {repo.map((repo, index) => (
-        <li key={index}>{repo.name}</li>
+      {repo.map((repoItem) => (
+        <li key={repoItem.id}>{repoItem.name}</li>
       ))} 
     </ul>
     
@@ -295,11 +296,12 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     '-'
   )}
             </p>
-           
+
             <p>
       <strong>Help Documents:</strong>
       {namesFile.length > 0 ? (
         <ul>
+
           {namesFile.map((filename, index) => (
             <li key={index}>
               <b> 
@@ -308,6 +310,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
             {filename}
           </a>
           </b>
+
             </li>
           ))}
         </ul>
@@ -358,36 +361,3 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
 export default ProjectDetails;
 
 
-
-
-
-//Before Sachin Asked
-// import React from 'react';
-// import { Modal, Button } from 'react-bootstrap';
-
-// const ProjectDetails = ({ project, onClose }) => {
-//   if (!project) return null;
-
-//   return (
-//     <Modal show={true} onHide={onClose}>
-//       <Modal.Header closeButton>
-//         <Modal.Title>Project Details</Modal.Title>
-//       </Modal.Header>
-//       <Modal.Body>
-//         <p><strong>Project ID:</strong> {project.projectId}</p>
-//         <p><strong>Project Name:</strong> {project.projectName}</p>
-//         <p><strong>Project Description:</strong> {project.projectDescription}</p>
-//         {/* <p><strong>Repository Name:</strong> {project.repoName}</p>
-//         <p><strong>PM Github:</strong> {project.pmGithubUsername}</p>
-//         <p><strong>User Github:</strong> {project.userGithubUsername}</p> */}
-//       </Modal.Body>
-//       <Modal.Footer>
-//         <Button variant="secondary" onClick={onClose}>
-//           Close
-//         </Button>
-//       </Modal.Footer>
-//     </Modal>
-//   );
-// };
-
-// export default ProjectDetails;

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Dropdown } from 'semantic-ui-react';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 import { useNavigate  } from 'react-router-dom';
 
-const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
-  const[figmaUser, setFigmaUser]=useState('')
+const DriveCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   const navigate=useNavigate()
   console.log(figmaURL)
  
@@ -17,6 +16,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
 
     const headers={AccessToken:accessToken}
 
+
  console.log(figmaId)
   const [url, setUrl] = useState(figmaURL);
   let [selectedUser, setSelectedUser] = useState('');
@@ -26,10 +26,10 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post(
+      const response = await api.put(
         `https://${ngrokUrl}/api/figmas/${figmaId}/user`,
         {
-          user: figmaUser,
+          user: selectedUser,
           screenshotImage: screenshotImage
         }, {headers}
       );
@@ -46,10 +46,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     setUrl(e.target.value);
   };
   const handleUserChange = (e, { value }) => {
-    setSelectedUser(value)
-    setFigmaUser(value)
-    console.log('user',figmaUser);
-    console.log(value)
+    setSelectedUser(value);
   };
   
  
@@ -147,4 +144,4 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     </Modal>
   );
 };
-export default FigmaCreate;
+export default DriveCreate;
