@@ -8,7 +8,7 @@ import '/home/nineleaps/PAM-master/src/Components/Dashboard/SideBar/SideBar.css'
 function  CustomSidebar() {
  
   return (
-    <div>
+    <div style={{ width: '40px', overflow: 'scroll initial',  }}>
    
     <Sidebar as={Menu} animation="overlay" visible vertical inverted style={{ textAlign: 'left' }}>
       <Menu.Item className="custom-menu-item" >

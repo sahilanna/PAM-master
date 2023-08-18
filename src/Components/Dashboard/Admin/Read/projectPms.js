@@ -75,7 +75,7 @@ const getUsers = async () => {
       console.log('repo',repoName)
       console.log('username', username)
       const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
-        phoneNumber: '+91 8884763231',
+        phoneNumber: '+91 9928931610',
       });
       if (otpResponse.data === 'OTP sent') {
         setShowConfirmDialog(false);

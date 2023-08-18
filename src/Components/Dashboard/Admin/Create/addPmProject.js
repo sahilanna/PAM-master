@@ -56,7 +56,7 @@ function AddPmProject() {
 
     try {
       const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
-        phoneNumber: '+91 8884763231',
+        phoneNumber: '+91 9928931610',
       });
 
       console.log(otpResponse);
