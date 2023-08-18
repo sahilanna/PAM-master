@@ -100,7 +100,7 @@ function  CustomSidebar() {
       </NavLink>
        <br/>
         <br/>
-      <NavLink style={{fontSize:'16px'}} exact to="/Analytics" activeClassName="activeClicked">
+      <NavLink style={{fontSize:'16px'}} exact to="/Analytics" activeClassName="activeClicked" >
       <span style={{ marginLeft: '30px' }}><Icon name="cog" /></span>
           <span style={{ marginLeft: '10px' }}>Analytics</span>
      

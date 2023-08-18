@@ -196,7 +196,7 @@ function UserRead(){
       </table>
           )}
     </div>
-    <div className='pagination'>
+    <div className='pagination' style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
       
       <Pagination
       data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate}

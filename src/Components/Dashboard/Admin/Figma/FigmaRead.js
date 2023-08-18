@@ -64,21 +64,22 @@ function FigmaRead() {
 
 
 
-  
   const handleDisplayVerification = async (figmaId) => {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/figmas/${figmaId}/screenshots`);
-      const data = response.data; // Assuming response.data is the array of objects
+      const data = response.data;
   
       if (data.length > 0) {
-        const screenshotImageURL = data[0].screenshotImageURL;
-        const user = data[0].user;
+        data.forEach((item, index) => {
+          const screenshotImageURL = item.screenshotImageURL;
+          const user = item.user;
   
-        // Trigger image download
-        const link = document.createElement('a');
-        link.href = screenshotImageURL;
-        link.download = `${user}_screenshot.png`;
-        link.click();
+          // Trigger image download
+          const link = document.createElement('a');
+          link.href = screenshotImageURL;
+          link.download = `${user}_screenshot_${index}.png`; // Add index to the filename
+          link.click();
+        });
       } else {
         console.error('No data found');
       }
@@ -86,6 +87,12 @@ function FigmaRead() {
       console.error('Error handling display verification:', error);
     }
   };
+  
+  
+  
+  
+  
+  
 
 // useEffect(() => {
 //   downloadFile();
@@ -108,7 +115,7 @@ function FigmaRead() {
 
   const handleDeleteUrl = async (figmaId) => {
     try {
-      await api.delete(`https://${ngrokUrlSwe}/api/figmas/${figmaId}`);
+      await api.delete(`https://${ngrokUrl}/api/figmas/${figmaId}`);
       navigate('/FigmaRead');
       setShowConfirmDialog(false);
       fetchProjects();
@@ -231,7 +238,7 @@ function FigmaRead() {
                 </tbody>
               </table>
               
-              <div className='pagination'>
+              <div className='pagination' style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
                 <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
               </div>
             </>
