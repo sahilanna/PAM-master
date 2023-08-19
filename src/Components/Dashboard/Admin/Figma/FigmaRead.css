@@ -1,3 +1,13 @@
+.parent-admin {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.admin-child {
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+}
 .modal-container {
     position: fixed;
     right: 0;
@@ -9,8 +19,15 @@
     align-items: center;
     z-index: 9999;
   }
-
   .modal-content-container {
     margin-right: auto;
   }
-  
+
+
+
+
+
+
+
+
+

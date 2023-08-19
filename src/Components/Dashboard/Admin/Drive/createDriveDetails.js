@@ -68,6 +68,7 @@ function CreateDriveDetails() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!isValidUrl) {
+      console.log(isValidUrl)
       return;
     }
     try {

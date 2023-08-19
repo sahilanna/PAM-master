@@ -80,8 +80,8 @@ const AdminDashboard = () => {
   const handleViewDetails = (project) => {
     setSelectedProject(project);
     setShowProjectDetails(true);
-    // setAddEmployeeButtonVisible(true);
-    setAddFileButtonVisible();
+    setAddEmployeeButtonVisible(true);
+    setAddFileButtonVisible(true);
   };
 
   const handleCloseDetails = () => {
