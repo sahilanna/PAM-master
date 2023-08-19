@@ -10,6 +10,8 @@ import DialogBox from '../../DialogBox/DialogBox';
 import Pagination from '../../Pagination/Pagination';
 import { Button, Modal, Form } from 'semantic-ui-react';
 import '../Figma/FigmaRead.css'
+
+
 function RepoRead(onClose) {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();

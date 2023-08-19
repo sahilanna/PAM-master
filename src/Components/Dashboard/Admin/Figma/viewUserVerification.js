@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
-import { Modal } from 'semantic-ui-react';
-import { Button } from 'semantic-ui-react';
-import axios from 'axios';
-
 import { useLocation, useNavigate } from 'react-router-dom';
+
 const ViewUserVerification = () => {
   const location = useLocation();
   const navigate = useNavigate();

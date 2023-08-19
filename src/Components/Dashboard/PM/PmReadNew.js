@@ -22,6 +22,10 @@ function PmReadNew() {
   const [isLoading, setIsLoading] = useState(true);
     const itemsPerPage = 4;
     console.log(currentPageData);
+  
+   
+   
+
     const loaditem = async () => {
      await api.get(`https://${ngrokUrl}/api/users/role/project_manager`)
        .then((result) => {
@@ -33,9 +37,12 @@ function PmReadNew() {
           setIsLoading(true);
         })
       };
+
       useEffect(() => {
         loaditem();
       }, []);
+     
+
       const addUserName=()=>{
         navigate('/addPmUserName')
       }
@@ -162,7 +169,9 @@ function PmReadNew() {
       </table>
           )}
       </div>
+    
     <div className='pagination'style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      
       <Pagination
       data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />

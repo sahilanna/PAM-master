@@ -81,7 +81,7 @@ const Create = () => {
     console.log("repoid", repoId)
     api.put(`https://${ngrokUrl}/api/projects/${projectId}/repository/${repoId}`);
     console.log(selectedRepo);
-    navigate('/repoRead')
+    navigate('/repoRead');
     
 };
 

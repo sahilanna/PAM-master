@@ -10,6 +10,8 @@ import LoadingPage from '../../../Assets/Loader/LoadingPage'
 import api from '../api'
 import { ngrokUrl } from '../../../Assets/config'
 import './Read.css';
+
+
 function UserRead(){
   const navigate = useNavigate();
   const getUrl =  `https://${ngrokUrl}/api/users/role/user`;
@@ -161,6 +163,7 @@ function UserRead(){
           )}
     </div>
     <div className='pagination'style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      
       <Pagination
       data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate}
       />

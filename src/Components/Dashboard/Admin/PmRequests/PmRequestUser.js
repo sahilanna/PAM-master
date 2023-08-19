@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
+import '../Figma/FigmaRead.css'
 
 
 function PmRequestUser() {

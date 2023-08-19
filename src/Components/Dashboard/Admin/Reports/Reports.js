@@ -133,8 +133,8 @@ function Reports() {
                 ))}
               </tbody>
             </table>
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-              <Pagination data={currentRows} itemsPerPage={rowsPerPage} paginate={handlePageChange} />
+            <div style={{ marginTop: '20px' }}>
+              <Pagination  data={currentRows} itemsPerPage={rowsPerPage} paginate={handlePageChange} />
             </div>
           </div>
         )}
@@ -160,7 +160,7 @@ function Reports() {
                 ))}
               </tbody>
             </table>
-            <div style={{ marginTop: '20px' }}>
+            <div >
               <Pagination data={currentRows} itemsPerPage={rowsPerPage} paginate={handlePageChange} />
             </div>
           </div>

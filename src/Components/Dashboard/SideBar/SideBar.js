@@ -1,9 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
-import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
 import { Sidebar,Menu, Icon} from 'semantic-ui-react';
-import { useState } from 'react';
-import '/home/nineleaps/PAM-master/src/Components/Dashboard/SideBar/SideBar.css'
+import './SideBar.css'
 
 function  CustomSidebar() {
  
@@ -19,9 +17,6 @@ function  CustomSidebar() {
       <br/>
       
       <br/>
-
-
-
 
       
       <NavLink style={{fontSize:'16px'}}
@@ -113,19 +108,10 @@ function  CustomSidebar() {
      
       </NavLink>
      
-     
-    
-     
-     
-     
-   
-      {/* Add other menu items as needed */}
+
     </Sidebar>
 
-
-    {/* Main Content */}
     <div style={{ marginLeft: '250px', transition: 'margin 0.3s' }}>
-      {/* Your main content here */}
     </div>
   </div>
 

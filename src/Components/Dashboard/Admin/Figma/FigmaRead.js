@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
-import { Button, Form, Dropdown, Input, Icon } from 'semantic-ui-react';
-
 import FigmaCreate from './FigmaCreate';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../SideBar/SideBar';
@@ -238,7 +235,7 @@ function FigmaRead() {
                 </tbody>
               </table>
               
-              <div className='pagination' style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+              <div className='pagination'style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
                 <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
               </div>
             </>
