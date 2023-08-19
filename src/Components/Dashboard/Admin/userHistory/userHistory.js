@@ -155,7 +155,7 @@ function UserHistory() {
                 </Table.Body>
               </Table>
 
-               <div className="pagination">
+               <div className="pagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
                 <Pagination
                   data={filteredProjects}
                   itemsPerPage={rowsPerPage}

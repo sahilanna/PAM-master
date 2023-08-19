@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Dropdown, Input, Icon } from 'semantic-ui-react';
-
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
-
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import DialogBox from '../../DialogBox/DialogBox';
@@ -13,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from '../../Pagination/Pagination';
 import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import CreateDriveDetails from './createDriveDetails';
+import '../Figma/FigmaRead.css';
 
 
 function DriveRead() {
@@ -149,7 +147,7 @@ function DriveRead() {
                 ))}
               </tbody>
             </table>
-            <div className='pagination'>
+            <div className='pagination' style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
               <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
             </div>
           </>

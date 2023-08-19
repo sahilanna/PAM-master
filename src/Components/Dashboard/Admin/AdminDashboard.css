@@ -23,19 +23,19 @@
 }
 
 .active-button {
-  background-color: #007bff; /* Blue color for the active button */
+  background-color: #007bff; 
   color: #fff;
 }
 
 .inactive-button {
-  background-color: #f8f9fa; /* Default color for the inactive button */
+  background-color: #f8f9fa; 
   color: #333;
 }
 
 
 
 @media (min-width: 576px) {
-  /* Small devices (576px and up) */
+ 
   .parent-admin {
     flex-direction: row;
   }
@@ -54,21 +54,21 @@
 
 
 @media (min-width: 768px) {
-  /* Medium devices (768px and up) */
+ 
   .admin-child {
     padding: 20px;
   }
 }
 
 @media (min-width: 992px) {
-  /* Large devices (992px and up) */
+  
   .admin-child {
     padding: 30px;
   }
 }
 
 @media (min-width: 1200px) {
-  /* Extra large devices (1200px and up) */
+ 
   .admin-child {
     padding: 40px;
   }

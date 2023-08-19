@@ -30,9 +30,6 @@ function PmReadNew() {
     const itemsPerPage = 4;
     console.log(currentPageData);
   
-    useEffect(() => {
-      loaditem();
-    }, []);
    
    
 
@@ -49,6 +46,11 @@ function PmReadNew() {
           setIsLoading(true);
         })
       };
+
+      useEffect(() => {
+        loaditem();
+      }, []);
+     
 
       const addUserName=()=>{
         navigate('/addPmUserName')
@@ -219,7 +221,7 @@ function PmReadNew() {
           )}
       </div>
     
-    <div className='pagination'>
+    <div className='pagination'style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
       
       <Pagination
       data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate}

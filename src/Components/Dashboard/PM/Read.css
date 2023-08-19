@@ -1,7 +1,20 @@
+.parent-admin {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.admin-child {
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
 }
+
 
 .table td,
 .table th {
@@ -90,6 +103,7 @@
 
 
 @media only screen and (max-width: 500px) {
+ 
   .form-display {
     border: 1px solid #ccc;
     padding: 10px;

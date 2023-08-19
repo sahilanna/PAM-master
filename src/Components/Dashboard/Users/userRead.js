@@ -8,12 +8,9 @@ import UserDetails from './UserDetails'
 import Sidebar from '../SideBar/SideBar'
 import LoadingPage from '../../../Assets/Loader/LoadingPage'
 import api from '../api'
+import { ngrokUrl } from '../../../Assets/config'
+import './Read.css';
 
-
-
-
-import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config'
-import UserActivity from './userActivity'
 
 function UserRead(){
   const navigate = useNavigate();
@@ -196,7 +193,7 @@ function UserRead(){
       </table>
           )}
     </div>
-    <div className='pagination'>
+    <div className='pagination'style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
       
       <Pagination
       data={filteredProjects} itemsPerPage={itemsPerPage} paginate={handlePaginate}
