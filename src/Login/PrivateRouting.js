@@ -47,8 +47,8 @@ const LazyDriveDetails = lazy(() => import("../Components/Dashboard/Admin/Drive/
 const LazyCreateDriveDetails = lazy(() => import("../Components/Dashboard/Admin/Drive/createDriveDetails"));
 const LazyShowAllNotification = lazy(() => import("../Components/Dashboard/ProjectManager/showAllNotification"));
 const LazyDriveRead = lazy(() => import( "../Components/Dashboard/Admin/Drive/driveRead"));
-
-
+const LazyCreateJiraProject= lazy(()=>import("../Components/Dashboard/Admin/Jira/createJiraProject.js"))
+const LazyJiraRead=lazy(()=>import ("../Components/Dashboard/Admin/Jira/jiraRead.js"))
 
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
@@ -101,7 +101,8 @@ const PrivateRoutes = () => {
               <Route path='/userActivity' element={<Suspense fallback={<div>Loading...</div>}><LazyUserActivity/></Suspense>}/>
               <Route path='/viewUserVerification' element={<Suspense fallback={<div>Loading...</div>}><LazyViewUserVerification/></Suspense>}/>
               <Route path='/createDriveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyCreateDriveDetails/></Suspense>}/>
-
+              <Route path='createJiraProject' element={<Suspense fallback={<div>Loading...</div>}><LazyCreateJiraProject/></Suspense>}/>
+              <Route path='jiraRead' element={<Suspense fallback={<div>Loading...</div>}><LazyJiraRead/></Suspense>}/>
               {/* <Route path='/gitCreate' element={<GitCreate/>}/> */}
              {/* <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/> */}
              <Route path='/driveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyDriveDetails/></Suspense>}/>

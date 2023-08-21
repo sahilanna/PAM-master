@@ -58,6 +58,13 @@ function  CustomSidebar() {
      
         <br/>
       <br/>
+      <NavLink style={{fontSize:'16px'}} exact to="/jiraRead" activeClassName="activeClicked">
+      <span style={{ marginLeft: '30px' }}> <Icon name="list" /> </span>
+          <span style={{ marginLeft: '10px' }}>JIRA</span>
+     
+      </NavLink>
+      <br/>
+      <br/>
       <NavLink style={{fontSize:'16px'}} exact to="/pmReadNew" activeClassName="activeClicked">
       <span style={{ marginLeft: '30px' }}> <Icon name="users" /> </span>
           <span style={{ marginLeft: '10px' }}>PMs</span>

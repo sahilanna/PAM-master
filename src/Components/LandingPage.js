@@ -7,6 +7,7 @@ import Footer from './Footer';
 import photo1 from '../Assets/photo.jpg';
 import photo2 from '../Assets/photo2.avif';
 import photo3 from '../Assets/photo3.avif';
+import picture12 from'../Assets/picture12.png'
 
 export class LandingPage extends Component {
   
@@ -79,6 +80,25 @@ color: #ffffff;
           </div>
           <br />
         </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "centre" }}>
+               
+                <div style={{paddingRight:'550px',paddingBottom:'30px'}}>
+                <img
+                      src={picture12}
+                      alt="Second slide"
+                      style={{ maxWidth: "550px", height: "300px" }}
+                    />
+                    
+                  
+                </div>
+                
+
+               
+                
+              
+              </div>
+              
+              
 
         <Footer className="Footer" />
       </div>
