@@ -93,12 +93,11 @@ function UserHistory() {
   
 
   return (
-    <div className="parent-admin">
+    <div className="parent-admin-userHistory">
       <Sidebar />
-      <br />
-      <br />
+  
 
-      <div className="admin-child">
+      <div className="admin-child-userHistory">
       <br/><br/>
       <div style={{ marginLeft: '20px', marginRight: '30px' }}>
           <div className="search-and-download-container">

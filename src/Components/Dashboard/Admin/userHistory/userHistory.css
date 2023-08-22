@@ -1,10 +1,10 @@
-.parent-admin {
+.parent-admin-userHistory {
   display: flex;
   flex-direction: row;
-  width: 100%;
+ 
 }
 
-.admin-child {
+.admin-child-userHistory {
   width: 100%;
   margin: 0 auto;
   padding: 10px;
@@ -50,5 +50,33 @@
     margin-bottom: 20px; 
   }
 
+
+
+  @media (max-width: 768px) {
+    .parent-admin-userHistory {
+      flex-direction: column;
+      align-items: center;
+    }
+    .admin-child-userHistory {
+      width: 50%;
+    }
+  
+    .search-and-download-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .admin-child-userHistory {
+      width: 90%; /* Further adjust the width for smaller screens */
+    }
+  }
+
+
+  
+  
+ 
+  
 
   
