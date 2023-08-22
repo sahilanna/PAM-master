@@ -1,7 +1,9 @@
 .parent-admin {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 80%;
+  margin-left: 250px;
+
 }
 .admin-child {
   width: 100%;

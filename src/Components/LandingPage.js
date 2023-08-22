@@ -18,7 +18,7 @@ font-family: 'Montserrat';
 color: #ffffff;
 ;
 
-`;
+`
 
     return (
       <div className='sample'>
@@ -80,7 +80,7 @@ color: #ffffff;
           </div>
           <br />
         </div>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "centre" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "row" }}>
                
                 <div style={{paddingRight:'550px',paddingBottom:'30px'}}>
                 <img
@@ -88,6 +88,7 @@ color: #ffffff;
                       alt="Second slide"
                       style={{ maxWidth: "550px", height: "300px" }}
                     />
+                    <h3>ddfff</h3>
                     
                   
                 </div>

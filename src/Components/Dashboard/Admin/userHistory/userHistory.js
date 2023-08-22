@@ -8,26 +8,21 @@ import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import Pagination from '../../Pagination/Pagination';
 import { CSVLink } from 'react-csv';
-
 function UserHistory() {
   const [isLoading, setIsLoading] = useState(true);
   const [historyData, setHistoryData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [item, setItem] = useState([]);
   const [mitem, setMItem] = useState([]);
-  
   const [showOtherTable, setShowOtherTable] = useState(false);
   const rowsPerPage = 5;
-
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
   const accessToken=user.token
   console.log(user)
     console.log(user.token)
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -35,7 +30,6 @@ function UserHistory() {
     try {
       const response = await api.get(`https://${ngrokUrl}/api/projects/all`);
       const sortedData = response.data.slice().sort((a, b) => {
-
         if (a.status !== b.status) {
           return a.status ? 1 : -1;
         }
@@ -43,15 +37,12 @@ function UserHistory() {
       });
       setHistoryData(sortedData);
       setFilteredProjects(sortedData);
-
       setIsLoading(false);
     } catch (error) {
       console.log('Error fetching user history:', error);
       setIsLoading(true);
     }
   }
-
-
   useEffect(() => {
     const filteredData = historyData.filter((entry) =>
       entry.projectName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -59,23 +50,19 @@ function UserHistory() {
     setCurrentPage(1); // Reset the current page to 1 when the search query changes
     setFilteredProjects(filteredData);
   }, [searchQuery, historyData]);
-
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
   };
-
   const csvDataProj = historyData.map((entry) => ({
     'Project ID': entry.projectId,
     'Project Name': entry.projectName,
     'Project Description': entry.projectDescription,
     'Status':  entry.status ? 'Inactive' : 'Active',
   }));
-
   const handlePaginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
   const generateSerialNumbers = () => {
     const startNumber = (currentPage - 1) * rowsPerPage;
     return currentItems.map((entry, index) => ({
@@ -83,21 +70,14 @@ function UserHistory() {
       ...entry,
     }));
   };
-  
-
   const pageNumbers = Math.ceil(filteredProjects.length / rowsPerPage);
   const indexOfLastItem = currentPage * rowsPerPage;
   const indexOfFirstItem = indexOfLastItem - rowsPerPage;
   const currentItems = filteredProjects.slice(indexOfFirstItem, indexOfLastItem);
-
-  
-
   return (
-    <div className="parent-admin">
+    <div className="parent-admin-userHistory">
       <Sidebar />
-    
-
-      <div className="admin-child">
+      <div className="admin-child-userHistory">
       <br/><br/>
       <div style={{ marginLeft: '20px', marginRight: '30px' }}>
           <div className="search-and-download-container">
@@ -114,14 +94,11 @@ function UserHistory() {
               <button className="ui button">Download CSV</button>
             </CSVLink>
           </div>
-
           {isLoading ? (
             <LoadingPage />
           ) : (
             <>
-
               <Table class="ui celled table">
-
                 <Table.Header>
                   <Table.Row>
                   <Table.HeaderCell>S.No.</Table.HeaderCell>
@@ -153,14 +130,12 @@ function UserHistory() {
                   ))}
                 </Table.Body>
               </Table>
-
                <div className="pagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
                 <Pagination
                   data={filteredProjects}
                   itemsPerPage={rowsPerPage}
                   paginate={handlePaginate}
                 />
-
               </div>
             </>
           )}
@@ -170,10 +145,3 @@ function UserHistory() {
   );
 }
 export default UserHistory;
-
-
-
-
-
-
-
