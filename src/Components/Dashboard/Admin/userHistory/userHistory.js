@@ -95,8 +95,7 @@ function UserHistory() {
   return (
     <div className="parent-admin">
       <Sidebar />
-      <br />
-      <br />
+    
 
       <div className="admin-child">
       <br/><br/>
