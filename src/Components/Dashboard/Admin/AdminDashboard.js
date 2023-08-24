@@ -36,7 +36,7 @@ const AdminDashboard = () => {
   const[count, setCount]=useState('')
 
   const navigate = useNavigate();
-  const itemsPerPage = 3;
+  const itemsPerPage = 5;
   
   useEffect(() => {
     loadItems();
@@ -56,7 +56,7 @@ const AdminDashboard = () => {
 
   const loadItems = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/projects/allProjects`, {});
+      const response = await api.get(`https://${ngrokUrl}/api/projects/countPeople`, {});
       setItem(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -163,6 +163,16 @@ const AdminDashboard = () => {
       console.log(error);
     }
   };
+
+  const navigateProjectDetails=(projectId, projectName)=>{
+   
+    navigate("/ProjectDetails", {
+      state: {
+        projectId: projectId,
+        projectName: projectName
+      }
+    });
+  }
  
 
 
@@ -170,9 +180,8 @@ const AdminDashboard = () => {
   const csvDataProj = item.map((entry) => ({
     'Project ID': entry.projectId,
     'Project Name': entry.projectName,
-    'Project Description': entry.projectDescription,
-    'Project Manager': entry.users.find((user) => user.enumRole === 'PROJECT_MANAGER')?.name || 'N/A',
-    'Users': entry.users.filter((user) => user.enumRole === 'USER').map((user) => user.name).join(', '),
+
+    
   }));
   
 
@@ -228,12 +237,13 @@ const AdminDashboard = () => {
                     
                     <th>S.No.</th>
                     <th>Project-Name</th>
-                    {/* <th>Count of employees</th> */}
+                    <th>Count of employees</th>
+                  
                     
-                    <th className="text-center">View</th>
+                    {/* <th className="text-center">View</th>
                     <th className="text-center">Users</th>
                     <th className="text-center">PMs</th>
-            
+             */}
                   </tr>
                 </thead>
                 <tbody>
@@ -245,15 +255,21 @@ const AdminDashboard = () => {
     </tr>
   ) : (
                   currentPageData.map((item, index) => (
-                    <tr key={item.projectId}>
+                    <tr key={item.projectName}>
                       
                       <td>{index+1}</td>
-                      <td>{item.projectName}</td>
-                      {/* <td>
+                     <td> <a
+    href={`/ProjectDetails/${item.projectId}/${item.projectName}`}
+    className="project-name-link"
+  >
+    {item.projectName}
+  </a></td>
+                      <td>{item.countPeople}</td>
+                                            {/* <td>
               <CountCell projectId={item.projectId} />
             </td> */}
                       
-                      <td className="text-center">
+                      {/* <td className="text-center">
                         <button className="btn btn-outline-primary mx-2" onClick={() => handleViewDetails(item)}>
                           <FontAwesomeIcon icon={faEye} />
                         </button>
@@ -288,7 +304,7 @@ const AdminDashboard = () => {
       />
                      
                       
-                       </td>
+                       </td> */}
                     </tr>
                   )))}
                 </tbody>
@@ -300,7 +316,7 @@ const AdminDashboard = () => {
   <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
 </div>
 
-              {showProjectDetails && (
+              {/* {showProjectDetails && (
   <ProjectDetails
     project={selectedProject}
     onClose={handleCloseDetails}
@@ -309,7 +325,7 @@ const AdminDashboard = () => {
     onAddFile={addFile}
     onDeleteProject={deleteProject}
   />
-)}
+)} */}
             </>
           )}
         </div>

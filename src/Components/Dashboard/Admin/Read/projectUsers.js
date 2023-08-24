@@ -116,55 +116,41 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
     onClose();
   };
   return (
-    <Modal open={open} onClose={handleModalClose} style={{ top: '170px', height: 'auto', width: '670px' }} className="centered-modal1" dimmer="blurring">
-      <Modal.Header style={{ top: '80px' }}>
-        Users
+   <div>
         <Button color="green" floated="right" onClick={handleAddEmployee}>
-          Add Employee
+          Add User
         </Button>
-      </Modal.Header>
-      <Modal.Content>
-        <div style={{ marginLeft: '20px', marginRight: '30px' }}>
-          {isLoading ? (
-            <LoadingPage />
+        <br/>
+      <table className="ui celled table">
+        <thead>
+          <tr>
+            <th>User Name</th>
+            <th>User Email</th>
+            <th>gitHubUsername</th>
+            <th>Delete User</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users && users.length > 0 ? (
+            users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.gitHubUsername ? user.gitHubUsername : '--'}</td>
+                <td>
+                  <button className="btn btn-danger mx-2" onClick={() => handleSubmit(user.id, user.gitHubUsername)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </td>
+              </tr>
+            ))
           ) : (
-            <table className="ui celled table">
-              <thead>
-                <tr>
-                  <th>User Name</th>
-                  <th>User Email</th>
-                  <th>gitHubUsername</th>
-                  <th>Delete User</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users && users.length > 0 ? (
-                  users.map((user) => (
-                    <tr key={user.id}>
-                      <td>{user.name}</td>
-                      <td>{user.email}</td>
-                      <td>{user.gitHubUsername ? user.gitHubUsername : '--'}</td>
-                      <td>
-                        <button className="btn btn-danger mx-2" onClick={() => handleSubmit(user.id, user.gitHubUsername)}>
-                          <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="4">No users found</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+            <tr>
+              <td colSpan="4">No users found</td>
+            </tr>
           )}
-        </div>
-      </Modal.Content>
-      <Modal.Actions>
-        <Button onClick={handleModalClose}>Close</Button>
-      </Modal.Actions>
-    
+        </tbody>
+      </table>
       <Modal open={showOTPMoal} onClose={handleOTPClose} style={{ width: '500px' }} className="centered-modal-OTP">
         <Modal.Header>Enter OTP </Modal.Header>
         <Modal.Content>
@@ -184,7 +170,7 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
         </Modal.Actions>
       </Modal>
       <DialogBox show={showConfirmDialog} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
-    </Modal>
+    </div>
   );
 }
 export default ProjectUsers;

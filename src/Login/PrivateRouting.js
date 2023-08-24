@@ -1,5 +1,6 @@
 import React, {lazy, Suspense} from "react";
 import {BrowserRouter as Router,  Route,Routes } from 'react-router-dom';
+import ProjectDetails from "../Components/Dashboard/Admin/Read/ProjectDetails";
 
 const LazyAdminDashboard = lazy(() =>  import("../Components/Dashboard/Admin/AdminDashboard"));
 const LazyPmCreate = lazy(() => import("../Components/Dashboard/PM/pmCreate"));
@@ -101,7 +102,7 @@ const PrivateRoutes = () => {
               <Route path='/userActivity' element={<Suspense fallback={<div>Loading...</div>}><LazyUserActivity/></Suspense>}/>
               <Route path='/viewUserVerification' element={<Suspense fallback={<div>Loading...</div>}><LazyViewUserVerification/></Suspense>}/>
               <Route path='/createDriveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyCreateDriveDetails/></Suspense>}/>
-
+              <Route path='/ProjectDetails/:projectId/:projectName' element={<Suspense fallback={<div>Loading...</div>}><ProjectDetails/></Suspense>}/>
               {/* <Route path='/gitCreate' element={<GitCreate/>}/> */}
              {/* <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/> */}
              <Route path='/driveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyDriveDetails/></Suspense>}/>

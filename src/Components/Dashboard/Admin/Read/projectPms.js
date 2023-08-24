@@ -123,73 +123,61 @@ const getUsers = async () => {
     onClose();
   };
   return (
-    <Modal open={open} onClose={handleModalClose} style={{ top: '170px', height: 'auto', width: '670px' }} className="centered-modal1" dimmer="blurring">
-      <Modal.Header style={{top:'80px'}}>Project Manager
-      <Button  color="green" floated="right" onClick={handleAddEmployee}>
+    <div>
+       <Button  color="green" floated="right" onClick={handleAddEmployee}>
               Add PM
             </Button>
-      </Modal.Header>
+    <table className="ui celled table">
+   
+      <thead>
+        <tr>
+          <th>PM Name</th>
+          <th>PM Email</th>
+          <th>gitHubUsername</th>
+          <th>Delete PM</th>
+        </tr>
+      </thead>
+      <tbody>
+        {pms && pms.length > 0 ? (
+          pms.map((user) => (
+            <tr key={user.id}>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.gitHubUsername ? user.gitHubUsername : '--'}</td>
+              <td>
+                <button className="btn btn-danger mx-2" onClick={() => handleSubmit(user.id, user.gitHubUsername)}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="4">No PM found</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+    <Modal open={showOTPMoal} onClose={handleOTPClose} style={{ width: '500px' }} className="centered-modal-OTP">
+      <Modal.Header>Enter OTP </Modal.Header>
       <Modal.Content>
-        <div style={{ marginLeft: '20px', marginRight: '30px' }}>
-          {isLoading ? (
-            <LoadingPage />
-          ) : (
-            <table className="ui celled table">
-              <thead>
-                <tr>
-                  <th>PM Name</th>
-                  <th>PM Email</th>
-                  <th>gitHubUsername</th>
-                  <th>Delete PM</th>
-                </tr>
-              </thead>
-              <tbody>
-                {pms && pms.length > 0 ? (
-                  pms.map((user) => (
-                    <tr key={user.id}>
-                      <td>{user.name}</td>
-                      <td>{user.email}</td>
-                      <td>{user.gitHubUsername ? user.gitHubUsername : '--'}</td>
-                      <td>
-              <button className='btn btn-danger mx-2' onClick={() =>  handleSubmit(user.id,user.gitHubUsername)}><FontAwesomeIcon icon={faTrash} /> </button>
-                 </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="4">No PM found</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          )}
-        </div>
+        <Form onSubmit={handleOTPSubmit}>
+          <div className="form-field">
+            <label>OTP sent to '+91 9928931610'</label>
+            <input type="text" name="otp" onChange={(e) => setOtp(e.target.value)} />
+          </div>
+          <p>{errorMessage}</p>
+          <Button type="submit" primary>
+            Submit OTP
+          </Button>
+        </Form>
       </Modal.Content>
       <Modal.Actions>
-        <Button onClick={handleModalClose}>Close</Button>
+        <Button onClick={handleOTPClose}>Cancel</Button>
       </Modal.Actions>
-      {/* OTP Modal */}
-      <Modal open={showOTPMoal} onClose={handleOTPClose} style={{ width: '500px' }} className="centered-modal-OTP">
-        <Modal.Header>Enter OTP sent to '+91 9928931610'</Modal.Header>
-        <Modal.Content>
-          <Form onSubmit={handleOTPSubmit}>
-            <div className="form-field">
-              <label>OTP</label>
-              <input type="text" name="otp" onChange={(e) => setOtp(e.target.value)} />
-            </div>
-            <p>{errorMessage}</p>
-            <Button type="submit" primary>
-              Submit OTP
-            </Button>
-          </Form>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button onClick={handleOTPClose}>Cancel</Button>
-        </Modal.Actions>
-      </Modal>
-      {/* Confirm Delete Dialog */}
-      <DialogBox show={showConfirmDialog} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
     </Modal>
+    <DialogBox show={showConfirmDialog} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
+  </div>
   );
 }
 export default ProjectPms;
