@@ -85,9 +85,9 @@
     display: flex ;
     align-items: center ;
     justify-content: center;
-    height: 28vh;
+    height: 30vh;
     position: relative;
-    left: 50%;
+    left: 30%;
     top:30%;
     transform: translateX(25%);
    

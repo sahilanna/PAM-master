@@ -203,6 +203,7 @@ function RepoRead(onClose) {
     show={showConfirmDialog}
     onClose={handleCancelDelete}
     onConfirm={handleConfirmDelete}
+    
   />
   <Modal
     open={showOTPMoal}

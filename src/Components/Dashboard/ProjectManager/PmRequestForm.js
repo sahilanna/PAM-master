@@ -82,7 +82,7 @@ setRequestDescription(e.target.value)
       navigate(-1);
     }
   return (
-    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '0' , width:'500px', height:'600px' }}>
+    <Modal open={true} onClose={onClose} style={{ position: 'fixed', right: '-80px', top: '10px' , width:'500px', height:'560px' }}>
     <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
       </div>
       <div style={{paddingLeft:'442px'}}>

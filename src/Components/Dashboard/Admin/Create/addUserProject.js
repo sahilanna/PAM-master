@@ -136,7 +136,7 @@ function AddUserProject() {
         <Modal.Content>
           <Form onSubmit={handleOTPSubmit}>
             <div className="form-field">
-              <label>OTP sent to +919928931610'</label>
+              <label>OTP sent to +91 9928931610'</label>
               <input type="text" name="otp" onChange={(e) => setotpp(e.target.value)} />
             </div>
             <p>{errorMessage}</p>

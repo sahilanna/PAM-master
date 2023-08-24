@@ -59,7 +59,7 @@ const ProjectAnalytics = ({ onBackClick }) => {
       <div className='main-content'>
         <div className='Analytics-components'>
           <div style={{ textAlign: 'center' }}>
-            <h1> Project Status </h1>
+           <styledText><h1> Project Status </h1></styledText> 
             <br />
             <BarChart width={500} height={300} data={data}>
               <CartesianGrid strokeDasharray="3 3" />

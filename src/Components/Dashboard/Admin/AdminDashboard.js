@@ -9,7 +9,6 @@ import Pagination from '../Pagination/Pagination';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import { CSVLink } from 'react-csv';
 import CustomSidebar from '../SideBar/SideBar';
-
 import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
 import './AdminDashboard.css';
 import api from '../api';

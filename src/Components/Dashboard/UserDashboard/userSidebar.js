@@ -1,6 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import { Sidebar,Menu, Icon} from 'semantic-ui-react';
+import '/home/nineleaps/Desktop/Pratap/PAM-master/src/Components/Dashboard/SideBar/SideBar.css'
+
 
 
 function UserSidebar() {
@@ -20,7 +22,7 @@ function UserSidebar() {
 
 
       
-      <NavLink style={{fontSize:'16px'}}
+      <NavLink  className='text-style'
       exact to="/userProfile" activeClassName="activeClicked">
                  <span style={{ marginLeft: '30px' }}><Icon name="user" /></span>
                  <span style={{ marginLeft: '10px' }}>My Profile</span>
@@ -30,7 +32,7 @@ function UserSidebar() {
         <br/>
       
 
-        <NavLink style={{fontSize:'16px'}} exact to="/userProjects" activeClassName="activeClicked">
+        <NavLink className='text-style' exact to="/userProjects" activeClassName="activeClicked">
    
       <span style={{ marginLeft: '30px' }}><Icon name="list" /></span>
       <span style={{ marginLeft: '10px' }}>Projects</span>
@@ -39,7 +41,7 @@ function UserSidebar() {
   <br/>
        
 
-      <NavLink style={{fontSize:'16px'}} exact to="/userRepoRead" activeClassName="activeClicked">
+      <NavLink  className='text-style' exact to="/userRepoRead" activeClassName="activeClicked">
       <span style={{ marginLeft: '30px' }}><Icon name="sticky note" /></span>
           <span style={{ marginLeft: '10px' }}>Repository</span>
      
@@ -51,7 +53,7 @@ function UserSidebar() {
      
       
       
-      <NavLink style={{fontSize:'16px'}} exact to="/Logout" activeClassName="activeClicked">
+      <NavLink  className='text-style' exact to="/Logout" activeClassName="activeClicked">
       <span style={{ marginLeft: '30px' }}><Icon name="arrow left" /></span>
           <span style={{ marginLeft: '10px' }}>Logout</span>
      

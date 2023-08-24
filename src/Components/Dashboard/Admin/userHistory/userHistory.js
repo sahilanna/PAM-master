@@ -104,7 +104,7 @@ function UserHistory() {
             <div className='ui left icon input'>
               <input
                 type='text'
-                placeholder='Search Repo...'
+                placeholder='Search Project History'
                 value={searchQuery}
                 onChange={handleSearchChange}
               />
@@ -127,7 +127,7 @@ function UserHistory() {
                   <Table.HeaderCell>S.No.</Table.HeaderCell>
                     <Table.HeaderCell>Project Name</Table.HeaderCell>
                     <Table.HeaderCell>Project Description</Table.HeaderCell>
-                    <Table.HeaderCell>Last Updated</Table.HeaderCell>
+                    <Table.HeaderCell>Creation Date</Table.HeaderCell>
                     <Table.HeaderCell className="text-center">Status</Table.HeaderCell>
                   </Table.Row>
                 </Table.Header>
