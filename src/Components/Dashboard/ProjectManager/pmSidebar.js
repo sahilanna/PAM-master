@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import { Sidebar,Menu, Icon} from 'semantic-ui-react';
+import '/home/nineleaps/Desktop/Pratap/PAM-master/src/Components/Dashboard/SideBar/SideBar.css'
 
 
   
@@ -22,7 +23,7 @@ function PmSidebar() {
 
 
       
-      <NavLink style={{fontSize:'16px'}}
+      <NavLink className='text-style'
       exact to="/pmprofile" activeClassName="activeClicked">
                  <span style={{ marginLeft: '30px' }}><Icon name="user" /></span>
                  <span style={{ marginLeft: '10px' }}>My Profile</span>
@@ -32,23 +33,23 @@ function PmSidebar() {
         <br/>
       
 
-        <NavLink style={{fontSize:'16px'}} exact to="/pmDashboard" activeClassName="activeClicked">
-   
+     <NavLink className='text-style' exact to="/pmDashboard" activeClassName="activeClicked">
       <span style={{ marginLeft: '30px' }}><Icon name="list" /></span>
-      <span style={{ marginLeft: '10px' }}>Projects</span>
-  </NavLink>
+          <span style={{ marginLeft: '10px' }}>Projects</span>
+     
+      </NavLink>
   <br/>
   <br/>
        
 
-      <NavLink style={{fontSize:'16px'}} exact to="/repoPmDashboard" activeClassName="activeClicked">
+      <NavLink className='text-style' exact to="/repoPmDashboard" activeClassName="activeClicked">
       <span style={{ marginLeft: '30px' }}><Icon name="sticky note" /></span>
           <span style={{ marginLeft: '10px' }}>Repository</span>
      
       </NavLink>
       <br/>
         <br/>
-      <NavLink style={{fontSize:'16px'}} exact to="/pmNotification" activeClassName="activeClicked">
+      <NavLink className='text-style' exact to="/pmNotification" activeClassName="activeClicked">
       <span style={{ marginLeft: '30px' }}>  <Icon name="users" /> </span>
           <span style={{ marginLeft: '10px' }}>Notification</span>
      
@@ -58,7 +59,7 @@ function PmSidebar() {
       
       <br/>
         <br/>
-      <NavLink style={{fontSize:'16px'}} exact to="/Logout" activeClassName="activeClicked">
+      <NavLink className='text-style' exact to="/Logout" activeClassName="activeClicked">
       <span style={{ marginLeft: '30px' }}><Icon name="arrow left" /></span>
           <span style={{ marginLeft: '10px' }}>Logout</span>
      

@@ -105,7 +105,7 @@ function FigmaRead() {
 
   const handleDeleteUrl = async (figmaId) => {
     try {
-      await api.delete(`https://${ngrokUrlSwe}/api/figmas/${figmaId}`);
+      await api.delete(`https://${ngrokUrl}/api/figmas/${figmaId}`);
       navigate('/FigmaRead');
       setShowConfirmDialog(false);
       fetchProjects();
@@ -162,7 +162,7 @@ function FigmaRead() {
           }}
         >
           <div className="ui left icon input">
-            <input type="text" placeholder="Search repo..." value={searchQuery} onChange={handleSearchChange} />
+            <input type="text" placeholder="Search Figma..." value={searchQuery} onChange={handleSearchChange} />
             <i className="users icon"></i>
           </div>
           <button className="ui button" onClick={createFigma}>
@@ -183,7 +183,7 @@ function FigmaRead() {
                     <th>S.No.</th>
                     <th>Project Name</th>
                     <th>Figma URL</th>
-                    <th className="text-center">User verification</th>
+                    <th className="text-center">Add User verification</th>
                     <th className="text-center">Delete URL</th>
                     <th className="text-center">View User verification</th>
                   </tr>

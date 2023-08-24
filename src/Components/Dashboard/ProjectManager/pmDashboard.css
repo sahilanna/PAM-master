@@ -1,12 +1,14 @@
-.parent-admin{
+.parent-pmadmin{
     display: flex;
-    flex-direction: row;
+    height: 100vh;
+    justify-content: center;
   }
 
-  .admin-child{
-    width: 100%;
-    /* display: flex;  */
-    /* justify-content: center; */
+  .admin-pmchild{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .profile-container {

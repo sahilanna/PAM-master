@@ -113,7 +113,7 @@ const AddPm = () => {
          
 
 <Button type='submit' primary disabled={!selectedRepo}>Submit</Button>
-<Button style={{marginLeft:'380px'}} type='submit' primary onClick={handleSkip}>Skip</Button>
+<Button style={{marginLeft:'295px'}} type='submit' primary onClick={handleSkip}>Skip</Button>
 
         
         

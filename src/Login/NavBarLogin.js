@@ -41,6 +41,8 @@ export default class NavBarLogin extends Component {
                   <Dropdown.Item>GitHub</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item>Figma</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item>GDrive</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Menu.Menu>

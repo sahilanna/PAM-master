@@ -123,7 +123,7 @@ const getUsers = async () => {
     onClose();
   };
   return (
-    <Modal open={open} onClose={handleModalClose} style={{ top: '170px', height: 'auto', width: '670px' }} className="centered-modal1">
+    <Modal open={open} onClose={handleModalClose} style={{ top: '170px', height: 'auto', width: '670px' }} className="centered-modal1" dimmer="blurring">
       <Modal.Header style={{top:'80px'}}>Project Manager
       <Button  color="green" floated="right" onClick={handleAddEmployee}>
               Add PM
@@ -170,7 +170,7 @@ const getUsers = async () => {
       </Modal.Actions>
       {/* OTP Modal */}
       <Modal open={showOTPMoal} onClose={handleOTPClose} style={{ width: '500px' }} className="centered-modal-OTP">
-        <Modal.Header>Enter OTP sent to '+91 8884763231'</Modal.Header>
+        <Modal.Header>Enter OTP sent to '+91 9928931610'</Modal.Header>
         <Modal.Content>
           <Form onSubmit={handleOTPSubmit}>
             <div className="form-field">
