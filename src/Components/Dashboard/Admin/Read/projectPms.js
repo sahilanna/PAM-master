@@ -8,7 +8,6 @@ import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
-
 import './Read.css';
 
 function ProjectPms({ open, onClose,projectId,projectName }) {
@@ -124,16 +123,19 @@ const getUsers = async () => {
   };
   return (
     <div>
-       <Button  color="green" floated="right" onClick={handleAddEmployee}>
+       <div className="button-add-user">
+       <Button  color="blue" floated="left" onClick={handleAddEmployee} disabled={pms.length > 0}>
               Add PM
             </Button>
+            </div>
+           
     <table className="ui celled table">
    
       <thead>
         <tr>
           <th>PM Name</th>
           <th>PM Email</th>
-          <th>gitHubUsername</th>
+          <th>Github Username</th>
           <th>Delete PM</th>
         </tr>
       </thead>

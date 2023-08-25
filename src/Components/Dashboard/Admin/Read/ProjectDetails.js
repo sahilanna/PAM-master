@@ -8,7 +8,7 @@ import api from '../../api';
 import { useParams } from 'react-router-dom';
 import { ngrokUrl } from '../../../../Assets/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faTimes, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Header, Segment, Container, List, Tab, Icon } from 'semantic-ui-react';
 import CustomSidebar from '../../SideBar/SideBar';
 import ProjectUsers from './projectUsers';
@@ -40,58 +40,51 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
       render: () => <Tab.Pane ><ProjectUsers 
       projectId={projectId} projectName={projectName} /></Tab.Pane>,
     },
-    {
-      menuItem: 'Repositories',
-      render: () => <Tab.Pane >{repo.map((repoItem) => (
-  <ol key={repoItem.id}>
-    <br/>->{repoItem.name}</ol>
-  ))} </Tab.Pane>,
-    },
+  //   {
+  //     menuItem: 'Repositories',
+  //     render: () => <Tab.Pane >{repo.map((repoItem) => (
+  // <ol key={repoItem.id}>
+  //   <br/>{repoItem.name}</ol>
+  // ))} </Tab.Pane>,
+  //   },
     { menuItem: 'PM', render: () => <Tab.Pane><ProjectPms
     projectId={projectId} projectName={projectName} /></Tab.Pane> },
-    { menuItem: 'Help Documents', render: () => <Tab.Pane> <p>
-    <strong>Help Documents:</strong>
-   
-            <Button color="blue" floated="right" onClick={() => addFile(projectId, projectName)}>
-              Add File
-            </Button>
-         
-    {namesFile.length > 0 ? (
-      <ul>
-        {namesFile.map((filename, index) => (
-          <li key={index} className="file-item">
-            <div className="file-info">
-              <a href="#" onClick={() => downloadFile(filename.fileName)}>
-                {filename.fileName}
-              </a>
-            </div>
-            <div className="delete-button">
-              <button
-                className="btn btn-danger"
-                onClick={() => handleDeleteFile(filename.helpDocumentId
-                  )}
-              >
-                <FontAwesomeIcon icon={faTimes} />
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      '-'
-    )}
-  </p></Tab.Pane> },
+
+    {menuItem: 'Help Documents', render: () => <Tab.Pane>
+    <div className="help-documents">
+      <Button color="blue" floated="left" onClick={() => addFile(projectId, projectName)}>
+        Add File
+      </Button>
+      {namesFile.length > 0 ? (
+        <ul className="file-list">
+          {namesFile.map((filename, index) => (
+            <li key={index} className="file-item">
+              <div className="file-info">
+                <a href="#" onClick={() => downloadFile(filename.fileName)}>
+                  {filename.fileName}
+                </a>
+              </div>
+              <div className="delete-button">
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleDeleteFile(filename.helpDocumentId)}
+                >
+                  <FontAwesomeIcon icon={faTimes} />
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="no-files">No files available</div>
+      )}
+    </div>
+  </Tab.Pane>}
+  ,
   
   ]
   const TabExampleLoading = () => <Tab panes={panes} /> 
   
-
- 
-
-
- 
-      
-    
 
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const navigate = useNavigate();
@@ -339,14 +332,16 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
       <CustomSidebar />
     </div>
    <div >
-   <Container style={{ marginTop: '20px' }}>
+   <Container >
    
-          
-      <Header as='h2' attached='top' block>
-        {projectName}
-        <Button color="red" floated="right" onClick={handleDeleteProject}>
-            Delete Project
-          </Button>
+  
+      <Header as='h1' attached='top' block className='project-heading1'>
+     
+    <div>{projectName}</div>
+    <Button color="red" onClick={handleDeleteProject} className="delete-button">
+  <FontAwesomeIcon icon={faTrash} /> 
+  </Button>
+ 
           <DialogBox
             show={showConfirmDialog}
             onClose={cancelDeleteProject}
@@ -356,60 +351,92 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
             afterConfirm={()=>navigate('/AdminDashboard')}
           />
       </Header>
-      <Segment attached>
-        <p>{projectData.projectDescription}</p>
-      </Segment>
-      <Segment>
+      <Segment attached className="left-aligned-segment">
         
-        <Header as='h3'>{projectName} Details: </Header>
+     
+        
+        {/* <Header as='h3'>{projectName} Details: </Header> */}
         
         <List divided relaxed>
-         
+          
             <List.Item key={projectId}>
               <List.Content>
+                
+                <List.Header>
+                Description:{' '} 
+                <span className="description-value">{projectData.projectDescription}</span>
+                </List.Header>
                 <br/>
-              <List.Header>
-  Figma Link: {projectData && projectData.figma && projectData.figma.figmaURL ? (
-    <a href={projectData.figma.figmaURL} target="_blank" rel="noopener noreferrer">
-      {projectData.figma.figmaURL}
-    </a>
-  ) : (
-    '--'
-  )}
-</List.Header>
-{/* <br/>
-             
-<List.Header>
-  Status: {projectData.status ? <Icon name='close' color='red' /> : <Icon name='checkmark' color='green' />}
-</List.Header> */}
-<br/>
-                   <List.Header>Last Created on : {formatDate(projectData.lastUpdated)}
-                   </List.Header>
-                   <br/>
+
+
+                <List.Header>Project Manager: {' '}
+                <span className="description-value">{projectData.pmName} </span>
+                </List.Header>
+                <br/>
+
+                <List.Header>
+                Repositories:{' '}
+                <span className='description-value'>
+                {projectData.repositories && projectData.repositories.length > 0 ? (
+                projectData.repositories.map((repo, index) => (
+                  <span key={index}>
+                    {repo.name}
+                    {index < projectData.repositories.length - 1 ? ', ' : ''}
+                  </span>
+                ))
+                ) : (
+                <span>N/A</span>
+                )}
+              </span>
+              </List.Header>
+                <br/> 
+
+
+                <List.Header>
+                Figma Link: {projectData && projectData.figma && projectData.figma.figmaURL ? (
+                <a href={projectData.figma.figmaURL} target="_blank" rel="noopener noreferrer">
+                {projectData.figma.figmaURL}
+                </a>
+                ) : (
+                  <span className="description-value">N/A</span>
+                )}
+                </List.Header>
+                <br/>
+
+
+
+                <List.Header>
+                  Drive Link :  {projectData && projectData.googleDrive && projectData.googleDrive.driveLink ? (
+                    <a href={projectData.googleDrive.driveLink} target="_blank" rel="noopener noreferrer">
+                      {projectData.googleDrive.driveLink}
+                    </a>
+                  ) : (
+                    <span className="description-value">N/A</span>
+                  )}
+                </List.Header>    
+                <br/>   
                   
                  
-                   <List.Header>
-  Drive Link :  {projectData && projectData.googleDrive && projectData.googleDrive.driveLink ? (
-    <a href={projectData.googleDrive.driveLink} target="_blank" rel="noopener noreferrer">
-      {projectData.googleDrive.driveLink}
-    </a>
-  ) : (
-    '--'
-  )}
-</List.Header>    <br/>
-                  <List.Header>Project Manager: {projectData.pmName} </List.Header>
-                
-               
+                <List.Header>
+                Created on :{' '} 
+                <span className='description-value'>{formatDate(projectData.lastUpdated)} </span>
+                </List.Header>
+                <br/>  
+
+
               </List.Content>
             </List.Item>
   
         </List>
       </Segment>
+
+
+
       <Tab menu={{ fluid: true, horizontal: true, tabular: true }} panes={panes} />
-    </Container>
-  </div>
-  </div>
-  <DialogBox show={showConfirmDialog} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
+      </Container>
+      </div>
+      </div>
+    <DialogBox show={showConfirmDialog} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
   <Modal open={showOTPMoal} onClose={handleOTPClose} style={{ width: '500px' }} className="centered-modal-OTP">
         <Modal.Header>Enter OTP </Modal.Header>
         <Modal.Content>
@@ -429,7 +456,30 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
         </Modal.Actions>
       </Modal>
 </div>
-      {/* {showAddUserProject && (
+     
+    </>
+  );
+};
+export default ProjectDetails;
+
+
+
+
+
+
+
+
+
+
+
+{/* <br/>
+             
+<List.Header>
+  Status: {projectData.status ? <Icon name='close' color='red' /> : <Icon name='checkmark' color='green' />}
+</List.Header> */}
+
+
+ {/* {showAddUserProject && (
         <Modal open={showAddUserProject} onClose={handleCloseAddUserProject}>
           <AddUserProject projectId={projectId} projectName={projectName} onClose={handleCloseAddUserProject} />
         </Modal>
@@ -582,9 +632,5 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
       </Modal>
       <DialogBox show={showConfirmDialog} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
       </Modal> */}
-    </>
-  );
-};
-export default ProjectDetails;
 
 

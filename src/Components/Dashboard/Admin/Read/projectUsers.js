@@ -116,17 +116,19 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
     onClose();
   };
   return (
-   <div>
-        <Button color="green" floated="right" onClick={handleAddEmployee}>
+   <div> 
+     <div className="button-add-user">
+        <Button color="blue" floated="left" onClick={handleAddEmployee}>
           Add User
         </Button>
-        <br/>
+        </div>
+        
       <table className="ui celled table">
         <thead>
           <tr>
             <th>User Name</th>
             <th>User Email</th>
-            <th>gitHubUsername</th>
+            <th>Github Username</th>
             <th>Delete User</th>
           </tr>
         </thead>

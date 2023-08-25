@@ -60,6 +60,13 @@
   left: 370px;
 }
 
+.button-add-user {
+  position: sticky;
+  padding-top: 0px;
+  padding-bottom: 30px;
+  
+}
+
 
 
 
