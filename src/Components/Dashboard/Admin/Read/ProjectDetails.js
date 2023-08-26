@@ -97,6 +97,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     try {
       await api.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`);
       navigate('/adminDashboard')
+      
    
        
     } catch (error) {
@@ -234,6 +235,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   const confirmDeleteProject = async () => {
     await deleteProject(projectId);
     setShowConfirmDialog(false);
+    navigate('/adminDashboard')
   };
   const cancelDeleteProject = () => {
     setShowConfirmDialog(false);
