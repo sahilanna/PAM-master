@@ -1,4 +1,109 @@
+.table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.table td,.table th{
+  padding:12px 15px;
+  border:1px solid #ddd;
+  text-align: center;
+  font-size:16px;
+}
+.table th{
+  background-color: darkblue;
+  color:#ffffff;
+}
+.table tbody tr:nth-child(even){
+  background-color: #F5F5F5;
+}
+.back-button{
+  width: 88px;
+  height: 32px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  position:relative;
+  top:16px;
+  left:16px;
+  z-index: 1;
+}
+.back-button:hover {
+  background-color: #3F3F3F;
+}
+.form-display{
+  display: flex;
+  justify-content: center;
+  border: 3px solid #ccc;
+  position: relative;
+  background-color: #F9F9F9;
+  padding: 20px;
+}
+.pagination{
+  flex-direction:center;
+}
+.centered-modal1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 370px;
+}
+.button-add-user {
+  position: sticky;
+  padding-top: 0px;
+  padding-bottom: 30px;
+}
+@media only screen and (max-width: 500px) {
+  .form-display {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .table thead, .table tbody, .table th, .table td, .table tr {
+    display: block;
+  }
+  .table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .table td {
+    border: none;
+    position: relative;
+    padding-left: 10%;
+  }
+  .table td::before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    content: attr(data-column);
+    font-weight: bold;
+  }
+  .readfoot{
+    position: relative;
+    top: 20px
+  }
+  .table-align{
+    padding-bottom: 0px;
+  }
+}
 
+
+
+
+
+
+
+
+
+/* 
 .table{
 	width: 100%;
 	border-collapse: collapse;
@@ -114,4 +219,4 @@
 }
 
 
-
+ */
