@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import { Sidebar,Menu, Icon} from 'semantic-ui-react';
-import '/home/nineleaps/PAM-master/src/Components/Dashboard/SideBar/SideBar.css'
+import '/home/nineleaps/Desktop/Pratap/PAM-master/src/Components/Dashboard/SideBar/SideBar.css'
 
 
 

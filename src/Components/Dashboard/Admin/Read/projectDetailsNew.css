@@ -33,11 +33,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px; /* Adjust this value for spacing between files */
+  margin-bottom: 5px; 
 }
 .file-info {
   flex: 1;
 }
 .delete-button {
-  margin-left: 10px; /* Adjust this value for spacing between file name and delete button */
+  margin-left: 10px; 
 }
