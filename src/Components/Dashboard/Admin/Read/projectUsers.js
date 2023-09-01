@@ -112,12 +112,13 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
     onClose();
   };
   return (
-   <div>
+   <div> 
      <div className="button-add-user">
         <Button color="blue" floated="left" onClick={handleAddEmployee}>
           Add User
         </Button>
         </div>
+        
       <table className="ui celled table">
         <thead>
           <tr>

@@ -75,7 +75,6 @@ function UserHistory() {
   const handlePaginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
   const generateSerialNumbers = () => {
     const startNumber = (currentPage - 1) * rowsPerPage;
     return currentItems.map((entry, index) => ({

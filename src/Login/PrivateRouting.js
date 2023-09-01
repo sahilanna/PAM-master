@@ -1,6 +1,8 @@
 import React, {lazy, Suspense} from "react";
 import {BrowserRouter as Router,  Route,Routes } from 'react-router-dom';
 import ProjectDetails from "../Components/Dashboard/Admin/Read/ProjectDetails";
+import ProjectDetails from "../Components/Dashboard/Admin/Read/ProjectDetails";
+
 const LazyAdminDashboard = lazy(() =>  import("../Components/Dashboard/Admin/AdminDashboard"));
 const LazyPmCreate = lazy(() => import("../Components/Dashboard/PM/pmCreate"));
 const LazyCreate = lazy(()=> import("../Components/Dashboard/Admin/Create/Create"));

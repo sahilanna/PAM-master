@@ -32,6 +32,7 @@ const AdminDashboard = () => {
   const[count, setCount]=useState('')
   const navigate = useNavigate();
   const itemsPerPage = 5;
+  
   useEffect(() => {
     loadItems();
     fetchData();
@@ -131,7 +132,9 @@ const AdminDashboard = () => {
       console.log(error);
     }
   };
+
   const navigateProjectDetails=(projectId, projectName)=>{
+   
     navigate("/ProjectDetails", {
       state: {
         projectId: projectId,
@@ -139,9 +142,15 @@ const AdminDashboard = () => {
       }
     });
   }
+ 
+
+
+
   const csvDataProj = item.map((entry) => ({
     'Project ID': entry.projectId,
     'Project Name': entry.projectName,
+
+    
   }));
   return (
     <div className="parent-admin">
@@ -181,6 +190,8 @@ const AdminDashboard = () => {
                     <th>S.No.</th>
                     <th>Project-Name</th>
                     <th>Count of employees</th>
+                  
+                    
                     {/* <th className="text-center">View</th>
                     <th className="text-center">Users</th>
                     <th className="text-center">PMs</th>
@@ -197,6 +208,7 @@ const AdminDashboard = () => {
   ) : (
                   currentPageData.map((item, index) => (
                     <tr key={item.projectName}>
+                      
                       <td>{index+1}</td>
                      <td> <a
     href={`/ProjectDetails/${item.projectId}/${item.projectName}`}
@@ -208,6 +220,7 @@ const AdminDashboard = () => {
                                             {/* <td>
               <CountCell projectId={item.projectId} />
             </td> */}
+                      
                       {/* <td className="text-center">
                         <button className="btn btn-outline-primary mx-2" onClick={() => handleViewDetails(item)}>
                           <FontAwesomeIcon icon={faEye} />
@@ -234,6 +247,8 @@ const AdminDashboard = () => {
         projectId={selectedProject?.projectId}
         projectName={selectedProject?.projectName}
       />
+                     
+                      
                        </td> */}
                     </tr>
                   )))}
@@ -245,6 +260,7 @@ const AdminDashboard = () => {
               <div className="pagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
   <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
 </div>
+
               {/* {showProjectDetails && (
   <ProjectDetails
     project={selectedProject}
