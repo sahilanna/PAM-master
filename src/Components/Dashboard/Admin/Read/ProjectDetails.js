@@ -142,7 +142,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
       }
     }
   
-    return <>{count !== null ? count : '-'}</>// Display count or loading message
+    return <>{count !== null ? count : '-'}</>
   }
 
 

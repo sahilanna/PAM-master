@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import logo1 from '../Assets/logo1.png'
 import GoogleLogin from 'react-google-login';
 
+
 function Test() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
   const [isGoogleButtonRendered, setIsGoogleButtonRendered] = useState(false);
@@ -74,11 +75,12 @@ color: #FFFFFF;
       return JSON.parse(jsonPayload);
     }
     useEffect(() => {
-      const clientID = '664601673419-hiir2173k5usfrm159r3ttg9108cpuhi.apps.googleusercontent.com';
+      const googleClientID = process.env.REACT_APP_googleClientID;
+
   
       if (!isGoogleButtonRendered) {
         window.google.accounts.id.initialize({
-          client_id: clientID,
+          client_id: googleClientID,
           callback: handleGoogleLogin,
         });
         window.google.accounts.id.renderButton(document.getElementById('signIn') || document.createElement('div'), {
