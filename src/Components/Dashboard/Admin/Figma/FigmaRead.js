@@ -9,6 +9,9 @@ import api from '../../api';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from '../../Pagination/Pagination';
+import { Table, Button } from 'semantic-ui-react';
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 
 import { faTrash,  faUser, faStreetView } from '@fortawesome/free-solid-svg-icons';
@@ -38,6 +41,7 @@ function FigmaRead() {
   const [showModall, setShowModall] = useState(false); // State for modal visibility
   const [modalImage, setModalImage] = useState(null); 
   const[figmaIdVerify, setFigmaIdVerify]=useState(null)
+  const[noImage, setNoImage]=useState(false)
   
 
 
@@ -76,10 +80,15 @@ function FigmaRead() {
         link.href = screenshotImageURL;
         link.download = `${user}_screenshot.png`;
         link.click();
-      } else {
-        console.error('No data found');
+      } else if(response.status==404){
+        console.log('no ss')
+         
       }
     } catch (error) {
+      toast.error('No Screenshot to display', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000,
+      });
       console.error('Error handling display verification:', error);
     }
   };
@@ -164,11 +173,14 @@ function FigmaRead() {
           <div className="ui left icon input">
             <input type="text" placeholder="Search Figma..." value={searchQuery} onChange={handleSearchChange} />
             <i className="users icon"></i>
+            <ToastContainer/>
+           
           </div>
           <button className="ui button" onClick={createFigma}>
             Create Figma
           </button>
         </div>
+      
         <div style={{ marginLeft: '20px', marginRight: '30px' }}>
 
           {isLoading ? (
