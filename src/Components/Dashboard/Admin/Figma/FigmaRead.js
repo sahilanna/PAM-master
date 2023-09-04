@@ -9,6 +9,8 @@ import api from '../../api';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from '../../Pagination/Pagination';
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 
 import { faTrash,  faUser, faStreetView } from '@fortawesome/free-solid-svg-icons';
@@ -80,6 +82,10 @@ function FigmaRead() {
         console.error('No data found');
       }
     } catch (error) {
+      toast.error('No Screenshot to display', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000,
+      });
       console.error('Error handling display verification:', error);
     }
   };
@@ -164,6 +170,8 @@ function FigmaRead() {
           <div className="ui left icon input">
             <input type="text" placeholder="Search Figma..." value={searchQuery} onChange={handleSearchChange} />
             <i className="users icon"></i>
+            <i className="users icon"></i>
+            <ToastContainer/>
           </div>
           <button className="ui button" onClick={createFigma}>
             Create Figma
