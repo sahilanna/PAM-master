@@ -74,11 +74,10 @@ color: #FFFFFF;
       return JSON.parse(jsonPayload);
     }
     useEffect(() => {
-      const clientID = '840665959732-ip9sm2ea6l7ds2vbgooum6ec08fl8k3v.apps.googleusercontent.com';
-  
+      const googleClientID = process.env.REACT_APP_googleClientID;
       if (!isGoogleButtonRendered) {
         window.google.accounts.id.initialize({
-          client_id: clientID,
+          client_id: googleClientID,
           callback: handleGoogleLogin,
         });
         window.google.accounts.id.renderButton(document.getElementById('signIn') || document.createElement('div'), {

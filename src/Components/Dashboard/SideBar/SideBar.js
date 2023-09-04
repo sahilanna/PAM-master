@@ -73,8 +73,9 @@ function  CustomSidebar() {
           <span style={{ marginLeft: '10px' }}>G-Drive</span>
      
       </NavLink>
+ 
       <br/>
-        <br/>
+      <br/>
       <NavLink style={{fontSize:'16px',color:'white'}} exact to="/userHistory" activeClassName="activeClicked">
       <span style={{ marginLeft: '30px' }}><Icon name="sticky note" /></span>
           <span style={{ marginLeft: '10px' }}>Project History</span>
@@ -91,10 +92,12 @@ function  CustomSidebar() {
         <br/>
       <NavLink style={{fontSize:'16px',color:'white'}} exact to="/PmRequestUser" activeClassName="activeClicked">
       <span style={{ marginLeft: '30px' }}> <Icon name="bell" /></span>
-          <span style={{ marginLeft: '10px' }}>PM Requests</span>
+          <span style={{ marginLeft: '10px' }}>PM User Requests</span>
       </NavLink>
-       <br/>
-        <br/>
+       
+      <br/>
+
+      <br/>
       <NavLink style={{fontSize:'16px',color:'white'}} exact to="/Analytics" activeClassName="activeClicked">
       <span style={{ marginLeft: '30px' }}><Icon name="cog" /></span>
           <span style={{ marginLeft: '10px' }}>Analytics</span>

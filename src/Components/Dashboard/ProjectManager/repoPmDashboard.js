@@ -4,8 +4,11 @@ import './pmDashboard.css'
 import { ngrokUrl } from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
+import { Button } from 'semantic-ui-react';
+import { useNavigate } from 'react-router-dom';
 
 function RepoPmDashboard() {
+  const navigate=useNavigate()
 const [searchQuery, setSearchQuery] = useState('');
 const [result, setResult] = useState([]);
 const [filteredResult, setFilteredResult] = useState([]);
@@ -38,6 +41,10 @@ useEffect(() => {
   fetchRepo();
 }, []);
 
+const navigateRepoForm=()=>{
+  navigate('/pmRequestRepoForm')
+}
+
 const handleSearchInputChange = (event) => {
   const query = event.target.value;
   setSearchQuery(query);
@@ -54,7 +61,7 @@ const handleSearchInputChange = (event) => {
   return (
     <div className="parent-admin">
     <div style={{ height: '100vh', overflow: 'scroll initial' }}>
-      <PmSidebar />
+      <PmSidebar /> 
     </div>
     <div className="admin-child">
       <div
@@ -76,6 +83,8 @@ const handleSearchInputChange = (event) => {
             onChange={handleSearchInputChange}
           />
           <i class="users icon"></i>
+         
+         
         </div>
       </div>
       <div style={{ marginLeft: '20px', marginRight: '30px' }}>

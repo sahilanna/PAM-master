@@ -2,6 +2,7 @@ import React, {lazy, Suspense} from "react";
 import {BrowserRouter as Router,  Route,Routes } from 'react-router-dom';
 import ProjectDetails from "../Components/Dashboard/Admin/Read/ProjectDetails";
 
+
 const LazyAdminDashboard = lazy(() =>  import("../Components/Dashboard/Admin/AdminDashboard"));
 const LazyPmCreate = lazy(() => import("../Components/Dashboard/PM/pmCreate"));
 const LazyCreate = lazy(()=> import("../Components/Dashboard/Admin/Create/Create"));
@@ -48,8 +49,6 @@ const LazyDriveDetails = lazy(() => import("../Components/Dashboard/Admin/Drive/
 const LazyCreateDriveDetails = lazy(() => import("../Components/Dashboard/Admin/Drive/createDriveDetails"));
 const LazyShowAllNotification = lazy(() => import("../Components/Dashboard/ProjectManager/showAllNotification"));
 const LazyDriveRead = lazy(() => import( "../Components/Dashboard/Admin/Drive/driveRead"));
-
-
 
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
@@ -103,14 +102,14 @@ const PrivateRoutes = () => {
               <Route path='/viewUserVerification' element={<Suspense fallback={<div>Loading...</div>}><LazyViewUserVerification/></Suspense>}/>
               <Route path='/createDriveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyCreateDriveDetails/></Suspense>}/>
               <Route path='/ProjectDetails/:projectId/:projectName' element={<Suspense fallback={<div>Loading...</div>}><ProjectDetails/></Suspense>}/>
-              {/* <Route path='/gitCreate' element={<GitCreate/>}/> */}
-             {/* <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/> */}
              <Route path='/driveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyDriveDetails/></Suspense>}/>
              <Route path='/Create' element={<Suspense fallback={<div>Loading...</div>}><LazyCreate/></Suspense>}/>
              <Route path='/addPm' element={<Suspense fallback={<div>Loading...</div>}><LazyAddPm/></Suspense>}/>
              <Route path='/addUser' element={<Suspense fallback={<div>Loading...</div>}><LazyAddUser/></Suspense>}/>
              <Route path='/driveRead' element={<Suspense fallback={<div>Loading...</div>}><LazyDriveRead/></Suspense>}/>
              <Route path='/createdriveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyCreateDriveDetails/></Suspense>}/>
+           
+            
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           )}
@@ -124,7 +123,7 @@ const PrivateRoutes = () => {
               <Route path='/pmProfile' element={<Suspense fallback={<div>Loading...</div>}><LazyPmProfile/></Suspense>}/>
               <Route path='/pmNotification' element={<Suspense fallback={<div>Loading...</div>}><LazyPmNotification/></Suspense>}/>
               <Route path='/showAllNotification' element={<Suspense fallback={<div>Loading...</div>}><LazyShowAllNotification/></Suspense>}/>
-              
+            
               <Route path="*" element={<h1>Page Not Found</h1>} />
              
             </Routes>
