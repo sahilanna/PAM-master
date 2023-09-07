@@ -128,9 +128,7 @@ function RepoRead(onClose) {
   const handleOTPClose = () => {
     setShowOTPMoal(false);
   };
-  const handleModalClose = () => {
-    onClose();
-  };
+ 
   return (
     <div className='parent-admin'>
       <Sidebar />

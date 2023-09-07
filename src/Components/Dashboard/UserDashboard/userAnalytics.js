@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend , AreaChart,  Area } from 'recharts';
 import { ngrokUrl } from '../../../Assets/config';
 import api from '../api';

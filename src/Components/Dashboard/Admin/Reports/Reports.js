@@ -5,7 +5,7 @@ import '../AdminDashboard.css';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload, faArrowAltCircleDown } from '@fortawesome/free-solid-svg-icons';
+import { faDownload,  } from '@fortawesome/free-solid-svg-icons';
 import Pagination from '../../Pagination/Pagination';
 
 function Reports() {

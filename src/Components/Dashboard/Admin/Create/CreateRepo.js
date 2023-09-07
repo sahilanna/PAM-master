@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
+import './Create.css';
+import { ERROR_CODE_BAD_REQUEST, ERROR_CODE_UNAUTHORIZED, ERROR_CODE_INTERNAL_SERVER_ERROR } from '../../error-Code';
 
 function CreateRepo() {
   const navigate = useNavigate();
@@ -11,21 +15,46 @@ function CreateRepo() {
   let [description, setDescription] = useState('');
 
   let handleSubmit =async (e) => {
-    if (!name || !description) {
-      return;
-    }
+   
     e.preventDefault();
     if(!name || !description){
-      return
-    }
-    setClicked(true);
-    if (name.length === 0) {
       return;
     }
-    if (name) {
+    setClicked(true);
+    
+    try{
       await api.post(`https://${ngrokUrl}/api/repositories/add`, { name, description });
       console.log(name);
       navigate('/repoRead');
+    }
+    catch(error)
+    {
+      if(error.response && error.response.status === ERROR_CODE_BAD_REQUEST)
+      {
+        toast.error('Bad Request', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000,
+          });
+      }
+      else if (error.response && error.response.status === ERROR_CODE_UNAUTHORIZED)
+      {
+         toast.error('Unauthorized', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000,
+          });
+      }
+      
+      else if(error.response && error.response.status === ERROR_CODE_INTERNAL_SERVER_ERROR)
+      {
+        toast.error('Server Error', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000,
+          });
+      } 
+      else
+      {
+        console.log("Error");
+      }
     }
   };
 

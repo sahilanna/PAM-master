@@ -16,15 +16,12 @@ function UserHistory() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
-  const [item, setItem] = useState([]);
-  const [mitem, setMItem] = useState([]);
-  
-  const [showOtherTable, setShowOtherTable] = useState(false);
+
   const rowsPerPage = 5;
 
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
-  const accessToken=user.token
+ 
   console.log(user)
     console.log(user.token)
 

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Dropdown, Input, Icon } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../SideBar/SideBar';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from '../../Pagination/Pagination';
-import { faPen, faTrash, faEye, faUpload, faPlus, faFile, faUser,faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrash,  } from '@fortawesome/free-solid-svg-icons';
 import CreateDriveDetails from './createDriveDetails';
 import '../Figma/FigmaRead.css';
 
@@ -19,9 +18,9 @@ function DriveRead() {
     const [filteredProjects, setFilteredProjects] = useState([]);
     const [projects, setProjects] = useState([]);
     const navigate = useNavigate();
-    const[driveURL, setdriveURL]=useState('')
+    const driveURL = '';
     const[driveId, setdriveId]=useState('')
-    const[projectId, setProjectId]=useState('');
+    const projectId = '';
     const [isLoading, setIsLoading] = useState(true);
     const [currentPageData, setCurrentPageData] = useState([]);
     const itemsPerPage = 5;
@@ -48,7 +47,7 @@ function DriveRead() {
     const handleDeleteUrl = async (driveId) => {
       try {
         await api.delete(`https://${ngrokUrl}/deleteGoogleDriveById/${driveId}`);
-        navigate('/DriveRead');
+        navigate('/driveDetails');
         setShowConfirmDialog(false);
         fetchProjects();
       } catch (error) {

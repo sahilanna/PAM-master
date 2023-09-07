@@ -15,6 +15,8 @@ const ProjectAnalytics = ({ onBackClick }) => {
   const [csvData, setCSVData] = useState([]);
   const csvLinkRef = useRef(null);
 
+  console.log(csvData);
+
   useEffect(() => {
     const fetchData = async () => {
       try {

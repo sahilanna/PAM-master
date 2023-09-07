@@ -9,11 +9,9 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 
 function UserProjects() {
-  const [item, setItem] = useState([]);
+ 
   const [showUserProjectDetails, setShowUserProjectDetails] = useState(false);
-  const [projectId, setProjectId] = useState('');
-  const [projectName, setProjectName] = useState('');
-  const [projectDescription, setProjectDescription] = useState('');
+ 
   const [selectedProject, setSelectedProject] = useState(null);
 
   const [userid, setUserid] = useState([]);

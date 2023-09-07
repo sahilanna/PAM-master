@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PmSidebar from './pmSidebar'
-import { useState, useEffect } from 'react'
 import api from '../api'
 import { useNavigate } from 'react-router-dom'
 import { ngrokUrl } from '../../../Assets/config'
-import {toast, ToastContainer} from 'react-toastify'
+import {toast} from 'react-toastify'
 import {Button} from 'semantic-ui-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -15,9 +14,9 @@ function PmNotification() {
     const[accessRequestId, setAccessRequestId]=useState([])
     let data = sessionStorage.getItem("item");
     let user = JSON.parse(data);
-    const accessToken=user.token
     
-    const  id=user.id
+    
+    
     const pmName=user.name
     const fetchNotification = async () => {
         try {

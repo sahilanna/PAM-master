@@ -35,14 +35,11 @@ const ProfileEdit = ({ profileData, onUpdate }) => {
   };
 
  
-  const handleCloseModal = () => {
-   
-    
-  };
+ 
 
   return (
     <Modal open={true} onClose={handleCloseModal} style={{ width: '500px' }} className='create-Project-Modal'>
-      {/* Modal content */}
+     
       <Modal.Header>Edit Profile</Modal.Header>
       <Modal.Content>
         <Form onSubmit={handleSubmit}>

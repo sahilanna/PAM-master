@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import FigmaCreate from './FigmaCreate';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../SideBar/SideBar';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import './FigmaRead.css'
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 import { faTrash,  faUser, faStreetView } from '@fortawesome/free-solid-svg-icons';
-import ViewUserVerification from './viewUserVerification';
+
 
 
 
@@ -35,13 +35,10 @@ function FigmaRead() {
   const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 5;
   const[showConfirmDialog, setShowConfirmDialog]=useState(false)
-  const [imageData, setImageData] = useState(null);
-  const [showVerificationImage, setShowVerificationImage] = useState(false);
   const [showModall, setShowModall] = useState(false); // State for modal visibility
-  const [modalImage, setModalImage] = useState(null); 
-  const[figmaIdVerify, setFigmaIdVerify]=useState(null)
-  
 
+  
+  console.log(showModall)
 
   useEffect(() => {
     fetchProjects();
@@ -90,9 +87,6 @@ function FigmaRead() {
     }
   };
 
-// useEffect(() => {
-//   downloadFile();
-// }, []);
 
 
 
@@ -177,70 +171,69 @@ function FigmaRead() {
           </button>
         </div>
         <div style={{ marginLeft: '20px', marginRight: '30px' }}>
+  {isLoading ? (
+    <LoadingPage />
+  ) : (
+    <>
+      {filteredProjects.length === 0 ? (
+        <p>No data available</p>
+      ) : (
+        <>
+          <table className="ui celled table">
+            <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Project Name</th>
+                <th>Figma URL</th>
+                <th className="text-center">Add User verification</th>
+                <th className="text-center">Delete URL</th>
+                <th className="text-center">View User verification</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentPageData.map((project, index) => (
+                <tr key={project.figmaId}>
+                  <td>{index + 1}</td>
+                  <td>{project.projectDTO.projectName}</td>
+                  <td>
+                    <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">
+                      {project.figmaURL}
+                    </a>
+                  </td>
+                  <td className="text-center">
+                    <button className="btn btn-outline-primary mx-2" onClick={() => handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
+                      <FontAwesomeIcon icon={faUser} />
+                    </button>
+                  </td>
+                  <td className="text-center">
+                    <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(project.figmaId)}>
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                    <DialogBox
+                      show={showConfirmDialog === project.figmaId}
+                      onClose={() => setShowConfirmDialog(null)}
+                      onConfirm={() => handleDeleteUrl(project.figmaId)}
+                    />
+                  </td>
+                  <td className="text-center">
+                    <button className="btn btn-outline-primary mx-2" onClick={() => handleDisplayVerification(project.figmaId)}>
+                      <FontAwesomeIcon icon={faStreetView} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-          {isLoading ? (
-            <LoadingPage />
-          ) : filteredProjects.length === 0 ? (
-            <p>No data available</p>
-          ) : (
-            <>
-              <table className="ui celled table">
-                <thead>
-                  <tr>
-                    <th>S.No.</th>
-                    <th>Project Name</th>
-                    <th>Figma URL</th>
-                    <th className="text-center">Add User verification</th>
-                    <th className="text-center">Delete URL</th>
-                    <th className="text-center">View User verification</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentPageData.map((project, index) => (
-                    <tr key={project.figmaId}>
-                      <td>{index + 1}</td>
-                      <td>{project.projectDTO.projectName}</td>
-                      <td>
-                        <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">
-                          {project.figmaURL}
-                        </a>
-                      </td>
-                      <td className="text-center">
+          <div className='pagination' style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+            <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
+          </div>
+        </>
+      )}
+    </>
+  )}
+</div>
 
-                        <button className="btn btn-outline-primary mx-2" onClick={() => handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
-
-                          <FontAwesomeIcon icon={faUser} />
-                        </button>
-                      </td>
-                      <td className="text-center">
-                        <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(project.figmaId)}>
-                          <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                        <DialogBox
-                          show={showConfirmDialog === project.figmaId}
-                          onClose={() => setShowConfirmDialog(null)}
-                          onConfirm={() => handleDeleteUrl(project.figmaId)}
-                        />
-                      </td>
-                      <td className="text-center">
-  <button
-    className="btn btn-outline-primary mx-2"
-    onClick={() => handleDisplayVerification(project.figmaId)}
-  >
-    <FontAwesomeIcon icon={faStreetView} />
-  </button>
-</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              
-              <div className='pagination'style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
-              </div>
-            </>
-          )}
-        </div>
 
       </div>
       <div className='model-container'>

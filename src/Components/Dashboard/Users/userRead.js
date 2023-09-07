@@ -16,11 +16,8 @@ function UserRead(){
   const navigate = useNavigate();
   const getUrl =  `https://${ngrokUrl}/api/users/role/user`;
   const [item, setItem] = useState([]);
-  const[showUserActivity, setShowUserActivity]=useState(false)
-  const [id, setId] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [enumRole,setEnumRole]=useState('3');
+  
+ 
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 4;
@@ -34,7 +31,8 @@ function UserRead(){
     loaditem();
   }, []);
 
-  console.log(currentPageData)
+  console.log(currentPageData);
+  
   const addUserName=()=>{
     navigate('/addUserName')
   }
@@ -97,9 +95,7 @@ function UserRead(){
       );
       setCurrentPageData(currentItems);
     };
-    const handleCloseUserActivity = () => {
-      setShowUserActivity(false);
-    }
+   
 
     const deleteUser = async (id) => {
       await api.delete(`https://${ngrokUrl}/api/users/delete/${id}`);

@@ -1,11 +1,11 @@
 import React, { useState,useEffect} from 'react';
 import {Button,Icon} from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon,faUser } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
-import {ToastContainer, toast} from 'react-toastify'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {  faEye } from '@fortawesome/free-solid-svg-icons';
+import {ToastContainer} from 'react-toastify'
 
-import { ngrokUrl, ngrokUrlSwe } from '../../../Assets/config';
+import { ngrokUrl } from '../../../Assets/config';
 import PmSidebar from './pmSidebar';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
@@ -16,14 +16,13 @@ const PmDashboard = () => {
   const [item, setItem] = useState([]);
  
   const [showPmProjectDetails, setShowPmProjectDetails] = useState(false);
-  const [filteredProjects, setFilteredProjects] = useState([]);
   const [pmid, setPmid] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate=useNavigate()
   const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 5;
   const [selectedProject, setSelectedProject] = useState(null);
-  //const { id } = useParams();
+ 
   const [isLoading, setIsLoading] = useState(true);
   setTimeout(() => {
     setIsLoading(false);
@@ -75,29 +74,7 @@ const PmDashboard = () => {
   }
 
   
-  // const fetchNotification = async () => {
-  //   try {
-  //     const response = await api.get(`https://${ngrokUrl}/api/request/notiPM?pmName=${pmName}`);
-  //     console.log(response.data);
-
-  //     const pmNotification = response.data;
-
-     
-  //       // Show each message as a toast notification
-  //       toast.info(pmNotification[0], {
-  //         position: toast.POSITION.TOP_RIGHT,
-  //         autoClose: 4000,
-  //       });
-      
-  //   } catch (error) {
-  //     console.log('Error fetching PMID:', error);
-  //     setIsLoading(true);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchNotification();
-  // }, []);
+ 
   const navigateForm=(projectId, projectName)=>{
     navigate('/PmRequestForm',{ state: { projectId, projectName} })
   }

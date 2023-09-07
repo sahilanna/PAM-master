@@ -5,7 +5,7 @@ import NavBarLogin from './NavBarLogin';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import './Login.css'
-import { ngrokUrl, ngrokUrlSwe } from '../Assets/config';
+import { ngrokUrl} from '../Assets/config';
 import styled from 'styled-components';
 import logo1 from '../Assets/logo1.png'
 import GoogleLogin from 'react-google-login';
@@ -51,7 +51,7 @@ color: #FFFFFF;
           } else if (data.enumRole ==="USER") {
               navigate('/userProjects', { state: { data } });
           } else {
-                  // navigate('/Login');
+                 console.log("Error");
           }
       }
       catch (error) {

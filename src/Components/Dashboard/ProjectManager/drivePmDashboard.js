@@ -1,9 +1,7 @@
 
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import PmSidebar from './pmSidebar';
-import axios from 'axios';
 import { ngrokUrl} from '../../../Assets/config';
-import { useState,useEffect } from 'react';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
 
@@ -16,7 +14,7 @@ function DrivePmDashboard() {
     const itemsPerPage = 5;
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
-  const accessToken=user.token
+ 
   console.log(user)
     console.log(user.token)
   const  id=user.id

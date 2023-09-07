@@ -8,7 +8,7 @@ const PmProjectDetails = ({ project, onClose }) => {
   const [isLoading, setIsLoading] = useState(true);
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
-  const accessToken=user.token
+ 
   console.log(user)
     console.log(user.token)
   const  id=user.id
@@ -32,6 +32,7 @@ const PmProjectDetails = ({ project, onClose }) => {
 
 
   if (!project) return null;
+  console.log(isLoading);
 
   return (
     <Modal className='custom-dialog2' open={true} onClose={onClose}>

@@ -1,10 +1,9 @@
-// useApiData.js
-import { useState, useEffect } from 'react';
+
+import { useState, useEffect,  useRef } from 'react';
 import api from '../../api'; // Import your API library here
 import { ngrokUrl } from '../../../../Assets/config';
-import {ToastContainer, toast} from 'react-toastify'
-// useApiData.js
-import {  useRef } from 'react';
+import { toast} from 'react-toastify'
+
 
 
 function useApiData() {
@@ -21,9 +20,9 @@ function useApiData() {
         (newItem) => !prevDataRef.current.some((prevItem) => prevItem.accessRequestId === newItem.accessRequestId)
       );
 
-      // Compare with previous data to check for new additions
+    
       if (newRequests.length>0) {
-        // New data added, show toast message
+      
         toast.info('Request from PM!', {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 4000,
@@ -32,7 +31,7 @@ function useApiData() {
 
       setData(newData);
       setLoading(false);
-      prevDataRef.current = newData; // Update previous data reference
+      prevDataRef.current = newData; 
     } catch (error) {
       console.log('Error fetching data:', error);
       setLoading(true);
@@ -42,11 +41,7 @@ function useApiData() {
   useEffect(() => {
     fetchData();
 
-    // const interval = setInterval(() => {
-    //   fetchData();
-    // }, 5000);
-
-    // return () => clearInterval(interval);
+  
   }, []);
 
   return { data, Loading };

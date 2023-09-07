@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LandingPage from './Components/LandingPage';
 import Login from './Login/Login';
-import {BrowserRouter as Router , Route,Routes, BrowserRouter } from 'react-router-dom';
+import {Route,Routes, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './Login/redux-store/store';
 import PrivateRoutes from './Login/PrivateRouting';

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { useNavigate, useState } from 'react-router-dom';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 import { ngrokUrl } from '../Assets/config';
 import api from '../Components/Dashboard/api';
 
 const Logout = () => {
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
-  const accessToken=user.token
+  
   console.log(user)
     console.log(user.token)
   const  id=user.id

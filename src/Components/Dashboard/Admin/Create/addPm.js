@@ -46,7 +46,7 @@ const AddPm = () => {
       return
     }
     const owner='Bindushree-0906';
-    // const permission = 'pull';
+   
     let repo = selectedRepo
       api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
     })

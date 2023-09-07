@@ -3,7 +3,7 @@ import PmSidebar from './pmSidebar'
 import { ngrokUrl } from '../../../Assets/config'
 import api from '../api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import ClearAllDialogue from './clearAllDialogue'
 import { useNavigate } from 'react-router-dom'
 
@@ -13,9 +13,7 @@ function ShowAllNotification() {
     const [showNotifyDialog, setShowNotifyDialog] = useState(false);
     let data = sessionStorage.getItem("item");
     let user = JSON.parse(data);
-    const accessToken=user.token
     
-    const  id=user.id
     const pmName=user.name
 
     const fetchNotification= async ()=>{
