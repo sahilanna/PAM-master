@@ -4,18 +4,16 @@ import './pmDashboard.css'
 import { ngrokUrl } from '../../../Assets/config';
 import LoadingPage from '../../../Assets/Loader/LoadingPage';
 import api from '../api';
-import { Button } from 'semantic-ui-react';
-import { useNavigate } from 'react-router-dom';
 
 function RepoPmDashboard() {
-  const navigate=useNavigate()
+
 const [searchQuery, setSearchQuery] = useState('');
 const [result, setResult] = useState([]);
 const [filteredResult, setFilteredResult] = useState([]);
 const [isLoading, setIsLoading] = useState(true);
 let data = sessionStorage.getItem('item');
 let user = JSON.parse(data);
-const accessToken = user.token;
+
 console.log(user);
 console.log(user.token);
 const id = user.id;
@@ -41,9 +39,6 @@ useEffect(() => {
   fetchRepo();
 }, []);
 
-const navigateRepoForm=()=>{
-  navigate('/pmRequestRepoForm')
-}
 
 const handleSearchInputChange = (event) => {
   const query = event.target.value;

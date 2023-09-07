@@ -1,8 +1,7 @@
 import React, {useEffect,useState} from 'react'
-import { Button, Modal, Table } from 'semantic-ui-react';
+import { Button, Modal } from 'semantic-ui-react';
 import { ngrokUrl } from '../../../Assets/config';
 import api from '../api';
-import UserRead from './userRead';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function UserActivity(open, userName) {

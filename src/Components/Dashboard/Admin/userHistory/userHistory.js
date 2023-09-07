@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Icon, Button } from 'semantic-ui-react';
+import { Table, Icon } from 'semantic-ui-react';
 import './userHistory.css';
 import 'semantic-ui-css/semantic.min.css';
 import Sidebar from '../../SideBar/SideBar';
@@ -16,15 +16,12 @@ function UserHistory() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
-  const [item, setItem] = useState([]);
-  const [mitem, setMItem] = useState([]);
-  
-  const [showOtherTable, setShowOtherTable] = useState(false);
-  const rowsPerPage = 5;
+
+    const rowsPerPage = 5;
 
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
-  const accessToken=user.token
+
   console.log(user)
     console.log(user.token)
 
@@ -82,9 +79,7 @@ function UserHistory() {
       ...entry,
     }));
   };
-  
 
-  const pageNumbers = Math.ceil(filteredProjects.length / rowsPerPage);
   const indexOfLastItem = currentPage * rowsPerPage;
   const indexOfFirstItem = indexOfLastItem - rowsPerPage;
   const currentItems = filteredProjects.slice(indexOfFirstItem, indexOfLastItem);

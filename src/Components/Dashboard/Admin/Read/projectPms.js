@@ -7,19 +7,18 @@ import { ngrokUrl, gitAccessToken } from '../../../../Assets/config';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import LoadingPage from '../../../../Assets/Loader/LoadingPage';
+
 import './Read.css';
 
 function ProjectPms({ open, onClose,projectId,projectName }) {
   const [pms, setPms] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+
   
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
    const [showOTPMoal, setShowOTPMoal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [otp, setOtp] = useState('');
   const [selectedUserId, setSelectedUserId] = useState('');
-  const[repo, setRepo]= useState([])
   const[repoName, setRepoName]=useState('')
   const[username, setUserName]=useState('')
   
@@ -28,14 +27,14 @@ function ProjectPms({ open, onClose,projectId,projectName }) {
   console.log(projectId)
   const navigate = useNavigate();
 const getUsers = async () => {
-    setIsLoading(true);
+
     try {
       const response = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/users/project_manager`);
       setPms(response.data);
-      setIsLoading(false);
+     
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
+   
     }
   };
    useEffect(() => {
@@ -118,9 +117,7 @@ const getUsers = async () => {
   const handleOTPClose = () => {
     setShowOTPMoal(false);
   };
-  const handleModalClose = () => {
-    onClose();
-  };
+
   return (
     <div>
        <div className="button-add-user">

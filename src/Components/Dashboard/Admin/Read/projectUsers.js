@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'semantic-ui-react';
-import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import { ngrokUrl, gitAccessToken } from '../../../../Assets/config';
 import DialogBox from '../../DialogBox/DialogBox';
@@ -11,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
 
 function ProjectUsers({ open, onClose, projectId, projectName }) {
   const [users, setUsers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [showOTPMoal, setShowOTPMoal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -23,14 +21,14 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
   const navigate = useNavigate();
   
   const getUsers = async () => {
-    setIsLoading(true);
+
     try {
       const response = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/users/user`);
       setUsers(response.data);
-      setIsLoading(false);
+
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
+
     }
   };
   useEffect(() => {
@@ -112,9 +110,7 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
   const handleOTPClose = () => {
     setShowOTPMoal(false);
   };
-  const handleModalClose = () => {
-    onClose();
-  };
+
   return (
    <div> 
      <div className="button-add-user">

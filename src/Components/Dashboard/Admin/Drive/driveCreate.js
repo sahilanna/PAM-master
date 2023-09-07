@@ -26,7 +26,7 @@ const DriveCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.put(
+       await api.put(
         `https://${ngrokUrl}/api/figmas/${figmaId}/user`,
         {
           user: selectedUser,

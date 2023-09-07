@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { ngrokUrl } from '../../../Assets/config';
 import api from '../api';
 import { Grid, Placeholder, Segment } from 'semantic-ui-react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faUserCircle, faUserAstronaut, faProjectDiagram } from '@fortawesome/free-solid-svg-icons';
 import './AdminDashboard.css'; 
 import document from '/home/nineleaps/PAM-master/src/Assets/document.gif'
 import user from '/home/nineleaps/PAM-master/src/Assets/user.gif'
@@ -61,7 +59,6 @@ function AdminHeader() {
         <Segment raised>
         <div>
             <Placeholder.Header>
-              {/* <FontAwesomeIcon icon={faProjectDiagram} style={{ color: 'blue' }} /> */}
               <img src={document} alt="Icon" style={{ width: '40px', height: '40px' }} />
             </Placeholder.Header>
             <Placeholder.Paragraph>

@@ -5,12 +5,11 @@ import api from '../api';
 import './pmDashboard.css'
 const PmProjectDetails = ({ project, onClose }) => {
 
-  const [isLoading, setIsLoading] = useState(true);
+
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
-  const accessToken=user.token
-  console.log(user)
-    console.log(user.token)
+
+  
   const  id=user.id
   const [result, setResult]=useState([])
   const fetchFigma = async () => {
@@ -18,12 +17,12 @@ const PmProjectDetails = ({ project, onClose }) => {
       const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`);
       const  data  = response.data;
       console.log('data',data)
-      setIsLoading(false);
+   
       setResult(data);
       console.log('result',result)
     } catch (error) {
       console.log('Error fetching PMID:', error);
-      setIsLoading(true);
+     
     }
   };
   useEffect(() => {

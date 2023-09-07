@@ -42,8 +42,8 @@ const ProjectAnalytics = ({ onBackClick }) => {
   };
 
   const handleDownloadCSV = () => {
-    const csvData = data.map((entry) => ({ Status: entry.status, Projects: entry.ActiveProjects || entry.InactiveProjects }));
-    setCSVData(csvData);
+    const csvDataa = data.map((entry) => ({ Status: entry.status, Projects: entry.ActiveProjects || entry.InactiveProjects }));
+    setCSVData(csvDataa);
 
     const csvContent = "data:text/csv;charset=utf-8," + csvData.map(e => Object.values(e).join(",")).join("\n");
     const encodedUri = encodeURI(csvContent);

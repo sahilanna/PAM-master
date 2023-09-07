@@ -2,28 +2,22 @@ import React, { useState, useEffect } from 'react';
 import FigmaCreate from './FigmaCreate';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../SideBar/SideBar';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import './FigmaRead.css'
 import LoadingPage from '../../../../Assets/Loader/LoadingPage';
 import api from '../../api';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from '../../Pagination/Pagination';
-import { Table, Button } from 'semantic-ui-react';
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-
-
 import { faTrash,  faUser, faStreetView } from '@fortawesome/free-solid-svg-icons';
-import ViewUserVerification from './viewUserVerification';
+
 
 
 
 function FigmaRead() {
-  const [userData, setUserData] = useState({
-    user: '',
-    screenshotImageURL: '',
-  });
+
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
@@ -36,12 +30,7 @@ function FigmaRead() {
   const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 5;
   const[showConfirmDialog, setShowConfirmDialog]=useState(false)
-  const [imageData, setImageData] = useState(null);
-  const [showVerificationImage, setShowVerificationImage] = useState(false);
-  const [showModall, setShowModall] = useState(false); // State for modal visibility
-  const [modalImage, setModalImage] = useState(null); 
-  const[figmaIdVerify, setFigmaIdVerify]=useState(null)
-  const[noImage, setNoImage]=useState(false)
+   
   
 
 
@@ -93,10 +82,6 @@ function FigmaRead() {
     }
   };
 
-// useEffect(() => {
-//   downloadFile();
-// }, []);
-
 
 
 
@@ -125,7 +110,7 @@ function FigmaRead() {
 
   const closeModal = () => {
     setShowModal(false);
-    setShowModall(false)
+ 
   };
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;

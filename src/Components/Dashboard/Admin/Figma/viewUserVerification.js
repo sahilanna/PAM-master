@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -7,8 +7,6 @@ const ViewUserVerification = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const figmaId = location.state ? location.state.figmaId : null;
-
-  const [figmaScreenshots, setFigmaScreenshots] = useState([]);
 
   const downloadFile = async () => {
    

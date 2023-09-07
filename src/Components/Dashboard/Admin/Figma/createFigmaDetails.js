@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Dropdown, Modal } from 'semantic-ui-react';
 import {  useNavigate } from 'react-router-dom';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 
 function CreateFigmaDetails() {

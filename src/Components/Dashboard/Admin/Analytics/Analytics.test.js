@@ -48,7 +48,7 @@ test('renders the Analytics component with pie chart and "Next" button', async (
 });
 
 test('clicking the "Next" button should navigate to "/projectAnalytics"', async () => {
-  const { container } = render(<Analytics />);
+  render(<Analytics />);
 
  
   await waitFor(() => {

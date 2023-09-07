@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Modal, Dropdown } from 'semantic-ui-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../../api';
-import { ngrokUrl, gitAccessToken } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import './Create.css';
 
 function AddUserProject() {

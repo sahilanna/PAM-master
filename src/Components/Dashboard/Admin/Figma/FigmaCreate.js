@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Dropdown } from 'semantic-ui-react';
-import { ngrokUrl, ngrokUrlSwe } from '../../../../Assets/config';
+import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 import { useNavigate  } from 'react-router-dom';
 
@@ -26,7 +26,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post(
+         await api.post(
         `https://${ngrokUrl}/api/figmas/${figmaId}/user`,
         {
           user: figmaUser,

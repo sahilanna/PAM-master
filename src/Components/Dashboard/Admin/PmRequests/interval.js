@@ -1,10 +1,8 @@
 // useApiData.js
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import api from '../../api'; // Import your API library here
 import { ngrokUrl } from '../../../../Assets/config';
-import {ToastContainer, toast} from 'react-toastify'
-// useApiData.js
-import {  useRef } from 'react';
+import { toast} from 'react-toastify'
 
 
 function useApiData() {
@@ -42,11 +40,6 @@ function useApiData() {
   useEffect(() => {
     fetchData();
 
-    // const interval = setInterval(() => {
-    //   fetchData();
-    // }, 5000);
-
-    // return () => clearInterval(interval);
   }, []);
 
   return { data, Loading };

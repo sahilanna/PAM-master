@@ -5,10 +5,10 @@ import NavBarLogin from './NavBarLogin';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import './Login.css'
-import { ngrokUrl, ngrokUrlSwe } from '../Assets/config';
+import { ngrokUrl} from '../Assets/config';
 import styled from 'styled-components';
 import logo1 from '../Assets/logo1.png'
-import GoogleLogin from 'react-google-login';
+
 
 function Test() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
@@ -27,16 +27,16 @@ color: #FFFFFF;
        const emailToVerify = decodedToken.email;
        console.log(emailToVerify)
       const headers = {
-          // Authorization: `${token}`,
+         
           'ngrok-skip-browser-warning': 'true',
           emailToVerify: `${emailToVerify}`
         };
-       // console.log(headers)
+    
         try {
           const { data}  = await axios.get(
               `https://${ngrokUrl}/auth/api/get-email`,
              {headers})
-              // console.log(data)
+            
           sessionStorage.setItem('item', JSON.stringify( data))
           const access=sessionStorage.getItem('item')
           let user = JSON.parse(access);
@@ -50,7 +50,8 @@ color: #FFFFFF;
           } else if (data.enumRole ==="USER") {
               navigate('/userProjects', { state: { data } });
           } else {
-                  // navigate('/Login');
+            navigate('/')
+                  
           }
       }
       catch (error) {
@@ -102,7 +103,7 @@ color: #FFFFFF;
         
       </div>
      
-        {/* <div className="space"></div> */}
+     
         
       </div>
       <div className="box-container">

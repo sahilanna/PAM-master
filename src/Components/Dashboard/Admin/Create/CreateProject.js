@@ -4,10 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 import './Create.css';
+import { useDispatch } from 'react-redux';
+import { createProject } from '../../../../Login/redux-store/actions/action';
 
 
 function CreateProject() {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
+  const dispatchProject = useDispatch()
     
     const [projectName, setProjectName] = useState('');
     const [projectDescription, setProjectDescription] = useState('');
@@ -17,11 +20,12 @@ function CreateProject() {
   
     const handleSubmit = async (e)=>{
       e.preventDefault();
+      setClicked(true);
       if(!projectDescription||!projectName){
         return
       }
-      setClicked(true);
-      await api.post(`https://${ngrokUrl}/api/projects/create`,{projectName,projectDescription})
+   
+      dispatchProject(createProject({ projectName, projectDescription }));
       navigate('/AdminDashboard')
     }
 const onClose=()=>{

@@ -12,7 +12,7 @@ import { Button, Modal, Form } from 'semantic-ui-react';
 import '../Figma/FigmaRead.css'
 
 
-function RepoRead(onClose) {
+function RepoRead() {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [item, setItem] = useState([]);
@@ -128,9 +128,7 @@ function RepoRead(onClose) {
   const handleOTPClose = () => {
     setShowOTPMoal(false);
   };
-  const handleModalClose = () => {
-    onClose();
-  };
+ 
   return (
     <div className='parent-admin'>
       <Sidebar />

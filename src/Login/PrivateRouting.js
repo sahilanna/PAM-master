@@ -1,5 +1,5 @@
 import React, {lazy, Suspense} from "react";
-import {BrowserRouter as Router,  Route,Routes } from 'react-router-dom';
+import { Route,Routes } from 'react-router-dom';
 import ProjectDetails from "../Components/Dashboard/Admin/Read/ProjectDetails";
 
 
@@ -48,7 +48,7 @@ const LazyViewUserVerification = lazy(() => import( "../Components/Dashboard/Adm
 const LazyDriveDetails = lazy(() => import("../Components/Dashboard/Admin/Drive/driveDetails"));
 const LazyCreateDriveDetails = lazy(() => import("../Components/Dashboard/Admin/Drive/createDriveDetails"));
 const LazyShowAllNotification = lazy(() => import("../Components/Dashboard/ProjectManager/showAllNotification"));
-const LazyDriveRead = lazy(() => import( "../Components/Dashboard/Admin/Drive/driveRead"));
+
 
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
@@ -106,7 +106,7 @@ const PrivateRoutes = () => {
              <Route path='/Create' element={<Suspense fallback={<div>Loading...</div>}><LazyCreate/></Suspense>}/>
              <Route path='/addPm' element={<Suspense fallback={<div>Loading...</div>}><LazyAddPm/></Suspense>}/>
              <Route path='/addUser' element={<Suspense fallback={<div>Loading...</div>}><LazyAddUser/></Suspense>}/>
-             <Route path='/driveRead' element={<Suspense fallback={<div>Loading...</div>}><LazyDriveRead/></Suspense>}/>
+            
              <Route path='/createdriveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyCreateDriveDetails/></Suspense>}/>
            
             
