@@ -32,10 +32,10 @@ export const createProject=({projectName,projectDescription})=>{
     
     catch(error){
         console.log(error)
-    }
-    
+    }   
 }
 }
+
 
 
 

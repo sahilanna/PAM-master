@@ -15,9 +15,7 @@ function CreateRepo() {
       return;
     }
     e.preventDefault();
-    if(!name || !description){
-      return
-    }
+    
     setClicked(true);
     if (name.length === 0) {
       return;
