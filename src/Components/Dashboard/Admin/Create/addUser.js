@@ -31,7 +31,7 @@ const AddUser = () => {
     const owner='Bindushree-0906';
     const accessToken= gitAccessToken
     let repo = selectedRepo;
-    api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
+    api.post(`https://${ngrokUrl}/collaborators/add`,{owner, repo,username,accessToken
   })
   navigate('/repoRead')
 }

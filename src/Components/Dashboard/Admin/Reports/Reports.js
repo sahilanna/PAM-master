@@ -22,7 +22,7 @@ function Reports() {
 
   async function fetchUserProjectList() {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/users/getAll`);
+      const response = await api.get(`https://${ngrokUrl}/users/getAll`);
       setItem(response.data);
     } catch (error) {
       console.log('Error fetching user project list:', error);
@@ -31,7 +31,7 @@ function Reports() {
 
   async function fetchOtherTableData() {
     try {
-      const response1 = await api.get(`https://${ngrokUrl}/api/users/getMultiple`);
+      const response1 = await api.get(`https://${ngrokUrl}/users/getMultiple`);
       setMItem(response1.data);
     } catch (error) {
       console.log('Error fetching other table data:', error);

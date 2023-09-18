@@ -47,7 +47,7 @@ const PmDashboard = () => {
     const fetchPmid = async () => {
       try {
        new URLSearchParams(window.location.search);
-        const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`);
+        const response = await api.get(`https://${ngrokUrl}/users/${id}/role/project_manager/projects`);
 
       console.log(response.data)
       console.log(response.id);

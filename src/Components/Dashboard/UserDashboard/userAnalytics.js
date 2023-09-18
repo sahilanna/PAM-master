@@ -17,7 +17,7 @@ function UserAnalytics() {
         useEffect(() => {
           const fetchData = async () => {
             try {
-              const response = await api.get(`https://${ngrokUrl}/api/projects/count/user/${id}`);
+              const response = await api.get(`https://${ngrokUrl}/projects/count/user/${id}`);
               setProjectCount(response.data);
               console.log(projectCount)
             } catch (error) {

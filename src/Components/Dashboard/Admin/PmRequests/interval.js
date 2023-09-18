@@ -14,7 +14,7 @@ function useApiData() {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/request/allActive`);
+      const response = await api.get(`https://${ngrokUrl}/request/allActive`);
       const newData = response.data;
       const newRequests = newData.filter(
         (newItem) => !prevDataRef.current.some((prevItem) => prevItem.accessRequestId === newItem.accessRequestId)

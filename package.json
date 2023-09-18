@@ -20,7 +20,7 @@
     "react-dom": "^18.2.0",
     "react-google-login": "^5.2.2",
     "react-icons": "^4.8.0",
-    "react-redux": "^8.0.5",
+    "react-redux": "^8.1.2",
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.3",
@@ -31,7 +31,6 @@
     "semantic-ui-react": "^2.1.4",
     "styled-components": "^6.0.3",
     "web-vitals": "^2.1.4"
-   
   },
   "scripts": {
     "start": "react-scripts start",
@@ -76,5 +75,9 @@
     "transform": {
       "^.+\\.(js|jsx)$": "babel-jest"
     }
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/sahilanna/PAM-master.git",
+  "author": "sahilanna <sahil.mehar@nineleaps.com>",
+  "license": "MIT"
 }

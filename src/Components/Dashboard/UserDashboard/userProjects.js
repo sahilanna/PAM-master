@@ -28,7 +28,7 @@ console.log(id)
   useEffect(() => {
     const fetchUserid = async () => {
       try {
-        const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/user/projects`);
+        const response = await api.get(`https://${ngrokUrl}/users/${id}/role/user/projects`);
       setIsLoading(false)
       console.log(response.data)
         const  userid  = response.data;

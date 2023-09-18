@@ -46,7 +46,7 @@ function FigmaRead() {
 
   const fetchProjects = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/figmas/getAll`);
+      const response = await api.get(`https://${ngrokUrl}/figmas/getAll`);
       setProjects(response.data);
       setFigmaId(response.data[0].figmaId);
       setIsLoading(false);
@@ -63,7 +63,7 @@ function FigmaRead() {
   
   const handleDisplayVerification = async (figmaId) => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/figmas/${figmaId}/screenshots`);
+      const response = await api.get(`https://${ngrokUrl}/figmas/${figmaId}/screenshots`);
       const data = response.data; // Assuming response.data is the array of objects
   
       if (data.length > 0) {
@@ -105,7 +105,7 @@ function FigmaRead() {
 
   const handleDeleteUrl = async (figmaId) => {
     try {
-      await api.delete(`https://${ngrokUrl}/api/figmas/${figmaId}`);
+      await api.delete(`https://${ngrokUrl}/figmas/${figmaId}`);
       navigate('/FigmaRead');
       setShowConfirmDialog(false);
       fetchProjects();

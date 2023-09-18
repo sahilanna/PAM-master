@@ -42,7 +42,7 @@ function AddFile() {
     const data = new FormData();
     data.append('projectFile', modalfile);
 
-    const url = `https://${ngrokUrl}/api/projects/upload?projectId=${projectId}`;
+    const url = `https://${ngrokUrl}/projects/upload?projectId=${projectId}`;
 
     api
       .post(url, data, { headers })

@@ -34,8 +34,9 @@ color: #FFFFFF;
         };
        // console.log(headers)
         try {
+          console.log("Login nhi ho rha");
           const { data}  = await axios.get(
-              `https://${ngrokUrl}/auth/api/get-email`,
+              `https://${ngrokUrl}/auth/api/v1/get-email`,
              {headers})
               // console.log(data)
           sessionStorage.setItem('item', JSON.stringify( data))

@@ -28,7 +28,7 @@ function PmRequestUser() {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/request/allActive`);
+      const response = await api.get(`https://${ngrokUrl}/request/allActive`);
       setRequestData(response.data);
       console.log(response.data)
       setIsLoading(false);
@@ -54,7 +54,7 @@ function PmRequestUser() {
   const AcceptRequest = async (accessRequestId, id, projectId) => {
     try {
       const response = await api.put(
-        `https://${ngrokUrl}/api/request/update/${accessRequestId}`,
+        `https://${ngrokUrl}/request/update/${accessRequestId}`,
         { allowed: true },{headers}
       );
     console.log("Helllo",response);
@@ -63,7 +63,7 @@ function PmRequestUser() {
         
   
         const secondResponse = await api.put(
-          `https://${ngrokUrl}/api/projects/${projectId}/users/${id}`
+          `https://${ngrokUrl}/projects/${projectId}/users/${id}`
         );
   
         if (secondResponse.status === 200 || secondResponse.status === 204 || secondResponse.status === 201) {
@@ -98,7 +98,7 @@ function PmRequestUser() {
   const DeclineRequest = async (accessRequestId) => {
     try {
       const response = await api.put(
-        `https://${ngrokUrl}/api/request/update/${accessRequestId}`,
+        `https://${ngrokUrl}/request/update/${accessRequestId}`,
         { allowed: false },{headers}
       );
       if (response.status === 200 || response.status === 204) {

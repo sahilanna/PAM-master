@@ -26,7 +26,7 @@ function ProjectPms({ open, onClose,projectId,projectName }) {
 const getUsers = async () => {
     setIsLoading(true);
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/users/project_manager`);
+      const response = await api.get(`https://${ngrokUrl}/projects/${projectId}/users/project_manager`);
       setPms(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -42,7 +42,7 @@ const getUsers = async () => {
   }, [projectId]);
   const loadRepo = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`);
+      const response = await api.get(`https://${ngrokUrl}/repositories/project/${projectId}`);
       const repoo=response.data
       setRepoName(repoo[0].name)
       console.log(repoName)
@@ -67,7 +67,7 @@ const getUsers = async () => {
     try {
       console.log('repo',repoName)
       console.log('username', username)
-      const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
+      const otpResponse = await api.post(`https://${ngrokUrl}/OTP/send`, {
         phoneNumber: '+91 8884763231',
       });
       if (otpResponse.data === 'OTP sent') {
@@ -86,11 +86,11 @@ const getUsers = async () => {
   const handleOTPSubmit = async (e) => {
     e.preventDefault();
     try{
-    const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/verify`, {
+    const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/OTP/verify`, {
       otp: otp,
     });
     if (otpSubmissionResponse.data ===true) {
-      await api.delete(`https://${ngrokUrl}/api/projects/${projectId}/users/${selectedUserId}/repo`,{ data: {
+      await api.delete(`https://${ngrokUrl}/projects/${projectId}/users/${selectedUserId}/repo`,{ data: {
         owner: 'Bindushree-0906',
         repo: repoName,
         username: username,

@@ -34,7 +34,7 @@ function PmReadNew() {
    
 
     const loaditem = async () => {
-     await api.get(`https://${ngrokUrl}/api/users/role/project_manager`)
+     await api.get(`https://${ngrokUrl}/users/role/project_manager`)
        .then((result) => {
           setItem(result.data);
           setIsLoading(false);
@@ -100,7 +100,7 @@ function PmReadNew() {
       
   
       const deleteUser = async (id) => {
-        await api.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
+        await api.delete(`https://${ngrokUrl}/users/delete/${id}`);
         navigate('/pmReadNew')
         setShowConfirmDialog(false);
         loaditem();

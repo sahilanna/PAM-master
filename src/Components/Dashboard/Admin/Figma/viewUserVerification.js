@@ -12,7 +12,7 @@ const ViewUserVerification = () => {
 
   const downloadFile = async () => {
    
-    const result = await api.get(`https://${ngrokUrl}/api/figmas/${figmaId}/screenshots`, {
+    const result = await api.get(`https://${ngrokUrl}/figmas/${figmaId}/screenshots`, {
       responseType: 'blob',
       contentType: 'application/zip',
     })

@@ -21,7 +21,7 @@ function UserRepoRead() {
     const fetchRepo = async () => {
       try {
         const response = await api.get(
-          `https://${ngrokUrl}/api/users/${id}/role/user/projects`
+          `https://${ngrokUrl}/users/${id}/role/user/projects`
         );
         const data = response.data;
         console.log('data', data);

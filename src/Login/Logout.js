@@ -17,7 +17,7 @@ console.log(id)
  
 
   const logOut = async () => {
-    await api.post(`https://${ngrokUrl}/api/users/${id}/logout
+    await api.post(`https://${ngrokUrl}/users/${id}/logout
     `) .then(
       navigate('/Login')
     )
@@ -32,14 +32,6 @@ console.log(id)
   }, []);
 
 
-  
- 
-
-
-
-
-   
-  
 
   return (
   

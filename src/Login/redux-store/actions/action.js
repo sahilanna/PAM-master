@@ -1,35 +1,56 @@
 import { ngrokUrl} from "../../../Assets/config";
 import api from "../../../Components/Dashboard/api";
+import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { toast} from 'react-toastify'
+import * as actionTypes from './actionTypes'; // Import your action types
+
+export const createProjectRequest = () => ({
+  type: actionTypes.CREATE_PROJECT_REQUEST,
+});
+ 
+export const createProjectSuccess = () => ({
+  type: actionTypes.CREATE_PROJECT_SUCCESS,
+});
+
+export const createProjectFailure = (error) => ({
+  type: actionTypes.CREATE_PROJECT_FAILURE,
+  payload: error,
+});
+
+
+
+
+
+
 //Create Project
-export const createProject = ({ projectName, projectDescription,projectManagerId,gitRepoLink}) => {
-    return async(dispatchU) => {
-        try {
-            const responseCreate = await api.post('https://64267bccd24d7e0de470e2b7.mockapi.io/Crud', {
+// export const createProject = ({ projectName, projectDescription,projectManagerId,gitRepoLink}) => {
+//     return async(dispatchU) => {
+//         try {
+//             const responseCreate = await api.post('https://64267bccd24d7e0de470e2b7.mockapi.io/Crud', {
                 
-                projectName,
-                projectDescription,
-                projectManagerId,
+//                 projectName,
+//                 projectDescription,
+//                 projectManagerId,
                 
-                gitRepoLink
-            })
-            toast.success('Project created successfully!', {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 3000,
-              })
-            dispatchU({type: "createProject", payload: responseCreate});
+//                 gitRepoLink
+//             })
+//             toast.success('Project created successfully!', {
+//                 position: toast.POSITION.TOP_RIGHT,
+//                 autoClose: 3000,
+//               })
+//             dispatchU({type: "createProject", payload: responseCreate});
             
-        }
-        catch (error){
-            console.log(error);
-            toast.error('Failed. Please try again.', {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 3000,
-              });
-        }
-    };
-};
+//         }
+//         catch (error){
+//             console.log(error);
+//             toast.error('Failed. Please try again.', {
+//                 position: toast.POSITION.TOP_RIGHT,
+//                 autoClose: 3000,
+//               });
+//         }
+//     };
+// };
 
 
 //Update Project
@@ -55,7 +76,7 @@ export const updateProject = ({projectId, projectName, projectDescription, repo}
 export const createPM = ({ name, email,enumRole}) => {
     return async(dispatchPMUpdate) => {
         try {
-            const responseCreatePM = await api.post(`https://${ngrokUrl}/api/users/`, {
+            const responseCreatePM = await api.post(`https://${ngrokUrl}/users/`, {
                 
                 name,
                 email,
@@ -76,7 +97,7 @@ export const createPM = ({ name, email,enumRole}) => {
 export const updatePM = ({ id,name, email, githubUsername, enumRole}) => {
     return async(dispatchPM) => {
         try {
-            const responsePMUpdate = await api.put(`https://${ngrokUrl}/api/users/update/${id}`, {
+            const responsePMUpdate = await api.put(`https://${ngrokUrl}/users/update/${id}`, {
                
                 name,
                 email,
@@ -98,7 +119,7 @@ export const updatePM = ({ id,name, email, githubUsername, enumRole}) => {
 export const createUser = ({ name, email, enumRole}) => {
     return async(dispatchUserUpdate) => {
         try {
-            const responseCreateUser = await api.post(`https://${ngrokUrl}/api/users/`, {
+            const responseCreateUser = await api.post(`https://${ngrokUrl}/users/`, {
                 
                 name,
                 email,
@@ -120,7 +141,7 @@ export const updateUser = ({ id,name, email, enumRole}) => {
     return async(dispatchUser) => {
         
         try {
-            const responseUserUpdate = await api.put(`https://${ngrokUrl}/api/users/update/${id}`, {
+            const responseUserUpdate = await api.put(`https://${ngrokUrl}/users/update/${id}`, {
                 
                 name,
                 email,
@@ -139,7 +160,7 @@ export const updateUser = ({ id,name, email, enumRole}) => {
 export const createPmGithubName = ({projectName, repo, username}) => {
     return async(dispatchPmGithub) => {
         try {
-            const responseCreatePmGithubName = await api.post(`https://${ngrokUrl}/api/collaborators/add`, {
+            const responseCreatePmGithubName = await api.post(`https://${ngrokUrl}/collaborators/add`, {
                 projectName,
                 repo,
                 username

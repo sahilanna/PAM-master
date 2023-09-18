@@ -73,7 +73,6 @@ const PrivateRoutes = () => {
             <Route path="//PmUpdate/:id" element={<Suspense fallback={<div>Loading...</div>}><LazyPmReadNew /></Suspense>} />
             <Route path="/UserCreate" element={<Suspense fallback={<div>Loading...</div>}><LazyUserCreate /></Suspense>} />
             <Route path="/CreateRepo" element={<Suspense fallback={<div>Loading...</div>}><LazyCreateRepo /></Suspense>} />
-            {/* <Route path="/addCollab" element={<LazyaddCollab />} /> */}
             <Route path="/AddPm" element={<Suspense fallback={<div>Loading...</div>}><LazyAddPm/></Suspense>} />
             <Route path="/addUser" element={<Suspense fallback={<div>Loading...</div>}><LazyAddUser /></Suspense>} />
             <Route path="/repoRead" element={<Suspense fallback={<div>Loading...</div>}><LazyRepoRead/></Suspense>} />

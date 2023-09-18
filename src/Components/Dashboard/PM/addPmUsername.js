@@ -19,7 +19,7 @@ function AddPmUserName() {
     console.log(selectedUser);
     const fetchPms = async () => {
       try {
-        const response = await api.get(`https://${ngrokUrl}/api/users/role/project_manager`
+        const response = await api.get(`https://${ngrokUrl}/users/role/project_manager`
           
         );
         const userOptions = response.data.map(user => ({

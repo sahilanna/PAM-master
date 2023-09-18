@@ -18,7 +18,7 @@ function AddPmProject() {
 
   const fetchPms = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/users/withoutProject?role=project_manager&projectId=${projectId}`);
+      const response = await api.get(`https://${ngrokUrl}/users/withoutProject?role=project_manager&projectId=${projectId}`);
       const projUsers = response.data.map((projU) => ({
         key: projU.id,
         text: projU.name,
@@ -55,7 +55,7 @@ function AddPmProject() {
     }
 
     try {
-      const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
+      const otpResponse = await api.post(`https://${ngrokUrl}/OTP/send`, {
         phoneNumber: '+91 9928931610',
       });
 
@@ -71,12 +71,12 @@ function AddPmProject() {
     e.preventDefault();
 
     try {
-      const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/verify`, {
+      const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/OTP/verify`, {
         otp: otpp,
       });
 
       if (otpSubmissionResponse.status === 200) {
-         await api.put(`https://${ngrokUrl}/api/projects/${projectId}/users/${userId}`, {
+         await api.put(`https://${ngrokUrl}/projects/${projectId}/users/${userId}`, {
           projectId: projectId,
           userId: userId,
         });

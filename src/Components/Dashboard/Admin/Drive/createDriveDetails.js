@@ -50,7 +50,7 @@ function CreateDriveDetails() {
 
    const fetchProjects = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/projects/without-google-drive`);
+      const response = await api.get(`https://${ngrokUrl}/projects/without-google-drive`);
      
       const driveProjects = response.data.map(drive => ({
         key: drive.projectId,

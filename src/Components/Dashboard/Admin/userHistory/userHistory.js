@@ -30,7 +30,7 @@ function UserHistory() {
   }, []);
   async function fetchData() {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/projects/all`);
+      const response = await api.get(`https://${ngrokUrl}/projects/all`);
       const sortedData = response.data.slice().sort((a, b) => {
 
         if (a.status !== b.status) {

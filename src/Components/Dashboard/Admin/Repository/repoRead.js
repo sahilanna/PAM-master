@@ -38,7 +38,7 @@ function RepoRead(onClose) {
   }, [item]);
   const loadItem = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/repositories/get`);
+      const response = await api.get(`https://${ngrokUrl}/repositories/get`);
       setItem(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -83,7 +83,7 @@ function RepoRead(onClose) {
   };
   const handleConfirmDelete = async () => {
     try {
-      const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
+      const otpResponse = await api.post(`https://${ngrokUrl}/OTP/send`, {
         phoneNumber: '+91 9928931610',
       });
       console.log(otpResponse);
@@ -104,12 +104,12 @@ function RepoRead(onClose) {
   const handleOTPSubmit = async (e) => {
     e.preventDefault();
     try {
-      const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/verify`, {
+      const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/OTP/verify`, {
         otp: otp,
       });
       console.log(otpSubmissionResponse);
       if (otpSubmissionResponse.data === true) {
-        await api.delete(`https://${ngrokUrl}/api/repositories/delete/${selectedRepoId}`);
+        await api.delete(`https://${ngrokUrl}/repositories/delete/${selectedRepoId}`);
         setShowOTPMoal(false);
         loadItem();
       } else if (!otpSubmissionResponse.data) {

@@ -1,14 +1,19 @@
 import React,  { useState  } from 'react'
 import {Form, Button, Modal } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
-import { ngrokUrl } from '../../../../Assets/config';
-import api from '../../api';
-import './Create.css';
+import { useDispatch, useSelector } from 'react-redux'; // Import useDispatch and useSelector
+import { createProject } from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Login/redux-store/actions/projectActions.js' // Import the createProject action
 
+import './Create.css';
+import LoadingPage from '../../../../Assets/Loader/LoadingPage';
+import { ToastContainer } from 'react-toastify';
 
 function CreateProject() {
   const navigate=useNavigate()
-    
+  const dispatch = useDispatch(); 
+  console.log("Helllllll")
+  const { loading, success, error } = useSelector((state) => state.createProjectReducer); // Get Redux state
+
     const [projectName, setProjectName] = useState('');
     const [projectDescription, setProjectDescription] = useState('');
     const [clicked, setClicked] = useState(false);
@@ -18,17 +23,22 @@ function CreateProject() {
     const handleSubmit = async (e)=>{
       e.preventDefault();
       if(!projectDescription||!projectName){
-        return
+        return ;
       }
-      setClicked(true);
-      await api.post(`https://${ngrokUrl}/api/projects/create`,{projectName,projectDescription})
-      navigate('/AdminDashboard')
+      dispatch(createProject(projectName, projectDescription)); // Dispatch the createProject action
+      navigate('/AdminDashboard');
     }
 const onClose=()=>{
 navigate(-1);
 }
   return (
+    <>
+    <ToastContainer />
+    
     <Modal open={true} onClose={onClose} style={{ width: '500px' }} className='create-Project-Modal'>
+      {loading && <LoadingPage />}
+      {success && <div>Project created successfully!</div>}
+      {error && <div>Error: {error.message}</div>}
     <div style={{paddingTop:'6px'}}>
       </div>
       <div style={{paddingLeft:'442px'}}>
@@ -57,6 +67,7 @@ navigate(-1);
       <Modal.Actions>
       </Modal.Actions>
       </Modal>
+      </>
   )
 }
-  export default CreateProject
+export default CreateProject

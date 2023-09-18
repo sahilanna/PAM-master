@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
-import {toast} from 'react-toastify'
+import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { ngrokUrl } from '../../../../Assets/config';
 import api from '../../api';
 import './Create.css';
-import { ERROR_CODE_BAD_REQUEST, ERROR_CODE_UNAUTHORIZED, ERROR_CODE_INTERNAL_SERVER_ERROR } from '../../error-Code';
+import { ERROR_CODE_BAD_REQUEST, ERROR_CODE_INTERNAL_SERVER_ERROR, ERROR_CODE_NOT_FOUND } from '../../error-Code';
 
 function CreateRepo() {
   const navigate = useNavigate();
@@ -23,12 +23,13 @@ function CreateRepo() {
     setClicked(true);
     
     try{
-      await api.post(`https://${ngrokUrl}/api/repositories/add`, { name, description });
+      await api.post(`https://${ngrokUrl}/repositories/add`, { name, description });
       console.log(name);
       navigate('/repoRead');
     }
     catch(error)
     {
+     
       if(error.response && error.response.status === ERROR_CODE_BAD_REQUEST)
       {
         toast.error('Bad Request', {
@@ -36,9 +37,9 @@ function CreateRepo() {
             autoClose: 3000,
           });
       }
-      else if (error.response && error.response.status === ERROR_CODE_UNAUTHORIZED)
+      else if (error.response && error.response.status === ERROR_CODE_NOT_FOUND)
       {
-         toast.error('Unauthorized', {
+         toast.error('404 NOT FOUND', {
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 3000,
           });
@@ -53,7 +54,10 @@ function CreateRepo() {
       } 
       else
       {
-        console.log("Error");
+        toast.error('Error Occured', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000,
+          });
       }
     }
   };
@@ -63,10 +67,14 @@ function CreateRepo() {
   }
 
   return (
+    <>
+    <ToastContainer />
     <Modal open={true} onClose={onClose}  style={{ width: '500px' }} className='create-Project-Modal'>
+       
       <div style={{ paddingTop: '6px' }}></div>
       <div style={{ paddingLeft: '442px' }}>
         <Button secondary onClick={onClose}>X</Button>
+       
       </div>
       <Modal.Header>Create New Repository</Modal.Header>
       <Modal.Content>
@@ -84,10 +92,12 @@ function CreateRepo() {
             <br />
           </Form.Field>
           <Button type='submit' primary disabled={!name || !description}>Submit</Button>
+          
         </Form>
       </Modal.Content>
       <Modal.Actions></Modal.Actions>
     </Modal>
+    </>
   );
 }
 

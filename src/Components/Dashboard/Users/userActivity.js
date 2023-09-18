@@ -20,7 +20,7 @@ function UserActivity(open, userName) {
 
   const displayActivity=async()=>{
     try{
-    const result = await api.get(`https://${ngrokUrl}/api/users/${id}`)
+    const result = await api.get(`https://${ngrokUrl}/users/${id}`)
     setActivityData([result.data])
     console.log(result.data)
    

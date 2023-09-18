@@ -38,7 +38,7 @@ function PmRequestForm() {
   }, [])
   const fetchUsers = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/users/withoutProject?role=user&projectId=${projectId}`);
+      const response = await api.get(`https://${ngrokUrl}/users/withoutProject?role=user&projectId=${projectId}`);
       console.log(response.data);
       if (Array.isArray(response.data)) {
         const userNames = response.data.map(users => users.name);
@@ -68,7 +68,7 @@ setRequestDescription(e.target.value)
         const  project={
               projectId: projectId,
           }
-        const response = await api.post(`https://${ngrokUrl}/api/request/`, { pmName, user, project, requestDescription
+        const response = await api.post(`https://${ngrokUrl}/request/`, { pmName, user, project, requestDescription
         });
         if (response.data.success) {
           setRequestStatus('Request submitted successfully');

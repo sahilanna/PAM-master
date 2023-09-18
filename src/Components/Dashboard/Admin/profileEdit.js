@@ -21,7 +21,7 @@ const ProfileEdit = ({ profileData, onUpdate , onClose}) => {
   }, []);
   async function fetchUserList() {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/users/${id}`);
+      const response = await api.get(`https://${ngrokUrl}/users/${id}`);
      
      
     } catch (error) {
@@ -37,7 +37,7 @@ const ProfileEdit = ({ profileData, onUpdate , onClose}) => {
       };
 
       try {
-        const response = await api.put(`https://${ngrokUrl}/api/users/update/${id}`, updatedProfileData);
+        const response = await api.put(`https://${ngrokUrl}/users/update/${id}`, updatedProfileData);
         if (response) {
           onUpdate(updatedProfileData);
           fetchUserList()

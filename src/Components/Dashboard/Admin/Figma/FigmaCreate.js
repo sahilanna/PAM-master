@@ -27,7 +27,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     e.preventDefault();
     try {
       await api.post(
-        `https://${ngrokUrl}/api/figmas/${figmaId}/user`,
+        `https://${ngrokUrl}/figmas/${figmaId}/user`,
         {
           user: figmaUser,
           screenshotImage: screenshotImage
@@ -58,7 +58,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   }, [projectId]);
   const fetchUsers = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/users`);
+      const response = await api.get(`https://${ngrokUrl}/projects/${projectId}/users`);
      console.log(response.data)
      const userNames = response.data.map(project => project.name);
      setUsers(userNames);

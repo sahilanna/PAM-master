@@ -17,7 +17,7 @@ function AdminHeader() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await api.get(`https://${ngrokUrl}/api/users/count/user`);
+        const response = await api.get(`https://${ngrokUrl}/users/count/user`);
         setUsers(response.data);
         console.log('result', users);
       } catch (error) {
@@ -30,7 +30,7 @@ function AdminHeader() {
   useEffect(() => {
     const fetchPms = async () => {
       try {
-        const response = await api.get(`https://${ngrokUrl}/api/users/count/project_manager`);
+        const response = await api.get(`https://${ngrokUrl}/users/count/project_manager`);
         setPms(response.data);
         console.log('result', pms);
       } catch (error) {
@@ -43,7 +43,7 @@ function AdminHeader() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await api.get(`https://${ngrokUrl}/api/projects/count/active`);
+        const response = await api.get(`https://${ngrokUrl}/projects/count/active`);
         setProjects(response.data);
         console.log('result', projects);
       } catch (error) {

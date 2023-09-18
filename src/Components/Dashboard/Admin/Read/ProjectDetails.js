@@ -93,7 +93,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   console.log(repo);
   const deleteProject = async (projectId) => {
     try {
-      await api.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`);
+      await api.delete(`https://${ngrokUrl}/projects/delete/${projectId}`);
       navigate('/adminDashboard')
    
        
@@ -111,7 +111,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   }, []);
   const Details = async () => {
     try {
-      const result = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/details`,{});
+      const result = await api.get(`https://${ngrokUrl}/projects/${projectId}/details`,{});
        setProjectData(result.data)
        console.log(projectData)
        console.log(count)
@@ -133,7 +133,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   
     async function fetchCount(projectId) {
       try {
-        const result = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/count`, {});
+        const result = await api.get(`https://${ngrokUrl}/projects/${projectId}/count`, {});
         setCount(result.data);
       } catch (error) {
         console.log(error);
@@ -147,7 +147,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
 
   const handleConfirmDelete = async () => {
     try {
-      const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
+      const otpResponse = await api.post(`https://${ngrokUrl}/OTP/send`, {
         phoneNumber: '+91 9928931610',
       });
       console.log(otpResponse);
@@ -167,12 +167,12 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   const handleOTPSubmit = async (e) => {
     e.preventDefault();
     try {
-      const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/verify`, {
+      const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/OTP/verify`, {
         otp: otp,
       });
       console.log(otpSubmissionResponse);
       if (otpSubmissionResponse.data === true) {
-        await api.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`);
+        await api.delete(`https://${ngrokUrl}/projects/delete/${projectId}`);
         setShowOTPMoal(false);
       
       } else if (!otpSubmissionResponse.data) {
@@ -208,7 +208,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
 
   const displayFile = async () => {
     try {
-      const result = await api.get(`https://${ngrokUrl}/api/projects/files?projectId=${projectId}`);
+      const result = await api.get(`https://${ngrokUrl}/projects/files?projectId=${projectId}`);
       if (Array.isArray(result.data)) {
         setNamesFile(result.data);
         console.log(namesFile);
@@ -239,7 +239,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
 
   const downloadFile = async (filename) => {
 
-     await api.get(`https://${ngrokUrl}/api/projects/files/${filename}?projectId=${projectId}`, {
+     await api.get(`https://${ngrokUrl}/projects/files/${filename}?projectId=${projectId}`, {
 
       responseType: 'blob',
       contentType: 'application/zip',
@@ -263,7 +263,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
 
   const handleDeleteFile = async (helpDocumentId) => {
     try {
-      await api.delete(`https://${ngrokUrl}/api/projects/files/${helpDocumentId}`);
+      await api.delete(`https://${ngrokUrl}/projects/files/${helpDocumentId}`);
       // Remove the deleted file from the namesFile list
       setNamesFile(prevNamesFile => prevNamesFile.filter(file => file.helpDocumentId !== helpDocumentId));
     } catch (error) {
@@ -290,7 +290,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   
   const loadRepo = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
+      const response = await api.get(`https://${ngrokUrl}/repositories/project/${projectId}`, {});
       setRepo(response.data);
 
     } catch (error) {
@@ -302,7 +302,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   }, []);
   const loadFigma = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/figmas/project/${projectId}`, {});
+      const response = await api.get(`https://${ngrokUrl}/figmas/project/${projectId}`, {});
       setFigmaLink(response.data);
       console.log(figmaLink)
     } catch (error) {

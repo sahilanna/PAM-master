@@ -26,7 +26,7 @@ const AddPm = () => {
       try {
         const response = await api.get(`https://${ngrokUrl}/usernames/role/project_manager`);
         setOptions(response.data);
-        const res = await api.get(`https://${ngrokUrl}/api/repositories/get`);
+        const res = await api.get(`https://${ngrokUrl}/repositories/get`);
           const repoOptions = res.data.map(rep => ({
             key: rep.repoId,
             text: rep.name,
@@ -48,7 +48,7 @@ const AddPm = () => {
     const owner='Bindushree-0906';
    
     let repo = selectedRepo
-      api.post(`https://${ngrokUrl}/api/collaborators/add`,{owner, repo,username,accessToken
+      api.post(`https://${ngrokUrl}/collaborators/add`,{owner, repo,username,accessToken
     })
     navigate('/addUser', { state: { selectedRepo } });
   }

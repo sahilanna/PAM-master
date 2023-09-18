@@ -20,7 +20,7 @@ function PmNotification() {
     const pmName=user.name
     const fetchNotification = async () => {
         try {
-          const response = await api.get(`https://${ngrokUrl}/api/request/unread/PM?pmName=${pmName}`);
+          const response = await api.get(`https://${ngrokUrl}/request/unread/PM?pmName=${pmName}`);
           console.log(response.data);
           setNotification(response.data)
           const requestId = response.data[0].accessRequestId;
@@ -51,7 +51,7 @@ function PmNotification() {
       const onDeleteNotification= async (accessRequestId)=>{
        
             try {
-              await api.put(`https://${ngrokUrl}/api/request/notifiedPM?accessRequestId=${accessRequestId}`);
+              await api.put(`https://${ngrokUrl}/request/notifiedPM?accessRequestId=${accessRequestId}`);
               
              
                fetchNotification()

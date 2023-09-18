@@ -50,7 +50,7 @@ function CreateFigmaDetails() {
 
   const fetchProjects = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/projects/without-figma-url`);
+      const response = await api.get(`https://${ngrokUrl}/projects/without-figma-url`);
      
       const figmaProjects = response.data.map(figma => ({
         key: figma.projectId,
@@ -71,7 +71,7 @@ function CreateFigmaDetails() {
     }
     try {
       
-      const response = await api.post(`https://${ngrokUrl}/api/figmas/create`, {
+      const response = await api.post(`https://${ngrokUrl}/figmas/create`, {
         projectDTO: {
           projectId: selectedProject,
           projectName: selectedProject,

@@ -22,7 +22,7 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
   const getUsers = async () => {
     setIsLoading(true);
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/users/user`);
+      const response = await api.get(`https://${ngrokUrl}/projects/${projectId}/users/user`);
       setUsers(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -39,7 +39,7 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
   }, []);
   const loadRepo = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/repositories/project/${projectId}`, {});
+      const response = await api.get(`https://${ngrokUrl}/repositories/project/${projectId}`, {});
     const repo=response.data
       setRepoName(repo[0].name)
       console.log(repoName)
@@ -59,7 +59,7 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
   };
   const handleConfirmDelete = async () => {
     try {
-      const otpResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/send`, {
+      const otpResponse = await api.post(`https://${ngrokUrl}/OTP/send`, {
         phoneNumber: '+91 9928931610',
       });
       console.log(otpResponse)
@@ -81,12 +81,12 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
     e.preventDefault();
     console.log(repoName)
     try{
-    const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/api/v1/OTP/verify`, {
+    const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/OTP/verify`, {
       otp: otp,
     });
     console.log(otpSubmissionResponse)
     if (otpSubmissionResponse.data ===true) {
-      await api.delete(`https://${ngrokUrl}/api/projects/${projectId}/users/${selectedUserId}/repo`, {
+      await api.delete(`https://${ngrokUrl}/projects/${projectId}/users/${selectedUserId}/repo`, {
         data: {
           owner: owner,
           repo: repoName,

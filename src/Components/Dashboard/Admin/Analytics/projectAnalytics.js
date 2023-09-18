@@ -20,8 +20,8 @@ const ProjectAnalytics = ({ onBackClick }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const activeResponse = await api.get(`https://${ngrokUrl}/api/projects/count/active`);
-        const inactiveResponse = await api.get(`https://${ngrokUrl}/api/projects/count/inactive`);
+        const activeResponse = await api.get(`https://${ngrokUrl}/projects/count/active`);
+        const inactiveResponse = await api.get(`https://${ngrokUrl}/projects/count/inactive`);
         setActiveProjects(activeResponse.data);
         setInactiveProjects(inactiveResponse.data);
       } catch (error) {

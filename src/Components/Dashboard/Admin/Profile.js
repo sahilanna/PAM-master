@@ -38,7 +38,7 @@ const Profile = () => {
   
   async function fetchUserList() {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/users/${id}`);
+      const response = await api.get(`https://${ngrokUrl}/users/${id}`);
       const userData=response.data
      
       setUserName(userData.name)

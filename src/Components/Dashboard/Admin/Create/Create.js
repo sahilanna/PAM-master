@@ -38,7 +38,7 @@ const Create = () => {
 
   const fetchRepos = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/repositories/get`);
+      const response = await api.get(`https://${ngrokUrl}/repositories/get`);
       const repoOptions = response.data.map(repo => ({
         key: repo.repoId,
         text: repo.name,
@@ -53,7 +53,7 @@ const Create = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/projects/allProjects`);
+      const response = await api.get(`https://${ngrokUrl}/projects/allProjects`);
       const projOptions = response.data.map(proj => ({
         key: proj.projectId,
         text: proj.projectName,
@@ -79,7 +79,7 @@ const Create = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("repoid", repoId)
-    api.put(`https://${ngrokUrl}/api/projects/${projectId}/repository/${repoId}`);
+    api.put(`https://${ngrokUrl}/projects/${projectId}/repository/${repoId}`);
     console.log(selectedRepo);
     navigate('/repoRead');
     

@@ -36,7 +36,7 @@ const AdminDashboard = () => {
   console.log(Loading);
   const fetchData = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/request/allActive`);
+      const response = await api.get(`https://${ngrokUrl}/request/allActive`);
       console.log(response);
     }
     catch (error) {
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
   
   const loadItems = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/projects/countPeople`, {});
+      const response = await api.get(`https://${ngrokUrl}/projects/countPeople`, {});
       setItem(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -112,7 +112,7 @@ const AdminDashboard = () => {
   );
   const deleteProject = async (projectId) => {
     try {
-      await api.delete(`https://${ngrokUrl}/api/projects/delete/${projectId}`);
+      await api.delete(`https://${ngrokUrl}/projects/delete/${projectId}`);
       navigate('/adminDashboard')
       loadItems();
     } catch (error) {
@@ -124,7 +124,7 @@ const AdminDashboard = () => {
   }, []);
   const countEmp = async (projectId) => {
     try {
-      const result = await api.get(`https://${ngrokUrl}/api/projects/${projectId}/count`,{});
+      const result = await api.get(`https://${ngrokUrl}/projects/${projectId}/count`,{});
        setCount(result.data)
        console.log(count)
     } catch (error) {

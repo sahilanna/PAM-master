@@ -22,7 +22,7 @@ function AddUserName() {
   console.log(selectedUser);
   const fetchUsers = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/api/users/role/user`);
+      const response = await api.get(`https://${ngrokUrl}/users/role/user`);
       const userOptions = response.data.map((user) => ({
         key: user.id,
         text: user.name,

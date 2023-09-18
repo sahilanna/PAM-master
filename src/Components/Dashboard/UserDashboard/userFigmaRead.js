@@ -21,7 +21,7 @@ function UserFigmaRead() {
    try {
       new URLSearchParams(window.location.search);
      
-     const response = await api.get(`https://${ngrokUrl}/api/users/${id}/role/user/projects`);
+     const response = await api.get(`https://${ngrokUrl}/users/${id}/role/user/projects`);
    console.log(response.data)
    console.log(response.id);
    setIsLoading(false);

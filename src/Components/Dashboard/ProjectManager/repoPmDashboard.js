@@ -21,7 +21,7 @@ useEffect(() => {
   const fetchRepo = async () => {
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/api/users/${id}/role/project_manager/projects`
+        `https://${ngrokUrl}/users/${id}/role/project_manager/projects`
       );
       const data = response.data;
       console.log('data', data);

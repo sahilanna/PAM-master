@@ -14,7 +14,7 @@ import './Read.css';
 
 function UserRead(){
   const navigate = useNavigate();
-  const getUrl =  `https://${ngrokUrl}/api/users/role/user`;
+  const getUrl =  `https://${ngrokUrl}/users/role/user`;
   const [item, setItem] = useState([]);
   
  
@@ -98,7 +98,7 @@ function UserRead(){
    
 
     const deleteUser = async (id) => {
-      await api.delete(`https://${ngrokUrl}/api/users/delete/${id}`);
+      await api.delete(`https://${ngrokUrl}/users/delete/${id}`);
       navigate('/userRead')
       setShowConfirmDialog(false);
       loaditem();

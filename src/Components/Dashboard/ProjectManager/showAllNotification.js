@@ -19,7 +19,7 @@ function ShowAllNotification() {
     const fetchNotification= async ()=>{
        
         try {
-         const response= await api.get(`https://${ngrokUrl}/api/request/all/PM?pmName=${pmName}`);
+         const response= await api.get(`https://${ngrokUrl}/request/all/PM?pmName=${pmName}`);
           
          setAllNotification(response.data)
            
@@ -35,7 +35,7 @@ function ShowAllNotification() {
 
   const clearNotification= async ()=>{
    
-      await api.delete(`https://${ngrokUrl}/api/request/clearAll`);   
+      await api.delete(`https://${ngrokUrl}/request/clearAll`);   
       navigate('/showAllNotification')
       setShowNotifyDialog(true);
        fetchNotification()
