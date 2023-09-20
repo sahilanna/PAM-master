@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ngrokUrl } from '../Assets/config';
-import api from '../Components/Dashboard/api';
+import { ngrokUrl } from '../network/config';
+import api from '../network/api';
 
 const Logout = () => {
   let data = sessionStorage.getItem("item");

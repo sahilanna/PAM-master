@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
-import api from '../../../Components/Dashboard/api'
-import { ngrokUrl } from '../../../Assets/config';
+import api from '../../../network/api'
+import { ngrokUrl } from '../../../network/config';
 import {createProjectRequest,createProjectSuccess,createProjectFailure} from './action'; 
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';

@@ -3,9 +3,9 @@ import { Button, Modal } from 'semantic-ui-react'
 import axios from 'axios';
 import NavBarLogin from './NavBarLogin';
 import { useNavigate } from 'react-router-dom';
-import Footer from '../Components/Footer';
+import Footer from '../screens/Footer';
 import './Login.css'
-import { ngrokUrl} from '../Assets/config';
+import { ngrokLogin} from '../network/config';
 import styled from 'styled-components';
 import logo1 from '../Assets/logo1.png'
 import GoogleLogin from 'react-google-login';
@@ -36,7 +36,7 @@ color: #FFFFFF;
         try {
           console.log("Login nhi ho rha");
           const { data}  = await axios.get(
-              `https://${ngrokUrl}/auth/api/v1/get-email`,
+              `https://${ngrokLogin}/auth/api/v1/get-email`,
              {headers})
               // console.log(data)
           sessionStorage.setItem('item', JSON.stringify( data))

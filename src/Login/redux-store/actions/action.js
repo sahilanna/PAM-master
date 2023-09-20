@@ -1,5 +1,5 @@
-import { ngrokUrl} from "../../../Assets/config";
-import api from "../../../Components/Dashboard/api";
+import { ngrokUrl} from "../../../network/config";
+import api from "../../../network/api";
 import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { toast} from 'react-toastify'

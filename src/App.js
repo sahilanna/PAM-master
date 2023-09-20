@@ -1,16 +1,16 @@
 import React, { Suspense } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LandingPage from './Components/LandingPage';
+import LandingPage from './screens/LandingPage';
 import Login from './Login/Login';
 import {Route,Routes, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './Login/redux-store/store';
 import PrivateRoutes from './Login/PrivateRouting';
 import Logout from './Login/Logout';
-import LoadingPage from './Assets/Loader/LoadingPage';
-import Faq from "./Components/faq";
-import IpAddress from './Assets/ipAddress';
+import LoadingPage from './atoms/loadingPage';
+import Faq from "./screens/faq";
+import IpAddress from './atoms/ipAddress';
 
 
 
