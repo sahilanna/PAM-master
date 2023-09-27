@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form, Dropdown } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
-import './Create.css';
-import '../Read/Read.css';
-import { ngrokUrl } from '../../../../network/config';
-import api from '../../../../network/api';
+import '../Create.css';
+import '../../Read/Read.css';
+import { ngrokUrl } from '../../../../../network/config';
+import api from '../../../../../network/api';
 
 
 const Create = () => {

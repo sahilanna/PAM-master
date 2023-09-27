@@ -8,7 +8,7 @@ import './Login.css'
 import { ngrokLogin} from '../network/config';
 import styled from 'styled-components';
 import logo1 from '../Assets/logo1.png'
-import GoogleLogin from 'react-google-login';
+
 
 
 function Test() {

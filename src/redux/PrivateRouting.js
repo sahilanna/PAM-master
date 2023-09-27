@@ -5,19 +5,18 @@ import ProjectDetails from "../screens/Dashboard/Admin/Read/ProjectDetails";
 
 const LazyAdminDashboard = lazy(() =>  import("../screens/Dashboard/Admin/AdminDashboard"));
 const LazyPmCreate = lazy(() => import("../screens/Dashboard/PM/pmCreate"));
-const LazyCreate = lazy(()=> import("../screens/Dashboard/Admin/Create/Create"));
+const LazyCreate = lazy(()=> import("../screens/Dashboard/Admin/Create/addProjectRepo/Create"));
 const LazyPmReadNew = lazy(() => import("../screens/Dashboard/PM/PmReadNew"));
 const LazyUserCreate = lazy(() => import("../screens/Dashboard/Users/userCreate"));
 const LazyUserAnalytics = lazy(() => import("../screens/Dashboard/UserDashboard/userAnalytics"));
-const LazyCreateRepo = lazy(() => import("../screens/Dashboard/Admin/Create/CreateRepo"));
+const LazyCreateRepo = lazy(() => import("../screens/Dashboard/Admin/Create/createRepo/CreateRepo"));
 const LazyReports = lazy(() => import("../screens/Dashboard/Admin/Reports/Reports"));
 const LazyPmRequestUser = lazy(() => import("../screens/Dashboard/Admin/PmRequests/PmRequestUser"));
 const LazyPmRequestForm = lazy(() => import("../screens/Dashboard/ProjectManager/PmRequestForm"));
-const LazyAddPm = lazy(() => import("../screens/Dashboard/Admin/Create/addPm"));
-const LazyAddUser = lazy(() => import("../screens/Dashboard/Admin/Create/addUser"));
+const LazyAddPm = lazy(() => import("../screens/Dashboard/Admin/Create/addPmGit/addPm"));
+const LazyAddUser = lazy(() => import("../screens/Dashboard/Admin/Create/addUserGit/addUser"));
 const LazyFigmaRead = lazy(() => import( "../screens/Dashboard/Admin/Figma/FigmaRead"));
 const LazyFigmaCreate = lazy(() => import( "../screens/Dashboard/Admin/Figma/FigmaCreate"));
-const LazyFigmaPmDashboard = lazy(() => import( "../screens/Dashboard/ProjectManager/figmaPmDashboard"));
 const LazyRepoPmDashboard = lazy(() => import("../screens/Dashboard/ProjectManager/repoPmDashboard"));
 const LazyCreateFigmaDetails = lazy(() => import( "../screens/Dashboard/Admin/Figma/createFigmaDetails"));
 const LazyUserHistory = lazy(() => import( "../screens/Dashboard/Admin/userHistory/userHistory"));
@@ -33,19 +32,19 @@ const LazyProfile = lazy(() => import( "../screens/Dashboard/Admin/Profile"));
 const LazyUserProfile = lazy(() => import( "../screens/Dashboard/UserDashboard/userProfile"));
 const LazyPmProfile = lazy(() => import( "../screens/Dashboard/ProjectManager/pmprofile"));
 const LazyAddUserName = lazy(() => import( "../screens/Dashboard/Users/AddUserName"));
-const LazyCreateProject = lazy(() => import( "../screens/Dashboard/Admin/Create/CreateProject"));
+const LazyCreateProject = lazy(() => import( "../screens/Dashboard/Admin/Create/createProject/CreateProject"));
 const LazyAddPmUserName = lazy(() => import( "../screens/Dashboard/PM/addPmUsername"));
-const LazyAddFile = lazy(() => import( "../screens/Dashboard/Admin/Create/addFile"));
+const LazyAddFile = lazy(() => import( "../screens/Dashboard/Admin/Create/addFiile/addFile"));
 const LazyProjectUsers = lazy(() => import( "../screens/Dashboard/Admin/Read/projectUsers"));
-const LazyAddUserProject = lazy(() => import( "../screens/Dashboard/Admin/Create/addUserProject"));
+const LazyAddUserProject = lazy(() => import( "../screens/Dashboard/Admin/Create/addUserProject/addUserProject"));
 const LazyProjectAnalytics = lazy(() => import( "../screens/Dashboard/Admin/Analytics/projectAnalytics"));
 const LazyProjectPms = lazy(() => import("../screens/Dashboard/Admin/Read/projectPms"));
-const LazyAddPmProject = lazy(() => import( "../screens/Dashboard/Admin/Create/addPmProject"));
+const LazyAddPmProject = lazy(() => import( "../screens/Dashboard/Admin/Create/addPmProject/addPmProject"));
 const LazyUserActivity = lazy(() => import( "../screens/Dashboard/Users/userActivity"));
 const LazyPmNotification = lazy(() => import( "../screens/Dashboard/ProjectManager/pmNotification"));
 const LazyViewUserVerification = lazy(() => import( "../screens/Dashboard/Admin/Figma/viewUserVerification"));
-const LazyDriveDetails = lazy(() => import("../screens/Dashboard/Admin/Drive/driveDetails"));
-const LazyCreateDriveDetails = lazy(() => import("../screens/Dashboard/Admin/Drive/createDriveDetails"));
+const LazyDriveDetails = lazy(() => import("../screens/Dashboard/Admin/Drive/driveScreen/driveDetails"));
+const LazyCreateDriveDetails = lazy(() => import("../screens/Dashboard/Admin/Drive/createDrive/createDriveDetails"));
 const LazyShowAllNotification = lazy(() => import("../screens/Dashboard/ProjectManager/showAllNotification"));
 
 const PrivateRoutes = () => {
@@ -108,7 +107,6 @@ const PrivateRoutes = () => {
         {role === "PROJECT_MANAGER" && (
           <Routes>
             <Route path="/pmDashboard" element={<Suspense fallback={<div>Loading...</div>}><LazyPmDashboard /></Suspense>} />
-            <Route path="/figmaPmDashboard" element={<Suspense fallback={<div>Loading...</div>}><LazyFigmaPmDashboard /></Suspense>} />
             <Route path="/PmRequestForm" element={<Suspense fallback={<div>Loading...</div>}><LazyPmRequestForm /></Suspense>} />
             <Route path="/repoPmDashboard" element={<Suspense fallback={<div>Loading...</div>}><LazyRepoPmDashboard/></Suspense>} />
             <Route path='/pmProfile' element={<Suspense fallback={<div>Loading...</div>}><LazyPmProfile/></Suspense>}/>

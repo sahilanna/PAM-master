@@ -22,7 +22,7 @@ function CreateFigmaDetails() {
       const parsedUrl = new URL(url);
       return (
         parsedUrl.hostname === 'www.figma.com' &&
-        parsedUrl.pathname.startsWith('/files/')
+        parsedUrl.pathname.startsWith('/file/')
       );
     } catch (_) {
       return false;

@@ -5,7 +5,7 @@ import '../AdminDashboard.css';
 import { ngrokUrl } from '../../../../network/config';
 import api from '../../../../network/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload,  } from '@fortawesome/free-solid-svg-icons';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import Pagination from '../../Pagination/Pagination';
 
 function Reports() {
@@ -46,21 +46,12 @@ function Reports() {
     setShowOtherTable(true);
   };
 
-  const csvData1 = item.map((entry) => ({
-    'User Id': entry.userId,
-    'User Name': entry.userName,
-    Projects: entry.projectNames.join(', '),
-  }));
-
-  const csvData2 = mitem.map((entry) => ({
-    'User Id': entry.userId,
-    'User Name': entry.userName,
-    Projects: entry.projectNames.join(', '),
-  }));
-
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+  
+
+  const csvData = showOtherTable ? mitem : item;
 
   const generateSerialNumbers = () => {
     const startNumber = (currentPage - 1) * rowsPerPage;
@@ -73,39 +64,28 @@ function Reports() {
 
   const currentRows = showOtherTable ? mitem : item;
 
-
   return (
     <div className='parent-admin'>
-    <div>
-      <Sidebar />
-    </div>
-    <div className='admin-child'>
-      <br />
-
-      <div style={{ display: 'flex', justifyContent: 'flex-start', marginLeft: '400px', marginBottom: '5px' }}>
-       
-      <button className='ui button' onClick={handleTableClick}>
+      <div>
+        <Sidebar />
+      </div>
+      <div className='admin-child'>
+        <br />
+        <div style={{ display: 'flex', justifyContent: 'flex-start', marginLeft: '400px', marginBottom: '5px' }}>
+          <button className='ui button' onClick={handleTableClick}>
             Employees Project List
           </button>
           <button className='ui button' onClick={handleOtherTableClick}>
             Employees With Multiple Project Access
-
           </button>
-          {item.length > 0 && !showOtherTable && (
-            <CSVLink data={csvData1} filename="user_project_list.csv">
-               <FontAwesomeIcon icon={faDownload} size="2x" />
+          {csvData.length > 0 && (
+            <CSVLink data={csvData} filename={showOtherTable ? 'user_multiple_projects.csv' : 'user_project_list.csv'}>
+              <FontAwesomeIcon icon={faDownload} size="2x" />
             </CSVLink>
           )}
-          {mitem.length > 0 && showOtherTable && (
-            <CSVLink data={csvData2} filename="user_multiple_projects.csv">
-               <FontAwesomeIcon icon={faDownload} size="2x" />
-            </CSVLink>
-          )}
-       
-      </div>
-
-      <br /><br />
-        {currentRows.length > 0 && !showOtherTable && (
+        </div>
+        <br /><br />
+        {currentRows.length > 0 && (
           <div style={{ marginLeft: '40px', marginRight: '40px' }}>
             <table className="ui celled table">
               <thead>
@@ -134,34 +114,6 @@ function Reports() {
               </tbody>
             </table>
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-              <Pagination  data={currentRows} itemsPerPage={rowsPerPage} paginate={handlePageChange} />
-            </div>
-          </div>
-        )}
-        {currentRows.length > 0 && showOtherTable && (
-          <div style={{ marginLeft: '40px', marginRight: '40px' }}>
-            <table className="ui celled table">
-              <thead>
-                <tr>
-                  <th>S.No.</th>
-                  <th>Employee Name</th>
-                  <th colSpan={2}>
-                    Projects
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {generateSerialNumbers().map((entry) => (
-                  <tr key={entry.userId}>
-                    <td>{entry.SerialNo}</td>
-                    <td>{entry.userName}</td>
-                    <td colSpan={2}>{entry.projectNames.join(', ')}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-
               <Pagination data={currentRows} itemsPerPage={rowsPerPage} paginate={handlePageChange} />
             </div>
           </div>

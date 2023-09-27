@@ -68,13 +68,12 @@
     "babel-preset-env": "^1.7.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "jest-transform-stub": "^2.0.0",
     "react-testing-library": "^8.0.1"
   },
   "jest": {
-    "transform": {
-      "^.+\\.(js|jsx)$": "babel-jest"
-    }
+    "testEnvironment": "jsdom"
   },
   "main": "index.js",
   "repository": "https://github.com/sahilanna/PAM-master.git",

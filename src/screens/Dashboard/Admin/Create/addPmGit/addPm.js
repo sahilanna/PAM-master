@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Dropdown, Modal, Button } from 'semantic-ui-react';
 import { useNavigate } from "react-router-dom";
-import { ngrokUrl, gitAccessToken } from '../../../../network/config.js';
-import api from '../../../../network/api.js';
+import { ngrokUrl, gitAccessToken } from '../../../../../network/config.js';
+import api from '../../../../../network/api.js';
+import { owner } from '../../../../../Assets/constants/string.js';
 
 
 
@@ -45,7 +46,7 @@ const AddPm = () => {
     if(!selectedRepo){
       return
     }
-    const owner='Bindushree-0906';
+    
    
     let repo = selectedRepo
       api.post(`https://${ngrokUrl}/collaborators/add`,{owner, repo,username,accessToken
@@ -65,8 +66,6 @@ const AddPm = () => {
 
   }
 
-
-  
   const onClose=()=>{
     navigate(-1);
   }

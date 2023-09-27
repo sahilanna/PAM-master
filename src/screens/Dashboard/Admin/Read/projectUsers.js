@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'semantic-ui-react';
 import api from '../../../../network/api';
 import { ngrokUrl, gitAccessToken } from '../../../../network/config';
+import { owner } from '../../../../Assets/constants/string';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -73,7 +74,7 @@ function ProjectUsers({ open, onClose, projectId, projectName }) {
       console.log(error);
     }
   };
-  const owner="Bindushree-0906"
+  
   const handleCancelDelete = () => {
     setShowConfirmDialog(false);
   };

@@ -3,7 +3,7 @@ import Sidebar from '../SideBar/SideBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import './profile.css'
-import ProfileEdit from './profileEdit';
+
 import api from '../../../network/api';
 import { ngrokUrl } from '../../../network/config';
 
@@ -11,7 +11,7 @@ import { ngrokUrl } from '../../../network/config';
 const Profile = () => {
   let profileData = sessionStorage.getItem("item");
   let pdata = JSON.parse(profileData);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+ 
   
   const[userName, setUserName]=useState('')
   const[userRole, setUserRole]=useState('')
@@ -25,16 +25,9 @@ const Profile = () => {
    
   }, []);
 
-  const handleProfileUpdate = (updatedProfile) => {
-    console.log('Updated Profile:', updatedProfile);
-    setIsEditModalOpen(false);
-  };
-  const handleOpenEditModal = () => {
-    setIsEditModalOpen(true);
-  };
-  const handleCloseEditModal = () => {
-    setIsEditModalOpen(false);
-  };
+  
+  
+ 
   
   async function fetchUserList() {
     try {
@@ -75,9 +68,7 @@ const Profile = () => {
                 </div>
               </div>
             </div>
-      {isEditModalOpen && (
-        <ProfileEdit profileData={pdata} onUpdate={handleProfileUpdate} onClose={handleCloseEditModal} />
-      )}
+     
           </div>
     );
   };

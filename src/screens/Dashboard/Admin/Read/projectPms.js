@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
+import { owner } from '../../../../Assets/constants/string';
 import api from '../../../../network/api';
 import { ngrokUrl, gitAccessToken } from '../../../../network/config';
 import DialogBox from '../../DialogBox/DialogBox';
@@ -8,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import LoadingPage from '../../../../atoms/loadingPage';
 import './Read.css';
+
+
 function ProjectPms({ open, onClose,projectId,projectName }) {
   const [pms, setPms] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -91,7 +94,7 @@ const getUsers = async () => {
     });
     if (otpSubmissionResponse.data ===true) {
       await api.delete(`https://${ngrokUrl}/projects/${projectId}/users/${selectedUserId}/repo`,{ data: {
-        owner: 'Bindushree-0906',
+        owner: owner,
         repo: repoName,
         username: username,
         accessToken: gitAccessToken

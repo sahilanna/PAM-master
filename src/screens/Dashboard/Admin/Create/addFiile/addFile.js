@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Form, Modal, Button, Progress } from 'semantic-ui-react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ngrokUrl } from '../../../../network/config';
-import api from '../../../../network/api';
-import './Create.css';
+import { ngrokUrl } from '../../../../../network/config';
+import api from '../../../../../network/api';
+import '../Create.css';
+import AddFileUI from './addFileUI';
 
 function AddFile() {
   const navigate = useNavigate();
@@ -79,42 +79,15 @@ function AddFile() {
   };
 
   return (
-    <Modal
-      open={true}
+    <AddFileUI
+      projectName={projectName}
+      modalfile={modalfile}
+      fileErrorMessage={fileErrorMessage}
+      handleModelFileSelect={handleModelFileSelect}
+      handleFileUpload={handleFileUpload}
+      uploadProgress={uploadProgress}
       onClose={onClose}
-      style={{ top: '170px', height: 'auto', width: '500px' }}
-      className='create-Project-Modal'
-    >
-      <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
-      <div style={{ paddingLeft: '442px' }}>
-        <Button secondary onClick={onClose}>
-          X
-        </Button>
-      </div>
-      <Modal.Content>
-        <Form>
-          <Form.Field>
-            <label style={{ textAlign: 'left' }}>Project Name</label>
-            <input name="name" placeholder={projectName} readOnly />
-          </Form.Field>
-          <Form.Field>
-            <div>
-              <label>Add Help document<span style={{ color: 'red' }}>*</span></label>
-              <input className="text-center" type="file" onChange={handleModelFileSelect} />
-              {modalfile && <div>{modalfile.name}</div>}
-              {fileErrorMessage && <div style={{ color: 'red' }}>{fileErrorMessage}</div>}
-            </div>
-          </Form.Field>
-          <Button type="submit" onClick={handleFileUpload}>
-            Submit
-          </Button>
-          {uploadProgress > 0 && uploadProgress < 100 && (
-            <Progress percent={uploadProgress} indicating />
-          )}
-        </Form>
-      </Modal.Content>
-      <Modal.Actions></Modal.Actions>
-    </Modal>
+    />
   );
 }
 
