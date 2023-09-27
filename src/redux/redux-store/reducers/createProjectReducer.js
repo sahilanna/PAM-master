@@ -1,5 +1,5 @@
 // projectReducer.js
-import {CREATE_PROJECT_REQUEST,CREATE_PROJECT_SUCCESS,CREATE_PROJECT_FAILURE, } from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Login/redux-store/actions/actionTypes.js';
+import {CREATE_PROJECT_REQUEST,CREATE_PROJECT_SUCCESS,CREATE_PROJECT_FAILURE, } from '/home/nineleaps/Desktop/Pratap/PAM-master/src/redux/redux-store/actions/actionTypes.js';
   
   const initialState = {
     loading: false,

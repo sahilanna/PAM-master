@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
-import { createPM } from '../../../Login/redux-store/actions/action';
+import { createPM } from '../../../redux/redux-store/actions/action';
 import { useDispatch } from 'react-redux';
 
 function PmCreate() {

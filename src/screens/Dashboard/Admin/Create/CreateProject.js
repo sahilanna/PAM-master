@@ -2,7 +2,7 @@ import React,  { useState  } from 'react'
 import {Form, Button, Modal } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'; // Import useDispatch and useSelector
-import { createProject } from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Login/redux-store/actions/projectActions.js' // Import the createProject action
+import { createProject } from '/home/nineleaps/Desktop/Pratap/PAM-master/src/redux/redux-store/actions/projectActions.js' // Import the createProject action
 
 import './Create.css';
 import LoadingPage from '../../../../atoms/loadingPage';
