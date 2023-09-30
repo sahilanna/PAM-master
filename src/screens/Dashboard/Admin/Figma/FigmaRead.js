@@ -39,6 +39,8 @@ function FigmaRead() {
 
   
   console.log(showModall)
+  console.log(userData);
+  console.log(setUserData);
 
   useEffect(() => {
     fetchProjects();

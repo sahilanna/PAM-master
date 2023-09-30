@@ -127,8 +127,8 @@ const PmDashboard = () => {
             </thead>
             <tbody>
               {pmid && pmid.length > 0 ? (
-                currentPageData.map((item, index) => (
-                  <tr key={index}>
+                currentPageData.map((item) => (
+                  <tr key={item.id}>
                     <>
                       <td>{item.projectName}</td>
                       <td>{item.projectDescription}</td>

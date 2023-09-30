@@ -111,9 +111,7 @@ function PmReadNew() {
     navigate('/PmCreate')
   }
   
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
-  };
+ 
   const viewActivity=(id ,username)=>{
     // setShowUserActivity(true)
     

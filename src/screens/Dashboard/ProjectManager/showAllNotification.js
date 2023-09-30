@@ -85,10 +85,10 @@ function ShowAllNotification() {
         </thead>
         <tbody>
           {allNotification && allNotification.length>0 ? (
-           allNotification.map((item, index) => (
+           allNotification.map((item) => (
    
           
-            <tr key={index}>
+            <tr key={item.id}>
               <td>{item.response}</td>
              
             </tr>         

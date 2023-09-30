@@ -11,10 +11,11 @@ function RepoDashboard({ role, SidebarComponent }) {
   const [isLoading, setIsLoading] = useState(true);
   
   let data = sessionStorage.getItem('item');
-  let user = JSON.parse(data);
-  const id = user.id;
+  const user = data ? JSON.parse(data) : null; // Check if userData is null
+  const id = user ? user.id : null; // Check if user is null
 
   useEffect(() => {
+    if(id){
     const fetchRepo = async () => {
       try {
         const response = await api.get(
@@ -30,7 +31,10 @@ function RepoDashboard({ role, SidebarComponent }) {
       }
     };
     fetchRepo();
-  }, [id, role]);
+  }
+  else {
+   console.log("error");
+  }}, [id, role]);
 
   const handleSearchInputChange = (event) => {
     const query = event.target.value;
@@ -62,14 +66,14 @@ function RepoDashboard({ role, SidebarComponent }) {
             marginRight: '30px',
           }}
         >
-          <div class="ui left icon input">
+          <div className="ui left icon input">
             <input
               type="text"
               placeholder="Search Projects..."
               value={searchQuery}
               onChange={handleSearchInputChange}
             />
-            <i class="users icon"></i>
+            <i className="users icon"></i>
           </div>
         </div>
         <div style={{ marginLeft: '20px', marginRight: '30px' }}>

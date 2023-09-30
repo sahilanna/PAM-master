@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend , AreaChart,  Area } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend  } from 'recharts';
 import { ngrokUrl } from '../../../network/config';
 import api from '../../../network/api';
 import UserSidebar from './userSidebar';

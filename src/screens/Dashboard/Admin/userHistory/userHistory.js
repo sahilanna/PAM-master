@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Icon, Button } from 'semantic-ui-react';
+import { Table, Icon } from 'semantic-ui-react';
 import './userHistory.css';
 import 'semantic-ui-css/semantic.min.css';
 import Sidebar from '../../SideBar/SideBar';
@@ -81,7 +81,7 @@ function UserHistory() {
   };
   
 
-  const pageNumbers = Math.ceil(filteredProjects.length / rowsPerPage);
+  
   const indexOfLastItem = currentPage * rowsPerPage;
   const indexOfFirstItem = indexOfLastItem - rowsPerPage;
   const currentItems = filteredProjects.slice(indexOfFirstItem, indexOfLastItem);

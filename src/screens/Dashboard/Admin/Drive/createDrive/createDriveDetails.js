@@ -72,6 +72,8 @@ function CreateDriveDetails() {
       console.log('Error:', error);
     }
   };
+  console.log(item);
+  console.log(driveId);
 
   const onClose = () =>{
     navigate(-1);

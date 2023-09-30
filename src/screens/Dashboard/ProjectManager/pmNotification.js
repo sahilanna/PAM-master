@@ -85,10 +85,10 @@ function PmNotification() {
         </thead>
         <tbody>
           {notification && notification.length>0 ? (
-           notification.map((item, index) => (
+           notification.map((item) => (
    
           
-            <tr key={index}>
+            <tr key={item.id}>
               <td><b>{item.response}</b></td>
               <td>
                 <Button style={{color:'blue'}}  onClick={() => onDeleteNotification(item.accessRequestId)}>

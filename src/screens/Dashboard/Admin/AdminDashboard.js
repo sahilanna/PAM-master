@@ -34,6 +34,13 @@ const AdminDashboard = () => {
   }, []);
   console.log(requestData);
   console.log(Loading);
+  console.log(setShowProjectDetails);
+  console.log(setSelectedProject);
+  console.log(setShowProjectDetails);
+  console.log(setshowProjectPmModal);
+  console.log(setShowProjectUsersModal);
+  console.log(setAddFileButtonVisible);
+  console.log(setAddEmployeeButtonVisible);
   const fetchData = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/request/allActive`);
@@ -60,20 +67,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     handlePaginate(1);
   }, [item]);
-  const handleViewDetails = (project) => {
-    setSelectedProject(project);
-    setShowProjectDetails(true);
-    setAddEmployeeButtonVisible(true);
-    setAddFileButtonVisible(true);
-  };
-  const handleCloseDetails = () => {
-    setShowProjectDetails(false);
-    setAddEmployeeButtonVisible(false);
-    setAddFileButtonVisible(false);
-  };
-  const addFile = async (projectId, projectName) => {
-    navigate('/addFile', { state: { projectId, projectName } });
-  };
+  
   const createOnclick = () => {
     navigate('/CreateProject');
   };
@@ -83,24 +77,12 @@ const AdminDashboard = () => {
     const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
     setCurrentPageData(currentItems);
   };
-  const handleOpenProjectUsers = (project) => {
-    setSelectedProject(project);
-    setShowProjectUsersModal(true);
-  };
-  const handleCloseProjectUsers = () => {
-    setShowProjectUsersModal(false);
-  }
-  const handleCloseProjectPms=()=>{
-    setshowProjectPmModal(false)
-  }
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     handleFilterItems(e.target.value);
   };
-  const handleOpenProjectPms=(project)=>{
-    setSelectedProject(project);
-    setshowProjectPmModal(true);
-  }
+  
   const handleFilterItems = (searchQuery) => {
     const filteredItems = item.filter((item) =>
       item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -110,15 +92,7 @@ const AdminDashboard = () => {
   const filteredItems = item.filter((item) =>
     item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  const deleteProject = async (projectId) => {
-    try {
-      await api.delete(`https://${ngrokUrl}/projects/delete/${projectId}`);
-      navigate('/adminDashboard')
-      loadItems();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
   useEffect(() => {
     countEmp()
   }, []);
@@ -132,19 +106,7 @@ const AdminDashboard = () => {
     }
   };
 
-  const navigateProjectDetails=(projectId, projectName)=>{
-   
-    navigate("/ProjectDetails", {
-      state: {
-        projectId: projectId,
-        projectName: projectName
-      }
-    });
-  }
- 
-
-
-
+  
   const csvDataProj = item.map((entry) => ({
     'Project ID': entry.projectId,
     'Project Name': entry.projectName,

@@ -9,6 +9,7 @@ module.exports = {
     transformIgnorePatterns: [
       '/node_modules/(?!(bootstrap|react-bootstrap)/)',
     ],
+   
     testEnvironment: 'jsdom'
   };
   

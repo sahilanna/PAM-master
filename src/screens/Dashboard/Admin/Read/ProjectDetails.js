@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal,Form } from 'semantic-ui-react';
-import './projectDetailsNew.css';
+import { Button, Modal,Form, Header, Segment, Container, List, Tab } from 'semantic-ui-react';
 import DialogBox from '../../DialogBox/DialogBox';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../../../network/api';
 import { ngrokUrl } from '../../../../network/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faTimes, } from '@fortawesome/free-solid-svg-icons';
-import { Header, Segment, Container, List, Tab } from 'semantic-ui-react';
 import CustomSidebar from '../../SideBar/SideBar';
 import ProjectUsers from './projectUsers';
 import ProjectPms from './projectPms';
@@ -20,7 +18,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   const{projectName}=useParams()
   const [showAddUserProject, setShowAddUserProject] = useState(false);
   const [driveData, setDriveData] = useState('');
-  const[driveLink, setDriveLink]=useState('')
+  
   const[count, setCount]=useState('')
    const [otp, setOtp] = useState('');
   const [showOTPMoal, setShowOTPMoal] = useState(false);
@@ -31,20 +29,18 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     navigate('/addFile', { state: { projectId, projectName } });
   };
 
-
+  console.log(showAddUserProject);
+  console.log(driveData);
+  console.log(setCount);
+  console.log(setDriveData);
+  console.log(setShowAddUserProject);
   const panes = [
     {
       menuItem: 'Users',
       render: () => <Tab.Pane ><ProjectUsers 
       projectId={projectId} projectName={projectName} /></Tab.Pane>,
     },
-  //   {
-  //     menuItem: 'Repositories',
-  //     render: () => <Tab.Pane >{repo.map((repoItem) => (
-  // <ol key={repoItem.id}>
-  //   <br/>{repoItem.name}</ol>
-  // ))} </Tab.Pane>,
-  //   },
+  
     { menuItem: 'PM', render: () => <Tab.Pane><ProjectPms
     projectId={projectId} projectName={projectName} /></Tab.Pane> },
 
@@ -55,8 +51,8 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
       </Button>
       {namesFile.length > 0 ? (
         <ul className="file-list">
-          {namesFile.map((filename, index) => (
-            <li key={index} className="file-item">
+          {namesFile.map((filename) => (
+            <li key={filename.id} className="file-item">
               <div className="file-info">
                 <a href="#" onClick={() => downloadFile(filename.fileName)}>
                   {filename.fileName}
@@ -81,7 +77,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   ,
   
   ]
-  const TabExampleLoading = () => <Tab panes={panes} /> 
+  
   
 
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -124,24 +120,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     setShowOTPMoal(false);
   };
 
-  function CountCell({ projectId }) {
-    const [count, setCount] = useState(null);
-  
-    useEffect(() => {
-      fetchCount(projectId); // Fetch count when the projectId changes
-    }, [projectId]);
-  
-    async function fetchCount(projectId) {
-      try {
-        const result = await api.get(`https://${ngrokUrl}/projects/${projectId}/count`, {});
-        setCount(result.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  
-    return <>{count !== null ? count : '-'}</>
-  }
+ 
 
 
 
@@ -188,23 +167,6 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   
   
  
-  const fetchProjects = async () => {
-    try {
-      const response = await api.get(`https://${ngrokUrl}/getGoogleDriveByProjectId/${projectId}`);
-      // setDriveData(response.data)
-    const driveDataa=response.data
-      setDriveData(driveDataa)
-
-      console.log('drive', driveDataa.driveLink)
-      setDriveLink(driveDataa.driveLink)
-      console.log(driveLink)
-      
-    } catch (error) {
-      console.log('Error fetching projects:', error);
-     
-    }
-  };
-
 
   const displayFile = async () => {
     try {
@@ -221,11 +183,6 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   };
 
   
-  
-
-  const handleCloseAddUserProject = () => {
-    setShowAddUserProject(false);
-  };
   const handleDeleteProject = () => {
     setShowConfirmDialog(true);
   };
@@ -369,10 +326,10 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
                 Repositories:{' '}
                 <span className='description-value'>
                 {projectData.repositories && projectData.repositories.length > 0 ? (
-                projectData.repositories.map((repo, index) => (
-                  <span key={index}>
+                projectData.repositories.map((repo) => (
+                  <span key={repo.name}>
                     {repo.name}
-                    {index < projectData.repositories.length - 1 ? ', ' : ''}
+                    {repo !== projectData.repositories[projectData.repositories.length - 1] ? ', ' : ''}
                   </span>
                 ))
                 ) : (
@@ -384,26 +341,28 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
 
 
                 <List.Header>
-                Figma Link: {projectData && projectData.figma && projectData.figma.figmaURL ? (
-                <a href={projectData.figma.figmaURL} target="_blank" rel="noopener noreferrer">
-                {projectData.figma.figmaURL}
-                </a>
+                Figma Link: {projectData?.figma?.figmaURL ? (
+                  <a href={projectData.figma.figmaURL} target="_blank" rel="noopener noreferrer">
+                    {projectData.figma.figmaURL}
+                  </a>
                 ) : (
-                  <span className="description-value">N/A</span>
+                <span className="description-value">N/A</span>
                 )}
+
                 </List.Header>
                 <br/>
 
 
 
                 <List.Header>
-                  Drive Link :  {projectData && projectData.googleDrive && projectData.googleDrive.driveLink ? (
-                    <a href={projectData.googleDrive.driveLink} target="_blank" rel="noopener noreferrer">
-                      {projectData.googleDrive.driveLink}
-                    </a>
+                Drive Link: {projectData?.googleDrive?.driveLink ? (
+                  <a href={projectData.googleDrive.driveLink} target="_blank" rel="noopener noreferrer">
+                    {projectData.googleDrive.driveLink}
+                  </a>
                   ) : (
                     <span className="description-value">N/A</span>
                   )}
+
                 </List.Header>    
                 <br/>   
                   

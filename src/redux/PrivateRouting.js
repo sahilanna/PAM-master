@@ -18,7 +18,7 @@ const LazyAddUser = lazy(() => import("../screens/Dashboard/Admin/Create/addUser
 const LazyFigmaRead = lazy(() => import( "../screens/Dashboard/Admin/Figma/FigmaRead"));
 const LazyFigmaCreate = lazy(() => import( "../screens/Dashboard/Admin/Figma/FigmaCreate"));
 const LazyRepoPmDashboard = lazy(() => import("../screens/Dashboard/ProjectManager/repoPmDashboard"));
-const LazyCreateFigmaDetails = lazy(() => import( "../screens/Dashboard/Admin/Figma/createFigmaDetails"));
+const LazyCreateFigmaDetails = lazy(() => import( "../screens/Dashboard/Admin/Figma/createFigma/createFigmaDetails"));
 const LazyUserHistory = lazy(() => import( "../screens/Dashboard/Admin/userHistory/userHistory"));
 const LazyUserProjects = lazy(() => import( "../screens/Dashboard/UserDashboard/userProjects"));
 const LazyLogin = lazy(() => import( './Login'))

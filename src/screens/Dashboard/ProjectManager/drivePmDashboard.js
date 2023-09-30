@@ -48,9 +48,10 @@ const handleSearchChange = (e) => {
 const handleFilterItems = (searchQuery) => {
   // const filteredItems = projects.filter((item) =>
   //   item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
-    const filteredItems = result && result.filter((item) =>
-item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredItems = result?.filter((item) =>
+  item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
   setCurrentPageData(filteredItems.slice(0, itemsPerPage));
 };
 const filteredItems = result.filter((item) =>
@@ -83,8 +84,8 @@ return (
       </thead>
       <tbody>
       {result && result.length > 0 ? (
-         currentPageData.map((item, index) => (
-  <tr key={index}>
+         currentPageData.map((item) => (
+  <tr key={item.id}>
         {/* {currentPageData.map((item, index) => (
           <tr> */}
            {item.projectName && item.figma ? (

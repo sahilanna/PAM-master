@@ -31,8 +31,8 @@ function AddFileUI({
           </Form.Field>
           <Form.Field>
             <div>
-              <label>Add Help document<span style={{ color: 'red' }}>*</span></label>
-              <input className="text-center" type="file" onChange={handleModelFileSelect} />
+              <label>Add Help document<span style={{ color: 'red' }}>*</span>
+              <input className="text-center" type="file" onChange={handleModelFileSelect} /></label>
               {modalfile && <div>{modalfile.name}</div>}
               {fileErrorMessage && <div style={{ color: 'red' }}>{fileErrorMessage}</div>}
             </div>
