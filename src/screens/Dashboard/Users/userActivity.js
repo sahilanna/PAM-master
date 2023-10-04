@@ -44,7 +44,7 @@ function UserActivity(open, userName) {
     <Modal open={true} onClose={onClose} style={{ width: '500px' }} className='create-Project-Modal'>
     <div style={{ paddingLeft: '442px' }}>
       <div style={{paddingTop:'20px'}}>
-    <Button secondary onClick={onClose}  >X</Button>
+    <Button secondary onClick={onClose}>X</Button>
     </div>
     </div>
     <Modal.Header>User Activity</Modal.Header>
@@ -71,11 +71,7 @@ function UserActivity(open, userName) {
     </Modal.Content>
 
     </Modal>
-
- 
- 
- 
-    ) 
+) 
 
 }
 

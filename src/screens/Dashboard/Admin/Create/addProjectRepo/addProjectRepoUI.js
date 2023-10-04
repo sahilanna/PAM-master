@@ -19,6 +19,7 @@ const CreateUI = ({ onSubmit, onClose, projItem, temp, handleProjectChange, hand
           <Form.Field>
             <label style={{ textAlign: 'left' }}>Project-Name<span style={{ color: 'red' }}>*</span></label>
             <Dropdown
+              data-testid="project-dropdown"
               placeholder="Select project"
               fluid
               selection

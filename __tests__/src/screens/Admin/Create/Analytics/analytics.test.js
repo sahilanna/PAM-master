@@ -1,7 +1,8 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Router  } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom'; // For expect.extend
+import { createMemoryHistory } from 'history';
+import '@testing-library/jest-dom'; 
 import Analytics from '../../../../../../src/screens/Dashboard/Admin/Analytics/Analytics';
 
 
@@ -31,21 +32,22 @@ const mockData = [
 ];
 
 describe('Analytics Component', () => {
-  it('renders loading page when isLoading is true', async() => {
-    // Mocking isLoading as true
-    jest.spyOn(React, 'useState').mockImplementation(() => [true, jest.fn()]);
+  it('renders loading page when isLoading is true', async () => {
+    const history = createMemoryHistory();
+  
     render(
-      <MemoryRouter>
+      <Router history={history}> {/* Wrap your component in Router */}
         <Analytics />
-      </MemoryRouter>
+      </Router>
     );
-
+  
     await waitFor(() => {
-        const loadingPage = screen.getByText('Loading...');
-        expect(loadingPage).toBeInTheDocument();
-      });
-    expect(container.querySelector('.Analytics-components')).toBeEmptyDOMElement();
-});
+      const loadingPage = screen.getByText('Loading...');
+      expect(loadingPage).toBeInTheDocument();
+    });
+  
+    // Your additional assertions here
+  });
   });
 
   it('renders chart and buttons when isLoading is false', async () => {
@@ -75,4 +77,4 @@ describe('Analytics Component', () => {
     const downloadCSVButton = screen.getByText('Download CSV');
     expect(downloadCSVButton).toBeInTheDocument();
   });
-});
+

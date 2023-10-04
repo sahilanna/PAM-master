@@ -9,7 +9,7 @@ module.exports = {
       '\\.(gif|png|jpg|jpeg)$': '/home/nineleaps/Desktop/Pratap/PAM-master/imageMock.js',
     },
     transformIgnorePatterns: [
-      '/node_modules/(?!(bootstrap|react-bootstrap)/)',
+      '/node_modules/(?!(bootstrap|react-bootstrap|semantic-ui-react)/)',
     ],
    
     testEnvironment: 'jsdom'

@@ -25,18 +25,21 @@ describe('useApiData Hook', () => {
 
     expect(result.current.data).toEqual(mockData);
     expect(result.current.Loading).toEqual(false);
+
+    const newItem = { accessRequestId: 3 };
+  expect(result.current.data.some((item) => item.accessRequestId === newItem.accessRequestId)).toBe(false);
   });
 
   it('handles errors gracefully', async () => {
     // Mock the Axios instance's get method to throw an error
     api.get.mockRejectedValue(new Error('Failed to fetch data'));
 
-    const { result, waitForNextUpdate } = renderHook(() => useApiData());
+    const { result } = renderHook(() => useApiData());
 
     expect(result.current.data).toEqual([]);
     expect(result.current.Loading).toEqual(true);
 
-    await waitForNextUpdate({ timeout: 5000 });
+  
 
     expect(result.current.data).toEqual([]);
     expect(result.current.Loading).toEqual(true);

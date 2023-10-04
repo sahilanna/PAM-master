@@ -60,9 +60,7 @@ function UserRead(){
       setSelectedProject(project);
       setShowProjectDetails(true);
     };
-    // const viewActivity=(id)={
-    //   setShowUserActivity()
-    // }
+   
     const createOnclick=()=>{
       navigate('/userCreate')
     }
@@ -72,8 +70,6 @@ function UserRead(){
     };
 
     const viewActivity=(id ,username)=>{
-      // setShowUserActivity(true)
-      
       navigate('/userActivity',  { state: { id,username } })
 
     }

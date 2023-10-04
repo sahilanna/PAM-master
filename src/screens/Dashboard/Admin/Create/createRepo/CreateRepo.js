@@ -20,6 +20,7 @@ function CreateRepo() {
     } else if (e.target.name === 'description') {
       setDescription(e.target.value);
     }
+    console.log('Name:', name);
   };
 
   const handleSubmit = async (e) => {
