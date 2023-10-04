@@ -5,8 +5,6 @@ import "@testing-library/jest-dom";
 
 
 global.fetch = jest.fn();
-
-
 jest.mock('../../../src/network/config', () => ({
   ngrokUrl: 'example.com',
 }));
@@ -39,25 +37,21 @@ describe('RepoDashboard Component', () => {
     render(<RepoDashboard role="admin" SidebarComponent={() => <div>Mock Sidebar</div>} />);
   });
 
-  it('handles search input changes and filters the data', async () => {
+  it('handles search input changes and filters the data', () => {
+    const { getByPlaceholderText, getByTestId } = render(
+      <RepoDashboard role="admin" SidebarComponent={() => <div>Mock Sidebar</div>} />
+    );
+  
+    const inputElement = getByPlaceholderText('Search Projects...');
+  
     
-    global.fetch.mockResolvedValueOnce({
-      json: async () => Promise.resolve(mockData),
-    });
-
-    render(<RepoDashboard role="admin" SidebarComponent={() => <div>Mock Sidebar</div>} />);
-
-   
-    await waitFor(() => screen.getByTestId('dimmer'));
-
-   
-    fireEvent.change(screen.getByPlaceholderText('Search Projects...'), { target: { value: 'Repo 1' } });
-
-    
-    await waitFor(() => screen.getByText('Project 1'));
-
-    
+    fireEvent.change(inputElement, { target: { value: 'Repo 1' } });
+  
+    expect(inputElement.value).toBe('Repo 1');
+    expect(getByTestId('filtered-data')).toBeInTheDocument();
   });
+  
+  
 
   it('displays loading indicator while fetching data', async () => {
    

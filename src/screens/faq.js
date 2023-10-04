@@ -7,11 +7,11 @@ import Footer from'./Footer'
 
 const Faq=()=>{
     return (
-      <div className='sample'>
+      <div className='sample' >
         <NavBar/>
         <div style={{paddingRight: '100px', textAlign: 'left'}} >
             <br/>
-            <h3 style={{color:'white', alignItems:'left'}}>1 How to sign up for my account?</h3>
+            <h3 style={{color:'white', alignItems:'left'}} data-testid="faq-ele">1 How to sign up for my account?</h3>
             <h4 style={{color:'white'}}>1.You can login using Single-Sign-On with google. Add your google credentials and register.</h4>
             <h3 style={{color:'white', alignItems:'left'}}>2 What third party apps are present in the application?</h3>
             <h4 style={{color:'white'}}>2.GitHub, Figma</h4>
@@ -32,4 +32,4 @@ const Faq=()=>{
 </div>
 )
 }
-export default Faq
+export default Faq;

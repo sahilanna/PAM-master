@@ -95,8 +95,7 @@ function CommonAddProject({ role }) {
 
   const onClose = () => {
     navigate(-1);
-  };
-
+  }
   const commonProps = {
     projectName,
     user,

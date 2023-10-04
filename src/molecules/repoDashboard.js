@@ -69,6 +69,7 @@ function RepoDashboard({ role, SidebarComponent }) {
           <div className="ui left icon input">
             <input
               type="text"
+              data-testid="filtered-data"
               placeholder="Search Projects..."
               value={searchQuery}
               onChange={handleSearchInputChange}

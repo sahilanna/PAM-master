@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Button, Form, Dropdown } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import '../Create.css';
 import '../../Read/Read.css';
 import { ngrokUrl } from '../../../../../network/config';
 import api from '../../../../../network/api';
-
+import CreateUI from './addProjectRepoUI';
 
 const Create = () => {
   let navigate = useNavigate();
@@ -87,55 +86,15 @@ const Create = () => {
 
   return (
     
-    <Modal open={true} onClose={onClose}  style={{ width: '500px', height:'410px' }} className='create-Project-Modal'>
-      <div style={{paddingTop:'6px'}}>
-      
-        </div>
-        <div style={{paddingLeft:'442px'}}>
-      <Button secondary onClick={onClose}>
-          X
-        </Button>
-        </div>
-      <Modal.Header>Add Project</Modal.Header>
-
-   
-  
-          <Modal.Content>
-
-          <Form onSubmit={handleSubmit}>
-            <Form.Field>
-            <label style={{ textAlign: 'left' }}>Project-Name<span style={{ color: 'red' }}>*</span></label>
-           
-            <Dropdown
-              placeholder="Select project"
-              fluid
-              selection
-              options={projItem}
-              onChange={handleProjectChange}
-            />
-          </Form.Field>
-           
-  
-          <Form.Field>
-            <label style={{ textAlign: 'left' }}>REPO<span style={{ color: 'red' }}>*</span></label>
-           
-            <Dropdown
-              placeholder="Select Repo"
-              fluid
-              selection
-              options={temp}
-              onChange={handleRepoChange}
-            />
-          </Form.Field>
-  
-          <Button type='submit' primary>Submit</Button>
-        </Form>
-        </Modal.Content>
-        <Modal.Actions>
-
-        </Modal.Actions>
-        </Modal>
-     
+    <CreateUI
+    onSubmit={handleSubmit}
+    onClose={onClose}
+    projItem={projItem}
+    temp={temp}
+    handleProjectChange={handleProjectChange}
+    handleRepoChange={handleRepoChange}
+    selectedRepo={selectedRepo}
+  />
   );
 }
 export default Create;

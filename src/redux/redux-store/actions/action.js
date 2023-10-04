@@ -51,23 +51,7 @@ export const createProjectFailure = (error) => ({
 // };
 
 
-//Update Project
-export const updateProject = ({projectId, projectName, projectDescription, repo}) => {
-    return async(dispatchU) => {
-        try {
-            const responseUpdate = await api.put(`https://64267bccd24d7e0de470e2b7.mockapi.io/Crud/${projectId}`, {
-                projectId,
-                projectName,
-                projectDescription,
-                repo
-            })
-            dispatchU({type: "updateProject", payload: responseUpdate});
-        }
-        catch (error){
-            console.log(error);
-        }
-    };
-};
+
 
 
 //Create PM
@@ -82,27 +66,6 @@ export const createPM = ({ name, email,enumRole}) => {
                 
             })
             dispatchPMUpdate({type: "createPM", payload: responseCreatePM});
-        }
-        catch (error){
-            console.log(error);
-        }
-    };
-};
-
-
-
-//Update PM
-export const updatePM = ({ id,name, email, githubUsername, enumRole}) => {
-    return async(dispatchPM) => {
-        try {
-            const responsePMUpdate = await api.put(`https://${ngrokUrl}/users/update/${id}`, {
-               
-                name,
-                email,
-                githubUsername,
-                enumRole
-            })
-            dispatchPM({type: "updatePM", payload: responsePMUpdate});
         }
         catch (error){
             console.log(error);
@@ -134,25 +97,6 @@ export const createUser = ({ name, email, enumRole}) => {
 
 
 
-//Update USER
-export const updateUser = ({ id,name, email, enumRole}) => {
-    return async(dispatchUser) => {
-        
-        try {
-            const responseUserUpdate = await api.put(`https://${ngrokUrl}/users/update/${id}`, {
-                
-                name,
-                email,
-                
-                enumRole
-            })
-            dispatchUser({type: "updatePM", payload: responseUserUpdate});
-        }
-        catch (error){
-            console.log(error);
-        }
-    };
-};
 
 
 export const createPmGithubName = ({projectName, repo, username}) => {

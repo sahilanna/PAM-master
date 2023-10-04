@@ -32,7 +32,7 @@ function AddPmProjectUI({
           </Form.Field>
           <Form.Field>
             <label>PM<span style={{ color: 'red' }}>*</span></label>
-            <Dropdown placeholder="Select PM" fluid selection options={user} onChange={handleUserChange} />
+            <Dropdown data-testid="userDropdown" placeholder="Select PM" fluid selection options={user} onChange={handleUserChange} />
           </Form.Field>
 
           <Button type="submit" primary onClick={handleSubmit}>

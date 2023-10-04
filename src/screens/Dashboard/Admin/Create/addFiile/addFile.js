@@ -16,8 +16,8 @@ function AddFile() {
   const [uploadProgress, setUploadProgress] = useState(0);
 
   let dataa = sessionStorage.getItem('item');
-  let user = JSON.parse(dataa);
-  const accessToken = user.token;
+  let user = dataa ? JSON.parse(dataa) : null;
+  const accessToken = user ? user.token: null;
   const headers = {
     AccessToken: accessToken,
     'Content-Type': 'application/zip',

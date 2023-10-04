@@ -7,6 +7,7 @@ import { ngrokUrl, gitAccessToken } from '../../../../network/config';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import LoadingPage from '../../../../atoms/loadingPage';
 import './Read.css';
 
 

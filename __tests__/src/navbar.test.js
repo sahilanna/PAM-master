@@ -5,7 +5,7 @@ import NavBar from '../../src/screens/NavBar';
 import "@testing-library/jest-dom";
 
 
-jest.mock('../src/Assets/logo1.png', () => 'logo1.png');
+jest.mock('../../src/Assets/logo1.png', () => 'logo1.png');
 
 test('renders navigation links correctly', () => {
   render(
