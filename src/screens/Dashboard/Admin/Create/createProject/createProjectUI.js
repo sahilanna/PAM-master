@@ -14,7 +14,7 @@ function CreateProjectUI({ loading, success, error, onClose, projectName, projec
         {error && <div>Error: {error.message}</div>}
         <div style={{ paddingTop: '6px' }}></div>
         <div style={{ paddingLeft: '442px' }}>
-          <Button secondary onClick={onClose}>
+          <Button data-testid='close' secondary onClick={onClose}>
             X
           </Button>
         </div>
@@ -22,12 +22,12 @@ function CreateProjectUI({ loading, success, error, onClose, projectName, projec
         <Modal.Content>
           <Form onSubmit={handleSubmit}>
             <Form.Field>
-              <label style={{ textAlign: 'left' }}>Project-Name<span style={{ color: 'red' }}>*</span></label>
+              <label data-testid='PName' style={{ textAlign: 'left' }}>Project-Name<span style={{ color: 'red' }}>*</span></label>
               <input name='name' value={projectName} onChange={(e) => setProjectName(e.target.value)} placeholder='Name' />
               <br />
             </Form.Field>
             <Form.Field>
-              <label style={{ textAlign: 'left' }}>Project Description<span style={{ color: 'red' }}>*</span></label>
+              <label data-testid='PDesc' style={{ textAlign: 'left' }}>Project Description<span style={{ color: 'red' }}>*</span></label>
               <input name='description' value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)} placeholder='description' />
             </Form.Field>
             <Button type='submit' primary disabled={!projectName || !projectDescription}>Submit</Button>

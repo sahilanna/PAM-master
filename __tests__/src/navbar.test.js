@@ -14,15 +14,22 @@ test('renders navigation links correctly', () => {
     </MemoryRouter>
   );
 
-  
   expect(screen.getByText('Project Access Management')).toBeInTheDocument();
-
-  
   expect(screen.getByText('Features')).toBeInTheDocument();
-
- 
   expect(screen.getByText('Tools')).toBeInTheDocument();
-
- 
   expect(screen.getByText('Login')).toBeInTheDocument();
 });
+
+test('renders the logo with correct attributes', () => {
+  render(
+    <MemoryRouter>
+      <NavBar />
+    </MemoryRouter>
+  );
+
+  const logo = screen.getByAltText('Logo');
+  expect(logo).toBeInTheDocument();
+  expect(logo).toHaveAttribute('src', 'logo1.png');
+  expect(logo).toHaveStyle({ width: '50px', height: '50px', marginLeft: '-90px' });
+});
+

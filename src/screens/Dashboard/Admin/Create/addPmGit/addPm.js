@@ -75,7 +75,7 @@ const AddPm = () => {
 
       </div>
       <div style={{paddingLeft:'440px'}}>
-    <Button secondary  onClick={onClose}>
+    <Button data-testid='close' secondary  onClick={onClose}>
         X
       </Button>
       </div>
@@ -85,6 +85,7 @@ const AddPm = () => {
         <Form.Field>
            <label style={{ textAlign: 'left' }}>Select Repo<span style={{ color: 'red' }}>*</span></label>
             <Dropdown
+              data-testid="dropdown"
               placeholder="Select Repo"
               fluid
               selection
@@ -97,7 +98,8 @@ const AddPm = () => {
         <Form.Field>
   <label style={{ textAlign: 'left' }}>PM Username<span style={{ color: 'red' }}>*</span></label>
 
-  <Dropdown
+            <Dropdown
+            data-testid="dropdownu"
               placeholder="Select Username"
               fluid
               selection

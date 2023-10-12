@@ -9,7 +9,7 @@ const CreateUI = ({ onSubmit, onClose, projItem, temp, handleProjectChange, hand
     <Modal open={true} onClose={onClose} style={{ width: '500px', height: '410px' }} className='create-Project-Modal'>
       <div style={{ paddingTop: '6px' }}></div>
       <div style={{ paddingLeft: '442px' }}>
-        <Button secondary onClick={onClose}>
+        <Button data-testid="X" secondary onClick={onClose}>
           X
         </Button>
       </div>
@@ -30,6 +30,7 @@ const CreateUI = ({ onSubmit, onClose, projItem, temp, handleProjectChange, hand
           <Form.Field>
             <label style={{ textAlign: 'left' }}>REPO<span style={{ color: 'red' }}>*</span></label>
             <Dropdown
+              data-testid="repo-dropdown"
               placeholder="Select Repo"
               fluid
               selection

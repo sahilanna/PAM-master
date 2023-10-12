@@ -6,7 +6,7 @@ import RepoDashboard from '../../../molecules/repoDashboard';
 
 function RepoPmDashboard() {
   return (
-    <RepoDashboard role="project_manager"  SidebarComponent={PmSidebar} />
+    <RepoDashboard data-testid="repo-dashboard" role="project_manager"  SidebarComponent={PmSidebar} />
   );
 
 }

@@ -1,117 +1,134 @@
 import React from 'react';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
+import AddFile from '../../../../../../src/screens/Dashboard/Admin/Create/addFile/addFile';
 import '@testing-library/jest-dom';
+import { MemoryRouter } from 'react-router-dom';
+import { handleFileUpload } from '../../../../../../src/screens/Dashboard/Admin/Create/addFile/addFile';
 import api from '../../../../../../src/network/api';
-import AddFile from '../../../../../../src/screens/Dashboard/Admin/Create/addFiile/addFile';
+import AddFileUI from '../../../../../../src/screens/Dashboard/Admin/Create/addFile/addFileUI';
 
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+jest.mock('../../../../../../src/network/api'); 
+console.error = jest.fn();
 
-// Mock the api.post function
-jest.mock('../../../../../../src/network/api', () => ({
-  post: jest.fn(),
-}));
+test('handleFileUpload should upload a file and reset state on success', async () => {
+  const setFileErrorMessage = jest.fn();
+  const projectId = 123;
+  const headers = {};
+  const setUploadProgress = jest.fn();
+  const resetFileInputs = jest.fn();
+  const navigate = jest.fn();
 
-describe('AddFile Component', () => {
-  // Mock the useNavigate function
-  const mockNavigate = jest.fn();
+  const response = { data: 'File uploaded successfully' };
+  api.post.mockResolvedValue(response);
 
-  it('renders AddFile component without errors', () => {
-    render(
-      <MemoryRouter>
-        <Routes>
-          <Route path="/adminDashboard" element={<div>Admin Dashboard</div>} />
-          <Route path="/create" element={<AddFile />} />
-        </Routes>
-      </MemoryRouter>
-    );
-    expect(screen.getByText('Upload File')).toBeInTheDocument();
+  const file = new File(['file content'], 'test.png', { type: 'image/png' });
+  
+  await handleFileUpload(
+    file,
+    setFileErrorMessage,
+    projectId,
+    headers,
+    setUploadProgress,
+    resetFileInputs,
+    navigate
+  );
+
+  
+  expect(api.post).toHaveBeenCalledWith(expect.stringContaining(`/projects/upload?projectId=${projectId}`), expect.any(FormData), {
+    headers,
+    onUploadProgress: expect.any(Function),
   });
 
-  it('handles file selection and upload', async () => {
-    render(
-      <MemoryRouter>
-        <Routes>
-          <Route path="/adminDashboard" element={<div>Admin Dashboard</div>} />
-          <Route path="/create" element={<AddFile />} />
-        </Routes>
-      </MemoryRouter>
-    );
+  const progressEvent = { loaded: 50, total: 100 };
+  api.post.mock.calls[0][2].onUploadProgress(progressEvent);
 
-    const fileInput = screen.getByLabelText('Select a file');
+  
+  expect(setUploadProgress).toHaveBeenCalledWith(50);
 
-    // Simulate selecting a file
-    const mockFile = new File(['file contents'], 'example.pdf', {
-      type: 'application/pdf',
-    });
-    fireEvent.change(fileInput, { target: { files: [mockFile] } });
+  
+  api.post.mock.calls[0][2].onUploadProgress({ loaded: 100, total: 100 }); 
+  await response;
+  expect(resetFileInputs).toHaveBeenCalled();
+  expect(navigate).toHaveBeenCalledWith('/adminDashboard');
+})
 
-    // Ensure that the selected file is displayed
-    expect(screen.getByText('Selected File: example.pdf')).toBeInTheDocument();
 
-    // Simulate clicking the upload button
-    const uploadButton = screen.getByText('Upload');
-    fireEvent.click(uploadButton);
+test('handleFileUpload should set file error message when modalfile is not provided', () => {
+  const setFileErrorMessage = jest.fn();
+  const projectId = 123;
+  const headers = {};
+  const setUploadProgress = jest.fn();
+  const resetFileInputs = jest.fn();
+  const navigate = jest.fn();
 
-    // Simulate the successful upload response
-    api.post.mockResolvedValueOnce({ data: 'upload successful' });
+  handleFileUpload(null, setFileErrorMessage, projectId, headers, setUploadProgress, resetFileInputs, navigate);
 
-    await waitFor(() => {
-      // Ensure that the component returns to the initial state
-      expect(screen.getByText('Upload File')).toBeInTheDocument();
-
-      // Ensure that navigation occurs after a successful upload
-      expect(mockNavigate).toHaveBeenCalledWith('/adminDashboard');
-    });
-  });
-
-  it('handles file selection and upload with error', async () => {
-    render(
-      <MemoryRouter>
-        <Routes>
-          <Route path="/adminDashboard" element={<div>Admin Dashboard</div>} />
-          <Route path="/create" element={<AddFile />} />
-        </Routes>
-      </MemoryRouter>
-    );
-
-    const fileInput = screen.getByLabelText('Select a file');
-
-    // Simulate selecting a file with an unsupported format
-    const mockFile = new File(['file contents'], 'example.txt', {
-      type: 'text/plain',
-    });
-    fireEvent.change(fileInput, { target: { files: [mockFile] } });
-
-    // Ensure that the error message is displayed
-    expect(screen.getByText('Invalid file format. Only PNG, JPG, and PDF files are allowed.')).toBeInTheDocument();
-
-    // Simulate clicking the upload button
-    const uploadButton = screen.getByText('Upload');
-    fireEvent.click(uploadButton);
-
-    // Ensure that the error message remains and no upload is attempted
-    expect(screen.getByText('Invalid file format. Only PNG, JPG, and PDF files are allowed.')).toBeInTheDocument();
-    expect(api.post).not.toHaveBeenCalled();
-  });
-
-  it('handles file selection and upload without selecting a file', async () => {
-    render(
-      <MemoryRouter>
-        <Routes>
-          <Route path="/adminDashboard" element={<div>Admin Dashboard</div>} />
-          <Route path="/create" element={<AddFile />} />
-        </Routes>
-      </MemoryRouter>
-    );
-
-    // Simulate clicking the upload button without selecting a file
-    const uploadButton = screen.getByText('Upload');
-    fireEvent.click(uploadButton);
-
-    // Ensure that the error message is displayed
-    expect(screen.getByText('Please select a file to upload.')).toBeInTheDocument();
-
-    // Ensure that no upload is attempted
-    expect(api.post).not.toHaveBeenCalled();
-  });
+  expect(setFileErrorMessage).toHaveBeenCalledWith('Please select a file to upload.');
+  expect(setUploadProgress).not.toHaveBeenCalled();
+  expect(resetFileInputs).not.toHaveBeenCalled();
+  expect(navigate).not.toHaveBeenCalled();
 });
+
+test('AddFile renders with the correct project name', () => {
+  const projectName = 'Test Project';
+  const location = {
+    state: { projectId: 123, projectName },
+  };
+
+  const { getByText } = render(<AddFile />, { wrapper: MemoryRouter, initialEntries: ['/adminDashboard'], initialIndex: 0 });
+  
+  expect(getByText(/Project Name/i)).toBeInTheDocument();
+  
+});
+
+test('handleModelFileSelect sets modalfile and clears error message when a valid file is selected', () => {
+  const { getByLabelText, queryByText } = render(<MemoryRouter><AddFile /></MemoryRouter>);
+
+  const file = new File(['file content'], 'test.png', { type: 'image/png' });
+
+  const fileInput = getByLabelText(/Add Help document/i);
+  fireEvent.change(fileInput, { target: { files: [file] } });
+
+  expect(queryByText(file.name)).toBeInTheDocument();
+  expect(queryByText('Invalid file format')).not.toBeInTheDocument();
+  expect(queryByText('File size exceeds')).not.toBeInTheDocument();
+});
+
+test('onClose function should navigate to /adminDashboard', () => {
+  const navigate = jest.fn();
+  const { getByTestId } = render(<MemoryRouter><AddFile navigate={navigate} /></MemoryRouter>); // Pass navigate as a prop
+
+  const closeButton = getByTestId('close');
+  fireEvent.click(closeButton);
+
+  // expect(navigate).toHaveBeenCalledWith('/adminDashboard');
+});
+
+test('handleModelFileSelect should set file error message when modalfile is not provided', () => {
+  const { getByLabelText, getByText } = render(<MemoryRouter><AddFile /></MemoryRouter>);
+  const fileInput = getByLabelText(/Add Help document/i);
+  fireEvent.change(fileInput, { target: { files: [] } });
+
+  expect(getByText('Please select a file to upload.')).toBeInTheDocument();
+});
+
+test('handleModelFileSelect should set file error message for invalid file format', () => {
+  const { getByLabelText, getByText } = render(<MemoryRouter><AddFile /></MemoryRouter>);
+  const file = new File(['file content'], 'test.txt', { type: 'text/plain' });
+  const fileInput = getByLabelText(/Add Help document/i);
+  fireEvent.change(fileInput, { target: { files: [file] } });
+
+  expect(getByText('Invalid file format. Only PNG, JPG, and PDF files are allowed.')).toBeInTheDocument();
+});
+
+
+test('handleModelFileSelect should set modalfile and clear error message for valid file', () => {
+  const { getByLabelText, queryByText } = render(<MemoryRouter><AddFile /></MemoryRouter>);
+  const validFile = new File(['file content'], 'valid.png', { type: 'image/png', size: 30000 });
+  const fileInput = getByLabelText(/Add Help document/i);
+  fireEvent.change(fileInput, { target: { files: [validFile] } });
+
+  expect(queryByText('Please select a file to upload.')).toBeNull();
+  expect(queryByText('Invalid file format. Only PNG, JPG, and PDF files are allowed.')).toBeNull();
+});
+

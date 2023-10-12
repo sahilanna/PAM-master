@@ -23,7 +23,7 @@ describe('AddPmProjectUI Component', () => {
 
   it('renders the component with initial props', () => {
     render(<AddPmProjectUI {...mockProps} />);
-    // Add more assertions based on your component's initial state
+  
     expect(screen.getByText('Add PM to project')).toBeInTheDocument();
   });
   
@@ -37,19 +37,16 @@ describe('AddPmProjectUI Component', () => {
     render(<AddPmProjectUI {...updatedProps} />);
     const dropdown = screen.getByTestId('userDropdown');
   
-    // Open the dropdown
+   
     fireEvent.click(dropdown);
-  
-    // Select an option from the dropdown by text
     const option = screen.getByText('PM 2');
     fireEvent.click(option);
   
-    // Ensure that the mockHandleUserChange function is called with the selected value
     expect(mockHandleUserChange).toHaveBeenCalledWith(expect.anything(), {
       value: 'pm2',
     });
   
-    // Ensure that the selectedUser state is updated
+   
     expect(screen.getByPlaceholderText('Select PM')).toHaveValue('pm2');
   });
   
@@ -60,6 +57,28 @@ describe('AddPmProjectUI Component', () => {
     fireEvent.click(submitButton);
     await waitFor(() => {
       expect(mockProps.handleSubmit).toHaveBeenCalled();
+    });
+  });
+
+  it('opens the OTP modal when showOTPMoal is true', async () => {
+    const updatedProps = {
+      ...mockProps,
+      showOTPMoal: true,
+    };
+
+    render(<AddPmProjectUI {...updatedProps} />)
+    
+    expect(screen.getByText('Enter OTP')).toBeInTheDocument();
+
+    const otpInput = screen.getAllByTestId('modal');
+    
+    otpInput.value = '123456';
+    const otpSubmitButton = screen.getByText('Submit OTP');
+    fireEvent.click(otpSubmitButton);
+
+    
+    waitFor(() => {
+      expect(updatedProps.handleOTPSubmit).toHaveBeenCalledWith('123456');
     });
   });
 

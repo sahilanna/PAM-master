@@ -15,10 +15,7 @@ function Test() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
   const [isGoogleButtonRendered, setIsGoogleButtonRendered] = useState(false);
   const navigate=useNavigate()
-  const StyledText = styled.p`
-font-family: 'Montserrat';
-color: #FFFFFF;
-;
+  const StyledText = styled.p`session
 `;
   async function handleGoogleLogin(response) {
      
@@ -102,7 +99,7 @@ color: #FFFFFF;
        </div>
        <div className="box-container">
         <div>
-          <img src={logo1} alt="Logo" style={{width:'235px', height:'300px',paddingTop:'40px'}}/>
+          <img data-testid="logo" src={logo1} alt="Logo" style={{width:'235px', height:'300px',paddingTop:'40px'}}/>
         
       </div>
      

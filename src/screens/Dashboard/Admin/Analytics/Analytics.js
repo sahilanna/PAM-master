@@ -8,6 +8,7 @@ import api from '../../../../network/api';
 import { Button } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
+
 function Analytics() {
   const [Data, setData] = useState([]);
   const navigate =useNavigate()
@@ -77,7 +78,7 @@ function Analytics() {
                 </PieChart>
                 <br/>
                 <div >
-                <Button primary onClick={handleNextClick}>Next</Button>
+                <Button data-testid='next' primary onClick={handleNextClick}>Next</Button>
                 <Button secondary onClick={handleDownloadCSV}>Download CSV</Button>
                 <CSVLink
                   data={csvData}

@@ -17,43 +17,6 @@ export const createProjectFailure = (error) => ({
 });
 
 
-
-
-
-
-//Create Project
-// export const createProject = ({ projectName, projectDescription,projectManagerId,gitRepoLink}) => {
-//     return async(dispatchU) => {
-//         try {
-//             const responseCreate = await api.post('https://64267bccd24d7e0de470e2b7.mockapi.io/Crud', {
-                
-//                 projectName,
-//                 projectDescription,
-//                 projectManagerId,
-                
-//                 gitRepoLink
-//             })
-//             toast.success('Project created successfully!', {
-//                 position: toast.POSITION.TOP_RIGHT,
-//                 autoClose: 3000,
-//               })
-//             dispatchU({type: "createProject", payload: responseCreate});
-            
-//         }
-//         catch (error){
-//             console.log(error);
-//             toast.error('Failed. Please try again.', {
-//                 position: toast.POSITION.TOP_RIGHT,
-//                 autoClose: 3000,
-//               });
-//         }
-//     };
-// };
-
-
-
-
-
 //Create PM
 export const createPM = ({ name, email,enumRole}) => {
     return async(dispatchPMUpdate) => {
@@ -72,7 +35,6 @@ export const createPM = ({ name, email,enumRole}) => {
         }
     };
 };
-
 
 
 //create user
@@ -94,7 +56,6 @@ export const createUser = ({ name, email, enumRole}) => {
         }
     };
 };
-
 
 
 

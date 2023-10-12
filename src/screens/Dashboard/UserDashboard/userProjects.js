@@ -18,13 +18,18 @@ function UserProjects() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState(''); 
   let data = sessionStorage.getItem("item");
-  let user = JSON.parse(data);
+  let user = data ? JSON.parse(data) : null;
   
   console.log(user)
-    console.log(user.token)
-  const  id=user.id
-console.log(id)
-  
+
+
+  let id=null;
+  if(user !== null)
+  {
+    id=user.id;
+    
+  }
+
   useEffect(() => {
     const fetchUserid = async () => {
       try {

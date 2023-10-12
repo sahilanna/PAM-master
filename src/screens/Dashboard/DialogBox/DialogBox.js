@@ -15,7 +15,7 @@ const DialogBox = (props) => {
                 <Button color="grey" onClick={onClose}>
                     Cancel
                 </Button>
-                <Button color="red" onClick={onConfirm}>
+                <Button data-testid='confirm' color="red" onClick={onConfirm}>
                     Delete
                 </Button>
             </Modal.Actions>

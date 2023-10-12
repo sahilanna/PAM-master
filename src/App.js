@@ -10,7 +10,7 @@ import PrivateRoutes from './redux/PrivateRouting';
 import Logout from './redux/Logout';
 import LoadingPage from './atoms/loadingPage';
 import Faq from "./screens/faq";
-import IpAddress from './atoms/ipAddress';
+
 
 
 
@@ -26,8 +26,7 @@ function App() {
         <BrowserRouter>
           <Routes>
 
-          <Route path='/ipAddress' element={<IpAddress/>}/>
-
+          
           <Route path='/LoadingPage' element={<LoadingPage/>}/>
         
           <Route path="/Login" element={<Login/>} />

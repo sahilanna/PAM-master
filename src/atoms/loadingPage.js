@@ -10,7 +10,7 @@ const LoadingPage = () => {
   return (
     <div className="loader-container">
      <Dimmer active={loading} data-testid="dimmer"> 
-        <Loader size="small" data-testid="loader">Loading</Loader> 
+        <Loader  size="small" data-testid="loader">Loading</Loader> 
       </Dimmer>
     </div>
   );

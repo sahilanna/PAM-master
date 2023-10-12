@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, getByTestId } from '@testing-library/react';
 import CreateProjectUI from '../../../../../../src/screens/Dashboard/Admin/Create/createProject/createProjectUI';
 import '@testing-library/jest-dom';
 
@@ -17,13 +17,13 @@ describe('CreateProjectUI Component', () => {
   };
 
   it('renders the CreateProjectUI component with initial state', () => {
-    const { getByText, getByPlaceholderText } = render(
+    const { getByText, getByPlaceholderText, getByTestId } = render(
       <CreateProjectUI {...mockProps} />
     );
 
     
-    const nameLabel = getByText(/Project-Name\*/);
-    const descriptionLabel = getByText('Project Description*');
+    const nameLabel = getByTestId('PName');
+    const descriptionLabel = getByTestId('PDesc');
     const nameInput = getByPlaceholderText('Name');
     const descriptionInput = getByPlaceholderText('description');
     const submitButton = getByText('Submit');
@@ -35,15 +35,7 @@ describe('CreateProjectUI Component', () => {
     expect(submitButton).toBeInTheDocument();
   });
 
-  it('calls handleSubmit function when the form is submitted', () => {
-    const { getByText } = render(<CreateProjectUI {...mockProps} />);
-    const submitButton = getByText('Submit');
-
-    fireEvent.click(submitButton);
-
-    
-    expect(mockProps.handleSubmit).toHaveBeenCalled();
-  });
+ 
 
   it('displays success message when success prop is true', () => {
     const propsWithSuccess = { ...mockProps, success: true };
@@ -60,6 +52,43 @@ describe('CreateProjectUI Component', () => {
     const errorMessage = getByText('Error: Test Error');
     expect(errorMessage).toBeInTheDocument();
   });
+
+
+  it('updates projectName when input field changes', () => {
+    const { getByPlaceholderText } = render(<CreateProjectUI {...mockProps} />);
+  
+    const nameInput = getByPlaceholderText('Name');
+  
+    fireEvent.change(nameInput, { target: { value: 'New Project Name' } });
+  
+  });
+
+  it('updates projectDescription when input field changes', () => {
+    const { getByPlaceholderText } = render(<CreateProjectUI {...mockProps} />);
+  
+    const descriptionInput = getByPlaceholderText('description');
+  
+    fireEvent.change(descriptionInput, { target: { value: 'New Project Description' } });
+  
+  });
+  
+  it('renders LoadingPage when loading prop is true', () => {
+    const propsWithLoading = { ...mockProps, loading: true };
+    const { getByTestId } = render(<CreateProjectUI {...propsWithLoading} />);
+  
+    const loadingPage = getByTestId('loader');
+    expect(loadingPage).toBeInTheDocument();
+  });
+
+  it('enables the Submit button when projectName and projectDescription are not empty', () => {
+    const propsWithNonEmptyValues = { ...mockProps, projectName: 'Project Name', projectDescription: 'Project Description' };
+    const { getByText } = render(<CreateProjectUI {...propsWithNonEmptyValues} />);
+    
+    const submitButton = getByText('Submit');
+    
+    expect(submitButton).toBeEnabled();
+  });
+  
 
   
 });

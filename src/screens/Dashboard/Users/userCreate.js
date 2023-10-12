@@ -19,7 +19,7 @@ function UserCreate() {
  const handleSubmit=(e)=>{
     e.preventDefault();
     setClicked(true);
-    if(name.length==0 || email.length==0 ){
+    if(name.length===0 || email.length===0 ){
       return;
   }
  
@@ -50,14 +50,14 @@ return(
 
           <Form onSubmit={handleSubmit}>
     <Form.Field>
-        <label style={{ textAlign: 'left' }}> User Name<span style={{ color: 'red' }}>*</span></label>
-        <input name='name' onChange={(e)=>setName(e.target.value)} placeholder='User Name' />
+        <label data-testid='User' style={{ textAlign: 'left' }}> User Name<span style={{ color: 'red' }}>*</span></label>
+        <input data-testid='User-Input' name='name' onChange={(e)=>setName(e.target.value)} placeholder='User Name' />
         {clicked&&name.length<=0?
                <label style={{color:'red'}}> Name can't be Empty</label>: ""}
     </Form.Field>
     <Form.Field>
-        <label style={{ textAlign: 'left' }}>User Email-ID<span style={{ color: 'red' }}>*</span></label>
-        <input type='email' name='email' onChange={(e)=>setEmail(e.target.value)} placeholder='EMAIL' />
+        <label data-testid='Email' style={{ textAlign: 'left' }}>User Email-ID<span style={{ color: 'red' }}>*</span></label>
+        <input data-testid='Email-ID' type='email' name='email' onChange={(e)=>setEmail(e.target.value)} placeholder='EMAIL' />
         {clicked&&email.length<=0?
                <label style={{color:'red'}}>  Email can't be Empty</label>: ""}
     </Form.Field>

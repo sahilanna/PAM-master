@@ -77,5 +77,71 @@ describe('CreateRepoUI Component', () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
+  it('displays error message for name when clicked and name is empty', () => {
+    render(
+      <CreateRepoUI
+        name=""
+        description="Initial Description"
+        handleChange={() => {}}
+        handleSubmit={() => {}}
+        clicked={true} // Simulate that the submit button was clicked
+        onClose={() => {}}
+      />
+    );
+
+    const errorMessage = screen.getByText("Repo name can't be Empty");
+    expect(errorMessage).toBeInTheDocument();
+  });
+
+  it('displays error message for description when clicked and description is empty', () => {
+    render(
+      <CreateRepoUI
+        name="Initial Name"
+        description=""
+        handleChange={() => {}}
+        handleSubmit={() => {}}
+        clicked={true} // Simulate that the submit button was clicked
+        onClose={() => {}}
+      />
+    );
+
+    const errorMessage = screen.getByText("Repo description can't be Empty");
+    expect(errorMessage).toBeInTheDocument();
+  });
+
+  it('does not display error message for name when clicked and name is not empty', () => {
+    render(
+      <CreateRepoUI
+        name="Test Name"
+        description="Initial Description"
+        handleChange={() => {}}
+        handleSubmit={() => {}}
+        clicked={true} // Simulate that the submit button was clicked
+        onClose={() => {}}
+      />
+    );
+
+    const errorMessage = screen.queryByText("Repo name can't be Empty");
+    expect(errorMessage).toBeNull();
+  });
+
+  it('does not display error message for description when clicked and description is not empty', () => {
+    render(
+      <CreateRepoUI
+        name="Initial Name"
+        description="Test Description"
+        handleChange={() => {}}
+        handleSubmit={() => {}}
+        clicked={true} // Simulate that the submit button was clicked
+        onClose={() => {}}
+      />
+    );
+
+    const errorMessage = screen.queryByText("Repo description can't be Empty");
+    expect(errorMessage).toBeNull();
+  });
+
+
+
 
 });

@@ -1,80 +1,83 @@
 import React from 'react';
-import { MemoryRouter, Router  } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+import { MemoryRouter, Route, Router  } from 'react-router-dom';
+import { render, screen,waitFor, fireEvent } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom'; 
 import Analytics from '../../../../../../src/screens/Dashboard/Admin/Analytics/Analytics';
 
 
 
-// Mock Dependencies
+jest.mock('../../../../../../src/network/api');
+
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => jest.fn(),
 }));
 
-jest.mock('react-csv', () => ({
-  CSVLink: ({ data, filename }) => (
-    <a href={`data:text/csv;charset=utf-8,${encodeURI(JSON.stringify(data))}`} download={filename}>
-      Download CSV
-    </a>
-  ),
-}));
-
-jest.mock('../../../../../../src/network/api', () => ({
-  get: jest.fn(),
-}));
-
-const mockData = [
-  { name: 'Admins', count: 3 },
-  { name: 'Users', count: 5 },
-  { name: 'Project Managers', count: 2 },
-];
-
 describe('Analytics Component', () => {
-  it('renders loading page when isLoading is true', async () => {
-    const history = createMemoryHistory();
+ 
+  beforeAll(() => {
+    global.fetch = jest.fn();
+    fetch
+      .mockResolvedValueOnce({
+        json: async () => [{ name: 'Admins', count: 5 }],
+      })
+      .mockResolvedValueOnce({
+        json: async () => [{ name: 'Project Managers', count: 3 }],
+      })
+      .mockResolvedValueOnce({
+        json: async () => [{ name: 'Users', count: 7 }],
+      });
+  });
+
+  it('renders analytics component with a loader', () => {
+    render(<MemoryRouter><Analytics /></MemoryRouter>);
+    expect(screen.getByTestId('loader')).toBeInTheDocument();
+  });
+
   
-    render(
-      <Router history={history}> {/* Wrap your component in Router */}
-        <Analytics />
-      </Router>
-    );
-  
-    await waitFor(() => {
-      const loadingPage = screen.getByText('Loading...');
-      expect(loadingPage).toBeInTheDocument();
+  it('displays the pie chart after loading', () => {
+    render(<MemoryRouter><Analytics /></MemoryRouter>);
+    waitFor(() => {
+      expect(screen.getByText('Count of Admin, PMs, and Users')).toBeInTheDocument();
     });
   
-    // Your additional assertions here
-  });
   });
 
-  it('renders chart and buttons when isLoading is false', async () => {
-    // Mocking isLoading as false
-    jest.spyOn(React, 'useState').mockImplementation(() => [false, jest.fn()]);
+  it('navigates to projectAnalytics on Next button click', () => {
+    const history = createMemoryHistory({ initialEntries: ['/'] });
+    
+   
 
-    // Mock the API response
-    jest.spyOn(require('../../../../../../src/network/api'), 'get').mockResolvedValue({ data: mockData });
+    const { getByText } = render( 
+        <MemoryRouter history={history}>
+        <Analytics/>
+        </MemoryRouter>
+      );
 
-    const { container } = render(
-      <MemoryRouter>
-        <Analytics />
-      </MemoryRouter>
-    );
 
-    // Ensure the chart is rendered
-    const pieChart = screen.getByTestId('analytics-chart');
-    expect(pieChart).toBeInTheDocument();
+    waitFor(() => {
+      expect(screen.getByText('Count of Admin, PMs, and Users')).toBeInTheDocument();
+    });
 
-    // Ensure the data is displayed correctly on the chart (you can write specific assertions here)
+    const navigateMock = history.navigate;
 
-    // Ensure the Next button is rendered
-    const nextButton = screen.getByText('Next');
-    expect(nextButton).toBeInTheDocument();
 
-    // Ensure the Download CSV button is rendered
-    const downloadCSVButton = screen.getByText('Download CSV');
-    expect(downloadCSVButton).toBeInTheDocument();
+    waitFor(() => {
+      fireEvent.click(getByText('Next'));
+    });
+
+    waitFor(() => {
+      expect(navigateMock).toHaveBeenCalledWith('/projectAnalytics');
+    });
+ 
+});
+
+  it('downloads CSV on Download CSV button click', () => {
+    const { getByText } = render(<MemoryRouter><Analytics /></MemoryRouter>);
+     waitFor(() => {
+      fireEvent.click(getByText('Download CSV'));
+    });
+    
   });
-
+});

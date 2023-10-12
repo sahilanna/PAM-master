@@ -19,7 +19,7 @@ function AddFileUI({
     >
       <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
       <div style={{ paddingLeft: '442px' }}>
-        <Button secondary onClick={onClose}>
+        <Button data-testid='close'secondary onClick={onClose}>
           X
         </Button>
       </div>

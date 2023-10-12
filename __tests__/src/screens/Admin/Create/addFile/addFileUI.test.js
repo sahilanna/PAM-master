@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import AddFileUI from '../../../../../../src/screens/Dashboard/Admin/Create/addFiile/addFileUI';
+import AddFileUI from '../../../../../../src/screens/Dashboard/Admin/Create/addFile/addFileUI';
 
 describe('AddFileUI Component', () => {
   const projectName = 'Test Project';

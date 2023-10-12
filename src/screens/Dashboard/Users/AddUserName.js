@@ -65,7 +65,6 @@ function AddUserName() {
   const selectedUserChange = (event, { value }) => {
     setSelectedUser(value);
     setId(value);
-    console.log(id);
   };
 
  
@@ -83,7 +82,7 @@ function AddUserName() {
       <Modal open={true} onClose={onClose}  style={{ width: '500px' }} className='create-Project-Modal'>
         <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
         <div style={{ paddingLeft: '442px' }}>
-          <Button secondary onClick={onClose}>
+          <Button data-testid="X" secondary onClick={onClose}>
             X
           </Button>
         </div>
@@ -93,6 +92,7 @@ function AddUserName() {
             <Form.Field>
               <label style={{ textAlign: 'left' }}>Users<span style={{ color: 'red' }}>*</span></label>
               <Dropdown
+              data-testid='user'
                 placeholder="Select User"
                 fluid
                 selection

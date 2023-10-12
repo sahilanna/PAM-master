@@ -27,17 +27,20 @@ const PmDashboard = () => {
     setIsLoading(false);
   }, 2000);
   let data = sessionStorage.getItem("item");
-  let user = JSON.parse(data);
+  let user = data ? JSON.parse(data) : null;
  
   console.log(user)
-    console.log(user.token)
-  const  id=user.id
-  const pmName=user.name
   
-  
- 
-  console.log(pmName)
-  console.log(id)
+  let id=null;
+  if(user !== null)
+  {
+    id=user.id;
+    const pmName=user.name;
+    console.log(pmName)
+
+  }
+
+
   
   useEffect(() => {
     handlePaginate(1);
@@ -48,8 +51,7 @@ const PmDashboard = () => {
        new URLSearchParams(window.location.search);
         const response = await api.get(`https://${ngrokUrl}/users/${id}/role/project_manager/projects`);
 
-      console.log(response.data)
-      console.log(response.id);
+  
       setIsLoading(false);
       setItem(response.data)
         const  pmid  = response.data;

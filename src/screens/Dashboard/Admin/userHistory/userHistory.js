@@ -23,7 +23,7 @@ function UserHistory() {
   let user = JSON.parse(data);
  
   console.log(user)
-    console.log(user.token)
+    
 
   useEffect(() => {
     fetchData();

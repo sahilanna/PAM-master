@@ -40,17 +40,17 @@ function PmCreate() {
       <Modal.Content>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
-            <label style={{ textAlign: 'left' }}>
+            <label data-testid='PM' style={{ textAlign: 'left' }}>
               Project-Manager Name<span style={{ color: 'red' }}>*</span>
             </label>
-            <input name='name' onChange={(e) => setName(e.target.value)} placeholder='PM Name' />
+            <input data-testid='PMI' name='name' onChange={(e) => setName(e.target.value)} placeholder='PM Name' />
             {clicked && name.length <= 0 ? <label style={{ color: 'red' }}> Name can't be Empty</label> : ''}
           </Form.Field>
           <Form.Field>
-            <label style={{ textAlign: 'left' }}>
+            <label  data-testid='Email-ID' style={{ textAlign: 'left' }}>
               Email-ID<span style={{ color: 'red' }}>*</span>
             </label>
-            <input type='email' name='email' onChange={(e) => setEmail(e.target.value)} placeholder='EMAIL' />
+            <input data-testid='EMI' type='email' name='email' onChange={(e) => setEmail(e.target.value)} placeholder='EMAIL' />
             {clicked && email.length <= 0 ? <label style={{ color: 'red' }}> Email can't be Empty</label> : ''}
           </Form.Field>
          

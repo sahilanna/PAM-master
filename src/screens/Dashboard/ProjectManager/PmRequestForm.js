@@ -17,11 +17,17 @@ function PmRequestForm() {
   const[userObj,setUserObj]=useState([])
   const[requestDescription,setRequestDescription]=useState([])
   let profileData = sessionStorage.getItem("item");
-  let pdata = JSON.parse(profileData);
+  let pdata = profileData ? JSON.parse(profileData) : null;
 
   console.log(profileData)
   console.log(requestStatus)
-  const pmName=pdata.name;
+ 
+
+  let pmName=null;
+  if(pdata !== null)
+  {
+    pmName=pdata.name;
+  }
   
   const handleUserChange = (event, { value }) => {
     const selectedUserObj = userObj.find(userr => userr.name === value);
@@ -86,7 +92,7 @@ setRequestDescription(e.target.value)
     <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
       </div>
       <div style={{paddingLeft:'442px'}}>
-    <Button secondary onClick={onClose}>
+    <Button data-testid='close' secondary onClick={onClose}>
         X
       </Button>
       </div>

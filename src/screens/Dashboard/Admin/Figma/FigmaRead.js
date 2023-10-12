@@ -11,12 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Pagination from '../../Pagination/Pagination';
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-
-
 import { faTrash,  faUser, faStreetView } from '@fortawesome/free-solid-svg-icons';
-
-
-
 
 function FigmaRead() {
   const [userData, setUserData] = useState({
@@ -35,7 +30,7 @@ function FigmaRead() {
   const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 5;
   const[showConfirmDialog, setShowConfirmDialog]=useState(false)
-  const [showModall, setShowModall] = useState(false); // State for modal visibility
+  const [showModall, setShowModall] = useState(false); 
 
   
   console.log(showModall)
@@ -66,13 +61,13 @@ function FigmaRead() {
   const handleDisplayVerification = async (figmaId) => {
     try {
       const response = await api.get(`https://${ngrokUrl}/figmas/${figmaId}/screenshots`);
-      const data = response.data; // Assuming response.data is the array of objects
+      const data = response.data; 
   
       if (data.length > 0) {
         const screenshotImageURL = data[0].screenshotImageURL;
         const user = data[0].user;
   
-        // Trigger image download
+       
         const link = document.createElement('a');
         link.href = screenshotImageURL;
         link.download = `${user}_screenshot.png`;
@@ -88,9 +83,6 @@ function FigmaRead() {
       console.error('Error handling display verification:', error);
     }
   };
-
-
-
 
 
 
@@ -168,7 +160,7 @@ function FigmaRead() {
             <i className="users icon"></i>
             <ToastContainer/>
           </div>
-          <button className="ui button" onClick={createFigma}>
+          <button data-testid='create' className="ui button" onClick={createFigma}>
             Create Figma
           </button>
         </div>
@@ -203,12 +195,12 @@ function FigmaRead() {
                     </a>
                   </td>
                   <td className="text-center">
-                    <button className="btn btn-outline-primary mx-2" onClick={() => handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
+                    <button data-testid='add' className="btn btn-outline-primary mx-2" onClick={() => handleAddUser(project.figmaURL, project.figmaId, project.projectDTO.projectId)}>
                       <FontAwesomeIcon icon={faUser} />
                     </button>
                   </td>
                   <td className="text-center">
-                    <button className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(project.figmaId)}>
+                    <button data-testid='delete' className="btn btn-danger mx-2" onClick={() => setShowConfirmDialog(project.figmaId)}>
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
                     <DialogBox

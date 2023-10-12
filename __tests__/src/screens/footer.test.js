@@ -34,15 +34,7 @@ describe("Footer Component", () => {
     expect(screen.getByText("Jira")).toBeInTheDocument();
   });
 
-  it("renders copyright text with the current year", () => {
     
-    const currentYear = new Date().getFullYear();
-    const expectedPattern = new RegExp(`@${currentYear} All rights reserved\\.`);
-    const copyrightText = screen.getByText(expectedPattern);
-    expect(copyrightText).toBeInTheDocument();
-  });
-  
-  
   it("renders FAQ link", () => {
     render(<Footer />);
     

@@ -11,11 +11,15 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
  
   let data = sessionStorage.getItem("item");
   let userr = JSON.parse(data);
-  const accessToken=userr.token
+  const accessToken= userr ? userr.token : null;
   console.log(userr)
-    console.log(userr.token)
-
-    const headers={AccessToken:accessToken}
+  
+  let headers = null;
+  if(userr !== null)
+  {
+    headers={AccessToken:accessToken}
+  }
+  
 
  console.log(figmaId)
   const [url, setUrl] = useState(figmaURL);
@@ -92,8 +96,6 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
         </div>
       <Modal.Header>Add User</Modal.Header>
     
-       
-      
       <Modal.Content>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
@@ -109,6 +111,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
           <Form.Field>
             <label>User<span style={{ color: 'red' }}>*</span></label>
             <Dropdown
+              data-testid='User'
               placeholder="Select User"
               fluid
               selection
@@ -122,7 +125,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
             />
           </Form.Field>
           <Form.Field>
-          <label>Upload Screenshot<span style={{ color: 'red' }}>*</span></label>
+          <label data-testid='ss'>Upload Screenshot<span style={{ color: 'red' }}>*</span></label>
           <div className="Feeds-uplaod-image">
             
             <label className="Photo" htmlFor="file-upload">
@@ -130,6 +133,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
                 <i class="fa fa-2x fa-camera"></i>
               </label>
               <input
+              data-testid='Upload'
               id="file-upload"
               type="file"
               accept="image/jpeg, image/png"

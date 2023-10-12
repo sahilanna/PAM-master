@@ -13,11 +13,15 @@ function PmNotification() {
     const[notification, setNotification]=useState([])
     const[accessRequestId, setAccessRequestId]=useState([])
     let data = sessionStorage.getItem("item");
-    let user = JSON.parse(data);
+    let user = data ? JSON.parse(data): null;
     
+    let pmName=null;
+    if(user !== null)
+    {
+      pmName=user.name
+    }
     
-    
-    const pmName=user.name
+   
     const fetchNotification = async () => {
         try {
           const response = await api.get(`https://${ngrokUrl}/request/unread/PM?pmName=${pmName}`);
@@ -91,7 +95,7 @@ function PmNotification() {
             <tr key={item.id}>
               <td><b>{item.response}</b></td>
               <td>
-                <Button style={{color:'blue'}}  onClick={() => onDeleteNotification(item.accessRequestId)}>
+                <Button data-testid="del" style={{color:'blue'}}  onClick={() => onDeleteNotification(item.accessRequestId)}>
                   <FontAwesomeIcon icon={faCheck} className="read-icon" /></Button>
               </td>
             </tr>         

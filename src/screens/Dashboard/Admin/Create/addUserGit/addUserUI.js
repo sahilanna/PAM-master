@@ -6,7 +6,7 @@ function AddUserUI({ selectedRepo, options, username, handleUserNameBChange, han
     <Modal open={true} onClose={onClose} style={{ width: '500px', height: '450px' }} className='create-Project-Modal'>
       <div style={{ paddingTop: '6px' }}></div>
       <div style={{ paddingLeft: '440px' }}>
-        <Button secondary onClick={onClose}>
+        <Button data-testid="X" secondary onClick={onClose}>
           X
         </Button>
       </div>
@@ -14,12 +14,14 @@ function AddUserUI({ selectedRepo, options, username, handleUserNameBChange, han
       <Modal.Content>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
-            <label style={{ textAlign: 'left' }}>Repository Name</label>
-            <input name="repoName" value={selectedRepo || ''} readOnly />
+            <label style={{ textAlign: 'left' }} data-testid="repoNameLabel" >Repository Name</label>
+            <input data-testid="repoNameInput" name="repoName" value={selectedRepo || ''} readOnly />
+            {console.log("Check",selectedRepo)}
           </Form.Field>
           <Form.Field>
             <label style={{ textAlign: 'left' }}>User Username<span style={{ color: 'red' }}>*</span></label>
             <Dropdown
+              data-testid="dropdown"
               placeholder="Select Username"
               fluid
               selection
@@ -32,7 +34,7 @@ function AddUserUI({ selectedRepo, options, username, handleUserNameBChange, han
               onChange={handleUserNameBChange}
             />
           </Form.Field>
-          <Button type='submit' primary>Submit</Button>
+          <Button data-testid='submit' type='submit' primary>Submit</Button>
         </Form>
       </Modal.Content>
       <Modal.Actions>

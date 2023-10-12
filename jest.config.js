@@ -11,7 +11,6 @@ module.exports = {
     transformIgnorePatterns: [
       '/node_modules/(?!(bootstrap|react-bootstrap|semantic-ui-react)/)',
     ],
-   
     testEnvironment: 'jsdom'
   };
   

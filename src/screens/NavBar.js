@@ -15,7 +15,7 @@ export default class NavBar extends Component {
                             <span className="heading">Project Access Management</span>
                         </Menu.Item>
                         <Menu.Menu position="left">
-                            <Dropdown item text="Features">
+                            <Dropdown data-testid="dropdown" item text="Features">
                                 <Dropdown.Menu>
                                     <Dropdown.Item>
                                         This application lets you add projects, users, and project managers into a certain project

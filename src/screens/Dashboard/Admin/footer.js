@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faInstagram, faFigma, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import './Footer.css'
-const Footer = () => {
+const FooterA = () => {
   return (
     <div className="Footer">
       <div className="sb_footer_section_padding">
@@ -55,4 +55,4 @@ const Footer = () => {
     </div>
   );
 };
-export default Footer;
+export default FooterA;

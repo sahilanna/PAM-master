@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal,Form, Header, Segment, Container, List, Tab } from 'semantic-ui-react';
+import { Button, Header, Segment, Container, List, Tab } from 'semantic-ui-react';
 import DialogBox from '../../DialogBox/DialogBox';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../../../network/api';
@@ -9,7 +9,7 @@ import { faTrash, faTimes, } from '@fortawesome/free-solid-svg-icons';
 import CustomSidebar from '../../SideBar/SideBar';
 import ProjectUsers from './projectUsers';
 import ProjectPms from './projectPms';
-
+import OtpModal from './otpModal';
 
 
 const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileButton, onAddFile }) => {
@@ -34,6 +34,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   console.log(setCount);
   console.log(setDriveData);
   console.log(setShowAddUserProject);
+  console.log(setOtp);
   const panes = [
     {
       menuItem: 'Users',
@@ -77,9 +78,6 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   ,
   
   ]
-  
-  
-
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const navigate = useNavigate();
   const [namesFile, setNamesFile] = useState([]);
@@ -98,7 +96,6 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     }
   };
 
- 
   useEffect(() => {
     displayFile();
   }, []);
@@ -119,9 +116,6 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
   const handleOTPClose = () => {
     setShowOTPMoal(false);
   };
-
- 
-
 
 
   const handleConfirmDelete = async () => {
@@ -163,10 +157,6 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
     }
   };
 
-
-  
-  
- 
 
   const displayFile = async () => {
     try {
@@ -286,7 +276,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
       <Header as='h1' attached='top' block className='project-heading1'>
      
     <div>{projectName}</div>
-    <Button color="red" onClick={handleDeleteProject} className="delete-button">
+    <Button data-testid='del' color="red" onClick={handleDeleteProject} className="delete-button">
   <FontAwesomeIcon icon={faTrash} /> 
   </Button>
  
@@ -300,10 +290,6 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
           />
       </Header>
       <Segment attached className="left-aligned-segment">
-        
-     
-        
-        {/* <Header as='h3'>{projectName} Details: </Header> */}
         
         <List divided relaxed>
           
@@ -387,24 +373,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
       </div>
       </div>
     <DialogBox show={showConfirmDialog} onClose={handleCancelDelete} onConfirm={handleConfirmDelete} />
-  <Modal open={showOTPMoal} onClose={handleOTPClose} style={{ width: '500px' }} className="centered-modal-OTP">
-        <Modal.Header>Enter OTP </Modal.Header>
-        <Modal.Content>
-          <Form onSubmit={handleOTPSubmit}>
-            <div className="form-field">
-              <label>OTP sent to '+91 9928931610'</label>
-              <input type="text" name="otp" onChange={(e) => setOtp(e.target.value)} />
-            </div>
-            <p>{errorMessage}</p>
-            <Button type="submit" primary>
-              Submit OTP
-            </Button>
-          </Form>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button onClick={handleOTPClose}>Cancel</Button>
-        </Modal.Actions>
-      </Modal>
+    <OtpModal open={showOTPMoal} onClose={handleOTPClose} onSubmit={handleOTPSubmit} errorMessage={errorMessage} />
 </div>
      
     </>

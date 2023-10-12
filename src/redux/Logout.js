@@ -6,11 +6,12 @@ import api from '../network/api';
 
 const Logout = () => {
   let data = sessionStorage.getItem("item");
-  let user = JSON.parse(data);
+  let user = data?JSON.parse(data):null;
   
   console.log(user)
-    console.log(user.token)
-  const  id=user.id
+  let id = null;
+  if(user !== null)
+    id=user.id
 console.log(id)
   const navigate = useNavigate();
 
@@ -18,7 +19,7 @@ console.log(id)
 
   const logOut = async () => {
     await api.post(`https://${ngrokUrl}/users/${id}/logout
-    `) .then(
+    `).then(
       navigate('/Login')
     )
       .catch((error)=>{

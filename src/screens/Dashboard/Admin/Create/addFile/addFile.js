@@ -5,16 +5,52 @@ import api from '../../../../../network/api';
 import '../Create.css';
 import AddFileUI from './addFileUI';
 
+export function handleFileUpload (modalfile,
+  setFileErrorMessage,
+  projectId,
+  headers,
+  setUploadProgress,
+  resetFileInputs,
+  navigate)
+{
+  if (!modalfile) {
+    setFileErrorMessage('Please select a file to upload.');
+    return;
+  }
+
+  const data = new FormData();
+  data.append('projectFile', modalfile);
+
+  const url = `https://${ngrokUrl}/projects/upload?projectId=${projectId}`;
+
+  api
+    .post(url, data, {
+      headers,
+      onUploadProgress: (progressEvent) => {
+        const percentCompleted = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+        setUploadProgress(percentCompleted);
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      resetFileInputs();
+      navigate('/adminDashboard');
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 function AddFile() {
   const navigate = useNavigate();
   const location = useLocation();
   const { projectId } = location.state || {};
   const { projectName } = location.state || {};
-
+  console.log(projectId);
   const [modalfile, setModalFile] = useState(null);
   const [fileErrorMessage, setFileErrorMessage] = useState('');
   const [uploadProgress, setUploadProgress] = useState(0);
-
+  console.log(setUploadProgress);
   let dataa = sessionStorage.getItem('item');
   let user = dataa ? JSON.parse(dataa) : null;
   const accessToken = user ? user.token: null;
@@ -22,6 +58,7 @@ function AddFile() {
     AccessToken: accessToken,
     'Content-Type': 'application/zip',
   };
+  console.log(headers);
 
   const onClose = () => {
     navigate('/adminDashboard');
@@ -44,39 +81,7 @@ function AddFile() {
     }
   };
 
-  const handleFileUpload = () => {
-    if (!modalfile) {
-      setFileErrorMessage('Please select a file to upload.');
-      return;
-    }
 
-    const data = new FormData();
-    data.append('projectFile', modalfile);
-
-    const url = `https://${ngrokUrl}/projects/upload?projectId=${projectId}`;
-
-    api
-      .post(url, data, {
-        headers,
-        onUploadProgress: (progressEvent) => {
-          const percentCompleted = Math.round((progressEvent.loaded / progressEvent.total) * 100);
-          setUploadProgress(percentCompleted);
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        resetFileInputs();
-        navigate('/adminDashboard');
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  const resetFileInputs = () => {
-    setModalFile(null);
-    setUploadProgress(0);
-  };
 
   return (
     <AddFileUI
@@ -89,6 +94,7 @@ function AddFile() {
       onClose={onClose}
     />
   );
+  
 }
 
 export default AddFile;

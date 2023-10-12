@@ -26,10 +26,11 @@ function RepoRead(onClose) {
   const [errorMessage, setErrorMessage] = useState('');
   const [otp, setOtp] = useState('');
   const itemsPerPage = 4;
-  let data = sessionStorage.getItem('item');
-  let user = JSON.parse(data);
-  console.log(user);
-  console.log(user.token);
+
+  const data = sessionStorage.getItem('item');
+  const user = data ? JSON.parse(data) : null;
+
+  
   useEffect(() => {
     loadItem();
   }, []);
@@ -45,6 +46,8 @@ function RepoRead(onClose) {
       setIsLoading(true);
     }
   };
+  console.log(user);
+  
   useEffect(() => {
     const filteredProjects = item.filter((project) =>
       project.name.toLowerCase().includes(searchQuery.toLowerCase())

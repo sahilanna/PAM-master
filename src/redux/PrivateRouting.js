@@ -8,7 +8,6 @@ const LazyPmCreate = lazy(() => import("../screens/Dashboard/PM/pmCreate"));
 const LazyCreate = lazy(()=> import("../screens/Dashboard/Admin/Create/addProjectRepo/Create"));
 const LazyPmReadNew = lazy(() => import("../screens/Dashboard/PM/PmReadNew"));
 const LazyUserCreate = lazy(() => import("../screens/Dashboard/Users/userCreate"));
-const LazyUserAnalytics = lazy(() => import("../screens/Dashboard/UserDashboard/userAnalytics"));
 const LazyCreateRepo = lazy(() => import("../screens/Dashboard/Admin/Create/createRepo/CreateRepo"));
 const LazyReports = lazy(() => import("../screens/Dashboard/Admin/Reports/Reports"));
 const LazyPmRequestUser = lazy(() => import("../screens/Dashboard/Admin/PmRequests/PmRequestUser"));
@@ -26,7 +25,6 @@ const LazyRepoRead = lazy(() => import( "../screens/Dashboard/Admin/Repository/r
 const LazyUserRead = lazy(() => import( "../screens/Dashboard/Users/userRead"));
 const LazyPmDashboard = lazy(() => import( "../screens/Dashboard/ProjectManager/PmDashboard"));
 const LazyUserRepoRead = lazy(() => import("../screens/Dashboard/UserDashboard/userRepoRead"));
-const LazyUserFigmaRead = lazy(() => import( "../screens/Dashboard/UserDashboard/userFigmaRead"));
 const LazyAnalytics = lazy(() => import( "../screens/Dashboard/Admin/Analytics/Analytics"));
 const LazyProfile = lazy(() => import( "../screens/Dashboard/Admin/Profile"));
 const LazyUserProfile = lazy(() => import( "../screens/Dashboard/UserDashboard/userProfile"));
@@ -34,7 +32,7 @@ const LazyPmProfile = lazy(() => import( "../screens/Dashboard/ProjectManager/pm
 const LazyAddUserName = lazy(() => import( "../screens/Dashboard/Users/AddUserName"));
 const LazyCreateProject = lazy(() => import( "../screens/Dashboard/Admin/Create/createProject/CreateProject"));
 const LazyAddPmUserName = lazy(() => import( "../screens/Dashboard/PM/addPmUsername"));
-const LazyAddFile = lazy(() => import( "../screens/Dashboard/Admin/Create/addFiile/addFile"));
+const LazyAddFile = lazy(() => import( "../screens/Dashboard/Admin/Create/addFile/addFile"));
 const LazyProjectUsers = lazy(() => import( "../screens/Dashboard/Admin/Read/projectUsers"));
 const LazyAddUserProject = lazy(() => import( "../screens/Dashboard/Admin/Create/addUserProject/addUserProject"));
 const LazyProjectAnalytics = lazy(() => import( "../screens/Dashboard/Admin/Analytics/projectAnalytics"));
@@ -49,11 +47,15 @@ const LazyShowAllNotification = lazy(() => import("../screens/Dashboard/ProjectM
 
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
-    console.log(data.enumRole)
-    console.log(data)
-    let user = JSON.parse(data);
-    console.log(user.role)
-    const role=user.enumRole
+    
+    let user = data?JSON.parse(data):null;
+    
+    let role=null;
+    if(user !== null)
+      role=user.enumRole
+    
+    
+      
    const id = user ? user.id : null;
     console.log(id)
     return (
@@ -118,9 +120,7 @@ const PrivateRoutes = () => {
         {role === "USER" && (
           <Routes>
             <Route path="/userProjects" element={<Suspense fallback={<div>Loading...</div>}><LazyUserProjects/></Suspense>} />
-            <Route path="/userAnalytics" element={<Suspense fallback={<div>Loading...</div>}><LazyUserAnalytics/></Suspense>} />
             <Route path="/userRepoRead" element={<Suspense fallback={<div>Loading...</div>}><LazyUserRepoRead /></Suspense>} />
-            <Route path="/userFigmaRead" element={<Suspense fallback={<div>Loading...</div>}><LazyUserFigmaRead/></Suspense>} />
             <Route path='/userProfile' element={<Suspense fallback={<div>Loading...</div>}><LazyUserProfile/></Suspense>}/>
             <Route path="*" element={<h1>Page Not Found</h1>} />
           </Routes>

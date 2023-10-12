@@ -3,6 +3,7 @@ import {Modal, Form, Dropdown, Button } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom'
 import { ngrokUrl, gitAccessToken } from '../../../network/config';
 import api from '../../../network/api';
+
 function AddPmUserName() {
     const navigate=useNavigate()
     const[id,setId]=useState()
@@ -28,7 +29,7 @@ function AddPmUserName() {
           value: user.id
         }));
         setUsers(userOptions)
-     console.log(users)
+     
     
       } catch (error) {
         console.log('Error fetching Users:', error);
@@ -53,7 +54,7 @@ function AddPmUserName() {
         
       } catch (error) {
         const errorMessage=error.response.data
-        console.log(errorMessage)
+        
         if(errorMessage==='Github username is invalid'|| error.response.status==404){
             setShowInvalidUsernameModal(true)
         }
@@ -68,24 +69,20 @@ function AddPmUserName() {
     const selectedUserChange=(event,{value})=>{
       setSelectedUser(value)
       setId(value)
-      console.log(id)
+      
     }
 
-    
-  
-
-      const onClose =()=>{
+    const onClose =()=>{
         navigate(-1);
       }
-       const handleCloseModal = () => {
+
+    const handleCloseModal = () => {
     setShowInvalidUsernameModal(false);
     setShowUserExistModal(false);
   };
 
 
-
   return (
-
     <>
     <Modal open={true} onClose={onClose}  style={{ width: '500px' }} className='create-Project-Modal'>
       <div style={{paddingLeft:'820px', paddingTop:'5px'}}>
@@ -99,9 +96,7 @@ function AddPmUserName() {
         <Modal.Header>Add PM UserName</Modal.Header>
 
    
-  
           <Modal.Content>
-
           <Form onSubmit={handleSubmit}>
 
     <Form.Field>

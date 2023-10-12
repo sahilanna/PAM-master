@@ -73,8 +73,8 @@ const ProjectAnalytics = ({ onBackClick }) => {
               <Bar dataKey="InactiveProjects" fill="#82ca9d" />
             </BarChart>
             <br />
-            <Button primary data-testid="back-button" onClick={handleBackClick}>Back</Button>
-            <Button secondary  data-testid="download-button" onClick={handleDownloadCSV}>Download CSV</Button>
+            <Button primary  onClick={handleBackClick}>Back</Button>
+            <Button secondary  onClick={handleDownloadCSV}>Download CSV</Button>
             <a href="#" ref={csvLinkRef} style={{ display: 'none' }}>Download CSV</a>
           </div>
         </div>

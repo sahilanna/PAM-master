@@ -10,24 +10,28 @@ import { ngrokUrl } from '../../../network/config';
 
 const Profile = () => {
   let profileData = sessionStorage.getItem("item");
-  let pdata = JSON.parse(profileData);
+  let pdata = profileData?JSON.parse(profileData):null;
  
   
   const[userName, setUserName]=useState('')
   const[userRole, setUserRole]=useState('')
   console.log(profileData)
-  const id=pdata.id
+
+  let id = null;
+  let pemail = null;
+  if(pdata !== null)
+  {
+    id=pdata.id;
+    pemail=pdata.email;
+  }  
   
-  const pemail=pdata.email;
+   
   
   useEffect(() => {
     fetchUserList();
    
   }, []);
 
-  
-  
- 
   
   async function fetchUserList() {
     try {

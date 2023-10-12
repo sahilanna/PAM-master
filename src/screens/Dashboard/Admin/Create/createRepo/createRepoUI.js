@@ -10,7 +10,7 @@ function CreateRepoUI({ name, description, handleChange, handleSubmit, clicked, 
       <Modal open={true} onClose={onClose} style={{ width: '500px' }} className='create-Project-Modal'>
         <div style={{ paddingTop: '6px' }}></div>
         <div style={{ paddingLeft: '442px' }}>
-          <Button secondary onClick={onClose}>X</Button>
+          <Button data-testid='close' secondary onClick={onClose}>X</Button>
         </div>
         <Modal.Header>Create New Repository</Modal.Header>
         <Modal.Content>
