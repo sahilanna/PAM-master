@@ -18,7 +18,7 @@ function AddUserProjectUI({
     <Modal open onClose={onClose} style={{ width: '500px' }} className='create-Project-Modal'>
       <div style={{ paddingTop: '6px' }}></div>
       <div style={{ paddingLeft: '442px' }}>
-        <Button secondary onClick={onClose}>
+        <Button data-testid='X' secondary onClick={onClose}>
           X
         </Button>
       </div>
@@ -31,8 +31,8 @@ function AddUserProjectUI({
             <br />
           </Form.Field>
           <Form.Field>
-            <label htmlFor="userDropdown">User<span style={{ color: 'red' }}>*</span></label>
-            <Dropdown id="userDropdown" data-testid="userDropdown" placeholder="Select User" fluid selection options={user} onChange={handleUserChange} />
+            <label> User <span style={{ color: 'red' }}>*</span></label>
+            <Dropdown data-testid="userDropdown" placeholder="Select User" fluid selection options={user} onChange={handleUserChange} />
           </Form.Field>
 
           <Button type="submit" primary >
@@ -48,7 +48,7 @@ function AddUserProjectUI({
           <Form onSubmit={handleOTPSubmit}>
             <div className="form-field">
               <label htmlFor="otpInput">OTP sent to +91 9928931610</label>
-              <input type="text" id="otpInput" name="otp" onChange={(e) => setOtpp(e.target.value)} />
+              <input data-testid='otp' type="text" id="otpInput" name="otp" onChange={(e) => setOtpp(e.target.value)} />
             </div>
             <p>{errorMessage}</p>
             <Button type="submit" primary>

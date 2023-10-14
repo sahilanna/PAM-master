@@ -18,7 +18,7 @@ function AddPmProjectUI({
     <Modal open onClose={onClose} style={{ width: '500px', height: '400px' }} className='create-Project-Modal'>
       <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
       <div style={{ paddingLeft: '442px' }}>
-        <Button secondary onClick={onClose}>
+        <Button data-testid='X' secondary onClick={onClose}>
           X
         </Button>
       </div>
@@ -32,7 +32,7 @@ function AddPmProjectUI({
           </Form.Field>
           <Form.Field>
             <label>PM<span style={{ color: 'red' }}>*</span></label>
-            <Dropdown data-testid="userDropdown" placeholder="Select PM" fluid selection options={user} onChange={handleUserChange} />
+            <Dropdown data-testid="userDropdown" placeholder="Select PM" fluid selection options ={user} onChange ={handleUserChange} />
           </Form.Field>
 
           <Button type="submit" primary onClick={handleSubmit}>
@@ -49,7 +49,7 @@ function AddPmProjectUI({
           <Form onSubmit={handleOTPSubmit}>
             <div className="form-field">
               <label data-testid='modal'>OTP sent to +91 9928931610</label>
-              <input type="text" name="otp" onChange={(e) => setOtpp(e.target.value)} />
+              <input data-testid='otp' type="text" name="otp" onChange={(e) => setOtpp(e.target.value)} />
 
             </div>
             <p>{errorMessage}</p>

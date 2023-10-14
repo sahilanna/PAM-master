@@ -4,7 +4,7 @@ import Create from '../../../../../../src/screens/Dashboard/Admin/Create/addProj
 import { MemoryRouter } from 'react-router-dom';
 
 test('Render Create component', () => {
-  const { getByText, getByTestId } = render(<MemoryRouter><Create /></MemoryRouter>);
+  const { getByTestId } = render(<MemoryRouter><Create /></MemoryRouter>);
   
   fireEvent.click(getByTestId('X'))
 });

@@ -12,7 +12,7 @@ const DialogBox = (props) => {
                 <p>Are you sure you want to delete this item?</p>
             </Modal.Content>
             <Modal.Actions>
-                <Button color="grey" onClick={onClose}>
+                <Button data-testid='onClose' color="grey" onClick={onClose}>
                     Cancel
                 </Button>
                 <Button data-testid='confirm' color="red" onClick={onConfirm}>

@@ -25,7 +25,7 @@ const OtpModal = ({ open, onClose, onSubmit, errorMessage }) => {
         </Form>
       </Modal.Content>
       <Modal.Actions>
-        <Button onClick={onClose}>Cancel</Button>
+        <Button data-testid='onClose' onClick={onClose}>Cancel</Button>
       </Modal.Actions>
     </Modal>
   );

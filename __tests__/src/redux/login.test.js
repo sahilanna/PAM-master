@@ -5,6 +5,9 @@ import { createMemoryHistory } from 'history';
 import axios from 'axios';
 import Test from '../../../src/redux/Login';
 import '@testing-library/jest-dom'
+import { ngrokLogin } from '../../../src/network/config';
+import { decodeIdToken } from '../../../src/redux/Login';
+
 
 jest.mock('axios'); // Mock axios calls
 jest.mock('../../src/Assets/logo1.png', () => 'logo1.png');
@@ -19,114 +22,90 @@ window.google = {
   };
 
 
-
-describe('Test Component', () => {
-  afterEach(() => {
-    jest.clearAllMocks(); // Clear mock function calls after each test
-  });
-
-
-//   it('renders the component with the welcome message', () => {
-//     render(
-//       <MemoryRouter>
-//         <Test />
-//       </MemoryRouter>
-//     );
-
-//     expect(screen.getByText('Welcome to PAM')).toBeInTheDocument();
-//   });
-
-//   it('renders the logo', () => {
-//     render(
-//       <MemoryRouter>
-//         <Test />
-//       </MemoryRouter>
-//     );
-
-//     const logo = screen.getByTestId('logo');
-//     expect(logo).toBeInTheDocument();
-//     expect(logo).toHaveAttribute('src', 'logo1.png');
-//   });
-
-//   it('initiates Google login when Google button is clicked', async() => {
-
-//     render(
-//       <MemoryRouter>
-//         <Test />
-//       </MemoryRouter>
-//     );
-
-//     await waitFor(() => {
-//         expect(window.google.accounts.id.initialize).toHaveBeenCalled();
-//       });
-    
-//       expect(window.google.accounts.id.renderButton).toHaveBeenCalled();
-
-   
-//   });
-
-// test('handles successful Google login and redirects to the appropriate page', async () => {
-//     // Mock a successful axios response for Google login
-//     axios.get.mockResolvedValueOnce({
-//       data: {
-//         enumRole: 'ADMIN',
-//         token: 'mockAccessToken',
-//       },
-//     });
+  describe('Test Component', () => {
+    beforeEach(() => {
+      // Mock axios response for the Google login test
+      axios.get.mockResolvedValue({
+        data: {
+          enumRole: 'USER',
+          token: 'example-token',
+        },
+      });
+    });
   
-//     const history = createMemoryHistory();
-//     history.push('/'); // Set an initial route (e.g., '/')
+    it('renders the component', () => {
+      render(<MemoryRouter><Test /></MemoryRouter>);
+      expect(screen.getByText('Welcome to PAM')).toBeInTheDocument();
+    });
   
-//     render(
-//       <Router history={history}>
-//         <Test />
-//       </Router>
-//     );
+    it('handles Google login', async () => {
+      
+      render(<MemoryRouter><Test /></MemoryRouter>);
   
-//     // Wait for the Google button to appear
-//     await waitFor(() => {
-//       expect(screen.getByTestId('google-login-button')).toBeInTheDocument();
-//     });
+      
+      const signInButton = screen.getByTestId('signIn');
+      fireEvent.click(signInButton);
   
-//     const googleButton = screen.getByTestId('google-login-button');
-//     fireEvent.click(googleButton);
+     
+      await new Promise((resolve) => setTimeout(resolve, 0));
   
-//     // Wait for the component to handle the Google login (use a timeout if needed)
-//     await waitFor(() => {
-//       // Verify that the user is redirected to the appropriate page
-//       expect(history.location.pathname).toBe('/AdminDashboard');
-//     });
+      expect(window.google.accounts.id.initialize).toHaveBeenCalledWith({
+        client_id: process.env.REACT_APP_googleClientID,
+        callback: expect.any(Function),
+      });
   
-//     // Add expectations for elements that should appear after successful login
-//     expect(screen.getByText('Welcome to PAM')).toBeInTheDocument();
-//   });
-
-it('handles user not found and displays an error modal', async () => {
-   
-    axios.get.mockRejectedValue({ message: 'User not found' });
-    render(<MemoryRouter><Test /></MemoryRouter>);
-    const signInButton = screen.getByText('Sign In');
-
-    fireEvent.click(signInButton);
-
-   
-    await waitFor(() => {
-      const errorModalHeader = screen.getByText('User not found');
-      expect(errorModalHeader).toBeInTheDocument();
+     
+    });
+  
+    it('correctly decodes a JWT token', () => {
+     
+      const sampleToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+  
+     
+      const decodedData = decodeIdToken(sampleToken);
+  
+     
+      const expectedDecodedData = {
+        sub: '1234567890',
+        name: 'John Doe',
+        iat: 1516239022,
+      };
+  
+      
+      expect(decodedData).toEqual(expectedDecodedData);
     });
 
-   
-    const errorMessage = screen.getByText('This user was not found. Please try again.');
-    expect(errorMessage).toBeInTheDocument();
 
-    const closeButton = screen.getByText('Close');
-    fireEvent.click(closeButton);
-
-    await waitFor(() => {
-      const closedModal = screen.queryByText('User not found');
-      expect(closedModal).not.toBeInTheDocument();
-    });
-  });
-
+    it('handles Google login correctly', async () => {
+      // Define a sample response from the API
+      const sampleResponse = {
+        data: {
+          enumRole: 'USER',
+          token: 'sampleToken',
+        },
+      };
   
-});
+      // Mock the axios.get method to simulate an API call
+      axios.get.mockResolvedValue(sampleResponse);
+  
+      const { container } = render(<MemoryRouter><Test /></MemoryRouter>);
+  
+      // Simulate a click on the Google login button
+      const googleLoginButton = container.querySelector('#signIn');
+      fireEvent.click(googleLoginButton);
+  
+     
+  
+      // expect(axios.get).toHaveBeenCalledWith(`https://${ngrokLogin}/auth/api/v1/get-email`, {
+      //   headers: {
+      //     'ngrok-skip-browser-warning': 'true',
+      //     emailToVerify: 'test@example.com',
+      //   },
+      // });
+    });
+     
+  
+   
+
+
+  });

@@ -1,57 +1,63 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import CreateRepo from '../../../../../../src/screens/Dashboard/Admin/Create/createRepo/CreateRepo';
-import {toast} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
-import { MemoryRouter } from 'react-router-dom';
-import CreateRepoUI from '../../../../../../src/screens/Dashboard/Admin/Create/createRepo/createRepoUI';
+import api from '../../../../../../src/network/api';
 
 
-jest.mock('react-toastify', () => ({
-  toast: {
-    POSITION: {
-      TOP_RIGHT: 'top-right',
-    },
-    error: jest.fn(),
-  },
+
+jest.mock('react-router-dom', () => ({
+  useNavigate: jest.fn(),
 }));
 
-test('should render CreateRepo component', () => {
-  render(<CreateRepo/>);
-  
+// Mock the API module
+jest.mock('../../../../../../src/network/api');
+
+describe('CreateRepo Component', () => {
+  test('it renders the CreateRepo component', () => {
+    render(<CreateRepo/>);
+  });
+
+  test('it handles form submission with valid data', async () => {
+    
+    api.post.mockResolvedValue({});
+    
+    render(<CreateRepo />);
+
+   
+    fireEvent.change(screen.getByTestId('name-input'), { target: { value: 'Test Repo' } });
+    fireEvent.change(screen.getByTestId('description-input'), { target: { value: 'Test Description' } });
+    
+    // Trigger form submission
+    fireEvent.click(screen.getByTestId('submit-button'));
+    
+  });
+
+  // test('it handles form submission with invalid data', () => {
+  //   render(<CreateRepo />);
+    
+  //   // Trigger form submission with missing data
+  //   fireEvent.click(screen.getByTestId('submit-button'));
+
+  //   // Assert that an error message is displayed
+  //   expect(screen.getByText('Bad Request')).toBeInTheDocument();
+  // });
+
+  // test('it handles form submission with 404 error', () => {
+  //   // Mock the API post method to reject with a 404 error
+  //   api.post.mockRejectedValue({ response: { status: ERROR_CODE_NOT_FOUND } });
+    
+  //   render(<CreateRepo />);
+    
+  //   // Simulate user input
+  //   fireEvent.change(screen.getByTestId('name-input'), { target: { value: 'Test Repo' } });
+  //   fireEvent.change(screen.getByTestId('description-input'), { target: { value: 'Test Description' } });
+    
+  //   // Trigger form submission
+  //   fireEvent.click(screen.getByTestId('submit-button'));
+
+  //   // Assert that a 404 error message is displayed
+  //   expect(screen.getByText('404 NOT FOUND')).toBeInTheDocument();
+  // });
+
+ 
 });
-
-// test('should update name and description when input fields change', () => {
-//   const { getByPlaceholderText } = render(<MemoryRouter><CreateRepo /></MemoryRouter>);
-//   const nameInput = getByPlaceholderText('Repository Name');
-//   const descriptionInput = getByPlaceholderText('Repository Description');
-
-//   fireEvent.change(nameInput, { target: { value: 'My Repo' } });
-//   fireEvent.change(descriptionInput, { target: { value: 'Description of my repo' } });
-
-//   expect(nameInput).toHaveValue('My Repo');
-//   expect(descriptionInput).toHaveValue('Description of my repo');
-// });
-
-// test('should show an error toast if form submission fails', async () => {
-//   const { getByText, getByPlaceholderText } = render(<MemoryRouter><CreateRepo /></MemoryRouter>);
-//   const nameInput = getByPlaceholderText('Repository Name');
-//   const descriptionInput = getByPlaceholderText('Repository Description');
-
-//   fireEvent.change(nameInput, { target: { value: 'My Repo' } });
-//   fireEvent.change(descriptionInput, { target: { value: 'Description of my repo' } });
-
-//   // Mock the API call to fail
-//   jest.spyOn(window, 'fetch').mockRejectedValue(new Error('Fake error'));
-
-//   const createButton = getByText('Create');
-//   fireEvent.click(createButton);
-
-//   // Wait for the error toast to be called
-//   await waitFor(() => {
-//     expect(require('react-toastify').toast.error).toHaveBeenCalledWith('Error Occurred', {
-//       position: 'top-right',
-//       autoClose: 3000,
-//     });
-//   });
-

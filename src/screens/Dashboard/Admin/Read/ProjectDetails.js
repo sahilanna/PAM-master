@@ -47,7 +47,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
 
     {menuItem: 'Help Documents', render: () => <Tab.Pane>
     <div className="help-documents">
-      <Button color="blue" floated="left" onClick={() => addFile(projectId, projectName)}>
+      <Button data-testid='add-file' color="blue" floated="left" onClick={() => addFile(projectId, projectName)}>
         Add File
       </Button>
       {namesFile.length > 0 ? (
@@ -61,6 +61,7 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
               </div>
               <div className="delete-button">
                 <button
+                  data-testid='delete-file'
                   className="btn btn-danger"
                   onClick={() => handleDeleteFile(filename.helpDocumentId)}
                 >
@@ -263,7 +264,6 @@ const ProjectDetails = ({ project, onClose, showAddEmployeeButton, showAddFileBu
 
   return (
     <>
-    {/* {projectId}: */}
     <div className="parent-admin">
   <div style={{ display: 'flex' }}>
     <div style={{ flex: '0 0 auto', width: '250px' }}>

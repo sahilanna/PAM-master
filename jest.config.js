@@ -6,7 +6,7 @@ module.exports = {
     },
     moduleNameMapper: {
       '\\.(css|scss)$': 'identity-obj-proxy',
-      '\\.(gif|png|jpg|jpeg)$': '/home/nineleaps/Desktop/Pratap/PAM-master/imageMock.js',
+      '\\.(gif|png|jpg|jpeg|avif)$': '/home/nineleaps/Desktop/Pratap/PAM-master/imageMock.js',
     },
     transformIgnorePatterns: [
       '/node_modules/(?!(bootstrap|react-bootstrap|semantic-ui-react)/)',

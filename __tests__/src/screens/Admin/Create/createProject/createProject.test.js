@@ -60,4 +60,36 @@ test('renders CreateProject component without errors', () => {
     fireEvent.click(submitButton);
   });
 
+  it('does not call handleSubmit when the form is submitted with missing inputs', async () => {
+    const { getByTestId, getByText } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <CreateProject />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    const projectNameInput = getByTestId('PName');
+    fireEvent.change(projectNameInput, { target: { value: 'Test Project' } });
+
+    const projectDescriptionInput = getByTestId('PDesc');
+    fireEvent.change(projectDescriptionInput, { target: { value: 'Description of the project' } });
+
+    // Click the submit button
+    const submitButton = getByTestId('submit1');
+    fireEvent.click(submitButton);
+
+  });
+
+
+
+
+
+
+
+
+
+
+
+
 });

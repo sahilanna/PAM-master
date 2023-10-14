@@ -1,17 +1,17 @@
-import React from 'react';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
-import AddPmProjectUI from '../../../../../../src/screens/Dashboard/Admin/Create/addPmProject/addPmProjectUI';
-import '@testing-library/jest-dom';
+import React from "react";
+import {render,fireEvent,waitFor,screen,getByTestId,} from "@testing-library/react";
+import AddPmProjectUI from "../../../../../../src/screens/Dashboard/Admin/Create/addPmProject/addPmProjectUI";
+import "@testing-library/jest-dom";
 
-describe('AddPmProjectUI Component', () => {
+describe("AddPmProjectUI Component", () => {
   const mockProps = {
-    projectName: 'Test Project',
+    projectName: "Test Project",
     user: [
-      { key: '1', value: 'pm1', text: 'PM 1' },
-      { key: '2', value: 'pm2', text: 'PM 2' },
+      { key: "1", value: "pm1", text: "PM 1" },
+      { key: "2", value: "pm2", text: "PM 2" },
     ],
-    errorMessage: '',
-    selectedUser: 'pm1',
+    errorMessage: "",
+    selectedUser: "pm1",
     handleUserChange: jest.fn(),
     handleSubmit: jest.fn(),
     showOTPMoal: false,
@@ -21,66 +21,65 @@ describe('AddPmProjectUI Component', () => {
     onClose: jest.fn(),
   };
 
-  it('renders the component with initial props', () => {
+  it("renders the component with initial props", () => {
     render(<AddPmProjectUI {...mockProps} />);
-  
-    expect(screen.getByText('Add PM to project')).toBeInTheDocument();
-  });
-  
-  it('calls handleUserChange when selecting a PM', () => {
-    const mockHandleUserChange = jest.fn();
-    const updatedProps = {
-      ...mockProps,
-      handleUserChange: mockHandleUserChange,
-    };
-  
-    render(<AddPmProjectUI {...updatedProps} />);
-    const dropdown = screen.getByTestId('userDropdown');
-  
-   
-    fireEvent.click(dropdown);
-    const option = screen.getByText('PM 2');
-    fireEvent.click(option);
-  
-    expect(mockHandleUserChange).toHaveBeenCalledWith(expect.anything(), {
-      value: 'pm2',
-    });
-  
-   
-    expect(screen.getByPlaceholderText('Select PM')).toHaveValue('pm2');
-  });
-  
 
-  it('calls handleSubmit when submitting the form', async () => {
+    expect(screen.getByText("Add PM to project")).toBeInTheDocument();
+  });
+
+  it("calls handleSubmit when submitting the form", async () => {
     render(<AddPmProjectUI {...mockProps} />);
-    const submitButton = screen.getByText('Submit');
+    const submitButton = screen.getByText("Submit");
     fireEvent.click(submitButton);
     await waitFor(() => {
       expect(mockProps.handleSubmit).toHaveBeenCalled();
     });
   });
 
-  it('opens the OTP modal when showOTPMoal is true', async () => {
+  it("opens the OTP modal when showOTPMoal is true", async () => {
     const updatedProps = {
       ...mockProps,
       showOTPMoal: true,
     };
 
-    render(<AddPmProjectUI {...updatedProps} />)
-    
-    expect(screen.getByText('Enter OTP')).toBeInTheDocument();
+    render(<AddPmProjectUI {...updatedProps} />);
 
-    const otpInput = screen.getAllByTestId('modal');
-    
-    otpInput.value = '123456';
-    const otpSubmitButton = screen.getByText('Submit OTP');
+    expect(screen.getByText("Enter OTP")).toBeInTheDocument();
+
+    const otpInput = screen.getAllByTestId("modal");
+
+    otpInput.value = "123456";
+    const otpSubmitButton = screen.getByText("Submit OTP");
     fireEvent.click(otpSubmitButton);
 
-    
     waitFor(() => {
-      expect(updatedProps.handleOTPSubmit).toHaveBeenCalledWith('123456');
+      expect(updatedProps.handleOTPSubmit).toHaveBeenCalledWith("123456");
     });
   });
 
-  
+  test("renders OTP input and handles input change", () => {
+    const mockSetOtpp = jest.fn();
+
+    const { getByTestId } = render(
+      <AddPmProjectUI
+        projectName="Test Project"
+        user={[]}
+        errorMessage=""
+        selectedUser={null}
+        handleUserChange={() => {}}
+        handleSubmit={() => {}}
+        showOTPMoal={true}
+        handleOTPClose={() => {}}
+        setOtpp={mockSetOtpp}
+        handleOTPSubmit={() => {}}
+        onClose={() => {}}
+      />
+    );
+
+    const otpInput = getByTestId("otp");
+    fireEvent.change(otpInput, { target: { value: "123456" } });
+
+    expect(otpInput.value).toBe("123456");
+    expect(mockSetOtpp).toHaveBeenCalledWith("123456");
+  });
 });

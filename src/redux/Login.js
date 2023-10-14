@@ -10,6 +10,20 @@ import styled from 'styled-components';
 import logo1 from '../Assets/logo1.png'
 
 
+export function decodeIdToken(token) {
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  const jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
+  return JSON.parse(jsonPayload);
+}
 
 function Test() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
@@ -58,20 +72,7 @@ function Test() {
           console.log('hi',error);
       }
   }
-  function decodeIdToken(token) {
-      const base64Url = token.split(".")[1];
-      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      const jsonPayload = decodeURIComponent(
-        window
-          .atob(base64)
-          .split("")
-          .map(function (c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join("")
-      );
-      return JSON.parse(jsonPayload);
-    }
+
     useEffect(() => {
       const googleClientID = process.env.REACT_APP_googleClientID;
 
@@ -88,6 +89,7 @@ function Test() {
         setIsGoogleButtonRendered(true);
       }
     }, [isGoogleButtonRendered]);
+
     return (
     <div className="sample1">
       <NavBarLogin />
@@ -107,7 +109,7 @@ function Test() {
         
       </div>
       <div className="box-container">
-        <div id="signIn"></div>
+        <div data-testid='signIn' id="signIn">Button</div>
       </div>
       <div className="box-container"></div>
       <Footer />

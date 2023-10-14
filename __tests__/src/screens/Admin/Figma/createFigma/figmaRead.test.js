@@ -128,5 +128,19 @@ it('should open the delete dialog and call handleDeleteUrl on confirm', async() 
     
   });
 
-  // Add more test cases to cover different scenarios and interactions within the component.
+  it('calls handleSearchChange when the search input value changes', () => {
+    const { getByPlaceholderText } = render(
+      
+        <MemoryRouter>
+          <FigmaRead/>
+        </MemoryRouter>
+     
+    );
+
+    const searchInput = getByPlaceholderText('Search Figma...');
+    fireEvent.change(searchInput, { target: { value: 'John' } });
+
+  });
+
+  
 });

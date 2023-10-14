@@ -43,9 +43,6 @@ return(
         </Button>
         </div>
       <Modal.Header>Add User</Modal.Header>
-
-   
-  
           <Modal.Content>
 
           <Form onSubmit={handleSubmit}>

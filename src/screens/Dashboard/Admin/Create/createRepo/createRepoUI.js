@@ -17,17 +17,17 @@ function CreateRepoUI({ name, description, handleChange, handleSubmit, clicked, 
           <Form onSubmit={handleSubmit}>
             <Form.Field>
               <label style={{ textAlign: 'left' }}>Name<span style={{ color: 'red' }}>*</span></label>
-              <input name='name' value={name} onChange={handleChange} placeholder='Name' />
+              <input name='name' value={name} onChange={handleChange} placeholder='Name' data-testid="name-input" />
               {clicked && name.length <= 0 ? <label style={{ color: 'red' }}>Repo name can't be Empty</label> : ''}
               <br />
             </Form.Field>
             <Form.Field>
               <label style={{ textAlign: 'left' }}>Description<span style={{ color: 'red' }}>*</span></label>
-              <input name='description' value={description} onChange={handleChange} placeholder='Description' />
+              <input name='description' value={description} onChange={handleChange} placeholder='Description' data-testid='description-input' />
               {clicked && description.length <= 0 ? <label style={{ color: 'red' }}>Repo description can't be Empty</label> : ''}
               <br />
             </Form.Field>
-            <Button type='submit' primary disabled={!name || !description}>Submit</Button>
+            <Button data-testid="submit-button" type='submit' primary disabled={!name || !description}>Submit</Button>
           </Form>
         </Modal.Content>
         <Modal.Actions></Modal.Actions>

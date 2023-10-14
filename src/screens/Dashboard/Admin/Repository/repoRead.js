@@ -54,6 +54,7 @@ function RepoRead(onClose) {
     );
     setFilteredProjects(filteredProjects);
   }, [searchQuery, item]);
+  
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);

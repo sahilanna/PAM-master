@@ -20,17 +20,17 @@ function CreateProjectUI({ loading, success, error, onClose, projectName, projec
         </div>
         <Modal.Header>Create Project</Modal.Header>
         <Modal.Content>
-          <Form onSubmit={handleSubmit}>
+          <Form data-testid='submit' onSubmit={handleSubmit}>
             <Form.Field>
-              <label data-testid='PName' style={{ textAlign: 'left' }}>Project-Name<span style={{ color: 'red' }}>*</span></label>
-              <input name='name' value={projectName} onChange={(e) => setProjectName(e.target.value)} placeholder='Name' />
+              <label  style={{ textAlign: 'left' }}>Project-Name<span style={{ color: 'red' }}>*</span></label>
+              <input data-testid='PName' name='name' value={projectName} onChange={(e) => setProjectName(e.target.value)} placeholder='Name' />
               <br />
             </Form.Field>
             <Form.Field>
-              <label data-testid='PDesc' style={{ textAlign: 'left' }}>Project Description<span style={{ color: 'red' }}>*</span></label>
-              <input name='description' value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)} placeholder='description' />
+              <label  style={{ textAlign: 'left' }}>Project Description<span style={{ color: 'red' }}>*</span></label>
+              <input data-testid='PDesc' name='description' value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)} placeholder='description' />
             </Form.Field>
-            <Button type='submit' primary disabled={!projectName || !projectDescription}>Submit</Button>
+            <Button data-testid='submit1' type='submit' primary disabled={!projectName || !projectDescription}>Submit</Button>
           </Form>
         </Modal.Content>
         <Modal.Actions>

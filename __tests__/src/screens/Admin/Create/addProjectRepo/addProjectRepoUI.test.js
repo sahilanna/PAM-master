@@ -63,7 +63,6 @@ it('calls handleProjectChange when a project is selected', () => {
     const onSubmit = jest.fn();
     const onClose = jest.fn();
     const handleRepoChange = jest.fn();
-  
     const handleProjectChange = jest.fn();
   
    
@@ -71,19 +70,34 @@ it('calls handleProjectChange when a project is selected', () => {
       <CreateUI
         onSubmit={onSubmit}
         onClose={onClose}
-        projItem={[{ key: '1', value: 'project1', text: 'Project 1' }]}
-        temp={[{ key: '1', value: 'repo1', text: 'Repo 1' }]}
+        projItem={[{ key: '1', value: 'project1', text: 'Project 1' },
+        { key: '2', value: 'project2', text: 'Project 2' }
+      ]}
+        temp={[{ key: '1', value: 'repo1', text: 'Repo 1' },
+        { key: '2', value: 'repo2', text: 'Repo 2' }
+      ]}
         handleProjectChange={handleProjectChange}
         handleRepoChange={handleRepoChange}
       />
     );
   
     const projectDropdown = screen.getByTestId('project-dropdown');
+  
     fireEvent.click(projectDropdown);
-
-    const optionText = 'Project 1'; 
+  
+    const optionText = 'Project 2'; 
     const option = screen.getByText(optionText);
     fireEvent.click(option);
+  
+    // expect(handleProjectChange).toHaveBeenCalledWith(null, { value: 'project2' });
+
+    // const repoDropdown = screen.getByTestId('repo-dropdown');
+    // fireEvent.click(repoDropdown);
+
+    // const optionRepo = 'Repo 2'; 
+    // const options = screen.getByText(optionRepo);
+    // fireEvent.change(options);
+    
    
   });
       

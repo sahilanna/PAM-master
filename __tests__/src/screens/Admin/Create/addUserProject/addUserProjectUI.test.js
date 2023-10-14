@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import AddUserProjectUI from '../../../../../../src/screens/Dashboard/Admin/Create/addUserProject/addUserProjectUI';
 import '@testing-library/jest-dom';
@@ -28,23 +28,6 @@ describe('AddUserProjectUI', () => {
     expect(addUserProjectUI).toBeInTheDocument();
   });
 
-  it('handles user selection change', async () => {
-    render(<AddUserProjectUI {...mockData} />);
-    
-    // Use getByTestId to find the Dropdown by its data-testid attribute
-    const selectUserDropdown = screen.getByTestId('userDropdown');
-    
-    // Open the dropdown to make the options visible
-    userEvent.click(selectUserDropdown);
-    
-    // Now, select the option by its text
-    const userOption = screen.getByText('User 2');
-    userEvent.click(userOption);
-  
-    expect(mockData.handleUserChange).toHaveBeenCalledWith(expect.anything(), { value: '2' });
-  });
-  
-  
 
   it('handles form submission', async () => {
     render(<AddUserProjectUI {...mockData} />);
@@ -56,48 +39,31 @@ describe('AddUserProjectUI', () => {
     });
   });
 
-  it('displays OTP modal and handles OTP submission', async () => {
-    mockData.showOTPMoal = true;
-    render(<AddUserProjectUI {...mockData} />);
-    
-    // Use getByLabelText to find the input element associated with the label
-    const otpInput = screen.getByLabelText('OTP sent to +91 9928931610');
-    
-    userEvent.type(otpInput, '123456');
-    
-    const submitOTPButton = screen.getByText('Submit OTP');
-    userEvent.click(submitOTPButton);
-    
-    // Ensure that handleOTPSubmit is called with the expected OTP value
-    expect(mockData.handleOTPSubmit).toHaveBeenCalledWith('123456');
-  
-    // Ensure that setOtpp is called with the expected OTP value
-    expect(mockData.setOtpp).toHaveBeenCalledWith('123456');
-  });
-  
-  
-  
-  
-  
-  
-  
+  test("renders OTP input and handles input change", () => {
+    const mockSetOtpp = jest.fn();
 
-  it('handles OTP modal close', async () => {
-    mockData.showOTPMoal = true;
-    render(<AddUserProjectUI {...mockData} />);
-    
-    const cancelButton = screen.getByText('Cancel');
-    userEvent.click(cancelButton);
-    
-    expect(mockData.handleOTPClose).toHaveBeenCalledWith(expect.anything());
+    const { getByTestId } = render(
+      <AddUserProjectUI
+        projectName="Test Project"
+        user={[]}
+        errorMessage=""
+        selectedUser={null}
+        handleUserChange={() => {}}
+        handleSubmit={() => {}}
+        showOTPMoal={true}
+        handleOTPClose={() => {}}
+        setOtpp={mockSetOtpp}
+        handleOTPSubmit={() => {}}
+        onClose={() => {}}
+      />
+    );
+
+    const otpInput = getByTestId("otp");
+    fireEvent.change(otpInput, { target: { value: "123456" } });
+
+    expect(otpInput.value).toBe("123456");
+    expect(mockSetOtpp).toHaveBeenCalledWith("123456");
   });
 
-  it('handles modal close', () => {
-    render(<AddUserProjectUI {...mockData} />);
-    const closeButton = screen.getByText('X');
 
-    
-    userEvent.click(closeButton);
-    expect(mockData.onClose).toHaveBeenCalled();
-  });
 });

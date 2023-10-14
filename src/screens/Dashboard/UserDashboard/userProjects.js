@@ -100,6 +100,7 @@ const handleCloseDetails=()=>{
         <td>{item.projectDescription}</td>
         <td className='text-center'>
                         <button
+                          data-testid='view'
                           className="btn btn-outline-primary mx-2"
                           onClick={() => handleProjectDetails(item)}
                         >

@@ -122,7 +122,7 @@ function ProjectList({ projectId, projectName, type }) {
   return (
     <div>
      <div className="button-add-user">
-  <Button color="blue" floated="left" onClick={handleAddItem} disabled={items.length > 0}>
+  <Button data-testid='add' color="blue" floated="left" onClick={handleAddItem} disabled={items.length > 0}>
     {type === 'pms' ? 'Add PM' : 'Add User'}
   </Button>
 </div>

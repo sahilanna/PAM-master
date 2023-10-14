@@ -40,7 +40,6 @@ const LazyProjectPms = lazy(() => import("../screens/Dashboard/Admin/Read/projec
 const LazyAddPmProject = lazy(() => import( "../screens/Dashboard/Admin/Create/addPmProject/addPmProject"));
 const LazyUserActivity = lazy(() => import( "../screens/Dashboard/Users/userActivity"));
 const LazyPmNotification = lazy(() => import( "../screens/Dashboard/ProjectManager/pmNotification"));
-const LazyViewUserVerification = lazy(() => import( "../screens/Dashboard/Admin/Figma/viewUserVerification"));
 const LazyDriveDetails = lazy(() => import("../screens/Dashboard/Admin/Drive/driveScreen/driveDetails"));
 const LazyCreateDriveDetails = lazy(() => import("../screens/Dashboard/Admin/Drive/createDrive/createDriveDetails"));
 const LazyShowAllNotification = lazy(() => import("../screens/Dashboard/ProjectManager/showAllNotification"));
@@ -93,7 +92,6 @@ const PrivateRoutes = () => {
             <Route path='/ProjectAnalytics' element={<Suspense fallback={<div>Loading...</div>}><LazyProjectAnalytics/></Suspense>}/>
             <Route path='/Analytics' element={<Suspense fallback={<div>Loading...</div>}><LazyAnalytics/></Suspense>}/>
             <Route path='/userActivity' element={<Suspense fallback={<div>Loading...</div>}><LazyUserActivity/></Suspense>}/>
-            <Route path='/viewUserVerification' element={<Suspense fallback={<div>Loading...</div>}><LazyViewUserVerification/></Suspense>}/>
             <Route path='/createDriveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyCreateDriveDetails/></Suspense>}/>
             <Route path='/ProjectDetails/:projectId/:projectName' element={<Suspense fallback={<div>Loading...</div>}><ProjectDetails/></Suspense>}/>
             {/* <Route path='/gitCreate' element={<GitCreate/>}/> */}

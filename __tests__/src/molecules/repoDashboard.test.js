@@ -75,4 +75,40 @@ describe('RepoDashboard Component', () => {
 
     
   });
+
+  // it('renders RepoTable with filteredResult data', () => {
+  //   const { getByTestId } = render(
+  //     <RepoDashboard
+  //       role="admin"
+  //       SidebarComponent={() => <div>Mock Sidebar</div>}
+  //     />
+  //   );
+
+   
+  //   const repoTableText = 'This text is from RepoTable';
+
+  //   const filteredResult = [
+     
+  //     {
+  //       id: 1,
+  //       projectName: 'Filtered Project',
+  //       repositories: [
+  //         { id: 4, name: 'Repo 4', description: 'Description 4' },
+  //       ],
+  //     },
+  //   ];
+
+
+  //   const repoTableElement = screen.getByTestId('repo-table');
+  //   expect(repoTableElement).toBeInTheDocument();
+  //   expect(repoTableElement).toHaveTextContent(repoTableText);
+  // });
 });
+
+
+
+
+
+
+
+

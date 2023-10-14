@@ -1,8 +1,22 @@
 import React from 'react';
 import { render, fireEvent, waitFor, getByTestId } from '@testing-library/react';
 import ProjectDetails from '../../../../../src/screens/Dashboard/Admin/Read/ProjectDetails';
-import { MemoryRouter } from 'react-router-dom';
+import { useNavigate, MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom'
+import api from '../../../../../src/network/api';
+import { ngrokUrl } from '../../../../../src/network/config';
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn(),
+}));
+
+jest.mock('../../../../../src/network/api', () => ({
+  delete: jest.fn(),
+  get: jest.fn(),
+  post: jest.fn(),
+}));
+
 
 describe('ProjectDetails Component', () => {
     const project = {
@@ -19,6 +33,7 @@ describe('ProjectDetails Component', () => {
       const showAddFileButton = true;
       const onAddFile = jest.fn();
       const handleDeleteProjectMock = jest.fn();
+
   it('renders project details correctly', () => {
     const project = {
       projectName: 'Sample Project',
@@ -59,7 +74,7 @@ describe('ProjectDetails Component', () => {
    
   });
 
-  it('calls handleDeleteProject when the delete button is clicked',() => {
+  it('calls handleDeleteProject when the delete button is clicked', () => {
     const project = {
       projectName: 'Sample Project',
       projectDescription: 'This is a sample project',
@@ -74,6 +89,7 @@ describe('ProjectDetails Component', () => {
     const showAddFileButton = true;
     const onAddFile = jest.fn();
     const handleDeleteProjectMock = jest.fn();
+    const setShowConfirmDialogMock = jest.fn();
 
     const { getByTestId } = render(
      <MemoryRouter><ProjectDetails
@@ -83,16 +99,21 @@ describe('ProjectDetails Component', () => {
      showAddFileButton={showAddFileButton}
      onAddFile={onAddFile}
      handleDeleteProject={handleDeleteProjectMock}
+     setShowConfirmDialog={setShowConfirmDialogMock} 
    /></MemoryRouter> 
     );
 
-    fireEvent.click(getByTestId('del'));
+    const deleteProject = getByTestId('del');
+    fireEvent.click(deleteProject);
 
     waitFor(() => {
       expect(handleDeleteProjectMock).toHaveBeenCalled();
-    });
+      expect(setShowConfirmDialogMock).toHaveBeenCalled(true);
+    })
+   
+   
+    
   });
-
 
 
 
@@ -110,37 +131,55 @@ it('does not display the Add File button if showAddFileButton is false', () => {
     expect(queryByText('Add File')).toBeNull();
   });
 
-//   it('displays an error message if OTP submission fails', () => {
-//     const project = {
-//       projectName: 'Sample Project',
-//       projectDescription: 'This is a sample project',
-//       pmName: 'John Doe',
-//       repositories: ['Repo 1', 'Repo 2'],
-//       figma: { figmaURL: 'https://figma.com/project' },
-//       googleDrive: { driveLink: 'https://drive.google.com/project' },
-//       lastUpdated: '2023-10-15T12:00:00Z',
-//     };
-//     const onClose = jest.fn();
-//     const showAddEmployeeButton = true;
-//     const showAddFileButton = true;
-//     const onAddFile = jest.fn();
-//     const errorMessage = 'Invalid OTP. Please try again.';
-//     const showOTPMoal = true;
 
-//     const { getByText } = render(
-//       <MemoryRouter><ProjectDetails
-//       project={project}
-//       onClose={onClose}
-//       showAddEmployeeButton={showAddEmployeeButton}
-//       showAddFileButton={showAddFileButton}
-//       onAddFile={onAddFile}
-//       errorMessage={errorMessage}
-//       showOTPMoal={showOTPMoal}
-//     /></MemoryRouter>
-//     );
+  it('navigates to the addFile page on button click', () => {
+    const projectId = 'sampleProjectId';
+    const projectName = 'Sample Project Name';
+    // const helpDocumentId = 'sampleHelpDocumentId';
 
-//     expect(getByText(errorMessage)).toBeInTheDocument();
-//   });
+    const navigate = jest.fn();
+    useNavigate.mockReturnValue(navigate);
 
-  // Add more test cases for different scenarios and interactions within the component.
+    const { getByText, getByTestId } = render(
+      <MemoryRouter>
+        <ProjectDetails
+          project={project}
+          onClose={onClose}
+          showAddEmployeeButton={showAddEmployeeButton}
+          showAddFileButton={true} 
+          onAddFile={onAddFile}
+        />
+      </MemoryRouter>
+    );
+
+    const helpDocumentsTab = getByText('Help Documents');
+    fireEvent.click(helpDocumentsTab);
+
+    waitFor(() => {
+      const addButton = getByTestId('add-file');
+    fireEvent.click(addButton);
+
+    expect(navigate).toHaveBeenCalledWith('/addFile', {
+      state: { projectId, projectName },
+    });
+    })
+
+
+  });
+
+
+
+
 });
+
+
+
+
+
+
+
+
+
+
+
+

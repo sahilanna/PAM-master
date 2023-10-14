@@ -1,11 +1,10 @@
 import React from 'react';
-import { render, screen, } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, within} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useNavigate, useLocation } from 'react-router-dom';
 import CommonAddProject from '../../../../../../src/screens/Dashboard/Admin/Create/addUserProject/commonAddProject';
 import '@testing-library/jest-dom';
 import api from '../../../../../../src/network/api';
-
 
 
 jest.mock('react-router-dom', () => ({
@@ -31,7 +30,12 @@ describe('CommonAddProject', () => {
   beforeEach(() => {
     useNavigate.mockReturnValue(mockNavigate);
     useLocation.mockReturnValue(mockLocation);
-
+    api.get.mockResolvedValue({
+      data: [
+        { id: 1, name: 'User 1' },
+        { id: 2, name: 'User 2' },
+      ],
+    });
     jest.clearAllMocks();
   });
 
@@ -75,4 +79,42 @@ describe('CommonAddProject', () => {
     
     expect(api.post).not.toHaveBeenCalled();
   });
+
+
+
+it('close button', () => {
+    const { getByTestId }  = render(<CommonAddProject/>)
+    fireEvent.click(getByTestId('X'))  
+})
+
+// it('handles user selection from Dropdown in CommonAddProject',() => {
+//   const userOptions = [
+//     {
+//       data: [
+//         { id: 1, name: 'User 1' },
+//         { id: 2, name: 'User 2' },
+//       ],
+//     }
+//   ];
+
+//   api.get.mockResolvedValue({data:userOptions});
+  
+//   const handleUserChange = jest.fn();
+
+//   render(
+//     <CommonAddProject
+//       user={userOptions}
+//       handleUserChange={handleUserChange}
+//     />
+//   );
+
+//   const dropdown = screen.getByTestId('userDropdown');
+//     userEvent.click(dropdown)
+
+//    userEvent.selectOptions(dropdown, ['User 1']);
+//   //  expect(handleUserChange).toHaveBeenCalledWith(expect.anything(), { value: 2 });
+ 
+  
+// });
+
 });
