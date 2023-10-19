@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Sidebar from '../../../SideBar/SideBar';
-import { ngrokUrl } from '../../../../../network/config';
-import LoadingPage from '../../../../../atoms/loadingPage';
-import api from '../../../../../network/api';
-import DialogBox from '../../../DialogBox/DialogBox';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Pagination from '../../../Pagination/Pagination';
-import { faTrash,  } from '@fortawesome/free-solid-svg-icons';
-import CreateDriveDetails from '../createDrive/createDriveDetails';
-import '../../Figma/FigmaRead.css';
-
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "../../../SideBar/SideBar";
+import { ngrokUrl } from "../../../../../network/config";
+import LoadingPage from "../../../../../atoms/loadingPage";
+import api from "../../../../../network/api";
+import DialogBox from "../../../DialogBox/DialogBox";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Pagination from "../../../Pagination/Pagination";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import CreateDriveDetails from "../createDrive/createDriveDetails";
+import "../../Figma/FigmaRead.css";
 
 function DriveRead() {
   const [showModal, setShowModal] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
-  const driveURL = '';
-  const [driveId, setDriveId] = useState('');
-  const projectId = '';
+  const driveURL = "";
+  const [driveId, setDriveId] = useState("");
+  const projectId = "";
   const [isLoading, setIsLoading] = useState(true);
   const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 5;
@@ -38,19 +37,19 @@ function DriveRead() {
       setIsLoading(false);
       setFilteredProjects(response.data);
     } catch (error) {
-      console.log('Error fetching projects:', error);
+      console.log("Error fetching projects:", error);
       setIsLoading(true);
     }
   };
 
   const createDrive = () => {
-    navigate('/createDriveDetails', { state: { driveId } });
+    navigate("/createDriveDetails", { state: { driveId } });
   };
 
   const handleDeleteUrl = async (driveId) => {
     try {
       await api.delete(`https://${ngrokUrl}/deleteGoogleDriveById/${driveId}`);
-      navigate('/driveDetails');
+      navigate("/driveDetails");
       setShowConfirmDialog(false);
       fetchProjects();
     } catch (error) {
@@ -76,14 +75,18 @@ function DriveRead() {
 
   const handleFilterItems = (searchQuery) => {
     const filteredItems = projects.filter((item) =>
-      item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+      item.projectDTO.projectName
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
     );
     setFilteredProjects(filteredItems);
     setCurrentPageData(filteredItems.slice(0, itemsPerPage));
   };
 
   const filteredItems = projects.filter((item) =>
-    item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+    item.projectDTO.projectName
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
   );
 
   useEffect(() => {
@@ -91,19 +94,19 @@ function DriveRead() {
   }, [filteredProjects]);
 
   return (
-    <div className='parent-admin'>
+    <div className="parent-admin">
       <Sidebar />
-      <div className='admin-child'>
+      <div className="admin-child">
         <br />
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginTop: '20px',
-            marginBottom: '30px',
-            marginLeft: '40px',
-            marginRight: '30px',
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: "20px",
+            marginBottom: "30px",
+            marginLeft: "40px",
+            marginRight: "30px",
           }}
         >
           <div className="ui left icon input">
@@ -119,7 +122,7 @@ function DriveRead() {
             Create Drive
           </button>
         </div>
-        <div style={{ marginLeft: '20px', marginRight: '30px' }}>
+        <div style={{ marginLeft: "20px", marginRight: "30px" }}>
           {isLoading ? (
             <LoadingPage />
           ) : (
@@ -153,8 +156,11 @@ function DriveRead() {
                           </td>
                           <td className="text-center">
                             <button
+                              data-testid="delete"
                               className="btn btn-danger mx-2"
-                              onClick={() => setShowConfirmDialog(project.driveId)}
+                              onClick={() =>
+                                setShowConfirmDialog(project.driveId)
+                              }
                             >
                               <FontAwesomeIcon icon={faTrash} />
                             </button>
@@ -169,10 +175,18 @@ function DriveRead() {
                     </tbody>
                   </table>
                   <div
-                    className='pagination'
-                    style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
+                    className="pagination"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "20px",
+                    }}
                   >
-                    <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
+                    <Pagination
+                      data={filteredItems}
+                      itemsPerPage={itemsPerPage}
+                      paginate={handlePaginate}
+                    />
                   </div>
                 </>
               )}
@@ -180,14 +194,19 @@ function DriveRead() {
           )}
         </div>
       </div>
-      <div className='model-container'>
+      <div className="model-container">
         <div className="modal-content-container">
           {showModal && (
-            <CreateDriveDetails onClose={closeModal} driveURL={driveURL} driveId={driveId} projectId={projectId} />
+            <CreateDriveDetails
+              onClose={closeModal}
+              driveURL={driveURL}
+              driveId={driveId}
+              projectId={projectId}
+            />
           )}
         </div>
       </div>
     </div>
   );
-  }
-  export default DriveRead;
+}
+export default DriveRead;

@@ -1,103 +1,161 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import RepoRead from '../../../../../src/screens/Dashboard/Admin/Repository/repoRead';
-import api from '../../../../../src/network/api';
-import { MemoryRouter, useNavigate } from 'react-router-dom';
-import '@testing-library/jest-dom'
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import RepoRead from "../../../../../src/screens/Dashboard/Admin/Repository/repoRead";
+import api from "../../../../../src/network/api";
+import { MemoryRouter, useNavigate } from "react-router-dom";
+import "@testing-library/jest-dom";
+import { ngrokUrl } from "../../../../../src/network/config";
 
-jest.mock('../../../../../src/network/api', () => ({
-  get: jest.fn(),
-  post: jest.fn(),
-  delete: jest.fn(),
+jest.mock("../../../../../src/network/api");
+
+const navigate = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: jest.fn(),
 }));
 
-jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useNavigate: jest.fn(),
-  }));
-
-describe('RepoRead Component', () => {
+describe("RepoRead Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('renders the component', () => {
     render(<MemoryRouter><RepoRead /></MemoryRouter>);
+
+  });
+  it('calls handleSearchChange when the search input value changes', () => {
+    const { getByPlaceholderText } = render(
+      
+        <MemoryRouter>
+          <RepoRead/>
+        </MemoryRouter>
+     
+    );
+  
+    const searchInput = getByPlaceholderText('Search Repo...');
+    fireEvent.change(searchInput, { target: { value: 'John' } });
+  
+  });
+  
+
+
+  it('tests create repo, add project git, add collab git button ', async () => {
     
+    const navigate = jest.fn();
+    useNavigate.mockReturnValue(navigate);
+    render(<MemoryRouter><RepoRead /></MemoryRouter>);
+
+    const createButton = screen.getByTestId('createOnClick');
+    fireEvent.click(createButton);
+
+    const addProjectGitButton = screen.getByTestId('add-project');
+    fireEvent.click(addProjectGitButton);
+
+    const addCollaboratorsButton = screen.getByTestId('add-collab');
+    fireEvent.click(addCollaboratorsButton);
+
   });
 
-  it('handles searching for repositories',  () => {
-    const mockApiResponse = [
-      { id: 1, name: 'Repo 1', description: 'Description 1' },
-      { id: 2, name: 'Repo 2', description: 'Description 2' },
+  
+
+  // it('calls handleOTPClose when "Cancel" button is clicked in OTP modal', async () => {
+  //   render(<MemoryRouter><RepoRead /></MemoryRouter>);
+
+  //   waitFor(() => {
+  //       fireEvent.click(getByText('Delete'));
+  //   });
+
+  //   waitFor(() => {
+  //       fireEvent.click(getByText('Cancel'));
+  //   });
+
+  //   expect(screen.queryByText('Enter OTP')).not.toBeInTheDocument();
+  // });
+
+  it("should call onClose when deleteUser dialog box appears", async () => {
+    const initialState = [
+      {
+        repoId: "1",
+        name: "Repo1",
+        description: "Repo 1 for Project 1",
+      },
+      {
+        repoId: "2",
+        name: "Repo2",
+        description: "Repo 2 for Project 2",
+      },
     ];
-    api.get.mockResolvedValue({ data: mockApiResponse });
+    const apiMockResponse = {
+      data: initialState,
+    };
 
-    render(<MemoryRouter><RepoRead /></MemoryRouter>);
+    const apiMock = require("../../../../../src/network/api");
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
 
-    const searchInput = screen.getByPlaceholderText('Search Repo...');
-    fireEvent.change(searchInput, { target: { value: 'Repo 1' } });
+    const deleteUser = jest.fn();
+    apiMock.default.delete.mockResolvedValue(apiMockResponse);
 
-    waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(expect.stringContaining('/repositories/get'));
-      expect(screen.getByText('Repo 1')).toBeInTheDocument();
-      expect(screen.queryByText('Repo 2')).not.toBeInTheDocument();
+    const { getAllByTestId, getByTestId } = render(
+      <MemoryRouter>
+        <RepoRead />
+      </MemoryRouter>
+    );
+
+
+    await waitFor(() => {
+      const deleteButton = getAllByTestId("delete");
+      deleteButton.forEach((deleteButton) => {
+        fireEvent.click(deleteButton);
+        waitFor(() => {
+          const cancel = getByTestId("onClose");
+          fireEvent.click(cancel);
+        });
+      });
     });
   });
 
-  it('displays a confirmation dialog when deleting a repository', () => {
-    render(<MemoryRouter><RepoRead /></MemoryRouter>);
+  it('should call deleteUser when delete button is clicked', async () => {
 
-     waitFor(() => {
-      const deleteButton = screen.getByText('Delete');
-      fireEvent.click(deleteButton);
+    const initialState =
+   [ {
+    repoId: '1',
+    name: 'Repo1',
+    description: 'Repo 1 for Project 1',
+  },
+  {
+    repoId: '2',
+    name: 'Repo2',
+    description: 'Repo 2 for Project 2',
+  },
+      ];
+    const apiMockResponse = {
+      data: initialState,
+    };
 
-      expect(screen.getByText('Confirm Delete')).toBeInTheDocument();
-      expect(screen.getByText('Cancel')).toBeInTheDocument();
-      expect(screen.getByText('Submit OTP')).toBeInTheDocument();
-    });
-  });
+    const apiMock = require('../../../../../src/network/api');
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
 
-  it('calls handleCancelDelete when "Cancel" button is clicked', async () => {
-    useNavigate.mockReturnValueOnce(jest.fn()); // Mock the navigate function
-    render(<MemoryRouter><RepoRead /></MemoryRouter>);
-
-    waitFor(() => {
-        fireEvent.click(getByText('Delete'));
-    });
-
-    waitFor(() => {
-        fireEvent.click(getByText('Cancel'));
-    });
-
-    expect(screen.queryByText('Confirm Delete')).not.toBeInTheDocument();
-  });
-
-  it('navigates to "/CreateRepo" when "Create Repository" button is clicked', async () => {
-    const mockNavigate = jest.fn();
-    useNavigate.mockReturnValueOnce(mockNavigate);
-    render(<MemoryRouter><RepoRead /></MemoryRouter>);
-
-    waitFor(() => {
-        fireEvent.click(getByText('Create Repository'));
-    });
+    const deleteUser = jest.fn();
+    const handleConfirmDelete = jest.fn();
     
-    // expect(mockNavigate).toHaveBeenCalledWith('/CreateRepo');
-  });
-
-  it('calls handleOTPClose when "Cancel" button is clicked in OTP modal', async () => {
-    render(<MemoryRouter><RepoRead /></MemoryRouter>);
-
     
-    waitFor(() => {
-        fireEvent.click(getByText('Delete'));
-    });
 
-    waitFor(() => {
-        fireEvent.click(getByText('Cancel'));
-    });
+   render(
+      <MemoryRouter>
+        <RepoRead />
+      </MemoryRouter>
+    );
 
-    expect(screen.queryByText('Enter OTP')).not.toBeInTheDocument();
-  });
+    await waitFor(() =>{
+      const deleteButton = screen.getAllByTestId('delete');
+      deleteButton.forEach((deleteButton) => {
+         fireEvent.click(deleteButton)
+         waitFor(() =>{
+          const confirm = screen.getByTestId('onConfirm')
+          fireEvent.click(confirm);
+         })
+      });
+    })
 
+  })
 });

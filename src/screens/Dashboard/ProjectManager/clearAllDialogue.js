@@ -12,10 +12,10 @@ function ClearAllDialogue(props) {
                 <p>Are you sure you want to clear all the notifications?</p>
             </Modal.Content>
             <Modal.Actions>
-                <Button color="grey" onClick={onClose}>
+                <Button data-testid='onClose'color="grey" onClick={onClose}>
                     Cancel
                 </Button>
-                <Button color="red" onClick={onConfirm}>
+                <Button data-testid='onConfirm' color="red" onClick={onConfirm}>
                     Delete
                 </Button>
             </Modal.Actions>

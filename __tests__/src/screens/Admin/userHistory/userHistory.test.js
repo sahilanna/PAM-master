@@ -4,10 +4,14 @@ import { MemoryRouter } from 'react-router-dom';
 import UserHistory from '../../../../../src/screens/Dashboard/Admin/userHistory/userHistory';
 import { act } from 'react-dom/test-utils';
 import '@testing-library/jest-dom'
-
+import api from '../../../../../src/network/api';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import { ngrokUrl } from '../../../../../src/network/config';
 
 // Mock the CSVLink component
 jest.mock('react-csv', () => ({ CSVLink: 'div' }));
+jest.mock('../../../../../src/network/api')
 
 describe('UserHistory Component', () => {
 
@@ -15,30 +19,6 @@ describe('UserHistory Component', () => {
     render(<MemoryRouter><UserHistory /></MemoryRouter>);
   });
 
-//   it('handles pagination correctly', async () => {
-
-//     const { getByText, getByLabelText } = render(<MemoryRouter><UserHistory /></MemoryRouter>);
-    
-//     const nextPageButton = getByLabelText('Next');
-//     const prevPageButton = getByLabelText('Previous');
-
-//     expect(getByText('Project 1')).toBeInTheDocument();
-//     expect(queryByText('Project 6')).not.toBeInTheDocument();
-
-//     fireEvent.click(nextPageButton);
-
-//     await waitFor(() => {
-//       expect(getByText('Project 6')).toBeInTheDocument();
-//       expect(queryByText('Project 1')).not.toBeInTheDocument();
-//     });
-
-//     fireEvent.click(prevPageButton);
-
-//     await waitFor(() => {
-//       expect(getByText('Project 1')).toBeInTheDocument();
-//       expect(queryByText('Project 6')).not.toBeInTheDocument();
-//     });
-//   });
 
   it('generates serial numbers correctly', () => {
     const currentPage = 2; // Assuming the current page is 2
@@ -55,8 +35,6 @@ describe('UserHistory Component', () => {
     
     const startNumber = (currentPage - 1) * rowsPerPage;
 
-    // Ensure that serial numbers are generated correctly
-    // expect(getByText('Serial No')).toBeInTheDocument();
     waitFor(() => {
         expect(getByText('7')).toBeInTheDocument();
     });
@@ -73,6 +51,95 @@ describe('UserHistory Component', () => {
     fireEvent.change(searchInput, { target: { value: 'New Search Query' } });
     expect(searchInput.value).toBe('New Search Query');
   });
+
+  it('should render table rows with the correct data', async () => {
+    const currentItems = [
+      { projectId: 6, projectName: 'Project 6', projectDescription: 'Description 6', lastUpdated: '2023-10-11T16:31:31', status: false },
+      { projectId: 7, projectName: 'Project 7', projectDescription: 'Description 7', lastUpdated: '2023-10-11T16:31:31', status: true },
+      { projectId: 8, projectName: 'Project 8', projectDescription: 'Description 8', lastUpdated: '2023-10-11T16:31:31', status: false },
+    ];
+
+
+    const apiMockResponse = {
+      data: currentItems,
+    };
+    const apiMock = require('../../../../../src/network/api');
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
+
+    
+    render(<MemoryRouter><UserHistory /></MemoryRouter>);
+
+    await waitFor(() => {
+    for (const item of currentItems) {
+      expect(screen.getByText(item.projectName)).toBeInTheDocument();
+      expect(screen.getByText(item.projectDescription)).toBeInTheDocument();
+
+    }
+  });
+   
+    const rows = screen.getAllByRole('row');
+    expect(rows).toHaveLength(currentItems.length + 1);
+  });
+
+
+  // test('should handle pagination correctly', async () => {
+  //   const currentItems = [
+  //         { projectId: 6, projectName: 'Project 6', projectDescription: 'Description 6', lastUpdated: '2023-10-11T16:31:31', status: false },
+  //         { projectId: 7, projectName: 'Project 7', projectDescription: 'Description 7', lastUpdated: '2023-10-11T16:31:31', status: true },
+  //         { projectId: 8, projectName: 'Project 8', projectDescription: 'Description 8', lastUpdated: '2023-10-11T16:31:31', status: false },
+  //       ];
+    
+    
+  //       const apiMockResponse = {
+  //         data: currentItems,
+  //       };
+  //       const apiMock = require('../../../../../src/network/api');
+  //       apiMock.default.get.mockResolvedValue(apiMockResponse);
+    
+        
+  //       render(<MemoryRouter><UserHistory /></MemoryRouter>);
+    
+  //       await waitFor(() => {
+  //       for (const item of currentItems) {
+  //         expect(screen.getByText(item.projectName)).toBeInTheDocument();
+  //         expect(screen.getByText(item.projectDescription)).toBeInTheDocument();
+    
+  //       }
+  //     });
+    
+  
+   
+  //   const paginationButton = screen.getByText('2'); // Assuming you have pagination buttons with labels like '1', '2', '3', etc.
+  //   fireEvent.click(paginationButton);
+
+    
+
+  //   expect(apiMock.default.get).toHaveBeenCalledWith(`https://${ngrokUrl}/projects/all`);
+  //   expect(apiMock.default.handlePaginate).toHaveBeenCalledWith('2');
+
+  //   // await waitFor(() => {
+  //   //   const currentPage = screen.getByText('2');
+  //   //   expect(currentPage).toHaveTextContent('2');
+  //   // });
+  
+   
+  // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    
 

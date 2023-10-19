@@ -22,6 +22,7 @@ function UserActivity(open, userName) {
     const result = await api.get(`https://${ngrokUrl}/users/${id}`)
     setActivityData([result.data])
     console.log(result.data)
+  
    
     }
     catch(error){
@@ -39,6 +40,7 @@ function UserActivity(open, userName) {
     
   }, []);
   
+  console.log(activityData);
   
   return (
     <Modal open={true} onClose={onClose} style={{ width: '500px' }} className='create-Project-Modal'>

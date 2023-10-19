@@ -14,7 +14,7 @@ import useApiData from './PmRequests/interval';
 
 const AdminDashboard = () => {
   const { requestData, Loading } = useApiData();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [item, setItem] = useState([]);
   const [currentPageData, setCurrentPageData] = useState([]);
   const [showProjectDetails, setShowProjectDetails] = useState(false);
@@ -42,6 +42,7 @@ const AdminDashboard = () => {
   console.log(setAddFileButtonVisible);
   console.log(setAddEmployeeButtonVisible);
   const fetchData = async () => {
+    setIsLoading(true);
     try {
       const response = await api.get(`https://${ngrokUrl}/request/allActive`);
       console.log(response);
@@ -136,7 +137,7 @@ const AdminDashboard = () => {
           <div className="button-container">
             {item.length > 0 && (
               <div>
-                <button className="ui button" onClick={createOnclick}>Create Project</button>
+                <button className="ui button"  data-testid="create" onClick={createOnclick}>Create Project</button>
                 <CSVLink data={csvDataProj} filename="projects_data.csv">
                 <button className="ui button">Download CSV</button>
               </CSVLink>

@@ -38,7 +38,7 @@ const Create = () => {
   const fetchRepos = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/repositories/get`);
-      const repoOptions = response.data.map(repo => ({
+      const repoOptions = response.data.map((repo)=> ({
         key: repo.repoId,
         text: repo.name,
         value: repo.repoId
@@ -53,7 +53,7 @@ const Create = () => {
   const fetchProjects = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/projects/allProjects`);
-      const projOptions = response.data.map(proj => ({
+      const projOptions = response.data.map((proj )=> ({
         key: proj.projectId,
         text: proj.projectName,
         value: proj.projectId
@@ -85,7 +85,6 @@ const Create = () => {
 };
 
   return (
-    
     <CreateUI
     onSubmit={handleSubmit}
     onClose={onClose}

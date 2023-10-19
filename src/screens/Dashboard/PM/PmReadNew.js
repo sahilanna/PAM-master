@@ -14,7 +14,6 @@ import { ngrokUrl } from "../../../network/config";
 import Sidebar from "../SideBar/SideBar";
 import LoadingPage from "../../../atoms/loadingPage";
 import api from "../../../network/api";
-import { Item } from "semantic-ui-react";
 
 function PmReadNew() {
   const navigate = useNavigate();
@@ -33,6 +32,7 @@ function PmReadNew() {
   console.log(currentPageData);
 
   const loaditem = async () => {
+    setIsLoading(true);
     await api
     .get(`https://${ngrokUrl}/users/role/project_manager`)
     .then((result) => {
@@ -68,15 +68,20 @@ function PmReadNew() {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    const filteredProjects = item.filter((project) =>
+    handleFilterItems(e.target.value);
+  };
+  const handleFilterItems = (searchQuery) => {
+    const filteredItems = item.filter((project) =>
     project.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-  setCurrentPageData(filteredProjects.slice(0, itemsPerPage));
+    );
+    setFilteredProjects(filteredItems);
+    setCurrentPageData(filteredItems.slice(0, itemsPerPage));
   };
 
- 
+  const filteredItems = item.filter((project) =>
+  project.name.toLowerCase().includes(searchQuery.toLowerCase())
+);
 
-  
 
   const handleViewDetails = (project) => {
     setSelectedProject(project);
@@ -94,7 +99,7 @@ function PmReadNew() {
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredProjects.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
     setCurrentPageData(currentItems);
   };
 
@@ -115,7 +120,7 @@ function PmReadNew() {
 
     navigate("/userActivity", { state: { id, username } });
   };
-// console.log(isLoading, filteredProjects.length());
+
 console.log(item)
   return (
     <div className="parent-admin">
@@ -168,7 +173,7 @@ console.log(item)
                 <th className="text-center">Delete</th>
               </thead>
               <tbody>
-                {item.length === 0 ? (
+                {filteredProjects.length === 0 ? (
                   <tr>
                     <td data-testid="view" colSpan="3">No data available</td>
                   </tr>
@@ -181,7 +186,7 @@ console.log(item)
 
                       <td className="text-center">
                         <button
-                          data-testid="view-details"
+                          data-testid="view-icon"
                           className="btn btn-outline-primary mx-2"
                           onClick={() => handleViewDetails(item)}
                         >

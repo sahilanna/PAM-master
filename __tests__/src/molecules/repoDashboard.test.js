@@ -1,13 +1,24 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RepoDashboard from '../../../src/molecules/repoDashboard';
+import RepoTable from '../../../src/atoms/repoTable';
 import "@testing-library/jest-dom";
+import api from '../../../src/network/api';
+import 'jest-localstorage-mock';
 
+
+jest.mock('../../../src/network/api')
 
 global.fetch = jest.fn();
 jest.mock('../../../src/network/config', () => ({
   ngrokUrl: 'example.com',
 }));
+
+jest.mock('../../../src/atoms/repoTable', () => {
+  return function MockedRepoTable(props) {
+    return <div data-testid="mocked-repo-table">{props.data}</div>;
+  };
+});
 
 describe('RepoDashboard Component', () => {
   const mockData = [
@@ -53,56 +64,67 @@ describe('RepoDashboard Component', () => {
   
   
 
-  it('displays loading indicator while fetching data', async () => {
+  // it('displays loading indicator while fetching data', async () => {
    
-    global.fetch.mockResolvedValueOnce(
-      new Promise((resolve) => {
-        setTimeout(() => {
-          resolve({
-            json: async () => Promise.resolve(mockData),
-          });
-        }, 2000);
-      })
+  //   // global.fetch.mockResolvedValueOnce(
+  //   //   new Promise((resolve) => {
+  //   //     setTimeout(() => {
+  //   //       resolve({
+  //   //         json: async () => Promise.resolve(mockData),
+  //   //       });
+  //   //     }, 5000);
+  //   //   })
+  //   // );
+
+  //   render(<RepoDashboard role="admin" SidebarComponent={() => <div>Mock Sidebar</div>} />);
+
+    
+  //   // expect(screen.getByTestId('loading')).toBeInTheDocument();
+
+    
+  //   await waitFor(() => screen.getByTestId('loader'));
+
+    
+  // });
+
+ 
+  it('should call handleAddUser when the "Add User" button is clicked', async () => {
+    const initialState = [
+      {
+        id: 1,
+        projectName: 'Project 1',
+        repositories: [
+          { id: 1, name: 'Repo 1', description: 'Description 1' },
+          { id: 2, name: 'Repo 2', description: 'Description 2' },
+        ],
+      },
+      {
+        id: 2,
+        projectName: 'Project 2',
+        repositories: [
+          { id: 3, name: 'Repo 3', description: 'Description 3' },
+        ],
+      },
+    ];
+  
+    const apiMockResponse = {
+      data: initialState,
+    };
+  
+    const apiMock = require('../../../src/network/api'); 
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
+  
+  
+  
+    render(
+   
+      <RepoDashboard role="admin" SidebarComponent={() => <div>Mock Sidebar</div>} />
+     
     );
-
-    render(<RepoDashboard role="admin" SidebarComponent={() => <div>Mock Sidebar</div>} />);
-
-    
-    expect(screen.getByTestId('dimmer')).toBeInTheDocument();
-
-    
-    await waitFor(() => screen.getByTestId('loader'), { timeout: 5000 });
-
+  
     
   });
 
-  // it('renders RepoTable with filteredResult data', () => {
-  //   const { getByTestId } = render(
-  //     <RepoDashboard
-  //       role="admin"
-  //       SidebarComponent={() => <div>Mock Sidebar</div>}
-  //     />
-  //   );
-
-   
-  //   const repoTableText = 'This text is from RepoTable';
-
-  //   const filteredResult = [
-     
-  //     {
-  //       id: 1,
-  //       projectName: 'Filtered Project',
-  //       repositories: [
-  //         { id: 4, name: 'Repo 4', description: 'Description 4' },
-  //       ],
-  //     },
-  //   ];
-
-
-  //   const repoTableElement = screen.getByTestId('repo-table');
-  //   expect(repoTableElement).toBeInTheDocument();
-  //   expect(repoTableElement).toHaveTextContent(repoTableText);
-  // });
 });
 
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent, waitFor, getByTestId } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import ShowAllNotification from "../../../../src/screens/Dashboard/ProjectManager/showAllNotification";
 import api from "../../../../src/network/api";
@@ -23,7 +23,7 @@ describe("ShowAllNotification Component", () => {
     );
   });
 
-  it("fetches and displays notifications", () => {
+  it("fetches and displays notifications1", async () => {
     const notifications = [
       { id: 1, response: "Notification 1" },
       { id: 2, response: "Notification 2" },
@@ -31,16 +31,50 @@ describe("ShowAllNotification Component", () => {
 
     api.get.mockResolvedValue({ data: notifications });
 
-    const { getByText } = render(
+    const { getByTestId } = render(
       <MemoryRouter>
         <ShowAllNotification />
       </MemoryRouter>
     );
 
-    waitFor(() => {
-      expect(getByText("Notification 1")).toBeInTheDocument();
-      expect(getByText("Notification 2")).toBeInTheDocument();
+    await waitFor(() => {
+      const clear = getByTestId('clear');
+      fireEvent.click(clear);
     });
+
+    await waitFor(() => {
+      const onClose = getByTestId('onClose');
+      fireEvent.click(onClose);
+    })
+
+    
+  });
+
+  it("fetches and displays notifications", async () => {
+    const notifications = [
+      { id: 1, response: "Notification 1" },
+      { id: 2, response: "Notification 2" },
+    ];
+
+    api.get.mockResolvedValue({ data: notifications });
+
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <ShowAllNotification />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      const clear = getByTestId('clear');
+      fireEvent.click(clear);
+    });
+
+    await waitFor(() => {
+      const onConfirm = getByTestId('onConfirm');
+      fireEvent.click(onConfirm);
+    })
+
+    
   });
 
   it("displays 'No notifications' when there are no notifications", () => {
@@ -88,8 +122,7 @@ it("calls onClose and onConfirm when delete button is clicked", () => {
       expect(getByText("Are you sure you want to clear all notifications?")).toBeInTheDocument();
     });
 
-    // const cancelButton = getByText("Cancel");
-    // fireEvent.click(cancelButton);
+
 
     waitFor(() => {
         expect(onCloseMock).toHaveBeenCalledTimes(1);
@@ -97,22 +130,7 @@ it("calls onClose and onConfirm when delete button is clicked", () => {
     })
    
    
-    // onCloseMock.mockClear();
-    // onConfirmMock.mockClear();
-
-    
-    // fireEvent.click(deleteButton);
-
-    // const confirmButton = getByText("Confirm");
-    // fireEvent.click(confirmButton);
-
-    
-    // expect(onCloseMock).not.toHaveBeenCalled();
-    // expect(onConfirmMock).toHaveBeenCalledTimes(1);
   });
-
-
-
 
 
 

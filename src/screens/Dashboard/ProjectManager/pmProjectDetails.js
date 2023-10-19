@@ -55,7 +55,7 @@ const PmProjectDetails = ({ project, onClose }) => {
         {/* <p><strong>PM Github Username:</strong>  {project.githubUsername}</p> */}
       </Modal.Content>
       <Modal.Actions>
-        <Button variant="secondary" onClick={onClose}>
+        <Button data-testid="onClose" variant="secondary" onClick={onClose}>
           Close
         </Button>
       </Modal.Actions>

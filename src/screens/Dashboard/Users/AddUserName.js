@@ -92,7 +92,7 @@ function AddUserName() {
             <Form.Field>
               <label style={{ textAlign: 'left' }}>Users<span style={{ color: 'red' }}>*</span></label>
               <Dropdown
-              data-testid='user'
+              data-testid='Select User'
                 placeholder="Select User"
                 fluid
                 selection

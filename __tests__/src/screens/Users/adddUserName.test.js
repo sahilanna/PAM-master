@@ -4,9 +4,9 @@ import AddUserName from "../../../../src/screens/Dashboard/Users/AddUserName";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
 import api from "../../../../src/network/api";
-
+import { act } from "react-dom/test-utils";
+jest.mock("../../../../src/network/api");
 describe("AddUserName Component", () => {
-  
   const mockUseNavigate = jest.fn();
   const mockApi = {
     get: jest.fn(() => Promise.resolve({ data: [] })),
@@ -15,105 +15,113 @@ describe("AddUserName Component", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    
+
     jest.mock("react-router-dom", () => ({
       useNavigate: () => mockUseNavigate,
     }));
 
-    
     jest.mock("../../../../src/network/api", () => ({
       get: mockApi.get,
       post: mockApi.post,
     }));
   });
 
-    it('renders the component without crashing', () => {
-      render(<MemoryRouter><AddUserName /></MemoryRouter>);
+  it("renders the component without crashing", () => {
+    render(
+      <MemoryRouter>
+        <AddUserName />
+      </MemoryRouter>
+    );
 
-      expect(screen.getByText('Add Github UserName')).toBeInTheDocument();
+    expect(screen.getByText("Add Github UserName")).toBeInTheDocument();
+  });
+
+  it('displays a "Select User" dropdown', async () => {
+    mockApi.get.mockResolvedValueOnce({ data: [] });
+
+    render(
+      <MemoryRouter>
+        <AddUserName />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Select User")).toBeInTheDocument();
+    });
+  });
+
+  it("submits the form with selected user and GitHub username", async () => {
+    const sampleUsers = [
+      {
+        id: 2,
+        name: "Hassain",
+        email: "swedagmail.com",
+        enumRole: "USER",
+        token: null,
+        gitHubUsername: null,
+      },
+      {
+        id: 3,
+        name: "Nipoon",
+        email: "xgc.com",
+        enumRole: "USER",
+        token: null,
+        gitHubUsername: null,
+      },
+    ];
+
+    const api = require("../../../../src/network/api");
+    api.default.get.mockResolvedValueOnce({ data: sampleUsers });
+
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <AddUserName />
+        </MemoryRouter>
+      );
     });
 
-    it('displays a "Select User" dropdown', async () => {
-    
-      mockApi.get.mockResolvedValueOnce({ data: [] });
+    // Select a user from the Dropdown
+    const selectUserDropdown = screen.getByTestId("Select User");
+    fireEvent.click(selectUserDropdown);
 
-      render(<MemoryRouter><AddUserName /></MemoryRouter>);
-
-    
-      await waitFor(() => {
-        expect(screen.getByText('Select User')).toBeInTheDocument();
-      });
+    await waitFor(() => {
+      const selectedOption = screen.getByText("Nipoon");
+      fireEvent.click(selectedOption);
     });
 
-    it('updates selectedUser and id when a user is selected', () => {
-      render(<MemoryRouter><AddUserName /></MemoryRouter>);
+    // Fill in the GitHub Username
+    const githubUsernameInput = screen.getByPlaceholderText(
+      "Enter github username"
+    );
+    fireEvent.change(githubUsernameInput, { target: { value: "sahilanna" } });
 
-      const userDropdown = screen.getByTestId('user');
+    // const submitButton = screen.getByTestId('submit');
+    // fireEvent.click(submitButton);
 
-      waitFor(() => {
-          fireEvent.change(userDropdown, { target: { value: '1' } });
-      })
+    screen.debug();
+  });
 
-      waitFor(() => {
-          expect(userDropdown).toHaveValue('1');
-      })
+  it("updates githubUsername when text is entered into the input field", () => {
+    render(
+      <MemoryRouter>
+        <AddUserName />
+      </MemoryRouter>
+    );
+    const usernameInput = screen.getByPlaceholderText("Enter github username");
 
-      waitFor(() => {
-          expect(screen.getByDisplayValue('1')).toBeInTheDocument();
-      })
+    fireEvent.change(usernameInput, { target: { value: "testusername" } });
 
-    });
+    expect(usernameInput).toHaveValue("testusername");
+  });
 
-    // it('should call selectedUserChange when an option is selected', () => {
-    //   const users = [
-    //     { key: '1', value: 'user1', text: 'User 1' },
-    //     { key: '2', value: 'user2', text: 'User 2' },
-    //   ];
-    //   const selectedUserChange = jest.fn();
-    //   const { getByTestId, getByText } = render(
-    //    <MemoryRouter>
-    //      <AddUserName users={users} selectedUserChange={selectedUserChange} />
-    //    </MemoryRouter>
-    //   );
-    //   const dropdown = getByTestId('user');
-  
-    //   fireEvent.click(dropdown);
-  
-    //   const option1 = getByText('User 1');
-  
-    //   fireEvent.click(option1);
-  
-    //   expect(selectedUserChange).toHaveBeenCalledWith('user1');
-    // });
-
-
-
-
-
-
-
-
-
-
-    it('updates githubUsername when text is entered into the input field', () => {
-      render(<MemoryRouter><AddUserName /></MemoryRouter>);
-      const usernameInput = screen.getByPlaceholderText('Enter github username');
-
-      fireEvent.change(usernameInput, { target: { value: 'testusername' } });
-
-      expect(usernameInput).toHaveValue('testusername');
-    });
-
-    it('close button', () => {
-      const { getByTestId }  = render(
-          <MemoryRouter>
-              <AddUserName/>
-          </MemoryRouter>
-      )
-      const onCloseMock = jest.fn()
-      fireEvent.click(getByTestId('X'))
-      
-  })
-
- 
+  it("close button", () => {
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <AddUserName />
+      </MemoryRouter>
+    );
+    const onCloseMock = jest.fn();
+    fireEvent.click(getByTestId("X"));
+  });
 });

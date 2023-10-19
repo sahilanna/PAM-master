@@ -12,7 +12,7 @@ import Pagination from '../../Pagination/Pagination';
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { faTrash,  faUser, faStreetView } from '@fortawesome/free-solid-svg-icons';
-
+ 
 function FigmaRead() {
   const [userData, setUserData] = useState({
     user: '',
@@ -26,22 +26,23 @@ function FigmaRead() {
   const[figmaURL, setFigmaURL]=useState('')
   const[figmaId, setFigmaId]=useState('')
   const[projectId, setProjectId]=useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 5;
   const[showConfirmDialog, setShowConfirmDialog]=useState(false)
   const [showModall, setShowModall] = useState(false); 
-
+ 
   
   console.log(showModall)
   console.log(userData);
   console.log(setUserData);
-
+ 
   useEffect(() => {
     fetchProjects();
   }, []);
-
+ 
   const fetchProjects = async () => {
+    setIsLoading(true);
     try {
       const response = await api.get(`https://${ngrokUrl}/figmas/getAll`);
       setProjects(response.data);
@@ -53,10 +54,10 @@ function FigmaRead() {
       setIsLoading(true)
     }
   };
-
-
-
-
+ 
+ 
+ 
+ 
   
   const handleDisplayVerification = async (figmaId) => {
     try {
@@ -72,7 +73,7 @@ function FigmaRead() {
         link.href = screenshotImageURL;
         link.download = `${user}_screenshot.png`;
         link.click();
-      } else {
+      } else{
         console.error('No data found');
       }
     } catch (error) {
@@ -83,20 +84,20 @@ function FigmaRead() {
       console.error('Error handling display verification:', error);
     }
   };
-
-
-
+ 
+ 
+ 
   const createFigma = () => {
     navigate('/createFigmaDetails', { state: { figmaId } });
   };
-
+ 
   const handleAddUser = (url, id, projectId, figmaId) => {
     setFigmaURL(url);
     setFigmaId(id);
     setProjectId(projectId);
     setShowModal(true);
   };
-
+ 
   const handleDeleteUrl = async (figmaId) => {
     try {
       await api.delete(`https://${ngrokUrl}/figmas/${figmaId}`);
@@ -107,7 +108,7 @@ function FigmaRead() {
       console.log(error);
     }
   };
-
+ 
   const closeModal = () => {
     setShowModal(false);
     setShowModall(false)
@@ -118,12 +119,12 @@ function FigmaRead() {
     const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
     setCurrentPageData(currentItems);
   };
-
+ 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     handleFilterItems(e.target.value);
   };
-
+ 
   const handleFilterItems = (searchQuery) => {
     const filteredItems = projects.filter((item) =>
       item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -137,7 +138,7 @@ function FigmaRead() {
   useEffect(() => {
     handlePaginate(1);
   }, [filteredProjects]);
-
+ 
   
   return (
     <div className='parent-admin'>
@@ -210,7 +211,7 @@ function FigmaRead() {
                     />
                   </td>
                   <td className="text-center">
-                    <button className="btn btn-outline-primary mx-2" onClick={() => handleDisplayVerification(project.figmaId)}>
+                    <button data-testid="verification" className="btn btn-outline-primary mx-2" onClick={() => handleDisplayVerification(project.figmaId)}>
                       <FontAwesomeIcon icon={faStreetView} />
                     </button>
                   </td>
@@ -218,7 +219,7 @@ function FigmaRead() {
               ))}
             </tbody>
           </table>
-
+ 
           <div className='pagination' style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
             <Pagination data={filteredItems} itemsPerPage={itemsPerPage} paginate={handlePaginate} />
           </div>
@@ -227,8 +228,8 @@ function FigmaRead() {
     </>
   )}
 </div>
-
-
+ 
+ 
       </div>
       <div className='model-container'>
         <div className="modal-content-container">
@@ -236,11 +237,11 @@ function FigmaRead() {
         </div>
        
        
-
+ 
       </div>
       
     </div>
   );
 }
-
+ 
 export default FigmaRead;

@@ -17,18 +17,19 @@ const AddPm = () => {
   const[selectedRepo, setSelectedRepo]=useState('')
 
   const accessToken=gitAccessToken
+
   const handleUserNameChange=(event,{value})=>{
     setusername(value)
   }
  
 
-  useEffect(() => {
+
     const fetchUsernames = async () => {
       try {
         const response = await api.get(`https://${ngrokUrl}/usernames/role/project_manager`);
         setOptions(response.data);
         const res = await api.get(`https://${ngrokUrl}/repositories/get`);
-          const repoOptions = res.data.map(rep => ({
+          const repoOptions = res.data.map((rep) => ({
             key: rep.repoId,
             text: rep.name,
             value: rep.repoId
@@ -38,8 +39,12 @@ const AddPm = () => {
         console.error(error);
       }
     };
-    fetchUsernames();
-  }, []);
+
+    useEffect(() => {
+      fetchUsernames();
+    }, []);
+  
+  
 
   const handleSubmit=(e)=>{
     e.preventDefault();
@@ -85,7 +90,7 @@ const AddPm = () => {
         <Form.Field>
            <label style={{ textAlign: 'left' }}>Select Repo<span style={{ color: 'red' }}>*</span></label>
             <Dropdown
-              data-testid="dropdown"
+              data-testid="Select-Repo"
               placeholder="Select Repo"
               fluid
               selection

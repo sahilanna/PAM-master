@@ -30,4 +30,6 @@ describe('AdminDashboard Component', () => {
     fireEvent.change(searchInput, { target: { value: 'John' } });
 
   });
+
+  
 });

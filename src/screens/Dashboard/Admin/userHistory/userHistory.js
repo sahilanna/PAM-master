@@ -28,6 +28,7 @@ function UserHistory() {
   useEffect(() => {
     fetchData();
   }, []);
+  
   async function fetchData() {
     try {
       const response = await api.get(`https://${ngrokUrl}/projects/all`);
@@ -40,7 +41,6 @@ function UserHistory() {
       });
       setHistoryData(sortedData);
       setFilteredProjects(sortedData);
-
       setIsLoading(false);
     } catch (error) {
       console.log('Error fetching user history:', error);

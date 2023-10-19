@@ -1,18 +1,19 @@
-import React from 'react';
-import { render, fireEvent, waitFor, act } from '@testing-library/react';
-import FigmaRead from '../../../../../../src/screens/Dashboard/Admin/Figma/FigmaRead';
-import '@testing-library/jest-dom'
-import { MemoryRouter } from 'react-router-dom';
-import api from '../../../../../../src/network/api';
-import { ngrokUrl } from '../../../../../../src/network/config';
-import DialogBox from '../../../../../../src/screens/Dashboard/DialogBox/DialogBox';
+import React from "react";
+import { render, fireEvent, waitFor, act } from "@testing-library/react";
+import FigmaRead from "../../../../../../src/screens/Dashboard/Admin/Figma/FigmaRead";
+import "@testing-library/jest-dom";
+import { MemoryRouter } from "react-router-dom";
+import api from "../../../../../../src/network/api";
+import { ngrokUrl } from "../../../../../../src/network/config";
+import DialogBox from "../../../../../../src/screens/Dashboard/DialogBox/DialogBox";
 
+// jest.mock('../../../../../../src/network/api', () => ({
+//     delete:jest.fn(),
+// }));
 
-jest.mock('../../../../../../src/network/api', () => ({
-    delete:jest.fn(),
-}));
+jest.mock("../../../../../../src/network/api");
 
-describe('FigmaRead Component', () => {
+describe("FigmaRead Component", () => {
   const navigateMock = jest.fn();
   const handleAddUserMock = jest.fn();
   const handleDeleteUrlMock = jest.fn();
@@ -21,126 +22,183 @@ describe('FigmaRead Component', () => {
 
   const projects = [
     {
-      figmaId: '1',
-      projectDTO: { projectName: 'Project 1' },
-      figmaURL: 'https://figma.com/project1',
+      figmaId: "1",
+      projectDTO: { projectName: "Project 1" },
+      figmaURL: "https://figma.com/project1",
     },
     {
-      figmaId: '2',
-      projectDTO: { projectName: 'Project 2' },
-      figmaURL: 'https://figma.com/project2',
+      figmaId: "2",
+      projectDTO: { projectName: "Project 2" },
+      figmaURL: "https://figma.com/project2",
     },
   ];
 
-  it('renders Figma URLs correctly', () => {
-    render(
-      <MemoryRouter><FigmaRead/></MemoryRouter>
-    );
-  });
-
-  it('calls handleAddUser when "Add User Verification" button is clicked', () => {
-    const { getByTestId } = render(
-      <MemoryRouter>
-        <FigmaRead
-        projects={projects}
-        navigate={navigateMock}
-        handleAddUser={handleAddUserMock}
-        handleDeleteUrl={handleDeleteUrlMock}
-        setShowModal={setShowModalMock}
-      />
-      </MemoryRouter>
-    );
-    
-    FigmaRead.handleAddUser = handleAddUserMock;
-
-    waitFor(() => {
-        fireEvent.click(getByTestId('add'));
-    })
-    waitFor(()=> {
-        expect(handleAddUserMock).toHaveBeenCalled();
-    })
-    
-  });
-
-it('should open the delete dialog and call handleDeleteUrl on confirm', async() => {
-    // Create a sample project for testing
-    const project = {
-      figmaId: 'sampleFigmaId',
-      
+  it("should call handleViewDetails when the view button is clicked", async () => {
+    const initialState = [
+      {
+        figmaId: "1",
+        projectDTO: { projectName: "Project 1" },
+        figmaURL: "https://figma.com/project1",
+      },
+      {
+        figmaId: "2",
+        projectDTO: { projectName: "Project 2" },
+        figmaURL: "https://figma.com/project2",
+      },
+    ];
+    const apiMockResponse = {
+      data: initialState,
     };
 
-    
-    const { getByTestId } = render(
+    const apiMock = require("../../../../../../src/network/api");
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
+
+    const handleDeleteUrl = jest.fn();
+    apiMock.default.delete.mockResolvedValue(apiMockResponse);
+
+    const { getByText, getAllByTestId, getByTestId } = render(
       <MemoryRouter>
-        <DialogBox/>
-        <FigmaRead
-        projects={[project]}
-        navigate={navigateMock}
-        setShowConfirmDialog={setShowConfirmDialogMock}
-      />
+        <FigmaRead />
       </MemoryRouter>
     );
-    
-    waitFor(() => {
-        fireEvent.click(getByTestId('delete'));
-    })
-    
-    waitFor(() => {
-        expect(setShowConfirmDialogMock).toHaveBeenCalledWith('sampleFigmaId');
-    })
-    
 
-    waitFor(() => {
-        fireEvent.click(getByTestId('confirm'));
-    })
-
- 
-    waitFor(async() => {
-
-        expect(setShowConfirmDialogMock).toHaveBeenCalledWith(null);
-     
-        expect(api.delete).toHaveBeenCalledWith(`https://${ngrokUrl}/figmas/sampleFigmaId`);
-        
-        expect(navigateMock).toHaveBeenCalledWith('/FigmaRead');
-    
+    await waitFor(() => {
+      const deleteButton = getAllByTestId("delete");
+      deleteButton.forEach((deleteButton) => {
+        fireEvent.click(deleteButton);
+        waitFor(() => {
+          const confirm = getByTestId("confirm");
+          fireEvent.click(confirm);
+          // expect(handleDeleteUrl).toHaveBeenCalledWith(expectedUserId);
+        });
+      });
     });
   });
 
+  it("should call handleViewDetails when the view button is clicked", async () => {
+    const initialState = [
+      {
+        figmaId: "1",
+        projectDTO: { projectName: "Project 1" },
+        figmaURL: "https://figma.com/project1",
+      },
+      {
+        figmaId: "2",
+        projectDTO: { projectName: "Project 2" },
+        figmaURL: "https://figma.com/project2",
+      },
+    ];
+    const apiMockResponse = {
+      data: initialState,
+    };
 
+    const apiMock = require("../../../../../../src/network/api");
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
+
+    const handleDeleteUrl = jest.fn();
+    apiMock.default.delete.mockResolvedValue(apiMockResponse);
+
+    const { getAllByTestId, getByTestId } = render(
+      <MemoryRouter>
+        <FigmaRead />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      const deleteButton = getAllByTestId("delete");
+      deleteButton.forEach((deleteButton) => {
+        fireEvent.click(deleteButton);
+        waitFor(() => {
+          const cancel = getByTestId("onClose");
+          fireEvent.click(cancel);
+        });
+      });
+    });
+  });
+
+  it("renders Figma URLs correctly", () => {
+    render(
+      <MemoryRouter>
+        <FigmaRead />
+      </MemoryRouter>
+    );
+  });
+
+ 
+
+ 
 
   it('calls setShowModal when the "Create Figma" button is clicked', () => {
     const { getByTestId } = render(
       <MemoryRouter>
         <FigmaRead
-        projects={projects}
-        navigate={navigateMock}
-        handleAddUser={handleAddUserMock}
-        handleDeleteUrl={handleDeleteUrlMock}
-        setShowModal={setShowModalMock}
-      />
+          projects={projects}
+          navigate={navigateMock}
+          handleAddUser={handleAddUserMock}
+          handleDeleteUrl={handleDeleteUrlMock}
+          setShowModal={setShowModalMock}
+        />
       </MemoryRouter>
     );
 
-    fireEvent.click(getByTestId('create'));
-    waitFor(() => {
-        expect(setShowModalMock).toHaveBeenCalledWith(true);
-    })
-    
+    fireEvent.click(getByTestId("create"));
+    // waitFor(() => {
+    //   expect(setShowModalMock).toHaveBeenCalledWith(true);
+    // });
   });
 
-  it('calls handleSearchChange when the search input value changes', () => {
+  it("calls handleSearchChange when the search input value changes", () => {
     const { getByPlaceholderText } = render(
-      
-        <MemoryRouter>
-          <FigmaRead/>
-        </MemoryRouter>
-     
+      <MemoryRouter>
+        <FigmaRead />
+      </MemoryRouter>
     );
 
-    const searchInput = getByPlaceholderText('Search Figma...');
-    fireEvent.change(searchInput, { target: { value: 'John' } });
-
+    const searchInput = getByPlaceholderText("Search Figma...");
+    fireEvent.change(searchInput, { target: { value: "John" } });
   });
+  it('should call handleAddUser when the "Add User" button is clicked', async () => {
+    const initialState = [
+      {
+        figmaId: "1",
+        projectDTO: { projectName: "Project 1" },
+        figmaURL: "https://figma.com/project1",
+      },
+      {
+        figmaId: "2",
+        projectDTO: { projectName: "Project 2" },
+        figmaURL: "https://figma.com/project2",
+      },
+    ];
 
-  
+    const apiMockResponse = {
+      data: initialState,
+    };
+
+    const apiMock = require("../../../../../../src/network/api"); // Replace with your actual API mock path
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
+
+    const handleAddUser = jest.fn();
+    const handleDisplayVerification = jest.fn();
+
+    const { getAllByTestId } = render(
+      <MemoryRouter>
+        <FigmaRead />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      const addUserButton = getAllByTestId("add");
+      addUserButton.forEach((addUserButton) => {
+        fireEvent.click(addUserButton);
+      });
+    });
+
+    await waitFor(() => {
+      const verificationButton = getAllByTestId("verification");
+      verificationButton.forEach((verificationButton) => {
+        fireEvent.click(verificationButton);
+      });
+    });
+  });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen, getByTestId } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import PmNotification from '../../../../src/screens/Dashboard/ProjectManager/pmNotification';
 import api from '../../../../src/network/api';
@@ -38,23 +38,60 @@ describe('PmNotification Component', () => {
     });
   });
 
-  // test('Clicking delete button calls onDeleteNotification and fetchNotification',() => {
-  //   const onDeleteNotification = jest.fn();
-  //   const fetchNotification = jest.fn();
+  it('fetches and displays notifications',  () => {
+    api.get.mockResolvedValue({
+      data: [{ id: 1, response: 'Notification 1', accessRequestId: 101 }],
+    });
+
+    render(
+      <MemoryRouter>
+        <PmNotification />
+      </MemoryRouter>
+    );
+
+    waitFor(() => {
+      expect(api.get).toHaveBeenCalledWith(
+        `https://ngrokUrl/request/unread/PM?pmName=null`
+      );
+    });
+
+    const showAllNotification = screen.getByTestId('notify');
+    fireEvent.click(showAllNotification);
+
+  });
+
+  it('fetches and displays notifications', async () => {
+    api.get.mockResolvedValue({
+      data: [{ id: 1, response: 'Notification 1', accessRequestId: 101 }],
+    });
+
+    render(
+      <MemoryRouter>
+        <PmNotification />
+      </MemoryRouter>
+    );
+
+    waitFor(() => {
+      expect(api.get).toHaveBeenCalledWith(
+        `https://${ngrokUrl}/request/unread/PM?pmName=null`
+      );
+    });
+
+    const showAllNotification = screen.getByTestId('notify');
+    fireEvent.click(showAllNotification);
+
+    await waitFor(() => {
+      const deleteButton = screen.getByTestId('delete');
+      fireEvent.click(deleteButton);
+    })
+
+    expect(api.put).toHaveBeenCalledWith(
+      `https://${ngrokUrl}/request/notifiedPM?accessRequestId=${101}`
+    );
+
+
+
+  });
+
   
-  //   const { getByTestId } = render(
-  //     <MemoryRouter>
-  //        <PmNotification onDeleteNotification={onDeleteNotification} fetchNotification={fetchNotification} />
-  //     </MemoryRouter>
-     
-  //   );
-  
-  //   fireEvent.click(getByTestId('del'));
-  
-    
-  //   waitFor(() => {
-  //     expect(onDeleteNotification).toHaveBeenCalledTimes(1);
-  //     expect(fetchNotification).toHaveBeenCalledTimes(1);
-  //   });
-  // });
 });

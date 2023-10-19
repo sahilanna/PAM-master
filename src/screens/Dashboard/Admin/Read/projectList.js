@@ -145,7 +145,7 @@ function ProjectList({ projectId, projectName, type }) {
                 <td>{item.email}</td>
                 <td>{item.gitHubUsername ? item.gitHubUsername : '--'}</td>
                 <td>
-                  <button data-testid='del' className="btn btn-danger mx-2" onClick={() => handleSubmit(item.id, item.gitHubUsername)}>
+                  <button data-testid='delete-user' className="btn btn-danger mx-2" onClick={() => handleSubmit(item.id, item.gitHubUsername)}>
                     <FontAwesomeIcon icon={faTrash} />
                   </button>
                 </td>

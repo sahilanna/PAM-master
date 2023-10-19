@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ngrokUrl } from "./config";
-
+import { Navigate } from 'react-router-dom';
 let token = null;
 const getAccessToken = () => {
   if(!token){
@@ -39,32 +39,19 @@ api.interceptors.response.use(
     return res;
   },
   async (err) => {
-    const originalConfig = err.config;
+    
     if (err.response) {
-      // Access Token was expired
-      if (err.response.status === 401 && !originalConfig._retry) {
-        originalConfig._retry = true;
-        try {
-          const token=getAccessToken()
-          window.localStorage.setItem("AccessToken", token);
-          api.defaults.headers.common["AccessToken"] = token;
-          return api(originalConfig);
-        } catch (_error) {
-          if (_error.response?.data) {
-            return Promise.reject(_error.response.data);
-          }
-          return Promise.reject(_error);
-        }
+     
+      if (err.response.status === 401) {
+        Navigate("/Login")
       }
-      if (err.response.status === 403 && err.response.data) {
+      else if (err.response.status === 403 && err.response.data) {
         return Promise.reject(err.response.data);
       }
+    
     }
     return Promise.reject(err);
   }
 );
 export default api;
-
-
-
 
