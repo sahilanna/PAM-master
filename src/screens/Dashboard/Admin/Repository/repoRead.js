@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import DialogBox from "../../DialogBox/DialogBox";
 import Pagination from "../../Pagination/Pagination";
-import { Button, Modal, Form } from "semantic-ui-react";
 import "../Figma/FigmaRead.css";
 
 function RepoRead(onClose) {
@@ -21,9 +20,6 @@ function RepoRead(onClose) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedRepoId, setSelectedRepoId] = useState("");
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const [showOTPMoal, setShowOTPMoal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [otp, setOtp] = useState("");
   const itemsPerPage = 4;
 
   const data = sessionStorage.getItem("item");
@@ -41,12 +37,14 @@ function RepoRead(onClose) {
       const response = await api.get(`https://${ngrokUrl}/repositories/get`);
       setItem(response.data);
       setIsLoading(false);
+      setFilteredProjects(response.data);
     } catch (error) {
       setIsLoading(true);
     }
   };
   console.log(user);
-  console.log(currentPageData)
+  console.log(currentPageData);
+  console.log(setSelectedRepoId);
   useEffect(() => {
     const filteredProjects = item.filter((project) =>
       project.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -83,62 +81,17 @@ function RepoRead(onClose) {
     navigate("/AddPm");
   };
   const deleteUser = async (repoId) => {
-    setSelectedRepoId(repoId);
-    console.log(selectedRepoId);
-    setShowConfirmDialog(true);
-  };
-  const handleConfirmDelete = async () => {
     try {
-      const otpResponse = await api.post(`https://${ngrokUrl}/OTP/send`, {
-        phoneNumber: "+91 9928931610",
-      });
-      console.log(otpResponse);
-      if (otpResponse.data === "OTP sent") {
-        setShowConfirmDialog(false);
-        setShowOTPMoal(true);
-        setErrorMessage("");
-      } else if (otpResponse.response === false) {
-        console.log("OTP generation failed");
-      }
+      await api.delete(
+        `https://${ngrokUrl}/repositories/delete/${selectedRepoId}`
+      );
+
+      setShowConfirmDialog(false);
+      loadItem();
+      navigate("/repoRead");
     } catch (error) {
       console.log(error);
     }
-  };
-  const handleCancelDelete = () => {
-    setShowConfirmDialog(false);
-  };
-  const handleOTPSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const otpSubmissionResponse = await api.post(
-        `https://${ngrokUrl}/OTP/verify`,
-        {
-          otp: otp,
-        }
-      );
-      console.log(otpSubmissionResponse);
-      if (otpSubmissionResponse.data === true) {
-        await api.delete(
-          `https://${ngrokUrl}/repositories/delete/${selectedRepoId}`
-        );
-        setShowOTPMoal(false);
-        loadItem();
-      } else if (!otpSubmissionResponse.data) {
-        setErrorMessage("Invalid OTP. Please try again.");
-      }
-    } catch (error) {
-      console.log("error", error.response.data);
-      if (error.response.data === "Error" || error.status == 500) {
-        setErrorMessage(
-          "There are collaborators in this repo. Remove them to delete this repo"
-        );
-      } else {
-        setErrorMessage("");
-      }
-    }
-  };
-  const handleOTPClose = () => {
-    setShowOTPMoal(false);
   };
 
   return (
@@ -166,13 +119,25 @@ function RepoRead(onClose) {
             <i className="users icon"></i>
           </div>
           <div>
-            <button data-testid="createOnClick" className="ui button" onClick={createOnclick}>
+            <button
+              data-testid="createOnClick"
+              className="ui button"
+              onClick={createOnclick}
+            >
               Create Repository
             </button>
-            <button  data-testid="add-project" className="ui button" onClick={toggleDrawer}>
+            <button
+              data-testid="add-project"
+              className="ui button"
+              onClick={toggleDrawer}
+            >
               Add Project Git
             </button>
-            <button  data-testid="add-collab" className="ui button" onClick={toggleDrawer1}>
+            <button
+              data-testid="add-collab"
+              className="ui button"
+              onClick={toggleDrawer1}
+            >
               Add Collaborators
             </button>
           </div>
@@ -192,13 +157,13 @@ function RepoRead(onClose) {
                   </tr>
                 </thead>
                 <tbody>
-                  {item.length === 0 ? (
+                  {filteredProjects.length === 0 ? (
                     <tr>
                       <td colSpan="4">No data available</td>
                     </tr>
                   ) : (
-                    item.map((item, index) => (
-                      <tr key={item.id}>
+                    currentPageData.map((item, index) => (
+                      <tr key={item.repoId}>
                         <td>{index + 1}</td>
                         <td>{item.name}</td>
                         <td>{item.description}</td>
@@ -206,42 +171,21 @@ function RepoRead(onClose) {
                           <button
                             data-testid="delete"
                             className="btn btn-danger mx-2"
-                            onClick={() => deleteUser(item.repoId)}
+                            onClick={() => setShowConfirmDialog(item.repoId)}
                           >
                             <FontAwesomeIcon icon={faTrash} />
                           </button>
-                          <DialogBox
-                            show={showConfirmDialog}
-                            onClose={handleCancelDelete}
-                            onConfirm={handleConfirmDelete}
-                          />
-                          <Modal
-                            open={showOTPMoal}
-                            onClose={handleOTPClose}
-                            style={{ width: "500px", height: "300px" }}
-                            className="centered-modal-OTP"
-                          >
-                            <Modal.Header>Enter OTP</Modal.Header>
-                            <Modal.Content>
-                              <Form onSubmit={handleOTPSubmit}>
-                                <div className="form-field">
-                                  <label>OTP sent to '+91 9928931610'</label>
-                                  <input
-                                    type="text"
-                                    name="otp"
-                                    onChange={(e) => setOtp(e.target.value)}
-                                  />
-                                </div>
-                                <p>{errorMessage}</p>
-                                <Button type="submit" primary>
-                                  Submit OTP
-                                </Button>
-                              </Form>
-                            </Modal.Content>
-                            <Modal.Actions>
-                              <Button onClick={handleOTPClose}>Cancel</Button>
-                            </Modal.Actions>
-                          </Modal>
+                          {showConfirmDialog === item.repoId && (
+                            <div className="dialog-backdrop">
+                              <div className="dialog-container">
+                                <DialogBox
+                                  show={showConfirmDialog === item.repoId}
+                                  onClose={() => setShowConfirmDialog(null)}
+                                  onConfirm={() => deleteUser(item.repoId)}
+                                />
+                              </div>
+                            </div>
+                          )}
                         </td>
                       </tr>
                     ))

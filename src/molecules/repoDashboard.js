@@ -11,31 +11,27 @@ function RepoDashboard({ role, SidebarComponent }) {
   const [isLoading, setIsLoading] = useState(false);
 
   let data = sessionStorage.getItem("item");
-  const user = data ? JSON.parse(data) : null; 
-  const id = user ? user.id : null; 
-  console.log(data);
-  useEffect(() => {
-    if (id) {
-      const fetchRepo = async () => {
-        setIsLoading(true);
-        try {
-          const response = await api.get(
-            `https://${ngrokUrl}/users/${id}/role/${role}/projects`
-          );
-          const data = response.data;
-          setResult(data);
-          console.log("bggcasvuvulcvdsa", data);
-          setFilteredResult(data);
-          setIsLoading(false);
-        } catch (error) {
-          console.log(`Error fetching ${role} projects:`, error);
-          setIsLoading(true);
-        }
-      };
-      fetchRepo();
-    } else {
-      console.log("error");
+  const user = data ? JSON.parse(data) : null; // Check if userData is null
+  const id = user ? user.id : null; // Check if user is null
+
+  const fetchRepo = async () => {
+    try {
+      setIsLoading(true);
+      const response = await api.get(
+        `https://${ngrokUrl}/users/${id}/role/${role}/projects`
+      );
+      const data = response.data;
+      setResult(data);
+      setFilteredResult(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(`Error fetching ${role} projects:`, error);
+      setIsLoading(true);
     }
+  };
+
+  useEffect(() => {
+    fetchRepo();
   }, [id, role]);
 
   const handleSearchInputChange = (event) => {
@@ -49,7 +45,6 @@ function RepoDashboard({ role, SidebarComponent }) {
     );
 
     setFilteredResult(filtered);
-    console.log("ceck", filteredResult);
   };
 
   return (
@@ -81,10 +76,7 @@ function RepoDashboard({ role, SidebarComponent }) {
           </div>
         </div>
         <div style={{ marginLeft: "20px", marginRight: "30px" }}>
-          {console.log("hwwww", isLoading)}
-          {console.log("cxxxxxxxxeck", filteredResult)}
           {isLoading ? <LoadingPage /> : <RepoTable data={filteredResult} />}
-          {console.log("cxxxxssssssxxxxeck", filteredResult)}
         </div>
       </div>
     </div>

@@ -10,9 +10,7 @@ function AddPmUserName() {
   const [users, setUsers] = useState([]);
   const [githubUsername, setgithubUsername] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
-  const [showInvalidUsernameModal, setShowInvalidUsernameModal] =
-    useState(false);
-  const [showUserExistModal, setShowUserExistModal] = useState(false);
+  const [showInvalidUsernameModal, setShowInvalidUsernameModal] = useState(false);
   const accessToken = gitAccessToken;
   useEffect(() => {
     fetchPms();
@@ -54,16 +52,11 @@ function AddPmUserName() {
 
       navigate("/pmReadNew");
     } catch (error) {
-      const errorMessage = error.response.data;
 
-      if (
-        errorMessage === "Github username is invalid" ||
-        error.response.status == 404
-      ) {
+
+      if (error.response && error.response.status == 404) {
         setShowInvalidUsernameModal(true);
-      } else if (error.response.status == 409) {
-        setShowUserExistModal(true);
-      }
+      } 
     }
   };
 
@@ -78,7 +71,6 @@ function AddPmUserName() {
 
   const handleCloseModal = () => {
     setShowInvalidUsernameModal(false);
-    setShowUserExistModal(false);
   };
   console.log("bscjvskcv",users)
   return (
@@ -139,7 +131,7 @@ function AddPmUserName() {
 
       <Modal
         open={showInvalidUsernameModal}
-        className="centered-modal1"
+        className="centered-modal2"
         size="mini"
         centered
       >
@@ -148,30 +140,12 @@ function AddPmUserName() {
           <p>The provided GitHub username is invalid.</p>
         </Modal.Content>
         <Modal.Actions>
-          <Button primary onClick={handleCloseModal}>
+          <Button data-testid="invalid-username" primary onClick={handleCloseModal}>
             OK
           </Button>
         </Modal.Actions>
       </Modal>
 
-      <div>
-        <Modal
-          open={showUserExistModal}
-          className="centered-modal1"
-          size="mini"
-          centered
-        >
-          <Modal.Header>User Already Exists</Modal.Header>
-          <Modal.Content>
-            <p>User Already Exists</p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button primary onClick={handleCloseModal}>
-              OK
-            </Button>
-          </Modal.Actions>
-        </Modal>
-      </div>
     </>
   );
 }

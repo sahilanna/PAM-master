@@ -88,7 +88,7 @@ describe('PmReadNew Component', () => {
   })
 
 
-  it('should call handleViewDetails when the view button is clicked', async () => {
+  it('should call deleteUser when the delete button is clicked', async () => {
 
     const initialState = 
    [
@@ -141,6 +141,121 @@ describe('PmReadNew Component', () => {
          })
       });
     })
+   
+
+  
+  })
+
+  it('goes into catch block if confirm delete is not handled properly', async () => {
+
+    const initialState = 
+   [
+        {
+          id: 402,
+          name: "Sahil Mehar",
+          email: "sahil.mehar@nineleaps.com",
+          enumRole: "USER",
+          gitHubUsername: null,
+          lastUpdated: "2023-10-11T16:31:31",
+          lastLogout: "2023-10-11T16:35:11",
+        },
+        {
+          id: 4043,
+          name: "Sahil Mear",
+          email: "sahil.mear@nineleaps.com",
+          enumRole: "USER",
+          gitHubUsername: null,
+          lastUpdated: "2023-10-11T16:31:31",
+          lastLogout: "2023-10-11T16:35:11",
+        },
+      ];
+    const apiMockResponse = {
+      data: initialState,
+    };
+
+    
+  
+    const apiMock = require('../../../../src/network/api');
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
+
+    const deleteUser = jest.fn();
+    apiMock.default.delete.mockRejectedValue('Sample error');
+    const { getByText } = render(
+      <MemoryRouter>
+        <PmReadNew/>
+      </MemoryRouter>
+    );
+
+  
+    await waitFor(() =>{
+      const deleteButton = screen.getAllByTestId('delete');
+      deleteButton.forEach((deleteButton) => {
+         fireEvent.click(deleteButton)
+         waitFor(() =>{
+          const confirm = screen.getByTestId('confirm');
+          fireEvent.click(confirm);
+          
+         })
+      });
+    })
+   
+
+  
+  })
+
+
+  it('goes into catch block if loadItem is not handled properly', async () => {
+
+    const initialState = 
+   [
+        {
+          id: 402,
+          name: "Sahil Mehar",
+          email: "sahil.mehar@nineleaps.com",
+          enumRole: "USER",
+          gitHubUsername: null,
+          lastUpdated: "2023-10-11T16:31:31",
+          lastLogout: "2023-10-11T16:35:11",
+        },
+        {
+          id: 4043,
+          name: "Sahil Mear",
+          email: "sahil.mear@nineleaps.com",
+          enumRole: "USER",
+          gitHubUsername: null,
+          lastUpdated: "2023-10-11T16:31:31",
+          lastLogout: "2023-10-11T16:35:11",
+        },
+      ];
+    const apiMockResponse = {
+      data: initialState,
+    };
+
+    
+  
+    const apiMock = require('../../../../src/network/api');
+    apiMock.default.get.mockRejectedValue('Sample error');
+
+    const deleteUser = jest.fn();
+    apiMock.default.delete.mockRejectedValue('Sample error');
+    const { getByText } = render(
+      <MemoryRouter>
+        <PmReadNew/>
+      </MemoryRouter>
+    );
+
+  
+    // await waitFor(() =>{
+    //   const deleteButton = screen.getAllByTestId('delete');
+    //   deleteButton.forEach((deleteButton) => {
+    //      fireEvent.click(deleteButton)
+    //      waitFor(() =>{
+    //       const confirm = screen.getByTestId('confirm');
+    //       fireEvent.click(confirm);
+          
+    //      })
+    //   });
+    // })
    
 
   

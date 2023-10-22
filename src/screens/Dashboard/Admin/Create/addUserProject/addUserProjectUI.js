@@ -57,7 +57,7 @@ function AddUserProjectUI({
           </Form>
         </Modal.Content>
         <Modal.Actions>
-          <Button onClick={handleOTPClose}>Cancel</Button>
+          <Button data-testid="otp-close" onClick={handleOTPClose}>Cancel</Button>
         </Modal.Actions>
       </Modal>
     </Modal>

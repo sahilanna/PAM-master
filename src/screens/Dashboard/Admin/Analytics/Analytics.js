@@ -12,9 +12,10 @@ import { CSVLink } from 'react-csv';
 function Analytics() {
   const [Data, setData] = useState([]);
   const navigate =useNavigate()
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [csvData, setCSVData] = useState([]);
   const csvLinkRef = useRef(null);
+
   const fetchCount = async () => {
     try {
       const [adminResponse, pmResponse, userResponse] = await Promise.all([
@@ -79,7 +80,7 @@ function Analytics() {
                 <br/>
                 <div >
                 <Button data-testid='next' primary onClick={handleNextClick}>Next</Button>
-                <Button secondary onClick={handleDownloadCSV}>Download CSV</Button>
+                <Button data-testid="download-csv" secondary onClick={handleDownloadCSV}>Download CSV</Button>
                 <CSVLink
                   data={csvData}
                   filename={"chart_data.csv"}

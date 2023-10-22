@@ -88,7 +88,7 @@ function ProjectList({ projectId, projectName, type }) {
   };
 
   const handleOTPSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     try {
       const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/OTP/verify`, {

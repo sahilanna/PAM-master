@@ -15,7 +15,7 @@ const OtpModal = ({ open, onClose, onSubmit, errorMessage }) => {
       <Modal.Content>
         <Form onSubmit={handleOTPSubmit}>
           <div className="form-field">
-            <label data-testid='otp'>OTP sent to '+91 9928931610'</label>
+            <label> OTP sent to '+91 9928931610'</label>
             <input data-testid='otp-input' type="text" name="otp" onChange={(e) => setOtp(e.target.value)} />
           </div>
           <p>{errorMessage}</p>
@@ -25,7 +25,7 @@ const OtpModal = ({ open, onClose, onSubmit, errorMessage }) => {
         </Form>
       </Modal.Content>
       <Modal.Actions>
-        <Button data-testid='onClose' onClick={onClose}>Cancel</Button>
+        <Button data-testid='close-otp' onClick={onClose}>Cancel</Button>
       </Modal.Actions>
     </Modal>
   );

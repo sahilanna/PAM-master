@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import PmRequestForm from "../../../../src/screens/Dashboard/ProjectManager/PmRequestForm";
 import api from "../../../../src/network/api";
 import "@testing-library/jest-dom";
@@ -107,64 +107,73 @@ describe("PmRequestForm Component", () => {
   });
 
 
-  // it.only('should submit the form with selected user and description', async () => {
-  //   const sampleUsers = [
-  //     {
-  //       id: 2,
-  //       name: "Sweda",
-  //       email: "swedagmail.com",
-  //       enumRole: "PROJECT_MANAGER",
-  //       token: null,
-  //       gitHubUsername: null,
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "Sahil",
-  //       email: "xgc.com",
-  //       enumRole: "PROJECT_MANAGER",
-  //       token: null,
-  //       gitHubUsername: null,
-  //     },
-  //   ];
+  it('should submit the form with selected user and description', async () => {
+    const sampleUsers = [
+      {
+        id: 2,
+        name: "Sweda",
+        email: "swedagmail.com",
+        enumRole: "USER",
+        token: null,
+        gitHubUsername: null,
+      },
+      {
+        id: 3,
+        name: "Sahil",
+        email: "xgc@gmail.com",
+        enumRole: "USER",
+        token: null,
+        gitHubUsername: null,
+      },
+    ];
 
    
 
-  //   const api = require("../../../../src/network/api");
-  //   api.default.get
-  //   .mockResolvedValueOnce({ data: sampleUsers }) 
+    const api = require("../../../../src/network/api");
+    await api.default.get.mockResolvedValueOnce({ data: sampleUsers }) 
     
 
 
   
 
-  //   await act(async () => {
-  //     render(
-  //       <MemoryRouter>
-  //         <PmRequestForm />
-  //       </MemoryRouter>
-  //     );
-  //   });
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <PmRequestForm />
+        </MemoryRouter>
+      );
+    });
 
-  //   const githubUsernameInput = screen.getByPlaceholderText("Enter github username");
-  //   fireEvent.change(githubUsernameInput, { target: { value: "sahilanna" } });
+    // const githubUsernameInput = screen.getByPlaceholderText("Enter github username");
+    // fireEvent.change(githubUsernameInput, { target: { value: "sahilanna" } });
 
     
-  //   const selectUserDropdown = screen.getByTestId("Select PM");
-  //   fireEvent.click(selectUserDropdown);
+    const userDropdown = screen.getByTestId("user-dropdown");
+    fireEvent.click(userDropdown);
 
-  //   await waitFor(() => {
-  //     const selectedOption = screen.getByText("Sahil");
-  //     fireEvent.click(selectedOption);
-  //   });
+    await waitFor(() => {
+      const selectedOption = screen.getByText("Sahil");
+      fireEvent.click(selectedOption);
+    });
+
+    const githubUsernameInput = screen.getByTestId("description");
+    await waitFor(() =>{
+      fireEvent.change(githubUsernameInput, { target: { value: "Hellooooooo" } });
+    })
+
 
    
-    
+    await waitFor(() => {
+      const submit = screen.getByTestId("submit");
+      fireEvent.click(submit);
+    });
+
 
     
-  //     // const submitButton = screen.getByTestId('submit');
-  //     // fireEvent.click(submitButton);
+      // const submitButton = screen.getByTestId('submit');
+      // fireEvent.click(submitButton);
   
-  //     screen.debug();
+      screen.debug();
     
-  // });
+  });
 });

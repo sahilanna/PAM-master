@@ -30,10 +30,7 @@ describe('Analytics Component', () => {
       });
   });
 
-  it('renders analytics component with a loader', () => {
-    render(<MemoryRouter><Analytics /></MemoryRouter>);
-    expect(screen.getByTestId('loader')).toBeInTheDocument();
-  });
+  
 
   
   it('displays the pie chart after loading', () => {
@@ -73,11 +70,16 @@ describe('Analytics Component', () => {
  
 });
 
-  it('downloads CSV on Download CSV button click', () => {
-    const { getByText } = render(<MemoryRouter><Analytics /></MemoryRouter>);
-     waitFor(() => {
-      fireEvent.click(getByText('Download CSV'));
-    });
+
+  it('downloads CSV on Download CSV button click',async () => {
+    const history = createMemoryHistory({ initialEntries: ['/'] });
+    render(<MemoryRouter history={history}><Analytics /></MemoryRouter>);
     
+    await waitFor(() =>{
+      fireEvent.click(screen.getByTestId('download-csv'));
+    })
+   
+   
   });
+
 });

@@ -147,6 +147,7 @@ function PmRequestUser() {
                     <Table.Cell>{item.requestDescription}</Table.Cell>
                     <Table.Cell>
                       <Button
+                      data-testid="green"
                         color="green"
                         onClick={() =>
                           AcceptRequest(
@@ -159,6 +160,7 @@ function PmRequestUser() {
                         Accept
                       </Button>
                       <Button
+                        data-testid="red"
                         color="red"
                         onClick={() => DeclineRequest(item.accessRequestId)}
                       >

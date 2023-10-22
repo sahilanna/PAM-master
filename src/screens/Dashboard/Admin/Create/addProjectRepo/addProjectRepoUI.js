@@ -9,7 +9,7 @@ const CreateUI = ({ onSubmit, onClose, projItem, temp, handleProjectChange, hand
     <Modal open={true} onClose={onClose} style={{ width: '500px', height: '410px' }} className='create-Project-Modal'>
       <div style={{ paddingTop: '6px' }}></div>
       <div style={{ paddingLeft: '442px' }}>
-        <Button data-testid="X" secondary onClick={onClose}>
+        <Button data-testid="close" secondary onClick={onClose}>
           X
         </Button>
       </div>
@@ -39,7 +39,7 @@ const CreateUI = ({ onSubmit, onClose, projItem, temp, handleProjectChange, hand
               onChange={handleRepoChange}
             />
           </Form.Field>
-          <Button type='submit' primary>
+          <Button data-testid="submit" type='submit' primary>
             Submit
           </Button>
         </Form>

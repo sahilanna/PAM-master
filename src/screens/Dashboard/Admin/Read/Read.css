@@ -46,6 +46,14 @@
   justify-content: center;
   left: 370px;
 }
+.centered-modal2 {
+  top:170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 420px;
+  height: 200px;
+}
 .button-add-user {
   position: sticky;
   padding-top: 0px;

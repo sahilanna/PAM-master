@@ -72,6 +72,7 @@ describe("AddUserName Component", () => {
 
     const api = require("../../../../src/network/api");
     api.default.get.mockResolvedValueOnce({ data: sampleUsers });
+    api.default.post.mockResolvedValueOnce({ data: sampleUsers });
 
     await act(async () => {
       render(
@@ -91,13 +92,70 @@ describe("AddUserName Component", () => {
     });
 
     // Fill in the GitHub Username
-    const githubUsernameInput = screen.getByPlaceholderText(
-      "Enter github username"
-    );
+    const githubUsernameInput = screen.getByPlaceholderText("Enter github username");
     fireEvent.change(githubUsernameInput, { target: { value: "sahilanna" } });
 
-    // const submitButton = screen.getByTestId('submit');
-    // fireEvent.click(submitButton);
+    await waitFor(() =>{
+      const submitButton = screen.getByTestId('submit');
+      fireEvent.click(submitButton);
+    })
+
+    screen.debug();
+  });
+
+  it("submits the form and goes to catch block", async () => {
+    const sampleUsers = [
+      {
+        id: 2,
+        name: "Hassain",
+        email: "swedagmail.com",
+        enumRole: "USER",
+        token: null,
+        gitHubUsername: null,
+      },
+      {
+        id: 3,
+        name: "Nipoon",
+        email: "xgc.com",
+        enumRole: "USER",
+        token: null,
+        gitHubUsername: null,
+      },
+    ];
+
+    const api = require("../../../../src/network/api");
+    api.default.get.mockResolvedValueOnce({ data: sampleUsers });
+    await api.default.post.mockRejectedValue({ response: { status: 404 } });
+
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <AddUserName />
+        </MemoryRouter>
+      );
+    });
+
+    // Select a user from the Dropdown
+    const selectUserDropdown = screen.getByTestId("Select User");
+    fireEvent.click(selectUserDropdown);
+
+    await waitFor(() => {
+      const selectedOption = screen.getByText("Nipoon");
+      fireEvent.click(selectedOption);
+    });
+
+    // Fill in the GitHub Username
+    const githubUsernameInput = screen.getByPlaceholderText("Enter github username");
+    fireEvent.change(githubUsernameInput, { target: { value: "sahilanna" } });
+
+    await waitFor(() =>{
+      const submitButton = screen.getByTestId('submit');
+      fireEvent.click(submitButton);
+    })
+
+    await waitFor(() =>{
+      fireEvent.click(screen.getByTestId("invalid-username"));
+    })
 
     screen.debug();
   });

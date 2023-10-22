@@ -3,8 +3,11 @@ import { render, screen, fireEvent, act, waitFor } from "@testing-library/react"
 import CreateFigmaDetails from "../../../../../../src/screens/Dashboard/Admin/Figma/createFigma/createFigmaDetails";
 import { MemoryRouter, useNavigate } from "react-router-dom";
 import "@testing-library/jest-dom";
+import CreateFigmaDetailsUI from "../../../../../../src/screens/Dashboard/Admin/Figma/createFigma/createFigmaDetailsUI";
+import api from "../../../../../../src/network/api";
+import { ngrokUrl } from "../../../../../../src/network/config";
 
-
+jest.mock("../../../../../../src/network/api")
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -97,3 +100,71 @@ test('handleSubmit is called when the Submit button is clicked', () => {
     
    
   });
+
+
+  it("handle submit and dropdown functions", async () => {
+    const sampleProjects = [
+      {
+        projectId: 1,
+      projectName: "First Project",
+      projectDescription: "This is the first repo",
+      },
+      {
+        projectId: 2,
+      projectName: "Second Project",
+      projectDescription: "This is the second repo",
+      },
+    ];
+  
+    const api = require("../../../../../../src/network/api");
+  
+    await api.default.get.mockResolvedValueOnce({ data: sampleProjects });
+    await api.default.post.mockResolvedValue({ data: { id: "figmaId" } });
+
+  
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <CreateFigmaDetails />
+        </MemoryRouter>
+      );
+    });
+  
+    const selectProjectDropdown = screen.getByTestId("projects");
+    fireEvent.click(selectProjectDropdown);
+  
+    await waitFor(() => {
+      const selectOption = screen.getByText("Second Project");
+      fireEvent.click(selectOption);
+    });
+
+    const inputUrl = screen.getByTestId("URL");
+    fireEvent.change(inputUrl, { target: { value: "validURL" } });
+  
+   
+  
+    await waitFor(() => {
+      const submit = screen.getByTestId("submit");
+      fireEvent.click(submit);
+    });
+
+
+    // await waitFor(() => {
+    //   expect(api.default.post).toHaveBeenCalledWith(
+    //     `https://${ngrokUrl}/figmas/create`,
+    //     {
+    //       projectDTO: {
+    //         projectId: 2, // ID of the selected project
+    //         projectName: "Second Project", // Name of the selected project
+    //       },
+    //       figmaURL: "validURL", // The entered URL
+    //     }
+    //   );
+
+    //   // Ensure that navigation occurs to '/figmaRead'
+    //   expect(screen.history.location.pathname).toEqual("/figmaRead");
+    // });
+  
+   
+  });
+

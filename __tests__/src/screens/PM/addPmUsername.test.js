@@ -4,7 +4,7 @@ import AddPmUserName from "../../../../src/screens/Dashboard/PM/addPmUsername";
 import api from "../../../../src/network/api";
 import { MemoryRouter } from "react-router-dom";
 import { act } from "react-dom/test-utils";
-import '@testing-library/jest-dom'
+import "@testing-library/jest-dom";
 jest.mock("../../../../src/network/api");
 
 describe("AddPmUserName Component", () => {
@@ -54,16 +54,9 @@ describe("AddPmUserName Component", () => {
       },
     ];
 
-   
-
     const api = require("../../../../src/network/api");
-    api.default.get
-    .mockResolvedValueOnce({ data: sampleUsers }) 
-    
-
-
-  
-
+    api.default.get.mockResolvedValueOnce({ data: sampleUsers });
+    api.default.post.mockResolvedValueOnce({ data: sampleUsers });
     await act(async () => {
       render(
         <MemoryRouter>
@@ -82,16 +75,78 @@ describe("AddPmUserName Component", () => {
     });
 
     // Fill in the GitHub Username
-    const githubUsernameInput = screen.getByPlaceholderText("Enter github username");
+    const githubUsernameInput = screen.getByPlaceholderText(
+      "Enter github username"
+    );
     fireEvent.change(githubUsernameInput, { target: { value: "sahilanna" } });
-    
-    
 
-    
-      // const submitButton = screen.getByTestId('submit');
-      // fireEvent.click(submitButton);
-  
-      screen.debug();
-    
+    await waitFor(() => {
+      const submitButton = screen.getByTestId("submit");
+      fireEvent.click(submitButton);
+    });
+
+    screen.debug();
   });
+
+  it("submits the form and goes to catch block", async () => {
+    const sampleUsers = [
+      {
+        id: 2,
+        name: "Sweda",
+        email: "swedagmail.com",
+        enumRole: "PROJECT_MANAGER",
+        token: null,
+        gitHubUsername: null,
+      },
+      {
+        id: 3,
+        name: "Sahil",
+        email: "xgc.com",
+        enumRole: "PROJECT_MANAGER",
+        token: null,
+        gitHubUsername: null,
+      },
+    ];
+
+    const api = require("../../../../src/network/api");
+    api.default.get.mockResolvedValueOnce({ data: sampleUsers });
+    await api.default.post.mockRejectedValue({ response: { status: 404 } });
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <AddPmUserName />
+        </MemoryRouter>
+      );
+    });
+
+    // Select a user from the Dropdown
+    const selectUserDropdown = screen.getByTestId("Select PM");
+    fireEvent.click(selectUserDropdown);
+
+    await waitFor(() => {
+      const selectedOption = screen.getByText("Sahil");
+      fireEvent.click(selectedOption);
+    });
+
+    // Fill in the GitHub Username
+    const githubUsernameInput = screen.getByPlaceholderText(
+      "Enter github username"
+    );
+    fireEvent.change(githubUsernameInput, { target: { value: "sahilanna" } });
+
+    await waitFor(() => {
+      const submitButton = screen.getByTestId("submit");
+      fireEvent.click(submitButton);
+    });
+
+    await waitFor(() =>{
+      fireEvent.click(screen.getByTestId("invalid-username"));
+    })
+
+    screen.debug();
+  });
+
+
+
+
 });

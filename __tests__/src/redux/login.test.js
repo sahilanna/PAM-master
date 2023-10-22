@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { MemoryRouter, Router } from 'react-router-dom';
+import { MemoryRouter, Router, useNavigate } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import axios from 'axios';
 import Test from '../../../src/redux/Login';
@@ -8,9 +8,12 @@ import '@testing-library/jest-dom'
 import { ngrokLogin } from '../../../src/network/config';
 import { decodeIdToken } from '../../../src/redux/Login';
 
-
+jest.mock("react-router-dom", () => ({
+  useNavigate: jest.fn(),
+}));
 jest.mock('axios'); // Mock axios calls
 jest.mock('../../src/Assets/logo1.png', () => 'logo1.png');
+
 
 window.google = {
     accounts: {
@@ -34,13 +37,13 @@ window.google = {
     });
   
     it('renders the component', () => {
-      render(<MemoryRouter><Test /></MemoryRouter>);
+      render(<Test />);
       expect(screen.getByText('Welcome to PAM')).toBeInTheDocument();
     });
   
     it('handles Google login', async () => {
       
-      render(<MemoryRouter><Test /></MemoryRouter>);
+      render(<Test />);
   
       
       const signInButton = screen.getByTestId('signIn');
@@ -84,26 +87,21 @@ window.google = {
           token: 'sampleToken',
         },
       };
-  
+      
+      const mockNavigate = jest.fn();
+    useNavigate.mockReturnValue(mockNavigate);
       // Mock the axios.get method to simulate an API call
-      axios.get.mockResolvedValue(sampleResponse);
+      await axios.get.mockResolvedValue(sampleResponse);
   
-      const { container } = render(<MemoryRouter><Test /></MemoryRouter>);
+      const { container } = render(<Test />);
   
       // Simulate a click on the Google login button
       const googleLoginButton = container.querySelector('#signIn');
       fireEvent.click(googleLoginButton);
   
-     
-  
-      // expect(axios.get).toHaveBeenCalledWith(`https://${ngrokLogin}/auth/api/v1/get-email`, {
-      //   headers: {
-      //     'ngrok-skip-browser-warning': 'true',
-      //     emailToVerify: 'test@example.com',
-      //   },
-      // });
     });
-     
+
+   
   
    
 

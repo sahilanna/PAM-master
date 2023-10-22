@@ -75,12 +75,12 @@ describe("RepoRead Component", () => {
   it("should call onClose when deleteUser dialog box appears", async () => {
     const initialState = [
       {
-        repoId: "1",
+        repoId: 1,
         name: "Repo1",
         description: "Repo 1 for Project 1",
       },
       {
-        repoId: "2",
+        repoId: 2,
         name: "Repo2",
         description: "Repo 2 for Project 2",
       },
@@ -95,23 +95,26 @@ describe("RepoRead Component", () => {
     const deleteUser = jest.fn();
     apiMock.default.delete.mockResolvedValue(apiMockResponse);
 
-    const { getAllByTestId, getByTestId } = render(
+    render(
       <MemoryRouter>
         <RepoRead />
       </MemoryRouter>
     );
 
 
-    await waitFor(() => {
-      const deleteButton = getAllByTestId("delete");
-      deleteButton.forEach((deleteButton) => {
-        fireEvent.click(deleteButton);
-        waitFor(() => {
-          const cancel = getByTestId("onClose");
-          fireEvent.click(cancel);
+      await waitFor(() =>{
+        const deleteButton = screen.getAllByTestId("delete");
+        deleteButton.forEach((deleteButton) => {
+          fireEvent.click(deleteButton);
+          waitFor(() => {
+            const cancel = screen.getByTestId('onClose');
+            fireEvent.click(cancel);
+          });
         });
-      });
-    });
+
+      })
+     
+
   });
 
   it('should call deleteUser when delete button is clicked', async () => {
@@ -151,7 +154,7 @@ describe("RepoRead Component", () => {
       deleteButton.forEach((deleteButton) => {
          fireEvent.click(deleteButton)
          waitFor(() =>{
-          const confirm = screen.getByTestId('onConfirm')
+          const confirm = screen.getByTestId('confirm')
           fireEvent.click(confirm);
          })
       });

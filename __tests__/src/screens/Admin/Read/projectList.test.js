@@ -4,6 +4,9 @@ import ProjectList from "../../../../../src/screens/Dashboard/Admin/Read/project
 import { MemoryRouter } from "react-router-dom";
 import api from "../../../../../src/network/api";
 import { ngrokUrl } from "../../../../../src/network/config";
+import userEvent from "@testing-library/user-event";
+
+
 
 jest.mock('../../../../../src/network/api', () => {
   return {
@@ -62,7 +65,7 @@ describe("ProjectList Component", () => {
 
   });
 
-  it('calls handleDeleteItem when the "Delete User" button is clicked', async() => {
+  it('calls close otp when button is clicked', async() => {
     const projectId = "123";
     const projectName = "Sample Project";
     const type = "pms";
@@ -119,7 +122,8 @@ describe("ProjectList Component", () => {
     ];
     const handleDeleteItemMock = jest.fn();
    
-   
+    api.post = jest.fn().mockResolvedValue({ data: 'OTP sent' });
+
     const { getByTestId } = render(
       <MemoryRouter>
         <ProjectList
@@ -145,13 +149,129 @@ describe("ProjectList Component", () => {
       fireEvent.click(screen.getByTestId("confirm"));
     })
 
-    waitFor(() =>{
-      api.post = jest.fn().mockImplementation(() => Promise.resolve({ data: 'OTP sent' }));
+    
+    await waitFor(() =>{
+      fireEvent.click(screen.getByTestId("close-otp"));
     })
    
 
+  });
+
+
+  it('calls handleDeleteItem when the "confirm" button is clicked', async() => {
+    const projectId = "123";
+    const projectName = "Sample Project";
+    const type = "pms";
+    const getItemUrl = type === 'pms' ? 'project_manager' : 'user';
+    const items = [
+      {
+        id: "1",
+        name: "PM1",
+        email: "pm1@example.com",
+        gitHubUsername: "pm1github",
+      },
+    ];
+    const handleDeleteItemMock = jest.fn();
+    const event = new Event("submit", { bubbles: true, cancelable: true });
+
+    api.post = jest.fn().mockRejectedValue('Sample Error' );
+
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <ProjectList
+          projectId={projectId}
+          projectName={projectName}
+          type={type}
+          items={items}
+          handleDeleteItem={handleDeleteItemMock}
+        />
+      </MemoryRouter>
+    );
+   
+
+    await waitFor(() => {
+      expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/projects/${projectId}/users/${getItemUrl}`);
+    });
+   
+    waitFor(() =>{
+      fireEvent.click(getByTestId('delete-user'));
+    });
+
+    waitFor(() =>{
+      fireEvent.click(screen.getByTestId("confirm"));
+    })
+
+
+
+   
+    // await waitFor(() =>{
+    //   const githubUsernameInput = screen.getByTestId("otp-input");
+    //   fireEvent.change(githubUsernameInput, { target: { value: "12345" } });
+    // })
     
-     
+    // await waitFor(() =>{
+    //   fireEvent.click(screen.getByTestId("submit"), { event });
+    // })
+   
+
+  });
+
+
+  it('calls handleDeleteItem when the "confirm" button is clicked', async() => {
+    const projectId = "123";
+    const projectName = "Sample Project";
+    const type = "pms";
+    const getItemUrl = type === 'pms' ? 'project_manager' : 'user';
+    const items = [
+      {
+        id: "1",
+        name: "PM1",
+        email: "pm1@example.com",
+        gitHubUsername: "pm1github",
+      },
+    ];
+    const handleDeleteItemMock = jest.fn();
+    const event = new Event("submit", { bubbles: true, cancelable: true });
+
+    api.post = jest.fn().mockResolvedValue({ data: 'OTP sent' });
+
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <ProjectList
+          projectId={projectId}
+          projectName={projectName}
+          type={type}
+          items={items}
+          handleDeleteItem={handleDeleteItemMock}
+        />
+      </MemoryRouter>
+    );
+   
+
+    await waitFor(() => {
+      expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/projects/${projectId}/users/${getItemUrl}`);
+    });
+   
+    waitFor(() =>{
+      fireEvent.click(getByTestId('delete-user'));
+    });
+
+    waitFor(() =>{
+      fireEvent.click(screen.getByTestId("confirm"));
+    })
+
+
+
+   
+    await waitFor(() =>{
+      const githubUsernameInput = screen.getByTestId("otp-input");
+      fireEvent.change(githubUsernameInput, { target: { value: "12345" } });
+    })
+    
+    await waitFor(() =>{
+      fireEvent.click(screen.getByTestId("submit"), { event });
+    })
+   
 
   });
 

@@ -33,25 +33,23 @@ function PmReadNew() {
 
   const loaditem = async () => {
     setIsLoading(true);
-    await api
-    .get(`https://${ngrokUrl}/users/role/project_manager`)
-    .then((result) => {
-        setIsLoading(true);
-        const Data = result.data;
-        console.log(result.data)
-        setItem(Data);
-        setIsLoading(false);
-
-        
-      })
-      .catch((error) => {
-        console.log(error, "hi");
-        setIsLoading(true);
-      });
+    try {
+      const response = await api.get(
+        `https://${ngrokUrl}/users/role/project_manager`
+      );
+      setIsLoading(true);
+      const Data = response.data;
+      console.log(response.data);
+      setItem(Data);
+      setIsLoading(false);
+      setFilteredProjects(response.data);
+    } catch (error) {
+      setIsLoading(true);
+    }
   };
 
   useEffect(() => {
-    console.log('hii')
+    console.log("hii");
     loaditem();
   }, []);
 
@@ -72,16 +70,15 @@ function PmReadNew() {
   };
   const handleFilterItems = (searchQuery) => {
     const filteredItems = item.filter((project) =>
-    project.name.toLowerCase().includes(searchQuery.toLowerCase())
+      project.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredProjects(filteredItems);
     setCurrentPageData(filteredItems.slice(0, itemsPerPage));
   };
 
   const filteredItems = item.filter((project) =>
-  project.name.toLowerCase().includes(searchQuery.toLowerCase())
-);
-
+    project.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleViewDetails = (project) => {
     setSelectedProject(project);
@@ -92,9 +89,9 @@ function PmReadNew() {
     setShowProjectDetails(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     handlePaginate(1);
-  }, [item]);
+  }, [filteredProjects]);
 
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
@@ -104,11 +101,17 @@ function PmReadNew() {
   };
 
   const deleteUser = async (id) => {
+    try{
     await api.delete(`https://${ngrokUrl}/users/delete/${id}`);
     navigate("/pmReadNew");
     setShowConfirmDialog(false);
     loaditem();
     navigate("/pmReadNew");
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
   };
 
   const createOnclick = () => {
@@ -121,7 +124,7 @@ function PmReadNew() {
     navigate("/userActivity", { state: { id, username } });
   };
 
-console.log(item)
+  console.log(item);
   return (
     <div className="parent-admin">
       <div>
@@ -160,7 +163,7 @@ console.log(item)
         </div>
         <div style={{ marginLeft: "20px", marginRight: "30px" }}>
           {isLoading ? (
-            <LoadingPage loading={isLoading} />
+            <LoadingPage />
           ) : (
             <table class="ui celled table">
               <thead>
@@ -175,10 +178,12 @@ console.log(item)
               <tbody>
                 {filteredProjects.length === 0 ? (
                   <tr>
-                    <td data-testid="view" colSpan="3">No data available</td>
+                    <td data-testid="view" colSpan="3">
+                      No data available
+                    </td>
                   </tr>
                 ) : (
-                  item.map((item, index) => (
+                  currentPageData.map((item, index) => (
                     <tr key={item.id}>
                       <td>{index + 1}</td>
                       <td>{item.name}</td>

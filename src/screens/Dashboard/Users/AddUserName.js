@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Dropdown, Button, Modal } from 'semantic-ui-react';
-import { useNavigate } from 'react-router-dom';
-import { ngrokUrl, gitAccessToken } from '../../../network/config';
-import './Read.css'
-import api from '../../../network/api';
-
+import React, { useState, useEffect } from "react";
+import { Form, Dropdown, Button, Modal } from "semantic-ui-react";
+import { useNavigate } from "react-router-dom";
+import { ngrokUrl, gitAccessToken } from "../../../network/config";
+import "./Read.css";
+import api from "../../../network/api";
 
 function AddUserName() {
   const navigate = useNavigate();
-  const [id, setId] = useState('');
+  const [id, setId] = useState("");
   const [users, setUsers] = useState([]);
-  const [githubUsername, setGithubUsername] = useState('');
-  const [selectedUser, setSelectedUser] = useState('');
-  const [showInvalidUsernameModal, setShowInvalidUsernameModal] = useState(false);
-  const [showUserExistModal, setShowUserExistModal] = useState(false);
-  const accessToken = gitAccessToken
+  const [githubUsername, setGithubUsername] = useState("");
+  const [selectedUser, setSelectedUser] = useState("");
+  const [showInvalidUsernameModal, setShowInvalidUsernameModal] =
+    useState(false);
+  const accessToken = gitAccessToken;
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -30,7 +29,7 @@ function AddUserName() {
       }));
       setUsers(userOptions);
     } catch (error) {
-      console.log('Error fetching Users:', error);
+      console.log("Error fetching Users:", error);
     }
   };
 
@@ -40,48 +39,49 @@ function AddUserName() {
     console.log(githubUsername);
     const username = githubUsername;
     try {
-      const response = await api.post(`https://${ngrokUrl}/usernames/githubUsername`, {
-        username: username,
-        user: {
-          id: id,
-        },
-        accessToken: accessToken,
-      });
-      console.log('API Response:', response.data.id);
+      const response = await api.post(
+        `https://${ngrokUrl}/usernames/githubUsername`,
+        {
+          username: username,
+          user: {
+            id: id,
+          },
+          accessToken: accessToken,
+        }
+      );
+      console.log("API Response:", response.data.id);
 
-      navigate('/userRead');
+      navigate("/userRead");
     } catch (error) {
-      const errorMessage=error.response.data
-      console.log(errorMessage)
-      if(errorMessage==='Github username is invalid'|| error.response.status==404){
-          setShowInvalidUsernameModal(true)
+      if (error.response && error.response.status == 404) {
+        setShowInvalidUsernameModal(true);
       }
-      else if(error.response.status==409){
-        setShowUserExistModal(true)
     }
   };
-}
 
   const selectedUserChange = (event, { value }) => {
     setSelectedUser(value);
     setId(value);
   };
 
- 
   const onClose = () => {
     navigate(-1);
   };
 
   const handleCloseModal = () => {
     setShowInvalidUsernameModal(false);
-    setShowUserExistModal(false);
   };
 
   return (
     <>
-      <Modal open={true} onClose={onClose}  style={{ width: '500px' }} className='create-Project-Modal'>
-        <div style={{ paddingLeft: '820px', paddingTop: '5px' }}></div>
-        <div style={{ paddingLeft: '442px' }}>
+      <Modal
+        open={true}
+        onClose={onClose}
+        style={{ width: "500px" }}
+        className="create-Project-Modal"
+      >
+        <div style={{ paddingLeft: "820px", paddingTop: "5px" }}></div>
+        <div style={{ paddingLeft: "442px" }}>
           <Button data-testid="X" secondary onClick={onClose}>
             X
           </Button>
@@ -90,9 +90,11 @@ function AddUserName() {
         <Modal.Content>
           <Form onSubmit={handleSubmit}>
             <Form.Field>
-              <label style={{ textAlign: 'left' }}>Users<span style={{ color: 'red' }}>*</span></label>
+              <label style={{ textAlign: "left" }}>
+                Users<span style={{ color: "red" }}>*</span>
+              </label>
               <Dropdown
-              data-testid='Select User'
+                data-testid="Select User"
                 placeholder="Select User"
                 fluid
                 selection
@@ -102,74 +104,45 @@ function AddUserName() {
             </Form.Field>
             <br />
             <Form.Field>
-              <label style={{ textAlign: 'left' }}>Github Username<span style={{ color: 'red' }}>*</span></label>
+              <label style={{ textAlign: "left" }}>
+                Github Username<span style={{ color: "red" }}>*</span>
+              </label>
               <input
                 placeholder="Enter github username"
                 value={githubUsername}
                 onChange={(e) => setGithubUsername(e.target.value)}
               />
             </Form.Field>
-            <Button type="submit">Submit</Button>
+            <Button
+              data-testid="submit"
+              type="submit"
+              primary
+              disabled={!setSelectedUser || !githubUsername}
+            >
+              Submit
+            </Button>
           </Form>
         </Modal.Content>
-     
       </Modal>
 
-      <Modal open={showInvalidUsernameModal} className='centered-modal1' size="mini" centered>
+      <Modal
+        open={showInvalidUsernameModal}
+        className="centered-modal2"
+        size="mini"
+        centered
+      >
         <Modal.Header>Invalid Username</Modal.Header>
         <Modal.Content>
           <p>The provided GitHub username is invalid.</p>
         </Modal.Content>
         <Modal.Actions>
-          <Button primary onClick={handleCloseModal}>
+          <Button data-testid="invalid-username" primary onClick={handleCloseModal}>
             OK
           </Button>
         </Modal.Actions>
       </Modal>
-      
-     <div>
-      <Modal open={showUserExistModal} className='centered-modal1' size="mini" centered>
-        <Modal.Header>User Already Exists</Modal.Header>
-        <Modal.Content>
-          <p>User Already Exists</p>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button primary onClick={handleCloseModal}>
-            OK
-          </Button>
-        </Modal.Actions>
-      </Modal>
-      </div>
     </>
   );
 }
 
 export default AddUserName;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -39,17 +39,20 @@ function UserRead() {
     navigate("/addUserName");
   };
 
-  async function loaditem() {
+const loaditem = async() => {
+  setIsLoading(true);
     try {
+      
+      const result = await api.get(getUrl)
       setIsLoading(true);
-      const result = api.get(getUrl).then((result) => {
         setItem(result.data);
+        
+        setFilteredProjects(result.data);
         setIsLoading(false);
         navigate("/userRead");
-      });
+     
       console.log(result);
     } catch (error) {
-      console.log(error, "hi");
       setIsLoading(true);
     }
   }
@@ -78,7 +81,7 @@ function UserRead() {
     navigate("/userActivity", { state: { id, username } });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     handlePaginate(1);
   }, [item]);
 
@@ -101,11 +104,16 @@ function UserRead() {
     setCurrentPageData(currentItems);
   };
   const deleteUser = async (id) => {
+    try{
     await api.delete(`https://${ngrokUrl}/users/delete/${id}`);
     navigate("/userRead");
     setShowConfirmDialog(false);
     loaditem();
     navigate("/userRead");
+    }
+    catch(error){
+      console.log(error);
+    }
   };
 
   return (
@@ -168,7 +176,7 @@ function UserRead() {
                     </td>
                   </tr>
                 ) : (
-                  item.map((user, index) => (
+                  currentPageData.map((user, index) => (
                     <tr key={user.id}>
                       <td>{index + 1}</td>
                       <td>{user.name}</td>

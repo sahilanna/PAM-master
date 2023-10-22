@@ -50,7 +50,6 @@ function FigmaRead() {
       setIsLoading(false);
       setFilteredProjects(response.data);
     } catch (error) {
-      console.log('Error fetching projects:', error);
       setIsLoading(true)
     }
   };

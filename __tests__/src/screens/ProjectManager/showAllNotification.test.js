@@ -132,6 +132,33 @@ it("calls onClose and onConfirm when delete button is clicked", () => {
    
   });
 
+  it("goes into catch statement while fetching notification", async () => {
+    const notifications = [
+      { id: 1, response: "Notification 1" },
+      { id: 2, response: "Notification 2" },
+    ];
+
+    api.get.mockRejectedValue('Sample error');
+
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <ShowAllNotification />
+      </MemoryRouter>
+    );
+
+    // await waitFor(() => {
+    //   const clear = getByTestId('clear');
+    //   fireEvent.click(clear);
+    // });
+
+    // await waitFor(() => {
+    //   const onConfirm = getByTestId('onConfirm');
+    //   fireEvent.click(onConfirm);
+    // })
+
+    
+  });
+
 
 
 });

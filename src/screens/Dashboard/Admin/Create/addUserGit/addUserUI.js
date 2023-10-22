@@ -6,7 +6,7 @@ function AddUserUI({ selectedRepo, options, username, handleUserNameBChange, han
     <Modal open={true} onClose={onClose} style={{ width: '500px', height: '450px' }} className='create-Project-Modal'>
       <div style={{ paddingTop: '6px' }}></div>
       <div style={{ paddingLeft: '440px' }}>
-        <Button data-testid="X" secondary onClick={onClose}>
+        <Button data-testid="close" secondary onClick={onClose}>
           X
         </Button>
       </div>
@@ -27,8 +27,8 @@ function AddUserUI({ selectedRepo, options, username, handleUserNameBChange, han
               selection
               options={options.map((name, index) => ({
                 key: index,
-                text: name,
-                value: name
+                text: name.name,
+                value: name.name
               }))}
               value={username}
               onChange={handleUserNameBChange}

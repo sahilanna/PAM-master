@@ -1,59 +1,121 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import AddUser from '../../../../../../src/screens/Dashboard/Admin/Create/addUserGit/addUser';
-import { MemoryRouter, useNavigate } from 'react-router-dom';
+import { MemoryRouter, useNavigate, useLocation } from 'react-router-dom';
 import "@testing-library/jest-dom";
+import api from '../../../../../../src/network/api';
+import { act } from 'react-dom/test-utils';
 
-jest.mock('react-toastify', () => ({
-  toast: {
-    POSITION: {
-      TOP_RIGHT: 'top-right',
-    },
-    error: jest.fn(),
-  },
-}));
 
 jest.mock("react-router-dom", () => ({
-    ...jest.requireActual("react-router-dom"),
-    useNavigate: () => jest.fn(),
-  }));
+  useNavigate: jest.fn(),
+  useLocation:jest.fn(),
+}));
+jest.mock('../../../../../../src/network/api')
 
-test('should render AddUser component', () => {
-   render(<MemoryRouter><AddUser /></MemoryRouter>);
+describe("AddUser Component", () => {
+
+it('should render AddUser component', () => {
+  const mockNavigate = jest.fn();
+  useNavigate.mockReturnValue(mockNavigate);
+  const mockLocation = jest.fn();
+  useLocation.mockReturnValue(mockLocation);
+   render(<AddUser />);
 });
 
 
 
-test('close button', () => {
-    const { getByTestId }  = render(
-        <MemoryRouter>
-            <AddUser/>
-        </MemoryRouter>
-    )
-    const onCloseMock = jest.fn()
-    fireEvent.click(getByTestId('X'))
-    
-})
+it("calls onClose when the close button is clicked", () => {
 
-// test('should call handleSubmit when the "Submit" button is clicked', () => {
+  const mockNavigate = jest.fn();
+  useNavigate.mockReturnValue(mockNavigate);
+  const mockLocation = jest.fn();
+  useLocation.mockReturnValue(mockLocation);
+  render(<AddUser />);
+
+  const closeButton = screen.getByTestId("close");
+
+  fireEvent.click(closeButton);
+
+  expect(mockNavigate).toHaveBeenCalledWith(-1);
+});
+
+it("submits the form with selected user and GitHub username", async () => {
+  // const sampleRepo = [
+  //   {
+  //     repoId: 1104,
+  //     name: "ScreeningTestRepo1",
+  //     description: "this is screening repo",
+  //   },
+  //   {
+  //     repoId: 1105,
+  //     name: "lenovo-repo",
+  //     description: "repo for lenovo project",
+  //   },
+  // ];
+
+ 
+  const sampleUsers = [
+    {
+      id: 2,
+      name: "Sweda",
+      email: "swedagmail.com",
+      enumRole: "USER",
+      token: null,
+      gitHubUsername: null,
+    },
+    {
+      id: 3,
+      name: "Sahil",
+      email: "xgc.com",
+      enumRole: "USER",
+      token: null,
+      gitHubUsername: null,
+    },
+  ];
+
+  
+  const mockNavigate = jest.fn();
+  useNavigate.mockReturnValue(mockNavigate);
+  const mockLocation = jest.fn();
+  useLocation.mockReturnValue(mockLocation);
+
+  const api = require("../../../../../../src/network/api");
+  // api.default.get.mockResolvedValueOnce({ data: sampleRepo });
+  api.default.get.mockResolvedValueOnce({ data: sampleUsers });
+
+  await act(async () => {
+    render(
     
-//     const { getByTestId } = render(<MemoryRouter>
-//         <AddUser />
-//     </MemoryRouter>);
+     <AddUser />
+      
+    );
+  });
+
+  // const selectRepoDropdown = screen.getByTestId("repoNameLabel");
+  // fireEvent.click(selectRepoDropdown);
+
+  // waitFor(() => {
+  //   const selectedOption = screen.getByText("lenovo-repo");
+  //   fireEvent.click(selectedOption);
+  // });
+
+
+  const selectUserDropdown = screen.getByTestId("dropdown");
+  fireEvent.click(selectUserDropdown);
+
+  await waitFor(() => {
+    const selectedOption = screen.getByText("Sahil");
+    fireEvent.click(selectedOption);
+  });
+
+
+    fireEvent.click(screen.getByTestId("submit"));
+ 
   
-//     const submitButton = getByTestId('submit');
-//     AddUser.handleSubmit = jest.fn();
-//     AddUser.navigate = jest.fn();
-//     fireEvent.click(submitButton);
-    
-//     waitFor(() => 
-//     {
-//         expect(AddUser.handleSubmit).toHaveBeenCalled();
-//     })
-   
-//   });
+
+});
   
-  
-  
+});
   
   

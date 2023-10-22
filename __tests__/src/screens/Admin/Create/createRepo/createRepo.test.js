@@ -1,63 +1,45 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import CreateRepo from '../../../../../../src/screens/Dashboard/Admin/Create/createRepo/CreateRepo';
-import api from '../../../../../../src/network/api';
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import CreateRepo from "../../../../../../src/screens/Dashboard/Admin/Create/createRepo/CreateRepo";
+import api from "../../../../../../src/network/api";
+import { MemoryRouter, useNavigate } from "react-router-dom";
 
-
-
-jest.mock('react-router-dom', () => ({
+jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
 }));
 
 // Mock the API module
-jest.mock('../../../../../../src/network/api');
+jest.mock("../../../../../../src/network/api");
 
-describe('CreateRepo Component', () => {
-  test('it renders the CreateRepo component', () => {
-    render(<CreateRepo/>);
+describe("CreateRepo Component", () => {
+  test("it renders the CreateRepo component", () => {
+    render(<CreateRepo />);
   });
 
-  test('it handles form submission with valid data', async () => {
-    
+  test("it handles form submission with valid data", async () => {
     api.post.mockResolvedValue({});
-    
+
     render(<CreateRepo />);
 
-   
-    fireEvent.change(screen.getByTestId('name-input'), { target: { value: 'Test Repo' } });
-    fireEvent.change(screen.getByTestId('description-input'), { target: { value: 'Test Description' } });
-    
+    fireEvent.change(screen.getByTestId("name-input"), {
+      target: { value: "Test Repo" },
+    });
+    fireEvent.change(screen.getByTestId("description-input"), {
+      target: { value: "Test Description" },
+    });
+
     // Trigger form submission
-    fireEvent.click(screen.getByTestId('submit-button'));
-    
+    fireEvent.click(screen.getByTestId("submit-button"));
   });
 
-  // test('it handles form submission with invalid data', () => {
-  //   render(<CreateRepo />);
-    
-  //   // Trigger form submission with missing data
-  //   fireEvent.click(screen.getByTestId('submit-button'));
+  test("it handles form submission with valid data", async () => {
+    api.post.mockResolvedValue({});
 
-  //   // Assert that an error message is displayed
-  //   expect(screen.getByText('Bad Request')).toBeInTheDocument();
-  // });
+    const mockNavigate = jest.fn();
+    useNavigate.mockReturnValue(mockNavigate);
 
-  // test('it handles form submission with 404 error', () => {
-  //   // Mock the API post method to reject with a 404 error
-  //   api.post.mockRejectedValue({ response: { status: ERROR_CODE_NOT_FOUND } });
-    
-  //   render(<CreateRepo />);
-    
-  //   // Simulate user input
-  //   fireEvent.change(screen.getByTestId('name-input'), { target: { value: 'Test Repo' } });
-  //   fireEvent.change(screen.getByTestId('description-input'), { target: { value: 'Test Description' } });
-    
-  //   // Trigger form submission
-  //   fireEvent.click(screen.getByTestId('submit-button'));
+    render(<CreateRepo />);
 
-  //   // Assert that a 404 error message is displayed
-  //   expect(screen.getByText('404 NOT FOUND')).toBeInTheDocument();
-  // });
-
- 
+    fireEvent.click(screen.getByTestId("close"));
+  });
 });

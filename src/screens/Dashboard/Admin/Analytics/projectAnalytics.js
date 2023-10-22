@@ -17,7 +17,7 @@ const ProjectAnalytics = ({ onBackClick }) => {
 
   console.log(csvData);
 
-  useEffect(() => {
+ 
     const fetchData = async () => {
       try {
         const activeResponse = await api.get(`https://${ngrokUrl}/projects/count/active`);
@@ -28,8 +28,11 @@ const ProjectAnalytics = ({ onBackClick }) => {
         setError('Error fetching data');
       }
     };
-    fetchData();
-  }, []);
+
+    useEffect(() =>{
+      fetchData();
+    }, [])
+ 
 
   if (error) {
     return <div>{error}</div>;
@@ -73,8 +76,8 @@ const ProjectAnalytics = ({ onBackClick }) => {
               <Bar dataKey="InactiveProjects" fill="#82ca9d" />
             </BarChart>
             <br />
-            <Button primary  onClick={handleBackClick}>Back</Button>
-            <Button secondary  onClick={handleDownloadCSV}>Download CSV</Button>
+            <Button data-testid="back" primary  onClick={handleBackClick}>Back</Button>
+            <Button data-testid="download-csv" secondary  onClick={handleDownloadCSV}>Download CSV</Button>
             <a href="#" ref={csvLinkRef} style={{ display: 'none' }}>Download CSV</a>
           </div>
         </div>
