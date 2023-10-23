@@ -58,5 +58,43 @@ test('renders profile details with error', async () => {
   expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/users/null`);
 });
 
+test('renders profile details without profile data', async () => {
+ 
+  sessionStorage.setItem("item", JSON.stringify(null));
+
+  render(
+    <MemoryRouter>
+      <Profile />
+    </MemoryRouter>
+  );
+
+  expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/users/null`);
+});
+
+
+test('renders profile details with profile data', async () => {
+
+  const mockProfileData = {
+    id: 1,
+    email: 'johndoe@example.com',
+  };
+  
+  sessionStorage.setItem("item", JSON.stringify(mockProfileData));
+
+  api.get.mockResolvedValue({
+    data: {
+      name: 'John Doe',
+      enumRole: 'User',
+    },
+  });
+
+  render(
+    <MemoryRouter>
+      <Profile />
+    </MemoryRouter>
+  );
+
+});
+
 
 

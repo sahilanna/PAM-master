@@ -88,7 +88,7 @@ function ProjectList({ projectId, projectName, type }) {
   };
 
   const handleOTPSubmit = async (e) => {
-    // e.preventDefault();
+
 
     try {
       const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/OTP/verify`, {
@@ -110,7 +110,6 @@ function ProjectList({ projectId, projectName, type }) {
         setErrorMessage('Invalid OTP. Please try again.');
       }
     } catch (error) {
-      console.log('Error:', error);
       setErrorMessage('Something went wrong, please try again.');
     }
   };

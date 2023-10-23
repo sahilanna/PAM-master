@@ -52,3 +52,5 @@ test('renders profile details for a User', () => {
   expect(screen.getByText('ID')).toBeInTheDocument();
   expect(screen.getByText('1')).toBeInTheDocument();
 });
+
+

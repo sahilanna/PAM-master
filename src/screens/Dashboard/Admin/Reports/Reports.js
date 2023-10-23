@@ -17,6 +17,10 @@ function Reports() {
 
   useEffect(() => {
     fetchUserProjectList();
+   
+  }, []);
+  useEffect(() => {
+  
     fetchOtherTableData();
   }, []);
 

@@ -80,7 +80,7 @@ function FigmaRead() {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 1000,
       });
-      console.error('Error handling display verification:', error);
+     
     }
   };
  

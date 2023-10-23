@@ -24,14 +24,10 @@ const AdminDashboard = () => {
   const [addFileButtonVisible, setAddFileButtonVisible] = useState(false);
   const [showProjectUsersModal, setShowProjectUsersModal] = useState(false);
   const [showProjectPmModal, setshowProjectPmModal]=useState(false)
-  const[count, setCount]=useState('')
   const navigate = useNavigate();
   const itemsPerPage = 5;
   
-  useEffect(() => {
-    loadItems();
-    fetchData();
-  }, []);
+ 
   console.log(requestData);
   console.log(Loading);
   console.log(setShowProjectDetails);
@@ -41,18 +37,22 @@ const AdminDashboard = () => {
   console.log(setShowProjectUsersModal);
   console.log(setAddFileButtonVisible);
   console.log(setAddEmployeeButtonVisible);
+
   const fetchData = async () => {
     setIsLoading(true);
     try {
       const response = await api.get(`https://${ngrokUrl}/request/allActive`);
       console.log(response);
+      setIsLoading(false);
     }
     catch (error) {
       console.log('Error fetching Users:', error);
+      setIsLoading(true);
     }
   };
   
   const loadItems = async () => {
+    setIsLoading(true);
     try {
       const response = await api.get(`https://${ngrokUrl}/projects/countPeople`, {});
       setItem(response.data);
@@ -64,6 +64,7 @@ const AdminDashboard = () => {
   };
   useEffect(() => {
     loadItems();
+    fetchData();
   }, []);
   useEffect(() => {
     handlePaginate(1);
@@ -94,18 +95,7 @@ const AdminDashboard = () => {
     item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
   );
   
-  useEffect(() => {
-    countEmp()
-  }, []);
-  const countEmp = async (projectId) => {
-    try {
-      const result = await api.get(`https://${ngrokUrl}/projects/${projectId}/count`,{});
-       setCount(result.data)
-       console.log(count)
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ 
 
   
   const csvDataProj = item.map((entry) => ({
@@ -135,15 +125,15 @@ const AdminDashboard = () => {
             <i className="users icon"></i>
           </div>
           <div className="button-container">
-            {item.length > 0 && (
+            {
               <div>
                 <button className="ui button"  data-testid="create" onClick={createOnclick}>Create Project</button>
-                <CSVLink data={csvDataProj} filename="projects_data.csv">
-                <button className="ui button">Download CSV</button>
+                <CSVLink  data={csvDataProj} filename="projects_data.csv">
+                <button data-testid="csv-link" className="ui button">Download CSV</button>
               </CSVLink>
                 <ToastContainer/>
               </div>
-            )}
+            }
           </div>
         </div>
         <div style={{ marginLeft: '20px', marginRight: '30px' }}>

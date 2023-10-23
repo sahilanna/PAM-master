@@ -3,7 +3,9 @@ import { render, screen, fireEvent, act, waitFor } from "@testing-library/react"
 import CreateDriveDetails from "../../../../../../src/screens/Dashboard/Admin/Drive/createDrive/createDriveDetails";
 import { MemoryRouter, useNavigate } from "react-router-dom";
 import "@testing-library/jest-dom";
+import api from "../../../../../../src/network/api";
 
+jest.mock("../../../../../../src/network/api")
 
 
 jest.mock("react-router-dom", () => ({
@@ -98,10 +100,57 @@ test('handleSubmit is called when the Submit button is clicked', () => {
    
   });
 
+  it("handle submit and dropdown functions", async () => {
+    const sampleProjects = [
+      {
+        projectId: 1,
+      projectName: "First Project",
+      projectDescription: "This is the first repo",
+      },
+      {
+        projectId: 2,
+      projectName: "Second Project",
+      projectDescription: "This is the second repo",
+      },
+    ];
+  
+    const api = require("../../../../../../src/network/api");
+  
+    await api.default.get.mockResolvedValueOnce({ data: sampleProjects });
+    await api.default.post.mockResolvedValue({ data: { id: "figmaId" } });
+
+  
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <CreateDriveDetails />
+        </MemoryRouter>
+      );
+    });
+  
+    const selectProjectDropdown = screen.getByTestId("projects");
+    fireEvent.click(selectProjectDropdown);
+  
+    await waitFor(() => {
+      const selectOption = screen.getByText("Second Project");
+      fireEvent.click(selectOption);
+    });
+
+    const inputUrl = screen.getByTestId("URL");
+    fireEvent.change(inputUrl, { target: { value: "validURL" } });
+  
+   
+  
+    await waitFor(() => {
+      const submit = screen.getByTestId("submit");
+      fireEvent.click(submit);
+    });
 
 
 
 
+
+  });
 
 
 

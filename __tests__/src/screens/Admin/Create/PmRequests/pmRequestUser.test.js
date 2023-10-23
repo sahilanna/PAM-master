@@ -44,45 +44,7 @@ describe('PmRequestUser Component', () => {
     jest.clearAllMocks();
   });
 
-  // it('renders the component with loading state', () => {
-  //   const { container } = render(<MemoryRouter><PmRequestUser /></MemoryRouter>);
-  //   expect(api.get).toHaveBeenCalledTimes(1);
-  //   expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/request/allActive`);
-  // });
-
-  // it('renders the component with request data', async () => {
-  //   api.get.mockResolvedValue({ data: mockRequestData });
-
-  //   const { getByText } = render(<MemoryRouter><PmRequestUser /></MemoryRouter>);
-  //   await waitFor(() => {
-  //     expect(getByText('Project 1')).toBeInTheDocument();
-  //     expect(getByText('User 1')).toBeInTheDocument();
-  //     // Add more assertions based on your component's data
-  //   });
-  // });
-
-  // it('calls AcceptRequest when "Accept" button is clicked', async () => {
-  //   const acceptRequestMock = jest.fn();
-  //   api.put.mockResolvedValue({ status: 200 });
-
-  //   await act(async () => {
-  //     render(
-  //       <MemoryRouter>
-  //         <PmRequestUser />
-  //       </MemoryRouter>
-  //     );
-  //   });
-  //    waitFor(() => {
-  //     const acceptButton = screen.getByText('Accept');
-  //     fireEvent.click(acceptButton);
-  //     expect(api.put).toHaveBeenCalledTimes(1);
-  //     expect(api.put).toHaveBeenCalledWith(`https://${ngrokUrl}/request/update/1`, { allowed: true });
-  //     // Add assertions related to success toast or other behavior
-  //   });
-  // });
-
-  
-
+ 
   it('calls DeclineRequest when "Decline" button is clicked', async () => {
     const sampleUsers = [
       {
@@ -102,7 +64,7 @@ describe('PmRequestUser Component', () => {
     await api.default.get.mockResolvedValueOnce({ data: sampleUsers }) 
     
     const declineRequestMock = jest.fn();
-    // api.put.mockResolvedValue({ status: 200 });
+    
 
     await act(async () => {
       render(
@@ -118,18 +80,53 @@ describe('PmRequestUser Component', () => {
 
     screen.debug();
 
-    //  waitFor(() => {
-    //   const declineButton = screen.getByTestId('red');
-    //   fireEvent.click(declineButton);
-    //   expect(api.put).toHaveBeenCalledTimes(1);
-    //   expect(api.put).toHaveBeenCalledWith(`https://${ngrokUrl}/request/update/1`, { allowed: false });
-    //   // Add assertions related to success toast or other behavior
-    // });
+   
   });
 
 
 
-  it('calls DeclineRequest when "Accept" button is clicked', async () => {
+
+  it('calls DeclineRequest when "Decline" button is pressed with status 204', async () => {
+    const sampleUsers = [
+      {
+        id: 2,
+        name: "Sweda",
+        email: "swedagmail.com",
+        enumRole: "USER",
+        token: null,
+        gitHubUsername: null,
+      },
+     
+    ];
+
+   
+
+    const api = require("../../../../../../src/network/api");
+    await api.default.get.mockResolvedValueOnce({ data: sampleUsers }) 
+    await api.default.put.mockResolvedValueOnce({ status: 204 }) 
+    const declineRequestMock = jest.fn();
+    
+
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <PmRequestUser />
+        </MemoryRouter>
+      );
+    });
+
+    
+    fireEvent.click(screen.getByTestId("red"));
+   
+
+    screen.debug();
+
+   
+  });
+
+
+
+  it('calls AcceptRequest when "Accept" button is clicked', async () => {
     // Define a sample 'item' object with the expected structure
     const item = {
       accessRequestId: 123, // Replace with a valid access request ID
@@ -152,6 +149,119 @@ describe('PmRequestUser Component', () => {
     const api = require("../../../../../../src/network/api");
     await api.default.get.mockResolvedValueOnce({ data: sampleUsers });
   
+    const declineRequestMock = jest.fn();
+  
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <PmRequestUser />
+        </MemoryRouter>
+      );
+    });
+  
+    fireEvent.click(screen.getByTestId("green"));
+  
+  });
+
+  it('calls AcceptRequest when "Accept" button ', async () => {
+    // Define a sample 'item' object with the expected structure
+    const item = {
+      accessRequestId: 123, // Replace with a valid access request ID
+      user: {
+        id: 2, // User ID
+        name: "Sweda",
+        email: "swedagmail.com",
+        enumRole: "USER",
+        token: null,
+        gitHubUsername: null,
+      },
+      project: {
+        projectId: 456, // Project ID
+        // Add other project properties as needed
+      },
+    };
+  
+    const sampleUsers = [item]; // Put the 'item' into an array to match the structure returned by your API
+  
+    const api = require("../../../../../../src/network/api");
+    await api.default.get.mockResolvedValueOnce({ data: sampleUsers });
+    await api.default.put.mockResolvedValueOnce({ status: 204 })
+    const declineRequestMock = jest.fn();
+  
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <PmRequestUser />
+        </MemoryRouter>
+      );
+    });
+  
+    fireEvent.click(screen.getByTestId("green"));
+  
+  });
+
+  it('calls AcceptRequest when "Accept" button ', async () => {
+    // Define a sample 'item' object with the expected structure
+    const item = {
+      accessRequestId: 123, // Replace with a valid access request ID
+      user: {
+        id: 2, // User ID
+        name: "Sweda",
+        email: "swedagmail.com",
+        enumRole: "USER",
+        token: null,
+        gitHubUsername: null,
+      },
+      project: {
+        projectId: 456, // Project ID
+        // Add other project properties as needed
+      },
+    };
+  
+    const sampleUsers = [item]; // Put the 'item' into an array to match the structure returned by your API
+  
+    const api = require("../../../../../../src/network/api");
+    await api.default.get.mockResolvedValueOnce({ data: sampleUsers });
+    await api.default.put.mockResolvedValueOnce({ status: 201 })
+    await api.default.put.mockResolvedValueOnce({ status: 204 })
+    const declineRequestMock = jest.fn();
+  
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <PmRequestUser />
+        </MemoryRouter>
+      );
+    });
+  
+    fireEvent.click(screen.getByTestId("green"));
+  
+  });
+
+  it('calls AcceptRequest when "Accept" button ', async () => {
+    // Define a sample 'item' object with the expected structure
+    const item = {
+      accessRequestId: 123, // Replace with a valid access request ID
+      user: {
+        id: 2, // User ID
+        name: "Sweda",
+        email: "swedagmail.com",
+        enumRole: "USER",
+        token: null,
+        gitHubUsername: null,
+      },
+      project: {
+        projectId: 456, // Project ID
+        // Add other project properties as needed
+      },
+    };
+  
+    const sampleUsers = [item]; // Put the 'item' into an array to match the structure returned by your API
+  
+    const api = require("../../../../../../src/network/api");
+    await api.default.get.mockResolvedValueOnce({ data: sampleUsers });
+    await api.default.put.mockResolvedValueOnce({ status: 201 })
+    await api.default.put.mockResolvedValueOnce({ status: 201 })
     const declineRequestMock = jest.fn();
   
     await act(async () => {

@@ -83,36 +83,37 @@ describe("ProjectDetails Component", () => {
       helpDocuments: null,
     };
 
+    const apiMockResponse = {
+      data: project,
+    };
+
     const api = require("../../../../../src/network/api");
     api.default.get.mockResolvedValueOnce({ data: project });
 
     const mockDeleteProject = jest.fn();
-    jest.mock('../../../../../src/network/api', () => ({
-      default: {
-        delete: mockDeleteProject,
-      },
-    }));
+    api.default.delete.mockResolvedValue(apiMockResponse);
+    // jest.mock("../../../../../src/network/api", () => ({
+    //   default: {
+    //     delete: mockDeleteProject,
+    //   },
+    // }));
 
-    api.post = jest.fn().mockResolvedValue({ data: 'OTP sent' });
+    api.post = jest.fn().mockResolvedValue({ data: "OTP sent" });
 
-   
-      render(
-        <MemoryRouter>
-          <ProjectDetails />
-        </MemoryRouter>
-      );
-   
+    render(
+      <MemoryRouter>
+        <ProjectDetails />
+      </MemoryRouter>
+    );
 
     const deleteProject = screen.getByTestId("delete-project");
     fireEvent.click(deleteProject);
 
-    waitFor(() => {
-      fireEvent.click(screen.getByTestId("confirm"));
-    });
+    fireEvent.click(screen.getByTestId("confirm"));
 
-    waitFor(() =>{
-      fireEvent.click(screen.getByTestId("close-otp"));
-    })
+    // waitFor(() => {
+    //   fireEvent.click(screen.getByTestId("close-otp"));
+    // });
     screen.debug();
   });
 
@@ -141,10 +142,9 @@ describe("ProjectDetails Component", () => {
 
     const deleteProject = screen.getByTestId("delete-project");
     fireEvent.click(deleteProject);
-    waitFor(() =>{
+    waitFor(() => {
       fireEvent.click(screen.getByTestId("onClose"));
-    })
-   
+    });
   });
 
   it("does not display the Add File button if showAddFileButton is false", () => {
@@ -163,7 +163,7 @@ describe("ProjectDetails Component", () => {
     expect(queryByText("Add File")).toBeNull();
   });
 
-  it("navigates to the addFile page on button click", () => {
+  it("navigates to the addFile page on button click", async () => {
     const projectId = "sampleProjectId";
     const projectName = "Sample Project Name";
     // const helpDocumentId = 'sampleHelpDocumentId';
@@ -194,5 +194,238 @@ describe("ProjectDetails Component", () => {
         state: { projectId, projectName },
       });
     });
+
+   
+   
+    
   });
+
+  it("closes OTP Modal", async () => {
+    const project = {
+      projectId: 1,
+      projectName: "Sample Project",
+      projectDescription: "This is a sample project",
+      pmName: "John Doe",
+      repositories: ["Repo 1", "Repo 2"],
+      figma: { figmaURL: "https://figma.com/project" },
+      googleDrive: { driveLink: "https://drive.google.com/project" },
+      lastUpdated: "2023-10-15T12:00:00Z",
+      helpDocuments: null,
+    };
+
+    const apiMockResponse = {
+      data: project,
+    };
+
+
+    const api = require("../../../../../src/network/api");
+    api.default.get.mockResolvedValueOnce({ data: project });
+
+    const mockDeleteProject = jest.fn();
+    api.default.delete.mockResolvedValue(apiMockResponse);
+   
+
+    api.default.post.mockResolvedValue({ data: "OTP sent" });
+
+    render(
+      <MemoryRouter>
+        <ProjectDetails />
+      </MemoryRouter>
+    );
+
+    const deleteProject = screen.getByTestId("delete-project");
+    fireEvent.click(deleteProject);
+
+    fireEvent.click(screen.getByTestId("confirm"));
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId("close-otp"));
+    });
+    
+  });
+
+  it("closes", async () => {
+    const project = {
+      projectId: 1,
+      projectName: "Sample Project",
+      projectDescription: "This is a sample project",
+      pmName: "John Doe",
+      repositories: ["Repo 1", "Repo 2"],
+      figma: { figmaURL: "https://figma.com/project" },
+      googleDrive: { driveLink: "https://drive.google.com/project" },
+      lastUpdated: "2023-10-15T12:00:00Z",
+      helpDocuments: null,
+    };
+
+    const apiMockResponse = {
+      data: project,
+    };
+
+
+    const api = require("../../../../../src/network/api");
+    api.default.get.mockResolvedValueOnce({ data: project });
+
+    const mockDeleteProject = jest.fn();
+    api.default.delete.mockResolvedValue(apiMockResponse);
+   
+
+    api.default.post.mockResolvedValue({ response: false });
+
+    render(
+      <MemoryRouter>
+        <ProjectDetails />
+      </MemoryRouter>
+    );
+
+    const deleteProject = screen.getByTestId("delete-project");
+    fireEvent.click(deleteProject);
+
+    fireEvent.click(screen.getByTestId("confirm"));
+
+
+  });
+
+  it("submits OTP Modal", async () => {
+    const project = {
+      projectId: 1,
+      projectName: "Sample Project",
+      projectDescription: "This is a sample project",
+      pmName: "John Doe",
+      repositories: ["Repo 1", "Repo 2"],
+      figma: { figmaURL: "https://figma.com/project" },
+      googleDrive: { driveLink: "https://drive.google.com/project" },
+      lastUpdated: "2023-10-15T12:00:00Z",
+      helpDocuments: null,
+    };
+
+    const apiMockResponse = {
+      data: project,
+    };
+
+
+    const api = require("../../../../../src/network/api");
+    api.default.get.mockResolvedValueOnce({ data: project });
+
+    const mockDeleteProject = jest.fn();
+    api.default.delete.mockResolvedValue(apiMockResponse);
+   
+
+    api.default.post.mockResolvedValue({ data: "OTP sent" });
+    
+    render(
+      <MemoryRouter>
+        <ProjectDetails />
+      </MemoryRouter>
+    );
+
+    const deleteProject = screen.getByTestId("delete-project");
+    fireEvent.click(deleteProject);
+
+    fireEvent.click(screen.getByTestId("confirm"));
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId("submit"));
+    });
+    
+  });
+
+
+  it("submits OTP Modal and goes in If condition", async () => {
+    const project = {
+      projectId: 1,
+      projectName: "Sample Project",
+      projectDescription: "This is a sample project",
+      pmName: "John Doe",
+      repositories: ["Repo 1", "Repo 2"],
+      figma: { figmaURL: "https://figma.com/project" },
+      googleDrive: { driveLink: "https://drive.google.com/project" },
+      lastUpdated: "2023-10-15T12:00:00Z",
+      helpDocuments: null,
+    };
+
+    const apiMockResponse = {
+      data: project,
+    };
+
+
+    const api = require("../../../../../src/network/api");
+    api.default.get.mockResolvedValueOnce({ data: project });
+
+    const mockDeleteProject = jest.fn();
+    api.default.delete.mockResolvedValue(apiMockResponse);
+   
+   
+    api.default.post.mockResolvedValue({ data: "OTP sent" });
+    
+    await api.default.delete.mockResolvedValue({ data: "Project deleted" });
+   
+    
+    render(
+      <MemoryRouter>
+        <ProjectDetails />
+      </MemoryRouter>
+    );
+
+    const deleteProject = screen.getByTestId("delete-project");
+    fireEvent.click(deleteProject);
+
+    fireEvent.click(screen.getByTestId("confirm"));
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId("submit"));
+    });
+
+  
+    
+  });
+
+
+
+  // it("check once again", async () => {
+  //   const project = {
+  //     projectId: 1,
+  //     projectName: "Sample Project",
+  //     projectDescription: "This is a sample project",
+  //     pmName: "John Doe",
+  //     repositories: ["Repo 1", "Repo 2"],
+  //     figma: { figmaURL: "https://figma.com/project" },
+  //     googleDrive: { driveLink: "https://drive.google.com/project" },
+  //     lastUpdated: "2023-10-15T12:00:00Z",
+  //     helpDocuments: null,
+  //   };
+
+  //   const apiMockResponse = {
+  //     data: project,
+  //   };
+
+  //   const api = require("../../../../../src/network/api");
+  //   api.default.get.mockResolvedValueOnce({ data: project });
+
+  //   const mockDeleteProject = jest.fn();
+  //   api.default.delete.mockResolvedValue(apiMockResponse);
+  //   // jest.mock("../../../../../src/network/api", () => ({
+  //   //   default: {
+  //   //     delete: mockDeleteProject,
+  //   //   },
+  //   // }));
+
+  //   api.post = jest.fn().mockResolvedValue({ data: "OTP sent" });
+
+  //   render(
+  //     <MemoryRouter>
+  //       <ProjectDetails />
+  //     </MemoryRouter>
+  //   );
+
+  //   const deleteProject = screen.getByTestId("delete-project");
+  //   fireEvent.click(deleteProject);
+
+  //   fireEvent.click(screen.getByTestId("on-confirm"));
+
+  //   // waitFor(() => {
+  //   //   fireEvent.click(screen.getByTestId("close-otp"));
+  //   // });
+  //   screen.debug();
+  // });
+
 });

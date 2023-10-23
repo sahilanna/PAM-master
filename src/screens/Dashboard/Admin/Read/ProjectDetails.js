@@ -18,6 +18,7 @@ import ProjectUsers from "./projectUsers";
 import ProjectPms from "./projectPms";
 import OtpModal from "./otpModal";
 
+
 const ProjectDetails = ({
   project,
   onClose,
@@ -112,20 +113,14 @@ const ProjectDetails = ({
     },
   ];
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  
   const navigate = useNavigate();
   const [namesFile, setNamesFile] = useState([]);
   const [repo, setRepo] = useState([]);
   const [figmaLink, setFigmaLink] = useState([]);
   const [projectData, setProjectData] = useState([]);
   console.log(repo);
-  const deleteProject = async (projectId) => {
-    try {
-      await api.delete(`https://${ngrokUrl}/projects/delete/${projectId}`);
-      navigate("/adminDashboard");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ 
 
   useEffect(() => {
     displayFile();
@@ -140,12 +135,13 @@ const ProjectDetails = ({
         {}
       );
       setProjectData(result.data);
-      console.log(projectData);
-      console.log(count);
+      
     } catch (error) {
       console.log(error);
     }
   };
+  console.log(projectData);
+  console.log(count);
 
   const handleOTPClose = () => {
     setShowOTPMoal(false);
@@ -171,7 +167,7 @@ const ProjectDetails = ({
     setShowConfirmDialog(false);
   };
   const handleOTPSubmit = async (e) => {
-    e.preventDefault();
+   
     try {
       const otpSubmissionResponse = await api.post(
         `https://${ngrokUrl}/OTP/verify`,
@@ -187,7 +183,6 @@ const ProjectDetails = ({
         setErrorMessage("Invalid OTP. Please try again.");
       }
     } catch (error) {
-      console.log("Error:", error);
       setErrorMessage("Something went wrong. Please try again.");
     }
   };
@@ -211,13 +206,7 @@ const ProjectDetails = ({
   const handleDeleteProject = () => {
     setShowConfirmDialog(true);
   };
-  const confirmDeleteProject = () => {
-    deleteProject(projectId);
-    setShowConfirmDialog(false);
-  };
-  const cancelDeleteProject = () => {
-    setShowConfirmDialog(false);
-  };
+
 
   const downloadFile = async (filename) => {
     await api
@@ -319,12 +308,6 @@ const ProjectDetails = ({
                   <FontAwesomeIcon icon={faTrash} />
                 </Button>
 
-                <DialogBox
-                  onClose={cancelDeleteProject}
-                  onConfirm={confirmDeleteProject}
-                  title="Delete Project"
-                  afterConfirm={() => navigate("/AdminDashboard")}
-                />
               </Header>
               <Segment attached className="left-aligned-segment">
                 <List divided relaxed>

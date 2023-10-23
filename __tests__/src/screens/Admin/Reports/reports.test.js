@@ -19,6 +19,8 @@ describe('Reports Component', () => {
     jest.clearAllMocks();
   });
 
+
+ 
   it('renders the component with initial data', async () => {
     api.get.mockResolvedValueOnce([
       { userId: 1, userName: 'User 1', projectNames: ['Project A', 'Project B'] },

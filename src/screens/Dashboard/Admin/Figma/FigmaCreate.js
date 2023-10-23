@@ -90,7 +90,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
       <div style={{paddingTop:'5px'}}>
         </div>
         <div style={{paddingLeft:'442px'}}>
-      <Button secondary onClick={onClose}>
+      <Button data-testid="close" secondary onClick={onClose}>
           X
         </Button>
         </div>

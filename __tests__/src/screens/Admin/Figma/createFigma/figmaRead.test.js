@@ -75,6 +75,44 @@ describe("FigmaRead Component", () => {
     });
   });
 
+
+
+  it("shouldgo to catch block when get api is not hit properly", async () => {
+    const initialState = [
+      {
+        figmaId: "1",
+        projectDTO: { projectName: "Project 1" },
+        figmaURL: "https://figma.com/project1",
+      },
+      {
+        figmaId: "2",
+        projectDTO: { projectName: "Project 2" },
+        figmaURL: "https://figma.com/project2",
+      },
+    ];
+    const apiMockResponse = {
+      data: initialState,
+    };
+
+    const apiMock = require("../../../../../../src/network/api");
+    apiMock.default.get.mockRejectedValue('Sample Error');
+
+    
+    const { getByText, getAllByTestId, getByTestId } = render(
+      <MemoryRouter>
+        <FigmaRead />
+      </MemoryRouter>
+    );
+
+
+  });
+
+
+
+
+
+
+
   it("should call handleViewDetails when the view button is clicked", async () => {
     const initialState = [
       {
@@ -157,6 +195,7 @@ describe("FigmaRead Component", () => {
     const searchInput = getByPlaceholderText("Search Figma...");
     fireEvent.change(searchInput, { target: { value: "John" } });
   });
+
   it('should call handleAddUser when the "Add User" button is clicked', async () => {
     const initialState = [
       {
@@ -201,4 +240,45 @@ describe("FigmaRead Component", () => {
       });
     });
   });
+
+
+  it('should call handleAddUser when the "Add User" button is clicked and close the modal', async () => {
+    const initialState = [
+      {
+        figmaId: "1",
+        projectDTO: { projectName: "Project 1" },
+        figmaURL: "https://figma.com/project1",
+      },
+      
+    ];
+
+    const apiMockResponse = {
+      data: initialState,
+    };
+
+    const apiMock = require("../../../../../../src/network/api"); // Replace with your actual API mock path
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
+
+    const handleAddUser = jest.fn();
+    const handleDisplayVerification = jest.fn();
+
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <FigmaRead />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      const addUserButton = getByTestId("add");
+      
+        fireEvent.click(addUserButton);
+    });
+
+   fireEvent.click(getByTestId('close'));
+
+  });
+
+
+ 
+
 });
