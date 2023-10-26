@@ -6,6 +6,8 @@ import "@testing-library/jest-dom";
 import CreateFigmaDetailsUI from "../../../../../../src/screens/Dashboard/Admin/Figma/createFigma/createFigmaDetailsUI";
 import api from "../../../../../../src/network/api";
 import { ngrokUrl } from "../../../../../../src/network/config";
+import userEvent from '@testing-library/user-event';
+import 'jest-location-mock';
 
 jest.mock("../../../../../../src/network/api")
 
@@ -148,23 +150,59 @@ test('handleSubmit is called when the Submit button is clicked', () => {
       fireEvent.click(submit);
     });
 
-
-    // await waitFor(() => {
-    //   expect(api.default.post).toHaveBeenCalledWith(
-    //     `https://${ngrokUrl}/figmas/create`,
-    //     {
-    //       projectDTO: {
-    //         projectId: 2, // ID of the selected project
-    //         projectName: "Second Project", // Name of the selected project
-    //       },
-    //       figmaURL: "validURL", // The entered URL
-    //     }
-    //   );
-
-    //   // Ensure that navigation occurs to '/figmaRead'
-    //   expect(screen.history.location.pathname).toEqual("/figmaRead");
-    // });
-  
    
   });
+
+
+test('handle submit and check function calls', async () => {
+  
+  const sampleProjects = [
+    {
+      projectId: 1,
+    projectName: "First Project",
+    projectDescription: "This is the first repo",
+    },
+    {
+      projectId: 2,
+    projectName: "Second Project",
+    projectDescription: "This is the second repo",
+    },
+  ];
+
+  const api = require('../../../../../../src/network/api');
+  await api.default.get.mockResolvedValueOnce({ data: sampleProjects });
+  api.default.post.mockResolvedValue({ data: { id: 'figmaId' } });
+
+  const setFigmaId = jest.fn();
+  const navigate = jest.fn();
+  const setFigmaUrl = jest.fn();
+
+  render(<CreateFigmaDetails />);
+
+  await waitFor(() => {
+    const selectOption = screen.getByText("Second Project");
+    fireEvent.click(selectOption);
+  });
+
+  const inputUrl = screen.getByTestId('URL');
+  userEvent.type(inputUrl, 'validURL');
+
+  const submitButton = screen.getByTestId('submit');
+
+  const originalReplace = window.location.replace;
+  window.location.replace = jest.fn();
+
+  fireEvent.click(submitButton);
+
+  
+
+  
+  window.location.replace = originalReplace;
+
+ 
+});
+
+
+
+
 

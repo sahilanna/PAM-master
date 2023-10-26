@@ -46,8 +46,8 @@ const LazyShowAllNotification = lazy(() => import("../screens/Dashboard/ProjectM
 
 const PrivateRoutes = () => {
     let data = sessionStorage.getItem("item");
-    
-    let user = data?JSON.parse(data):null;
+    let user = JSON.parse(data);
+
     
     let role=null;
     if(user !== null)
@@ -55,7 +55,7 @@ const PrivateRoutes = () => {
     
     
       
-   const id = user ? user.id : null;
+   const id = user.id ;
     console.log(id)
     return (
         <>
@@ -94,8 +94,6 @@ const PrivateRoutes = () => {
             <Route path='/userActivity' element={<Suspense fallback={<div>Loading...</div>}><LazyUserActivity/></Suspense>}/>
             <Route path='/createDriveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyCreateDriveDetails/></Suspense>}/>
             <Route path='/ProjectDetails/:projectId/:projectName' element={<Suspense fallback={<div>Loading...</div>}><ProjectDetails/></Suspense>}/>
-            {/* <Route path='/gitCreate' element={<GitCreate/>}/> */}
-           {/* <Route path='/projectAnalytics' element={<ProjectAnalytics/>}/> */}
            <Route path='/driveDetails' element={<Suspense fallback={<div>Loading...</div>}><LazyDriveDetails/></Suspense>}/>
            <Route path='/Create' element={<Suspense fallback={<div>Loading...</div>}><LazyCreate/></Suspense>}/>
            <Route path='/addPm' element={<Suspense fallback={<div>Loading...</div>}><LazyAddPm/></Suspense>}/>

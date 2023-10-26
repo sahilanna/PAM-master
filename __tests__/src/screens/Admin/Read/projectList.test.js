@@ -481,51 +481,5 @@ describe("ProjectList Component", () => {
 
 
 
-  // it.only('calls handleCancelDelete when the "Cancel" button is clicked', async () => {
-  //   const projectId = '123';
-  //   const projectName = 'Sample Project';
-  //   const type = 'users';
-  //   const items = [
-  //     {
-  //       id: '1',
-  //       name: 'PM1',
-  //       email: 'pm1@example.com',
-  //       gitHubUsername: 'pm1github',
-  //     },
-  //   ];
-  //   const handleAddItemMock = jest.fn();
-  //   const navigateMock = jest.fn();
-  
-  //   const { getByTestId } = render(
-  //     <MemoryRouter>
-  //       <ProjectList
-  //         projectId={projectId}
-  //         projectName={projectName}
-  //         type={type}
-  //         items={items}
-  //         handleAddItem={handleAddItemMock}
-  //         navigate={navigateMock}
-  //       />
-  //     </MemoryRouter>
-  //   );
-  
-  //   const deleteButton = getByTestId('delete-user');
-  
-  //   await waitFor(() => {
-      
-  //     fireEvent.click(deleteButton);
-  //   });
-  
-  //   waitFor(() => {
-  //     expect(handleAddItemMock).toHaveBeenCalled();
-      
-  //     expect(navigateMock).toHaveBeenCalledWith(type === 'pms' ? '/addPmProject' : '/addUserProject', {
-  //       state: { projectId, projectName },
-  //     });
-  //   });
-  // });
-
-
-
 
 });

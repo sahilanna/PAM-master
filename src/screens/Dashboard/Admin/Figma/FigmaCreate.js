@@ -56,7 +56,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     console.log(value)
   };
   
- 
+
   useEffect(() => {
     fetchUsers();
   }, [projectId]);
@@ -101,6 +101,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
           <Form.Field>
             <label>URL<span style={{ color: 'red' }}>*</span></label>
             <input
+              data-testid="url-select"
               type="text"
               placeholder="Enter URL"
               value={url}

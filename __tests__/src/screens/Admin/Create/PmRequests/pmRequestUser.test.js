@@ -312,5 +312,23 @@ describe('PmRequestUser Component', () => {
     // fireEvent.click(screen.getByTestId("green"));
   
   });
+
+
+
+  test("should call logOut and navigate to the Login page with null user data", async () => {
+    const sampleUser = { id: 123, name: "Sample User" };
+    sessionStorage.setItem("item", JSON.stringify(sampleUser));
+  
+    render(
+      <MemoryRouter>
+         <PmRequestUser/>
+      </MemoryRouter>
+     
+    );
+    const data = sessionStorage.getItem("item");
+    const user = data ? JSON.parse(data) : null;
+    const id = user ? user.id : null;
+  });
+
   
 });

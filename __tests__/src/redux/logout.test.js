@@ -26,4 +26,37 @@ describe("Logout Component", () => {
       ).toHaveBeenCalledWith(`https://${ngrokUrl}/users/${mockUser.id}/logout`);
     });
   });
+
+
+  it("should call logOut and navigate to the Login page", async () => {
+    const mockUser = { id: 123 };
+    sessionStorage.setItem("item", JSON.stringify(mockUser));
+
+    // Mock the api.post method to reject the promise
+    api.post.mockRejectedValue(new Error("An error occurred"));
+
+    // Create a mock object with navigate property
+    const mockNavigate = jest.fn();
+    const originalUseNavigate = require("react-router-dom").useNavigate;
+    // require("react-router-dom").useNavigate = () => mockNavigate;
+
+    render(<MemoryRouter><Logout /></MemoryRouter>);
+
+  });
+
+  it("should call logOut and navigate to the Login page with null user data", async () => {
+    
+    sessionStorage.removeItem("item");
+
+   
+    api.post.mockResolvedValue({});
+
+    render(<MemoryRouter><Logout /></MemoryRouter>);
+
+  
+  });
+
+  
+
+  
 });

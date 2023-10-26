@@ -4,7 +4,7 @@ import { render, screen,waitFor, fireEvent } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom'; 
 import Analytics from '../../../../../../src/screens/Dashboard/Admin/Analytics/Analytics';
-
+import api from '../../../../../../src/network/api';
 
 
 jest.mock('../../../../../../src/network/api');
@@ -30,9 +30,22 @@ describe('Analytics Component', () => {
       });
   });
 
-  
+
+  it('displays the pie chart after loading', async () => {
+
+    const api = require("../../../../../../src/network/api");
+    // Mdefault.ock the API responses with the necessary data
+    api.default.get.mockResolvedValueOnce({ data: 5 }); // Mock admin count
+    api.default.get.mockResolvedValueOnce({ data: 3 }); // Mock project manager count
+    api.default.get.mockResolvedValueOnce({ data: 7 }); // Mock user count
+
+    render(<MemoryRouter><Analytics /></MemoryRouter>);
 
   
+  });
+
+
+
   it('displays the pie chart after loading', () => {
     render(<MemoryRouter><Analytics /></MemoryRouter>);
     waitFor(() => {

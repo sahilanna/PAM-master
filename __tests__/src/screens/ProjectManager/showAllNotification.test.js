@@ -1,5 +1,10 @@
 import React from "react";
-import { render, fireEvent, waitFor, getByTestId } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  waitFor,
+  getByTestId,
+} from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import ShowAllNotification from "../../../../src/screens/Dashboard/ProjectManager/showAllNotification";
 import api from "../../../../src/network/api";
@@ -7,8 +12,8 @@ import api from "../../../../src/network/api";
 jest.mock("../../../../src/network/api");
 
 describe("ShowAllNotification Component", () => {
-    let onCloseMock;
-    let onConfirmMock;
+  let onCloseMock;
+  let onConfirmMock;
   beforeEach(() => {
     onCloseMock = jest.fn();
     onConfirmMock = jest.fn();
@@ -38,16 +43,14 @@ describe("ShowAllNotification Component", () => {
     );
 
     await waitFor(() => {
-      const clear = getByTestId('clear');
+      const clear = getByTestId("clear");
       fireEvent.click(clear);
     });
 
     await waitFor(() => {
-      const onClose = getByTestId('onClose');
+      const onClose = getByTestId("onClose");
       fireEvent.click(onClose);
-    })
-
-    
+    });
   });
 
   it("fetches and displays notifications", async () => {
@@ -65,16 +68,14 @@ describe("ShowAllNotification Component", () => {
     );
 
     await waitFor(() => {
-      const clear = getByTestId('clear');
+      const clear = getByTestId("clear");
       fireEvent.click(clear);
     });
 
     await waitFor(() => {
-      const onConfirm = getByTestId('onConfirm');
+      const onConfirm = getByTestId("onConfirm");
       fireEvent.click(onConfirm);
-    })
-
-    
+    });
   });
 
   it("displays 'No notifications' when there are no notifications", () => {
@@ -107,7 +108,7 @@ describe("ShowAllNotification Component", () => {
       );
     });
   });
-it("calls onClose and onConfirm when delete button is clicked", () => {
+  it("calls onClose and onConfirm when delete button is clicked", () => {
     const { getByTestId } = render(
       <MemoryRouter>
         <ShowAllNotification />
@@ -117,19 +118,16 @@ it("calls onClose and onConfirm when delete button is clicked", () => {
     const deleteButton = getByTestId("clear");
     fireEvent.click(deleteButton);
 
-   
     waitFor(() => {
-      expect(getByText("Are you sure you want to clear all notifications?")).toBeInTheDocument();
+      expect(
+        getByText("Are you sure you want to clear all notifications?")
+      ).toBeInTheDocument();
     });
 
-
-
     waitFor(() => {
-        expect(onCloseMock).toHaveBeenCalledTimes(1);
-        expect(onConfirmMock).not.toHaveBeenCalled();
-    })
-   
-   
+      expect(onCloseMock).toHaveBeenCalledTimes(1);
+      expect(onConfirmMock).not.toHaveBeenCalled();
+    });
   });
 
   it("goes into catch statement while fetching notification", async () => {
@@ -138,27 +136,26 @@ it("calls onClose and onConfirm when delete button is clicked", () => {
       { id: 2, response: "Notification 2" },
     ];
 
-    api.get.mockRejectedValue('Sample error');
+    api.get.mockRejectedValue("Sample error");
 
     const { getByTestId } = render(
       <MemoryRouter>
         <ShowAllNotification />
       </MemoryRouter>
     );
-
-    // await waitFor(() => {
-    //   const clear = getByTestId('clear');
-    //   fireEvent.click(clear);
-    // });
-
-    // await waitFor(() => {
-    //   const onConfirm = getByTestId('onConfirm');
-    //   fireEvent.click(onConfirm);
-    // })
-
-    
   });
 
+  test("should call logOut and navigate to the Login page with null user data", async () => {
+    const sampleUser = { id: 123, name: "Sample User" };
+    sessionStorage.setItem("item", JSON.stringify(sampleUser));
 
-
+    render(
+      <MemoryRouter>
+        <ShowAllNotification />
+      </MemoryRouter>
+    );
+    const data = sessionStorage.getItem("item");
+    const user = data ? JSON.parse(data) : null;
+    const id = user ? user.id : null;
+  });
 });

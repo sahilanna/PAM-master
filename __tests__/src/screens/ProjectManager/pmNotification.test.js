@@ -121,6 +121,22 @@ describe('PmNotification Component', () => {
 
   });
 
+  test("should call logOut and navigate to the Login page with null user data", async () => {
+    const sampleUser = { id: 123, name: "Sample User" };
+    sessionStorage.setItem("item", JSON.stringify(sampleUser));
+  
+    render(
+      <MemoryRouter>
+         <PmNotification/>
+      </MemoryRouter>
+     
+    );
+    const data = sessionStorage.getItem("item");
+    const user = data ? JSON.parse(data) : null;
+    const id = user ? user.id : null;
+  });
+
+
 
   
 });

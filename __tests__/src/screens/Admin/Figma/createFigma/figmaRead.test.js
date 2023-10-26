@@ -56,7 +56,7 @@ describe("FigmaRead Component", () => {
     const handleDeleteUrl = jest.fn();
     apiMock.default.delete.mockResolvedValue(apiMockResponse);
 
-    const { getByText, getAllByTestId, getByTestId } = render(
+    const { getAllByTestId, getByTestId } = render(
       <MemoryRouter>
         <FigmaRead />
       </MemoryRouter>

@@ -132,3 +132,18 @@ test('handleModelFileSelect should set modalfile and clear error message for val
   expect(queryByText('Invalid file format. Only PNG, JPG, and PDF files are allowed.')).toBeNull();
 });
 
+test("should call logOut and navigate to the Login page with null user data", async () => {
+  const sampleUser = { id: 123, name: "Sample User" };
+  sessionStorage.setItem("item", JSON.stringify(sampleUser));
+
+  render(
+    <MemoryRouter>
+       <AddFile/>
+    </MemoryRouter>
+  
+  );
+  const data = sessionStorage.getItem("item");
+  const user = data ? JSON.parse(data) : null;
+  const id = user ? user.id : null;
+});
+

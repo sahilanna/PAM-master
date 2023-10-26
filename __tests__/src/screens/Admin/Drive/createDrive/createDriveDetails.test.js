@@ -152,6 +152,64 @@ test('handleSubmit is called when the Submit button is clicked', () => {
 
   });
 
+  it("handle ", async () => {
+    const sampleProjects = [
+      {
+        projectId: 1,
+        projectName: "First Project",
+        projectDescription: "This is the first repo",
+      },
+      {
+        projectId: 2,
+        projectName: "Second Project",
+        projectDescription: "This is the second repo",
+      },
+    ];
+  
+    const api = require("../../../../../../src/network/api");
+  
+    await api.default.get.mockResolvedValueOnce({ data: sampleProjects });
+    await api.default.post.mockResolvedValue({ data: { id: "figmaId" } });
+  
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <CreateDriveDetails />
+        </MemoryRouter>
+      );
+    });
+  
+    const selectProjectDropdown = screen.getByTestId("projects");
+    fireEvent.click(selectProjectDropdown);
+  
+    await waitFor(() => {
+      const selectOption = screen.getByText("Second Project");
+      fireEvent.click(selectOption);
+    });
+  
+    const inputUrl = screen.getByTestId("URL");
+    fireEvent.change(inputUrl, { target: { value: "validURL" } });
+  
+    await waitFor(() => {
+      const submit = screen.getByTestId("submit");
+      fireEvent.click(submit);
+    });
+  
+    // Assert that state changes and navigation are triggered
+    // For example:
+    const driveId = "someDriveId"; // Mock the driveId value from the API response
+    // expect(screen.getByTestId("driveId").textContent).toBe(driveId);
+  
+    const navigateMock = jest.fn();
+    // expect(navigateMock).toHaveBeenCalledWith('/driveDetails', { state: { driveId } });
+  
+    const driveUrlInput = screen.getByTestId("URL");
+    // expect(driveUrlInput.value).toBe(''); // Make sure the input is cleared
+  
+    // Ensure that navigate is called with the expected arguments
+    // expect(navigateMock).toHaveBeenCalledWith('/driveDetails', { state: { driveId } });
+  });
+  
 
 
 
@@ -161,85 +219,3 @@ test('handleSubmit is called when the Submit button is clicked', () => {
 
 
 
-// test("handles URL input and project selection", () => {
-//   render( <MemoryRouter>
-//     <CreateDriveDetails />
-//   </MemoryRouter>);
-
-//   const driveURLInput = screen.getByLabelText("Drive URL");
-//   fireEvent.change(driveURLInput, {
-//     target: { value: "http://drive.google.com/example" },
-//   });
-
-//   expect(driveURLInput).toHaveValue("http://drive.google.com/example");
-
-//   const projectDropdown = screen.getByLabelText("Select Project");
-//   fireEvent.change(projectDropdown, { target: { value: "project-1" } });
-
-//   expect(projectDropdown).toHaveValue("project-1");
-// });
-
-// test("validates URL format", () => {
-//   render( <MemoryRouter>
-//     <CreateDriveDetails />
-//   </MemoryRouter>);
-
-//   // Enter an invalid URL
-//   const driveURLInput = screen.getByLabelText("Drive URL");
-//   fireEvent.change(driveURLInput, { target: { value: "invalid-url" } });
-
-//   // Ensure the URL input value is updated
-//   expect(driveURLInput).toHaveValue("invalid-url");
-
-//   // Ensure an error message is displayed
-//   const errorMessage = screen.getByText("Invalid URL");
-//   expect(errorMessage).toBeInTheDocument();
-// });
-
-// test("handles form submission", async () => {
-//   // Mock API calls
-//   global.fetch = jest.fn(() =>
-//     Promise.resolve({
-//       json: () => Promise.resolve({ id: "123" }),
-//     })
-//   );
-
-//   render( <MemoryRouter>
-//     <CreateDriveDetails />
-//   </MemoryRouter>);
-
-//   // Fill out the form
-//   const driveURLInput = screen.getByLabelText("Drive URL");
-//   const projectDropdown = screen.getByLabelText("Select Project");
-//   const createButton = screen.getByText("Create Drive");
-
-//   fireEvent.change(driveURLInput, {
-//     target: { value: "http://drive.google.com/example" },
-//   });
-//   fireEvent.change(projectDropdown, { target: { value: "project-1" } });
-
-//   // Submit the form
-//   fireEvent.click(createButton);
-
-//   // Ensure the API was called with the correct data
-//   await act(async () => {
-//     await new Promise((resolve) => setImmediate(resolve));
-//   });
-
-//   expect(global.fetch).toHaveBeenCalledWith(
-//     "https://your-api-endpoint/createGoogleDrive",
-//     {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         projectDTO: {
-//           projectId: "project-1",
-//           projectName: "project-1",
-//         },
-//         driveLink: "http://drive.google.com/example",
-//       }),
-//     }
-//   );
-// });

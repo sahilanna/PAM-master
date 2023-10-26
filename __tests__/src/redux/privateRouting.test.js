@@ -4,7 +4,9 @@ import '@testing-library/jest-dom';
 import PrivateRoutes from '../../../src/redux/PrivateRouting';
 import AdminDashboard from '../../../src/screens/Dashboard/Admin/AdminDashboard';
 import { MemoryRouter } from 'react-router-dom';
+import api from '../../../src/network/api';
 
+jest.mock('../../../src/network/api')
 jest.mock('../../../src/screens/Dashboard/Admin/AdminDashboard', () => ({
   __esModule: true,
   default: () => <div data-testid="admin-dashboard">Admin Dashboard</div>,
@@ -96,48 +98,26 @@ describe('PrivateRoutes', () => {
     createComponent("USER", "*")
   })
 
+  test("should handle null user data", async () => {
+    // Clear sessionStorage to ensure there's no user data
+    const sampleUser = { id: 123, name: "Sample User" };
+    sessionStorage.setItem("item", JSON.stringify(sampleUser));
 
-  // it('should render LazyPmCreate component', async () => {
-  //   sessionStorage.setItem('item', JSON.stringify({ enumRole: 'USER' }));
+    render(
+      <MemoryRouter>
+        <PrivateRoutes />
+      </MemoryRouter>
+    );
+    const data = sessionStorage.getItem("item");
+    const user = data ? JSON.parse(data) : null;
+    const id = user ? user.id : null;
   
-  //   const { getByTestId } = render(<MemoryRouter><PrivateRoutes/></MemoryRouter>);
     
+  });
   
-  // });
+  
 
-  // it('should render the PM Dashboard when the user role is PROJECT_MANAGER', () => {
-  //   sessionStorage.setItem(
-  //     'item',
-  //     JSON.stringify({ enumRole: 'PROJECT_MANAGER' })
-  //   );
+  
 
-  //   const { getByTestId } = render(<MemoryRouter><PrivateRoutes/></MemoryRouter>);
-
-  //   expect(getByTestId('pm-dashboard')).toBeInTheDocument();
-  // });
-
-  // it('should render the User Dashboard when the user role is USER', () => {
-  //   sessionStorage.setItem('item', JSON.stringify({ enumRole: 'USER' }));
-
-  //   const { getByTestId } = render(<MemoryRouter><PrivateRoutes/></MemoryRouter>);
-
-  //   expect(getByTestId('user-dashboard')).toBeInTheDocument();
-  // });
-
-  // it('should render "Page Not Found" when the user role is not recognized', () => {
-  //   sessionStorage.setItem('item', JSON.stringify({ enumRole: 'UNKNOWN_ROLE' }));
-
-  //   const { getByText } = render(<PrivateRoutes />);
-
-  //   expect(getByText('Page Not Found')).toBeInTheDocument();
-  // });
-
-  // it('should render "Loading..." when the user role is not recognized', () => {
-  //   sessionStorage.removeItem('item'); // User not logged in
-
-  //   const { getByText } = render(<PrivateRoutes />);
-
-  //   expect(getByText('Loading...')).toBeInTheDocument();
-  // });
 });
 

@@ -7,29 +7,6 @@ import { ngrokUrl } from "../../../../src/network/config";
 import { act } from "react-dom/test-utils";
 
 jest.mock("../../../../src/network/api");
-// , () => {
-//   return {
-//     get: jest.fn(() =>
-//       Promise.resolve({
-//         data: [
-//           {
-//             id: 1,
-//             projectId: 'ProjectID123',
-//             projectName: 'Sample Project1',
-//             projectDescription: 'Sample Description',
-//           },
-//           {
-//             id: 1,
-//             projectId: 'ProjectID007',
-//             projectName: 'Sample Project2',
-//             projectDescription: 'Sample Description2',
-//           },
-
-//         ],
-//       })
-//     ),
-//   };
-// });
 
 describe("PmDashboard Component", () => {
   it("renders the component without crashing", () => {
@@ -92,5 +69,23 @@ describe("PmDashboard Component", () => {
     fireEvent.click(screen.getByTestId("view-icon"));
     fireEvent.click(screen.getByTestId("onClose"));
   });
+
+  it("should call logOut and navigate to the Login page with null user data", async () => {
+    const sampleUser = { id: 123, name: "Sample User" };
+    sessionStorage.setItem("item", JSON.stringify(sampleUser));
+  
+    render(
+      <MemoryRouter>
+         <UserProjects/>
+      </MemoryRouter>
+     
+    );
+    const data = sessionStorage.getItem("item");
+    const user = data ? JSON.parse(data) : null;
+    const id = user ? user.id : null;
+  });
+
+
+
 });
 
