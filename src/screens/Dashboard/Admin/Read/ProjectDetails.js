@@ -83,7 +83,7 @@ const ProjectDetails = ({
                 {namesFile.map((filename) => (
                   <li key={filename.id} className="file-item">
                     <div className="file-info">
-                      <a
+                      <a data-testid="file-download"
                         href="#"
                         onClick={() => downloadFile(filename.fileName)}
                       >

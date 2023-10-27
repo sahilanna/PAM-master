@@ -7,7 +7,7 @@ import {
   screen,
 } from "@testing-library/react";
 import ProjectDetails from "../../../../../src/screens/Dashboard/Admin/Read/ProjectDetails";
-import { useNavigate, MemoryRouter } from "react-router-dom";
+import { useNavigate, MemoryRouter, navigate } from "react-router-dom";
 import "@testing-library/jest-dom";
 import api from "../../../../../src/network/api";
 import { ngrokUrl } from "../../../../../src/network/config";
@@ -51,6 +51,7 @@ describe("ProjectDetails Component", () => {
       figma: { figmaURL: "https://figma.com/project" },
       googleDrive: { driveLink: "https://drive.google.com/project" },
       lastUpdated: "2023-10-15T12:00:00Z",
+      helpDocuments: null,
     };
     const onClose = jest.fn();
     const showAddEmployeeButton = true;
@@ -69,6 +70,237 @@ describe("ProjectDetails Component", () => {
       </MemoryRouter>
     );
   });
+
+
+
+  it('displays data when result is an array', async () => {
+    const mockData = [{ id: 1, fileName: 'file1' },];
+    // Mock the api.get function to return an array
+    jest.spyOn(api, 'get').mockResolvedValue({ data: mockData });
+
+    const onClose = jest.fn();
+    const showAddEmployeeButton = true;
+    const showAddFileButton = true;
+    const onAddFile = jest.fn();
+
+    const { getByText, queryByText } = render(
+      <MemoryRouter>
+        <ProjectDetails
+          project={project}
+          onClose={onClose}
+          showAddEmployeeButton={showAddEmployeeButton}
+          showAddFileButton={showAddFileButton}
+          onAddFile={onAddFile}
+        />
+      </MemoryRouter>
+    );
+
+    const helpDocumentsTab = getByText("Help Documents");
+    fireEvent.click(helpDocumentsTab);
+
+    waitFor(() => {
+      const addButton = getByTestId("add-file");
+      fireEvent.click(addButton);
+
+      expect(navigate).toHaveBeenCalledWith("/addFile", {
+        state: { projectId, projectName },
+      });
+    });
+
+
+    await waitFor(() =>{
+      const fileLink = screen.getByTestId('file-download');
+      fireEvent.click(fileLink);
+
+    })
+    screen.debug();
+
+    // Wait for the data to be displayed
+   
+  });
+
+
+  it('then displays data when result is an array', async () => {
+    const mockData = [{ id: 1, fileName: 'file1' },];
+    // Mock the api.get function to return an array
+    const navigateMock = jest.fn();
+    const downloadFile = jest.fn(() => {
+      navigate('/adminDashboard'); // Simulate navigate behavior
+    });
+
+    jest.spyOn(api, 'get').mockResolvedValue({ data: mockData });
+
+    const onClose = jest.fn();
+    const showAddEmployeeButton = true;
+    const showAddFileButton = true;
+    const onAddFile = jest.fn();
+
+    const { getByText, queryByText } = render(
+      <MemoryRouter>
+        <ProjectDetails
+          project={project}
+          onClose={onClose}
+          showAddEmployeeButton={showAddEmployeeButton}
+          showAddFileButton={showAddFileButton}
+          onAddFile={onAddFile}
+          downloadFile={downloadFile}
+        />
+      </MemoryRouter>
+    );
+
+    const helpDocumentsTab = getByText("Help Documents");
+    fireEvent.click(helpDocumentsTab);
+
+    waitFor(() => {
+      const addButton = getByTestId("add-file");
+      fireEvent.click(addButton);
+
+      expect(navigate).toHaveBeenCalledWith("/addFile", {
+        state: { projectId, projectName },
+      });
+    });
+
+
+    await waitFor(() =>{
+      const fileLink = screen.getByTestId('file-download');
+      fireEvent.click(fileLink);
+
+    })
+
+    screen.debug();
+
+    // Wait for the data to be displayed
+   
+  });
+
+
+
+
+
+  it('delete file function', async () => {
+    const mockData = [{ id: 1, fileName: 'file1' },];
+    // Mock the api.get function to return an array
+    jest.spyOn(api, 'get').mockResolvedValue({ data: mockData });
+
+    const onClose = jest.fn();
+    const showAddEmployeeButton = true;
+    const showAddFileButton = true;
+    const onAddFile = jest.fn();
+
+    const { getByText, queryByText } = render(
+      <MemoryRouter>
+        <ProjectDetails
+          project={project}
+          onClose={onClose}
+          showAddEmployeeButton={showAddEmployeeButton}
+          showAddFileButton={showAddFileButton}
+          onAddFile={onAddFile}
+        />
+      </MemoryRouter>
+    );
+
+    const helpDocumentsTab = getByText("Help Documents");
+    fireEvent.click(helpDocumentsTab);
+
+    waitFor(() => {
+      const addButton = getByTestId("add-file");
+      fireEvent.click(addButton);
+
+      expect(navigate).toHaveBeenCalledWith("/addFile", {
+        state: { projectId, projectName },
+      });
+    });
+
+
+    await waitFor(() =>{
+      const fileLink = screen.getByTestId('delete-file');
+      fireEvent.click(fileLink);
+
+    })
+    screen.debug();
+
+    // Wait for the data to be displayed
+   
+  });
+
+
+
+  it('goes into catch block of delete file function', async () => {
+    const mockData = [{ id: 1, fileName: 'file1' },];
+    // Mock the api.get function to return an array
+    jest.spyOn(api, 'get').mockResolvedValue({ data: mockData });
+    jest.spyOn(api, 'delete').mockRejectedValue('Error');
+    const onClose = jest.fn();
+    const showAddEmployeeButton = true;
+    const showAddFileButton = true;
+    const onAddFile = jest.fn();
+
+    const { getByText, queryByText } = render(
+      <MemoryRouter>
+        <ProjectDetails
+          project={project}
+          onClose={onClose}
+          showAddEmployeeButton={showAddEmployeeButton}
+          showAddFileButton={showAddFileButton}
+          onAddFile={onAddFile}
+        />
+      </MemoryRouter>
+    );
+
+    const helpDocumentsTab = getByText("Help Documents");
+    fireEvent.click(helpDocumentsTab);
+
+    waitFor(() => {
+      const addButton = getByTestId("add-file");
+      fireEvent.click(addButton);
+
+      expect(navigate).toHaveBeenCalledWith("/addFile", {
+        state: { projectId, projectName },
+      });
+    });
+
+
+    await waitFor(() =>{
+      const fileLink = screen.getByTestId('delete-file');
+      fireEvent.click(fileLink);
+
+    })
+    screen.debug();
+
+    // Wait for the data to be displayed
+   
+  });
+
+
+
+
+  it('displays an error message when result is not an array', async () => {
+    // Mock the api.get function to return an invalid result
+    jest.spyOn(api, 'get').mockResolvedValue({ data: 'invalid data' });
+
+    const onClose = jest.fn();
+    const showAddEmployeeButton = true;
+    const showAddFileButton = true;
+    const onAddFile = jest.fn();
+
+    const { getByText, queryByText } = render(
+      <MemoryRouter>
+        <ProjectDetails
+          project={project}
+          onClose={onClose}
+          showAddEmployeeButton={showAddEmployeeButton}
+          showAddFileButton={showAddFileButton}
+          onAddFile={onAddFile}
+        />
+      </MemoryRouter>
+    );
+
+    // Wait for the error message to be displayed
+  
+  });
+
+
+
 
   it("calls confirmDeleteProject when the delete button is clicked", async () => {
     const project = {
@@ -195,7 +427,7 @@ describe("ProjectDetails Component", () => {
       });
     });
 
-   
+   screen.debug();
    
     
   });
