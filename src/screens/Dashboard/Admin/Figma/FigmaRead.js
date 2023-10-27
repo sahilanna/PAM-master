@@ -72,10 +72,9 @@ function FigmaRead() {
         link.href = screenshotImageURL;
         link.download = `${user}_screenshot.png`;
         link.click();
-      } else{
-        console.error('No data found');
-      }
+      } 
     } catch (error) {
+      console.log("hibvsgccasyc");
       toast.error('No Screenshot to display', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 1000,

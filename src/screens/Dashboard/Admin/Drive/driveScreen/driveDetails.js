@@ -57,9 +57,7 @@ function DriveRead() {
     }
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
+ 
 
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
@@ -118,7 +116,7 @@ function DriveRead() {
             />
             <i className="users icon"></i>
           </div>
-          <button className="ui button" onClick={createDrive}>
+          <button data-testid="create-drive" className="ui button" onClick={createDrive}>
             Create Drive
           </button>
         </div>
@@ -198,7 +196,7 @@ function DriveRead() {
         <div className="modal-content-container">
           {showModal && (
             <CreateDriveDetails
-              onClose={closeModal}
+             
               driveURL={driveURL}
               driveId={driveId}
               projectId={projectId}

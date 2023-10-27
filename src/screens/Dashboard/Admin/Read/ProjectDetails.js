@@ -176,10 +176,10 @@ const ProjectDetails = ({
         }
       );
       console.log(otpSubmissionResponse);
-      if (otpSubmissionResponse.data === true) {
+      if (otpSubmissionResponse.status === 200) {
         await api.delete(`https://${ngrokUrl}/projects/delete/${projectId}`);
         setShowOTPMoal(false);
-      } else if (!otpSubmissionResponse.data) {
+      } else {
         setErrorMessage("Invalid OTP. Please try again.");
       }
     } catch (error) {

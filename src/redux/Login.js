@@ -75,6 +75,7 @@ function Test() {
     window.google.accounts.id.initialize({
       client_id: googleClientID,
       callback: handleGoogleLogin,
+      
     });
     window.google.accounts.id.renderButton(
       document.getElementById("signIn") || document.createElement("div"),
@@ -107,7 +108,7 @@ function Test() {
         {/* <div className="space"></div> */}
       </div>
       <div className="box-container">
-        <div data-testid="signIn" id="signIn">
+        <div data-testid="signIn" id="signIn"  >
           Button
         </div>
       </div>
@@ -131,7 +132,7 @@ function Test() {
               <p>This user was not found. Please try again.</p>
             </Modal.Content>
             <Modal.Actions>
-              <Button onClick={() => setShowUserNotFoundModal(false)}>
+              <Button data-testid="close" onClick={() => setShowUserNotFoundModal(false)}>
                 Close
               </Button>
             </Modal.Actions>

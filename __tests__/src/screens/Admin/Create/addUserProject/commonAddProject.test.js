@@ -332,5 +332,184 @@ describe("CommonAddProject", () => {
     fireEvent.click(getByTestId("X"));
   });
 
+
+  it("handles catch block of handleSubmit", async () => {
+    const mockApiPost = jest.fn();
+    const mockApiPut = jest.fn();
+    api.post = mockApiPost;
+    api.put = mockApiPut;
+
+    render(<CommonAddProject role="user" />);
+
+    const fetchUsersPromise = Promise.resolve([
+      {
+        key: "1",
+        text: "User 1",
+        value: "1",
+      },
+      {
+        key: "2",
+        text: "User 2",
+        value: "2",
+      },
+    ]);
+
+    const apiGetMock = jest.spyOn(api, "get");
+    apiGetMock.mockResolvedValue({ data: fetchUsersPromise });
+    mockApiPost.mockRejectedValue('Error');
+
+    await fetchUsersPromise;
+
+    const userDropdown = screen.getByTestId("userDropdown");
+    fireEvent.click(userDropdown);
+
+    const dropdownItem = screen.getByText("User 2");
+    fireEvent.click(dropdownItem);
+
+    const submitButton = screen.getByText("Submit");
+    fireEvent.click(submitButton);
+
+
+  });
+
+
+
+
+
+  it('handles otp submission with a successful response and user update', async () => {
+    const mockApiPost = jest.fn();
+    const mockApiPut = jest.fn();
+    api.post = mockApiPost;
+    api.put = mockApiPut;
+  
+    // Define projectId and userId values
+    const projectId = "123";
+    const userId = 2;
+  
+    render(<CommonAddProject role="user" projectId={projectId} userId={userId} />);
+  
+    const fetchUsersPromise = Promise.resolve([
+      {
+        key: '1',
+        text: 'User 1',
+        value: '1',
+      },
+      {
+        key: '2',
+        text: 'User 2',
+        value: '2',
+      },
+    ]);
+  
+    const apiGetMock = jest.spyOn(api, 'get');
+    apiGetMock.mockResolvedValue({ data: fetchUsersPromise });
+  
+    // Mock the API response to have a status of 200
+    mockApiPost.mockResolvedValueOnce({ status: 200 });
+    mockApiPost.mockResolvedValueOnce({ status: 200 });
+    mockApiPut.mockResolvedValueOnce({ status: 200 });
+
+    await fetchUsersPromise;
+  
+    const userDropdown = screen.getByTestId('userDropdown');
+    fireEvent.click(userDropdown);
+  
+    const dropdownItem = screen.getByText('User 2');
+    fireEvent.click(dropdownItem);
+  
+    const submitButton = screen.getByText('Submit');
+    fireEvent.click(submitButton);
+  
+    await waitFor(() => {
+      const otpInput = screen.getByTestId('otp');
+      fireEvent.change(otpInput, { target: { value: '123456' } });
+    });
+  
+    fireEvent.click(screen.getByText('Submit OTP'));
+  
+    // Assert that the mockApiPost function was called with the expected parameters
+    expect(mockApiPost).toHaveBeenCalledWith(
+      `https://${ngrokUrl}/OTP/verify`,
+      { otp: '123456' }
+    );
+
+    await waitFor(() =>{
+      expect(mockApiPut).toHaveBeenCalledWith(
+        `https://${ngrokUrl}/projects/${projectId}/users/${userId}`,
+        {
+          projectId: projectId,
+          userId: userId,
+        }
+      );
+
+    })
+   
+  });
+
+  it('handles otp submission with a unsuccessful response and user update', async () => {
+    const mockApiPost = jest.fn();
+    const mockApiPut = jest.fn();
+    api.post = mockApiPost;
+    api.put = mockApiPut;
+  
+    // Define projectId and userId values
+    const projectId = "123";
+    const userId = 2;
+  
+    render(<CommonAddProject role="user" projectId={projectId} userId={userId} />);
+  
+    const fetchUsersPromise = Promise.resolve([
+      {
+        key: '1',
+        text: 'User 1',
+        value: '1',
+      },
+      {
+        key: '2',
+        text: 'User 2',
+        value: '2',
+      },
+    ]);
+  
+    const apiGetMock = jest.spyOn(api, 'get');
+    apiGetMock.mockResolvedValue({ data: fetchUsersPromise });
+  
+    // Mock the API response to have a status of 200
+    mockApiPost.mockResolvedValueOnce({ status: 200 });
+    mockApiPost.mockResolvedValueOnce('Error');
+  
+
+    await fetchUsersPromise;
+  
+    const userDropdown = screen.getByTestId('userDropdown');
+    fireEvent.click(userDropdown);
+  
+    const dropdownItem = screen.getByText('User 2');
+    fireEvent.click(dropdownItem);
+  
+    const submitButton = screen.getByText('Submit');
+    fireEvent.click(submitButton);
+  
+    await waitFor(() => {
+      const otpInput = screen.getByTestId('otp');
+      fireEvent.change(otpInput, { target: { value: '123456' } });
+    });
+  
+    fireEvent.click(screen.getByText('Submit OTP'));
+  
+    // Assert that the mockApiPost function was called with the expected parameters
+    expect(mockApiPost).toHaveBeenCalledWith(
+      `https://${ngrokUrl}/OTP/verify`,
+      { otp: '123456' }
+    );
+
+    
+   
+  });
+
+
+
+
+
   
 });

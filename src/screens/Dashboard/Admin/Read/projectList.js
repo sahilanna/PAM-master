@@ -75,11 +75,10 @@ function ProjectList({ projectId, projectName, type }) {
       if (otpResponse.data === 'OTP sent') {
         setShowConfirmDialog(false);
         setShowOTPMoal(true);
-      } else if (otpResponse.response === false) {
-        console.log('OTP generation failed');
-      }
+      } 
     } catch (error) {
-      console.log(error);
+      setIsLoading(true);
+      console.log('OTP generation failed');
     }
   };
 
@@ -95,7 +94,7 @@ function ProjectList({ projectId, projectName, type }) {
         otp: otp,
       });
 
-      if (otpSubmissionResponse.data === true) {
+      if (otpSubmissionResponse.status === 200) {
         await api.delete(`https://${ngrokUrl}/projects/${projectId}/users/${selectedItemId}/repo`, {
           data: {
             owner: owner,
@@ -106,7 +105,7 @@ function ProjectList({ projectId, projectName, type }) {
         });
         getItems();
         setShowOTPMoal(false);
-      } else if (!otpSubmissionResponse.data) {
+      } else {
         setErrorMessage('Invalid OTP. Please try again.');
       }
     } catch (error) {

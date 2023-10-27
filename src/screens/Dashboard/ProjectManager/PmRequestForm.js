@@ -113,14 +113,19 @@ function PmRequestForm() {
           <Form.Field>
             <label style={{ textAlign: "left" }}>Project Name</label>
 
-            <input data-testid="project-name" name="name" placeholder={projectName} readOnly />
+            <input
+              data-testid="project-name"
+              name="name"
+              placeholder={projectName}
+              readOnly
+            />
           </Form.Field>
 
           <Form.Field>
             <label style={{ textAlign: "left" }}>User</label>
             {users.length > 0 ? (
               <Dropdown
-              data-testid="user-dropdown"
+                data-testid="user-dropdown"
                 placeholder="Select User"
                 fluid
                 selection
@@ -147,7 +152,9 @@ function PmRequestForm() {
               onChange={Description}
             />
           </Form.Field>
-          <Button data-testid="submit" primary type="submit">Submit</Button>
+          <Button data-testid="submit" primary type="submit">
+            Submit
+          </Button>
         </Form>
       </Modal.Content>
       <Modal.Actions></Modal.Actions>

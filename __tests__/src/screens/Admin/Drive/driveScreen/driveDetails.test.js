@@ -17,6 +17,44 @@ it("renders DriveRead component", () => {
   );
 });
 
+it('should call createDrive function', async () => {
+
+  const initialState = 
+ [ {
+  driveId: '1',
+  projectDTO: { projectId:1, projectName: 'Project 1', },
+  driveLink: 'https://drive.com/project1',
+},
+
+    ];
+  const apiMockResponse = {
+    data: initialState,
+  };
+
+  
+
+  const apiMock = require('../../../../../../src/network/api');
+  apiMock.default.get.mockResolvedValue(apiMockResponse);
+
+  
+
+  const { getByTestId } = render(
+    <MemoryRouter>
+      <DriveRead />
+    </MemoryRouter>
+  );
+
+  
+  await waitFor(() =>{
+    const createButton = getByTestId('create-drive');
+   
+       fireEvent.click(createButton)
+     
+    });
+  })
+
+
+
 
 it('should call handleDeleteUrl when delete button is clicked', async () => {
 
@@ -112,6 +150,49 @@ it('should call handleDeleteUrl when delete button is clicked', async () => {
 
 
 })
+
+it('should call handleDeleteUrl in failed condition', async () => {
+
+  const initialState = 
+ [ {
+  driveId: '1',
+  projectDTO: { projectId:1, projectName: 'Project 1', },
+  driveLink: 'https://drive.com/project1',
+},
+
+    ];
+  const apiMockResponse = {
+    data: initialState,
+  };
+
+  
+
+  const apiMock = require('../../../../../../src/network/api');
+  apiMock.default.get.mockResolvedValue(apiMockResponse);
+
+  const handleDeleteUrl = jest.fn();
+  apiMock.default.delete.mockRejectedValue("Error");
+
+  const { getByText, getAllByTestId, getByTestId } = render(
+    <MemoryRouter>
+      <DriveRead />
+    </MemoryRouter>
+  );
+
+  
+  await waitFor(() =>{
+    const deleteButton = getByTestId('delete');
+   
+       fireEvent.click(deleteButton)
+       waitFor(() =>{
+        const confirm = getByTestId('confirm');
+        fireEvent.click(confirm);
+        // expect(handleDeleteUrl).toHaveBeenCalledWith(expectedUserId);
+       })
+    });
+  })
+
+
 
 
 

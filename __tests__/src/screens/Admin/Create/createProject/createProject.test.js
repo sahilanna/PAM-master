@@ -60,7 +60,7 @@ test('renders CreateProject component without errors', () => {
     fireEvent.click(submitButton);
   });
 
-  it('does not call handleSubmit when the form is submitted with missing inputs', async () => {
+  it(' call handleSubmit when the form is submitted with proper inputs', async () => {
     const { getByTestId, getByText } = render(
       <Provider store={store}>
         <MemoryRouter>
@@ -80,15 +80,6 @@ test('renders CreateProject component without errors', () => {
     fireEvent.click(submitButton);
 
   });
-
-
-
-
-
-
-
-
-
 
 
 

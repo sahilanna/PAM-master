@@ -6,23 +6,23 @@ import Sidebar from "../../SideBar/SideBar";
 import { ngrokUrl } from "../../../../network/config";
 import api from "../../../../network/api";
 import "../Figma/FigmaRead.css";
- 
+
 function PmRequestUser() {
   const [requestData, setRequestData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
- 
+
   console.log(isLoading);
- 
+
   let data = sessionStorage.getItem("item");
   let user = data ? JSON.parse(data) : null;
   const accessToken = user ? user.token : null;
- 
+
   const headers = { AccessToken: accessToken };
- 
+
   useEffect(() => {
     fetchData();
   }, []);
- 
+
   const fetchData = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/request/allActive`);
@@ -33,7 +33,7 @@ function PmRequestUser() {
       requestData.forEach((request) => {
         const userId = request.user.id;
         const projectId = request.project.projectId;
- 
+
         console.log(userId);
         console.log(projectId);
       });
@@ -42,7 +42,7 @@ function PmRequestUser() {
       setIsLoading(true);
     }
   };
- 
+
   const AcceptRequest = async (accessRequestId, id, projectId) => {
     try {
       const response = await api.put(
@@ -59,7 +59,7 @@ function PmRequestUser() {
         const secondResponse = await api.put(
           `https://${ngrokUrl}/projects/${projectId}/users/${id}`
         );
- 
+
         if (
           secondResponse.status === 200 ||
           secondResponse.status === 204 ||
@@ -69,7 +69,7 @@ function PmRequestUser() {
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 3000,
           });
- 
+
           fetchData();
         } else {
           toast.error("Failed to add user. Please try again.", {
@@ -91,7 +91,7 @@ function PmRequestUser() {
       });
     }
   };
- 
+
   const DeclineRequest = async (accessRequestId) => {
     try {
       const response = await api.put(
@@ -110,7 +110,7 @@ function PmRequestUser() {
       console.log("Error adding user:", error);
     }
   };
- 
+
   return (
     <div className="parent-admin">
       <Sidebar />
@@ -137,7 +137,7 @@ function PmRequestUser() {
                   <Table.HeaderCell>Actions</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
- 
+
               <Table.Body>
                 {requestData.map((item) => (
                   <Table.Row key={item.accessRequestId}>
@@ -147,7 +147,7 @@ function PmRequestUser() {
                     <Table.Cell>{item.requestDescription}</Table.Cell>
                     <Table.Cell>
                       <Button
-                      data-testid="green"
+                        data-testid="green"
                         color="green"
                         onClick={() =>
                           AcceptRequest(
@@ -180,6 +180,5 @@ function PmRequestUser() {
     </div>
   );
 }
- 
+
 export default PmRequestUser;
- 

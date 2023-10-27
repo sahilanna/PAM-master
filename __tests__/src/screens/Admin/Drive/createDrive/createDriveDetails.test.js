@@ -195,20 +195,20 @@ test('handleSubmit is called when the Submit button is clicked', () => {
       fireEvent.click(submit);
     });
   
-    // Assert that state changes and navigation are triggered
-    // For example:
-    const driveId = "someDriveId"; // Mock the driveId value from the API response
-    // expect(screen.getByTestId("driveId").textContent).toBe(driveId);
+    const driveId = "someDriveId"; 
   
     const navigateMock = jest.fn();
-    // expect(navigateMock).toHaveBeenCalledWith('/driveDetails', { state: { driveId } });
+  
   
     const driveUrlInput = screen.getByTestId("URL");
-    // expect(driveUrlInput.value).toBe(''); // Make sure the input is cleared
-  
-    // Ensure that navigate is called with the expected arguments
-    // expect(navigateMock).toHaveBeenCalledWith('/driveDetails', { state: { driveId } });
+   
   });
+
+
+  
+  
+
+ 
   
 
 

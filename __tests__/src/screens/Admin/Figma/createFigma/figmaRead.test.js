@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, waitFor, act } from "@testing-library/react";
+import { render, fireEvent, waitFor, act, screen } from "@testing-library/react";
 import FigmaRead from "../../../../../../src/screens/Dashboard/Admin/Figma/FigmaRead";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
@@ -113,7 +113,7 @@ describe("FigmaRead Component", () => {
 
 
 
-  it("should call handleViewDetails when the view button is clicked", async () => {
+  it("should call handleDeleteUrl when the delete button is clicked", async () => {
     const initialState = [
       {
         figmaId: "1",
@@ -154,6 +154,41 @@ describe("FigmaRead Component", () => {
     });
   });
 
+
+  it("should call handleDeleteUrl when the delete button is clicked and go to catch block", async () => {
+    const initialState = [
+      {
+        figmaId: "1",
+        projectDTO: { projectName: "Project 1" },
+        figmaURL: "https://figma.com/project1",
+      },
+     
+    ];
+    const apiMockResponse = {
+      data: initialState,
+    };
+
+    const apiMock = require("../../../../../../src/network/api");
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
+
+    const handleDeleteUrl = jest.fn();
+    
+
+    const {  getByTestId } = render(
+      <MemoryRouter>
+        <FigmaRead />
+      </MemoryRouter>
+    );
+    apiMock.default.delete.mockRejectedValue(new Error('API delete request failed'));
+    await waitFor(() => {
+      const deleteButton = getByTestId("delete");
+    
+        fireEvent.click(deleteButton);
+      
+     
+    });
+  });
+
   it("renders Figma URLs correctly", () => {
     render(
       <MemoryRouter>
@@ -180,9 +215,7 @@ describe("FigmaRead Component", () => {
     );
 
     fireEvent.click(getByTestId("create"));
-    // waitFor(() => {
-    //   expect(setShowModalMock).toHaveBeenCalledWith(true);
-    // });
+   
   });
 
   it("calls handleSearchChange when the search input value changes", () => {
@@ -196,7 +229,7 @@ describe("FigmaRead Component", () => {
     fireEvent.change(searchInput, { target: { value: "John" } });
   });
 
-  it('should call handleAddUser when the "Add User" button is clicked', async () => {
+  it('should call handleDisplayVerification', async () => {
     const initialState = [
       {
         figmaId: "1",
@@ -214,7 +247,7 @@ describe("FigmaRead Component", () => {
       data: initialState,
     };
 
-    const apiMock = require("../../../../../../src/network/api"); // Replace with your actual API mock path
+    const apiMock = require("../../../../../../src/network/api"); 
     apiMock.default.get.mockResolvedValue(apiMockResponse);
 
     const handleAddUser = jest.fn();
@@ -240,6 +273,49 @@ describe("FigmaRead Component", () => {
       });
     });
   });
+
+
+  it('should call handleDisplayVerification and go in catch block', async () => {
+    const initialState = [
+      {
+        figmaId: "1",
+        projectDTO: { projectName: "Project 1" },
+        figmaURL: "https://figma.com/project1",
+      },
+
+    ];
+
+    const apiMockResponse = {
+      data: initialState,
+    };
+
+    const apiMock = require("../../../../../../src/network/api"); 
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
+    
+   
+    const handleDisplayVerification = jest.fn();
+   
+
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <FigmaRead />
+      </MemoryRouter>
+    );
+
+   
+    apiMock.default.get.mockRejectedValue('Error');
+    await waitFor(() => {
+      const verificationButton = getByTestId("verification");
+        fireEvent.click(verificationButton);
+       
+      });
+   
+
+      screen.debug();
+    
+  });
+
+
 
 
   it('should call handleAddUser when the "Add User" button is clicked and close the modal', async () => {

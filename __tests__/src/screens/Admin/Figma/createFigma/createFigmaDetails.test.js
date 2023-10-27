@@ -26,7 +26,10 @@ const mockProjects = [
 function validateURL(url) {
     try {
       const parsedUrl = new URL(url);
-      return parsedUrl.hostname === 'figma.com';
+      return (
+        parsedUrl.hostname === 'www.figma.com' &&
+        parsedUrl.pathname.startsWith('/file/')
+      );
     } catch (_) {
       return false;
     }
@@ -59,7 +62,10 @@ test("onClose function navigates back", () => {
 });
 
 
-test("onClose function navigates back", () => {
+
+
+
+test("checks validateURL", () => {
     const { getByTestId } = render(
       <MemoryRouter>
         <CreateFigmaDetails />
@@ -67,11 +73,11 @@ test("onClose function navigates back", () => {
     );
     const inputElement = getByTestId('URL');
   
-    fireEvent.change(inputElement, { target: { value: 'https://figma.com' } });
+    fireEvent.change(inputElement, { target: { value: 'https://www.figma.com/file/example' } });
   
     
     waitFor(()=> {
-        expect(CreateFigmaDetails.state().driveUrl).toBe('https://figma.com');
+        expect(CreateFigmaDetails.state().driveUrl).toBe('https://www.figma.com/file/example');
     })
     
   });

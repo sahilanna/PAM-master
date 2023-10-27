@@ -71,12 +71,10 @@ describe("ProjectDetails Component", () => {
     );
   });
 
-
-
-  it('displays data when result is an array', async () => {
-    const mockData = [{ id: 1, fileName: 'file1' },];
+  it("displays data when result is an array", async () => {
+    const mockData = [{ id: 1, fileName: "file1" }];
     // Mock the api.get function to return an array
-    jest.spyOn(api, 'get').mockResolvedValue({ data: mockData });
+    jest.spyOn(api, "get").mockResolvedValue({ data: mockData });
 
     const onClose = jest.fn();
     const showAddEmployeeButton = true;
@@ -107,28 +105,24 @@ describe("ProjectDetails Component", () => {
       });
     });
 
-
-    await waitFor(() =>{
-      const fileLink = screen.getByTestId('file-download');
+    await waitFor(() => {
+      const fileLink = screen.getByTestId("file-download");
       fireEvent.click(fileLink);
-
-    })
+    });
     screen.debug();
 
     // Wait for the data to be displayed
-   
   });
 
-
-  it('then displays data when result is an array', async () => {
-    const mockData = [{ id: 1, fileName: 'file1' },];
+  it("then displays data when result is an array", async () => {
+    const mockData = [{ id: 1, fileName: "file1" }];
     // Mock the api.get function to return an array
     const navigateMock = jest.fn();
     const downloadFile = jest.fn(() => {
-      navigate('/adminDashboard'); // Simulate navigate behavior
+      navigate("/adminDashboard"); // Simulate navigate behavior
     });
 
-    jest.spyOn(api, 'get').mockResolvedValue({ data: mockData });
+    jest.spyOn(api, "get").mockResolvedValue({ data: mockData });
 
     const onClose = jest.fn();
     const showAddEmployeeButton = true;
@@ -160,27 +154,20 @@ describe("ProjectDetails Component", () => {
       });
     });
 
-
-    await waitFor(() =>{
-      const fileLink = screen.getByTestId('file-download');
+    await waitFor(() => {
+      const fileLink = screen.getByTestId("file-download");
       fireEvent.click(fileLink);
-
-    })
+    });
 
     screen.debug();
 
     // Wait for the data to be displayed
-   
   });
 
-
-
-
-
-  it('delete file function', async () => {
-    const mockData = [{ id: 1, fileName: 'file1' },];
+  it("delete file function", async () => {
+    const mockData = [{ id: 1, fileName: "file1" }];
     // Mock the api.get function to return an array
-    jest.spyOn(api, 'get').mockResolvedValue({ data: mockData });
+    jest.spyOn(api, "get").mockResolvedValue({ data: mockData });
 
     const onClose = jest.fn();
     const showAddEmployeeButton = true;
@@ -211,25 +198,20 @@ describe("ProjectDetails Component", () => {
       });
     });
 
-
-    await waitFor(() =>{
-      const fileLink = screen.getByTestId('delete-file');
+    await waitFor(() => {
+      const fileLink = screen.getByTestId("delete-file");
       fireEvent.click(fileLink);
-
-    })
+    });
     screen.debug();
 
     // Wait for the data to be displayed
-   
   });
 
-
-
-  it('goes into catch block of delete file function', async () => {
-    const mockData = [{ id: 1, fileName: 'file1' },];
+  it("goes into catch block of delete file function", async () => {
+    const mockData = [{ id: 1, fileName: "file1" }];
     // Mock the api.get function to return an array
-    jest.spyOn(api, 'get').mockResolvedValue({ data: mockData });
-    jest.spyOn(api, 'delete').mockRejectedValue('Error');
+    jest.spyOn(api, "get").mockResolvedValue({ data: mockData });
+    jest.spyOn(api, "delete").mockRejectedValue("Error");
     const onClose = jest.fn();
     const showAddEmployeeButton = true;
     const showAddFileButton = true;
@@ -259,24 +241,18 @@ describe("ProjectDetails Component", () => {
       });
     });
 
-
-    await waitFor(() =>{
-      const fileLink = screen.getByTestId('delete-file');
+    await waitFor(() => {
+      const fileLink = screen.getByTestId("delete-file");
       fireEvent.click(fileLink);
-
-    })
+    });
     screen.debug();
 
     // Wait for the data to be displayed
-   
   });
 
-
-
-
-  it('displays an error message when result is not an array', async () => {
+  it("displays an error message when result is not an array", async () => {
     // Mock the api.get function to return an invalid result
-    jest.spyOn(api, 'get').mockResolvedValue({ data: 'invalid data' });
+    jest.spyOn(api, "get").mockResolvedValue({ data: "invalid data" });
 
     const onClose = jest.fn();
     const showAddEmployeeButton = true;
@@ -296,11 +272,7 @@ describe("ProjectDetails Component", () => {
     );
 
     // Wait for the error message to be displayed
-  
   });
-
-
-
 
   it("calls confirmDeleteProject when the delete button is clicked", async () => {
     const project = {
@@ -324,11 +296,6 @@ describe("ProjectDetails Component", () => {
 
     const mockDeleteProject = jest.fn();
     api.default.delete.mockResolvedValue(apiMockResponse);
-    // jest.mock("../../../../../src/network/api", () => ({
-    //   default: {
-    //     delete: mockDeleteProject,
-    //   },
-    // }));
 
     api.post = jest.fn().mockResolvedValue({ data: "OTP sent" });
 
@@ -343,9 +310,6 @@ describe("ProjectDetails Component", () => {
 
     fireEvent.click(screen.getByTestId("confirm"));
 
-    // waitFor(() => {
-    //   fireEvent.click(screen.getByTestId("close-otp"));
-    // });
     screen.debug();
   });
 
@@ -427,9 +391,7 @@ describe("ProjectDetails Component", () => {
       });
     });
 
-   screen.debug();
-   
-    
+    screen.debug();
   });
 
   it("closes OTP Modal", async () => {
@@ -449,13 +411,11 @@ describe("ProjectDetails Component", () => {
       data: project,
     };
 
-
     const api = require("../../../../../src/network/api");
     api.default.get.mockResolvedValueOnce({ data: project });
 
     const mockDeleteProject = jest.fn();
     api.default.delete.mockResolvedValue(apiMockResponse);
-   
 
     api.default.post.mockResolvedValue({ data: "OTP sent" });
 
@@ -473,7 +433,6 @@ describe("ProjectDetails Component", () => {
     await waitFor(() => {
       fireEvent.click(screen.getByTestId("close-otp"));
     });
-    
   });
 
   it("closes", async () => {
@@ -493,13 +452,11 @@ describe("ProjectDetails Component", () => {
       data: project,
     };
 
-
     const api = require("../../../../../src/network/api");
     api.default.get.mockResolvedValueOnce({ data: project });
 
     const mockDeleteProject = jest.fn();
     api.default.delete.mockResolvedValue(apiMockResponse);
-   
 
     api.default.post.mockResolvedValue({ response: false });
 
@@ -513,8 +470,6 @@ describe("ProjectDetails Component", () => {
     fireEvent.click(deleteProject);
 
     fireEvent.click(screen.getByTestId("confirm"));
-
-
   });
 
   it("submits OTP Modal", async () => {
@@ -534,16 +489,14 @@ describe("ProjectDetails Component", () => {
       data: project,
     };
 
-
     const api = require("../../../../../src/network/api");
     api.default.get.mockResolvedValueOnce({ data: project });
 
     const mockDeleteProject = jest.fn();
     api.default.delete.mockResolvedValue(apiMockResponse);
-   
 
     api.default.post.mockResolvedValue({ data: "OTP sent" });
-    
+
     render(
       <MemoryRouter>
         <ProjectDetails />
@@ -558,9 +511,7 @@ describe("ProjectDetails Component", () => {
     await waitFor(() => {
       fireEvent.click(screen.getByTestId("submit"));
     });
-    
   });
-
 
   it("submits OTP Modal and goes in If condition", async () => {
     const project = {
@@ -579,19 +530,101 @@ describe("ProjectDetails Component", () => {
       data: project,
     };
 
+    const api = require("../../../../../src/network/api");
+    api.default.get.mockResolvedValueOnce({ data: project });
+
+    const mockDeleteProject = jest.fn();
+    api.default.delete.mockResolvedValue(apiMockResponse);
+
+    api.default.post.mockResolvedValue({ data: "OTP sent" });
+
+    await api.default.delete.mockResolvedValue({ data: "Project deleted" });
+
+    render(
+      <MemoryRouter>
+        <ProjectDetails />
+      </MemoryRouter>
+    );
+
+    const deleteProject = screen.getByTestId("delete-project");
+    fireEvent.click(deleteProject);
+
+    fireEvent.click(screen.getByTestId("confirm"));
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId("submit"));
+    });
+  });
+
+  it("submits OTP Modal and goes in If condition", async () => {
+    const project = {
+      projectId: 1,
+      projectName: "Sample Project",
+      projectDescription: "This is a sample project",
+      pmName: "John Doe",
+      repositories: ["Repo 1", "Repo 2"],
+      figma: { figmaURL: "https://figma.com/project" },
+      googleDrive: { driveLink: "https://drive.google.com/project" },
+      lastUpdated: "2023-10-15T12:00:00Z",
+      helpDocuments: null,
+    };
+
+    const apiMockResponse = {
+      data: project,
+    };
 
     const api = require("../../../../../src/network/api");
     api.default.get.mockResolvedValueOnce({ data: project });
 
     const mockDeleteProject = jest.fn();
     api.default.delete.mockResolvedValue(apiMockResponse);
-   
-   
+
     api.default.post.mockResolvedValue({ data: "OTP sent" });
-    
+
     await api.default.delete.mockResolvedValue({ data: "Project deleted" });
-   
-    
+
+    render(
+      <MemoryRouter>
+        <ProjectDetails />
+      </MemoryRouter>
+    );
+
+    const deleteProject = screen.getByTestId("delete-project");
+    fireEvent.click(deleteProject);
+
+    fireEvent.click(screen.getByTestId("confirm"));
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId("submit"));
+    });
+  });
+
+  it("something it will do, I'm sure", async () => {
+    const project = {
+      projectId: 1,
+      projectName: "Sample Project",
+      projectDescription: "This is a sample project",
+      pmName: "John Doe",
+      repositories: ["Repo 1", "Repo 2"],
+      figma: { figmaURL: "https://figma.com/project" },
+      googleDrive: { driveLink: "https://drive.google.com/project" },
+      lastUpdated: "2023-10-15T12:00:00Z",
+      helpDocuments: null,
+    };
+
+    const apiMockResponse = {
+      data: project,
+    };
+
+    const api = require("../../../../../src/network/api");
+    api.default.get.mockResolvedValueOnce({ data: project });
+
+    const mockDeleteProject = jest.fn();
+    api.default.delete.mockResolvedValue(apiMockResponse);
+
+    api.default.post.mockResolvedValue({ data: "OTP sent" });
+    api.default.delete.mockResolvedValue('Error');
+
     render(
       <MemoryRouter>
         <ProjectDetails />
@@ -607,57 +640,13 @@ describe("ProjectDetails Component", () => {
       fireEvent.click(screen.getByTestId("submit"));
     });
 
-  
-    
+    await waitFor(() => {
+      const otpInput = screen.getByTestId("otp-input");
+      fireEvent.change(otpInput, { target: { value: "123456" } });
+    });
+
+    fireEvent.click(screen.getByTestId("submit"));
+
+    screen.debug();
   });
-
-
-
-  // it("check once again", async () => {
-  //   const project = {
-  //     projectId: 1,
-  //     projectName: "Sample Project",
-  //     projectDescription: "This is a sample project",
-  //     pmName: "John Doe",
-  //     repositories: ["Repo 1", "Repo 2"],
-  //     figma: { figmaURL: "https://figma.com/project" },
-  //     googleDrive: { driveLink: "https://drive.google.com/project" },
-  //     lastUpdated: "2023-10-15T12:00:00Z",
-  //     helpDocuments: null,
-  //   };
-
-  //   const apiMockResponse = {
-  //     data: project,
-  //   };
-
-  //   const api = require("../../../../../src/network/api");
-  //   api.default.get.mockResolvedValueOnce({ data: project });
-
-  //   const mockDeleteProject = jest.fn();
-  //   api.default.delete.mockResolvedValue(apiMockResponse);
-  //   // jest.mock("../../../../../src/network/api", () => ({
-  //   //   default: {
-  //   //     delete: mockDeleteProject,
-  //   //   },
-  //   // }));
-
-  //   api.post = jest.fn().mockResolvedValue({ data: "OTP sent" });
-
-  //   render(
-  //     <MemoryRouter>
-  //       <ProjectDetails />
-  //     </MemoryRouter>
-  //   );
-
-  //   const deleteProject = screen.getByTestId("delete-project");
-  //   fireEvent.click(deleteProject);
-
-  //   fireEvent.click(screen.getByTestId("on-confirm"));
-
-  //   // waitFor(() => {
-  //   //   fireEvent.click(screen.getByTestId("close-otp"));
-  //   // });
-  //   screen.debug();
-  // });
-
 });

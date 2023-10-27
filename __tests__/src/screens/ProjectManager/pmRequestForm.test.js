@@ -29,47 +29,6 @@ describe("PmRequestForm Component", () => {
     );
   });
 
-  //   it("submits the request form successfully", async () => {
-  //     const location = {
-  //       state: {
-  //         projectId: 1,
-  //         projectName: "ProjectName",
-  //       },
-  //     };
-
-  //     // Mock the API response
-  //     api.post.mockResolvedValue({ data: { success: true } });
-
-  //     const { getByLabelText, getByText } = render(
-  //         <MemoryRouter><PmRequestForm location={location} /></MemoryRouter>
-  //     );
-
-  //     const descriptionInput = getByLabelText("Description:");
-  //     fireEvent.change(descriptionInput, { target: { value: "Test description" } });
-
-  //     const submitButton = getByText("Submit");
-  //     fireEvent.click(submitButton);
-
-  //     // Wait for the asynchronous code to complete
-  //     await waitFor(() => {
-  //       expect(api.post).toHaveBeenCalledWith(
-  //         `https://your-api-url-here.com/request/`,
-  //         {
-  //           pmName: "YourPmName",
-  //           user: {
-  //             id: "selectedUserId",
-  //           },
-  //           project: {
-  //             projectId: 1,
-  //           },
-  //           requestDescription: "Test description",
-  //         }
-  //       );
-
-  //       // You can also add assertions for the success message or navigation
-  //     });
-  //   });
-
   it("displays 'No users available' when there are no users", () => {
     const location = {
       state: {
@@ -106,8 +65,7 @@ describe("PmRequestForm Component", () => {
     });
   });
 
-
-  it('should submit the form with selected user and description', async () => {
+  it("should submit the form with selected user and description", async () => {
     const sampleUsers = [
       {
         id: 2,
@@ -127,14 +85,8 @@ describe("PmRequestForm Component", () => {
       },
     ];
 
-   
-
     const api = require("../../../../src/network/api");
-    await api.default.get.mockResolvedValueOnce({ data: sampleUsers }) 
-    
-
-
-  
+    await api.default.get.mockResolvedValueOnce({ data: sampleUsers });
 
     await act(async () => {
       render(
@@ -144,10 +96,6 @@ describe("PmRequestForm Component", () => {
       );
     });
 
-    // const githubUsernameInput = screen.getByPlaceholderText("Enter github username");
-    // fireEvent.change(githubUsernameInput, { target: { value: "sahilanna" } });
-
-    
     const userDropdown = screen.getByTestId("user-dropdown");
     fireEvent.click(userDropdown);
 
@@ -157,41 +105,89 @@ describe("PmRequestForm Component", () => {
     });
 
     const githubUsernameInput = screen.getByTestId("description");
-    await waitFor(() =>{
-      fireEvent.change(githubUsernameInput, { target: { value: "Hellooooooo" } });
-    })
+    await waitFor(() => {
+      fireEvent.change(githubUsernameInput, {
+        target: { value: "Hellooooooo" },
+      });
+    });
 
-
-   
     await waitFor(() => {
       const submit = screen.getByTestId("submit");
       fireEvent.click(submit);
     });
 
-
-    
-      // const submitButton = screen.getByTestId('submit');
-      // fireEvent.click(submitButton);
-  
-      screen.debug();
-    
+    screen.debug();
   });
 
   test("should call logOut and navigate to the Login page with null user data", async () => {
     const sampleUser = { id: 123, name: "Sample User" };
     sessionStorage.setItem("item", JSON.stringify(sampleUser));
-  
+
     render(
       <MemoryRouter>
-         <PmRequestForm/>
+        <PmRequestForm />
       </MemoryRouter>
-     
     );
     const data = sessionStorage.getItem("item");
     const user = data ? JSON.parse(data) : null;
     const id = user ? user.id : null;
   });
 
+  it("should submit the form with selected user and description and go to if condition", async () => {
+    const sampleUsers = [
+      {
+        id: 2,
+        name: "Sweda",
+        email: "swedagmail.com",
+        enumRole: "USER",
+        token: null,
+        gitHubUsername: null,
+      },
+      {
+        id: 3,
+        name: "Sahil",
+        email: "xgc@gmail.com",
+        enumRole: "USER",
+        token: null,
+        gitHubUsername: null,
+      },
+    ];
 
+    const api = require("../../../../src/network/api");
+    await api.default.get.mockResolvedValueOnce({ data: sampleUsers });
 
+    await api.default.post.mockResolvedValueOnce({ data: { success: true } });
+
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <PmRequestForm />
+        </MemoryRouter>
+      );
+    });
+
+    const userDropdown = screen.getByTestId("user-dropdown");
+    fireEvent.click(userDropdown);
+
+    await waitFor(() => {
+      const selectedOption = screen.getByText("Sahil");
+      fireEvent.click(selectedOption);
+    });
+
+    const githubUsernameInput = screen.getByTestId("description");
+    await waitFor(() => {
+      fireEvent.change(githubUsernameInput, {
+        target: { value: "Hellooooooo" },
+      });
+    });
+
+    await waitFor(() => {
+      const submit = screen.getByTestId("submit");
+      fireEvent.click(submit);
+    });
+
+    screen.debug();
+  });
+
+  
 });
