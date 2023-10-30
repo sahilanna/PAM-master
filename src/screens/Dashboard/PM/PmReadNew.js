@@ -69,9 +69,7 @@ function PmReadNew() {
     handleFilterItems(e.target.value);
   };
   const handleFilterItems = (searchQuery) => {
-    const filteredItems = item.filter((project) =>
-      project.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    
     setFilteredProjects(filteredItems);
     setCurrentPageData(filteredItems.slice(0, itemsPerPage));
   };

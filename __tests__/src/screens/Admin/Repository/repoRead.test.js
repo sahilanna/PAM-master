@@ -163,6 +163,53 @@ describe("RepoRead Component", () => {
   })
 
 
+  it('should call deleteUser and go to catch block', async () => {
+
+    const initialState =
+   [ {
+    repoId: '1',
+    name: 'Repo1',
+    description: 'Repo 1 for Project 1',
+  },
+  {
+    repoId: '2',
+    name: 'Repo2',
+    description: 'Repo 2 for Project 2',
+  },
+      ];
+    const apiMockResponse = {
+      data: initialState,
+    };
+
+    const apiMock = require('../../../../../src/network/api');
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
+    apiMock.default.delete.mockRejectedValue('Error');
+
+    const deleteUser = jest.fn();
+    const handleConfirmDelete = jest.fn();
+    
+    
+
+   render(
+      <MemoryRouter>
+        <RepoRead />
+      </MemoryRouter>
+    );
+
+    await waitFor(() =>{
+      const deleteButton = screen.getAllByTestId('delete');
+      deleteButton.forEach((deleteButton) => {
+         fireEvent.click(deleteButton)
+         waitFor(() =>{
+          const confirm = screen.getByTestId('confirm')
+          fireEvent.click(confirm);
+         })
+      });
+    })
+
+  })
+
+
   test("should call logOut and navigate to the Login page with null user data", async () => {
     const sampleUser = { id: 123, name: "Sample User" };
     sessionStorage.setItem("item", JSON.stringify(sampleUser));

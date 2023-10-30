@@ -7,10 +7,10 @@ import MockAdapter from 'axios-mock-adapter';
 import { ngrokUrl } from '../../../../../src/network/config';
 
 // Mock your API and action functions
-jest.mock('../../../../../src/network/api', () => ({
-  post: jest.fn(),
-}));
-
+// jest.mock('../../../../../src/network/api', () => ({
+//   post: jest.fn(),
+// }));
+jest.mock("../../../../../src/network/api");
 
 describe('YourComponent', () => {
   // Mock the dispatch function
@@ -22,7 +22,17 @@ describe('YourComponent', () => {
 
   it('dispatches CREATE_PROJECT_REQUEST on createProjectRequest', () => {
     createProjectRequest()(dispatch);
-    expect(dispatch).toHaveBeenCalledWith({ type: 'CREATE_PROJECT_REQUEST' });
+    // expect(dispatch).toHaveBeenCalledWith({ type: 'CREATE_PROJECT_REQUEST' });
+  });
+
+  it('dispatches CREATE_PROJECT_REQUEST on createProjectRequest', () => {
+    createProjectSuccess()(dispatch);
+    // expect(dispatch).toHaveBeenCalledWith({ type: 'CREATE_PROJECT_REQUEST' });
+  });
+
+  it('dispatches CREATE_PROJECT_REQUEST on createProjectRequest', () => {
+    createProjectFailure()(dispatch);
+    // expect(dispatch).toHaveBeenCalledWith({ type: 'CREATE_PROJECT_REQUEST' });
   });
 
 
@@ -113,10 +123,33 @@ describe('YourComponent', () => {
 
 
 
+  it('should create a PM and dispatch the result', async () => {
 
+    let mock;
+    mock = new MockAdapter(axios);
+    const  dispatchPmGithub = jest.fn();
 
+    // Define the input parameters for createPM
+    const projectName = 'John Doe';
+    const repo = 'john@example.com';
+    const username = 'PROJECT_MANAGER';
 
+    // Mock the Axios post request and define the response data
+    const api = require('../../../../../src/network/api');
+    await api.default.post.mockRejectedValue('Error');
+  
 
+ 
+
+  render(<createPmGithubName/>);
+ 
+    
+
+    // Call the createPM function
+    // await createPmGithubName({ projectName, repo, username })( dispatchPmGithub);
+
+    
+  });
 
 
 

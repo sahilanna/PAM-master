@@ -31,7 +31,7 @@ export const createPM = ({ name, email,enumRole}) => {
             dispatchPMUpdate({type: "createPM", payload: responseCreatePM});
         }
         catch (error){
-            console.log(error);
+            console.log("ho");
         }
     };
 };

@@ -36,9 +36,7 @@ export function handleFileUpload (modalfile,
       resetFileInputs();
       navigate('/adminDashboard');
     })
-    .catch((error) => {
-      console.error(error);
-    });
+   
 }
 
 function AddFile() {

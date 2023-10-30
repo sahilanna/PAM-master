@@ -287,17 +287,53 @@ describe('UserRead Component', () => {
 
   it('should handle search input and display filtered results', async () => {
 
-    const { getByText, history } = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <UserRead />
-        </MemoryRouter>
-      </Provider>
-    );
-      
-    const searchInput = screen.getByPlaceholderText('Search user...');
-    fireEvent.change(searchInput, { target: { value: 'TestUser' } });
+   
+    const initialState = 
+   [
+        {
+          id: 402,
+          name: "Sahil Mehar",
+          email: "sahil.mehar@nineleaps.com",
+          enumRole: "USER",
+          gitHubUsername: null,
+          lastUpdated: "2023-10-11T16:31:31",
+          lastLogout: "2023-10-11T16:35:11",
+        },
+        {
+          id: 4043,
+          name: "Bindu",
+          email: "sahil.mear@nineleaps.com",
+          enumRole: "USER",
+          gitHubUsername: null,
+          lastUpdated: "2023-10-11T16:31:31",
+          lastLogout: "2023-10-11T16:35:11",
+        },
 
+      ];
+    const apiMockResponse = {
+      data: initialState,
+    };
+
+    
+  
+    const apiMock = require('../../../../src/network/api');
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
+  
+    const { getByText } = render(
+      <MemoryRouter>
+        <UserRead />
+      </MemoryRouter>
+    );
+
+    const searchInput = screen.getByPlaceholderText('Search user...');
+    fireEvent.change(searchInput, { target: { value: 'Sahil Mehar' } });
+    
+    await waitFor(() =>{
+      expect(screen.getByText('Sahil Mehar')).toBeInTheDocument();
+
+    })
+    
+    screen.debug()
   });
 
 

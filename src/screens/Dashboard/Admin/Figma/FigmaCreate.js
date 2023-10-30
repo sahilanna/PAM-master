@@ -79,7 +79,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
       
       setscreenshotImage(result);
       
-      console.log("hihit",figmaId);
+      
       setPost(prevState => ({ ...prevState, image: result }));
      
     }; 

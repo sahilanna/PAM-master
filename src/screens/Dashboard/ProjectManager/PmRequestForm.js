@@ -49,9 +49,7 @@ function PmRequestForm() {
         const userNames = response.data.map((users) => users.name);
         setUsers(userNames);
         setUserObj(response.data);
-      } else {
-        console.log("Invalid response: users data is not an array");
-      }
+      } 
     } catch (error) {
       console.log("Error fetching Users:", error);
     }

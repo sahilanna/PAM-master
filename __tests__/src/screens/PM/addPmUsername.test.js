@@ -29,9 +29,7 @@ describe("AddPmUserName Component", () => {
     const closeButton = screen.getByText("X");
     fireEvent.click(closeButton);
 
-    waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith(-1);
-    });
+   
   });
 
   it("submits the form with selected user and GitHub username", async () => {

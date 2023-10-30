@@ -56,7 +56,6 @@ const AdminDashboard = () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/projects/countPeople`, {});
       setItem(response.data);
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
       setIsLoading(true);
@@ -86,9 +85,7 @@ const AdminDashboard = () => {
   };
   
   const handleFilterItems = (searchQuery) => {
-    const filteredItems = item.filter((item) =>
-      item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    
     setCurrentPageData(filteredItems.slice(0, itemsPerPage));
   };
   const filteredItems = item.filter((item) =>

@@ -35,19 +35,19 @@ function Test() {
     //  console.log(token)
     const decodedToken = decodeIdToken(token);
     const emailToVerify = decodedToken.email;
-    console.log(emailToVerify);
+    
     const headers = {
-      // Authorization: `${token}`,
+     
       "ngrok-skip-browser-warning": "true",
       emailToVerify: `${emailToVerify}`,
     };
-    // console.log(headers)
+    
     try {
       const { data } = await axios.get(
         `https://${ngrokLogin}/auth/api/v1/get-email`,
         { headers }
       );
-      // console.log(data)
+      
       sessionStorage.setItem("item", JSON.stringify(data));
       const access = sessionStorage.getItem("item");
       let user = JSON.parse(access);
@@ -65,7 +65,6 @@ function Test() {
       }
     } catch (error) {
       setShowUserNotFoundModal(true);
-      console.log("user not found");
     }
   };
 

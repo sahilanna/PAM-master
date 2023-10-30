@@ -54,7 +54,7 @@ function CreateDriveDetails() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!isValidUrl) {
-      return;
+      return ;
     }
     try {
       const response = await api.post(`https://${ngrokUrl}/createGoogleDrive`, {
@@ -67,7 +67,7 @@ function CreateDriveDetails() {
       const driveId = response.data.id;
       setDriveId(driveId);
       navigate('/driveDetails', { state: { driveId } });
-      setDriveUrl('');
+    
     } catch (error) {
       console.log('Error:', error);
     }

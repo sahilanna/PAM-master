@@ -10,15 +10,7 @@ import MockAdapter from 'axios-mock-adapter';
 // Mock the network/api module
 jest.mock('../../../../../src/network/api')
 
-// jest.mock('../../../../../src/network/api', () => ({
-//   get: jest.fn((url) => {
-//     if (url.includes('projects/countPeople')) {
-//       return Promise.resolve({ data: [] }); // Mock project count data
-//     } else if (url.includes('request/allActive')) {
-//       return Promise.resolve({ data: [] }); // Mock request data
-//     }
-//   }),
-// }));
+
 
 describe('AdminDashboard Component', () => {
   

@@ -75,6 +75,48 @@ describe("FigmaRead Component", () => {
     });
   });
 
+  it("should call handleDeleteUrl and go to catch block", async () => {
+    const initialState = [
+      {
+        figmaId: "1",
+        projectDTO: { projectName: "Project 1" },
+        figmaURL: "https://figma.com/project1",
+      },
+      {
+        figmaId: "2",
+        projectDTO: { projectName: "Project 2" },
+        figmaURL: "https://figma.com/project2",
+      },
+    ];
+    const apiMockResponse = {
+      data: initialState,
+    };
+
+    const apiMock = require("../../../../../../src/network/api");
+    apiMock.default.get.mockResolvedValue(apiMockResponse);
+
+    const handleDeleteUrl = jest.fn();
+    apiMock.default.delete.mockRejectedValue('Error');
+
+    const { getAllByTestId, getByTestId } = render(
+      <MemoryRouter>
+        <FigmaRead />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      const deleteButton = getAllByTestId("delete");
+      deleteButton.forEach((deleteButton) => {
+        fireEvent.click(deleteButton);
+        waitFor(() => {
+          const confirm = getByTestId("confirm");
+          fireEvent.click(confirm);
+          // expect(handleDeleteUrl).toHaveBeenCalledWith(expectedUserId);
+        });
+      });
+    });
+  });
+
 
 
   it("shouldgo to catch block when get api is not hit properly", async () => {

@@ -1,7 +1,9 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor, } from '@testing-library/react';
 import Test from '../../../src/screens/Test';
-
+import axios from 'axios';
+import { ngrokLogin } from '../../../src/network/config';
+jest.mock("axios");
 // Mock the initialize and renderButton functions
 window.google = {
   accounts: {
@@ -31,10 +33,12 @@ it('renders and initializes Google Accounts API button', () => {
     { theme: "outline", size: "large" }
   );
 
-  // Check if the "signIn" element is in the container
   const signInElement = container.querySelector('#signIn');
-  // expect(signInElement).toBeInTheDocument();
+ 
 });
+
+
+
 
 
 

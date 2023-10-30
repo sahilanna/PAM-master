@@ -124,9 +124,7 @@ function FigmaRead() {
   };
  
   const handleFilterItems = (searchQuery) => {
-    const filteredItems = projects.filter((item) =>
-      item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+   
     setFilteredProjects(filteredItems);
     setCurrentPageData(filteredItems.slice(0, itemsPerPage));
   };

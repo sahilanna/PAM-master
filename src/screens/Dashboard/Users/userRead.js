@@ -88,9 +88,6 @@ const loaditem = async() => {
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-    const filteredProjects = item.filter((project) =>
-      project.name.toLowerCase().includes(query.toLowerCase())
-    );
     setCurrentPageData(filteredProjects.slice(0, itemsPerPage));
   };
 

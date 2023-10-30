@@ -114,6 +114,33 @@ describe("ProjectDetails Component", () => {
     // Wait for the data to be displayed
   });
 
+
+  it("displays data when result is an array", async () => {
+    const mockData = [{ id: 1, fileName: "file1" }];
+    // Mock the api.get function to return an array
+    jest.spyOn(api, "get").mockResolvedValue({ data: mockData });
+
+    const onClose = jest.fn();
+    const showAddEmployeeButton = true;
+    const showAddFileButton = true;
+    const onAddFile = jest.fn();
+
+    const { getByText, queryByText } = render(
+      <MemoryRouter>
+        <ProjectDetails
+          project={project}
+          onClose={onClose}
+          showAddEmployeeButton={showAddEmployeeButton}
+          showAddFileButton={showAddFileButton}
+          onAddFile={onAddFile}
+        />
+      </MemoryRouter>
+    );
+
+    const helpDocumentsTab = getByText("PM");
+    fireEvent.click(helpDocumentsTab);
+  })
+
   it("then displays data when result is an array", async () => {
     const mockData = [{ id: 1, fileName: "file1" }];
     // Mock the api.get function to return an array
@@ -599,7 +626,7 @@ describe("ProjectDetails Component", () => {
     });
   });
 
-  it("something it will do, I'm sure", async () => {
+  it("goes into catch block of handleOtpSubmit", async () => {
     const project = {
       projectId: 1,
       projectName: "Sample Project",
@@ -623,7 +650,7 @@ describe("ProjectDetails Component", () => {
     api.default.delete.mockResolvedValue(apiMockResponse);
 
     api.default.post.mockResolvedValue({ data: "OTP sent" });
-    api.default.delete.mockResolvedValue('Error');
+    // api.default.delete.mockResolvedValue('Error');
 
     render(
       <MemoryRouter>
@@ -640,6 +667,8 @@ describe("ProjectDetails Component", () => {
       fireEvent.click(screen.getByTestId("submit"));
     });
 
+    api.default.post.mockRejectedValue('Error');
+
     await waitFor(() => {
       const otpInput = screen.getByTestId("otp-input");
       fireEvent.change(otpInput, { target: { value: "123456" } });
@@ -649,4 +678,9 @@ describe("ProjectDetails Component", () => {
 
     screen.debug();
   });
+
+
+
+
+
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import AddFile from '../../../../../../src/screens/Dashboard/Admin/Create/addFile/addFile';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
@@ -131,6 +131,29 @@ test('handleModelFileSelect should set modalfile and clear error message for val
   expect(queryByText('Please select a file to upload.')).toBeNull();
   expect(queryByText('Invalid file format. Only PNG, JPG, and PDF files are allowed.')).toBeNull();
 });
+
+test('handleModelFileSelect should set file error message for size exceeding the maximum allowed', () => {
+  const { getByLabelText, getByText } = render(<MemoryRouter><AddFile /></MemoryRouter>);
+  const oversizedFile = new File(['file content'], 'oversized.png', { type: 'image/png', size: 61000 }); // Set a size of 90 KB
+  const fileInput = getByLabelText(/Add Help document/i);
+  fireEvent.change(fileInput, { target: { files: [oversizedFile] } });
+
+  expect(getByText('File size exceeds the maximum allowed (60 KB).')).toBeInTheDocument();
+});
+
+
+test('handleModelFileSelect should set modal file and clear error message for a valid file', () => {
+  const { getByLabelText, queryByText } = render(<MemoryRouter><AddFile /></MemoryRouter>);
+  const validFile = new File(['file content'], 'valid.png', { type: 'image/png', size: 30000 });
+  const fileInput = getByLabelText(/Add Help document/i);
+  fireEvent.change(fileInput, { target: { files: [validFile] } });
+
+  expect(queryByText('Please select a file to upload.')).toBeNull();
+  expect(queryByText('Invalid file format. Only PNG, JPG, and PDF files are allowed.')).toBeNull();
+  expect(queryByText('File size exceeds the maximum allowed (60 KB).')).toBeNull();
+});
+
+
 
 test("should call logOut and navigate to the Login page with null user data", async () => {
   const sampleUser = { id: 123, name: "Sample User" };

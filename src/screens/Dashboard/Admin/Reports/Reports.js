@@ -17,6 +17,7 @@ function Reports() {
 
   useEffect(() => {
     fetchUserProjectList();
+    
    
   }, []);
   useEffect(() => {
@@ -51,6 +52,7 @@ function Reports() {
   };
 
   const handlePageChange = (pageNumber) => {
+    console.log("hjdcjv");
     setCurrentPage(pageNumber);
   };
   
