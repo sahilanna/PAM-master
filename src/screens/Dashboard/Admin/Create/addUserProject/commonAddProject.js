@@ -1,25 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import api from '../../../../../network/api';
-import { ngrokUrl } from '../../../../../network/config';
-import '../Create.css';
-import AddUserProjectUI from './addUserProjectUI'; 
-import AddPmProjectUI from '../addPmProject/addPmProjectUI';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import api from "../../../../../network/api";
+import { ngrokUrl } from "../../../../../network/config";
+import "../Create.css";
+import AddUserProjectUI from "./addUserProjectUI";
+import AddPmProjectUI from "../addPmProject/addPmProjectUI";
+import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
 
 function CommonAddProject({ role }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { projectId, projectName } = location.state || {};
-  const [selectedUser, setSelectedUser] = useState('');
-  const [userId, setUserId] = useState('');
+  const [selectedUser, setSelectedUser] = useState("");
+  const [userId, setUserId] = useState("");
   const [showOTPMoal, setShowOTPMoal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [otpp, setOtpp] = useState(''); // Check the state variable name
+  const [errorMessage, setErrorMessage] = useState("");
+  const [otpp, setOtpp] = useState(""); // Check the state variable name
   const [user, setUsers] = useState([]);
 
   const fetchUsers = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/users/withoutProject?role=${role}&projectId=${projectId}`);
+      const response = await api.get(
+        `https://${ngrokUrl}/users/withoutProject?role=${role}&projectId=${projectId}`
+      );
       const projUsers = response.data.map((projU) => ({
         key: projU.id,
         text: projU.name,
@@ -27,7 +30,7 @@ function CommonAddProject({ role }) {
       }));
       setUsers(projUsers);
     } catch (error) {
-      console.log('Error fetching Users:', error);
+      logger.error("Error fetching Users:", error);
     }
   };
 
@@ -56,46 +59,49 @@ function CommonAddProject({ role }) {
     }
 
     try {
-      const otpResponse = await api.post(`https://${ngrokUrl}/OTP/send`, {
-        phoneNumber: '+91 9928931610',
+      await api.post(`https://${ngrokUrl}/OTP/send`, {
+        phoneNumber: "+91 9928931610",
       });
-
-      console.log(otpResponse);
 
       setShowOTPMoal(true);
     } catch (error) {
-      console.log('Error:', error);
+      logger.error("Error in sending otp:", error);
     }
   };
 
   const handleOTPSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-      const otpSubmissionResponse = await api.post(`https://${ngrokUrl}/OTP/verify`, {
-        otp: otpp,
-      });
-  
+      const otpSubmissionResponse = await api.post(
+        `https://${ngrokUrl}/OTP/verify`,
+        {
+          otp: otpp,
+        }
+      );
+
       if (otpSubmissionResponse.status === 200) {
-         await api.put(`https://${ngrokUrl}/projects/${projectId}/users/${userId}`, {
-          projectId: projectId,
-          userId: userId,
-        });
-  
-        navigate('/AdminDashboard');
+        await api.put(
+          `https://${ngrokUrl}/projects/${projectId}/users/${userId}`,
+          {
+            projectId: projectId,
+            userId: userId,
+          }
+        );
+
+        navigate("/AdminDashboard");
       } else {
-        setErrorMessage('Invalid OTP. Please try again.');
+        setErrorMessage("Invalid OTP. Please try again.");
       }
     } catch (error) {
-      console.log('Error:', error);
-      setErrorMessage('Invalid OTP. Please try again.');
+      logger.error("Error:", error);
+      setErrorMessage("Invalid OTP. Please try again.");
     }
   };
-  
 
   const onClose = () => {
     navigate(-1);
-  }
+  };
   const commonProps = {
     projectName,
     user,
@@ -110,7 +116,11 @@ function CommonAddProject({ role }) {
     onClose,
   };
 
-  return role === 'user' ? <AddUserProjectUI {...commonProps} /> : <AddPmProjectUI {...commonProps} />;
+  return role === "user" ? (
+    <AddUserProjectUI {...commonProps} />
+  ) : (
+    <AddPmProjectUI {...commonProps} />
+  );
 }
 
 export default CommonAddProject;

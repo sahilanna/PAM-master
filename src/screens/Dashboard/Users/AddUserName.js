@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ngrokUrl, gitAccessToken } from "../../../network/config";
 import "./Read.css";
 import api from "../../../network/api";
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 function AddUserName() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function AddUserName() {
     fetchUsers();
   }, []);
 
-  console.log(selectedUser);
+  logger.info(selectedUser);
   const fetchUsers = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/users/role/user`);
@@ -29,14 +30,14 @@ function AddUserName() {
       }));
       setUsers(userOptions);
     } catch (error) {
-      console.log("Error fetching Users:", error);
+      logger.error("Error fetching Users:", error);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(githubUsername);
+    
     const username = githubUsername;
     try {
       const response = await api.post(
@@ -49,7 +50,7 @@ function AddUserName() {
           accessToken: accessToken,
         }
       );
-      console.log("API Response:", response.data.id);
+      logger.info("API Response:", response.data.id);
 
       navigate("/userRead");
     } catch (error) {

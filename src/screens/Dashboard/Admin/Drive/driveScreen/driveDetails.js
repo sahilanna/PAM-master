@@ -10,6 +10,7 @@ import Pagination from "../../../Pagination/Pagination";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import CreateDriveDetails from "../createDrive/createDriveDetails";
 import "../../Figma/FigmaRead.css";
+import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
 
 function DriveRead() {
   const [showModal, setShowModal] = useState(false);
@@ -37,7 +38,7 @@ function DriveRead() {
       setIsLoading(false);
       setFilteredProjects(response.data);
     } catch (error) {
-      console.log("Error fetching projects:", error);
+      logger.error("Error fetching projects:", error);
       setIsLoading(true);
     }
   };
@@ -53,12 +54,11 @@ function DriveRead() {
       setShowConfirmDialog(false);
       fetchProjects();
     } catch (error) {
-      console.log(error);
+      logger.error("Error deleting driveLink:", error);
     }
   };
 
- 
-  console.log(setShowModal)
+  logger.info(setShowModal);
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -72,7 +72,6 @@ function DriveRead() {
   };
 
   const handleFilterItems = (searchQuery) => {
-   
     setFilteredProjects(filteredItems);
     setCurrentPageData(filteredItems.slice(0, itemsPerPage));
   };
@@ -112,7 +111,11 @@ function DriveRead() {
             />
             <i className="users icon"></i>
           </div>
-          <button data-testid="create-drive" className="ui button" onClick={createDrive}>
+          <button
+            data-testid="create-drive"
+            className="ui button"
+            onClick={createDrive}
+          >
             Create Drive
           </button>
         </div>
@@ -192,7 +195,6 @@ function DriveRead() {
         <div className="modal-content-container">
           {showModal && (
             <CreateDriveDetails
-             
               driveURL={driveURL}
               driveId={driveId}
               projectId={projectId}

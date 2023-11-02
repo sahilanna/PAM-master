@@ -8,12 +8,12 @@ import LoadingPage from '../../../../atoms/loadingPage';
 import api from '../../../../network/api';
 import Pagination from '../../Pagination/Pagination';
 import { CSVLink } from 'react-csv';
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 function UserHistory() {
   const [isLoading, setIsLoading] = useState(true);
   const [historyData, setHistoryData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
 
@@ -22,7 +22,7 @@ function UserHistory() {
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
  
-  console.log(user)
+  logger.info('Chekcing user',user)
     
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function UserHistory() {
       setFilteredProjects(sortedData);
       setIsLoading(false);
     } catch (error) {
-      console.log('Error fetching user history:', error);
+      logger.error('Error fetching user history:', error);
       setIsLoading(true);
     }
   }
@@ -53,7 +53,7 @@ function UserHistory() {
     const filteredData = historyData.filter((entry) =>
       entry.projectName.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    setCurrentPage(1); // Reset the current page to 1 when the search query changes
+    setCurrentPage(1); 
     setFilteredProjects(filteredData);
   }, [searchQuery, historyData]);
 

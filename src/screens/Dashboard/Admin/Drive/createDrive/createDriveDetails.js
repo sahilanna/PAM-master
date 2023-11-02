@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ngrokUrl } from '../../../../../network/config';
-import api from '../../../../../network/api';
-import CreateDriveDetailsUI from './createDriveDetailsUI';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ngrokUrl } from "../../../../../network/config";
+import api from "../../../../../network/api";
+import CreateDriveDetailsUI from "./createDriveDetailsUI";
+import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
 
 function CreateDriveDetails() {
   const navigate = useNavigate();
-  const [driveURL, setDriveUrl] = useState('');
+  const [driveURL, setDriveUrl] = useState("");
   const [proj, setProj] = useState([]);
-  let [item, setItem] = useState('');
+  let [item, setItem] = useState("");
   const [driveId, setDriveId] = useState(null);
-  const [selectedProject, setSelectedProject] = useState('');
+  const [selectedProject, setSelectedProject] = useState("");
   const [isValidUrl, setIsValidUrl] = useState(true);
 
   const validateURL = (url) => {
     try {
       const parsedUrl = new URL(url);
-      return parsedUrl.hostname === 'drive.google.com';
+      return parsedUrl.hostname === "drive.google.com";
     } catch (_) {
       return false;
     }
@@ -39,7 +40,9 @@ function CreateDriveDetails() {
 
   const fetchProjects = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/projects/without-google-drive`);
+      const response = await api.get(
+        `https://${ngrokUrl}/projects/without-google-drive`
+      );
       const driveProjects = response.data.map((drive) => ({
         key: drive.projectId,
         text: drive.projectName,
@@ -47,14 +50,14 @@ function CreateDriveDetails() {
       }));
       setProj(driveProjects);
     } catch (error) {
-      console.log('Error fetching Users:', error);
+      logger.error("Error fetching Users:", error);
     }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!isValidUrl) {
-      return ;
+      return;
     }
     try {
       const response = await api.post(`https://${ngrokUrl}/createGoogleDrive`, {
@@ -66,32 +69,29 @@ function CreateDriveDetails() {
       });
       const driveId = response.data.id;
       setDriveId(driveId);
-      navigate('/driveDetails', { state: { driveId } });
-    
+      navigate("/driveDetails", { state: { driveId } });
     } catch (error) {
-      console.log('Error:', error);
+      logger.error("Error:", error);
     }
   };
-  console.log(item);
-  console.log(driveId);
+  logger.info("This is item: ", item);
+  logger.info("This is driveId: ", driveId);
 
-  const onClose = () =>{
+  const onClose = () => {
     navigate(-1);
-  }
-
+  };
 
   return (
     <CreateDriveDetailsUI
-    driveURL={driveURL}
-    isValidUrl={isValidUrl}
-    proj={proj}
-    handleUrlChange={handleUrlChange}
-    handleProjChange={handleProjChange}
-    handleSubmit={handleSubmit}
-    onClose={onClose}
-  />
+      driveURL={driveURL}
+      isValidUrl={isValidUrl}
+      proj={proj}
+      handleUrlChange={handleUrlChange}
+      handleProjChange={handleProjChange}
+      handleSubmit={handleSubmit}
+      onClose={onClose}
+    />
   );
 }
 
 export default CreateDriveDetails;
-

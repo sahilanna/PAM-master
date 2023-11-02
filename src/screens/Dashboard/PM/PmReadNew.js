@@ -14,6 +14,7 @@ import { ngrokUrl } from "../../../network/config";
 import Sidebar from "../SideBar/SideBar";
 import LoadingPage from "../../../atoms/loadingPage";
 import api from "../../../network/api";
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 function PmReadNew() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ function PmReadNew() {
   const [isLoading, setIsLoading] = useState(false);
 
   const itemsPerPage = 4;
-  console.log(currentPageData);
+  logger.info(currentPageData);
 
   const loaditem = async () => {
     setIsLoading(true);
@@ -39,7 +40,6 @@ function PmReadNew() {
       );
       setIsLoading(true);
       const Data = response.data;
-      console.log(response.data);
       setItem(Data);
       setIsLoading(false);
       setFilteredProjects(response.data);
@@ -49,7 +49,6 @@ function PmReadNew() {
   };
 
   useEffect(() => {
-    console.log("hii");
     loaditem();
   }, []);
 
@@ -108,7 +107,7 @@ function PmReadNew() {
     }
     catch(error)
     {
-      console.log(error);
+      logger.error("Error in deleting user",error);
     }
   };
 
@@ -122,7 +121,7 @@ function PmReadNew() {
     navigate("/userActivity", { state: { id, username } });
   };
 
-  console.log(item);
+  
   return (
     <div className="parent-admin">
       <div>

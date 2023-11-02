@@ -14,7 +14,7 @@ import LoadingPage from "../../../atoms/loadingPage";
 import api from "../../../network/api";
 import { ngrokUrl } from "../../../network/config";
 import "./Read.css";
-
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 function UserRead() {
   const navigate = useNavigate();
   const getUrl = `https://${ngrokUrl}/users/role/user`;
@@ -33,7 +33,7 @@ function UserRead() {
     loaditem();
   }, []);
 
-  console.log(currentPageData);
+  logger.info(currentPageData);
 
   const addUserName = () => {
     navigate("/addUserName");
@@ -51,8 +51,8 @@ const loaditem = async() => {
         setIsLoading(false);
         navigate("/userRead");
      
-      console.log(result);
     } catch (error) {
+      logger.error('Error', error);
       setIsLoading(true);
     }
   }
@@ -109,7 +109,7 @@ const loaditem = async() => {
     navigate("/userRead");
     }
     catch(error){
-      console.log(error);
+      logger.error(error);
     }
   };
 

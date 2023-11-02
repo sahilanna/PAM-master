@@ -3,7 +3,7 @@ import { Button, Modal } from 'semantic-ui-react';
 import { ngrokUrl } from '../../../network/config';
 import api from '../../../network/api';
 import { useNavigate, useLocation } from 'react-router-dom';
-
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 function UserActivity(open, userName) {
   
   let navigate=useNavigate();
@@ -20,13 +20,11 @@ function UserActivity(open, userName) {
   const displayActivity=async()=>{
     try{
     const result = await api.get(`https://${ngrokUrl}/users/${id}`)
-    setActivityData([result.data])
-    console.log(result.data)
-  
+    setActivityData([result.data]);
    
     }
     catch(error){
-      console.log('error', error)
+      logger.error('error', error)
     }
   }
 
@@ -40,7 +38,7 @@ function UserActivity(open, userName) {
     
   }, []);
   
-  console.log(activityData);
+  
   
   return (
     <Modal open={true} onClose={onClose} style={{ width: '500px' }} className='create-Project-Modal'>

@@ -6,13 +6,10 @@ import Sidebar from "../../SideBar/SideBar";
 import { ngrokUrl } from "../../../../network/config";
 import api from "../../../../network/api";
 import "../Figma/FigmaRead.css";
+import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
 
 function PmRequestUser() {
   const [requestData, setRequestData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  console.log(isLoading);
-
   let data = sessionStorage.getItem("item");
   let user = data ? JSON.parse(data) : null;
   const accessToken = user ? user.token : null;
@@ -27,19 +24,16 @@ function PmRequestUser() {
     try {
       const response = await api.get(`https://${ngrokUrl}/request/allActive`);
       setRequestData(response.data);
-      console.log(response.data);
-      setIsLoading(false);
-      console.log(requestData);
+      
+      logger.info("Chekcing requestData of active", requestData);
       requestData.forEach((request) => {
-        const userId = request.user.id;
         const projectId = request.project.projectId;
 
-        console.log(userId);
-        console.log(projectId);
+        logger.info("Checking ProjectId: ", projectId);
       });
     } catch (error) {
-      console.log("Error fetching Users:", error);
-      setIsLoading(true);
+      logger.error("Error fetching Users:", error);
+     
     }
   };
 
@@ -50,7 +44,7 @@ function PmRequestUser() {
         { allowed: true },
         { headers }
       );
-      console.log("Helllo", response);
+
       if (
         response.status === 200 ||
         response.status === 204 ||
@@ -84,7 +78,7 @@ function PmRequestUser() {
         });
       }
     } catch (error) {
-      console.log("Error updating request:", error);
+      logger.error("Error updating request:", error);
       toast.error("Failed to update request. Please try again.", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
@@ -107,7 +101,7 @@ function PmRequestUser() {
         fetchData();
       }
     } catch (error) {
-      console.log("Error adding user:", error);
+      logger.error("Error adding user:", error);
     }
   };
 

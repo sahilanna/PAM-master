@@ -5,6 +5,7 @@ import '../../Read/Read.css';
 import { ngrokUrl } from '../../../../../network/config';
 import api from '../../../../../network/api';
 import CreateUI from './addProjectRepoUI';
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 const Create = () => {
   let navigate = useNavigate();
@@ -45,7 +46,7 @@ const Create = () => {
       }));
       setTemp(repoOptions);
     } catch (error) {
-      console.log('Error fetching Repositories:', error);
+      logger.error('Error fetching Repositories:', error);
     }
   };
 
@@ -60,7 +61,7 @@ const Create = () => {
       }));
       setprojItem(projOptions);
     } catch (error) {
-      console.log('Error fetching Projects:', error);
+      logger.error('Error fetching Projects:', error);
     }
   };
 
@@ -77,9 +78,9 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("repoid", repoId)
+    logger.info("repoid", repoId)
     api.put(`https://${ngrokUrl}/projects/${projectId}/repository/${repoId}`);
-    console.log(selectedRepo);
+    logger.info(selectedRepo);
     navigate('/repoRead');
     
 };

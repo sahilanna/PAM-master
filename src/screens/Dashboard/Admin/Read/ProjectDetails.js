@@ -17,7 +17,7 @@ import CustomSidebar from "../../SideBar/SideBar";
 import ProjectUsers from "./projectUsers";
 import ProjectPms from "./projectPms";
 import OtpModal from "./otpModal";
-
+import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
 
 const ProjectDetails = ({
   project,
@@ -28,10 +28,7 @@ const ProjectDetails = ({
 }) => {
   const { projectId } = useParams();
   const { projectName } = useParams();
-  const [showAddUserProject, setShowAddUserProject] = useState(false);
-  const [driveData, setDriveData] = useState("");
 
-  const [count, setCount] = useState("");
   const [otp, setOtp] = useState("");
   const [showOTPMoal, setShowOTPMoal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -40,12 +37,6 @@ const ProjectDetails = ({
     navigate("/addFile", { state: { projectId, projectName } });
   };
 
-  console.log(showAddUserProject);
-  console.log(driveData);
-  console.log(setCount);
-  console.log(setDriveData);
-  console.log(setShowAddUserProject);
-  console.log(setOtp);
   const panes = [
     {
       menuItem: "Users",
@@ -83,7 +74,8 @@ const ProjectDetails = ({
                 {namesFile.map((filename) => (
                   <li key={filename.id} className="file-item">
                     <div className="file-info">
-                      <a data-testid="file-download"
+                      <a
+                        data-testid="file-download"
                         href="#"
                         onClick={() => downloadFile(filename.fileName)}
                       >
@@ -113,14 +105,13 @@ const ProjectDetails = ({
     },
   ];
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  
+
   const navigate = useNavigate();
   const [namesFile, setNamesFile] = useState([]);
   const [repo, setRepo] = useState([]);
   const [figmaLink, setFigmaLink] = useState([]);
   const [projectData, setProjectData] = useState([]);
-  console.log(repo);
- 
+  logger.info("setting otp", setOtp);
 
   useEffect(() => {
     displayFile();
@@ -135,13 +126,11 @@ const ProjectDetails = ({
         {}
       );
       setProjectData(result.data);
-      
     } catch (error) {
-      console.log(error);
+      logger.error("Errro setting projectData", error);
     }
   };
-  console.log(projectData);
-  console.log(count);
+  logger.info("Checking project data", projectData);
 
   const handleOTPClose = () => {
     setShowOTPMoal(false);
@@ -152,22 +141,21 @@ const ProjectDetails = ({
       const otpResponse = await api.post(`https://${ngrokUrl}/OTP/send`, {
         phoneNumber: "+91 9928931610",
       });
-      console.log(otpResponse);
+
       if (otpResponse.data === "OTP sent") {
         setShowConfirmDialog(false);
         setShowOTPMoal(true);
       } else if (otpResponse.response === false) {
-        console.log("OTP generation failed");
+        logger.error("OTP generation failed");
       }
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   };
   const handleCancelDelete = () => {
     setShowConfirmDialog(false);
   };
   const handleOTPSubmit = async (e) => {
-   
     try {
       const otpSubmissionResponse = await api.post(
         `https://${ngrokUrl}/OTP/verify`,
@@ -175,7 +163,7 @@ const ProjectDetails = ({
           otp: otp,
         }
       );
-      console.log(otpSubmissionResponse);
+
       if (otpSubmissionResponse.status === 200) {
         await api.delete(`https://${ngrokUrl}/projects/delete/${projectId}`);
         setShowOTPMoal(false);
@@ -194,19 +182,18 @@ const ProjectDetails = ({
       );
       if (Array.isArray(result.data)) {
         setNamesFile(result.data);
-        console.log(namesFile);
+        logger.info("setting namesFIle", namesFile);
       } else {
-        console.log("Invalid data format: ", result.data);
+        logger.error("Invalid data format: ", result.data);
       }
     } catch (error) {
-      console.log("Error retrieving files: ", error);
+      logger.error("Error retrieving files: ", error);
     }
   };
-
+  logger.info("Checking repo", repo);
   const handleDeleteProject = () => {
     setShowConfirmDialog(true);
   };
-
 
   const downloadFile = async (filename) => {
     await api
@@ -228,7 +215,7 @@ const ProjectDetails = ({
         navigate("/adminDashboard");
       })
       .catch((error) => {
-        console.log(error, "hi");
+        logger.error("Error in downloading file", "error");
       });
   };
 
@@ -240,7 +227,7 @@ const ProjectDetails = ({
         prevNamesFile.filter((file) => file.helpDocumentId !== helpDocumentId)
       );
     } catch (error) {
-      console.log("Error deleting file: ", error);
+      logger.error("Error deleting file: ", error);
     }
   };
   function formatDate(isoDate) {
@@ -266,7 +253,7 @@ const ProjectDetails = ({
       );
       setRepo(response.data);
     } catch (error) {
-      console.log(error);
+      logger.error("Error hitting Api", error);
     }
   };
   useEffect(() => {
@@ -279,9 +266,9 @@ const ProjectDetails = ({
         {}
       );
       setFigmaLink(response.data);
-      console.log(figmaLink);
+      logger.info("Checking", figmaLink);
     } catch (error) {
-      console.log(error);
+      logger.error("Error hitting Figma Api", error);
     }
   };
   useEffect(() => {
@@ -307,7 +294,6 @@ const ProjectDetails = ({
                 >
                   <FontAwesomeIcon icon={faTrash} />
                 </Button>
-
               </Header>
               <Segment attached className="left-aligned-segment">
                 <List divided relaxed>

@@ -9,6 +9,7 @@ import PmSidebar from "./pmSidebar";
 import LoadingPage from "../../../atoms/loadingPage";
 import api from "../../../network/api";
 import PmProjectDetails from "./pmProjectDetails";
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 const PmDashboard = () => {
   const [item, setItem] = useState([]);
@@ -24,14 +25,14 @@ const PmDashboard = () => {
   let data = sessionStorage.getItem("item");
   let user = data ? JSON.parse(data) : null;
 
-  console.log(user);
-  console.log(pmid);
+ 
+  logger.info(pmid);
   
   let id = null;
   if (user !== null) {
     id = user.id;
     const pmName = user.name;
-    console.log(pmName);
+    logger.info(pmName);
   }
 
  
@@ -50,15 +51,15 @@ const PmDashboard = () => {
       const filteredItems = response.data.filter((item) =>
         item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      console.log(filteredItems);
+      logger.info("Checking",filteredItems);
       
     } catch (error) {
-      console.log("Error fetching PMID:", error);
+      logger.error("Error fetching PMID:", error);
       setIsLoading(true);
     }
   };
   useEffect(() => {
-    console.log('hii')
+  
     fetchPmid();
   }, []);
 

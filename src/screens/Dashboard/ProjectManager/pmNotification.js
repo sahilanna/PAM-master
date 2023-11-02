@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { Button } from "semantic-ui-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 function PmNotification() {
   const navigate = useNavigate();
@@ -25,13 +26,13 @@ function PmNotification() {
       const response = await api.get(
         `https://${ngrokUrl}/request/unread/PM?pmName=${pmName}`
       );
-      console.log(response.data);
+     
       setNotification(response.data);
       const requestId = response.data[0].accessRequestId;
-      console.log(requestId);
+     
 
       setAccessRequestId(requestId);
-      console.log(accessRequestId);
+      logger.info(accessRequestId);
 
       // Show each message as a toast notification
       toast.info(notification[0], {
@@ -39,7 +40,7 @@ function PmNotification() {
         autoClose: 4000,
       });
     } catch (error) {
-      console.log("Error fetching PMID:", error);
+      logger.error("Error fetching PMID:", error);
     }
   };
 
@@ -55,7 +56,7 @@ function PmNotification() {
 
       fetchNotification();
     } catch (error) {
-      console.log(error);
+      logger.error("Error fetching notifications",error);
     }
   };
 

@@ -2,6 +2,7 @@ import { ngrokUrl} from "../../../network/config";
 import api from "../../../network/api";
 import 'react-toastify/dist/ReactToastify.css';
 import * as actionTypes from './actionTypes'; // Import your action types
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 export const createProjectRequest = () => ({
   type: actionTypes.CREATE_PROJECT_REQUEST,
@@ -31,7 +32,7 @@ export const createPM = ({ name, email,enumRole}) => {
             dispatchPMUpdate({type: "createPM", payload: responseCreatePM});
         }
         catch (error){
-            console.log("ho");
+            logger.error("Error in fetching data", error);
         }
     };
 };
@@ -52,7 +53,7 @@ export const createUser = ({ name, email, enumRole}) => {
             dispatchUserUpdate({type: "createUser", payload: responseCreateUser});
         }
         catch (error){
-            console.log(error);
+            logger.error("Error in fetching data", error);
         }
     };
 };
@@ -71,7 +72,7 @@ export const createPmGithubName = ({projectName, repo, username}) => {
             dispatchPmGithub({type: "createPmGithubName", payload: responseCreatePmGithubName});
         }
         catch (error){
-            console.log(error);
+            logger.error("Error in fetching data", error);
         }
     };
 };

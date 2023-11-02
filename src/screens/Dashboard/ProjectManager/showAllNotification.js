@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import ClearAllDialogue from "./clearAllDialogue";
 import { useNavigate } from "react-router-dom";
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 function ShowAllNotification() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function ShowAllNotification() {
 
       setAllNotification(response.data);
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   };
   useEffect(() => {

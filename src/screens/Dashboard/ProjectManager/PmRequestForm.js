@@ -4,6 +4,8 @@ import { ngrokUrl } from "../../../network/config";
 import { useNavigate, useLocation } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import api from "../../../network/api";
+import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+
 function PmRequestForm() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,9 +21,6 @@ function PmRequestForm() {
   let profileData = sessionStorage.getItem("item");
   let pdata = profileData ? JSON.parse(profileData) : null;
 
-  console.log(profileData);
-  console.log(requestStatus);
-
   let pmName = null;
   if (pdata !== null) {
     pmName = pdata.name;
@@ -34,7 +33,6 @@ function PmRequestForm() {
       setSelectedUserId(selectedUserObj.id);
     }
   };
-  console.log(projectName);
 
   useEffect(() => {
     fetchUsers();
@@ -44,14 +42,14 @@ function PmRequestForm() {
       const response = await api.get(
         `https://${ngrokUrl}/users/withoutProject?role=user&projectId=${projectId}`
       );
-      console.log(response.data);
+
       if (Array.isArray(response.data)) {
         const userNames = response.data.map((users) => users.name);
         setUsers(userNames);
         setUserObj(response.data);
-      } 
+      }
     } catch (error) {
-      console.log("Error fetching Users:", error);
+      logger.error("Error fetching Users:", error);
     }
   };
 
@@ -61,8 +59,7 @@ function PmRequestForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(selectedUserId);
-    console.log(requestDescription);
+
     try {
       const user = {
         id: selectedUserId,
@@ -81,9 +78,10 @@ function PmRequestForm() {
       }
       navigate("/PmDashboard");
     } catch (error) {
-      console.error("Error submitting request:", error);
+      logger.error("Error submitting request:", error);
     }
   };
+  logger.info(requestStatus);
   const onClose = () => {
     navigate(-1);
   };

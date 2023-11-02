@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ngrokUrl, gitAccessToken } from "../../../../../network/config.js";
 import api from "../../../../../network/api.js";
 import { owner } from "../../../../../Assets/constants/string.js";
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 const AddPm = () => {
   const [options, setOptions] = useState([]);
@@ -57,10 +58,10 @@ const AddPm = () => {
     });
     navigate("/addUser", { state: { selectedRepo } });
   };
+  logger.info("Repo Id:",repoId);
   const handleRepoChange = (e, { value, options }) => {
     const selectedRepo = options.find((option) => option.value === value);
     setRepoId(value);
-    console.log(repoId);
     setSelectedRepo(selectedRepo.text);
   };
 

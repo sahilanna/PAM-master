@@ -5,7 +5,7 @@ import Sidebar from '../../SideBar/SideBar';
 import api from '../../../../network/api';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
-
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 const ProjectAnalytics = ({ onBackClick }) => {
   
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const ProjectAnalytics = ({ onBackClick }) => {
   const [csvData, setCSVData] = useState([]);
   const csvLinkRef = useRef(null);
 
-  console.log(csvData);
+  
 
  
     const fetchData = async () => {
@@ -41,7 +41,7 @@ const ProjectAnalytics = ({ onBackClick }) => {
     { status: 'Active', ActiveProjects: activeProjects },
     { status: 'Inactive', InactiveProjects: inactiveProjects },
   ];
-
+  logger.info(csvData);
   const handleBackClick = () => {
     navigate('/Analytics');
   };

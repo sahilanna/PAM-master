@@ -3,6 +3,7 @@ import { Modal, Form, Dropdown, Button } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import { ngrokUrl, gitAccessToken } from "../../../network/config";
 import api from "../../../network/api";
+import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
 
 function AddPmUserName() {
   const navigate = useNavigate();
@@ -10,13 +11,13 @@ function AddPmUserName() {
   const [users, setUsers] = useState([]);
   const [githubUsername, setgithubUsername] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
-  const [showInvalidUsernameModal, setShowInvalidUsernameModal] = useState(false);
+  const [showInvalidUsernameModal, setShowInvalidUsernameModal] =
+    useState(false);
   const accessToken = gitAccessToken;
   useEffect(() => {
     fetchPms();
   }, []);
 
-  console.log(selectedUser);
   const fetchPms = async () => {
     try {
       const response = await api.get(
@@ -29,13 +30,12 @@ function AddPmUserName() {
       }));
       setUsers(userOptions);
     } catch (error) {
-      console.log("Error fetching Users:", error);
+      logger.error("Error fetching Users:", error);
     }
   };
-  const handleSubmit = async (e) => { 
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(githubUsername);
     const username = githubUsername;
     try {
       const response = await api.post(
@@ -48,21 +48,20 @@ function AddPmUserName() {
           accessToken: accessToken,
         }
       );
-      console.log("API Response:", response.data.id);
+      logger.info("API Response:", response.data.id);
 
       navigate("/pmReadNew");
     } catch (error) {
-
-
       if (error.response && error.response.status == 404) {
         setShowInvalidUsernameModal(true);
-      } 
+      }
     }
   };
 
   const selectedUserChange = (event, { value }) => {
     setSelectedUser(value);
     setId(value);
+    logger.info(selectedUser);
   };
 
   const onClose = () => {
@@ -72,7 +71,7 @@ function AddPmUserName() {
   const handleCloseModal = () => {
     setShowInvalidUsernameModal(false);
   };
-  console.log("bscjvskcv",users)
+
   return (
     <>
       <Modal
@@ -140,12 +139,15 @@ function AddPmUserName() {
           <p>The provided GitHub username is invalid.</p>
         </Modal.Content>
         <Modal.Actions>
-          <Button data-testid="invalid-username" primary onClick={handleCloseModal}>
+          <Button
+            data-testid="invalid-username"
+            primary
+            onClick={handleCloseModal}
+          >
             OK
           </Button>
         </Modal.Actions>
       </Modal>
-
     </>
   );
 }

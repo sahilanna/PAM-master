@@ -1,9 +1,8 @@
-
 import { useState, useEffect,  useRef } from 'react';
-import api from '../../../../network/api'; // Import your API library here
+import api from '../../../../network/api'; 
 import { ngrokUrl } from '../../../../network/config';
 import { toast} from 'react-toastify'
-
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 
 function useApiData() {
@@ -33,7 +32,7 @@ function useApiData() {
       setLoading(false);
       prevDataRef.current = newData; 
     } catch (error) {
-      console.log('Error fetching data:', error);
+      logger.error('Error fetching data:', error);
       setLoading(true);
     }
   };

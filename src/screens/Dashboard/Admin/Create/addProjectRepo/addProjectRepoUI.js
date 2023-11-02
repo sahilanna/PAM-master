@@ -17,7 +17,7 @@ const CreateUI = ({ onSubmit, onClose, projItem, temp, handleProjectChange, hand
       <Modal.Content>
         <Form onSubmit={onSubmit}>
           <Form.Field>
-            {console.log("jhvjhvsd",projItem)}
+            
             <label style={{ textAlign: 'left' }}>Project-Name<span style={{ color: 'red' }}>*</span></label>
             <Dropdown
               data-testid="project-dropdown"

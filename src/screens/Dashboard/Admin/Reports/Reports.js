@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { CSVLink } from 'react-csv';
-import Sidebar from '../../SideBar/SideBar';
-import '../AdminDashboard.css';
-import { ngrokUrl } from '../../../../network/config';
-import api from '../../../../network/api';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
-import Pagination from '../../Pagination/Pagination';
+import React, { useState, useEffect } from "react";
+import { CSVLink } from "react-csv";
+import Sidebar from "../../SideBar/SideBar";
+import "../AdminDashboard.css";
+import { ngrokUrl } from "../../../../network/config";
+import api from "../../../../network/api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import Pagination from "../../Pagination/Pagination";
+import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
 
 function Reports() {
   const [item, setItem] = useState([]);
@@ -17,11 +18,8 @@ function Reports() {
 
   useEffect(() => {
     fetchUserProjectList();
-    
-   
   }, []);
   useEffect(() => {
-  
     fetchOtherTableData();
   }, []);
 
@@ -30,7 +28,7 @@ function Reports() {
       const response = await api.get(`https://${ngrokUrl}/users/getAll`);
       setItem(response.data);
     } catch (error) {
-      console.log('Error fetching user project list:', error);
+      logger.error("Error fetching user project list:", error);
     }
   }
 
@@ -39,7 +37,7 @@ function Reports() {
       const response1 = await api.get(`https://${ngrokUrl}/users/getMultiple`);
       setMItem(response1.data);
     } catch (error) {
-      console.log('Error fetching other table data:', error);
+      logger.error("Error fetching other table data:", error);
     }
   }
 
@@ -52,55 +50,69 @@ function Reports() {
   };
 
   const handlePageChange = (pageNumber) => {
-    console.log("hjdcjv");
     setCurrentPage(pageNumber);
+    logger.info("PageNo.", pageNumber);
   };
-  
 
   const csvData = showOtherTable ? mitem : item;
 
   const generateSerialNumbers = () => {
     const startNumber = (currentPage - 1) * rowsPerPage;
     const dataToDisplay = showOtherTable ? mitem : item;
-    return dataToDisplay.slice(startNumber, startNumber + rowsPerPage).map((entry, index) => ({
-      SerialNo: startNumber + index + 1,
-      ...entry,
-    }));
+    return dataToDisplay
+      .slice(startNumber, startNumber + rowsPerPage)
+      .map((entry, index) => ({
+        SerialNo: startNumber + index + 1,
+        ...entry,
+      }));
   };
 
   const currentRows = showOtherTable ? mitem : item;
 
   return (
-    <div className='parent-admin'>
+    <div className="parent-admin">
       <div>
         <Sidebar />
       </div>
-      <div className='admin-child'>
+      <div className="admin-child">
         <br />
-        <div style={{ display: 'flex', justifyContent: 'flex-start', marginLeft: '400px', marginBottom: '5px' }}>
-          <button className='ui button' onClick={handleTableClick}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            marginLeft: "400px",
+            marginBottom: "5px",
+          }}
+        >
+          <button className="ui button" onClick={handleTableClick}>
             Employees Project List
           </button>
-          <button className='ui button' onClick={handleOtherTableClick}>
+          <button className="ui button" onClick={handleOtherTableClick}>
             Employees With Multiple Project Access
           </button>
           {csvData.length > 0 && (
-            <CSVLink data={csvData} filename={showOtherTable ? 'user_multiple_projects.csv' : 'user_project_list.csv'}>
+            <CSVLink
+              data={csvData}
+              filename={
+                showOtherTable
+                  ? "user_multiple_projects.csv"
+                  : "user_project_list.csv"
+              }
+            >
               <FontAwesomeIcon icon={faDownload} size="2x" />
             </CSVLink>
           )}
         </div>
-        <br /><br />
+        <br />
+        <br />
         {currentRows.length > 0 && (
-          <div style={{ marginLeft: '40px', marginRight: '40px' }}>
+          <div style={{ marginLeft: "40px", marginRight: "40px" }}>
             <table className="ui celled table">
               <thead>
                 <tr>
                   <th>S.No.</th>
                   <th>Employee Name</th>
-                  <th colSpan={2}>
-                    Projects
-                  </th>
+                  <th colSpan={2}>Projects</th>
                 </tr>
               </thead>
               <tbody>
@@ -110,17 +122,27 @@ function Reports() {
                     <td>{entry.userName}</td>
                     <td colSpan={2}>
                       {entry.projectNames.length > 0 ? (
-                        entry.projectNames.join(', ')
+                        entry.projectNames.join(", ")
                       ) : (
-                        <span style={{ fontStyle: 'italic' }}>No projects</span>
+                        <span style={{ fontStyle: "italic" }}>No projects</span>
                       )}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-              <Pagination data={currentRows} itemsPerPage={rowsPerPage} paginate={handlePageChange} />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "20px",
+              }}
+            >
+              <Pagination
+                data={currentRows}
+                itemsPerPage={rowsPerPage}
+                paginate={handlePageChange}
+              />
             </div>
           </div>
         )}

@@ -1,6 +1,6 @@
 import React,  { useState  } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'; // Import useDispatch and useSelector
+import { useDispatch, useSelector } from 'react-redux'; 
 import { createProject } from '/home/nineleaps/Desktop/Pratap/PAM-master/src/redux/redux-store/actions/projectActions.js' // Import the createProject action
 import '../Create.css';
 import CreateProjectUI from './createProjectUI';

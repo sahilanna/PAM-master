@@ -8,7 +8,7 @@ import "./Login.css";
 import { ngrokLogin } from "../network/config";
 import styled from "styled-components";
 import logo1 from "../Assets/logo1.png";
-
+import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
 export function decodeIdToken(token) {
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -32,27 +32,26 @@ function Test() {
 `;
   const handleGoogleLogin = async (response) => {
     const token = response.credential;
-    //  console.log(token)
+
     const decodedToken = decodeIdToken(token);
     const emailToVerify = decodedToken.email;
-    
+
     const headers = {
-     
       "ngrok-skip-browser-warning": "true",
       emailToVerify: `${emailToVerify}`,
     };
-    
+
     try {
       const { data } = await axios.get(
         `https://${ngrokLogin}/auth/api/v1/get-email`,
         { headers }
       );
-      
+
       sessionStorage.setItem("item", JSON.stringify(data));
       const access = sessionStorage.getItem("item");
       let user = JSON.parse(access);
       const accessToken = user.token;
-      console.log(accessToken);
+      logger.info(accessToken);
 
       if (data.enumRole === "ADMIN") {
         navigate("/AdminDashboard", { state: { data } });
@@ -61,7 +60,7 @@ function Test() {
       } else if (data.enumRole === "USER") {
         navigate("/userProjects", { state: { data } });
       } else {
-        console.log("Error");
+        logger.error("Error");
       }
     } catch (error) {
       setShowUserNotFoundModal(true);
@@ -74,7 +73,6 @@ function Test() {
     window.google.accounts.id.initialize({
       client_id: googleClientID,
       callback: handleGoogleLogin,
-      
     });
     window.google.accounts.id.renderButton(
       document.getElementById("signIn") || document.createElement("div"),
@@ -107,7 +105,7 @@ function Test() {
         {/* <div className="space"></div> */}
       </div>
       <div className="box-container">
-        <div data-testid="signIn" id="signIn"  >
+        <div data-testid="signIn" id="signIn">
           Button
         </div>
       </div>
@@ -131,7 +129,10 @@ function Test() {
               <p>This user was not found. Please try again.</p>
             </Modal.Content>
             <Modal.Actions>
-              <Button data-testid="close" onClick={() => setShowUserNotFoundModal(false)}>
+              <Button
+                data-testid="close"
+                onClick={() => setShowUserNotFoundModal(false)}
+              >
                 Close
               </Button>
             </Modal.Actions>

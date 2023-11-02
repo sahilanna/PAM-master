@@ -3,10 +3,9 @@ import Sidebar from '../SideBar/SideBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import './profile.css'
-
 import api from '../../../network/api';
 import { ngrokUrl } from '../../../network/config';
-
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 const Profile = () => {
   let profileData = sessionStorage.getItem("item");
@@ -15,8 +14,7 @@ const Profile = () => {
   
   const[userName, setUserName]=useState('')
   const[userRole, setUserRole]=useState('')
-  console.log(profileData)
-
+ 
   let id = null;
   let pemail = null;
   if(pdata !== null)
@@ -39,12 +37,12 @@ const Profile = () => {
       const userData=response.data
      
       setUserName(userData.name)
-      console.log(userName)
+      logger.info(userName)
       setUserRole(userData.enumRole)
-      console.log(userRole)
+      logger.info(userRole)
      
     } catch (error) {
-      console.log('Error fetching user project list:', error);
+      logger.error('Error fetching user project list:', error);
     }
   }
     return (

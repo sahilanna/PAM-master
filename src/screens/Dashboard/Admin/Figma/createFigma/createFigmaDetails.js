@@ -3,7 +3,7 @@ import {  useNavigate } from 'react-router-dom';
 import { ngrokUrl } from '../../../../../network/config';
 import api from '../../../../../network/api';
 import CreateFigmaDetailsUI from './createFigmaDetailsUI';
-
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 function CreateFigmaDetails() {
   const navigate = useNavigate();
   const [figmaURL, setFigmaUrl] = useState('');
@@ -29,9 +29,9 @@ function CreateFigmaDetails() {
   useEffect(() => {
     fetchProjects();
   }, []);
-  console.log(item);
-  console.log(figmaId);
-  console.log(setIsOpen);
+  logger.info(item);
+ 
+  
 
   const fetchProjects = async () => {
     try {
@@ -43,7 +43,7 @@ function CreateFigmaDetails() {
       }));
       setproj(figmaProjects);
     } catch (error) {
-      console.log('Error fetching Users:', error);
+      logger.error('Error fetching Users:', error);
     }
   };
 
@@ -57,7 +57,7 @@ function CreateFigmaDetails() {
     setitem(value);
     setSelectedProject(value);
   };
-
+  logger.info(figmaId);
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!isValidUrl) {
@@ -76,10 +76,10 @@ function CreateFigmaDetails() {
       navigate('/figmaRead', { state: { figmaId } });
       setFigmaUrl('');
     } catch (error) {
-      console.log('Error:', error);
+      logger.error('Error:', error);
     }
   };
-
+  logger.info(setIsOpen);
   const onClose = () => {
     navigate(-1);
   };

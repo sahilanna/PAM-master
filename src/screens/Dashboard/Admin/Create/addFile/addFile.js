@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { ngrokUrl } from '../../../../../network/config';
-import api from '../../../../../network/api';
-import '../Create.css';
-import AddFileUI from './addFileUI';
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { ngrokUrl } from "../../../../../network/config";
+import api from "../../../../../network/api";
+import "../Create.css";
+import AddFileUI from "./addFileUI";
+import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
 
-export function handleFileUpload (modalfile,
+export function handleFileUpload(
+  modalfile,
   setFileErrorMessage,
   projectId,
   headers,
   setUploadProgress,
   resetFileInputs,
-  navigate)
-{
+  navigate
+) {
   if (!modalfile) {
-    setFileErrorMessage('Please select a file to upload.');
+    setFileErrorMessage("Please select a file to upload.");
     return;
   }
 
   const data = new FormData();
-  data.append('projectFile', modalfile);
+  data.append("projectFile", modalfile);
 
   const url = `https://${ngrokUrl}/projects/upload?projectId=${projectId}`;
 
@@ -27,16 +29,16 @@ export function handleFileUpload (modalfile,
     .post(url, data, {
       headers,
       onUploadProgress: (progressEvent) => {
-        const percentCompleted = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+        const percentCompleted = Math.round(
+          (progressEvent.loaded / progressEvent.total) * 100
+        );
         setUploadProgress(percentCompleted);
       },
     })
     .then((response) => {
-      console.log(response.data);
       resetFileInputs();
-      navigate('/adminDashboard');
-    })
-   
+      navigate("/adminDashboard");
+    });
 }
 
 function AddFile() {
@@ -44,42 +46,42 @@ function AddFile() {
   const location = useLocation();
   const { projectId } = location.state || {};
   const { projectName } = location.state || {};
-  console.log(projectId);
+  logger.info(projectId);
   const [modalfile, setModalFile] = useState(null);
-  const [fileErrorMessage, setFileErrorMessage] = useState('');
+  const [fileErrorMessage, setFileErrorMessage] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
-  console.log(setUploadProgress);
-  let dataa = sessionStorage.getItem('item');
+  logger.info(setUploadProgress);
+  let dataa = sessionStorage.getItem("item");
   let user = dataa ? JSON.parse(dataa) : null;
-  const accessToken = user ? user.token: null;
+  const accessToken = user ? user.token : null;
   const headers = {
     AccessToken: accessToken,
-    'Content-Type': 'application/zip',
+    "Content-Type": "application/zip",
   };
-  console.log(headers);
+  logger.info(headers);
 
   const onClose = () => {
-    navigate('/adminDashboard');
+    navigate("/adminDashboard");
   };
 
   const handleModelFileSelect = (e) => {
     const file = e.target.files[0];
-    const allowedMimeTypes = ['image/png', 'image/jpeg', 'application/pdf'];
+    const allowedMimeTypes = ["image/png", "image/jpeg", "application/pdf"];
     const maxFileSize = 60 * 1024;
 
     if (!file) {
-      setFileErrorMessage('Please select a file to upload.');
+      setFileErrorMessage("Please select a file to upload.");
     } else if (!allowedMimeTypes.includes(file.type)) {
-      setFileErrorMessage('Invalid file format. Only PNG, JPG, and PDF files are allowed.');
+      setFileErrorMessage(
+        "Invalid file format. Only PNG, JPG, and PDF files are allowed."
+      );
     } else if (file.size > maxFileSize) {
-      setFileErrorMessage('File size exceeds the maximum allowed (60 KB).');
+      setFileErrorMessage("File size exceeds the maximum allowed (60 KB).");
     } else {
       setModalFile(file);
-      setFileErrorMessage('');
+      setFileErrorMessage("");
     }
   };
-
-
 
   return (
     <AddFileUI
@@ -92,7 +94,6 @@ function AddFile() {
       onClose={onClose}
     />
   );
-  
 }
 
 export default AddFile;

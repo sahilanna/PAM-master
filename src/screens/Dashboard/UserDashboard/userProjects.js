@@ -6,6 +6,7 @@ import api from "../../../network/api";
 import PmProjectDetails from "../ProjectManager/pmProjectDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 function UserProjects() {
   const [showUserProjectDetails, setShowUserProjectDetails] = useState(false);
@@ -19,7 +20,7 @@ function UserProjects() {
   let data = sessionStorage.getItem("item");
   let user = data ? JSON.parse(data) : null;
 
-  console.log(user);
+  
 
   let id = null;
   if (user !== null) {
@@ -36,9 +37,9 @@ function UserProjects() {
       const filteredProjects = result.data.filter((item) =>
         item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      console.log(filteredProjects); // Log filteredProjects here
+      logger.info(filteredProjects); 
     } catch (error) {
-      console.log("Error fetching Projects:", error);
+      logger.error("Error fetching Projects:", error);
       setIsLoading(true);
     }
   };
@@ -46,7 +47,7 @@ function UserProjects() {
    
 
   useEffect(() => {
-    console.log('hii')
+   
     fetchUserid();
   }, []);
 

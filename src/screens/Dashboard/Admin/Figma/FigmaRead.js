@@ -12,12 +12,14 @@ import Pagination from '../../Pagination/Pagination';
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { faTrash,  faUser, faStreetView } from '@fortawesome/free-solid-svg-icons';
- 
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+
 function FigmaRead() {
   const [userData, setUserData] = useState({
     user: '',
     screenshotImageURL: '',
   });
+  
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProjects, setFilteredProjects] = useState([]);
@@ -33,10 +35,7 @@ function FigmaRead() {
   const [showModall, setShowModall] = useState(false); 
  
   
-  console.log(showModall)
-  console.log(userData);
-  console.log(setUserData);
- 
+  
   useEffect(() => {
     fetchProjects();
   }, []);
@@ -55,9 +54,7 @@ function FigmaRead() {
   };
  
  
- 
- 
-  
+
   const handleDisplayVerification = async (figmaId) => {
     try {
       const response = await api.get(`https://${ngrokUrl}/figmas/${figmaId}/screenshots`);
@@ -74,7 +71,7 @@ function FigmaRead() {
         link.click();
       } 
     } catch (error) {
-      console.log("hibvsgccasyc");
+      logger.warn("No Screenshot to display");
       toast.error('No Screenshot to display', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 1000,
@@ -82,6 +79,7 @@ function FigmaRead() {
      
     }
   };
+  logger.info(showModall);
  
  
  
@@ -103,10 +101,13 @@ function FigmaRead() {
       setShowConfirmDialog(false);
       fetchProjects();
     } catch (error) {
-      console.log(error);
+      logger.error("Error deleting figmaUrl",error);
     }
   };
- 
+  
+  
+  logger.info(userData);
+  logger.info(setUserData)
   const closeModal = () => {
     setShowModal(false);
     setShowModall(false)

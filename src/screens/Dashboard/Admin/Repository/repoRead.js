@@ -9,6 +9,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import DialogBox from "../../DialogBox/DialogBox";
 import Pagination from "../../Pagination/Pagination";
 import "../Figma/FigmaRead.css";
+import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
 
 function RepoRead(onClose) {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,13 +25,15 @@ function RepoRead(onClose) {
 
   const data = sessionStorage.getItem("item");
   const user = data ? JSON.parse(data) : null;
-
+  
   useEffect(() => {
     loadItem();
   }, []);
+
   useEffect(() => {
     handlePaginate(1);
   }, [item]);
+
   const loadItem = async () => {
     setIsLoading(true);
     try {
@@ -42,9 +45,9 @@ function RepoRead(onClose) {
       setIsLoading(true);
     }
   };
-  console.log(user);
-  console.log(currentPageData);
-  console.log(setSelectedRepoId);
+  logger.info("Checking user:",user);
+  logger.info("Checking current page:",currentPageData);
+  
   useEffect(() => {
     const filteredProjects = item.filter((project) =>
       project.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -55,12 +58,13 @@ function RepoRead(onClose) {
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-    
+
     setCurrentPageData(filteredProjects.slice(0, itemsPerPage));
   };
   const createOnclick = () => {
     navigate("/CreateRepo");
   };
+  logger.info(setSelectedRepoId);
   const handlePaginate = (pageNumber) => {
     const indexOfLastItem = pageNumber * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -88,7 +92,7 @@ function RepoRead(onClose) {
       loadItem();
       navigate("/repoRead");
     } catch (error) {
-      console.log(error);
+      logger.error("Error while calling delete api",error);
     }
   };
 

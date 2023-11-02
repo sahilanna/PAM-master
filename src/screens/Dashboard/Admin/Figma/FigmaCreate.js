@@ -3,25 +3,24 @@ import { Modal, Button, Form, Dropdown } from 'semantic-ui-react';
 import { ngrokUrl } from '../../../../network/config';
 import api from '../../../../network/api';
 import { useNavigate  } from 'react-router-dom';
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   const[figmaUser, setFigmaUser]=useState('')
   const navigate=useNavigate()
-  console.log(figmaURL)
+ 
  
   let data = sessionStorage.getItem("item");
   let userr = JSON.parse(data);
   const accessToken= userr ? userr.token : null;
-  console.log(userr)
+ 
   
   let headers = null;
   if(userr !== null)
   {
     headers={AccessToken:accessToken}
   }
-  
 
- console.log(figmaId)
   const [url, setUrl] = useState(figmaURL);
   let [selectedUser, setSelectedUser] = useState('');
   const [screenshotImage, setscreenshotImage] = useState(null);
@@ -42,18 +41,17 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
       onClose(); 
 
     } catch (error) {
-      console.log('Error Updating Figma User:', error);
+      logger.error('Error Updating Figma User:', error);
     }
   };
-  console.log(post);
+  logger.info(post);
   const handleUrlChange =  (e) => {
     setUrl(e.target.value);
   };
   const handleUserChange = (e, { value }) => {
     setSelectedUser(value)
     setFigmaUser(value)
-    console.log('user',figmaUser);
-    console.log(value)
+
   };
   
 
@@ -63,11 +61,10 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   const fetchUsers = async () => {
     try {
       const response = await api.get(`https://${ngrokUrl}/projects/${projectId}/users`);
-     console.log(response.data)
      const userNames = response.data.map(project => project.name);
      setUsers(userNames);
     } catch (error) {
-      console.log('Error fetching Users:', error);
+      logger.error('Error fetching Users:', error);
     }
   };
   const onUpload =  (event) => {

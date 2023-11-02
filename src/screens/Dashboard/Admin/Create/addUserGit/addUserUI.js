@@ -16,7 +16,6 @@ function AddUserUI({ selectedRepo, options, username, handleUserNameBChange, han
           <Form.Field>
             <label style={{ textAlign: 'left' }} data-testid="repoNameLabel" >Repository Name</label>
             <input data-testid="repoNameInput" name="repoName" value={selectedRepo || ''} readOnly />
-            {console.log("Check",selectedRepo)}
           </Form.Field>
           <Form.Field>
             <label style={{ textAlign: 'left' }}>User Username<span style={{ color: 'red' }}>*</span></label>

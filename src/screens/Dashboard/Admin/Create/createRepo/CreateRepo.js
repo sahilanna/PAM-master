@@ -1,26 +1,29 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {toast} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
-import { ngrokUrl } from '../../../../../network/config';
-import api from '../../../../../network/api';
-import '../Create.css';
-import { ERROR_CODE_BAD_REQUEST, ERROR_CODE_INTERNAL_SERVER_ERROR, ERROR_CODE_NOT_FOUND } from '../../../error-Code';
-import CreateRepoUI from './createRepoUI';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ngrokUrl } from "../../../../../network/config";
+import api from "../../../../../network/api";
+import "../Create.css";
+import {
+  ERROR_CODE_BAD_REQUEST,
+  ERROR_CODE_INTERNAL_SERVER_ERROR,
+  ERROR_CODE_NOT_FOUND,
+} from "../../../error-Code";
+import CreateRepoUI from "./createRepoUI";
 
 function CreateRepo() {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [clicked, setClicked] = useState(false);
 
   const handleChange = (e) => {
-    if (e.target.name === 'name') {
+    if (e.target.name === "name") {
       setName(e.target.value);
-    } else if (e.target.name === 'description') {
+    } else if (e.target.name === "description") {
       setDescription(e.target.value);
     }
-    console.log('Name:', name);
   };
 
   const handleSubmit = async (e) => {
@@ -31,26 +34,35 @@ function CreateRepo() {
     setClicked(true);
 
     try {
-      await api.post(`https://${ngrokUrl}/repositories/add`, { name, description });
-      navigate('/repoRead');
+      await api.post(`https://${ngrokUrl}/repositories/add`, {
+        name,
+        description,
+      });
+      navigate("/repoRead");
     } catch (error) {
       if (error.response && error.response.status === ERROR_CODE_BAD_REQUEST) {
-        toast.error('Bad Request', {
+        toast.error("Bad Request", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
         });
-      } else if (error.response && error.response.status === ERROR_CODE_NOT_FOUND) {
-        toast.error('404 NOT FOUND', {
+      } else if (
+        error.response &&
+        error.response.status === ERROR_CODE_NOT_FOUND
+      ) {
+        toast.error("404 NOT FOUND", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
         });
-      } else if (error.response && error.response.status === ERROR_CODE_INTERNAL_SERVER_ERROR) {
-        toast.error('Server Error', {
+      } else if (
+        error.response &&
+        error.response.status === ERROR_CODE_INTERNAL_SERVER_ERROR
+      ) {
+        toast.error("Server Error", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
         });
       } else {
-        toast.error('Error Occurred', {
+        toast.error("Error Occurred", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
         });

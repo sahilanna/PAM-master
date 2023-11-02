@@ -3,6 +3,7 @@ import { ngrokUrl } from "../network/config";
 import LoadingPage from "../atoms/loadingPage";
 import api from "../network/api";
 import RepoTable from "../atoms/repoTable";
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 
 function RepoDashboard({ role, SidebarComponent }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -25,7 +26,7 @@ function RepoDashboard({ role, SidebarComponent }) {
       setFilteredResult(data);
       setIsLoading(false);
     } catch (error) {
-      console.log(`Error fetching ${role} projects:`, error);
+      logger.error(`Error fetching ${role} projects:`, error);
       setIsLoading(true);
     }
   };

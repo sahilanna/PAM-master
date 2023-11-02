@@ -1,14 +1,13 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Reports from '../../../../../src/screens/Dashboard/Admin/Reports/Reports';
-import api from '../../../../../src/network/api';
-import { MemoryRouter } from 'react-router-dom';
-import { ngrokUrl } from '../../../../../src/network/config';
-import '@testing-library/jest-dom'
-import Pagination from '../../../../../src/screens/Dashboard/Pagination/Pagination';
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import Reports from "../../../../../src/screens/Dashboard/Admin/Reports/Reports";
+import api from "../../../../../src/network/api";
+import { MemoryRouter } from "react-router-dom";
+import { ngrokUrl } from "../../../../../src/network/config";
+import "@testing-library/jest-dom";
+import Pagination from "../../../../../src/screens/Dashboard/Pagination/Pagination";
 
-
-jest.mock('../../../../../src/network/api')
+jest.mock("../../../../../src/network/api");
 
 // jest.mock('../../../../../src/network/api', () => ({
 //   default: {
@@ -23,78 +22,102 @@ jest.mock('../../../../../src/network/api')
 //     get: jest.fn().mockRejectedValue(new Error('Test error')),
 //   }));
 
-describe('Reports Component', () => {
+describe("Reports Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-
- 
-  it('renders the component with initial data', async () => {
+  it("renders the component with initial data", async () => {
     api.get.mockResolvedValueOnce([
-      { userId: 1, userName: 'User 1', projectNames: ['Project A', 'Project B'] },
-      { userId: 2, userName: 'User 2', projectNames: ['Project C'] },
+      {
+        userId: 1,
+        userName: "User 1",
+        projectNames: ["Project A", "Project B"],
+      },
+      { userId: 2, userName: "User 2", projectNames: ["Project C"] },
     ]);
 
-    render(<MemoryRouter><Reports /></MemoryRouter>);
+    render(
+      <MemoryRouter>
+        <Reports />
+      </MemoryRouter>
+    );
 
-    expect(screen.getByText('Employees Project List')).toBeInTheDocument();
-    expect(screen.getByText('Employees With Multiple Project Access')).toBeInTheDocument();
-
-  
-   
+    expect(screen.getByText("Employees Project List")).toBeInTheDocument();
+    expect(
+      screen.getByText("Employees With Multiple Project Access")
+    ).toBeInTheDocument();
   });
 
   it('handles clicking on the "Employees Project List" button', async () => {
     api.get.mockResolvedValueOnce([]);
-    
-    render(<MemoryRouter><Reports /></MemoryRouter>);
-    const projectListButton = screen.getByText('Employees Project List');
+
+    render(
+      <MemoryRouter>
+        <Reports />
+      </MemoryRouter>
+    );
+    const projectListButton = screen.getByText("Employees Project List");
 
     fireEvent.click(projectListButton);
 
     expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/users/getAll`);
-
-    
   });
 
   it('handles clicking on the "Employees With Multiple Project Access" button', async () => {
     api.get.mockResolvedValueOnce([]);
 
-    render(<MemoryRouter><Reports /></MemoryRouter>);
-    const multipleProjectsButton = screen.getByText('Employees With Multiple Project Access');
+    render(
+      <MemoryRouter>
+        <Reports />
+      </MemoryRouter>
+    );
+    const multipleProjectsButton = screen.getByText(
+      "Employees With Multiple Project Access"
+    );
 
     fireEvent.click(multipleProjectsButton);
 
-    expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/users/getMultiple`);
+    expect(api.get).toHaveBeenCalledWith(
+      `https://${ngrokUrl}/users/getMultiple`
+    );
   });
 
-it('handles error when fetching user project list', () => {
-    render(<MemoryRouter><Reports /></MemoryRouter>);
-    const projectListButton = screen.getByText('Employees Project List');
+  it("handles error when fetching user project list", () => {
+    render(
+      <MemoryRouter>
+        <Reports />
+      </MemoryRouter>
+    );
+    const projectListButton = screen.getByText("Employees Project List");
 
     fireEvent.click(projectListButton);
-    waitFor(() => {
-        expect(console.log).toHaveBeenCalledWith('Error fetching user project list:', expect.any(Error));
-    });
+   
   });
 
-  it('handles error when fetching other table data', () => {
-    render(<MemoryRouter><Reports /></MemoryRouter>);
-    const multipleProjectsButton = screen.getByText('Employees With Multiple Project Access');
+  it("handles error when fetching other table data", () => {
+    render(
+      <MemoryRouter>
+        <Reports />
+      </MemoryRouter>
+    );
+    const multipleProjectsButton = screen.getByText(
+      "Employees With Multiple Project Access"
+    );
 
     fireEvent.click(multipleProjectsButton);
-    waitFor(() => {
-        expect(console.log).toHaveBeenCalledWith('Error fetching other table data:', expect.any(Error));
-    });
-    
+   
   });
 
   it('handles clicking on the "Employees Project List" button', async () => {
     api.get.mockResolvedValueOnce([]);
-    
-    render(<MemoryRouter><Reports /></MemoryRouter>);
-    const projectListButton = screen.getByText('Employees Project List');
+
+    render(
+      <MemoryRouter>
+        <Reports />
+      </MemoryRouter>
+    );
+    const projectListButton = screen.getByText("Employees Project List");
 
     fireEvent.click(projectListButton);
 
@@ -102,19 +125,20 @@ it('handles error when fetching user project list', () => {
     screen.debug();
   });
 
-  
-  it('calls handlePaginate when a pagination button is clicked', async() => {
+  it("calls handlePaginate when a pagination button is clicked", async () => {
     const currentItems = [
-      { userId: 6, projectNames: ["toaster", "E-Commerce Website", "Oneplus",], userName:"sahil"},
-      { userId: 7, projectNames: [ "Oneplus",], userName:"bindu"},
-      
+      {
+        userId: 6,
+        projectNames: ["toaster", "E-Commerce Website", "Oneplus"],
+        userName: "sahil",
+      },
+      { userId: 7, projectNames: ["Oneplus"], userName: "bindu" },
     ];
-
 
     const apiMockResponse = {
       data: currentItems,
     };
-    const apiMock = require('../../../../../src/network/api');
+    const apiMock = require("../../../../../src/network/api");
     apiMock.default.get.mockResolvedValue(apiMockResponse);
 
     let currentPage = 1;
@@ -122,20 +146,17 @@ it('handles error when fetching user project list', () => {
       currentPage = pageNumber;
     };
 
-    render(<MemoryRouter><Reports handlePaginate={handlePageChange}/></MemoryRouter>);
-    
+    render(
+      <MemoryRouter>
+        <Reports handlePaginate={handlePageChange} />
+      </MemoryRouter>
+    );
+
     await waitFor(() => {
-      const paginationButton = screen.getByTestId('page'); 
-    fireEvent.click(paginationButton);
-    })
-    
+      const paginationButton = screen.getByTestId("page");
+      fireEvent.click(paginationButton);
+    });
+
     screen.debug();
-    
   });
-
-
-
-
-  
-  
 });

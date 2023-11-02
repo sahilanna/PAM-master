@@ -1,8 +1,8 @@
 import React,{ useEffect } from 'react';
-
+import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 function Test() {
   function fn(response){
-    console.log(response.credential)
+    logger.info(response.credential)
   }
   useEffect(() => {
     window.google.accounts.id.initialize({
