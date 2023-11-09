@@ -12,7 +12,7 @@ import "./Read.css";
 import PmDetails from "./PmDetails";
 import { ngrokUrl } from "../../../network/config";
 import Sidebar from "../SideBar/SideBar";
-import LoadingPage from "../../../atoms/loadingPage";
+import LoadingPage from "../../../atoms/LoadingPage/loadingPage";
 import api from "../../../network/api";
 import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
 

@@ -2,8 +2,7 @@
 .sample {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background: rgb(2, 0, 36);
+  min-height: 80vh;
   background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(22, 22, 124, 1) 100%, rgba(0, 212, 255, 1) 100%);
   padding: 1px;
   position: relative;

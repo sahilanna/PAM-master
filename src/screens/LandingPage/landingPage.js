@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import './LandingPage.css';
+import './landingPage.css';
 import styled from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
-import NavBar from './NavBar';
-import Footer from './Footer';
-import photo1 from '../Assets/photo.jpg';
-import photo2 from '../Assets/photo2.avif';
-import photo3 from '../Assets/photo3.avif';
+import NavBar from '../Navbar/navbar';
+import Footer from '../Footer/footer';
+
+import photo1 from '../../Assets/photo.jpg';
+import photo2 from '../../Assets/photo2.avif';
+import photo3 from '../../Assets/photo3.avif';
 
 export class LandingPage extends Component {
   

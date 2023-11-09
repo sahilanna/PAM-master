@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ngrokUrl } from "../network/config";
-import LoadingPage from "../atoms/loadingPage";
+import LoadingPage from "../atoms/LoadingPage/loadingPage";
 import api from "../network/api";
 import RepoTable from "../atoms/repoTable";
 import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';

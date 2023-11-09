@@ -3,7 +3,6 @@ import {
   Button,
   Header,
   Segment,
-  Container,
   List,
   Tab,
 } from "semantic-ui-react";
@@ -18,6 +17,7 @@ import ProjectUsers from "./projectUsers";
 import ProjectPms from "./projectPms";
 import OtpModal from "./otpModal";
 import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+import './Read.css'
 
 const ProjectDetails = ({
   project,
@@ -28,6 +28,7 @@ const ProjectDetails = ({
 }) => {
   const { projectId } = useParams();
   const { projectName } = useParams();
+  logger.warn("check",projectId);
 
   const [otp, setOtp] = useState("");
   const [showOTPMoal, setShowOTPMoal] = useState(false);
@@ -196,6 +197,7 @@ const ProjectDetails = ({
   };
 
   const downloadFile = async (filename) => {
+    logger.warn("Check Once", projectId);
     await api
       .get(
         `https://${ngrokUrl}/projects/files/${filename}?projectId=${projectId}`,
@@ -276,132 +278,130 @@ const ProjectDetails = ({
   }, []);
 
   return (
-    <>
-      <div className="parent-admin">
-        <div style={{ display: "flex" }}>
-          <div style={{ flex: "0 0 auto", width: "250px" }}>
-            <CustomSidebar />
-          </div>
-          <div>
-            <Container>
-              <Header as="h1" attached="top" block className="project-heading1">
-                <div>{projectName}</div>
-                <Button
-                  data-testid="delete-project"
-                  color="red"
-                  onClick={handleDeleteProject}
-                  className="delete-button"
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </Button>
-              </Header>
-              <Segment attached className="left-aligned-segment">
-                <List divided relaxed>
-                  <List.Item key={projectId}>
-                    <List.Content>
-                      <List.Header>
-                        Description:{" "}
-                        <span className="description-value">
-                          {projectData.projectDescription}
-                        </span>
-                      </List.Header>
-                      <br />
-
-                      <List.Header>
-                        Project Manager:{" "}
-                        <span className="description-value">
-                          {projectData.pmName}{" "}
-                        </span>
-                      </List.Header>
-                      <br />
-
-                      <List.Header>
-                        Repositories:{" "}
-                        <span className="description-value">
-                          {projectData.repositories &&
-                          projectData.repositories.length > 0 ? (
-                            projectData.repositories.map((repo) => (
-                              <span key={repo.name}>
-                                {repo.name}
-                                {repo !==
-                                projectData.repositories[
-                                  projectData.repositories.length - 1
-                                ]
-                                  ? ", "
-                                  : ""}
-                              </span>
-                            ))
-                          ) : (
-                            <span>N/A</span>
-                          )}
-                        </span>
-                      </List.Header>
-                      <br />
-
-                      <List.Header>
-                        Figma Link:{" "}
-                        {projectData?.figma?.figmaURL ? (
-                          <a
-                            href={projectData.figma.figmaURL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {projectData.figma.figmaURL}
-                          </a>
-                        ) : (
-                          <span className="description-value">N/A</span>
-                        )}
-                      </List.Header>
-                      <br />
-
-                      <List.Header>
-                        Drive Link:{" "}
-                        {projectData?.googleDrive?.driveLink ? (
-                          <a
-                            href={projectData.googleDrive.driveLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {projectData.googleDrive.driveLink}
-                          </a>
-                        ) : (
-                          <span className="description-value">N/A</span>
-                        )}
-                      </List.Header>
-                      <br />
-
-                      <List.Header>
-                        Created on :{" "}
-                        <span className="description-value">
-                          {formatDate(projectData.lastUpdated)}{" "}
-                        </span>
-                      </List.Header>
-                      <br />
-                    </List.Content>
-                  </List.Item>
-                </List>
-              </Segment>
-
-              <Tab
-                menu={{ fluid: true, horizontal: true, tabular: true }}
-                panes={panes}
-              />
-            </Container>
-          </div>
+    <div className="parent-admin">
+      <div style={{ display: "flex" }}>
+        <div style={{ flex: "0 0 auto", width: "250px", }}>
+          <CustomSidebar />
         </div>
-        <DialogBox
-          show={showConfirmDialog}
-          onClose={handleCancelDelete}
-          onConfirm={handleConfirmDelete}
-        />
-        <OtpModal
-          open={showOTPMoal}
-          onClose={handleOTPClose}
-          onSubmit={handleOTPSubmit}
-          errorMessage={errorMessage}
-        />
+       
+          <div className="container">
+            <Header as="h1" attached="top" block className="heading-header">
+              <div className="project-heading1">{projectName}</div>
+              <Button
+                data-testid="delete-project"
+                color="red"
+                onClick={handleDeleteProject}
+                className="delete-button"
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </Button>
+            </Header>
+            <Segment attached className="left-aligned-segment">
+              <List divided relaxed>
+                <List.Item key={projectId}>
+                  <List.Content>
+                    <List.Header>
+                      Description:{" "}
+                      <span className="description-value">
+                        {projectData.projectDescription}
+                      </span>
+                    </List.Header>
+                    <br />
+
+                    <List.Header>
+                      Project Manager:{" "}
+                      <span className="description-value">
+                        {projectData.pmName}{" "}
+                      </span>
+                    </List.Header>
+                    <br />
+
+                    <List.Header>
+                      Repositories:{" "}
+                      <span className="description-value">
+                        {projectData.repositories &&
+                        projectData.repositories.length > 0 ? (
+                          projectData.repositories.map((repo) => (
+                            <span key={repo.name}>
+                              {repo.name}
+                              {repo !==
+                              projectData.repositories[
+                                projectData.repositories.length - 1
+                              ]
+                                ? ", "
+                                : ""}
+                            </span>
+                          ))
+                        ) : (
+                          <span>N/A</span>
+                        )}
+                      </span>
+                    </List.Header>
+                    <br />
+
+                    <List.Header>
+                      Figma Link:{" "}
+                      {projectData?.figma?.figmaURL ? (
+                        <a
+                          href={projectData.figma.figmaURL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {projectData.figma.figmaURL}
+                        </a>
+                      ) : (
+                        <span className="description-value">N/A</span>
+                      )}
+                    </List.Header>
+                    <br />
+
+                    <List.Header>
+                      Drive Link:{" "}
+                      {projectData?.googleDrive?.driveLink ? (
+                        <a
+                          href={projectData.googleDrive.driveLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {projectData.googleDrive.driveLink}
+                        </a>
+                      ) : (
+                        <span className="description-value">N/A</span>
+                      )}
+                    </List.Header>
+                    <br />
+
+                    <List.Header>
+                      Created on :{" "}
+                      <span className="description-value">
+                        {formatDate(projectData.lastUpdated)}{" "}
+                      </span>
+                    </List.Header>
+                    <br />
+                  </List.Content>
+                </List.Item>
+              </List>
+            </Segment>
+
+            <Tab
+              menu={{ fluid: true, horizontal: true, tabular: true }}
+              panes={panes}
+            />
+            </div>
+
       </div>
-    </>
+      <DialogBox
+        show={showConfirmDialog}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+      />
+      <OtpModal
+        open={showOTPMoal}
+        onClose={handleOTPClose}
+        onSubmit={handleOTPSubmit}
+        errorMessage={errorMessage}
+      />
+    </div>
   );
 };
 export default ProjectDetails;

@@ -3,7 +3,7 @@ import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
 import { ngrokUrl } from '../../../../network/config';
 import Sidebar from '../../SideBar/SideBar';
 import "./Analytics.css";
-import LoadingPage from '../../../../atoms/loadingPage';
+import LoadingPage from '../../../../atoms/LoadingPage/loadingPage';
 import api from '../../../../network/api';
 import { Button } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';

@@ -4,7 +4,7 @@ import './userHistory.css';
 import 'semantic-ui-css/semantic.min.css';
 import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrl } from '../../../../network/config';
-import LoadingPage from '../../../../atoms/loadingPage';
+import LoadingPage from '../../../../atoms/LoadingPage/loadingPage';
 import api from '../../../../network/api';
 import Pagination from '../../Pagination/Pagination';
 import { CSVLink } from 'react-csv';

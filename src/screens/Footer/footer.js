@@ -1,11 +1,11 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faInstagram, faFigma, faJira, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import './footer.css';
 
-import './Footer.css'
 const Footer = () => {
   return (
-    <div className="Footer">
+    <div className="footer-background">
 
     <div className="sb_footer_section_padding">
       <div className="sb_footer-links">

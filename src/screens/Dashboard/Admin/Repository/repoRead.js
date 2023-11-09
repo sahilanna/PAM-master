@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../SideBar/SideBar";
-import LoadingPage from "../../../../atoms/loadingPage";
+import LoadingPage from "../../../../atoms/LoadingPage/loadingPage";
 import api from "../../../../network/api";
 import { ngrokUrl } from "../../../../network/config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

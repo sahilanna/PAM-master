@@ -22,6 +22,7 @@ function CreateFigmaDetails() {
         parsedUrl.pathname.startsWith('/file/')
       );
     } catch (_) {
+      //logger add kr
       return false;
     }
   };
@@ -102,3 +103,7 @@ function CreateFigmaDetails() {
 
 
 export default CreateFigmaDetails;
+
+
+
+

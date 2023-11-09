@@ -18,8 +18,15 @@ const Pagination = ({ data, itemsPerPage, paginate }) => {
     <nav>
       <ul className="pagination">
         {Array.from({ length: totalPages }, (_, i) => (
-          <li key={i} className={`page-item ${i + 1 === currentPage ? 'active' : ''}`}>
-            <button data-testid="page" onClick={() => handlePaginate(i + 1)} className="page-link">
+          <li
+            key={i}
+            className={`page-item ${i + 1 === currentPage ? "active" : ""}`}
+          >
+            <button
+              data-testid="page"
+              onClick={() => handlePaginate(i + 1)}
+              className="page-link"
+            >
               {i + 1}
             </button>
           </li>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Modal, Button, Progress } from 'semantic-ui-react';
+import { Form, Modal, Button } from 'semantic-ui-react';
 
 function AddFileUI({
   projectName,
@@ -7,7 +7,6 @@ function AddFileUI({
   fileErrorMessage,
   handleModelFileSelect,
   handleFileUpload,
-  uploadProgress,
   onClose,
 }) {
   return (
@@ -40,9 +39,7 @@ function AddFileUI({
           <Button type="submit" onClick={handleFileUpload}>
             Submit
           </Button>
-          {uploadProgress > 0 && uploadProgress < 100 && (
-            <Progress percent={uploadProgress} indicating />
-          )}
+         
         </Form>
       </Modal.Content>
       <Modal.Actions></Modal.Actions>

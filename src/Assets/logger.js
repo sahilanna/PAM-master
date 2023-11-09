@@ -1,6 +1,5 @@
-import log from 'loglevel';
+import log from "loglevel";
 
-
-log.setLevel(log.levels.INFO); 
+log.setLevel(log.levels.INFO);
 
 export default log;

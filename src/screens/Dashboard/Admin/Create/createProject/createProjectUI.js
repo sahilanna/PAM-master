@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Button, Modal } from 'semantic-ui-react';
-import LoadingPage from '../../../../../atoms/loadingPage';
+import LoadingPage from '../../../../../atoms/LoadingPage/loadingPage';
 import { ToastContainer } from 'react-toastify';
 
 function CreateProjectUI({ loading, success, error, onClose, projectName, projectDescription, handleSubmit, setProjectName, setProjectDescription }) {

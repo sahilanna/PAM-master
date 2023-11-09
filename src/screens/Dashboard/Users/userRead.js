@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import UserDetails from "./UserDetails";
 import Sidebar from "../SideBar/SideBar";
-import LoadingPage from "../../../atoms/loadingPage";
+import LoadingPage from "../../../atoms/LoadingPage/loadingPage";
 import api from "../../../network/api";
 import { ngrokUrl } from "../../../network/config";
 import "./Read.css";

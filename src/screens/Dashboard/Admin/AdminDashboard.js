@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import Pagination from "../Pagination/Pagination";
-import LoadingPage from "../../../atoms/loadingPage";
+import LoadingPage from "../../../atoms/LoadingPage/loadingPage";
 import { CSVLink } from "react-csv";
 import CustomSidebar from "../SideBar/SideBar";
 import { ngrokUrl } from "../../../network/config";

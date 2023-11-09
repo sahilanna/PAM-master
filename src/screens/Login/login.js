@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "semantic-ui-react";
 import axios from "axios";
-import NavBarLogin from "./NavBarLogin";
+import NavBarLogin from "../Navbar/navbarLogin";
 import { useNavigate } from "react-router-dom";
-import Footer from "../screens/Footer";
-import "./Login.css";
-import { ngrokLogin } from "../network/config";
+import Footer from "../Footer/footer";
+import "./login.css";
+import { ngrokLogin } from "../../network/config";
 import styled from "styled-components";
-import logo1 from "../Assets/logo1.png";
+import logo1 from "../../Assets/logo1.png";
 import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
 export function decodeIdToken(token) {
   const base64Url = token.split(".")[1];
@@ -32,13 +32,12 @@ function Test() {
 `;
   const handleGoogleLogin = async (response) => {
     const token = response.credential;
-
     const decodedToken = decodeIdToken(token);
     const emailToVerify = decodedToken.email;
 
     const headers = {
       "ngrok-skip-browser-warning": "true",
-      emailToVerify: `${emailToVerify}`,
+      emailToVerify: `${emailToVerify}`, 
     };
 
     try {
@@ -48,11 +47,8 @@ function Test() {
       );
 
       sessionStorage.setItem("item", JSON.stringify(data));
-      const access = sessionStorage.getItem("item");
-      let user = JSON.parse(access);
-      const accessToken = user.token;
-      logger.info(accessToken);
-
+      sessionStorage.getItem("item");
+     
       if (data.enumRole === "ADMIN") {
         navigate("/AdminDashboard", { state: { data } });
       } else if (data.enumRole === "PROJECT_MANAGER") {
@@ -102,7 +98,7 @@ function Test() {
           />
         </div>
 
-        {/* <div className="space"></div> */}
+       
       </div>
       <div className="box-container">
         <div data-testid="signIn" id="signIn">
@@ -118,7 +114,7 @@ function Test() {
           justifyContent: "center",
         }}
       >
-        <div className="Modal-cont">
+        <div className="modal-cont">
           <Modal
             open={showUserNotFoundModal}
             className="centered-modal"

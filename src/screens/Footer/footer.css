@@ -4,7 +4,7 @@
 #root{
     width: 100%;
 }
-.Footer{
+.footer-background{
 background-color: #01010E;
 width: 100%;
 }
@@ -117,7 +117,6 @@ font-weight: 600;
     line-height: 38px;
 }
 }
-
 
 
 

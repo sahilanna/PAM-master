@@ -6,7 +6,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
 import { ngrokUrl } from "../../../network/config";
 import PmSidebar from "./pmSidebar";
-import LoadingPage from "../../../atoms/loadingPage";
+import LoadingPage from "../../../atoms/LoadingPage/loadingPage";
 import api from "../../../network/api";
 import PmProjectDetails from "./pmProjectDetails";
 import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';

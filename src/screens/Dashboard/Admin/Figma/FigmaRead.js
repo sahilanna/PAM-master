@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../SideBar/SideBar';
 import { ngrokUrl } from '../../../../network/config';
 import './FigmaRead.css'
-import LoadingPage from '../../../../atoms/loadingPage';
+import LoadingPage from '../../../../atoms/LoadingPage/loadingPage';
 import api from '../../../../network/api';
 import DialogBox from '../../DialogBox/DialogBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
