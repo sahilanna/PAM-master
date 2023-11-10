@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { createProject } from '../../../../../src/redux/redux-store/actions/projectActions';
-import { ngrokUrl } from '../../../../../src/network/config';
+import { NGROK_URL } from '../../../../../src/network/config';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
@@ -40,7 +40,7 @@ describe('createProject', () => {
     ];
 
     // Mock the API call
-    mockAxios.onPost(`https://${ngrokUrl}/projects/create`).reply(200); // Make sure to use the correct ngrokUrl
+    mockAxios.onPost(`https://${NGROK_URL}/projects/create`).reply(200); // Make sure to use the correct NGROK_URL
 
     store.dispatch(createProject(projectName, projectDescription));
     

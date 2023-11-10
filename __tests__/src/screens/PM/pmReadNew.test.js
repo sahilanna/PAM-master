@@ -8,7 +8,7 @@ import rootReducer from '../../../../src/redux/redux-store/reducers';
 import '@testing-library/jest-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { ngrokUrl } from '../../../../src/network/config';
+import { NGROK_URL } from '../../../../src/network/config';
 import api from '../../../../src/network/api';
 
 const store = createStore(rootReducer);

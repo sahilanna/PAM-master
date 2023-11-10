@@ -5,7 +5,7 @@ import { MemoryRouter, useNavigate } from "react-router-dom";
 import "@testing-library/jest-dom";
 import CreateFigmaDetailsUI from "../../../../../../src/screens/Dashboard/Admin/Figma/createFigma/createFigmaDetailsUI";
 import api from "../../../../../../src/network/api";
-import { ngrokUrl } from "../../../../../../src/network/config";
+import { NGROK_URL } from "../../../../../../src/network/config";
 import userEvent from '@testing-library/user-event';
 import 'jest-location-mock';
 

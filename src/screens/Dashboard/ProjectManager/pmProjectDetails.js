@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button } from "semantic-ui-react";
-import { ngrokUrl } from "../../../network/config";
+import { NGROK_URL } from "../../../network/config";
 import api from "../../../network/api";
 import "./pmDashboard.css";
-import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+import logger from "../../../utils/logger.js";
 
 const PmProjectDetails = ({ project, onClose }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +19,7 @@ const PmProjectDetails = ({ project, onClose }) => {
   const fetchFigma = async () => {
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/users/${id}/role/project_manager/projects`
+        `https://${NGROK_URL}/users/${id}/role/project_manager/projects`
       );
       const data = response.data;
 

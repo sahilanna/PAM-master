@@ -10,11 +10,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Read.css";
 import PmDetails from "./PmDetails";
-import { ngrokUrl } from "../../../network/config";
+import { NGROK_URL } from "../../../network/config";
 import Sidebar from "../SideBar/SideBar";
 import LoadingPage from "../../../atoms/LoadingPage/loadingPage";
 import api from "../../../network/api";
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../utils/logger.js';
 
 function PmReadNew() {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ function PmReadNew() {
     setIsLoading(true);
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/users/role/project_manager`
+        `https://${NGROK_URL}/users/role/project_manager`
       );
       setIsLoading(true);
       const Data = response.data;
@@ -99,7 +99,7 @@ function PmReadNew() {
 
   const deleteUser = async (id) => {
     try{
-    await api.delete(`https://${ngrokUrl}/users/delete/${id}`);
+    await api.delete(`https://${NGROK_URL}/users/delete/${id}`);
     navigate("/pmReadNew");
     setShowConfirmDialog(false);
     loaditem();

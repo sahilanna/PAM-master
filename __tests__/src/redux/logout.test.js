@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import Logout from "../../../src/redux/Logout";
 import api from "../../../src/network/api";
 import { MemoryRouter } from "react-router-dom";
-import { ngrokUrl } from "../../../src/network/config";
+import { NGROK_URL } from "../../../src/network/config";
 jest.mock("../../../src/network/api");
 
 describe("Logout Component", () => {
@@ -23,7 +23,7 @@ describe("Logout Component", () => {
     await waitFor(() => {
       expect(
         require("../../../src/network/api").default.post
-      ).toHaveBeenCalledWith(`https://${ngrokUrl}/users/${mockUser.id}/logout`);
+      ).toHaveBeenCalledWith(`https://${NGROK_URL}/users/${mockUser.id}/logout`);
     });
   });
 

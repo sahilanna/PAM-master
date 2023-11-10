@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Create.css';
 import '../../Read/Read.css';
-import { ngrokUrl } from '../../../../../network/config';
+import { NGROK_URL } from '../../../../../network/config';
 import api from '../../../../../network/api';
 import CreateUI from './addProjectRepoUI';
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../../../utils/logger.js';
 
 const Create = () => {
   let navigate = useNavigate();
@@ -38,7 +38,7 @@ const Create = () => {
 
   const fetchRepos = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/repositories/get`);
+      const response = await api.get(`https://${NGROK_URL}/repositories/get`);
       const repoOptions = response.data.map((repo)=> ({
         key: repo.repoId,
         text: repo.name,
@@ -53,7 +53,7 @@ const Create = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/projects/allProjects`);
+      const response = await api.get(`https://${NGROK_URL}/projects/allProjects`);
       const projOptions = response.data.map((proj )=> ({
         key: proj.projectId,
         text: proj.projectName,
@@ -79,7 +79,7 @@ const Create = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     logger.info("repoid", repoId)
-    api.put(`https://${ngrokUrl}/projects/${projectId}/repository/${repoId}`);
+    api.put(`https://${NGROK_URL}/projects/${projectId}/repository/${repoId}`);
     logger.info(selectedRepo);
     navigate('/repoRead');
     

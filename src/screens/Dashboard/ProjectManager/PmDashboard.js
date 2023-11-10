@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
-import { ngrokUrl } from "../../../network/config";
+import { NGROK_URL } from "../../../network/config";
 import PmSidebar from "./pmSidebar";
 import LoadingPage from "../../../atoms/LoadingPage/loadingPage";
 import api from "../../../network/api";
 import PmProjectDetails from "./pmProjectDetails";
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../utils/logger.js';
 
 const PmDashboard = () => {
   const [item, setItem] = useState([]);
@@ -42,7 +42,7 @@ const PmDashboard = () => {
     try {
       new URLSearchParams(window.location.search);
       const response = await api.get(
-        `https://${ngrokUrl}/users/${id}/role/project_manager/projects`
+        `https://${NGROK_URL}/users/${id}/role/project_manager/projects`
       );
 
       setItem(response.data);

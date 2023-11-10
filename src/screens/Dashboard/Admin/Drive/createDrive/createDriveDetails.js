@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ngrokUrl } from "../../../../../network/config";
+import { NGROK_URL } from "../../../../../network/config";
 import api from "../../../../../network/api";
 import CreateDriveDetailsUI from "./createDriveDetailsUI";
-import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+import logger from '../../../../../utils/logger.js';
 
 function CreateDriveDetails() {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ function CreateDriveDetails() {
   const fetchProjects = async () => {
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/projects/without-google-drive`
+        `https://${NGROK_URL}/projects/without-google-drive`
       );
       const driveProjects = response.data.map((drive) => ({
         key: drive.projectId,
@@ -60,7 +60,7 @@ function CreateDriveDetails() {
       return;
     }
     try {
-      const response = await api.post(`https://${ngrokUrl}/createGoogleDrive`, {
+      const response = await api.post(`https://${NGROK_URL}/createGoogleDrive`, {
         projectDTO: {
           projectId: selectedProject,
           projectName: selectedProject,

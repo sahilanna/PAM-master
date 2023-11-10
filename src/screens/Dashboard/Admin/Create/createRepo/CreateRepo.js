@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ngrokUrl } from "../../../../../network/config";
+import { NGROK_URL } from "../../../../../network/config";
 import api from "../../../../../network/api";
 import "../Create.css";
 import {
+  ERROR_CODE_NOT_FOUND,
   ERROR_CODE_BAD_REQUEST,
   ERROR_CODE_INTERNAL_SERVER_ERROR,
-  ERROR_CODE_NOT_FOUND,
-} from "../../../error-Code";
+} from "../../../../../assets/Constants/errorCode";
 import CreateRepoUI from "./createRepoUI";
 
 function CreateRepo() {
@@ -34,7 +34,7 @@ function CreateRepo() {
     setClicked(true);
 
     try {
-      await api.post(`https://${ngrokUrl}/repositories/add`, {
+      await api.post(`https://${NGROK_URL}/repositories/add`, {
         name,
         description,
       });

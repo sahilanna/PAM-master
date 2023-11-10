@@ -12,12 +12,12 @@ import UserDetails from "./UserDetails";
 import Sidebar from "../SideBar/SideBar";
 import LoadingPage from "../../../atoms/LoadingPage/loadingPage";
 import api from "../../../network/api";
-import { ngrokUrl } from "../../../network/config";
+import { NGROK_URL } from "../../../network/config";
 import "./Read.css";
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../utils/logger.js';
 function UserRead() {
   const navigate = useNavigate();
-  const getUrl = `https://${ngrokUrl}/users/role/user`;
+  const getUrl = `https://${NGROK_URL}/users/role/user`;
   const [item, setItem] = useState([]);
 
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -102,7 +102,7 @@ const loaditem = async() => {
   };
   const deleteUser = async (id) => {
     try{
-    await api.delete(`https://${ngrokUrl}/users/delete/${id}`);
+    await api.delete(`https://${NGROK_URL}/users/delete/${id}`);
     navigate("/userRead");
     setShowConfirmDialog(false);
     loaditem();

@@ -4,7 +4,7 @@ import FigmaRead from "../../../../../../src/screens/Dashboard/Admin/Figma/Figma
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
 import api from "../../../../../../src/network/api";
-import { ngrokUrl } from "../../../../../../src/network/config";
+import { NGROK_URL } from "../../../../../../src/network/config";
 import DialogBox from "../../../../../../src/screens/Dashboard/DialogBox/DialogBox";
 
 // jest.mock('../../../../../../src/network/api', () => ({

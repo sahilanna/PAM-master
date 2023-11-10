@@ -11,7 +11,7 @@ import {
 import api from "../../../../../src/network/api";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { ngrokUrl } from "../../../../../src/network/config";
+import { NGROK_URL } from "../../../../../src/network/config";
 
 // Mock your API and action functions
 // jest.mock('../../../../../src/network/api', () => ({
@@ -48,7 +48,7 @@ describe("YourComponent", () => {
     const email = "john@example.com";
     const enumRole = "PROJECT_MANAGER";
 
-    mock.onPost(`https://${ngrokUrl}/users/`).reply(200, "succeess");
+    mock.onPost(`https://${NGROK_URL}/users/`).reply(200, "succeess");
 
     await createPM({ name, email, enumRole })(dispatchPMUpdate);
   });
@@ -64,7 +64,7 @@ describe("YourComponent", () => {
     const enumRole = "PROJECT_MANAGER";
 
     // Mock the Axios post request and define the response data
-    mock.onPost(`https://${ngrokUrl}/users/`).reply(200, "succeess");
+    mock.onPost(`https://${NGROK_URL}/users/`).reply(200, "succeess");
 
     // Call the createPM function
     await createUser({ name, email, enumRole })(dispatchUserUpdate);
@@ -81,7 +81,7 @@ describe("YourComponent", () => {
     const username = "PROJECT_MANAGER";
 
     // Mock the Axios post request and define the response data
-    mock.onPost(`https://${ngrokUrl}/collaborators/add`).reply(200, "succeess");
+    mock.onPost(`https://${NGROK_URL}/collaborators/add`).reply(200, "succeess");
 
     // Call the createPM function
     await createPmGithubName({ projectName, repo, username })(
@@ -99,7 +99,7 @@ describe("YourComponent", () => {
     const email = "john@example.com";
     const enumRole = "PROJECT_MANAGER";
 
-    mock.onPost(`https://${ngrokUrl}/users/`).networkError();
+    mock.onPost(`https://${NGROK_URL}/users/`).networkError();
 
     const consoleLogSpy = jest.spyOn(console, "log");
 

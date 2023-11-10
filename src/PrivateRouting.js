@@ -1,7 +1,8 @@
 import React, {lazy, Suspense} from "react";
 import {  Route,Routes } from 'react-router-dom';
 import ProjectDetails from "./screens/Dashboard/Admin/Read/ProjectDetails";
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from './utils/logger.js';
+
 
 const LazyAdminDashboard = lazy(() =>  import("./screens/Dashboard/Admin/AdminDashboard"));
 const LazyPmCreate = lazy(() => import("./screens/Dashboard/PM/pmCreate"));

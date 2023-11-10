@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { ngrokUrl } from "../network/config";
+import { NGROK_URL } from "../network/config";
 import LoadingPage from "../atoms/LoadingPage/loadingPage";
 import api from "../network/api";
 import RepoTable from "../atoms/repoTable";
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from "../utils/logger.js";
 
 function RepoDashboard({ role, SidebarComponent }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,7 +19,7 @@ function RepoDashboard({ role, SidebarComponent }) {
     try {
       setIsLoading(true);
       const response = await api.get(
-        `https://${ngrokUrl}/users/${id}/role/${role}/projects`
+        `https://${NGROK_URL}/users/${id}/role/${role}/projects`
       );
       const data = response.data;
       setResult(data);

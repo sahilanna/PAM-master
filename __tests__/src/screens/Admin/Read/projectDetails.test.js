@@ -10,7 +10,7 @@ import ProjectDetails from "../../../../../src/screens/Dashboard/Admin/Read/Proj
 import { useNavigate, MemoryRouter, navigate } from "react-router-dom";
 import "@testing-library/jest-dom";
 import api from "../../../../../src/network/api";
-import { ngrokUrl } from "../../../../../src/network/config";
+import { NGROK_URL } from "../../../../../src/network/config";
 import { act } from "react-dom/test-utils";
 
 jest.mock("react-router-dom", () => ({

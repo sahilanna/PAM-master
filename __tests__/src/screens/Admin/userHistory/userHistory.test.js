@@ -7,7 +7,7 @@ import '@testing-library/jest-dom'
 import api from '../../../../../src/network/api';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { ngrokUrl } from '../../../../../src/network/config';
+import { NGROK_URL } from '../../../../../src/network/config';
 
 // Mock the CSVLink component
 jest.mock('react-csv', () => ({ CSVLink: 'div' }));

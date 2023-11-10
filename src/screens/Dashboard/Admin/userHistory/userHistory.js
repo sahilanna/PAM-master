@@ -3,12 +3,12 @@ import { Table, Icon } from 'semantic-ui-react';
 import './userHistory.css';
 import 'semantic-ui-css/semantic.min.css';
 import Sidebar from '../../SideBar/SideBar';
-import { ngrokUrl } from '../../../../network/config';
+import { NGROK_URL } from '../../../../network/config';
 import LoadingPage from '../../../../atoms/LoadingPage/loadingPage';
 import api from '../../../../network/api';
 import Pagination from '../../Pagination/Pagination';
 import { CSVLink } from 'react-csv';
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../../utils/logger.js';
 
 function UserHistory() {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +31,7 @@ function UserHistory() {
   
   async function fetchData() {
     try {
-      const response = await api.get(`https://${ngrokUrl}/projects/all`);
+      const response = await api.get(`https://${NGROK_URL}/projects/all`);
       const sortedData = response.data.slice().sort((a, b) => {
 
         if (a.status !== b.status) {

@@ -3,7 +3,7 @@ import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import ProjectList from "../../../../../src/screens/Dashboard/Admin/Read/projectList";
 import { MemoryRouter } from "react-router-dom";
 import api from "../../../../../src/network/api";
-import { ngrokUrl } from "../../../../../src/network/config";
+import { NGROK_URL } from "../../../../../src/network/config";
 import userEvent from "@testing-library/user-event";
 
 jest.mock("../../../../../src/network/api", () => {
@@ -108,7 +108,7 @@ describe("ProjectList Component", () => {
 
     await waitFor(() => {
       expect(api.get).toHaveBeenCalledWith(
-        `https://${ngrokUrl}/projects/${projectId}/users/${getItemUrl}`
+        `https://${NGROK_URL}/projects/${projectId}/users/${getItemUrl}`
       );
     });
 
@@ -152,7 +152,7 @@ describe("ProjectList Component", () => {
 
     await waitFor(() => {
       expect(api.get).toHaveBeenCalledWith(
-        `https://${ngrokUrl}/projects/${projectId}/users/${getItemUrl}`
+        `https://${NGROK_URL}/projects/${projectId}/users/${getItemUrl}`
       );
     });
 
@@ -201,7 +201,7 @@ describe("ProjectList Component", () => {
 
     await waitFor(() => {
       expect(api.get).toHaveBeenCalledWith(
-        `https://${ngrokUrl}/projects/${projectId}/users/${getItemUrl}`
+        `https://${NGROK_URL}/projects/${projectId}/users/${getItemUrl}`
       );
     });
 
@@ -246,7 +246,7 @@ describe("ProjectList Component", () => {
 
     await waitFor(() => {
       expect(api.get).toHaveBeenCalledWith(
-        `https://${ngrokUrl}/projects/${projectId}/users/${getItemUrl}`
+        `https://${NGROK_URL}/projects/${projectId}/users/${getItemUrl}`
       );
     });
 
@@ -301,7 +301,7 @@ describe("ProjectList Component", () => {
 
     await waitFor(() => {
       expect(api.get).toHaveBeenCalledWith(
-        `https://${ngrokUrl}/projects/${projectId}/users/${getItemUrl}`
+        `https://${NGROK_URL}/projects/${projectId}/users/${getItemUrl}`
       );
     });
 
@@ -355,7 +355,7 @@ describe("ProjectList Component", () => {
 
     await waitFor(() => {
       expect(api.get).toHaveBeenCalledWith(
-        `https://${ngrokUrl}/projects/${projectId}/users/${getItemUrl}`
+        `https://${NGROK_URL}/projects/${projectId}/users/${getItemUrl}`
       );
     });
 
@@ -501,7 +501,7 @@ describe("ProjectList Component", () => {
    
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/projects/${projectId}/users/${getItemUrl}`);
+      expect(api.get).toHaveBeenCalledWith(`https://${NGROK_URL}/projects/${projectId}/users/${getItemUrl}`);
     });
    
     waitFor(() =>{
@@ -560,7 +560,7 @@ describe("ProjectList Component", () => {
    
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/projects/${projectId}/users/${getItemUrl}`);
+      expect(api.get).toHaveBeenCalledWith(`https://${NGROK_URL}/projects/${projectId}/users/${getItemUrl}`);
     });
    
     waitFor(() =>{
@@ -619,7 +619,7 @@ describe("ProjectList Component", () => {
    
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/projects/${projectId}/users/${getItemUrl}`);
+      expect(api.get).toHaveBeenCalledWith(`https://${NGROK_URL}/projects/${projectId}/users/${getItemUrl}`);
     });
    
     waitFor(() =>{

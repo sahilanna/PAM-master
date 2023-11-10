@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {  useNavigate } from 'react-router-dom';
-import { ngrokUrl } from '../../../../../network/config';
+import { NGROK_URL } from '../../../../../network/config';
 import api from '../../../../../network/api';
 import CreateFigmaDetailsUI from './createFigmaDetailsUI';
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../../../utils/logger.js';
 function CreateFigmaDetails() {
   const navigate = useNavigate();
   const [figmaURL, setFigmaUrl] = useState('');
@@ -36,7 +36,7 @@ function CreateFigmaDetails() {
 
   const fetchProjects = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/projects/without-figma-url`);
+      const response = await api.get(`https://${NGROK_URL}/projects/without-figma-url`);
       const figmaProjects = response.data.map(figma => ({
         key: figma.projectId,
         text: figma.projectName,
@@ -65,7 +65,7 @@ function CreateFigmaDetails() {
       return;
     }
     try {
-      const response = await api.post(`https://${ngrokUrl}/figmas/create`, {
+      const response = await api.post(`https://${NGROK_URL}/figmas/create`, {
         projectDTO: {
           projectId: selectedProject,
           projectName: selectedProject,

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import api from '../../../src/network/api';
-import { ngrokUrl } from '../../../src/network/config';
+import { NGROK_URL } from '../../../src/network/config';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
@@ -27,7 +27,7 @@ describe('API Interceptors', () => {
     jest.spyOn(sessionStorage.__proto__, 'getItem').mockReturnValue(JSON.stringify(sessionStorageData));
 
     // Set up the Axios Mock Adapter to intercept requests
-    mock.onGet(`${ngrokUrl}/your-endpoint`).reply((config) => {
+    mock.onGet(`${NGROK_URL}/your-endpoint`).reply((config) => {
       // Assert that the AccessToken header is set in the request
       expect(config.headers['AccessToken']).toBe(token);
       return [200, {}];
@@ -46,7 +46,7 @@ describe('API Interceptors', () => {
   const navigateSpy = jest.spyOn(require("react-router"), "Navigate");
   // Simulate a 401 response from the server
   await act(async () => {
-    mock.onGet(`${ngrokUrl}/your-endpoint`).reply(401);
+    mock.onGet(`${NGROK_URL}/your-endpoint`).reply(401);
     try {
       await api.get("/your-endpoint");
     } catch (error) {
@@ -65,7 +65,7 @@ describe('API Interceptors', () => {
     jest.spyOn(sessionStorage.__proto__, 'getItem').mockReturnValue(JSON.stringify({ token }));
 
     // Set up the Axios Mock Adapter to intercept the request
-    mock.onGet(`${ngrokUrl}/your-endpoint`).reply(403, errorResponse);
+    mock.onGet(`${NGROK_URL}/your-endpoint`).reply(403, errorResponse);
 
     try {
       await api.get('/your-endpoint');
@@ -80,7 +80,7 @@ describe('API Interceptors', () => {
 
   it('should handle error and reject with an error response', async () => {
     // Simulate a network error by replying with a status of 500
-    mock.onGet(`${ngrokUrl}/your-endpoint`).networkError();
+    mock.onGet(`${NGROK_URL}/your-endpoint`).networkError();
   
     try {
       await api.get('/your-endpoint');

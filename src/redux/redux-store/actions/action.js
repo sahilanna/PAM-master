@@ -1,8 +1,8 @@
-import { ngrokUrl} from "../../../network/config";
+import { NGROK_URL} from "../../../network/config";
 import api from "../../../network/api";
 import 'react-toastify/dist/ReactToastify.css';
 import * as actionTypes from './actionTypes'; // Import your action types
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../utils/logger.js';
 
 export const createProjectRequest = () => ({
   type: actionTypes.CREATE_PROJECT_REQUEST,
@@ -22,7 +22,7 @@ export const createProjectFailure = (error) => ({
 export const createPM = ({ name, email,enumRole}) => {
     return async(dispatchPMUpdate) => {
         try {
-            const responseCreatePM = await api.post(`https://${ngrokUrl}/users/`, {
+            const responseCreatePM = await api.post(`https://${NGROK_URL}/users/`, {
                 
                 name,
                 email,
@@ -43,7 +43,7 @@ export const createPM = ({ name, email,enumRole}) => {
 export const createUser = ({ name, email, enumRole}) => {
     return async(dispatchUserUpdate) => {
         try {
-            const responseCreateUser = await api.post(`https://${ngrokUrl}/users/`, {
+            const responseCreateUser = await api.post(`https://${NGROK_URL}/users/`, {
                 
                 name,
                 email,
@@ -64,7 +64,7 @@ export const createUser = ({ name, email, enumRole}) => {
 export const createPmGithubName = ({projectName, repo, username}) => {
     return async(dispatchPmGithub) => {
         try {
-            const responseCreatePmGithubName = await api.post(`https://${ngrokUrl}/collaborators/add`, {
+            const responseCreatePmGithubName = await api.post(`https://${NGROK_URL}/collaborators/add`, {
                 projectName,
                 repo,
                 username

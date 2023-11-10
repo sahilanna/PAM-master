@@ -4,7 +4,7 @@ import RepoRead from "../../../../../src/screens/Dashboard/Admin/Repository/repo
 import api from "../../../../../src/network/api";
 import { MemoryRouter, useNavigate } from "react-router-dom";
 import "@testing-library/jest-dom";
-import { ngrokUrl } from "../../../../../src/network/config";
+import { NGROK_URL } from "../../../../../src/network/config";
 
 jest.mock("../../../../../src/network/api");
 

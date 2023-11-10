@@ -5,14 +5,14 @@ import { createMemoryHistory } from "history";
 import axios from "axios";
 import Test from "../../../src/redux/Login";
 import "@testing-library/jest-dom";
-import { ngrokLogin } from "../../../src/network/config";
+import { NGROK_LOGIN } from "../../../src/network/config";
 import { decodeIdToken } from "../../../src/redux/Login";
 
 jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
 }));
 jest.mock("axios"); // Mock axios calls
-jest.mock("../../src/Assets/logo1.png", () => "logo1.png");
+jest.mock("../../src/assets/logo1.png", () => "logo1.png");
 
 window.google = {
   accounts: {

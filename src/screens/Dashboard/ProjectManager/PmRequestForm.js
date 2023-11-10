@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Dropdown, Modal } from "semantic-ui-react";
-import { ngrokUrl } from "../../../network/config";
+import { NGROK_URL } from "../../../network/config";
 import { useNavigate, useLocation } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import api from "../../../network/api";
-import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+import logger from "../../../utils/logger.js";
 
 function PmRequestForm() {
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ function PmRequestForm() {
   const fetchUsers = async () => {
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/users/withoutProject?role=user&projectId=${projectId}`
+        `https://${NGROK_URL}/users/withoutProject?role=user&projectId=${projectId}`
       );
 
       if (Array.isArray(response.data)) {
@@ -67,7 +67,7 @@ function PmRequestForm() {
       const project = {
         projectId: projectId,
       };
-      const response = await api.post(`https://${ngrokUrl}/request/`, {
+      const response = await api.post(`https://${NGROK_URL}/request/`, {
         pmName,
         user,
         project,

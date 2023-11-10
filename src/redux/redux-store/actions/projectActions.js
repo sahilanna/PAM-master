@@ -1,6 +1,6 @@
 
 import api from '../../../network/api'
-import { ngrokUrl } from '../../../network/config';
+import { NGROK_URL } from '../../../network/config';
 import {createProjectRequest,createProjectSuccess,createProjectFailure} from './action'; 
 import { toast } from 'react-toastify';
 
@@ -9,7 +9,7 @@ export const createProject = (projectName, projectDescription) => async (dispatc
   
     try {
       // Make an API call to create the project
-      await api.post(`https://${ngrokUrl}/projects/create`, {
+      await api.post(`https://${NGROK_URL}/projects/create`, {
         projectName,
         projectDescription,
       });

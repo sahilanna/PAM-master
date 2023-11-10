@@ -4,7 +4,7 @@ import { MemoryRouter, BrowserRouter } from 'react-router-dom';
 import NavBarLogin from '../../../src/redux/NavBarLogin';
 import '@testing-library/jest-dom';
 
-jest.mock('../../src/Assets/logo1.png', () => 'logo1.png')
+jest.mock('../../src/assets/logo1.png', () => 'logo1.png')
 
 test('renders navigation links correctly', () => {
   render(

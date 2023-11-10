@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "semantic-ui-react";
 import api from "../../../../network/api";
-import { ngrokUrl, gitAccessToken } from "../../../../network/config";
-import { owner } from "../../../../Assets/constants/string";
+import { NGROK_URL, GIT_ACCESS_TOKEN } from "../../../../network/config";
+import { REPO_OWNER } from "../../../../assets/Constants/owner";
 import DialogBox from "../../DialogBox/DialogBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./Read.css";
 import { useNavigate } from "react-router-dom";
 import OtpModal from "./otpModal";
-import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+import logger from '../../../../utils/logger.js';
 
 function ProjectList({ projectId, projectName, type }) {
   const [items, setItems] = useState([]);
@@ -27,7 +27,7 @@ function ProjectList({ projectId, projectName, type }) {
   const getItems = async () => {
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/projects/${projectId}/users/${getItemUrl}`
+        `https://${NGROK_URL}/projects/${projectId}/users/${getItemUrl}`
       );
       setItems(response.data);
     } catch (error) {
@@ -46,7 +46,7 @@ function ProjectList({ projectId, projectName, type }) {
   const loadRepo = async () => {
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/repositories/project/${projectId}`
+        `https://${NGROK_URL}/repositories/project/${projectId}`
       );
       const repo = response.data;
       setRepoName(repo[0].name);
@@ -68,7 +68,7 @@ function ProjectList({ projectId, projectName, type }) {
 
   const handleConfirmDelete = async () => {
     try {
-      const otpResponse = await api.post(`https://${ngrokUrl}/OTP/send`, {
+      const otpResponse = await api.post(`https://${NGROK_URL}/OTP/send`, {
         phoneNumber: "+91 9928931610",
       });
 
@@ -89,21 +89,21 @@ function ProjectList({ projectId, projectName, type }) {
     const otp = null;
     try {
       const otpSubmissionResponse = await api.post(
-        `https://${ngrokUrl}/OTP/verify`,
+        `https://${NGROK_URL}/OTP/verify`,
         {
           otp: otp,
         }
       );
-
+      let owner = REPO_OWNER;
       if (otpSubmissionResponse.status === 200) {
         await api.delete(
-          `https://${ngrokUrl}/projects/${projectId}/users/${selectedItemId}/repo`,
+          `https://${NGROK_URL}/projects/${projectId}/users/${selectedItemId}/repo`,
           {
             data: {
               owner: owner,
               repo: repoName,
               username: username,
-              accessToken: gitAccessToken,
+              accessToken: GIT_ACCESS_TOKEN,
             },
           }
         );

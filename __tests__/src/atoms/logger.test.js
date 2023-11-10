@@ -1,6 +1,6 @@
 
 import log from 'loglevel';
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../utils/logger.js';
 
 // Mock the loglevel library for testing
 jest.mock('loglevel');

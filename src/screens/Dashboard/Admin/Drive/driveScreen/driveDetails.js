@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../../SideBar/SideBar";
-import { ngrokUrl } from "../../../../../network/config";
+import { NGROK_URL } from "../../../../../network/config";
 import LoadingPage from "../../../../../atoms/LoadingPage/loadingPage";
 import api from "../../../../../network/api";
 import DialogBox from "../../../DialogBox/DialogBox";
@@ -10,7 +10,7 @@ import Pagination from "../../../Pagination/Pagination";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import CreateDriveDetails from "../createDrive/createDriveDetails";
 import "../../Figma/FigmaRead.css";
-import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+import logger from '../../../../../utils/logger.js';
 
 function DriveRead() {
   const [showModal, setShowModal] = useState(false);
@@ -32,7 +32,7 @@ function DriveRead() {
 
   const fetchProjects = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/getAllGoogleDrives`);
+      const response = await api.get(`https://${NGROK_URL}/getAllGoogleDrives`);
       setProjects(response.data);
       setDriveId(response.data[0].driveId);
       setIsLoading(false);
@@ -49,7 +49,7 @@ function DriveRead() {
 
   const handleDeleteUrl = async (driveId) => {
     try {
-      await api.delete(`https://${ngrokUrl}/deleteGoogleDriveById/${driveId}`);
+      await api.delete(`https://${NGROK_URL}/deleteGoogleDriveById/${driveId}`);
       navigate("/driveDetails");
       setShowConfirmDialog(false);
       fetchProjects();

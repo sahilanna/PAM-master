@@ -4,7 +4,7 @@ import Profile from "../../../../src/screens/Dashboard/Admin/Profile";
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
 import api from "../../../../src/network/api";
-import { ngrokUrl } from "../../../../src/network/config";
+import { NGROK_URL } from "../../../../src/network/config";
 
 jest.mock("../../../../src/network/api", () => ({
   get: jest.fn(),
@@ -41,7 +41,7 @@ test("renders profile details", async () => {
   });
 
   waitFor(() => {
-    expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/users/1`);
+    expect(api.get).toHaveBeenCalledWith(`https://${NGROK_URL}/users/1`);
   });
 });
 
@@ -53,7 +53,7 @@ test("renders profile details with error", async () => {
       <Profile />
     </MemoryRouter>
   );
-  expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/users/null`);
+  expect(api.get).toHaveBeenCalledWith(`https://${NGROK_URL}/users/null`);
 });
 
 test("renders profile details without profile data", async () => {
@@ -65,7 +65,7 @@ test("renders profile details without profile data", async () => {
     </MemoryRouter>
   );
 
-  expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/users/null`);
+  expect(api.get).toHaveBeenCalledWith(`https://${NGROK_URL}/users/null`);
 });
 
 test("renders profile details with profile data", async () => {

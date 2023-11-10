@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ngrokUrl } from "./config";
+import { NGROK_URL } from "./config";
 import { Navigate } from 'react-router-dom';
 let token = null;
 const getAccessToken = () => {
@@ -13,7 +13,7 @@ const getAccessToken = () => {
 
 
 const api = axios.create({
-  baseURL:ngrokUrl,
+  baseURL:NGROK_URL,
   headers: {
     "Content-Type": "application/json",
   },

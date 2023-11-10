@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Form, Dropdown, Modal, Button } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
-import { ngrokUrl, gitAccessToken } from "../../../../../network/config.js";
+import { NGROK_URL, GIT_ACCESS_TOKEN } from "../../../../../network/config.js";
 import api from "../../../../../network/api.js";
-import { owner } from "../../../../../Assets/constants/string.js";
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import { REPO_OWNER } from "../../../../../assets/Constants/owner.js";
+import logger from '../../../../../utils/logger.js';
 
 const AddPm = () => {
   const [options, setOptions] = useState([]);
@@ -15,7 +15,7 @@ const AddPm = () => {
   const [repoId, setRepoId] = useState("");
   const [selectedRepo, setSelectedRepo] = useState("");
 
-  const accessToken = gitAccessToken;
+  const accessToken = GIT_ACCESS_TOKEN;
 
   const handleUserNameChange = (event, { value }) => {
     setusername(value);
@@ -24,10 +24,10 @@ const AddPm = () => {
   const fetchUsernames = async () => {
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/usernames/role/project_manager`
+        `https://${NGROK_URL}/usernames/role/project_manager`
       );
       setOptions(response.data);
-      const res = await api.get(`https://${ngrokUrl}/repositories/get`);
+      const res = await api.get(`https://${NGROK_URL}/repositories/get`);
       const repoOptions = res.data.map((rep) => ({
         key: rep.repoId,
         text: rep.name,
@@ -50,7 +50,8 @@ const AddPm = () => {
     }
 
     let repo = selectedRepo;
-    api.post(`https://${ngrokUrl}/collaborators/add`, {
+    let owner = REPO_OWNER;
+    api.post(`https://${NGROK_URL}/collaborators/add`, {
       owner,
       repo,
       username,

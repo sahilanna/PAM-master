@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../../SideBar/SideBar";
 import LoadingPage from "../../../../atoms/LoadingPage/loadingPage";
 import api from "../../../../network/api";
-import { ngrokUrl } from "../../../../network/config";
+import { NGROK_URL } from "../../../../network/config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import DialogBox from "../../DialogBox/DialogBox";
 import Pagination from "../../Pagination/Pagination";
 import "../Figma/FigmaRead.css";
-import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+import logger from '../../../../utils/logger.js';
 
 function RepoRead(onClose) {
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +37,7 @@ function RepoRead(onClose) {
   const loadItem = async () => {
     setIsLoading(true);
     try {
-      const response = await api.get(`https://${ngrokUrl}/repositories/get`);
+      const response = await api.get(`https://${NGROK_URL}/repositories/get`);
       setItem(response.data);
       setIsLoading(false);
       setFilteredProjects(response.data);
@@ -85,7 +85,7 @@ function RepoRead(onClose) {
   const deleteUser = async (repoId) => {
     try {
       await api.delete(
-        `https://${ngrokUrl}/repositories/delete/${selectedRepoId}`
+        `https://${NGROK_URL}/repositories/delete/${selectedRepoId}`
       );
 
       setShowConfirmDialog(false);

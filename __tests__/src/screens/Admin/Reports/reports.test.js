@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Reports from "../../../../../src/screens/Dashboard/Admin/Reports/Reports";
 import api from "../../../../../src/network/api";
 import { MemoryRouter } from "react-router-dom";
-import { ngrokUrl } from "../../../../../src/network/config";
+import { NGROK_URL } from "../../../../../src/network/config";
 import "@testing-library/jest-dom";
 import Pagination from "../../../../../src/screens/Dashboard/Pagination/Pagination";
 
@@ -61,7 +61,7 @@ describe("Reports Component", () => {
 
     fireEvent.click(projectListButton);
 
-    expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/users/getAll`);
+    expect(api.get).toHaveBeenCalledWith(`https://${NGROK_URL}/users/getAll`);
   });
 
   it('handles clicking on the "Employees With Multiple Project Access" button', async () => {
@@ -79,7 +79,7 @@ describe("Reports Component", () => {
     fireEvent.click(multipleProjectsButton);
 
     expect(api.get).toHaveBeenCalledWith(
-      `https://${ngrokUrl}/users/getMultiple`
+      `https://${NGROK_URL}/users/getMultiple`
     );
   });
 
@@ -121,7 +121,7 @@ describe("Reports Component", () => {
 
     fireEvent.click(projectListButton);
 
-    expect(api.get).toHaveBeenCalledWith(`https://${ngrokUrl}/users/getAll`);
+    expect(api.get).toHaveBeenCalledWith(`https://${NGROK_URL}/users/getAll`);
     screen.debug();
   });
 

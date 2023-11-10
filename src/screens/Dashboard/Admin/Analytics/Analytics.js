@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef  } from 'react';
 import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
-import { ngrokUrl } from '../../../../network/config';
+import { NGROK_URL } from '../../../../network/config';
 import Sidebar from '../../SideBar/SideBar';
 import "./Analytics.css";
 import LoadingPage from '../../../../atoms/LoadingPage/loadingPage';
@@ -19,9 +19,9 @@ function Analytics() {
   const fetchCount = async () => {
     try {
       const [adminResponse, pmResponse, userResponse] = await Promise.all([
-        api.get(`https://${ngrokUrl}/users/count/admin`),
-        api.get(`https://${ngrokUrl}/users/count/project_manager`),
-        api.get(`https://${ngrokUrl}/users/count/user`),
+        api.get(`https://${NGROK_URL}/users/count/admin`),
+        api.get(`https://${NGROK_URL}/users/count/project_manager`),
+        api.get(`https://${NGROK_URL}/users/count/user`),
       ]);
       setIsLoading(false);
       const adminCount = adminResponse.data;

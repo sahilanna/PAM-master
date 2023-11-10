@@ -5,9 +5,9 @@ import '@testing-library/jest-dom'
 import { MemoryRouter } from 'react-router-dom';
 
 
-jest.mock('../../../src/Assets/photo.jpg', () => 'photo.jpg');
-jest.mock('../../../src/Assets/photo2.avif', () => 'photo2.avif');
-jest.mock('../../../src/Assets/photo3.avif', () => 'photo3.avif');
+jest.mock('../../../src/assets/photo.jpg', () => 'photo.jpg');
+jest.mock('../../../src/assets/photo2.avif', () => 'photo2.avif');
+jest.mock('../../../src/assets/photo3.avif', () => 'photo3.avif');
 
 
 describe("LandingPage Component", () => {

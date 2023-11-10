@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import FigmaCreate from './FigmaCreate';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../SideBar/SideBar';
-import { ngrokUrl } from '../../../../network/config';
+import { NGROK_URL } from '../../../../network/config';
 import './FigmaRead.css'
 import LoadingPage from '../../../../atoms/LoadingPage/loadingPage';
 import api from '../../../../network/api';
@@ -12,7 +12,7 @@ import Pagination from '../../Pagination/Pagination';
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { faTrash,  faUser, faStreetView } from '@fortawesome/free-solid-svg-icons';
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../../utils/logger.js';
 
 function FigmaRead() {
   const [userData, setUserData] = useState({
@@ -43,7 +43,7 @@ function FigmaRead() {
   const fetchProjects = async () => {
     setIsLoading(true);
     try {
-      const response = await api.get(`https://${ngrokUrl}/figmas/getAll`);
+      const response = await api.get(`https://${NGROK_URL}/figmas/getAll`);
       setProjects(response.data);
       setFigmaId(response.data[0].figmaId);
       setIsLoading(false);
@@ -57,7 +57,7 @@ function FigmaRead() {
 
   const handleDisplayVerification = async (figmaId) => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/figmas/${figmaId}/screenshots`);
+      const response = await api.get(`https://${NGROK_URL}/figmas/${figmaId}/screenshots`);
       const data = response.data; 
   
       if (data.length > 0) {
@@ -96,7 +96,7 @@ function FigmaRead() {
  
   const handleDeleteUrl = async (figmaId) => {
     try {
-      await api.delete(`https://${ngrokUrl}/figmas/${figmaId}`);
+      await api.delete(`https://${NGROK_URL}/figmas/${figmaId}`);
       navigate('/FigmaRead');
       setShowConfirmDialog(false);
       fetchProjects();

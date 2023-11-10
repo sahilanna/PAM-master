@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ngrokUrl } from "../../network/config";
+import { NGROK_URL } from "../../network/config";
 import api from "../../network/api";
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../utils/logger.js';
 const Logout = () => {
   let data = sessionStorage.getItem("item");
   let user = data ? JSON.parse(data) : null;
@@ -14,7 +14,7 @@ const Logout = () => {
 
   const logOut = async () => {
     try {
-      await api.post(`https://${ngrokUrl}/users/${id}/logout`);//Tracking last logout time of user
+      await api.post(`https://${NGROK_URL}/users/${id}/logout`);//Tracking last logout time of user
       sessionStorage.clear();
       navigate("/Login");
     } catch (error) {

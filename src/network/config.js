@@ -1,7 +1,8 @@
-export const ngrokUrl = '3acd-106-51-70-135.ngrok-free.app/api/v1';
-export const ngrokUrlSwe='dbeb-106-51-70-135.ngrok-free.app';
-export const ngrokLogin='3acd-106-51-70-135.ngrok-free.app';
-export const apiVersion='api/v1'
-export const gitAccessToken = process.env.REACT_APP_gitAccessToken;
+export const NGROK_URL = '3acd-106-51-70-135.ngrok-free.app/api/v1';
+export const NGROK_URL_SWE='dbeb-106-51-70-135.ngrok-free.app';
+export const NGROK_LOGIN='3acd-106-51-70-135.ngrok-free.app';
+export const API_VERSION='api/v1'
+export const GIT_ACCESS_TOKEN = process.env.REACT_APP_GIT_ACCESS_TOKEN;
+
 
 

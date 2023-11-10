@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, Container, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import logo1 from "../../Assets/logo1.png";
+import logo1 from "../../assets/logo1.png";
 import NavbarDropdown from "../../molecules/navbarDropdown";
 import "./navbar.css";
 

@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import PmSidebar from "./pmSidebar";
 import api from "../../../network/api";
 import { useNavigate } from "react-router-dom";
-import { ngrokUrl } from "../../../network/config";
+import { NGROK_URL } from "../../../network/config";
 import { toast } from "react-toastify";
 import { Button } from "semantic-ui-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../utils/logger.js';
 
 function PmNotification() {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ function PmNotification() {
   const fetchNotification = async () => {
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/request/unread/PM?pmName=${pmName}`
+        `https://${NGROK_URL}/request/unread/PM?pmName=${pmName}`
       );
      
       setNotification(response.data);
@@ -51,7 +51,7 @@ function PmNotification() {
   const onDeleteNotification = async (accessRequestId) => {
     try {
       await api.put(
-        `https://${ngrokUrl}/request/notifiedPM?accessRequestId=${accessRequestId}`
+        `https://${NGROK_URL}/request/notifiedPM?accessRequestId=${accessRequestId}`
       );
 
       fetchNotification();

@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import UserProjects from "../../../../src/screens/Dashboard/UserDashboard/userProjects";
 import api from "../../../../src/network/api";
-import { ngrokUrl } from "../../../../src/network/config";
+import { NGROK_URL } from "../../../../src/network/config";
 import { act } from "react-dom/test-utils";
 
 jest.mock("../../../../src/network/api");

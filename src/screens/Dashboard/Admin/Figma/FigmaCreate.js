@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Dropdown } from 'semantic-ui-react';
-import { ngrokUrl } from '../../../../network/config';
+import { NGROK_URL } from '../../../../network/config';
 import api from '../../../../network/api';
 import { useNavigate  } from 'react-router-dom';
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../../utils/logger.js';
 
 const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   const[figmaUser, setFigmaUser]=useState('')
@@ -30,7 +30,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
     e.preventDefault();
     try {
       await api.post(
-        `https://${ngrokUrl}/figmas/${figmaId}/user`,
+        `https://${NGROK_URL}/figmas/${figmaId}/user`,
         {
           user: figmaUser,
           screenshotImage: screenshotImage
@@ -60,7 +60,7 @@ const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId}) => {
   }, [projectId]);
   const fetchUsers = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/projects/${projectId}/users`);
+      const response = await api.get(`https://${NGROK_URL}/projects/${projectId}/users`);
      const userNames = response.data.map(project => project.name);
      setUsers(userNames);
     } catch (error) {

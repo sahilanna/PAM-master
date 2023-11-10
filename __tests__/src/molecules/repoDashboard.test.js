@@ -13,7 +13,7 @@ const mockSessionStorage = {
 
 global.fetch = jest.fn();
 jest.mock("../../../src/network/config", () => ({
-  ngrokUrl: "example.com",
+  NGROK_URL: "example.com",
 }));
 
 jest.mock("../../../src/atoms/repoTable", () => {

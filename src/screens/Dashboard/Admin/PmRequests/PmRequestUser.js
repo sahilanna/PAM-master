@@ -3,10 +3,10 @@ import { Table, Button } from "semantic-ui-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "../../SideBar/SideBar";
-import { ngrokUrl } from "../../../../network/config";
+import { NGROK_URL } from "../../../../network/config";
 import api from "../../../../network/api";
 import "../Figma/FigmaRead.css";
-import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+import logger from '../../../../utils/logger.js';
 
 function PmRequestUser() {
   const [requestData, setRequestData] = useState([]);
@@ -22,7 +22,7 @@ function PmRequestUser() {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/request/allActive`);
+      const response = await api.get(`https://${NGROK_URL}/request/allActive`);
       setRequestData(response.data);
       
       logger.info("Chekcing requestData of active", requestData);
@@ -40,7 +40,7 @@ function PmRequestUser() {
   const AcceptRequest = async (accessRequestId, id, projectId) => {
     try {
       const response = await api.put(
-        `https://${ngrokUrl}/request/update/${accessRequestId}`,
+        `https://${NGROK_URL}/request/update/${accessRequestId}`,
         { allowed: true },
         { headers }
       );
@@ -51,7 +51,7 @@ function PmRequestUser() {
         response.status === 201
       ) {
         const secondResponse = await api.put(
-          `https://${ngrokUrl}/projects/${projectId}/users/${id}`
+          `https://${NGROK_URL}/projects/${projectId}/users/${id}`
         );
 
         if (
@@ -89,7 +89,7 @@ function PmRequestUser() {
   const DeclineRequest = async (accessRequestId) => {
     try {
       const response = await api.put(
-        `https://${ngrokUrl}/request/update/${accessRequestId}`,
+        `https://${NGROK_URL}/request/update/${accessRequestId}`,
         { allowed: false },
         { headers }
       );

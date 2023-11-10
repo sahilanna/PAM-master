@@ -5,10 +5,10 @@ import NavBarLogin from "../Navbar/navbarLogin";
 import { useNavigate } from "react-router-dom";
 import Footer from "../Footer/footer";
 import "./login.css";
-import { ngrokLogin } from "../../network/config";
+import { NGROK_LOGIN } from "../../network/config";
 import styled from "styled-components";
-import logo1 from "../../Assets/logo1.png";
-import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+import logo1 from "../../assets/logo1.png";
+import logger from "../../utils/logger.js";
 export function decodeIdToken(token) {
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -42,7 +42,7 @@ function Test() {
 
     try {
       const { data } = await axios.get(
-        `https://${ngrokLogin}/auth/api/v1/get-email`,
+        `https://${NGROK_LOGIN}/auth/api/v1/get-email`,
         { headers }
       );
 
@@ -64,10 +64,11 @@ function Test() {
   };
 
   useEffect(() => {
-    const googleClientID = process.env.REACT_APP_googleClientID;
-
+    const GOOGLE_CLIENT_ID = process.env.REACT_APP_googleClientID;
+    
+    logger.info("Client ID", GOOGLE_CLIENT_ID)
     window.google.accounts.id.initialize({
-      client_id: googleClientID,
+      client_id: GOOGLE_CLIENT_ID,
       callback: handleGoogleLogin,
     });
     window.google.accounts.id.renderButton(

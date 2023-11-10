@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ngrokUrl } from "../../../../../network/config";
+import AddFileUI from "./addFileUI";
+import logger from "../../../../../utils/logger.js";
+import { NGROK_URL } from "../../../../../network/config";
 import api from "../../../../../network/api";
 import "../Create.css";
-import AddFileUI from "./addFileUI";
-import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
 
 export function handleFileUpload(
   modalfile,
@@ -23,7 +23,7 @@ export function handleFileUpload(
   const data = new FormData();
   data.append("projectFile", modalfile);
 
-  const url = `https://${ngrokUrl}/projects/upload?projectId=${projectId}`;
+  const url = `https://${NGROK_URL}/projects/upload?projectId=${projectId}`;
 
   api
     .post(url, data, {

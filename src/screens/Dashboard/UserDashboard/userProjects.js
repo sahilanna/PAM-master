@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import UserSidebar from "./userSidebar";
-import { ngrokUrl } from "../../../network/config";
+import { NGROK_URL } from "../../../network/config";
 import LoadingPage from "../../../atoms/LoadingPage/loadingPage";
 import api from "../../../network/api";
 import PmProjectDetails from "../ProjectManager/pmProjectDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../utils/logger.js';
 
 function UserProjects() {
   const [showUserProjectDetails, setShowUserProjectDetails] = useState(false);
@@ -31,7 +31,7 @@ function UserProjects() {
   const fetchUserid = async () => {
     setIsLoading(true);
     try {
-      const result = await api.get(`https://${ngrokUrl}/users/${id}/role/user/projects`);
+      const result = await api.get(`https://${NGROK_URL}/users/${id}/role/user/projects`);
       setUserid(result.data);
       setIsLoading(false);
       const filteredProjects = result.data.filter((item) =>

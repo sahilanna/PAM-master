@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Form, Dropdown, Button, Modal } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
-import { ngrokUrl, gitAccessToken } from "../../../network/config";
+import { NGROK_URL, GIT_ACCESS_TOKEN } from "../../../network/config";
 import "./Read.css";
 import api from "../../../network/api";
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../utils/logger.js';
 
 function AddUserName() {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ function AddUserName() {
   const [selectedUser, setSelectedUser] = useState("");
   const [showInvalidUsernameModal, setShowInvalidUsernameModal] =
     useState(false);
-  const accessToken = gitAccessToken;
+  const accessToken = GIT_ACCESS_TOKEN;
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -22,7 +22,7 @@ function AddUserName() {
   logger.info(selectedUser);
   const fetchUsers = async () => {
     try {
-      const response = await api.get(`https://${ngrokUrl}/users/role/user`);
+      const response = await api.get(`https://${NGROK_URL}/users/role/user`);
       const userOptions = response.data.map((user) => ({
         key: user.id,
         text: user.name,
@@ -41,7 +41,7 @@ function AddUserName() {
     const username = githubUsername;
     try {
       const response = await api.post(
-        `https://${ngrokUrl}/usernames/githubUsername`,
+        `https://${NGROK_URL}/usernames/githubUsername`,
         {
           username: username,
           user: {

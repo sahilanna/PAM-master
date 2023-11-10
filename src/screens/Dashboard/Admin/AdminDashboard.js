@@ -6,12 +6,12 @@ import Pagination from "../Pagination/Pagination";
 import LoadingPage from "../../../atoms/LoadingPage/loadingPage";
 import { CSVLink } from "react-csv";
 import CustomSidebar from "../SideBar/SideBar";
-import { ngrokUrl } from "../../../network/config";
+import { NGROK_URL } from "../../../network/config";
 import "./AdminDashboard.css";
 import api from "../../../network/api";
 import AdminHeader from "./adminHeader";
 import useApiData from "./PmRequests/interval";
-import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+import logger from '../../../utils/logger.js';
 
 const AdminDashboard = () => {
   const { requestData, Loading } = useApiData();
@@ -26,7 +26,7 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await api.get(`https://${ngrokUrl}/request/allActive`);
+      const response = await api.get(`https://${NGROK_URL}/request/allActive`);
       logger.info("Response Data:", response);
       setIsLoading(false);
     } catch (error) {
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
     setIsLoading(true);
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/projects/countPeople`,
+        `https://${NGROK_URL}/projects/countPeople`,
         {}
       );
       setItem(response.data);

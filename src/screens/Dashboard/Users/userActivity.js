@@ -1,9 +1,9 @@
 import React, {useEffect,useState} from 'react'
 import { Button, Modal } from 'semantic-ui-react';
-import { ngrokUrl } from '../../../network/config';
+import { NGROK_URL } from '../../../network/config';
 import api from '../../../network/api';
 import { useNavigate, useLocation } from 'react-router-dom';
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../utils/logger.js';
 function UserActivity(open, userName) {
   
   let navigate=useNavigate();
@@ -19,7 +19,7 @@ function UserActivity(open, userName) {
 
   const displayActivity=async()=>{
     try{
-    const result = await api.get(`https://${ngrokUrl}/users/${id}`)
+    const result = await api.get(`https://${NGROK_URL}/users/${id}`)
     setActivityData([result.data]);
    
     }

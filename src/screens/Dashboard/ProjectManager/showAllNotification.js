@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import PmSidebar from "./pmSidebar";
-import { ngrokUrl } from "../../../network/config";
+import { NGROK_URL } from "../../../network/config";
 import api from "../../../network/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import ClearAllDialogue from "./clearAllDialogue";
 import { useNavigate } from "react-router-dom";
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
+import logger from '../../../utils/logger.js';
 
 function ShowAllNotification() {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ function ShowAllNotification() {
   const fetchNotification = async () => {
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/request/all/PM?pmName=${pmName}`
+        `https://${NGROK_URL}/request/all/PM?pmName=${pmName}`
       );
 
       setAllNotification(response.data);
@@ -36,7 +36,7 @@ function ShowAllNotification() {
   }, []);
 
   const clearNotification = async () => {
-    await api.delete(`https://${ngrokUrl}/request/clearAll`);
+    await api.delete(`https://${NGROK_URL}/request/clearAll`);
     navigate("/showAllNotification");
     setShowNotifyDialog(true);
     fetchNotification();

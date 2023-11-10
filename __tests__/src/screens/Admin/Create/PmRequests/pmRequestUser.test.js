@@ -4,7 +4,7 @@ import PmRequestUser from '../../../../../../src/screens/Dashboard/Admin/PmReque
 import api from '../../../../../../src/network/api';
 import '@testing-library/jest-dom'
 import { MemoryRouter, useNavigate } from 'react-router-dom';
-import { ngrokUrl } from '../../../../../../src/network/config';
+import { NGROK_URL } from '../../../../../../src/network/config';
 import { act } from 'react-dom/test-utils';
 
 jest.mock('../../../../../../src/network/api')

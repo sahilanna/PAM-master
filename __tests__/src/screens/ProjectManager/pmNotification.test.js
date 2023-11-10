@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import PmNotification from '../../../../src/screens/Dashboard/ProjectManager/pmNotification';
 import api from '../../../../src/network/api';
 import { toast } from 'react-toastify';
-import { ngrokUrl } from '../../../../src/network/config';
+import { NGROK_URL } from '../../../../src/network/config';
 
 jest.mock('../../../../src/network/api');
 jest.mock('react-toastify', () => ({
@@ -32,7 +32,7 @@ describe('PmNotification Component', () => {
     // Wait for the API request to resolve and render the component
     waitFor(() => {
       expect(api.get).toHaveBeenCalledWith(
-        `https://ngrokUrl/request/unread/PM?pmName=null`
+        `https://NGROK_URL/request/unread/PM?pmName=null`
       );
       expect(screen.getByText('Notification 1')).toBeInTheDocument();
     });
@@ -51,7 +51,7 @@ describe('PmNotification Component', () => {
 
     waitFor(() => {
       expect(api.get).toHaveBeenCalledWith(
-        `https://ngrokUrl/request/unread/PM?pmName=null`
+        `https://NGROK_URL/request/unread/PM?pmName=null`
       );
     });
 
@@ -74,7 +74,7 @@ describe('PmNotification Component', () => {
 
     waitFor(() => {
       expect(api.get).toHaveBeenCalledWith(
-        `https://${ngrokUrl}/request/unread/PM?pmName=null`
+        `https://${NGROK_URL}/request/unread/PM?pmName=null`
       );
     });
 
@@ -87,7 +87,7 @@ describe('PmNotification Component', () => {
     })
 
     // expect(api.put).toHaveBeenCalledWith(
-    //   `https://${ngrokUrl}/request/notifiedPM?accessRequestId=${101}`
+    //   `https://${NGROK_URL}/request/notifiedPM?accessRequestId=${101}`
     // );
 
 

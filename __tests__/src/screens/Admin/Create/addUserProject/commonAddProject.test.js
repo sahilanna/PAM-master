@@ -12,7 +12,7 @@ import { useNavigate, useLocation,MemoryRouter, Route, Router } from "react-rout
 import CommonAddProject from "../../../../../../src/screens/Dashboard/Admin/Create/addUserProject/commonAddProject";
 import "@testing-library/jest-dom";
 import api from "../../../../../../src/network/api";
-import { ngrokUrl } from "../../../../../../src/network/config";
+import { NGROK_URL } from "../../../../../../src/network/config";
 
 jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
@@ -171,7 +171,7 @@ describe("CommonAddProject", () => {
 
     await waitFor(() => {
       expect(mockApiPost).toHaveBeenCalledWith(
-        `https://${ngrokUrl}/OTP/verify`,
+        `https://${NGROK_URL}/OTP/verify`,
         { otp: "123456" }
       );
     });
@@ -226,7 +226,7 @@ describe("CommonAddProject", () => {
   
     await waitFor(() => {
       expect(mockApiPost).toHaveBeenCalledWith(
-        `https://${ngrokUrl}/OTP/verify`,
+        `https://${NGROK_URL}/OTP/verify`,
         { otp: "123456" }
       );
   
@@ -294,7 +294,7 @@ describe("CommonAddProject", () => {
 
   // Assert that the mockApiPost function was called with the expected parameters
   expect(mockApiPost).toHaveBeenCalledWith(
-    `https://${ngrokUrl}/OTP/verify`,
+    `https://${NGROK_URL}/OTP/verify`,
     { otp: '123456' }
   );
 
@@ -429,13 +429,13 @@ describe("CommonAddProject", () => {
   
     // Assert that the mockApiPost function was called with the expected parameters
     expect(mockApiPost).toHaveBeenCalledWith(
-      `https://${ngrokUrl}/OTP/verify`,
+      `https://${NGROK_URL}/OTP/verify`,
       { otp: '123456' }
     );
 
     await waitFor(() =>{
       expect(mockApiPut).toHaveBeenCalledWith(
-        `https://${ngrokUrl}/projects/${projectId}/users/${userId}`,
+        `https://${NGROK_URL}/projects/${projectId}/users/${userId}`,
         {
           projectId: projectId,
           userId: userId,
@@ -499,7 +499,7 @@ describe("CommonAddProject", () => {
   
     // Assert that the mockApiPost function was called with the expected parameters
     expect(mockApiPost).toHaveBeenCalledWith(
-      `https://${ngrokUrl}/OTP/verify`,
+      `https://${NGROK_URL}/OTP/verify`,
       { otp: '123456' }
     );
 

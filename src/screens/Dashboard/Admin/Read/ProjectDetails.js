@@ -9,14 +9,14 @@ import {
 import DialogBox from "../../DialogBox/DialogBox";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../../../network/api";
-import { ngrokUrl } from "../../../../network/config";
+import { NGROK_URL } from "../../../../network/config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faTimes } from "@fortawesome/free-solid-svg-icons";
 import CustomSidebar from "../../SideBar/SideBar";
 import ProjectUsers from "./projectUsers";
 import ProjectPms from "./projectPms";
 import OtpModal from "./otpModal";
-import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+import logger from '../../../../utils/logger.js';
 import './Read.css'
 
 const ProjectDetails = ({
@@ -123,7 +123,7 @@ const ProjectDetails = ({
   const Details = async () => {
     try {
       const result = await api.get(
-        `https://${ngrokUrl}/projects/${projectId}/details`,
+        `https://${NGROK_URL}/projects/${projectId}/details`,
         {}
       );
       setProjectData(result.data);
@@ -139,7 +139,7 @@ const ProjectDetails = ({
 
   const handleConfirmDelete = async () => {
     try {
-      const otpResponse = await api.post(`https://${ngrokUrl}/OTP/send`, {
+      const otpResponse = await api.post(`https://${NGROK_URL}/OTP/send`, {
         phoneNumber: "+91 9928931610",
       });
 
@@ -159,14 +159,14 @@ const ProjectDetails = ({
   const handleOTPSubmit = async (e) => {
     try {
       const otpSubmissionResponse = await api.post(
-        `https://${ngrokUrl}/OTP/verify`,
+        `https://${NGROK_URL}/OTP/verify`,
         {
           otp: otp,
         }
       );
 
       if (otpSubmissionResponse.status === 200) {
-        await api.delete(`https://${ngrokUrl}/projects/delete/${projectId}`);
+        await api.delete(`https://${NGROK_URL}/projects/delete/${projectId}`);
         setShowOTPMoal(false);
       } else {
         setErrorMessage("Invalid OTP. Please try again.");
@@ -179,7 +179,7 @@ const ProjectDetails = ({
   const displayFile = async () => {
     try {
       const result = await api.get(
-        `https://${ngrokUrl}/projects/files?projectId=${projectId}`
+        `https://${NGROK_URL}/projects/files?projectId=${projectId}`
       );
       if (Array.isArray(result.data)) {
         setNamesFile(result.data);
@@ -200,7 +200,7 @@ const ProjectDetails = ({
     logger.warn("Check Once", projectId);
     await api
       .get(
-        `https://${ngrokUrl}/projects/files/${filename}?projectId=${projectId}`,
+        `https://${NGROK_URL}/projects/files/${filename}?projectId=${projectId}`,
         {
           responseType: "blob",
           contentType: "application/zip",
@@ -223,7 +223,7 @@ const ProjectDetails = ({
 
   const handleDeleteFile = async (helpDocumentId) => {
     try {
-      await api.delete(`https://${ngrokUrl}/projects/files/${helpDocumentId}`);
+      await api.delete(`https://${NGROK_URL}/projects/files/${helpDocumentId}`);
       // Remove the deleted file from the namesFile list
       setNamesFile((prevNamesFile) =>
         prevNamesFile.filter((file) => file.helpDocumentId !== helpDocumentId)
@@ -250,7 +250,7 @@ const ProjectDetails = ({
   const loadRepo = async () => {
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/repositories/project/${projectId}`,
+        `https://${NGROK_URL}/repositories/project/${projectId}`,
         {}
       );
       setRepo(response.data);
@@ -264,7 +264,7 @@ const ProjectDetails = ({
   const loadFigma = async () => {
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/figmas/project/${projectId}`,
+        `https://${NGROK_URL}/figmas/project/${projectId}`,
         {}
       );
       setFigmaLink(response.data);

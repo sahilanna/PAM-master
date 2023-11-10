@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate,useLocation } from "react-router-dom";
-import { gitAccessToken, ngrokUrl } from '../../../../../network/config';
+import { GIT_ACCESS_TOKEN, NGROK_URL } from '../../../../../network/config';
 import api from '../../../../../network/api';
 import AddUserUI from './addUserUI';
-import { owner } from '../../../../../Assets/constants/string';
-
+import { REPO_OWNER } from '../../../../../assets/Constants/owner';
 const AddUser = () => {
   let navigate = useNavigate();
   const [options, setOptions] = useState([]);
@@ -19,7 +18,7 @@ const AddUser = () => {
   useEffect(() => {
     const fetchUsernames = async () => {
       try {
-        const response = await api.get(`https://${ngrokUrl}/usernames/role/user`);
+        const response = await api.get(`https://${NGROK_URL}/usernames/role/user`);
         setOptions(response.data);
       } catch (error) {
         console.error(error);
@@ -30,9 +29,10 @@ const AddUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const accessToken = gitAccessToken;
+    const accessToken = GIT_ACCESS_TOKEN;
     let repo = selectedRepo;
-    api.post(`https://${ngrokUrl}/collaborators/add`, { owner, repo, username, accessToken })
+    let owner = REPO_OWNER;
+    api.post(`https://${NGROK_URL}/collaborators/add`, { owner, repo, username, accessToken })
     navigate('/repoRead');
   }
 

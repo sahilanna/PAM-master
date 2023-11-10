@@ -3,7 +3,7 @@ import { render, screen, fireEvent, getByTestId, getByText, waitFor } from '@tes
 import { MemoryRouter, useNavigate } from 'react-router-dom'; 
 import UserRead from '../../../../src/screens/Dashboard/Users/userRead';
 import api from '../../../../src/network/api';
-import { ngrokUrl } from '../../../../src/network/config';
+import { NGROK_URL } from '../../../../src/network/config';
 import MockAdapter from 'axios-mock-adapter';
 import { Provider } from 'react-redux';
 import { legacy_createStore as createStore } from 'redux';

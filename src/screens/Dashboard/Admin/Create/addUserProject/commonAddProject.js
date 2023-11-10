@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import api from "../../../../../network/api";
-import { ngrokUrl } from "../../../../../network/config";
+import { NGROK_URL } from "../../../../../network/config";
 import "../Create.css";
 import AddUserProjectUI from "./addUserProjectUI";
 import AddPmProjectUI from "../addPmProject/addPmProjectUI";
-import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+import logger from '../../../../../utils/logger.js';
 
 function CommonAddProject({ role }) {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ function CommonAddProject({ role }) {
   const fetchUsers = async () => {
     try {
       const response = await api.get(
-        `https://${ngrokUrl}/users/withoutProject?role=${role}&projectId=${projectId}`
+        `https://${NGROK_URL}/users/withoutProject?role=${role}&projectId=${projectId}`
       );
       const projUsers = response.data.map((projU) => ({
         key: projU.id,
@@ -59,7 +59,7 @@ function CommonAddProject({ role }) {
     }
 
     try {
-      await api.post(`https://${ngrokUrl}/OTP/send`, {
+      await api.post(`https://${NGROK_URL}/OTP/send`, {
         phoneNumber: "+91 9928931610",
       });
 
@@ -74,7 +74,7 @@ function CommonAddProject({ role }) {
 
     try {
       const otpSubmissionResponse = await api.post(
-        `https://${ngrokUrl}/OTP/verify`,
+        `https://${NGROK_URL}/OTP/verify`,
         {
           otp: otpp,
         }
@@ -82,7 +82,7 @@ function CommonAddProject({ role }) {
 
       if (otpSubmissionResponse.status === 200) {
         await api.put(
-          `https://${ngrokUrl}/projects/${projectId}/users/${userId}`,
+          `https://${NGROK_URL}/projects/${projectId}/users/${userId}`,
           {
             projectId: projectId,
             userId: userId,

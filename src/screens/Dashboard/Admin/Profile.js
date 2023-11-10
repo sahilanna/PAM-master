@@ -4,9 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import './profile.css'
 import api from '../../../network/api';
-import { ngrokUrl } from '../../../network/config';
-import logger from '/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js';
-
+import { NGROK_URL } from '../../../network/config';
+import logger from '../../../utils/logger.js';
 const Profile = () => {
   let profileData = sessionStorage.getItem("item");
   let pdata = profileData?JSON.parse(profileData):null;
@@ -33,7 +32,7 @@ const Profile = () => {
   
   async function fetchUserList() {
     try {
-      const response = await api.get(`https://${ngrokUrl}/users/${id}`);
+      const response = await api.get(`https://${NGROK_URL}/users/${id}`);
       const userData=response.data
      
       setUserName(userData.name)

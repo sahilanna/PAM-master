@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { CSVLink } from "react-csv";
 import Sidebar from "../../SideBar/SideBar";
 import "../AdminDashboard.css";
-import { ngrokUrl } from "../../../../network/config";
+import { NGROK_URL } from "../../../../network/config";
 import api from "../../../../network/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "../../Pagination/Pagination";
-import logger from "/home/nineleaps/Desktop/Pratap/PAM-master/src/Assets/logger.js";
+import logger from '../../../../utils/logger.js';
 
 function Reports() {
   const [item, setItem] = useState([]);
@@ -25,7 +25,7 @@ function Reports() {
 
   async function fetchUserProjectList() {
     try {
-      const response = await api.get(`https://${ngrokUrl}/users/getAll`);
+      const response = await api.get(`https://${NGROK_URL}/users/getAll`);
       setItem(response.data);
     } catch (error) {
       logger.error("Error fetching user project list:", error);
@@ -34,7 +34,7 @@ function Reports() {
 
   async function fetchOtherTableData() {
     try {
-      const response1 = await api.get(`https://${ngrokUrl}/users/getMultiple`);
+      const response1 = await api.get(`https://${NGROK_URL}/users/getMultiple`);
       setMItem(response1.data);
     } catch (error) {
       logger.error("Error fetching other table data:", error);
