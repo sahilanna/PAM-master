@@ -3,8 +3,9 @@ import { Modal, Form, Dropdown, Button } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import { NGROK_URL, GIT_ACCESS_TOKEN } from "../../../network/config";
 import api from "../../../network/api";
-import logger from '../../../utils/logger.js';
-
+import logger from "../../../utils/logger.js";
+import CloseButton from "../../../atoms/closeButton/closeButton";
+import ErrorModal from "../../../molecules/errorModal";
 function AddPmUserName() {
   const navigate = useNavigate();
   const [id, setId] = useState();
@@ -52,7 +53,8 @@ function AddPmUserName() {
 
       navigate("/pmReadNew");
     } catch (error) {
-      if (error.response && error.response.status == 404) {
+      if (error.response && error.response.status == 409) {
+
         setShowInvalidUsernameModal(true);
       }
     }
@@ -74,25 +76,15 @@ function AddPmUserName() {
 
   return (
     <>
-      <Modal
-        open={true}
-        onClose={onClose}
-        style={{ width: "500px" }}
-        className="form-modal"
-      >
-        <div style={{ paddingLeft: "820px", paddingTop: "5px" }}></div>
-        <div style={{ paddingLeft: "442px" }}>
-          <Button secondary onClick={onClose}>
-            X
-          </Button>
-        </div>
+      <Modal size="mini" open={true} onClose={onClose} className="form-modal">
+        <CloseButton onClick={onClose} />
         <Modal.Header>Add PM UserName</Modal.Header>
 
         <Modal.Content>
           <Form onSubmit={handleSubmit}>
             <Form.Field>
-              <label style={{ textAlign: "left" }}>
-                PM<span style={{ color: "red" }}>*</span>
+              <label>
+                PM<span className="red-text">*</span>
               </label>
               <Dropdown
                 data-testid="Select PM"
@@ -105,8 +97,8 @@ function AddPmUserName() {
             </Form.Field>
 
             <Form.Field>
-              <label style={{ textAlign: "left" }}>
-                Github Username<span style={{ color: "red" }}>*</span>
+              <label>
+                Github Username<span className="red-text">*</span>
               </label>
               <input
                 placeholder="Enter github username"
@@ -125,29 +117,14 @@ function AddPmUserName() {
             </Button>
           </Form>
         </Modal.Content>
-        <Modal.Actions></Modal.Actions>
       </Modal>
 
-      <Modal
+       <ErrorModal
         open={showInvalidUsernameModal}
-        className="centered-modal2"
-        size="mini"
-        centered
-      >
-        <Modal.Header>Invalid Username</Modal.Header>
-        <Modal.Content>
-          <p>The provided GitHub username is invalid.</p>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button
-            data-testid="invalid-username"
-            primary
-            onClick={handleCloseModal}
-          >
-            OK
-          </Button>
-        </Modal.Actions>
-      </Modal>
+        header="Invalid Username"
+        content="The provided GitHub username is invalid."
+        onClose={handleCloseModal}
+      />
     </>
   );
 }

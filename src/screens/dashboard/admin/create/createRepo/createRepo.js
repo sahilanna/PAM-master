@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { NGROK_URL } from "../../../../../network/config";
 import api from "../../../../../network/api";
-import "../create.css";
 import {
   ERROR_CODE_NOT_FOUND,
   ERROR_CODE_BAD_REQUEST,

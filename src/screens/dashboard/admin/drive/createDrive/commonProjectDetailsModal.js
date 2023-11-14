@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Button, Dropdown, Modal } from "semantic-ui-react";
-import "../../create/create.css";
+import CloseButton from "../../../../../atoms/closeButton/closeButton";
 
 function CommonProjectDetailsUI({
   isOpen,
@@ -15,24 +15,15 @@ function CommonProjectDetailsUI({
   label,
 }) {
   return (
-    <Modal
-      open={isOpen}
-      onClose={onClose}
-      style={{ width: "500px" }}
-      className="form-modal"
-    >
-      <div style={{ paddingLeft: "820px", paddingTop: "5px" }}></div>
-      <div style={{ paddingLeft: "442px" }}>
-        <Button data-testid="X" secondary onClick={onClose}>
-          X
-        </Button>
-      </div>
+    <Modal size="mini" open={isOpen} onClose={onClose} className="form-modal">
+      <CloseButton onClick={onClose} />
+
       <Modal.Header>{label}</Modal.Header>
       <Modal.Content>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
-            <label style={{ textAlign: "left" }}>
-              Projects<span style={{ color: "red" }}>*</span>
+            <label>
+              Projects<span className="red-text">*</span>
             </label>
             <Dropdown
               data-testid="projects"
@@ -45,9 +36,9 @@ function CommonProjectDetailsUI({
             />
           </Form.Field>
           <Form.Field>
-            <label style={{ textAlign: "left" }}>
+            <label>
               {label === "Add Project" ? "Drive Link" : "Figma URL"}
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               data-testid="URL"
@@ -57,7 +48,6 @@ function CommonProjectDetailsUI({
               }`}
               value={url}
               onChange={handleUrlChange}
-              className={!isValidUrl ? "error" : ""}
             />
             {!isValidUrl && (
               <p className="error-message">{`Invalid ${
@@ -70,7 +60,6 @@ function CommonProjectDetailsUI({
           </Button>
         </Form>
       </Modal.Content>
-      <Modal.Actions></Modal.Actions>
     </Modal>
   );
 }

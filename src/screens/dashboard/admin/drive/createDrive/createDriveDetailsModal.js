@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../create/create.css';
 import CommonProjectDetailsUI from './commonProjectDetailsModal.js'
 
 function CreateDriveDetailsUI({

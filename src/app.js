@@ -10,6 +10,7 @@ import Faq from "./screens/faq/faq";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Logout from "./screens/logout/logout";
 import "./app.css";
+import "././screens/dashboard/admin/create/commonModal.css";
 
 function App() {
   return (

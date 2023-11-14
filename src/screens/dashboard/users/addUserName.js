@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { NGROK_URL, GIT_ACCESS_TOKEN } from "../../../network/config";
 import "./read.css";
 import api from "../../../network/api";
-import logger from '../../../utils/logger.js';
+import logger from "../../../utils/logger.js";
+import ErrorModal from "../../../molecules/errorModal";
+import CloseButton from "../../../atoms/closeButton/closeButton";
 
 function AddUserName() {
   const navigate = useNavigate();
@@ -37,7 +39,6 @@ function AddUserName() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
     const username = githubUsername;
     try {
       const response = await api.post(
@@ -54,7 +55,7 @@ function AddUserName() {
 
       navigate("/userRead");
     } catch (error) {
-      if (error.response && error.response.status == 404) {
+      if (error.response && error.response.status == 409) {
         setShowInvalidUsernameModal(true);
       }
     }
@@ -75,24 +76,14 @@ function AddUserName() {
 
   return (
     <>
-      <Modal
-        open={true}
-        onClose={onClose}
-        style={{ width: "500px" }}
-        className="form-modal"
-      >
-        <div style={{ paddingLeft: "820px", paddingTop: "5px" }}></div>
-        <div style={{ paddingLeft: "442px" }}>
-          <Button data-testid="X" secondary onClick={onClose}>
-            X
-          </Button>
-        </div>
+      <Modal size="mini" open={true} onClose={onClose} className="form-modal">
+        <CloseButton onClick={onClose} />
         <Modal.Header>Add Github UserName</Modal.Header>
         <Modal.Content>
           <Form onSubmit={handleSubmit}>
             <Form.Field>
-              <label style={{ textAlign: "left" }}>
-                Users<span style={{ color: "red" }}>*</span>
+              <label>
+                Users<span className="red-text">*</span>
               </label>
               <Dropdown
                 data-testid="Select User"
@@ -103,10 +94,10 @@ function AddUserName() {
                 onChange={selectedUserChange}
               />
             </Form.Field>
-            <br />
+
             <Form.Field>
-              <label style={{ textAlign: "left" }}>
-                Github Username<span style={{ color: "red" }}>*</span>
+              <label>
+                Github Username<span className="red-text">*</span>
               </label>
               <input
                 placeholder="Enter github username"
@@ -126,22 +117,12 @@ function AddUserName() {
         </Modal.Content>
       </Modal>
 
-      <Modal
+      <ErrorModal
         open={showInvalidUsernameModal}
-        className="centered-modal2"
-        size="mini"
-        centered
-      >
-        <Modal.Header>Invalid Username</Modal.Header>
-        <Modal.Content>
-          <p>The provided GitHub username is invalid.</p>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button data-testid="invalid-username" primary onClick={handleCloseModal}>
-            OK
-          </Button>
-        </Modal.Actions>
-      </Modal>
+        header="Invalid Username"
+        content="The provided GitHub username is invalid."
+        onClose={handleCloseModal}
+      />
     </>
   );
 }

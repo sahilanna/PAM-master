@@ -6,7 +6,7 @@ import CloseButton from "../../../../../atoms/closeButton/closeButton.js";
 import { REPO_OWNER } from "../../../../../assets/constants/owner.js";
 import api from "../../../../../network/api.js";
 import logger from "../../../../../utils/logger.js";
-import "./addPm.css";
+
 
 const AddPm = () => {
   const [options, setOptions] = useState([]);

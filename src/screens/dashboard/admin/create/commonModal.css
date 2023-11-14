@@ -1,4 +1,21 @@
+.form-modal {
+  display: flex;
+  padding: 5px;
+  position: relative;
+  left: auto;
+  top: 140px;
+  height: auto;
+}
 
+
+.error-message,
+.red-text {
+  color: red;
+}
+
+  
+  
+  
   .form-style {
     width: 400px;
     margin: 0 auto;
@@ -62,7 +79,7 @@
     top:100px;
     
   }
-  .form-modal{
+  .form-modal1{
     display: flex;
     align-items: center;
     justify-content: center;

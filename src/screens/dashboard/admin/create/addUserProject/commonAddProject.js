@@ -5,7 +5,7 @@ import AddUserProjectUI from "./addUserProjectModal";
 import AddPmProjectUI from "../addPmProject/addPmProjectModal";
 import api from "../../../../../network/api";
 import logger from '../../../../../utils/logger.js';
-import "../create.css";
+
 
 function CommonAddProject({ role }) {
   const navigate = useNavigate();

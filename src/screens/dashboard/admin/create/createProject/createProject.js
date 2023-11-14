@@ -2,7 +2,6 @@ import React,  { useState  } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'; 
 import { createProject } from '../../../../../redux/reduxStore/actions/projectActions.js' 
-import '../create.css';
 import CreateProjectModal from './createProjectModal.js';
 
 function CreateProject() {
