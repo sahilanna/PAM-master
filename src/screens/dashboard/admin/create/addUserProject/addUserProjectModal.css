@@ -1,0 +1,14 @@
+.add-user-project {
+  display: flex;
+  padding: 5px;
+  position: relative;
+  left: auto;
+  top: 140px;
+  height: auto;
+}
+
+
+
+.red-text {
+  color: red;
+}

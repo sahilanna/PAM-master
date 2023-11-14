@@ -1,0 +1,15 @@
+
+.form-modal {
+  display: flex;
+  padding: 5px;
+  position: relative;
+  left: auto;
+  top: 140px;
+  height: auto;
+}
+
+
+.error-message,
+.red-text {
+  color: red;
+}

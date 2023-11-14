@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NGROK_URL } from "../network/config";
-import LoadingPage from "../atoms/LoadingPage/loadingPage";
+import LoadingPage from "../atoms/loadingPage/loadingPage";
 import api from "../network/api";
 import RepoTable from "../atoms/repoTable";
 import logger from "../utils/logger.js";

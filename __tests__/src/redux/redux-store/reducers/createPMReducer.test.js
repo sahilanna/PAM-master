@@ -1,4 +1,4 @@
-import createPMReducer from "../../../../../src/redux/redux-store/reducers/createPMReducer";
+import createPMReducer from "../../../../../src/redux/reduxStore/reducers/createPMReducer";
 
 describe('createPMReducer', () => {
   it('should return the initial state', () => {

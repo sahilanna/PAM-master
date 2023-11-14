@@ -33,7 +33,7 @@ describe("PmProjectDetails Component", () => {
     expect(container.firstChild).toBeNull();
   });
 
-  test("should call logOut and navigate to the Login page with null user data", async () => {
+  test("should call Logout and navigate to the Login page with null user data", async () => {
     const sampleUser = { id: 123, name: "Sample User" };
     sessionStorage.setItem("item", JSON.stringify(sampleUser));
   

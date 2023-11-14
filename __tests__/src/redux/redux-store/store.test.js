@@ -1,4 +1,4 @@
-import rootReducer from '../../../../src/redux/redux-store/reducers';
+import rootReducer from '../../../../src/redux/reduxStore/reducers';
 import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 

@@ -1,4 +1,4 @@
-import createUserReducer from "../../../../../src/redux/redux-store/reducers/createUserReducer";
+import createUserReducer from "../../../../../src/redux/reduxStore/reducers/createUserReducer";
 
 describe('createUserReducer', () => {
   it('should return the initial state', () => {

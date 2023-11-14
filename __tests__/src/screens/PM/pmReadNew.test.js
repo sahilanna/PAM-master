@@ -4,7 +4,7 @@ import PmReadNew from '../../../../src/screens/Dashboard/PM/PmReadNew';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
-import rootReducer from '../../../../src/redux/redux-store/reducers';
+import rootReducer from '../../../../src/redux/reduxStore/reducers';
 import '@testing-library/jest-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';

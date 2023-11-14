@@ -1,9 +1,9 @@
-import createProjectReducer from '../../../../../src/redux/redux-store/reducers/createProjectReducer';
+import createProjectReducer from '../../../../../src/redux/reduxStore/reducers/createProjectReducer';
 import {
   CREATE_PROJECT_REQUEST,
   CREATE_PROJECT_SUCCESS,
   CREATE_PROJECT_FAILURE,
-} from '/home/nineleaps/Desktop/Pratap/PAM-master/src/redux/redux-store/actions/actionTypes.js';
+} from '../../../../../src/redux/reduxStore/actions/actionTypes.js';
 
 describe('createProjectReducer', () => {
   it('should return the initial state', () => {

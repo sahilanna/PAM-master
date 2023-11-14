@@ -4,8 +4,8 @@ import PmCreate from "../../../../src/screens/Dashboard/PM/pmCreate";
 import { MemoryRouter, useNavigate } from "react-router-dom";
 import { Provider } from "react-redux";
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
-import rootReducer from "../../../../src/redux/redux-store/reducers";
-import { createPM } from "../../../../src/redux/redux-store/actions/action";
+import rootReducer from "../../../../src/redux/reduxStore/reducers";
+import { createPM } from "../../../../src/redux/reduxStore/actions/action";
 import { useDispatch } from "react-redux";
 
 jest.mock("react-redux", () => ({

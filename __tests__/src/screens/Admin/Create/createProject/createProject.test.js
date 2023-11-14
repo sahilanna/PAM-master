@@ -5,9 +5,9 @@ import CreateProject from '../../../../../../src/screens/Dashboard/Admin/Create/
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
-import rootReducer from '../../../../../../src/redux/redux-store/reducers';
+import rootReducer from '../../../../../../src/redux/reduxStore/reducers';
 import CreateProjectUI from '../../../../../../src/screens/Dashboard/Admin/Create/createProject/createProjectUI';
-import { createProject } from '../../../../../../src/redux/redux-store/actions/projectActions';
+import { createProject } from '../../../../../../src/redux/reduxStore/actions/projectActions';
 
 jest.mock("react-redux", () => ({
     ...jest.requireActual("react-redux"),

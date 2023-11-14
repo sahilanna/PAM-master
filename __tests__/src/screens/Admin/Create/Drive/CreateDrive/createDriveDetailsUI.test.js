@@ -1,7 +1,7 @@
 import React from "react";
 import {render,fireEvent,waitFor,getByTestId,} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import CreateDriveDetailsUI from "../../../../../../../src/screens/Dashboard/Admin/Drive/createDrive/createDriveDetailsUI";
+import CreateDriveDetailsUI from "../../../../../../../src/screens/dashboard/admin/drive/createDrive/createDriveDetailsUI";
 
 describe("CreateDriveDetailsUI", () => {
   const mockProps = {

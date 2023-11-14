@@ -70,7 +70,7 @@ describe("PmDashboard Component", () => {
     fireEvent.click(screen.getByTestId("onClose"));
   });
 
-  it("should call logOut and navigate to the Login page with null user data", async () => {
+  it("should call Logout and navigate to the Login page with null user data", async () => {
     const sampleUser = { id: 123, name: "Sample User" };
     sessionStorage.setItem("item", JSON.stringify(sampleUser));
   

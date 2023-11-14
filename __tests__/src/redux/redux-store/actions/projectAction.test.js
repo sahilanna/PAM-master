@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { createProject } from '../../../../../src/redux/redux-store/actions/projectActions';
+import { createProject } from '../../../../../src/redux/reduxStore/actions/projectActions';
 import { NGROK_URL } from '../../../../../src/network/config';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

@@ -3,9 +3,9 @@ import { render, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { Provider, useNavigate } from "react-redux";
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
-import rootReducer from "../../../../src/redux/redux-store/reducers";
+import rootReducer from "../../../../src/redux/reduxStore/reducers";
 import UserCreate from "../../../../src/screens/Dashboard/Users/userCreate";
-import { createUser } from "../../../../src/redux/redux-store/actions/action";
+import { createUser } from "../../../../src/redux/reduxStore/actions/action";
 import { useDispatch} from "react-redux";
 
 

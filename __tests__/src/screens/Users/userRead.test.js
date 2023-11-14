@@ -7,7 +7,7 @@ import { NGROK_URL } from '../../../../src/network/config';
 import MockAdapter from 'axios-mock-adapter';
 import { Provider } from 'react-redux';
 import { legacy_createStore as createStore } from 'redux';
-import rootReducer from '../../../../src/redux/redux-store/reducers';
+import rootReducer from '../../../../src/redux/reduxStore/reducers';
 import '@testing-library/jest-dom';
 import { act } from 'react-dom/test-utils';
 

@@ -1,4 +1,4 @@
-import createPmGithubNameReducer from "../../../../../src/redux/redux-store/reducers/createPmGithubNameReducer";
+import createPmGithubNameReducer from "../../../../../src/redux/reduxStore/reducers/createPmGithubNameReducer";
 
 describe('createPmGithubNameReducer', () => {
   it('should return the initial state', () => {

@@ -7,7 +7,7 @@ import {
   createPM,
   createUser,
   createPmGithubName,
-} from "/home/nineleaps/Desktop/Pratap/PAM-master/src/redux/redux-store/actions/action.js";
+} from "/home/nineleaps/Desktop/Pratap/PAM-master/src/redux/reduxStore/actions/action.js";
 import api from "../../../../../src/network/api";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";

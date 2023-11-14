@@ -8,7 +8,7 @@ import { NGROK_URL } from "../../../src/network/config";
 jest.mock("../../../src/network/api");
 
 describe("Logout Component", () => {
-  it("should call logOut and navigate to the Login page", async () => {
+  it("should call Logout and navigate to the Login page", async () => {
     const mockNavigate = jest.fn();
 
     const mockUser = { id: 123 };
@@ -23,12 +23,12 @@ describe("Logout Component", () => {
     await waitFor(() => {
       expect(
         require("../../../src/network/api").default.post
-      ).toHaveBeenCalledWith(`https://${NGROK_URL}/users/${mockUser.id}/logout`);
+      ).toHaveBeenCalledWith(`https://${NGROK_URL}/users/${mockUser.id}/Logout`);
     });
   });
 
 
-  it("should call logOut and navigate to the Login page", async () => {
+  it("should call Logout and navigate to the Login page", async () => {
     const mockUser = { id: 123 };
     sessionStorage.setItem("item", JSON.stringify(mockUser));
 
@@ -44,7 +44,7 @@ describe("Logout Component", () => {
 
   });
 
-  it("should call logOut and navigate to the Login page with null user data", async () => {
+  it("should call Logout and navigate to the Login page with null user data", async () => {
     
     sessionStorage.removeItem("item");
 
