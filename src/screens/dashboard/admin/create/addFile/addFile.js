@@ -1,5 +1,8 @@
 import React, { useState, useMemo } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import {
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import AddFileModal from "./addFileModal";
 import logger from "../../../../../utils/logger.js";
 import { NGROK_URL } from "../../../../../network/config";
@@ -15,7 +18,9 @@ export function handleFileUpload(
   navigate
 ) {
   if (!modalfile) {
-    setFileErrorMessage("Please select a file to upload.");
+    setFileErrorMessage(
+      "Please select a file to upload."
+    );
     logger.warn("No file was selected");
     return;
   }
@@ -30,7 +35,9 @@ export function handleFileUpload(
       headers,
       onUploadProgress: (progressEvent) => {
         const percentCompleted = Math.round(
-          (progressEvent.loaded / progressEvent.total) * 100
+          (progressEvent.loaded /
+            progressEvent.total) *
+            100
         );
         setUploadProgress(percentCompleted);
       },
@@ -47,9 +54,12 @@ function AddFile() {
   const { projectId } = location.state || {};
   const { projectName } = location.state || {};
   logger.info(projectId);
-  const [modalfile, setModalFile] = useState(null);
-  const [fileErrorMessage, setFileErrorMessage] = useState("");
-  const [uploadProgress, setUploadProgress] = useState(0);
+  const [modalfile, setModalFile] =
+    useState(null);
+  const [fileErrorMessage, setFileErrorMessage] =
+    useState("");
+  const [uploadProgress, setUploadProgress] =
+    useState(0);
   logger.info(setUploadProgress);
 
   const accessToken = useMemo(() => {
@@ -70,24 +80,31 @@ function AddFile() {
 
   const handleModelFileSelect = (e) => {
     const file = e.target.files[0];
-    const allowedMimeTypes = ["image/png", "image/jpeg", "application/pdf"];
+    const allowedMimeTypes = [
+      "image/png",
+      "image/jpeg",
+      "application/pdf",
+    ];
     const maxFileSize = 60 * 1024;
 
     if (!file) {
-      setFileErrorMessage("Please select a file to upload.");
+      setFileErrorMessage(
+        "Please select a file to upload."
+      );
       logger.warn("No file was selected");
-    }
-    else if (!allowedMimeTypes.includes(file.type)) {
+    } else if (
+      !allowedMimeTypes.includes(file.type)
+    ) {
       logger.warn("Invalid File Format");
       setFileErrorMessage(
         "Invalid file format. Only PNG, JPG, and PDF files are allowed."
       );
-    } 
-    else if (file.size > maxFileSize) {
-      setFileErrorMessage("File size exceeds the maximum allowed (60 KB).");
+    } else if (file.size > maxFileSize) {
+      setFileErrorMessage(
+        "File size exceeds the maximum allowed (60 KB)."
+      );
       logger.warn("File size exceeds 60KB");
-    } 
-    else {
+    } else {
       setModalFile(file);
       setFileErrorMessage("");
       logger.error("Error upoading file");
@@ -99,7 +116,9 @@ function AddFile() {
       projectName={projectName}
       modalfile={modalfile}
       fileErrorMessage={fileErrorMessage}
-      handleModelFileSelect={handleModelFileSelect}
+      handleModelFileSelect={
+        handleModelFileSelect
+      }
       handleFileUpload={handleFileUpload}
       uploadProgress={uploadProgress}
       onClose={onClose}

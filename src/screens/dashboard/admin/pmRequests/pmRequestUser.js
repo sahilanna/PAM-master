@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+} from "react";
 import { Table, Button } from "semantic-ui-react";
-import { ToastContainer, toast } from "react-toastify";
+import {
+  ToastContainer,
+  toast,
+} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "../../sidebar/sidebar";
 import { NGROK_URL } from "../../../../network/config";
 import api from "../../../../network/api";
 import "../figma/figmaRead/figmaRead.css";
-import logger from '../../../../utils/logger.js';
+import logger from "../../../../utils/logger.js";
 
 function PmRequestUser() {
-  const [requestData, setRequestData] = useState([]);
+  const [requestData, setRequestData] = useState(
+    []
+  );
   let data = sessionStorage.getItem("item");
   let user = data ? JSON.parse(data) : null;
   const accessToken = user ? user.token : null;
@@ -22,22 +30,37 @@ function PmRequestUser() {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`https://${NGROK_URL}/request/allActive`);
+      const response = await api.get(
+        `https://${NGROK_URL}/request/allActive`
+      );
       setRequestData(response.data);
-      
-      logger.info("Chekcing requestData of active", requestData);
-      requestData.forEach((request) => {
-        const projectId = request.project.projectId;
 
-        logger.info("Checking ProjectId: ", projectId);
+      logger.info(
+        "Chekcing requestData of active",
+        requestData
+      );
+      requestData.forEach((request) => {
+        const projectId =
+          request.project.projectId;
+
+        logger.info(
+          "Checking ProjectId: ",
+          projectId
+        );
       });
     } catch (error) {
-      logger.error("Error fetching Users:", error);
-     
+      logger.error(
+        "Error fetching Users:",
+        error
+      );
     }
   };
 
-  const AcceptRequest = async (accessRequestId, id, projectId) => {
+  const AcceptRequest = async (
+    accessRequestId,
+    id,
+    projectId
+  ) => {
     try {
       const response = await api.put(
         `https://${NGROK_URL}/request/update/${accessRequestId}`,
@@ -59,41 +82,61 @@ function PmRequestUser() {
           secondResponse.status === 204 ||
           secondResponse.status === 201
         ) {
-          toast.success("User added successfully!", {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000,
-          });
+          toast.success(
+            "User added successfully!",
+            {
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 3000,
+            }
+          );
 
           fetchData();
         } else {
-          toast.error("Failed to add user. Please try again.", {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000,
-          });
+          toast.error(
+            "Failed to add user. Please try again.",
+            {
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 3000,
+            }
+          );
         }
       } else {
-        toast.error("Failed to update request. Please try again.", {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-        });
+        toast.error(
+          "Failed to update request. Please try again.",
+          {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000,
+          }
+        );
       }
     } catch (error) {
-      logger.error("Error updating request:", error);
-      toast.error("Failed to update request. Please try again.", {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000,
-      });
+      logger.error(
+        "Error updating request:",
+        error
+      );
+      toast.error(
+        "Failed to update request. Please try again.",
+        {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+        }
+      );
     }
   };
 
-  const DeclineRequest = async (accessRequestId) => {
+  const DeclineRequest = async (
+    accessRequestId
+  ) => {
     try {
       const response = await api.put(
         `https://${NGROK_URL}/request/update/${accessRequestId}`,
         { allowed: false },
         { headers }
       );
-      if (response.status === 200 || response.status === 204) {
+      if (
+        response.status === 200 ||
+        response.status === 204
+      ) {
         toast.error("Access denied", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 1000,
@@ -124,21 +167,41 @@ function PmRequestUser() {
             <Table className="ui-celled-table">
               <Table.Header>
                 <Table.Row>
-                  <Table.HeaderCell>Project Manager</Table.HeaderCell>
-                  <Table.HeaderCell>Project</Table.HeaderCell>
-                  <Table.HeaderCell>User</Table.HeaderCell>
-                  <Table.HeaderCell>Description</Table.HeaderCell>
-                  <Table.HeaderCell>Actions</Table.HeaderCell>
+                  <Table.HeaderCell>
+                    Project Manager
+                  </Table.HeaderCell>
+                  <Table.HeaderCell>
+                    Project
+                  </Table.HeaderCell>
+                  <Table.HeaderCell>
+                    User
+                  </Table.HeaderCell>
+                  <Table.HeaderCell>
+                    Description
+                  </Table.HeaderCell>
+                  <Table.HeaderCell>
+                    Actions
+                  </Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
 
               <Table.Body>
                 {requestData.map((item) => (
-                  <Table.Row key={item.accessRequestId}>
-                    <Table.Cell>{item.pmName}</Table.Cell>
-                    <Table.Cell>{item.project?.projectName}</Table.Cell>
-                    <Table.Cell>{item.user?.name}</Table.Cell>
-                    <Table.Cell>{item.requestDescription}</Table.Cell>
+                  <Table.Row
+                    key={item.accessRequestId}
+                  >
+                    <Table.Cell>
+                      {item.pmName}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {item.project?.projectName}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {item.user?.name}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {item.requestDescription}
+                    </Table.Cell>
                     <Table.Cell>
                       <Button
                         data-testid="green"
@@ -156,7 +219,11 @@ function PmRequestUser() {
                       <Button
                         data-testid="red"
                         color="red"
-                        onClick={() => DeclineRequest(item.accessRequestId)}
+                        onClick={() =>
+                          DeclineRequest(
+                            item.accessRequestId
+                          )
+                        }
                       >
                         Decline
                       </Button>

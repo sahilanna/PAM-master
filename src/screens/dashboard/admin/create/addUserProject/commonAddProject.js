@@ -1,20 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, {
+  useState,
+  useEffect,
+} from "react";
+import {
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { NGROK_URL } from "../../../../../network/config";
 import AddUserProjectUI from "./addUserProjectModal";
 import AddPmProjectUI from "../addPmProject/addPmProjectModal";
 import api from "../../../../../network/api";
-import logger from '../../../../../utils/logger.js';
-
+import logger from "../../../../../utils/logger.js";
 
 function CommonAddProject({ role }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { projectId, projectName } = location.state || {};
-  const [selectedUser, setSelectedUser] = useState("");
+  const { projectId, projectName } =
+    location.state || {};
+  const [selectedUser, setSelectedUser] =
+    useState("");
   const [userId, setUserId] = useState("");
-  const [showOTPModal, setShowOTPModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [showOTPModal, setShowOTPModal] =
+    useState(false);
+  const [errorMessage, setErrorMessage] =
+    useState("");
   const [otpp, setOtpp] = useState(""); // Check the state variable name
   const [user, setUsers] = useState([]);
 
@@ -23,14 +32,19 @@ function CommonAddProject({ role }) {
       const response = await api.get(
         `https://${NGROK_URL}/users/withoutProject?role=${role}&projectId=${projectId}`
       );
-      const projUsers = response.data.map((projU) => ({
-        key: projU.id,
-        text: projU.name,
-        value: projU.id,
-      }));
+      const projUsers = response.data.map(
+        (projU) => ({
+          key: projU.id,
+          text: projU.name,
+          value: projU.id,
+        })
+      );
       setUsers(projUsers);
     } catch (error) {
-      logger.error("Error fetching Users:", error);
+      logger.error(
+        "Error fetching Users:",
+        error
+      );
     }
   };
 
@@ -40,9 +54,12 @@ function CommonAddProject({ role }) {
 
   const handleUserChange = (event, { value }) => {
     setSelectedUser(value);
-    const selectedUserObj = user.find((userObj) => userObj.value === value);
+    const selectedUserObj = user.find(
+      (userObj) => userObj.value === value
+    );
     if (selectedUserObj) {
-      const selectedUserId = selectedUserObj.value;
+      const selectedUserId =
+        selectedUserObj.value;
       setUserId(selectedUserId);
     }
   };
@@ -59,13 +76,19 @@ function CommonAddProject({ role }) {
     }
 
     try {
-      await api.post(`https://${NGROK_URL}/OTP/send`, {
-        phoneNumber: "+91 9928931610",
-      });
+      await api.post(
+        `https://${NGROK_URL}/OTP/send`,
+        {
+          phoneNumber: "+91 9928931610",
+        }
+      );
 
       setShowOTPModal(true);
     } catch (error) {
-      logger.error("Error in sending otp:", error);
+      logger.error(
+        "Error in sending otp:",
+        error
+      );
     }
   };
 
@@ -73,12 +96,13 @@ function CommonAddProject({ role }) {
     e.preventDefault();
 
     try {
-      const otpSubmissionResponse = await api.post(
-        `https://${NGROK_URL}/OTP/verify`,
-        {
-          otp: otpp,
-        }
-      );
+      const otpSubmissionResponse =
+        await api.post(
+          `https://${NGROK_URL}/OTP/verify`,
+          {
+            otp: otpp,
+          }
+        );
 
       if (otpSubmissionResponse.status === 200) {
         await api.put(
@@ -91,11 +115,15 @@ function CommonAddProject({ role }) {
 
         navigate("/AdminDashboard");
       } else {
-        setErrorMessage("Invalid OTP. Please try again.");
+        setErrorMessage(
+          "Invalid OTP. Please try again."
+        );
       }
     } catch (error) {
       logger.error("Error:", error);
-      setErrorMessage("Invalid OTP. Please try again.");
+      setErrorMessage(
+        "Invalid OTP. Please try again."
+      );
     }
   };
 

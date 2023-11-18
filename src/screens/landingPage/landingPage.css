@@ -1,51 +1,50 @@
-
-.sample {
+.landing-page-background {
   display: flex;
   flex-direction: column;
-  min-height: 80vh;
-  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(22, 22, 124, 1) 100%, rgba(0, 212, 255, 1) 100%);
-  padding: 1px;
+  min-height: 100vh;
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(22, 22, 124, 1) 100%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  padding: 0px;
   position: relative;
 }
-.Footer {
-  background-color: #F5F5F5;
-  padding: 20px;
-  text-align: center;
-  margin-top: auto;
-}
+
 p {
   margin: 0 auto;
-  font-family: "Helvetica Neue", "Arial", sans-serif;
+  font-family: "Helvetica Neue", "Arial",
+    sans-serif;
   color: gray;
   font-variant-ligatures: normal;
 }
-.heading{
-    color: antiquewhite;
-    font-style: italic;
-    margin-left: 10px;
-    
-
-    
+.heading {
+  color: antiquewhite;
+  font-style: italic;
+  margin-left: 10px;
 }
 .at-item {
-    color: whitesmoke; font-weight:bold; font-size:3.5em;
-    animation-name: focus-in-contract;
-    animation-duration: 1s;
-    animation-timing-function: ease;
-    animation-delay: 0s;
-    animation-iteration-count: 1;
-    animation-direction: normal;
-    animation-fill-mode: none;
-    padding: 20px;
-    margin-top: 60px;
-    margin-right: 47%;
-
+  color: whitesmoke;
+  font-weight: bold;
+  font-size: 3.5em;
+  animation-name: focus-in-contract;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: none;
+  padding: 20px;
+  margin-top: 60px;
+  margin-right: 47%;
 }
-.col-md-6{
+.col-md-6 {
+  color: whitesmoke;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  left:30%;
+  left: 30%;
   width: 50%;
   margin-top: -10%;
   margin-bottom: 5%;
@@ -55,10 +54,27 @@ p {
   animation-delay: 0s;
   animation-fill-mode: both;
 }
-.ui.menu .menu>.item:before {
+.ui.menu .menu > .item:before {
   display: none;
-  
 }
+
+.image-carousel-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+div.at-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.navbar-logo {
+  width: 50px;
+  height: 50px;
+}
+
 
 @keyframes slide-in {
   0% {
@@ -70,54 +86,36 @@ p {
     opacity: 1;
   }
 }
-.image-carousel-container {
-  display: flex;
-  justify-content: flex-start;
 
-}
-
-div.at-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: 100%;
-}
 @keyframes focus-in-contract {
-    0% {
-        letter-spacing:1em;
-        filter:blur(12px);
-        opacity:0;
-    }
-    100% {
-        filter:blur(0);
-        opacity:1;
-    }
-    container-fluid {
-        padding: 60px 50px;
-      }
-       bg-grey {
-        background-color: #F6F6F6;
-      }
-      logo-small {
-        color: #F4511E;
-        font-size: 50px;
-      }
-   
-    
-carousel-caption {
-        width:100%;
-        height:100%;
-        left:0;
-        padding: 50px;
-      }
+  0% {
+    letter-spacing: 1em;
+    filter: blur(12px);
+    opacity: 0;
   }
-.app{
-  background-color: #F4511E;
+  100% {
+    filter: blur(0);
+    opacity: 1;
+  }
+  container-fluid {
+    padding: 60px 50px;
+  }
+  bg-grey {
+    background-color: #f6f6f6;
+  }
+  logo-small {
+    color: #f4511e;
+    font-size: 50px;
+  }
+
+  carousel-caption {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    padding: 50px;
+  }
 }
-.navbar-logo {
-  width: 50px;
-  height: 50px;
-}
+
 
 
 @media (max-width: 768px) {
@@ -134,14 +132,11 @@ carousel-caption {
   .logo-small {
     font-size: 30px;
   }
- 
-  
+
   .carousel-caption {
     padding: 20px;
   }
   .heading {
     padding: 5px;
   }
-
 }
-

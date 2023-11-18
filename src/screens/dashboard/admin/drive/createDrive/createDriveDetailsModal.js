@@ -1,5 +1,5 @@
-import React from 'react';
-import CommonProjectDetailsUI from './commonProjectDetailsModal.js'
+import React from "react";
+import CommonProjectDetailsUI from "./commonProjectDetailsModal.js";
 
 function CreateDriveDetailsUI({
   driveURL,
@@ -12,15 +12,15 @@ function CreateDriveDetailsUI({
 }) {
   return (
     <CommonProjectDetailsUI
-    isOpen={true}
-    onClose={onClose}
-    isValidUrl={isValidUrl}
-    proj={proj}
-    url={driveURL}
-    handleProjChange={handleProjChange}
-    handleUrlChange={handleUrlChange}
-    handleSubmit={handleSubmit}
-    label="Add Project"
+      isOpen={true}
+      onClose={onClose}
+      isValidUrl={isValidUrl}
+      proj={proj}
+      url={driveURL}
+      handleProjChange={handleProjChange}
+      handleUrlChange={handleUrlChange}
+      handleSubmit={handleSubmit}
+      label="Add Project"
     />
   );
 }

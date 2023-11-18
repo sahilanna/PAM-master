@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+} from "react";
 import PmSidebar from "./pmSidebar";
 import api from "../../../network/api";
 import { useNavigate } from "react-router-dom";
@@ -7,12 +10,14 @@ import { toast } from "react-toastify";
 import { Button } from "semantic-ui-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import logger from '../../../utils/logger.js';
+import logger from "../../../utils/logger.js";
 
 function PmNotification() {
   const navigate = useNavigate();
-  const [notification, setNotification] = useState([]);
-  const [accessRequestId, setAccessRequestId] = useState([]);
+  const [notification, setNotification] =
+    useState([]);
+  const [accessRequestId, setAccessRequestId] =
+    useState([]);
   let data = sessionStorage.getItem("item");
   let user = data ? JSON.parse(data) : null;
 
@@ -26,10 +31,10 @@ function PmNotification() {
       const response = await api.get(
         `https://${NGROK_URL}/request/unread/PM?pmName=${pmName}`
       );
-     
+
       setNotification(response.data);
-      const requestId = response.data[0].accessRequestId;
-     
+      const requestId =
+        response.data[0].accessRequestId;
 
       setAccessRequestId(requestId);
       logger.info(accessRequestId);
@@ -48,7 +53,9 @@ function PmNotification() {
     fetchNotification();
   }, []);
 
-  const onDeleteNotification = async (accessRequestId) => {
+  const onDeleteNotification = async (
+    accessRequestId
+  ) => {
     try {
       await api.put(
         `https://${NGROK_URL}/request/notifiedPM?accessRequestId=${accessRequestId}`
@@ -56,7 +63,10 @@ function PmNotification() {
 
       fetchNotification();
     } catch (error) {
-      logger.error("Error fetching notifications",error);
+      logger.error(
+        "Error fetching notifications",
+        error
+      );
     }
   };
 
@@ -66,15 +76,33 @@ function PmNotification() {
 
   return (
     <div className="parent-admin">
-      <div style={{ height: "100vh", overflow: "scroll initial" }}>
+      <div
+        style={{
+          height: "100vh",
+          overflow: "scroll initial",
+        }}
+      >
         <PmSidebar />
       </div>
 
-      <div style={{ marginLeft: "20px", marginRight: "30px" }}>
-        <div style={{ marginTop: "80px", marginLeft: "280px" }}>
+      <div
+        style={{
+          marginLeft: "20px",
+          marginRight: "30px",
+        }}
+      >
+        <div
+          style={{
+            marginTop: "80px",
+            marginLeft: "280px",
+          }}
+        >
           <div style={{ paddingLeft: "350px" }}>
             {" "}
-            <Button data-testid="notify" onClick={goToNotification}>
+            <Button
+              data-testid="notify"
+              onClick={goToNotification}
+            >
               Show All
             </Button>
           </div>
@@ -85,7 +113,8 @@ function PmNotification() {
               <th>Mark as Read</th>
             </thead>
             <tbody>
-              {notification && notification.length > 0 ? (
+              {notification &&
+              notification.length > 0 ? (
                 notification.map((item) => (
                   <tr key={item.id}>
                     <td>
@@ -96,17 +125,24 @@ function PmNotification() {
                         data-testid="delete"
                         style={{ color: "blue" }}
                         onClick={() =>
-                          onDeleteNotification(item.accessRequestId)
+                          onDeleteNotification(
+                            item.accessRequestId
+                          )
                         }
                       >
-                        <FontAwesomeIcon icon={faCheck} className="read-icon" />
+                        <FontAwesomeIcon
+                          icon={faCheck}
+                          className="read-icon"
+                        />
                       </Button>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="2">No unread notifications</td>
+                  <td colSpan="2">
+                    No unread notifications
+                  </td>
                 </tr>
               )}
             </tbody>

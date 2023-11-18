@@ -1,13 +1,11 @@
+.navbar-container {
+  height: 10px;
+}
 
-   .navbar-container {
-    height: 10px;
+@media (min-width: 992px) {
+  .navbar-container {
+    position: sticky;
+    top: 0;
+    z-index: 999;
   }
-  
-  @media (min-width: 992px) {
-    .navbar-container {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
-  }
-  
+}

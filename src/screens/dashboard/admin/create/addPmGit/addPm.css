@@ -1,4 +1,3 @@
-
 .form-modal {
   display: flex;
   padding: 5px;
@@ -7,7 +6,6 @@
   top: 140px;
   height: auto;
 }
-
 
 .error-message,
 .red-text {

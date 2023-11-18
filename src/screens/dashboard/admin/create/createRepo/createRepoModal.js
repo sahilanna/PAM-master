@@ -1,9 +1,12 @@
 import React from "react";
-import { Modal, Button, Form } from "semantic-ui-react";
+import {
+  Modal,
+  Button,
+  Form,
+} from "semantic-ui-react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CloseButton from "../../../../../atoms/closeButton/closeButton";
-
 
 function CreateRepoUI({
   name,
@@ -16,14 +19,24 @@ function CreateRepoUI({
   return (
     <>
       <ToastContainer />
-      <Modal size="mini" open={true} onClose={onClose} className="form-modal">
+      <Modal
+        size="mini"
+        open={true}
+        onClose={onClose}
+        className="form-modal"
+      >
         <CloseButton onClick={onClose} />
-        <Modal.Header>Create New Repository</Modal.Header>
+        <Modal.Header>
+          Create New Repository
+        </Modal.Header>
         <Modal.Content>
           <Form onSubmit={handleSubmit}>
             <Form.Field>
               <label>
-                Name<span className="red-text">*</span>
+                Name
+                <span className="red-text">
+                  *
+                </span>
               </label>
               <input
                 name="name"
@@ -39,11 +52,13 @@ function CreateRepoUI({
               ) : (
                 ""
               )}
-             
             </Form.Field>
             <Form.Field>
               <label>
-                Description<span className="red-text">*</span>
+                Description
+                <span className="red-text">
+                  *
+                </span>
               </label>
               <input
                 name="description"
@@ -52,14 +67,14 @@ function CreateRepoUI({
                 placeholder="Description"
                 data-testid="description-input"
               />
-              {clicked && description.length <= 0 ? (
+              {clicked &&
+              description.length <= 0 ? (
                 <label className="error-message">
                   Repo description can't be Empty
                 </label>
               ) : (
                 ""
               )}
-             
             </Form.Field>
             <Button
               data-testid="submit-button"

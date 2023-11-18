@@ -1,7 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Form, Dropdown, Button } from "semantic-ui-react";
+import React, {
+  useState,
+  useEffect,
+} from "react";
+import {
+  Modal,
+  Form,
+  Dropdown,
+  Button,
+} from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
-import { NGROK_URL, GIT_ACCESS_TOKEN } from "../../../network/config";
+import {
+  NGROK_URL,
+  GIT_ACCESS_TOKEN,
+} from "../../../network/config";
 import api from "../../../network/api";
 import logger from "../../../utils/logger.js";
 import CloseButton from "../../../atoms/closeButton/closeButton";
@@ -10,10 +21,14 @@ function AddPmUserName() {
   const navigate = useNavigate();
   const [id, setId] = useState();
   const [users, setUsers] = useState([]);
-  const [githubUsername, setgithubUsername] = useState("");
-  const [selectedUser, setSelectedUser] = useState("");
-  const [showInvalidUsernameModal, setShowInvalidUsernameModal] =
-    useState(false);
+  const [githubUsername, setgithubUsername] =
+    useState("");
+  const [selectedUser, setSelectedUser] =
+    useState("");
+  const [
+    showInvalidUsernameModal,
+    setShowInvalidUsernameModal,
+  ] = useState(false);
   const accessToken = GIT_ACCESS_TOKEN;
   useEffect(() => {
     fetchPms();
@@ -24,14 +39,19 @@ function AddPmUserName() {
       const response = await api.get(
         `https://${NGROK_URL}/users/role/project_manager`
       );
-      const userOptions = response.data.map((user) => ({
-        key: user.id,
-        text: user.name,
-        value: user.id,
-      }));
+      const userOptions = response.data.map(
+        (user) => ({
+          key: user.id,
+          text: user.name,
+          value: user.id,
+        })
+      );
       setUsers(userOptions);
     } catch (error) {
-      logger.error("Error fetching Users:", error);
+      logger.error(
+        "Error fetching Users:",
+        error
+      );
     }
   };
   const handleSubmit = async (e) => {
@@ -49,18 +69,26 @@ function AddPmUserName() {
           accessToken: accessToken,
         }
       );
-      logger.info("API Response:", response.data.id);
+      logger.info(
+        "API Response:",
+        response.data.id
+      );
 
       navigate("/pmReadNew");
     } catch (error) {
-      if (error.response && error.response.status == 409) {
-
+      if (
+        error.response &&
+        error.response.status == 409
+      ) {
         setShowInvalidUsernameModal(true);
       }
     }
   };
 
-  const selectedUserChange = (event, { value }) => {
+  const selectedUserChange = (
+    event,
+    { value }
+  ) => {
     setSelectedUser(value);
     setId(value);
     logger.info(selectedUser);
@@ -76,15 +104,25 @@ function AddPmUserName() {
 
   return (
     <>
-      <Modal size="mini" open={true} onClose={onClose} className="form-modal">
+      <Modal
+        size="mini"
+        open={true}
+        onClose={onClose}
+        className="form-modal"
+      >
         <CloseButton onClick={onClose} />
-        <Modal.Header>Add PM UserName</Modal.Header>
+        <Modal.Header>
+          Add PM UserName
+        </Modal.Header>
 
         <Modal.Content>
           <Form onSubmit={handleSubmit}>
             <Form.Field>
               <label>
-                PM<span className="red-text">*</span>
+                PM
+                <span className="red-text">
+                  *
+                </span>
               </label>
               <Dropdown
                 data-testid="Select PM"
@@ -98,12 +136,19 @@ function AddPmUserName() {
 
             <Form.Field>
               <label>
-                Github Username<span className="red-text">*</span>
+                Github Username
+                <span className="red-text">
+                  *
+                </span>
               </label>
               <input
                 placeholder="Enter github username"
                 value={githubUsername}
-                onChange={(e) => setgithubUsername(e.target.value)}
+                onChange={(e) =>
+                  setgithubUsername(
+                    e.target.value
+                  )
+                }
               />
             </Form.Field>
 
@@ -111,7 +156,10 @@ function AddPmUserName() {
               data-testid="submit"
               type="submit"
               primary
-              disabled={!setSelectedUser || !githubUsername}
+              disabled={
+                !setSelectedUser ||
+                !githubUsername
+              }
             >
               Submit
             </Button>
@@ -119,7 +167,7 @@ function AddPmUserName() {
         </Modal.Content>
       </Modal>
 
-       <ErrorModal
+      <ErrorModal
         open={showInvalidUsernameModal}
         header="Invalid Username"
         content="The provided GitHub username is invalid."

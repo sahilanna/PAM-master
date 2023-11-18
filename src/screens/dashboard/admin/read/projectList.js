@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+} from "react";
 import { Button } from "semantic-ui-react";
 import api from "../../../../network/api";
-import { NGROK_URL, GIT_ACCESS_TOKEN } from "../../../../network/config";
+import {
+  NGROK_URL,
+  GIT_ACCESS_TOKEN,
+} from "../../../../network/config";
 import { REPO_OWNER } from "../../../../assets/constants/owner";
 import DialogBox from "../../dialogBox/dialogBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,20 +15,31 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./read.css";
 import { useNavigate } from "react-router-dom";
 import OtpModal from "../../../../molecules/otpModal";
-import logger from '../../../../utils/logger.js';
+import logger from "../../../../utils/logger.js";
 
-function ProjectList({ projectId, projectName, type }) {
+function ProjectList({
+  projectId,
+  projectName,
+  type,
+}) {
   const [items, setItems] = useState([]);
 
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const [showOTPMoal, setShowOTPMoal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [selectedItemId, setSelectedItemId] = useState("");
+  const [
+    showConfirmDialog,
+    setShowConfirmDialog,
+  ] = useState(false);
+  const [showOTPMoal, setShowOTPMoal] =
+    useState(false);
+  const [errorMessage, setErrorMessage] =
+    useState("");
+  const [selectedItemId, setSelectedItemId] =
+    useState("");
   const [repoName, setRepoName] = useState("");
   const [username, setUserName] = useState("");
   const navigate = useNavigate();
 
-  const getItemUrl = type === "pms" ? "project_manager" : "user";
+  const getItemUrl =
+    type === "pms" ? "project_manager" : "user";
 
   const getItems = async () => {
     try {
@@ -31,7 +48,10 @@ function ProjectList({ projectId, projectName, type }) {
       );
       setItems(response.data);
     } catch (error) {
-      logger.error("Error fetching data: ", error);
+      logger.error(
+        "Error fetching data: ",
+        error
+      );
     }
   };
 
@@ -56,8 +76,13 @@ function ProjectList({ projectId, projectName, type }) {
   };
 
   const handleAddItem = () => {
-    const route = type === "pms" ? "/addPmProject" : "/addUserProject";
-    navigate(route, { state: { projectId, projectName } });
+    const route =
+      type === "pms"
+        ? "/addPmProject"
+        : "/addUserProject";
+    navigate(route, {
+      state: { projectId, projectName },
+    });
   };
 
   const handleSubmit = (itemId, username) => {
@@ -68,9 +93,12 @@ function ProjectList({ projectId, projectName, type }) {
 
   const handleConfirmDelete = async () => {
     try {
-      const otpResponse = await api.post(`https://${NGROK_URL}/OTP/send`, {
-        phoneNumber: "+91 9928931610",
-      });
+      const otpResponse = await api.post(
+        `https://${NGROK_URL}/OTP/send`,
+        {
+          phoneNumber: "+91 9928931610",
+        }
+      );
 
       if (otpResponse.data === "OTP sent") {
         setShowConfirmDialog(false);
@@ -88,12 +116,13 @@ function ProjectList({ projectId, projectName, type }) {
   const handleOTPSubmit = async (e) => {
     const otp = null;
     try {
-      const otpSubmissionResponse = await api.post(
-        `https://${NGROK_URL}/OTP/verify`,
-        {
-          otp: otp,
-        }
-      );
+      const otpSubmissionResponse =
+        await api.post(
+          `https://${NGROK_URL}/OTP/verify`,
+          {
+            otp: otp,
+          }
+        );
       let owner = REPO_OWNER;
       if (otpSubmissionResponse.status === 200) {
         await api.delete(
@@ -110,10 +139,14 @@ function ProjectList({ projectId, projectName, type }) {
         getItems();
         setShowOTPMoal(false);
       } else {
-        setErrorMessage("Invalid OTP. Please try again.");
+        setErrorMessage(
+          "Invalid OTP. Please try again."
+        );
       }
     } catch (error) {
-      setErrorMessage("Something went wrong, please try again.");
+      setErrorMessage(
+        "Something went wrong, please try again."
+      );
     }
   };
 
@@ -138,10 +171,19 @@ function ProjectList({ projectId, projectName, type }) {
       <table className="ui celled table">
         <thead>
           <tr>
-            <th>{type === "pms" ? "PM" : "User"} Name</th>
-            <th>{type === "pms" ? "PM" : "User"} Email</th>
+            <th>
+              {type === "pms" ? "PM" : "User"}{" "}
+              Name
+            </th>
+            <th>
+              {type === "pms" ? "PM" : "User"}{" "}
+              Email
+            </th>
             <th>Github Username</th>
-            <th>Delete {type === "pms" ? "PM" : "User"}</th>
+            <th>
+              Delete{" "}
+              {type === "pms" ? "PM" : "User"}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -155,16 +197,27 @@ function ProjectList({ projectId, projectName, type }) {
                   <button
                     data-testid="delete-user"
                     className="btn btn-danger mx-2"
-                    onClick={() => handleSubmit(item.id, item.gitHubUsername)}
+                    onClick={() =>
+                      handleSubmit(
+                        item.id,
+                        item.gitHubUsername
+                      )
+                    }
                   >
-                    <FontAwesomeIcon icon={faTrash} />
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                    />
                   </button>
                 </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="4">No {type === "pms" ? "PMs" : "users"} found</td>
+              <td colSpan="4">
+                No{" "}
+                {type === "pms" ? "PMs" : "users"}{" "}
+                found
+              </td>
             </tr>
           )}
         </tbody>

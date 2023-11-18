@@ -1,18 +1,16 @@
-
-
 .custom-menu-item {
-    font-size: 15px;
-    font-weight: bold;
-    transition: background-color 0.3s;
-  }
-  
-  .custom-menu-item:hover,
-  .custom-menu-item.active {
-    background-color: #444;
-    color: #ff5733;
-  }
+  font-size: 15px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
 
-  /* .text-style{
+.custom-menu-item:hover,
+.custom-menu-item.active {
+  background-color: #444;
+  color: #ff5733;
+}
+
+/* .text-style{
     font-size: 16px;
    color: beige;
   } */

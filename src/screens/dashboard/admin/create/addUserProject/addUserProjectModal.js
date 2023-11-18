@@ -1,5 +1,10 @@
 import React from "react";
-import { Form, Button, Modal, Dropdown } from "semantic-ui-react";
+import {
+  Form,
+  Button,
+  Modal,
+  Dropdown,
+} from "semantic-ui-react";
 import OtpModal from "../../../../../molecules/otpModal";
 import CloseButton from "../../../../../atoms/closeButton/closeButton";
 import "./addUserProjectModal.css";
@@ -23,21 +28,29 @@ function AddUserProjectModal({
       onClose={onClose}
       className="add-user-project"
     >
-     <CloseButton onClick={onClose}/>
+      <CloseButton onClick={onClose} />
 
-      <Modal.Header>Add User to project</Modal.Header>
+      <Modal.Header>
+        Add User to project
+      </Modal.Header>
       <Modal.Content>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
             <label>
-              Project-Name<span className="red-text">*</span>
+              Project-Name
+              <span className="red-text">*</span>
             </label>
-            <input name="name" placeholder={projectName} readOnly />
+            <input
+              name="name"
+              placeholder={projectName}
+              readOnly
+            />
           </Form.Field>
           <Form.Field>
             <label>
               {" "}
-              User <span className="red-text">*</span>
+              User{" "}
+              <span className="red-text">*</span>
             </label>
             <Dropdown
               data-testid="userDropdown"

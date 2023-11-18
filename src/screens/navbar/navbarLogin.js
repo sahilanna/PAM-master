@@ -1,7 +1,11 @@
 import React from "react";
-import { Menu, Container, Image } from "semantic-ui-react";
+import {
+  Menu,
+  Container,
+  Image,
+} from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import projectLogo from "../../assets/projectLogo.png";
+import projectLogo from "../../assets//images/projectLogo.png";
 import NavbarDropdown from "../../molecules/navbarDropdown";
 import "./navbar.css";
 
@@ -14,12 +18,18 @@ const NavBarLogin = () => {
             <Image
               src={projectLogo}
               alt="Logo"
-              style={{ width: "50px", height: "50px", marginLeft: "-90px" }}
+              style={{
+                width: "50px",
+                height: "50px",
+                marginLeft: "-90px",
+              }}
             />
-            <span className="heading">Project Access Management</span>
+            <span className="heading">
+              Project Access Management
+            </span>
           </Menu.Item>
           <Menu.Menu position="left">
-          <NavbarDropdown
+            <NavbarDropdown
               title="Features"
               items={[
                 "This application lets you add projects, users, and project managers into a certain project or to the platform",
@@ -30,7 +40,11 @@ const NavBarLogin = () => {
             />
             <NavbarDropdown
               title="Tools"
-              items={["GitHub", "Figma", "GDrive"]}
+              items={[
+                "GitHub",
+                "Figma",
+                "GDrive",
+              ]}
             />
           </Menu.Menu>
         </Container>

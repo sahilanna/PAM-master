@@ -1,7 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button, Dropdown, Modal } from "semantic-ui-react";
+import React, {
+  useState,
+  useEffect,
+} from "react";
+import {
+  Form,
+  Button,
+  Dropdown,
+  Modal,
+} from "semantic-ui-react";
 import { NGROK_URL } from "../../../network/config";
-import { useNavigate, useLocation } from "react-router-dom";
+import {
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import api from "../../../network/api";
 import logger from "../../../utils/logger.js";
@@ -10,16 +21,25 @@ function PmRequestForm() {
   const navigate = useNavigate();
   const location = useLocation();
   const { projectId } = location.state || {};
-  const [requestStatus, setRequestStatus] = useState("");
+  const [requestStatus, setRequestStatus] =
+    useState("");
   let { projectName } = location.state || {};
   const [users, setUsers] = useState([]);
-  let [selectedUser, setSelectedUser] = useState("");
+  let [selectedUser, setSelectedUser] =
+    useState("");
 
-  const [selectedUserId, setSelectedUserId] = useState("");
+  const [selectedUserId, setSelectedUserId] =
+    useState("");
   const [userObj, setUserObj] = useState([]);
-  const [requestDescription, setRequestDescription] = useState([]);
-  let profileData = sessionStorage.getItem("item");
-  let pdata = profileData ? JSON.parse(profileData) : null;
+  const [
+    requestDescription,
+    setRequestDescription,
+  ] = useState([]);
+  let profileData =
+    sessionStorage.getItem("item");
+  let pdata = profileData
+    ? JSON.parse(profileData)
+    : null;
 
   let pmName = null;
   if (pdata !== null) {
@@ -27,10 +47,14 @@ function PmRequestForm() {
   }
 
   const handleUserChange = (event, { value }) => {
-    const selectedUserObj = userObj.find((userr) => userr.name === value);
+    const selectedUserObj = userObj.find(
+      (userr) => userr.name === value
+    );
     if (selectedUserObj) {
       setSelectedUser(value);
-      setSelectedUserId(selectedUserObj?.id || " ");
+      setSelectedUserId(
+        selectedUserObj?.id || " "
+      );
     }
   };
 
@@ -44,12 +68,17 @@ function PmRequestForm() {
       );
 
       if (Array.isArray(response.data)) {
-        const userNames = response.data.map((users) => users.name);
+        const userNames = response.data.map(
+          (users) => users.name
+        );
         setUsers(userNames);
         setUserObj(response.data);
       }
     } catch (error) {
-      logger.error("Error fetching Users:", error);
+      logger.error(
+        "Error fetching Users:",
+        error
+      );
     }
   };
 
@@ -67,18 +96,26 @@ function PmRequestForm() {
       const project = {
         projectId: projectId,
       };
-      const response = await api.post(`https://${NGROK_URL}/request/`, {
-        pmName,
-        user,
-        project,
-        requestDescription,
-      });
+      const response = await api.post(
+        `https://${NGROK_URL}/request/`,
+        {
+          pmName,
+          user,
+          project,
+          requestDescription,
+        }
+      );
       if (response.data.success) {
-        setRequestStatus("Request submitted successfully");
+        setRequestStatus(
+          "Request submitted successfully"
+        );
       }
       navigate("/PmDashboard");
     } catch (error) {
-      logger.error("Error submitting request:", error);
+      logger.error(
+        "Error submitting request:",
+        error
+      );
     }
   };
   logger.info(requestStatus);
@@ -97,17 +134,30 @@ function PmRequestForm() {
         height: "560px",
       }}
     >
-      <div style={{ paddingLeft: "820px", paddingTop: "5px" }}></div>
+      <div
+        style={{
+          paddingLeft: "820px",
+          paddingTop: "5px",
+        }}
+      ></div>
       <div style={{ paddingLeft: "442px" }}>
-        <Button data-testid="close" secondary onClick={onClose}>
+        <Button
+          data-testid="close"
+          secondary
+          onClick={onClose}
+        >
           X
         </Button>
       </div>
-      <Modal.Header>Request Form To Add User</Modal.Header>
+      <Modal.Header>
+        Request Form To Add User
+      </Modal.Header>
       <Modal.Content>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
-            <label style={{ textAlign: "left" }}>Project Name</label>
+            <label style={{ textAlign: "left" }}>
+              Project Name
+            </label>
 
             <input
               data-testid="project-name"
@@ -118,18 +168,22 @@ function PmRequestForm() {
           </Form.Field>
 
           <Form.Field>
-            <label style={{ textAlign: "left" }}>User</label>
+            <label style={{ textAlign: "left" }}>
+              User
+            </label>
             {users.length > 0 ? (
               <Dropdown
                 data-testid="user-dropdown"
                 placeholder="Select User"
                 fluid
                 selection
-                options={users?.map((name, index) => ({
-                  key: index,
-                  text: name,
-                  value: name,
-                })) || []} // Fallback to an empty array if users is null or undefined
+                options={
+                  users?.map((name, index) => ({
+                    key: index,
+                    text: name,
+                    value: name,
+                  })) || []
+                } // Fallback to an empty array if users is null or undefined
                 value={selectedUser}
                 onChange={handleUserChange}
               />
@@ -138,7 +192,9 @@ function PmRequestForm() {
             )}
           </Form.Field>
           <Form.Field>
-            <label style={{ textAlign: "left" }}>Description:</label>
+            <label style={{ textAlign: "left" }}>
+              Description:
+            </label>
             <input
               data-testid="description"
               type="text"
@@ -148,7 +204,11 @@ function PmRequestForm() {
               onChange={Description}
             />
           </Form.Field>
-          <Button data-testid="submit" primary type="submit">
+          <Button
+            data-testid="submit"
+            primary
+            type="submit"
+          >
             Submit
           </Button>
         </Form>

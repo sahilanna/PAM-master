@@ -1,59 +1,75 @@
-import React, { useEffect, useState } from 'react';
-import { Table, Icon } from 'semantic-ui-react';
-import './userHistory.css';
-import 'semantic-ui-css/semantic.min.css';
-import Sidebar from '../../sidebar/sidebar';
-import { NGROK_URL } from '../../../../network/config';
-import LoadingPage from '../../../../atoms/loadingPage/loadingPage';
-import api from '../../../../network/api';
-import Pagination from '../../../../utils/pagination';
-import { CSVLink } from 'react-csv';
-import logger from '../../../../utils/logger.js';
+import React, {
+  useEffect,
+  useState,
+} from "react";
+import { Table, Icon } from "semantic-ui-react";
+import "./userHistory.css";
+import "semantic-ui-css/semantic.min.css";
+import Sidebar from "../../sidebar/sidebar";
+import { NGROK_URL } from "../../../../network/config";
+import LoadingPage from "../../../../atoms/loadingPage/loadingPage";
+import api from "../../../../network/api";
+import Pagination from "../../../../utils/pagination";
+import { CSVLink } from "react-csv";
+import logger from "../../../../utils/logger.js";
 
 function UserHistory() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [historyData, setHistoryData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [isLoading, setIsLoading] =
+    useState(true);
+  const [historyData, setHistoryData] = useState(
+    []
+  );
+  const [currentPage, setCurrentPage] =
+    useState(1);
+  const [searchQuery, setSearchQuery] =
+    useState("");
+  const [filteredProjects, setFilteredProjects] =
+    useState([]);
 
   const rowsPerPage = 5;
 
   let data = sessionStorage.getItem("item");
   let user = JSON.parse(data);
- 
-  logger.info('Chekcing user',user)
-    
+
+  logger.info("Chekcing user", user);
 
   useEffect(() => {
     fetchData();
   }, []);
-  
+
   async function fetchData() {
     try {
-      const response = await api.get(`https://${NGROK_URL}/projects/all`);
-      const sortedData = response.data.slice().sort((a, b) => {
-
-        if (a.status !== b.status) {
-          return a.status ? 1 : -1;
-        }
-        return a.projectId - b.projectId;
-      });
+      const response = await api.get(
+        `https://${NGROK_URL}/projects/all`
+      );
+      const sortedData = response.data
+        .slice()
+        .sort((a, b) => {
+          if (a.status !== b.status) {
+            return a.status ? 1 : -1;
+          }
+          return a.projectId - b.projectId;
+        });
       setHistoryData(sortedData);
       setFilteredProjects(sortedData);
       setIsLoading(false);
     } catch (error) {
-      logger.error('Error fetching user history:', error);
+      logger.error(
+        "Error fetching user history:",
+        error
+      );
       setIsLoading(true);
     }
   }
 
-
   useEffect(() => {
-    const filteredData = historyData.filter((entry) =>
-      entry.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredData = historyData.filter(
+      (entry) =>
+        entry.projectName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
     );
-    setCurrentPage(1); 
+    setCurrentPage(1);
     setFilteredProjects(filteredData);
   }, [searchQuery, historyData]);
 
@@ -62,52 +78,69 @@ function UserHistory() {
     setSearchQuery(query);
   };
 
-  const csvDataProj = historyData.map((entry) => ({
-    'Project ID': entry.projectId,
-    'Project Name': entry.projectName,
-    'Project Description': entry.projectDescription,
-    'Status':  entry.status ? 'Inactive' : 'Active',
-  }));
+  const csvDataProj = historyData.map(
+    (entry) => ({
+      "Project ID": entry.projectId,
+      "Project Name": entry.projectName,
+      "Project Description":
+        entry.projectDescription,
+      Status: entry.status
+        ? "Inactive"
+        : "Active",
+    })
+  );
 
   const handlePaginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
   const generateSerialNumbers = () => {
-    const startNumber = (currentPage - 1) * rowsPerPage;
+    const startNumber =
+      (currentPage - 1) * rowsPerPage;
     return currentItems.map((entry, index) => ({
       SerialNo: startNumber + index + 1,
       ...entry,
     }));
   };
-  
 
-  
-  const indexOfLastItem = currentPage * rowsPerPage;
-  const indexOfFirstItem = indexOfLastItem - rowsPerPage;
-  const currentItems = filteredProjects.slice(indexOfFirstItem, indexOfLastItem);
-
-  
+  const indexOfLastItem =
+    currentPage * rowsPerPage;
+  const indexOfFirstItem =
+    indexOfLastItem - rowsPerPage;
+  const currentItems = filteredProjects.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   return (
     <div className="parent-admin-userHistory">
       <Sidebar />
-  
 
       <div className="admin-child-userHistory">
-      <br/><br/>
-      <div style={{ marginLeft: '20px', marginRight: '30px' }}>
+        <br />
+        <br />
+        <div
+          style={{
+            marginLeft: "20px",
+            marginRight: "30px",
+          }}
+        >
           <div className="search-and-download-container">
-            <div className='ui left icon input'>
+            <div className="ui left icon input">
               <input
-                type='text'
-                placeholder='Search Project History'
+                type="text"
+                placeholder="Search Project History"
                 value={searchQuery}
                 onChange={handleSearchChange}
               />
-              <i className='users icon'></i>
+              <i className="users icon"></i>
             </div>
-            <CSVLink data={csvDataProj} filename="project_history_data.csv">
-              <button className="ui button">Download CSV</button>
+            <CSVLink
+              data={csvDataProj}
+              filename="project_history_data.csv"
+            >
+              <button className="ui button">
+                Download CSV
+              </button>
             </CSVLink>
           </div>
 
@@ -115,48 +148,93 @@ function UserHistory() {
             <LoadingPage />
           ) : (
             <>
-
               <Table class="ui celled table">
-
                 <Table.Header>
                   <Table.Row>
-                  <Table.HeaderCell>S.No.</Table.HeaderCell>
-                    <Table.HeaderCell>Project Name</Table.HeaderCell>
-                    <Table.HeaderCell>Project Description</Table.HeaderCell>
-                    <Table.HeaderCell>Creation Date</Table.HeaderCell>
-                    <Table.HeaderCell className="text-center">Status</Table.HeaderCell>
+                    <Table.HeaderCell>
+                      S.No.
+                    </Table.HeaderCell>
+                    <Table.HeaderCell>
+                      Project Name
+                    </Table.HeaderCell>
+                    <Table.HeaderCell>
+                      Project Description
+                    </Table.HeaderCell>
+                    <Table.HeaderCell>
+                      Creation Date
+                    </Table.HeaderCell>
+                    <Table.HeaderCell className="text-center">
+                      Status
+                    </Table.HeaderCell>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  {generateSerialNumbers().map((entry) => (
-                    <Table.Row key={entry.projectId}>
-                      <Table.Cell>{entry.SerialNo}</Table.Cell>
-                      <Table.Cell>{entry.projectName}</Table.Cell>
-                      <Table.Cell>{entry.projectDescription}</Table.Cell>
-                      <Table.Cell style={{ color: 'blue' }}>
-                        {new Date(entry.lastUpdated).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                          hour: 'numeric',
-                          minute: 'numeric',
-                        })}
-                      </Table.Cell>
-                      <Table.Cell className="text-center">
-                        {entry.status ? <Icon name="close" color="red" /> : <Icon name="check" color="green" />}
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
+                  {generateSerialNumbers().map(
+                    (entry) => (
+                      <Table.Row
+                        key={entry.projectId}
+                      >
+                        <Table.Cell>
+                          {entry.SerialNo}
+                        </Table.Cell>
+                        <Table.Cell>
+                          {entry.projectName}
+                        </Table.Cell>
+                        <Table.Cell>
+                          {
+                            entry.projectDescription
+                          }
+                        </Table.Cell>
+                        <Table.Cell
+                          style={{
+                            color: "blue",
+                          }}
+                        >
+                          {new Date(
+                            entry.lastUpdated
+                          ).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                              hour: "numeric",
+                              minute: "numeric",
+                            }
+                          )}
+                        </Table.Cell>
+                        <Table.Cell className="text-center">
+                          {entry.status ? (
+                            <Icon
+                              name="close"
+                              color="red"
+                            />
+                          ) : (
+                            <Icon
+                              name="check"
+                              color="green"
+                            />
+                          )}
+                        </Table.Cell>
+                      </Table.Row>
+                    )
+                  )}
                 </Table.Body>
               </Table>
 
-               <div className="pagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+              <div
+                className="pagination"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "20px",
+                }}
+              >
                 <Pagination
                   data={filteredProjects}
                   itemsPerPage={rowsPerPage}
                   paginate={handlePaginate}
                 />
-
               </div>
             </>
           )}
@@ -166,10 +244,3 @@ function UserHistory() {
   );
 }
 export default UserHistory;
-
-
-
-
-
-
-

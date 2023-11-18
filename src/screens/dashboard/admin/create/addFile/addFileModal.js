@@ -1,5 +1,9 @@
 import React from "react";
-import { Form, Modal, Button } from "semantic-ui-react";
+import {
+  Form,
+  Modal,
+  Button,
+} from "semantic-ui-react";
 import CloseButton from "../../../../../atoms/closeButton/closeButton";
 import "./addFileModal.css";
 
@@ -18,27 +22,42 @@ function AddFileModal({
       className="form-modal"
       onClose={onClose}
     >
-       <CloseButton onClick={onClose} />
+      <CloseButton onClick={onClose} />
 
       <Modal.Content>
         <Form>
           <Form.Field>
             <label>Project Name</label>
-            <input name="name" placeholder={projectName} readOnly />
+            <input
+              name="name"
+              placeholder={projectName}
+              readOnly
+            />
           </Form.Field>
 
           <Form.Field>
             <label>
-              Add Help document<span className="red-text">*</span>
-              <input type="file" onChange={handleModelFileSelect} />
+              Add Help document
+              <span className="red-text">*</span>
+              <input
+                type="file"
+                onChange={handleModelFileSelect}
+              />
             </label>
-            {modalfile && <div>{modalfile.name}</div>}
+            {modalfile && (
+              <div>{modalfile.name}</div>
+            )}
             {fileErrorMessage && (
-              <div className="error-message">{fileErrorMessage}</div>
+              <div className="error-message">
+                {fileErrorMessage}
+              </div>
             )}
           </Form.Field>
 
-          <Button type="submit" onClick={handleFileUpload}>
+          <Button
+            type="submit"
+            onClick={handleFileUpload}
+          >
             Submit
           </Button>
         </Form>

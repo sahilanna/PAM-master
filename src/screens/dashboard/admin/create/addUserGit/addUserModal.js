@@ -1,5 +1,10 @@
 import React from "react";
-import { Form, Dropdown, Modal, Button } from "semantic-ui-react";
+import {
+  Form,
+  Dropdown,
+  Modal,
+  Button,
+} from "semantic-ui-react";
 import CloseButton from "../../../../../atoms/closeButton/closeButton";
 import "./addUserModal.css";
 
@@ -24,7 +29,10 @@ function AddUserModal({
       <Modal.Content>
         <Form onSubmit={handleSubmitUser}>
           <Form.Field>
-            <label style={{ textAlign: "left" }} data-testid="repoNameLabel">
+            <label
+              style={{ textAlign: "left" }}
+              data-testid="repoNameLabel"
+            >
               Repository Name
             </label>
             <input
@@ -36,23 +44,32 @@ function AddUserModal({
           </Form.Field>
           <Form.Field>
             <label style={{ textAlign: "left" }}>
-              User Username<span style={{ color: "red" }}>*</span>
+              User Username
+              <span style={{ color: "red" }}>
+                *
+              </span>
             </label>
             <Dropdown
               data-testid="dropdown"
               placeholder="Select Username"
               fluid
               selection
-              options={options.map((name, index) => ({
-                key: index,
-                text: name.name,
-                value: name.name,
-              }))}
+              options={options.map(
+                (name, index) => ({
+                  key: index,
+                  text: name.name,
+                  value: name.name,
+                })
+              )}
               value={username}
               onChange={handleUserNameChange}
             />
           </Form.Field>
-          <Button data-testid="submit" type="submit" primary>
+          <Button
+            data-testid="submit"
+            type="submit"
+            primary
+          >
             Submit
           </Button>
         </Form>

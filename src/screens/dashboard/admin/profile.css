@@ -1,9 +1,8 @@
 .parent-admi {
   display: flex;
   height: 100vh;
- 
+
   justify-content: center;
- 
 }
 
 .admin-chil {
@@ -25,31 +24,32 @@
 
 .profile-imag {
   margin-right: 20px;
-   position: relative;
+  position: relative;
   padding: 30px;
   border-radius: 15px;
   width: 400px;
-  background-color:rgb(238, 245, 245);
+  background-color: rgb(238, 245, 245);
   box-shadow: 10px 10px 5px #aaaaaa;
 }
 .edit-button {
   position: absolute;
-  top: 20px; 
-  right: 20px; 
+  top: 20px;
+  right: 20px;
 }
 
-.profile-imag p,.profile-imag b{
- display: flex;
- justify-content: flex-start;
- font-size: 16px;
- font-family: 'Times New Roman', Times, serif;
+.profile-imag p,
+.profile-imag b {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 16px;
+  font-family: "Times New Roman", Times, serif;
 }
-.profile-imag h1{
+.profile-imag h1 {
   font-size: 20px;
-  font-family:'Times New Roman', Times, serif ;
+  font-family: "Times New Roman", Times, serif;
 }
 
-.profile-chil{
+.profile-chil {
   margin-top: 15%;
 }
 
@@ -69,11 +69,3 @@
   border: none;
   box-shadow: none;
 }
-
-
-  
-
-
-
-
- 

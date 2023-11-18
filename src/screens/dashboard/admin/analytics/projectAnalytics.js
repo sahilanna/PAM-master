@@ -1,4 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "semantic-ui-react";
 import {
@@ -17,8 +21,10 @@ import api from "../../../../network/api";
 
 const ProjectAnalytics = () => {
   const navigate = useNavigate();
-  const [activeProjects, setActiveProjects] = useState(0);
-  const [inactiveProjects, setInactiveProjects] = useState(0);
+  const [activeProjects, setActiveProjects] =
+    useState(0);
+  const [inactiveProjects, setInactiveProjects] =
+    useState(0);
   const [error, setError] = useState(null);
   const [csvData, setCSVData] = useState([]);
   const csvLinkRef = useRef(null);
@@ -35,9 +41,14 @@ const ProjectAnalytics = () => {
 
       setActiveProjects(activeResponse.data);
       setInactiveProjects(inactiveResponse.data);
-      logger.info("Active and Inactive Projects Fetched Successfully");
+      logger.info(
+        "Active and Inactive Projects Fetched Successfully"
+      );
     } catch (error) {
-      logger.error("Error fetching active and inactive project data", error);
+      logger.error(
+        "Error fetching active and inactive project data",
+        error
+      );
       setError("Error fetching data");
     }
   };
@@ -50,8 +61,14 @@ const ProjectAnalytics = () => {
     return <div>{error}</div>;
   }
   const data = [
-    { status: "Active", ActiveProjects: activeProjects },
-    { status: "Inactive", InactiveProjects: inactiveProjects },
+    {
+      status: "Active",
+      ActiveProjects: activeProjects,
+    },
+    {
+      status: "Inactive",
+      InactiveProjects: inactiveProjects,
+    },
   ];
   logger.info(csvData);
 
@@ -62,17 +79,22 @@ const ProjectAnalytics = () => {
   const handleDownloadCSV = () => {
     const csvData = data.map((entry) => ({
       Status: entry.status,
-      Projects: entry.ActiveProjects || entry.InactiveProjects,
+      Projects:
+        entry.ActiveProjects ||
+        entry.InactiveProjects,
     }));
     setCSVData(csvData);
 
     const csvContent =
       "data:text/csv;charset=utf-8," +
-      csvData.map((e) => Object.values(e).join(",")).join("\n");
+      csvData
+        .map((e) => Object.values(e).join(","))
+        .join("\n");
     const encodedUri = encodeURI(csvContent);
     csvLinkRef.current.href = encodedUri;
     csvLinkRef.current.target = "_blank";
-    csvLinkRef.current.download = "project_status_data.csv";
+    csvLinkRef.current.download =
+      "project_status_data.csv";
     csvLinkRef.current.click();
   };
 
@@ -84,17 +106,31 @@ const ProjectAnalytics = () => {
           <div style={{ textAlign: "center" }}>
             <h1> Project Status </h1>
 
-            <BarChart width={500} height={300} data={data}>
+            <BarChart
+              width={500}
+              height={300}
+              data={data}
+            >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="status" />
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="ActiveProjects" fill="#8884d8" />
-              <Bar dataKey="InactiveProjects" fill="#82ca9d" />
+              <Bar
+                dataKey="ActiveProjects"
+                fill="#8884d8"
+              />
+              <Bar
+                dataKey="InactiveProjects"
+                fill="#82ca9d"
+              />
             </BarChart>
 
-            <Button data-testid="back" primary onClick={handleBackClick}>
+            <Button
+              data-testid="back"
+              primary
+              onClick={handleBackClick}
+            >
               Back
             </Button>
             <Button
@@ -104,7 +140,11 @@ const ProjectAnalytics = () => {
             >
               Download CSV
             </Button>
-            <a href="#" ref={csvLinkRef} style={{ display: "none" }}>
+            <a
+              href="#"
+              ref={csvLinkRef}
+              style={{ display: "none" }}
+            >
               Download CSV
             </a>
           </div>

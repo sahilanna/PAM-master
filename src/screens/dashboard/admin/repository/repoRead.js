@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../sidebar/sidebar";
 import LoadingPage from "../../../../atoms/loadingPage/loadingPage";
@@ -9,23 +12,32 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import DialogBox from "../../dialogBox/dialogBox";
 import Pagination from "../../../../utils/pagination";
 import "../figma/figmaRead/figmaRead.css";
-import logger from '../../../../utils/logger.js';
+import logger from "../../../../utils/logger.js";
 
 function RepoRead(onClose) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] =
+    useState(false);
   const navigate = useNavigate();
   const [item, setItem] = useState([]);
-  const [currentPageData, setCurrentPageData] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredProjects, setFilteredProjects] = useState([]);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedRepoId, setSelectedRepoId] = useState("");
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [currentPageData, setCurrentPageData] =
+    useState([]);
+  const [searchQuery, setSearchQuery] =
+    useState("");
+  const [filteredProjects, setFilteredProjects] =
+    useState([]);
+  const [isDrawerOpen, setIsDrawerOpen] =
+    useState(false);
+  const [selectedRepoId, setSelectedRepoId] =
+    useState("");
+  const [
+    showConfirmDialog,
+    setShowConfirmDialog,
+  ] = useState(false);
   const itemsPerPage = 4;
 
   const data = sessionStorage.getItem("item");
   const user = data ? JSON.parse(data) : null;
-  
+
   useEffect(() => {
     loadItem();
   }, []);
@@ -37,7 +49,9 @@ function RepoRead(onClose) {
   const loadItem = async () => {
     setIsLoading(true);
     try {
-      const response = await api.get(`https://${NGROK_URL}/repositories/get`);
+      const response = await api.get(
+        `https://${NGROK_URL}/repositories/get`
+      );
       setItem(response.data);
       setIsLoading(false);
       setFilteredProjects(response.data);
@@ -45,12 +59,18 @@ function RepoRead(onClose) {
       setIsLoading(true);
     }
   };
-  logger.info("Checking user:",user);
-  logger.info("Checking current page:",currentPageData);
-  
+  logger.info("Checking user:", user);
+  logger.info(
+    "Checking current page:",
+    currentPageData
+  );
+
   useEffect(() => {
-    const filteredProjects = item.filter((project) =>
-      project.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredProjects = item.filter(
+      (project) =>
+        project.name
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
     );
     setFilteredProjects(filteredProjects);
   }, [searchQuery, item]);
@@ -59,15 +79,19 @@ function RepoRead(onClose) {
     const query = e.target.value;
     setSearchQuery(query);
 
-    setCurrentPageData(filteredProjects.slice(0, itemsPerPage));
+    setCurrentPageData(
+      filteredProjects.slice(0, itemsPerPage)
+    );
   };
   const createOnclick = () => {
     navigate("/CreateRepo");
   };
   logger.info(setSelectedRepoId);
   const handlePaginate = (pageNumber) => {
-    const indexOfLastItem = pageNumber * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const indexOfLastItem =
+      pageNumber * itemsPerPage;
+    const indexOfFirstItem =
+      indexOfLastItem - itemsPerPage;
     const currentItems = filteredProjects.slice(
       indexOfFirstItem,
       indexOfLastItem
@@ -92,7 +116,10 @@ function RepoRead(onClose) {
       loadItem();
       navigate("/repoRead");
     } catch (error) {
-      logger.error("Error while calling delete api",error);
+      logger.error(
+        "Error while calling delete api",
+        error
+      );
     }
   };
 
@@ -144,7 +171,12 @@ function RepoRead(onClose) {
             </button>
           </div>
         </div>
-        <div style={{ marginLeft: "20px", marginRight: "30px" }}>
+        <div
+          style={{
+            marginLeft: "20px",
+            marginRight: "30px",
+          }}
+        >
           {isLoading ? (
             <LoadingPage />
           ) : (
@@ -155,42 +187,69 @@ function RepoRead(onClose) {
                     <th>S.No.</th>
                     <th>Repo Name</th>
                     <th>Repo Description</th>
-                    <th className="text-center">Delete</th>
+                    <th className="text-center">
+                      Delete
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredProjects.length === 0 ? (
+                  {filteredProjects.length ===
+                  0 ? (
                     <tr>
-                      <td colSpan="4">No data available</td>
+                      <td colSpan="4">
+                        No data available
+                      </td>
                     </tr>
                   ) : (
-                    currentPageData.map((item, index) => (
-                      <tr key={item.repoId}>
-                        <td>{index + 1}</td>
-                        <td>{item.name}</td>
-                        <td>{item.description}</td>
-                        <td className="text-center">
-                          <button
-                            data-testid="delete"
-                            className="btn btn-danger mx-2"
-                            onClick={() => setShowConfirmDialog(item.repoId)}
-                          >
-                            <FontAwesomeIcon icon={faTrash} />
-                          </button>
-                          {showConfirmDialog === item.repoId && (
-                            <div className="dialog-backdrop">
-                              <div className="dialog-container">
-                                <DialogBox
-                                  show={showConfirmDialog === item.repoId}
-                                  onClose={() => setShowConfirmDialog(null)}
-                                  onConfirm={() => deleteUser(item.repoId)}
-                                />
+                    currentPageData.map(
+                      (item, index) => (
+                        <tr key={item.repoId}>
+                          <td>{index + 1}</td>
+                          <td>{item.name}</td>
+                          <td>
+                            {item.description}
+                          </td>
+                          <td className="text-center">
+                            <button
+                              data-testid="delete"
+                              className="btn btn-danger mx-2"
+                              onClick={() =>
+                                setShowConfirmDialog(
+                                  item.repoId
+                                )
+                              }
+                            >
+                              <FontAwesomeIcon
+                                icon={faTrash}
+                              />
+                            </button>
+                            {showConfirmDialog ===
+                              item.repoId && (
+                              <div className="dialog-backdrop">
+                                <div className="dialog-container">
+                                  <DialogBox
+                                    show={
+                                      showConfirmDialog ===
+                                      item.repoId
+                                    }
+                                    onClose={() =>
+                                      setShowConfirmDialog(
+                                        null
+                                      )
+                                    }
+                                    onConfirm={() =>
+                                      deleteUser(
+                                        item.repoId
+                                      )
+                                    }
+                                  />
+                                </div>
                               </div>
-                            </div>
-                          )}
-                        </td>
-                      </tr>
-                    ))
+                            )}
+                          </td>
+                        </tr>
+                      )
+                    )
                   )}
                 </tbody>
               </table>

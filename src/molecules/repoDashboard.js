@@ -1,15 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+} from "react";
 import { NGROK_URL } from "../network/config";
 import LoadingPage from "../atoms/loadingPage/loadingPage";
 import api from "../network/api";
 import RepoTable from "../atoms/repoTable";
 import logger from "../utils/logger.js";
 
-function RepoDashboard({ role, SidebarComponent }) {
-  const [searchQuery, setSearchQuery] = useState("");
+function RepoDashboard({
+  role,
+  SidebarComponent,
+}) {
+  const [searchQuery, setSearchQuery] =
+    useState("");
   const [result, setResult] = useState([]);
-  const [filteredResult, setFilteredResult] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [filteredResult, setFilteredResult] =
+    useState([]);
+  const [isLoading, setIsLoading] =
+    useState(false);
 
   let data = sessionStorage.getItem("item");
   const user = data ? JSON.parse(data) : null; // Check if userData is null
@@ -26,7 +35,10 @@ function RepoDashboard({ role, SidebarComponent }) {
       setFilteredResult(data);
       setIsLoading(false);
     } catch (error) {
-      logger.error(`Error fetching ${role} projects:`, error);
+      logger.error(
+        `Error fetching ${role} projects:`,
+        error
+      );
       setIsLoading(true);
     }
   };
@@ -41,7 +53,9 @@ function RepoDashboard({ role, SidebarComponent }) {
 
     const filtered = result.filter((item) =>
       item.repositories.some((repo) =>
-        repo.name.toLowerCase().includes(query.toLowerCase())
+        repo.name
+          .toLowerCase()
+          .includes(query.toLowerCase())
       )
     );
 
@@ -50,7 +64,12 @@ function RepoDashboard({ role, SidebarComponent }) {
 
   return (
     <div className="parent-admin">
-      <div style={{ height: "100vh", overflow: "scroll initial" }}>
+      <div
+        style={{
+          height: "100vh",
+          overflow: "scroll initial",
+        }}
+      >
         <SidebarComponent />
       </div>
       <div className="admin-child">
@@ -76,8 +95,17 @@ function RepoDashboard({ role, SidebarComponent }) {
             <i className="users icon"></i>
           </div>
         </div>
-        <div style={{ marginLeft: "20px", marginRight: "30px" }}>
-          {isLoading ? <LoadingPage /> : <RepoTable data={filteredResult} />}
+        <div
+          style={{
+            marginLeft: "20px",
+            marginRight: "30px",
+          }}
+        >
+          {isLoading ? (
+            <LoadingPage />
+          ) : (
+            <RepoTable data={filteredResult} />
+          )}
         </div>
       </div>
     </div>

@@ -1,22 +1,19 @@
-.create-user-modal{
-    display: flex;
-    padding: 5px;
-    position: relative;
-    left: auto;
-    top:140px;
-    height: auto;
-   
-  }
-  
-  .user-close-button{
-    
-    position: relative;
-    padding-left: 295px;
-    padding-top: 4px;
-  }
+.create-user-modal {
+  display: flex;
+  padding: 5px;
+  position: relative;
+  left: auto;
+  top: 140px;
+  height: auto;
+}
 
-  .error-message, .red-text{
-    color: red;
-  }
-  
-  
+.user-close-button {
+  position: relative;
+  padding-left: 295px;
+  padding-top: 4px;
+}
+
+.error-message,
+.red-text {
+  color: red;
+}

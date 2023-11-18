@@ -1,21 +1,19 @@
-.form-modal{
-    display: flex;
-    padding: 8px;
-    position: relative;
-    left: auto;
-    top:170px;
-    height: auto;
-   
-  }
-  
-  .file-close-button{
-    position: relative;
-    padding-left: 295px;
-    padding-top: 3px;
-  }
+.form-modal {
+  display: flex;
+  padding: 8px;
+  position: relative;
+  left: auto;
+  top: 170px;
+  height: auto;
+}
 
-  .error-message, .red-text{
-    color: red;
-  }
-  
-  
+.file-close-button {
+  position: relative;
+  padding-left: 295px;
+  padding-top: 3px;
+}
+
+.error-message,
+.red-text {
+  color: red;
+}

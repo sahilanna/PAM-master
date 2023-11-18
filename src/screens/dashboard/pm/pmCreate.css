@@ -1,40 +1,33 @@
-.backandheader{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    
-    
+.backandheader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
-.backandheader h1{
-text-align: center;
-margin-bottom: 20px;
-margin-right: 30px;
-
+.backandheader h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-right: 30px;
 }
-
 
 .form-style h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    margin-right: 50px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-right: 50px;
 }
 
-.form-style .back-button{
-   position: relative;
-   top: -30px;
-   left:-480px;
-   display:flex;
-   align-items: center;
-   width:55px;
-
-   
+.form-style .back-button {
+  position: relative;
+  top: -30px;
+  left: -480px;
+  display: flex;
+  align-items: center;
+  width: 55px;
 }
 .custom-dialog1 {
-    width: 35% !important; 
-    max-height: 41vh; 
-    margin: auto;
-    margin-left: 40%!important;
-    margin-top: 10%!important  
-
+  width: 35% !important;
+  max-height: 41vh;
+  margin: auto;
+  margin-left: 40% !important;
+  margin-top: 10% !important;
 }

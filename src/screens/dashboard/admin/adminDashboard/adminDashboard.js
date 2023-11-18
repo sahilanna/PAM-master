@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { CSVLink } from "react-csv";
@@ -15,23 +18,34 @@ import "./adminDashboard.css";
 
 const AdminDashboard = () => {
   const { requestData, Loading } = useApiData();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] =
+    useState(false);
   const [item, setItem] = useState([]);
-  const [currentPageData, setCurrentPageData] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPageData, setCurrentPageData] =
+    useState([]);
+  const [searchQuery, setSearchQuery] =
+    useState("");
   const navigate = useNavigate();
   const ITEMS_PER_PAGE = 5;
 
-  logger.info("This is my requestData:", requestData);
+  logger.info(
+    "This is my requestData:",
+    requestData
+  );
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await api.get(`https://${NGROK_URL}/request/allActive`);
+      const response = await api.get(
+        `https://${NGROK_URL}/request/allActive`
+      );
       setIsLoading(false);
       logger.info("Response Data:", response);
     } catch (error) {
       setIsLoading(true);
-      logger.error("Error fetching Response data:", error);
+      logger.error(
+        "Error fetching Response data:",
+        error
+      );
     }
   };
 
@@ -46,7 +60,10 @@ const AdminDashboard = () => {
       logger.info("Count of People:", response);
     } catch (error) {
       setIsLoading(true);
-      logger.error("Error fetching Count:", error);
+      logger.error(
+        "Error fetching Count:",
+        error
+      );
     }
   };
   useEffect(() => {
@@ -61,9 +78,14 @@ const AdminDashboard = () => {
     navigate("/CreateProject");
   };
   const handlePaginate = (pageNumber) => {
-    const indexOfLastItem = pageNumber * ITEMS_PER_PAGE;
-    const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
-    const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+    const indexOfLastItem =
+      pageNumber * ITEMS_PER_PAGE;
+    const indexOfFirstItem =
+      indexOfLastItem - ITEMS_PER_PAGE;
+    const currentItems = filteredItems.slice(
+      indexOfFirstItem,
+      indexOfLastItem
+    );
     setCurrentPageData(currentItems);
     logger.info("Pagination Function Called");
   };
@@ -75,10 +97,14 @@ const AdminDashboard = () => {
   };
 
   const handleFilterItems = (searchQuery) => {
-    setCurrentPageData(filteredItems.slice(0, ITEMS_PER_PAGE));
+    setCurrentPageData(
+      filteredItems.slice(0, ITEMS_PER_PAGE)
+    );
   };
   const filteredItems = item.filter((item) =>
-    item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
+    item.projectName
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
   );
 
   const csvDataProj = item.map((entry) => ({
@@ -113,8 +139,14 @@ const AdminDashboard = () => {
                 >
                   Create Project
                 </button>
-                <CSVLink data={csvDataProj} filename="projects_data.csv">
-                  <button data-testid="csv-link" className="ui button">
+                <CSVLink
+                  data={csvDataProj}
+                  filename="projects_data.csv"
+                >
+                  <button
+                    data-testid="csv-link"
+                    className="ui button"
+                  >
                     Download CSV
                   </button>
                 </CSVLink>
@@ -137,25 +169,34 @@ const AdminDashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentPageData.length === 0 ? (
+                  {currentPageData.length ===
+                  0 ? (
                     <tr>
-                      <td colSpan="5">No data available</td>
+                      <td colSpan="5">
+                        No data available
+                      </td>
                     </tr>
                   ) : (
-                    currentPageData.map((item, index) => (
-                      <tr key={item.projectName}>
-                        <td>{index + 1}</td>
-                        <td>
-                          {" "}
-                          <a
-                            href={`/ProjectDetails/${item.projectId}/${item.projectName}`}
-                          >
-                            {item.projectName}
-                          </a>
-                        </td>
-                        <td>{item.countPeople}</td>
-                      </tr>
-                    ))
+                    currentPageData.map(
+                      (item, index) => (
+                        <tr
+                          key={item.projectName}
+                        >
+                          <td>{index + 1}</td>
+                          <td>
+                            {" "}
+                            <a
+                              href={`/ProjectDetails/${item.projectId}/${item.projectName}`}
+                            >
+                              {item.projectName}
+                            </a>
+                          </td>
+                          <td>
+                            {item.countPeople}
+                          </td>
+                        </tr>
+                      )
+                    )
                   )}
                 </tbody>
               </table>

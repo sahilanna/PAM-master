@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import DialogBox from "../dialogBox/dialogBox";
 import Pagination from "../../../utils/pagination";
@@ -14,20 +17,31 @@ import { NGROK_URL } from "../../../network/config";
 import Sidebar from "../sidebar/sidebar";
 import LoadingPage from "../../../atoms/loadingPage/loadingPage";
 import api from "../../../network/api";
-import logger from '../../../utils/logger.js';
+import logger from "../../../utils/logger.js";
 
 function PmReadNew() {
   const navigate = useNavigate();
   const [item, setItem] = useState([]);
 
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const [currentPageData, setCurrentPageData] = useState([]);
+  const [
+    showConfirmDialog,
+    setShowConfirmDialog,
+  ] = useState(false);
+  const [currentPageData, setCurrentPageData] =
+    useState([]);
 
-  const [showProjectDetails, setShowProjectDetails] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredProjects, setFilteredProjects] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [
+    showProjectDetails,
+    setShowProjectDetails,
+  ] = useState(false);
+  const [selectedProject, setSelectedProject] =
+    useState(null);
+  const [searchQuery, setSearchQuery] =
+    useState("");
+  const [filteredProjects, setFilteredProjects] =
+    useState([]);
+  const [isLoading, setIsLoading] =
+    useState(false);
 
   const itemsPerPage = 4;
   logger.info(currentPageData);
@@ -57,8 +71,11 @@ function PmReadNew() {
   };
 
   useEffect(() => {
-    const filteredProjects = item.filter((project) =>
-      project.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredProjects = item.filter(
+      (project) =>
+        project.name
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
     );
     setFilteredProjects(filteredProjects);
   }, [searchQuery, item]);
@@ -68,13 +85,16 @@ function PmReadNew() {
     handleFilterItems(e.target.value);
   };
   const handleFilterItems = (searchQuery) => {
-    
     setFilteredProjects(filteredItems);
-    setCurrentPageData(filteredItems.slice(0, itemsPerPage));
+    setCurrentPageData(
+      filteredItems.slice(0, itemsPerPage)
+    );
   };
 
   const filteredItems = item.filter((project) =>
-    project.name.toLowerCase().includes(searchQuery.toLowerCase())
+    project.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
   );
 
   const handleViewDetails = (project) => {
@@ -91,23 +111,31 @@ function PmReadNew() {
   }, [filteredProjects]);
 
   const handlePaginate = (pageNumber) => {
-    const indexOfLastItem = pageNumber * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+    const indexOfLastItem =
+      pageNumber * itemsPerPage;
+    const indexOfFirstItem =
+      indexOfLastItem - itemsPerPage;
+    const currentItems = filteredItems.slice(
+      indexOfFirstItem,
+      indexOfLastItem
+    );
     setCurrentPageData(currentItems);
   };
 
   const deleteUser = async (id) => {
-    try{
-    await api.delete(`https://${NGROK_URL}/users/delete/${id}`);
-    navigate("/pmReadNew");
-    setShowConfirmDialog(false);
-    loaditem();
-    navigate("/pmReadNew");
-    }
-    catch(error)
-    {
-      logger.error("Error in deleting user",error);
+    try {
+      await api.delete(
+        `https://${NGROK_URL}/users/delete/${id}`
+      );
+      navigate("/pmReadNew");
+      setShowConfirmDialog(false);
+      loaditem();
+      navigate("/pmReadNew");
+    } catch (error) {
+      logger.error(
+        "Error in deleting user",
+        error
+      );
     }
   };
 
@@ -118,10 +146,11 @@ function PmReadNew() {
   const viewActivity = (id, username) => {
     // setShowUserActivity(true)
 
-    navigate("/userActivity", { state: { id, username } });
+    navigate("/userActivity", {
+      state: { id, username },
+    });
   };
 
-  
   return (
     <div className="parent-admin">
       <div>
@@ -150,15 +179,26 @@ function PmReadNew() {
             <i class="users icon"></i>
           </div>
           <div>
-            <button className="ui button" onClick={addUserName}>
+            <button
+              className="ui button"
+              onClick={addUserName}
+            >
               Add Github UserName
             </button>
-            <button class="ui button" onClick={createOnclick}>
+            <button
+              class="ui button"
+              onClick={createOnclick}
+            >
               Create PM
             </button>
           </div>
         </div>
-        <div style={{ marginLeft: "20px", marginRight: "30px" }}>
+        <div
+          style={{
+            marginLeft: "20px",
+            marginRight: "30px",
+          }}
+        >
           {isLoading ? (
             <LoadingPage />
           ) : (
@@ -168,66 +208,108 @@ function PmReadNew() {
                 <th>PM-Name</th>
                 <th>PM-Email</th>
 
-                <th className="text-center">View</th>
-                <th className="text-center">Activity</th>
-                <th className="text-center">Delete</th>
+                <th className="text-center">
+                  View
+                </th>
+                <th className="text-center">
+                  Activity
+                </th>
+                <th className="text-center">
+                  Delete
+                </th>
               </thead>
               <tbody>
                 {filteredProjects.length === 0 ? (
                   <tr>
-                    <td data-testid="view" colSpan="3">
+                    <td
+                      data-testid="view"
+                      colSpan="3"
+                    >
                       No data available
                     </td>
                   </tr>
                 ) : (
-                  currentPageData.map((item, index) => (
-                    <tr key={item.id}>
-                      <td>{index + 1}</td>
-                      <td>{item.name}</td>
-                      <td>{item.email}</td>
+                  currentPageData.map(
+                    (item, index) => (
+                      <tr key={item.id}>
+                        <td>{index + 1}</td>
+                        <td>{item.name}</td>
+                        <td>{item.email}</td>
 
-                      <td className="text-center">
-                        <button
-                          data-testid="view-icon"
-                          className="btn btn-outline-primary mx-2"
-                          onClick={() => handleViewDetails(item)}
-                        >
-                          <FontAwesomeIcon icon={faEye} />
-                        </button>
-                      </td>
-                      <td className="text-center">
-                        <button
-                          data-testid="view-activity"
-                          className="btn btn-outline-primary mx-2"
-                          onClick={() => viewActivity(item.id, item.name)}
-                        >
-                          {" "}
-                          <FontAwesomeIcon icon={faUserCircle} />
-                        </button>
-                      </td>
+                        <td className="text-center">
+                          <button
+                            data-testid="view-icon"
+                            className="btn btn-outline-primary mx-2"
+                            onClick={() =>
+                              handleViewDetails(
+                                item
+                              )
+                            }
+                          >
+                            <FontAwesomeIcon
+                              icon={faEye}
+                            />
+                          </button>
+                        </td>
+                        <td className="text-center">
+                          <button
+                            data-testid="view-activity"
+                            className="btn btn-outline-primary mx-2"
+                            onClick={() =>
+                              viewActivity(
+                                item.id,
+                                item.name
+                              )
+                            }
+                          >
+                            {" "}
+                            <FontAwesomeIcon
+                              icon={faUserCircle}
+                            />
+                          </button>
+                        </td>
 
-                      <td className="text-center">
-                        <button
-                          data-testid="delete"
-                          className="btn btn-danger mx-2"
-                          onClick={() => setShowConfirmDialog(item.id)}
-                        >
-                          <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                        {showConfirmDialog === item.id && (
-                          <div className="dialog-backdrop">
-                            <div className="dialog-container">
-                              <DialogBox
-                                show={showConfirmDialog === item.id}
-                                onClose={() => setShowConfirmDialog(null)}
-                                onConfirm={() => deleteUser(item.id)}
-                              />
+                        <td className="text-center">
+                          <button
+                            data-testid="delete"
+                            className="btn btn-danger mx-2"
+                            onClick={() =>
+                              setShowConfirmDialog(
+                                item.id
+                              )
+                            }
+                          >
+                            <FontAwesomeIcon
+                              icon={faTrash}
+                            />
+                          </button>
+                          {showConfirmDialog ===
+                            item.id && (
+                            <div className="dialog-backdrop">
+                              <div className="dialog-container">
+                                <DialogBox
+                                  show={
+                                    showConfirmDialog ===
+                                    item.id
+                                  }
+                                  onClose={() =>
+                                    setShowConfirmDialog(
+                                      null
+                                    )
+                                  }
+                                  onConfirm={() =>
+                                    deleteUser(
+                                      item.id
+                                    )
+                                  }
+                                />
+                              </div>
                             </div>
-                          </div>
-                        )}
-                      </td>
-                    </tr>
-                  ))
+                          )}
+                        </td>
+                      </tr>
+                    )
+                  )
                 )}
               </tbody>
             </table>
@@ -249,7 +331,10 @@ function PmReadNew() {
           />
         </div>
         {showProjectDetails && (
-          <PmDetails project={selectedProject} onClose={handleCloseDetails} />
+          <PmDetails
+            project={selectedProject}
+            onClose={handleCloseDetails}
+          />
         )}
       </div>
     </div>

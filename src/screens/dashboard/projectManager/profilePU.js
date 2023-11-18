@@ -1,9 +1,9 @@
-import React from 'react';
-import './pmDashboard.css'
-import UserSidebar from '../userDashboard/userSidebar';
-import PmSidebar from './pmSidebar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import React from "react";
+import "./pmDashboard.css";
+import UserSidebar from "../userDashboard/userSidebar";
+import PmSidebar from "./pmSidebar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 function ProfilePU({ profileData }) {
   const id = profileData.id;
@@ -12,17 +12,29 @@ function ProfilePU({ profileData }) {
   const prole = profileData.enumRole;
 
   return (
-    <div className='parent-admi'>
-      <div style={{ height: '100vh', overflow: 'scroll initial' }}>
-        {prole === 'PM' ? <PmSidebar /> : <UserSidebar />}
+    <div className="parent-admi">
+      <div
+        style={{
+          height: "100vh",
+          overflow: "scroll initial",
+        }}
+      >
+        {prole === "PM" ? (
+          <PmSidebar />
+        ) : (
+          <UserSidebar />
+        )}
       </div>
-      <div className='admin-chil'>
+      <div className="admin-chil">
         <div className="profile-paren">
           <div className="profile-details">
             <div className="profile-imag">
               <h1>PROFILE</h1>
-              <FontAwesomeIcon icon={faUser} size="7x" />
-              <div className='profile-chil'>
+              <FontAwesomeIcon
+                icon={faUser}
+                size="7x"
+              />
+              <div className="profile-chil">
                 <b>Name</b>
                 <p>{pname}</p>
                 <b>Email</b>

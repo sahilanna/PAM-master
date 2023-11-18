@@ -1,5 +1,10 @@
 import React from "react";
-import { Form, Button, Dropdown, Modal } from "semantic-ui-react";
+import {
+  Form,
+  Button,
+  Dropdown,
+  Modal,
+} from "semantic-ui-react";
 import CloseButton from "../../../../../atoms/closeButton/closeButton";
 
 function CommonProjectDetailsUI({
@@ -15,7 +20,12 @@ function CommonProjectDetailsUI({
   label,
 }) {
   return (
-    <Modal size="mini" open={isOpen} onClose={onClose} className="form-modal">
+    <Modal
+      size="mini"
+      open={isOpen}
+      onClose={onClose}
+      className="form-modal"
+    >
       <CloseButton onClick={onClose} />
 
       <Modal.Header>{label}</Modal.Header>
@@ -23,7 +33,8 @@ function CommonProjectDetailsUI({
         <Form onSubmit={handleSubmit}>
           <Form.Field>
             <label>
-              Projects<span className="red-text">*</span>
+              Projects
+              <span className="red-text">*</span>
             </label>
             <Dropdown
               data-testid="projects"
@@ -37,25 +48,35 @@ function CommonProjectDetailsUI({
           </Form.Field>
           <Form.Field>
             <label>
-              {label === "Add Project" ? "Drive Link" : "Figma URL"}
+              {label === "Add Project"
+                ? "Drive Link"
+                : "Figma URL"}
               <span className="red-text">*</span>
             </label>
             <input
               data-testid="URL"
               type="text"
               placeholder={`Enter ${
-                label === "Add Project" ? "Drive Link" : "Figma URL"
+                label === "Add Project"
+                  ? "Drive Link"
+                  : "Figma URL"
               }`}
               value={url}
               onChange={handleUrlChange}
             />
             {!isValidUrl && (
               <p className="error-message">{`Invalid ${
-                label === "Add Project" ? "Drive URL" : "Figma URL"
+                label === "Add Project"
+                  ? "Drive URL"
+                  : "Figma URL"
               }`}</p>
             )}
           </Form.Field>
-          <Button data-testid="submit" type="submit" disabled={!isValidUrl}>
+          <Button
+            data-testid="submit"
+            type="submit"
+            disabled={!isValidUrl}
+          >
             Submit
           </Button>
         </Form>
