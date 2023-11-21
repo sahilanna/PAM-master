@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import {
-  Modal,
-  Button,
-  Form,
-} from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../../../redux/reduxStore/actions/action";
 import { useDispatch } from "react-redux";
+import { Modal, Button, Form } from "semantic-ui-react";
 import CloseButton from "../../../atoms/closeButton/closeButton";
 
 function UserCreate() {
@@ -26,9 +22,7 @@ function UserCreate() {
       return;
     }
 
-    dispatchUser(
-      createUser({ name, email, enumRole })
-    );
+    dispatchUser(createUser({ name, email, enumRole }));
     navigate("/userRead");
   };
 
@@ -37,12 +31,7 @@ function UserCreate() {
   };
 
   return (
-    <Modal
-      size="mini"
-      open={true}
-      onClose={onClose}
-      className="form-modal"
-    >
+    <Modal size="mini" open={true} onClose={onClose} className="form-modal">
       <CloseButton onClick={onClose} />
       <Modal.Header>Add User</Modal.Header>
       <Modal.Content>
@@ -56,16 +45,11 @@ function UserCreate() {
             <input
               data-testid="User-Input"
               name="name"
-              onChange={(e) =>
-                setName(e.target.value)
-              }
+              onChange={(e) => setName(e.target.value)}
               placeholder="User Name"
             />
             {clicked && name.length <= 0 ? (
-              <label className="error-message">
-                {" "}
-                Name can't be Empty
-              </label>
+              <label className="error-message"> Name can't be Empty</label>
             ) : (
               ""
             )}
@@ -79,16 +63,11 @@ function UserCreate() {
               data-testid="Email-ID"
               type="email"
               name="email"
-              onChange={(e) =>
-                setEmail(e.target.value)
-              }
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="EMAIL"
             />
             {clicked && email.length <= 0 ? (
-              <label className="error-message">
-                {" "}
-                Email can't be Empty
-              </label>
+              <label className="error-message"> Email can't be Empty</label>
             ) : (
               ""
             )}

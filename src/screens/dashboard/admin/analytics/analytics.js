@@ -1,16 +1,6 @@
-import React, {
-  useEffect,
-  useState,
-  useRef,
-} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  PieChart,
-  Pie,
-  Legend,
-  Tooltip,
-  Cell,
-} from "recharts";
+import { PieChart, Pie, Legend, Tooltip, Cell } from "recharts";
 import { Button } from "semantic-ui-react";
 import { CSVLink } from "react-csv";
 import { NGROK_URL } from "../../../../network/config";
@@ -23,32 +13,17 @@ import "./analytics.css";
 function Analytics() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] =
-    useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [csvData, setCSVData] = useState([]);
   const csvLinkRef = useRef(null);
-  const COLORS = [
-    "#FFBB28",
-    "#FF8042",
-    "#0088FE",
-  ];
+  const COLORS = ["#FFBB28", "#FF8042", "#0088FE"];
 
   const fetchCount = async () => {
     try {
-      const [
-        adminResponse,
-        pmResponse,
-        userResponse,
-      ] = await Promise.all([
-        api.get(
-          `https://${NGROK_URL}/users/count/admin`
-        ),
-        api.get(
-          `https://${NGROK_URL}/users/count/project_manager`
-        ),
-        api.get(
-          `https://${NGROK_URL}/users/count/user`
-        ),
+      const [adminResponse, pmResponse, userResponse] = await Promise.all([
+        api.get(`https://${NGROK_URL}/users/count/admin`),
+        api.get(`https://${NGROK_URL}/users/count/project_manager`),
+        api.get(`https://${NGROK_URL}/users/count/user`),
       ]);
       setIsLoading(false);
       const adminCount = adminResponse.data;
@@ -62,14 +37,9 @@ function Analytics() {
           count: pmCount,
         },
       ]);
-      logger.info(
-        "Successfuly got data from count api's"
-      );
+      logger.info("Successfuly got data from count api's");
     } catch (error) {
-      logger.error(
-        "Error catching in count api's",
-        error
-      );
+      logger.error("Error catching in count api's", error);
       setIsLoading(true);
     }
   };
@@ -99,9 +69,7 @@ function Analytics() {
             <LoadingPage />
           ) : (
             <>
-              <h2>
-                Count of Admin, PMs, and Users
-              </h2>
+              <h2>Count of Admin, PMs, and Users</h2>
               <PieChart width={300} height={300}>
                 <Pie
                   dataKey="count"
@@ -113,14 +81,7 @@ function Analytics() {
                   label
                 >
                   {data.map((entry, index) => (
-                    <Cell
-                      key={`cell-${entry.id}`}
-                      fill={
-                        COLORS[
-                          index % COLORS.length
-                        ]
-                      }
-                    />
+                    <Cell key={`cell-${entry.id}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
                 <Tooltip />
@@ -128,25 +89,13 @@ function Analytics() {
               </PieChart>
 
               <div>
-                <Button
-                  data-testid="next"
-                  primary
-                  onClick={handleNextClick}
-                >
+                <Button data-testid="next" primary onClick={handleNextClick}>
                   Next
                 </Button>
-                <Button
-                  data-testid="download-csv"
-                  secondary
-                  onClick={handleDownloadCSV}
-                >
+                <Button data-testid="download-csv" secondary onClick={handleDownloadCSV}>
                   Download CSV
                 </Button>
-                <CSVLink
-                  data={csvData}
-                  filename={"chart_data.csv"}
-                  ref={csvLinkRef}
-                />
+                <CSVLink data={csvData} filename={"chart_data.csv"} ref={csvLinkRef} />
               </div>
             </>
           )}

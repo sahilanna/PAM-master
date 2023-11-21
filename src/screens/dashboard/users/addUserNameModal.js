@@ -1,36 +1,20 @@
-import React, {
-  useState,
-  useEffect,
-} from "react";
-import {
-  Form,
-  Dropdown,
-  Button,
-  Modal,
-} from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  NGROK_URL,
-  GIT_ACCESS_TOKEN,
-} from "../../../network/config";
-import "./read.css";
-import api from "../../../network/api";
-import logger from "../../../utils/logger.js";
+import { Form, Dropdown, Button, Modal } from "semantic-ui-react";
 import ErrorModal from "../../../molecules/errorModal";
 import CloseButton from "../../../atoms/closeButton/closeButton";
+import api from "../../../network/api";
+import logger from "../../../utils/logger.js";
+import { NGROK_URL, GIT_ACCESS_TOKEN } from "../../../network/config";
 
 function AddUserName() {
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [users, setUsers] = useState([]);
-  const [githubUsername, setGithubUsername] =
-    useState("");
-  const [selectedUser, setSelectedUser] =
-    useState("");
-  const [
-    showInvalidUsernameModal,
-    setShowInvalidUsernameModal,
-  ] = useState(false);
+  const [githubUsername, setGithubUsername] = useState("");
+  const [selectedUser, setSelectedUser] = useState("");
+  const [showInvalidUsernameModal, setShowInvalidUsernameModal] = useState(false);
+
   const accessToken = GIT_ACCESS_TOKEN;
   useEffect(() => {
     fetchUsers();
@@ -39,22 +23,16 @@ function AddUserName() {
   logger.info(selectedUser);
   const fetchUsers = async () => {
     try {
-      const response = await api.get(
-        `https://${NGROK_URL}/users/role/user`
-      );
-      const userOptions = response.data.map(
-        (user) => ({
-          key: user.id,
-          text: user.name,
-          value: user.id,
-        })
-      );
+      const response = await api.get(`https://${NGROK_URL}/users/role/user`);
+      const userOptions = response.data.map((user) => ({
+        key: user.id,
+        text: user.name,
+        value: user.id,
+      }));
       setUsers(userOptions);
+      logger.info("Username successfully fetched");
     } catch (error) {
-      logger.error(
-        "Error fetching Users:",
-        error
-      );
+      logger.error("Error fetching Users:", error);
     }
   };
 
@@ -63,38 +41,28 @@ function AddUserName() {
 
     const username = githubUsername;
     try {
-      const response = await api.post(
-        `https://${NGROK_URL}/usernames/githubUsername`,
-        {
-          username: username,
-          user: {
-            id: id,
-          },
-          accessToken: accessToken,
-        }
-      );
-      logger.info(
-        "API Response:",
-        response.data.id
-      );
+      const response = await api.post(`https://${NGROK_URL}/usernames/githubUsername`, {
+        username: username,
+        user: {
+          id: id,
+        },
+        accessToken: accessToken,
+      });
+      logger.info("API Response:", response.data.id);
 
       navigate("/userRead");
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status == 409
-      ) {
+      if (error.response && error.response.status == 409) {
         setShowInvalidUsernameModal(true);
+        logger.error("User Already Exist");
       }
     }
   };
 
-  const selectedUserChange = (
-    event,
-    { value }
-  ) => {
+  const selectedUserChange = (event, { value }) => {
     setSelectedUser(value);
     setId(value);
+    logger.info("User value is set for dropdown");
   };
 
   const onClose = () => {
@@ -107,24 +75,15 @@ function AddUserName() {
 
   return (
     <>
-      <Modal
-        size="mini"
-        open={true}
-        onClose={onClose}
-        className="form-modal"
-      >
+      <Modal size="mini" open={true} onClose={onClose} className="form-modal">
         <CloseButton onClick={onClose} />
-        <Modal.Header>
-          Add Github UserName
-        </Modal.Header>
+        <Modal.Header>Add Github UserName</Modal.Header>
         <Modal.Content>
           <Form onSubmit={handleSubmit}>
             <Form.Field>
               <label>
                 Users
-                <span className="red-text">
-                  *
-                </span>
+                <span className="red-text">*</span>
               </label>
               <Dropdown
                 data-testid="Select User"
@@ -139,28 +98,19 @@ function AddUserName() {
             <Form.Field>
               <label>
                 Github Username
-                <span className="red-text">
-                  *
-                </span>
+                <span className="red-text">*</span>
               </label>
               <input
                 placeholder="Enter github username"
                 value={githubUsername}
-                onChange={(e) =>
-                  setGithubUsername(
-                    e.target.value
-                  )
-                }
+                onChange={(e) => setGithubUsername(e.target.value)}
               />
             </Form.Field>
             <Button
               data-testid="submit"
               type="submit"
               primary
-              disabled={
-                !setSelectedUser ||
-                !githubUsername
-              }
+              disabled={!setSelectedUser || !githubUsername}
             >
               Submit
             </Button>

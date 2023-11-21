@@ -5,8 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const PmProfile = () => {
-  let profileData =
-    sessionStorage.getItem("item");
+  let profileData = sessionStorage.getItem("item");
   let pdata = JSON.parse(profileData);
 
   const id = pdata.id;
@@ -29,10 +28,7 @@ const PmProfile = () => {
           <div className="profile-details">
             <div className="profile-pmimage">
               <h1>PROFILE</h1>
-              <FontAwesomeIcon
-                icon={faUser}
-                size="7x"
-              />
+              <FontAwesomeIcon icon={faUser} size="7x" />
 
               <div className="profile-pmchild">
                 <b>Name</b>

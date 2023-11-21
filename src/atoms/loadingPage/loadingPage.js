@@ -1,7 +1,4 @@
-import {
-  Dimmer,
-  Loader,
-} from "semantic-ui-react";
+import { Dimmer, Loader } from "semantic-ui-react";
 import React from "react";
 import "./loadingPage.css";
 

@@ -6,11 +6,7 @@ const PmDetails = ({ project, onClose }) => {
   if (!project) return null;
 
   return (
-    <Modal
-      className="custom-dialog1"
-      open={true}
-      onClose={onClose}
-    >
+    <Modal className="custom-dialog1" open={true} onClose={onClose}>
       <Modal.Header>PM Details</Modal.Header>
       <Modal.Content>
         <p>
@@ -20,8 +16,7 @@ const PmDetails = ({ project, onClose }) => {
           <strong>PM Name:</strong> {project.name}
         </p>
         <p>
-          <strong>PM Email:</strong>{" "}
-          {project.email}
+          <strong>PM Email:</strong> {project.email}
         </p>
       </Modal.Content>
       <Modal.Actions>

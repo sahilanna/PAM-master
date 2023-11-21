@@ -1,53 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import DialogBox from "../dialogBox/dialogBox";
-import Pagination from "../../../utils/pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEye, faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import "./read.css";
-import PmDetails from "./pmDetails";
-import { NGROK_URL } from "../../../network/config";
-import Sidebar from "../sidebar/sidebar";
-import LoadingPage from "../../../atoms/loadingPage/loadingPage";
-import api from "../../../network/api";
-import logger from "../../../utils/logger.js";
+import Pagination from "../../../../utils/pagination";
+import DialogBox from "../../dialogBox/dialogBox";
+import UserDetails from "../userDetails";
+import Sidebar from "../../sidebar/sidebar";
+import LoadingPage from "../../../../atoms/loadingPage/loadingPage";
+import api from "../../../../network/api";
+import logger from "../../../../utils/logger.js";
+import { NGROK_URL } from "../../../../network/config";
+import "./userRead.css";
 
-function PmReadNew() {
+function UserRead() {
   const navigate = useNavigate();
+  const URL = `https://${NGROK_URL}/users/role/user`;
   const [item, setItem] = useState([]);
-
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [currentPageData, setCurrentPageData] = useState([]);
-
+  const itemsPerPage = 4;
   const [showProjectDetails, setShowProjectDetails] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const itemsPerPage = 4;
-  logger.info(currentPageData);
-
-  const loaditem = async () => {
-    setIsLoading(true);
-    try {
-      const response = await api.get(`https://${NGROK_URL}/users/role/project_manager`);
-      setIsLoading(true);
-      const Data = response.data;
-      setItem(Data);
-      setIsLoading(false);
-      setFilteredProjects(response.data);
-    } catch (error) {
-      setIsLoading(true);
-    }
-  };
-
   useEffect(() => {
-    loaditem();
+    loadUserRead();
   }, []);
 
+  logger.info(currentPageData);
+
   const addUserName = () => {
-    navigate("/addPmUserName");
+    navigate("/addUserName");
+  };
+
+  const loadUserRead = async () => {
+    setIsLoading(true);
+    try {
+      const result = await api.get(URL);
+      setItem(result.data);
+      setIsLoading(false);
+      logger.info("Data successfully fetched for user");
+      navigate("/userRead");
+    } catch (error) {
+      logger.error("Error occured while fetching data", error);
+      setIsLoading(true);
+    }
   };
 
   useEffect(() => {
@@ -57,137 +56,114 @@ function PmReadNew() {
     setFilteredProjects(filteredProjects);
   }, [searchQuery, item]);
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-    handleFilterItems(e.target.value);
-  };
-  const handleFilterItems = (searchQuery) => {
-    setFilteredProjects(filteredItems);
-    setCurrentPageData(filteredItems.slice(0, itemsPerPage));
-  };
-
-  const filteredItems = item.filter((project) =>
-    project.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   const handleViewDetails = (project) => {
     setSelectedProject(project);
     setShowProjectDetails(true);
+  };
+
+  const createOnclick = () => {
+    navigate("/userCreate");
   };
 
   const handleCloseDetails = () => {
     setShowProjectDetails(false);
   };
 
-  useEffect(() => {
-    handlePaginate(1);
-  }, [filteredProjects]);
-
-  const handlePaginate = (pageNumber) => {
-    const indexOfLastItem = pageNumber * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
-    setCurrentPageData(currentItems);
-  };
-
-  const deleteUser = async (id) => {
-    try {
-      await api.delete(`https://${NGROK_URL}/users/delete/${id}`);
-      navigate("/pmReadNew");
-      setShowConfirmDialog(false);
-      loaditem();
-      navigate("/pmReadNew");
-    } catch (error) {
-      logger.error("Error in deleting user", error);
-    }
-  };
-
-  const createOnclick = () => {
-    navigate("/PmCreate");
-  };
-
   const viewActivity = (id, username) => {
-    // setShowUserActivity(true)
-
     navigate("/userActivity", {
       state: { id, username },
     });
   };
 
+  useEffect(() => {
+    handlePaginate(1);
+  }, [item]);
+
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    setCurrentPageData(filteredProjects.slice(0, itemsPerPage));
+  };
+
+  const handlePaginate = (pageNumber) => {
+    const indexOfLastItem = pageNumber * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredProjects.slice(indexOfFirstItem, indexOfLastItem);
+    setCurrentPageData(currentItems);
+  };
+  const deleteUser = async (id) => {
+    try {
+      await api.delete(`https://${NGROK_URL}/users/delete/${id}`);
+      navigate("/userRead");
+      setShowConfirmDialog(false);
+      loadUserRead();
+      navigate("/userRead");
+    } catch (error) {
+      logger.error(error);
+    }
+  };
+
   return (
-    <div className="parent-admin">
+    <div className="user-read-screen">
       <div>
         <Sidebar />
       </div>
 
-      <div className="admin-child">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: "20px",
-            marginBottom: "30px",
-            marginLeft: "40px",
-            marginRight: "30px",
-          }}
-        >
-          <div class="ui left icon input">
+      <div className="user-child">
+        <div className="user-read">
+          <div className="ui left icon input">
             <input
               type="text"
-              placeholder="Search PM..."
+              placeholder="Search user..."
               value={searchQuery}
               onChange={handleSearchChange}
             ></input>
-            <i class="users icon"></i>
+            <i className="users icon"></i>
           </div>
+
           <div>
             <button className="ui button" onClick={addUserName}>
               Add Github UserName
             </button>
-            <button class="ui button" onClick={createOnclick}>
-              Create PM
+            <button className="ui button" onClick={createOnclick}>
+              Create User
             </button>
           </div>
         </div>
-        <div
-          style={{
-            marginLeft: "20px",
-            marginRight: "30px",
-          }}
-        >
+        <div className="user-table">
           {isLoading ? (
             <LoadingPage />
           ) : (
             <table class="ui celled table">
               <thead>
                 <th>S.No.</th>
-                <th>PM-Name</th>
-                <th>PM-Email</th>
+                <th>User Name</th>
+                <th>User Email</th>
 
                 <th className="text-center">View</th>
+
                 <th className="text-center">Activity</th>
                 <th className="text-center">Delete</th>
               </thead>
               <tbody>
                 {filteredProjects.length === 0 ? (
                   <tr>
-                    <td data-testid="view" colSpan="3">
+                    <td colSpan="1" className="text-center">
                       No data available
                     </td>
                   </tr>
                 ) : (
-                  currentPageData.map((item, index) => (
-                    <tr key={item.id}>
+                  currentPageData.map((user, index) => (
+                    <tr key={user.id}>
                       <td>{index + 1}</td>
-                      <td>{item.name}</td>
-                      <td>{item.email}</td>
+                      <td>{user.name}</td>
+                      <td>{user.email}</td>
 
                       <td className="text-center">
                         <button
                           data-testid="view-icon"
                           className="btn btn-outline-primary mx-2"
-                          onClick={() => handleViewDetails(item)}
+                          onClick={() => handleViewDetails(user)}
                         >
                           <FontAwesomeIcon icon={faEye} />
                         </button>
@@ -196,7 +172,7 @@ function PmReadNew() {
                         <button
                           data-testid="view-activity"
                           className="btn btn-outline-primary mx-2"
-                          onClick={() => viewActivity(item.id, item.name)}
+                          onClick={() => viewActivity(user.id, user.name)}
                         >
                           {" "}
                           <FontAwesomeIcon icon={faUserCircle} />
@@ -207,21 +183,15 @@ function PmReadNew() {
                         <button
                           data-testid="delete"
                           className="btn btn-danger mx-2"
-                          onClick={() => setShowConfirmDialog(item.id)}
+                          onClick={() => setShowConfirmDialog(user.id)}
                         >
-                          <FontAwesomeIcon icon={faTrash} />
+                          <FontAwesomeIcon icon={faTrash} />{" "}
                         </button>
-                        {showConfirmDialog === item.id && (
-                          <div className="dialog-backdrop">
-                            <div className="dialog-container">
-                              <DialogBox
-                                show={showConfirmDialog === item.id}
-                                onClose={() => setShowConfirmDialog(null)}
-                                onConfirm={() => deleteUser(item.id)}
-                              />
-                            </div>
-                          </div>
-                        )}
+                        <DialogBox
+                          show={showConfirmDialog === user.id}
+                          onClose={() => setShowConfirmDialog(null)}
+                          onConfirm={() => deleteUser(user.id)}
+                        />
                       </td>
                     </tr>
                   ))
@@ -230,25 +200,18 @@ function PmReadNew() {
             </table>
           )}
         </div>
-
-        <div
-          className="pagination"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "20px",
-          }}
-        >
+        <div className="pagination">
           <Pagination
             data={filteredProjects}
             itemsPerPage={itemsPerPage}
             paginate={handlePaginate}
           />
         </div>
-        {showProjectDetails && <PmDetails project={selectedProject} onClose={handleCloseDetails} />}
+        {showProjectDetails && (
+          <UserDetails project={selectedProject} onClose={handleCloseDetails} />
+        )}
       </div>
     </div>
   );
 }
-
-export default PmReadNew;
+export default UserRead;

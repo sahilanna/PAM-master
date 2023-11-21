@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../../sidebar/sidebar";
 import { NGROK_URL } from "../../../../../network/config";
@@ -16,26 +13,18 @@ import "../../figma/figmaRead/figmaRead.css";
 import logger from "../../../../../utils/logger.js";
 
 function DriveRead() {
-  const [showModal, setShowModal] =
-    useState(false);
-  const [searchQuery, setSearchQuery] =
-    useState("");
-  const [filteredProjects, setFilteredProjects] =
-    useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
   const driveURL = "";
   const [driveId, setDriveId] = useState("");
   const projectId = "";
-  const [isLoading, setIsLoading] =
-    useState(true);
-  const [currentPageData, setCurrentPageData] =
-    useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 5;
-  const [
-    showConfirmDialog,
-    setShowConfirmDialog,
-  ] = useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   useEffect(() => {
     fetchProjects();
@@ -43,18 +32,13 @@ function DriveRead() {
 
   const fetchProjects = async () => {
     try {
-      const response = await api.get(
-        `https://${NGROK_URL}/getAllGoogleDrives`
-      );
+      const response = await api.get(`https://${NGROK_URL}/getAllGoogleDrives`);
       setProjects(response.data);
       setDriveId(response.data[0].driveId);
       setIsLoading(false);
       setFilteredProjects(response.data);
     } catch (error) {
-      logger.error(
-        "Error fetching projects:",
-        error
-      );
+      logger.error("Error fetching projects:", error);
       setIsLoading(true);
     }
   };
@@ -67,30 +51,20 @@ function DriveRead() {
 
   const handleDeleteUrl = async (driveId) => {
     try {
-      await api.delete(
-        `https://${NGROK_URL}/deleteGoogleDriveById/${driveId}`
-      );
+      await api.delete(`https://${NGROK_URL}/deleteGoogleDriveById/${driveId}`);
       navigate("/driveDetails");
       setShowConfirmDialog(false);
       fetchProjects();
     } catch (error) {
-      logger.error(
-        "Error deleting driveLink:",
-        error
-      );
+      logger.error("Error deleting driveLink:", error);
     }
   };
 
   logger.info(setShowModal);
   const handlePaginate = (pageNumber) => {
-    const indexOfLastItem =
-      pageNumber * itemsPerPage;
-    const indexOfFirstItem =
-      indexOfLastItem - itemsPerPage;
-    const currentItems = filteredItems.slice(
-      indexOfFirstItem,
-      indexOfLastItem
-    );
+    const indexOfLastItem = pageNumber * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
     setCurrentPageData(currentItems);
   };
 
@@ -101,15 +75,11 @@ function DriveRead() {
 
   const handleFilterItems = (searchQuery) => {
     setFilteredProjects(filteredItems);
-    setCurrentPageData(
-      filteredItems.slice(0, itemsPerPage)
-    );
+    setCurrentPageData(filteredItems.slice(0, itemsPerPage));
   };
 
   const filteredItems = projects.filter((item) =>
-    item.projectDTO.projectName
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase())
+    item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   useEffect(() => {
@@ -141,11 +111,7 @@ function DriveRead() {
             />
             <i className="users icon"></i>
           </div>
-          <button
-            data-testid="create-drive"
-            className="ui button"
-            onClick={createDrive}
-          >
+          <button data-testid="create-drive" className="ui button" onClick={createDrive}>
             Create Drive
           </button>
         </div>
@@ -169,71 +135,35 @@ function DriveRead() {
                         <th>S.No.</th>
                         <th>Project Name</th>
                         <th>Drive Link</th>
-                        <th className="text-center">
-                          Delete Drive
-                        </th>
+                        <th className="text-center">Delete Drive</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {currentPageData.map(
-                        (project, index) => (
-                          <tr
-                            key={project.driveId}
-                          >
-                            <td>{index + 1}</td>
-                            <td>
-                              {
-                                project.projectDTO
-                                  .projectName
-                              }
-                            </td>
-                            <td>
-                              <a
-                                href={
-                                  project.driveLink
-                                }
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {
-                                  project.driveLink
-                                }
-                              </a>
-                            </td>
-                            <td className="text-center">
-                              <button
-                                data-testid="delete"
-                                className="btn btn-danger mx-2"
-                                onClick={() =>
-                                  setShowConfirmDialog(
-                                    project.driveId
-                                  )
-                                }
-                              >
-                                <FontAwesomeIcon
-                                  icon={faTrash}
-                                />
-                              </button>
-                              <DialogBox
-                                show={
-                                  showConfirmDialog ===
-                                  project.driveId
-                                }
-                                onClose={() =>
-                                  setShowConfirmDialog(
-                                    null
-                                  )
-                                }
-                                onConfirm={() =>
-                                  handleDeleteUrl(
-                                    project.driveId
-                                  )
-                                }
-                              />
-                            </td>
-                          </tr>
-                        )
-                      )}
+                      {currentPageData.map((project, index) => (
+                        <tr key={project.driveId}>
+                          <td>{index + 1}</td>
+                          <td>{project.projectDTO.projectName}</td>
+                          <td>
+                            <a href={project.driveLink} target="_blank" rel="noopener noreferrer">
+                              {project.driveLink}
+                            </a>
+                          </td>
+                          <td className="text-center">
+                            <button
+                              data-testid="delete"
+                              className="btn btn-danger mx-2"
+                              onClick={() => setShowConfirmDialog(project.driveId)}
+                            >
+                              <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                            <DialogBox
+                              show={showConfirmDialog === project.driveId}
+                              onClose={() => setShowConfirmDialog(null)}
+                              onConfirm={() => handleDeleteUrl(project.driveId)}
+                            />
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                   <div
@@ -259,11 +189,7 @@ function DriveRead() {
       <div className="model-container">
         <div className="modal-content-container">
           {showModal && (
-            <CreateDriveDetails
-              driveURL={driveURL}
-              driveId={driveId}
-              projectId={projectId}
-            />
+            <CreateDriveDetails driveURL={driveURL} driveId={driveId} projectId={projectId} />
           )}
         </div>
       </div>

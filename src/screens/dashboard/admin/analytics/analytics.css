@@ -17,15 +17,6 @@
   margin-top: 80px;
 }
 
-.Analytics-side {
-  display: flex;
-  position: sticky;
-  z-index: 999;
-  left: 0;
-  height: auto;
-  padding-right: 20px;
-  overflow-y: auto;
-}
 .btn-primary {
   margin-top: 15px;
 }

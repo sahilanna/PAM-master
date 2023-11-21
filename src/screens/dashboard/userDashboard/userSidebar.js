@@ -28,12 +28,7 @@ function UserSidebar() {
     },
   ];
 
-  return (
-    <CustomSidebarPU
-      title={title}
-      links={links}
-    />
-  );
+  return <CustomSidebarPU title={title} links={links} />;
 }
 
 export default UserSidebar;

@@ -1,9 +1,6 @@
 const initialstate = [];
 
-const createUserReducer = (
-  state = initialstate,
-  action
-) => {
+const createUserReducer = (state = initialstate, action) => {
   if (action.type === "createUser") {
     return action.payload;
   }

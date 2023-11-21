@@ -1,10 +1,9 @@
 import React from "react";
-import "./profile.css";
 import ProfilePU from "../projectManager/profilePU";
+import "./profile.css";
 
 const UserProfile = () => {
-  let profileData =
-    sessionStorage.getItem("item");
+  let profileData = sessionStorage.getItem("item");
   let pdata = JSON.parse(profileData);
 
   return <ProfilePU profileData={pdata} />;

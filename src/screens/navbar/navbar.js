@@ -1,10 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  Container,
-  Menu,
-  Image,
-} from "semantic-ui-react";
+import { Container, Menu, Image } from "semantic-ui-react";
 import projectLogo from "../../assets/images/projectLogo.png";
 import NavbarDropdown from "../../molecules/navbarDropdown";
 import "./navbar.css";
@@ -24,9 +20,7 @@ const NavBar = () => {
                 marginLeft: "-90px",
               }}
             />
-            <span className="heading">
-              Project Access Management
-            </span>
+            <span className="heading">Project Access Management</span>
           </Menu.Item>
           <Menu.Menu position="left">
             <NavbarDropdown
@@ -38,14 +32,7 @@ const NavBar = () => {
                 "With this platform, we want to build a solution which helps DevOps team to manage access across the projects.",
               ]}
             />
-            <NavbarDropdown
-              title="Tools"
-              items={[
-                "GitHub",
-                "Figma",
-                "GDrive",
-              ]}
-            />
+            <NavbarDropdown title="Tools" items={["GitHub", "Figma", "GDrive"]} />
           </Menu.Menu>
           <Menu.Menu position="right">
             <Menu.Item as={Link} to="/Login">

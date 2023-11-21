@@ -10,7 +10,12 @@
   color: #ff5733;
 }
 
-/* .text-style{
-    font-size: 16px;
-   color: beige;
-  } */
+.sidebar-title{
+  margin-right: 90px;
+  font-size: 30px;
+  text-align: left;
+}
+
+.sidebar-icons{
+  margin-right: 10px;
+}

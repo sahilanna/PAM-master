@@ -1,12 +1,23 @@
-.parent-admi {
+.user-read-screen {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  width: 100%;
 }
 
-.admin-chil {
-  margin: 0 auto;
-  padding: 10px;
-  max-width: 500px;
+
+.user-child {
+  width:80%;
+ margin-left: 20%;
+  padding: 20px;
+}
+
+.user-read {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-left: 0px;
+ 
 }
 
 .profile-paren {

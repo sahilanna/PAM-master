@@ -12,12 +12,8 @@ const Faq = () => {
         {faqData.map((item, index) => (
           <div key={item.id}>
             <li>
-              <h3 className="faq-question">{`${
-                index + 1
-              }. ${item.question}`}</h3>
-              <h4 className="faq-answer">
-                {item.answer}
-              </h4>
+              <h3 className="faq-question">{`${index + 1}. ${item.question}`}</h3>
+              <h4 className="faq-answer">{item.answer}</h4>
             </li>
           </div>
         ))}

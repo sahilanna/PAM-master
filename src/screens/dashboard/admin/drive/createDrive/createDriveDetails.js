@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { NGROK_URL } from "../../../../../network/config";
 import api from "../../../../../network/api";
@@ -14,17 +11,13 @@ function CreateDriveDetails() {
   const [proj, setProj] = useState([]);
   let [item, setItem] = useState("");
   const [driveId, setDriveId] = useState(null);
-  const [selectedProject, setSelectedProject] =
-    useState("");
-  const [isValidUrl, setIsValidUrl] =
-    useState(true);
+  const [selectedProject, setSelectedProject] = useState("");
+  const [isValidUrl, setIsValidUrl] = useState(true);
 
   const validateURL = (url) => {
     try {
       const parsedUrl = new URL(url);
-      return (
-        parsedUrl.hostname === "drive.google.com"
-      );
+      return parsedUrl.hostname === "drive.google.com";
     } catch (_) {
       return false;
     }
@@ -47,22 +40,15 @@ function CreateDriveDetails() {
 
   const fetchProjects = async () => {
     try {
-      const response = await api.get(
-        `https://${NGROK_URL}/projects/without-google-drive`
-      );
-      const driveProjects = response.data.map(
-        (drive) => ({
-          key: drive.projectId,
-          text: drive.projectName,
-          value: drive.projectId,
-        })
-      );
+      const response = await api.get(`https://${NGROK_URL}/projects/without-google-drive`);
+      const driveProjects = response.data.map((drive) => ({
+        key: drive.projectId,
+        text: drive.projectName,
+        value: drive.projectId,
+      }));
       setProj(driveProjects);
     } catch (error) {
-      logger.error(
-        "Error fetching Users:",
-        error
-      );
+      logger.error("Error fetching Users:", error);
     }
   };
 
@@ -72,16 +58,13 @@ function CreateDriveDetails() {
       return;
     }
     try {
-      const response = await api.post(
-        `https://${NGROK_URL}/createGoogleDrive`,
-        {
-          projectDTO: {
-            projectId: selectedProject,
-            projectName: selectedProject,
-          },
-          driveLink: driveURL,
-        }
-      );
+      const response = await api.post(`https://${NGROK_URL}/createGoogleDrive`, {
+        projectDTO: {
+          projectId: selectedProject,
+          projectName: selectedProject,
+        },
+        driveLink: driveURL,
+      });
       const driveId = response.data.id;
       setDriveId(driveId);
       navigate("/driveDetails", {

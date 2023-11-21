@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-} from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -10,11 +7,8 @@ import api from "../../../network/api";
 import { NGROK_URL } from "../../../network/config";
 import logger from "../../../utils/logger.js";
 const Profile = () => {
-  let profileData =
-    sessionStorage.getItem("item");
-  let pdata = profileData
-    ? JSON.parse(profileData)
-    : null;
+  let profileData = sessionStorage.getItem("item");
+  let pdata = profileData ? JSON.parse(profileData) : null;
 
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
@@ -32,9 +26,7 @@ const Profile = () => {
 
   async function fetchUserList() {
     try {
-      const response = await api.get(
-        `https://${NGROK_URL}/users/${id}`
-      );
+      const response = await api.get(`https://${NGROK_URL}/users/${id}`);
       const userData = response.data;
 
       setUserName(userData.name);
@@ -42,10 +34,7 @@ const Profile = () => {
       setUserRole(userData.enumRole);
       logger.info(userRole);
     } catch (error) {
-      logger.error(
-        "Error fetching user project list:",
-        error
-      );
+      logger.error("Error fetching user project list:", error);
     }
   }
   return (
@@ -56,10 +45,7 @@ const Profile = () => {
           <div className="profile-details">
             <div className="profile-imag">
               <h1>PROFILE</h1>
-              <FontAwesomeIcon
-                icon={faUser}
-                size="7x"
-              />
+              <FontAwesomeIcon icon={faUser} size="7x" />
               <div className="profile-chil">
                 <b>Name</b>
                 <p>{userName}</p>

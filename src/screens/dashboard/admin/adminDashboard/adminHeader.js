@@ -1,12 +1,5 @@
-import React, {
-  useState,
-  useEffect,
-} from "react";
-import {
-  Grid,
-  Placeholder,
-  Segment,
-} from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import { Grid, Placeholder, Segment } from "semantic-ui-react";
 import { NGROK_URL } from "../../../../network/config";
 import api from "../../../../network/api";
 import project from "../../../../assets//images/project.gif";
@@ -23,18 +16,11 @@ function AdminHeader() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await api.get(
-          `https://${NGROK_URL}/users/count/user`
-        );
+        const response = await api.get(`https://${NGROK_URL}/users/count/user`);
         setUsers(response.data);
-        logger.info(
-          "Count user api is succesfully fetching  data"
-        );
+        logger.info("Count user api is succesfully fetching  data");
       } catch (error) {
-        logger.error(
-          "Error fetching user:",
-          error
-        );
+        logger.error("Error fetching user:", error);
       }
     };
     fetchUsers();
@@ -43,13 +29,9 @@ function AdminHeader() {
   useEffect(() => {
     const fetchPms = async () => {
       try {
-        const response = await api.get(
-          `https://${NGROK_URL}/users/count/project_manager`
-        );
+        const response = await api.get(`https://${NGROK_URL}/users/count/project_manager`);
         setPms(response.data);
-        logger.info(
-          "Count pm api is succesfully fetching  data"
-        );
+        logger.info("Count pm api is succesfully fetching  data");
       } catch (error) {
         logger.error("Error fetching PM:", error);
       }
@@ -60,18 +42,11 @@ function AdminHeader() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await api.get(
-          `https://${NGROK_URL}/projects/count/active`
-        );
+        const response = await api.get(`https://${NGROK_URL}/projects/count/active`);
         setProjects(response.data);
-        logger.info(
-          "Count project api is succesfully fetching  data"
-        );
+        logger.info("Count project api is succesfully fetching  data");
       } catch (error) {
-        logger.error(
-          "Error fetching Projects:",
-          error
-        );
+        logger.error("Error fetching Projects:", error);
       }
     };
     fetchProjects();
@@ -83,24 +58,13 @@ function AdminHeader() {
         <Segment raised>
           <div>
             <Placeholder.Header>
-              <img
-                className="project-image"
-                src={project}
-                alt="Icon"
-              />
+              <img className="project-image" src={project} alt="Icon" />
             </Placeholder.Header>
             <Placeholder.Paragraph>
-              <Placeholder.Line
-                className="project-tile"
-                length="medium"
-              />
-              <span className="project-tile">
-                Projects
-              </span>
+              <Placeholder.Line className="project-tile" length="medium" />
+              <span className="project-tile">Projects</span>
               <Placeholder.Line length="short" />
-              <span className="project-count">
-                {projects}
-              </span>
+              <span className="project-count">{projects}</span>
             </Placeholder.Paragraph>
           </div>
         </Segment>
@@ -110,24 +74,13 @@ function AdminHeader() {
         <Segment raised>
           <div>
             <Placeholder.Header>
-              <img
-                className="user-image"
-                src={user}
-                alt="Icon"
-              />
+              <img className="user-image" src={user} alt="Icon" />
             </Placeholder.Header>
             <Placeholder.Paragraph>
-              <Placeholder.Line
-                className="user-tile"
-                length="medium"
-              />
-              <span className="user-tile">
-                Users
-              </span>
+              <Placeholder.Line className="user-tile" length="medium" />
+              <span className="user-tile">Users</span>
               <Placeholder.Line length="short" />
-              <span className="user-count">
-                {users}
-              </span>
+              <span className="user-count">{users}</span>
             </Placeholder.Paragraph>
           </div>
         </Segment>
@@ -137,21 +90,13 @@ function AdminHeader() {
         <Segment raised>
           <div>
             <Placeholder.Header>
-              <img
-                className="user-image"
-                src={manager}
-                alt="Icon"
-              />
+              <img className="user-image" src={manager} alt="Icon" />
             </Placeholder.Header>
             <Placeholder.Paragraph>
-              <span className="manager-tile">
-                Project Managers
-              </span>
+              <span className="manager-tile">Project Managers</span>
 
               <Placeholder.Line />
-              <span className="manager-count">
-                {pms}
-              </span>
+              <span className="manager-count">{pms}</span>
             </Placeholder.Paragraph>
           </div>
         </Segment>

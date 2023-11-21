@@ -18,18 +18,12 @@ const Footer = () => {
             <h4>For Business</h4>
             <a href="https://www.linkedin.com/company/nineleaps/mycompany/">
               <p>
-                <FontAwesomeIcon
-                  icon={faLinkedin}
-                />{" "}
-                LinkedIn
+                <FontAwesomeIcon icon={faLinkedin} /> LinkedIn
               </p>
             </a>
             <a href="https://github.com/">
               <p>
-                <FontAwesomeIcon
-                  icon={faGithub}
-                />{" "}
-                GitHub
+                <FontAwesomeIcon icon={faGithub} /> GitHub
               </p>
             </a>
           </div>
@@ -37,10 +31,7 @@ const Footer = () => {
             <h4>Social media</h4>
             <a href="https://instagram.com/nineleaps_tech?igshid=MGU3ZTQzNzY=">
               <p>
-                <FontAwesomeIcon
-                  icon={faInstagram}
-                />{" "}
-                Instagram
+                <FontAwesomeIcon icon={faInstagram} /> Instagram
               </p>
             </a>
           </div>
@@ -49,16 +40,12 @@ const Footer = () => {
             <a href="https://www.figma.com/">
               <p>
                 {" "}
-                <FontAwesomeIcon
-                  icon={faFigma}
-                />{" "}
-                Figma
+                <FontAwesomeIcon icon={faFigma} /> Figma
               </p>
             </a>
             <a href="https://www.atlassian.com/">
               <p>
-                <FontAwesomeIcon icon={faJira} />{" "}
-                Jira
+                <FontAwesomeIcon icon={faJira} /> Jira
               </p>
             </a>
           </div>
@@ -66,20 +53,12 @@ const Footer = () => {
         <hr></hr>
         <div className="sb_footer-below">
           <div className="sb_footer-copyright">
-            <p>
-              @{new Date().getFullYear()} All
-              rigts reserved.
-            </p>
+            <p>@{new Date().getFullYear()} All rigts reserved.</p>
           </div>
           <div className="sb_footer-below-links">
             <a href="/faq">
               <div>
-                <p
-                  style={{ marginRight: "35px" }}
-                >
-                  {" "}
-                  FAQs
-                </p>
+                <p style={{ marginRight: "35px" }}> FAQs</p>
               </div>
             </a>
           </div>

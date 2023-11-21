@@ -1,10 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import {
-  Sidebar,
-  Menu,
-  Icon,
-} from "semantic-ui-react";
+import { Sidebar, Menu, Icon } from "semantic-ui-react";
 import "./sidebar.css";
 
 function CustomSidebar() {
@@ -19,11 +15,7 @@ function CustomSidebar() {
         style={{ textAlign: "left" }}
       >
         <Menu.Item className="custom-menu-item">
-          <a
-            href="/adminDashboard"
-            className="text-decoration-none"
-            style={{ color: "inherit" }}
-          >
+          <a href="/adminDashboard" className="text-decoration-none" style={{ color: "inherit" }}>
             <span
               style={{
                 marginRight: "90px",
@@ -51,9 +43,7 @@ function CustomSidebar() {
           <span style={{ marginLeft: "30px" }}>
             <Icon name="user" />
           </span>
-          <span style={{ marginLeft: "10px" }}>
-            Profile
-          </span>
+          <span style={{ marginLeft: "10px" }}>Profile</span>
         </NavLink>
         <br />
         <br />
@@ -70,9 +60,7 @@ function CustomSidebar() {
           <span style={{ marginLeft: "30px" }}>
             <Icon name="list" />
           </span>
-          <span style={{ marginLeft: "10px" }}>
-            Projects
-          </span>
+          <span style={{ marginLeft: "10px" }}>Projects</span>
         </NavLink>
         <br />
         <br />
@@ -89,9 +77,7 @@ function CustomSidebar() {
           <span style={{ marginLeft: "30px" }}>
             <Icon name="sticky note" />
           </span>
-          <span style={{ marginLeft: "10px" }}>
-            Repos
-          </span>
+          <span style={{ marginLeft: "10px" }}>Repos</span>
         </NavLink>
         <br />
         <br />
@@ -108,9 +94,7 @@ function CustomSidebar() {
             {" "}
             <Icon name="users" />{" "}
           </span>
-          <span style={{ marginLeft: "10px" }}>
-            Users
-          </span>
+          <span style={{ marginLeft: "10px" }}>Users</span>
         </NavLink>
 
         <br />
@@ -128,9 +112,7 @@ function CustomSidebar() {
             {" "}
             <Icon name="users" />{" "}
           </span>
-          <span style={{ marginLeft: "10px" }}>
-            PMs
-          </span>
+          <span style={{ marginLeft: "10px" }}>PMs</span>
         </NavLink>
 
         <br />
@@ -147,9 +129,7 @@ function CustomSidebar() {
           <span style={{ marginLeft: "30px" }}>
             <Icon name="book" />
           </span>
-          <span style={{ marginLeft: "10px" }}>
-            Figma
-          </span>
+          <span style={{ marginLeft: "10px" }}>Figma</span>
         </NavLink>
         <br />
         <br />
@@ -165,9 +145,7 @@ function CustomSidebar() {
           <span style={{ marginLeft: "30px" }}>
             <Icon name="shopping bag" />
           </span>
-          <span style={{ marginLeft: "10px" }}>
-            G-Drive
-          </span>
+          <span style={{ marginLeft: "10px" }}>G-Drive</span>
         </NavLink>
         <br />
         <br />
@@ -183,9 +161,7 @@ function CustomSidebar() {
           <span style={{ marginLeft: "30px" }}>
             <Icon name="sticky note" />
           </span>
-          <span style={{ marginLeft: "10px" }}>
-            Project History
-          </span>
+          <span style={{ marginLeft: "10px" }}>Project History</span>
         </NavLink>
         <br />
         <br />
@@ -201,9 +177,7 @@ function CustomSidebar() {
           <span style={{ marginLeft: "30px" }}>
             <Icon name="file" />
           </span>
-          <span style={{ marginLeft: "10px" }}>
-            Reports
-          </span>
+          <span style={{ marginLeft: "10px" }}>Reports</span>
         </NavLink>
         <br />
         <br />
@@ -220,9 +194,7 @@ function CustomSidebar() {
             {" "}
             <Icon name="bell" />
           </span>
-          <span style={{ marginLeft: "10px" }}>
-            PM Requests
-          </span>
+          <span style={{ marginLeft: "10px" }}>PM Requests</span>
         </NavLink>
         <br />
         <br />
@@ -238,9 +210,7 @@ function CustomSidebar() {
           <span style={{ marginLeft: "30px" }}>
             <Icon name="cog" />
           </span>
-          <span style={{ marginLeft: "10px" }}>
-            Analytics
-          </span>
+          <span style={{ marginLeft: "10px" }}>Analytics</span>
         </NavLink>
         <br />
         <br />
@@ -256,9 +226,7 @@ function CustomSidebar() {
           <span style={{ marginLeft: "30px" }}>
             <Icon name="arrow left" />
           </span>
-          <span style={{ marginLeft: "10px" }}>
-            Logout
-          </span>
+          <span style={{ marginLeft: "10px" }}>Logout</span>
         </NavLink>
       </Sidebar>
 

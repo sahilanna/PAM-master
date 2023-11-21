@@ -1,9 +1,6 @@
 const initialstate = [];
 
-const createPMReducer = (
-  state = initialstate,
-  action
-) => {
+const createPMReducer = (state = initialstate, action) => {
   if (action.type === "createPM") {
     return action.payload;
   }

@@ -1,37 +1,23 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  useDispatch,
-  useSelector,
-} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createProject } from "../../../../../redux/reduxStore/actions/projectActions.js";
 import CreateProjectModal from "./createProjectModal.js";
 
 function CreateProject() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, success, error } = useSelector(
-    (state) => state.createProjectReducer
-  );
+  const { loading, success, error } = useSelector((state) => state.createProjectReducer);
 
-  const [projectName, setProjectName] =
-    useState("");
-  const [
-    projectDescription,
-    setProjectDescription,
-  ] = useState("");
+  const [projectName, setProjectName] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!projectDescription || !projectName) {
       return;
     }
-    dispatch(
-      createProject(
-        projectName,
-        projectDescription
-      )
-    );
+    dispatch(createProject(projectName, projectDescription));
     navigate("/AdminDashboard");
   };
 
@@ -48,9 +34,7 @@ function CreateProject() {
       projectName={projectName}
       projectDescription={projectDescription}
       setProjectName={setProjectName}
-      setProjectDescription={
-        setProjectDescription
-      }
+      setProjectDescription={setProjectDescription}
       handleSubmit={handleSubmit}
     />
   );

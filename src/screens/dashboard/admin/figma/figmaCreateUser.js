@@ -1,24 +1,11 @@
-import React, {
-  useState,
-  useEffect,
-} from "react";
-import {
-  Modal,
-  Button,
-  Form,
-  Dropdown,
-} from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Form, Dropdown } from "semantic-ui-react";
 import { NGROK_URL } from "../../../../network/config";
 import api from "../../../../network/api";
 import { useNavigate } from "react-router-dom";
 import logger from "../../../../utils/logger.js";
 
-const FigmaCreate = ({
-  onClose,
-  figmaURL,
-  projectId,
-  figmaId,
-}) => {
+const FigmaCreate = ({ onClose, figmaURL, projectId, figmaId }) => {
   const [figmaUser, setFigmaUser] = useState("");
   const navigate = useNavigate();
 
@@ -32,10 +19,8 @@ const FigmaCreate = ({
   }
 
   const [url, setUrl] = useState(figmaURL);
-  let [selectedUser, setSelectedUser] =
-    useState("");
-  const [screenshotImage, setscreenshotImage] =
-    useState(null);
+  let [selectedUser, setSelectedUser] = useState("");
+  const [screenshotImage, setscreenshotImage] = useState(null);
   let [user, setUsers] = useState([]);
   const [post, setPost] = useState("");
   const handleSubmit = async (e) => {
@@ -53,10 +38,7 @@ const FigmaCreate = ({
       navigate("/figmaRead");
       onClose();
     } catch (error) {
-      logger.error(
-        "Error Updating Figma User:",
-        error
-      );
+      logger.error("Error Updating Figma User:", error);
     }
   };
   logger.info(post);
@@ -73,18 +55,11 @@ const FigmaCreate = ({
   }, [projectId]);
   const fetchUsers = async () => {
     try {
-      const response = await api.get(
-        `https://${NGROK_URL}/projects/${projectId}/users`
-      );
-      const userNames = response.data.map(
-        (project) => project.name
-      );
+      const response = await api.get(`https://${NGROK_URL}/projects/${projectId}/users`);
+      const userNames = response.data.map((project) => project.name);
       setUsers(userNames);
     } catch (error) {
-      logger.error(
-        "Error fetching Users:",
-        error
-      );
+      logger.error("Error fetching Users:", error);
     }
   };
   const onUpload = (event) => {
@@ -104,19 +79,10 @@ const FigmaCreate = ({
   };
 
   return (
-    <Modal
-      open={true}
-      onClose={onClose}
-      style={{ width: "500px" }}
-      className="form-modal"
-    >
+    <Modal open={true} onClose={onClose} style={{ width: "500px" }} className="form-modal">
       <div style={{ paddingTop: "5px" }}></div>
       <div style={{ paddingLeft: "442px" }}>
-        <Button
-          data-testid="close"
-          secondary
-          onClick={onClose}
-        >
+        <Button data-testid="close" secondary onClick={onClose}>
           X
         </Button>
       </div>
@@ -127,9 +93,7 @@ const FigmaCreate = ({
           <Form.Field>
             <label>
               URL
-              <span style={{ color: "red" }}>
-                *
-              </span>
+              <span style={{ color: "red" }}>*</span>
             </label>
             <input
               data-testid="url-select"
@@ -143,22 +107,18 @@ const FigmaCreate = ({
           <Form.Field>
             <label>
               User
-              <span style={{ color: "red" }}>
-                *
-              </span>
+              <span style={{ color: "red" }}>*</span>
             </label>
             <Dropdown
               data-testid="User"
               placeholder="Select User"
               fluid
               selection
-              options={user.map(
-                (name, index) => ({
-                  key: index,
-                  text: name,
-                  value: name,
-                })
-              )}
+              options={user.map((name, index) => ({
+                key: index,
+                text: name,
+                value: name,
+              }))}
               value={selectedUser}
               onChange={handleUserChange}
             />
@@ -166,15 +126,10 @@ const FigmaCreate = ({
           <Form.Field>
             <label data-testid="ss">
               Upload Screenshot
-              <span style={{ color: "red" }}>
-                *
-              </span>
+              <span style={{ color: "red" }}>*</span>
             </label>
             <div className="Feeds-uplaod-image">
-              <label
-                className="Photo"
-                htmlFor="file-upload"
-              >
+              <label className="Photo" htmlFor="file-upload">
                 <link
                   rel="stylesheet"
                   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"

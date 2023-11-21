@@ -13,12 +13,9 @@ function RepoTable({ data }) {
       <tbody>
         {data && data.length > 0 ? (
           data.map((item, index) =>
-            item.repositories &&
-            item.repositories.length > 0 ? (
+            item.repositories && item.repositories.length > 0 ? (
               item.repositories.map((repo) => (
-                <tr
-                  key={`${item.projectName}-${repo.name}`}
-                >
+                <tr key={`${item.projectName}-${repo.name}`}>
                   <td>{item.projectName}</td>
                   <td>{repo.name}</td>
                   <td>{repo.description}</td>

@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FigmaCreate from "../figmaCreateUser";
 import Sidebar from "../../../sidebar/sidebar";
@@ -12,16 +9,9 @@ import api from "../../../../../network/api";
 import DialogBox from "../../../dialogBox/dialogBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Pagination from "../../../../../utils/pagination";
-import {
-  ToastContainer,
-  toast,
-} from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  faTrash,
-  faUser,
-  faStreetView,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faUser, faStreetView } from "@fortawesome/free-solid-svg-icons";
 import logger from "../../../../../utils/logger.js";
 
 function FigmaRead() {
@@ -30,28 +20,19 @@ function FigmaRead() {
     screenshotImageURL: "",
   });
 
-  const [showModal, setShowModal] =
-    useState(false);
-  const [searchQuery, setSearchQuery] =
-    useState("");
-  const [filteredProjects, setFilteredProjects] =
-    useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
   const [figmaURL, setFigmaURL] = useState("");
   const [figmaId, setFigmaId] = useState("");
   const [projectId, setProjectId] = useState("");
-  const [isLoading, setIsLoading] =
-    useState(false);
-  const [currentPageData, setCurrentPageData] =
-    useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentPageData, setCurrentPageData] = useState([]);
   const itemsPerPage = 5;
-  const [
-    showConfirmDialog,
-    setShowConfirmDialog,
-  ] = useState(false);
-  const [showModall, setShowModall] =
-    useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [showModall, setShowModall] = useState(false);
 
   useEffect(() => {
     fetchProjects();
@@ -60,9 +41,7 @@ function FigmaRead() {
   const fetchProjects = async () => {
     setIsLoading(true);
     try {
-      const response = await api.get(
-        `https://${NGROK_URL}/figmas/getAll`
-      );
+      const response = await api.get(`https://${NGROK_URL}/figmas/getAll`);
       setProjects(response.data);
       setFigmaId(response.data[0].figmaId);
       setIsLoading(false);
@@ -72,18 +51,13 @@ function FigmaRead() {
     }
   };
 
-  const handleDisplayVerification = async (
-    figmaId
-  ) => {
+  const handleDisplayVerification = async (figmaId) => {
     try {
-      const response = await api.get(
-        `https://${NGROK_URL}/figmas/${figmaId}/screenshots`
-      );
+      const response = await api.get(`https://${NGROK_URL}/figmas/${figmaId}/screenshots`);
       const data = response.data;
 
       if (data.length > 0) {
-        const screenshotImageURL =
-          data[0].screenshotImageURL;
+        const screenshotImageURL = data[0].screenshotImageURL;
         const user = data[0].user;
 
         const link = document.createElement("a");
@@ -107,12 +81,7 @@ function FigmaRead() {
     });
   };
 
-  const handleAddUser = (
-    url,
-    id,
-    projectId,
-    figmaId
-  ) => {
+  const handleAddUser = (url, id, projectId, figmaId) => {
     setFigmaURL(url);
     setFigmaId(id);
     setProjectId(projectId);
@@ -121,17 +90,12 @@ function FigmaRead() {
 
   const handleDeleteUrl = async (figmaId) => {
     try {
-      await api.delete(
-        `https://${NGROK_URL}/figmas/${figmaId}`
-      );
+      await api.delete(`https://${NGROK_URL}/figmas/${figmaId}`);
       navigate("/FigmaRead");
       setShowConfirmDialog(false);
       fetchProjects();
     } catch (error) {
-      logger.error(
-        "Error deleting figmaUrl",
-        error
-      );
+      logger.error("Error deleting figmaUrl", error);
     }
   };
 
@@ -142,14 +106,9 @@ function FigmaRead() {
     setShowModall(false);
   };
   const handlePaginate = (pageNumber) => {
-    const indexOfLastItem =
-      pageNumber * itemsPerPage;
-    const indexOfFirstItem =
-      indexOfLastItem - itemsPerPage;
-    const currentItems = filteredItems.slice(
-      indexOfFirstItem,
-      indexOfLastItem
-    );
+    const indexOfLastItem = pageNumber * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
     setCurrentPageData(currentItems);
   };
 
@@ -160,14 +119,10 @@ function FigmaRead() {
 
   const handleFilterItems = (searchQuery) => {
     setFilteredProjects(filteredItems);
-    setCurrentPageData(
-      filteredItems.slice(0, itemsPerPage)
-    );
+    setCurrentPageData(filteredItems.slice(0, itemsPerPage));
   };
   const filteredItems = projects.filter((item) =>
-    item.projectDTO.projectName
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase())
+    item.projectDTO.projectName.toLowerCase().includes(searchQuery.toLowerCase())
   );
   useEffect(() => {
     handlePaginate(1);
@@ -199,11 +154,7 @@ function FigmaRead() {
             <i className="users icon"></i>
             <ToastContainer />
           </div>
-          <button
-            data-testid="create"
-            className="ui button"
-            onClick={createFigma}
-          >
+          <button data-testid="create" className="ui button" onClick={createFigma}>
             Create Figma
           </button>
         </div>
@@ -227,111 +178,61 @@ function FigmaRead() {
                         <th>S.No.</th>
                         <th>Project Name</th>
                         <th>Figma URL</th>
-                        <th className="text-center">
-                          Add User verification
-                        </th>
-                        <th className="text-center">
-                          Delete URL
-                        </th>
-                        <th className="text-center">
-                          View User verification
-                        </th>
+                        <th className="text-center">Add User verification</th>
+                        <th className="text-center">Delete URL</th>
+                        <th className="text-center">View User verification</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {currentPageData.map(
-                        (project, index) => (
-                          <tr
-                            key={project.figmaId}
-                          >
-                            <td>{index + 1}</td>
-                            <td>
-                              {
-                                project.projectDTO
-                                  .projectName
+                      {currentPageData.map((project, index) => (
+                        <tr key={project.figmaId}>
+                          <td>{index + 1}</td>
+                          <td>{project.projectDTO.projectName}</td>
+                          <td>
+                            <a href={project.figmaURL} target="_blank" rel="noopener noreferrer">
+                              {project.figmaURL}
+                            </a>
+                          </td>
+                          <td className="text-center">
+                            <button
+                              data-testid="add"
+                              className="btn btn-outline-primary mx-2"
+                              onClick={() =>
+                                handleAddUser(
+                                  project.figmaURL,
+                                  project.figmaId,
+                                  project.projectDTO.projectId
+                                )
                               }
-                            </td>
-                            <td>
-                              <a
-                                href={
-                                  project.figmaURL
-                                }
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {project.figmaURL}
-                              </a>
-                            </td>
-                            <td className="text-center">
-                              <button
-                                data-testid="add"
-                                className="btn btn-outline-primary mx-2"
-                                onClick={() =>
-                                  handleAddUser(
-                                    project.figmaURL,
-                                    project.figmaId,
-                                    project
-                                      .projectDTO
-                                      .projectId
-                                  )
-                                }
-                              >
-                                <FontAwesomeIcon
-                                  icon={faUser}
-                                />
-                              </button>
-                            </td>
-                            <td className="text-center">
-                              <button
-                                data-testid="delete"
-                                className="btn btn-danger mx-2"
-                                onClick={() =>
-                                  setShowConfirmDialog(
-                                    project.figmaId
-                                  )
-                                }
-                              >
-                                <FontAwesomeIcon
-                                  icon={faTrash}
-                                />
-                              </button>
-                              <DialogBox
-                                show={
-                                  showConfirmDialog ===
-                                  project.figmaId
-                                }
-                                onClose={() =>
-                                  setShowConfirmDialog(
-                                    null
-                                  )
-                                }
-                                onConfirm={() =>
-                                  handleDeleteUrl(
-                                    project.figmaId
-                                  )
-                                }
-                              />
-                            </td>
-                            <td className="text-center">
-                              <button
-                                data-testid="verification"
-                                className="btn btn-outline-primary mx-2"
-                                onClick={() =>
-                                  handleDisplayVerification(
-                                    project.figmaId
-                                  )
-                                }
-                              >
-                                <FontAwesomeIcon
-                                  icon={
-                                    faStreetView
-                                  }
-                                />
-                              </button>
-                            </td>
-                          </tr>
-                        )
-                      )}
+                            >
+                              <FontAwesomeIcon icon={faUser} />
+                            </button>
+                          </td>
+                          <td className="text-center">
+                            <button
+                              data-testid="delete"
+                              className="btn btn-danger mx-2"
+                              onClick={() => setShowConfirmDialog(project.figmaId)}
+                            >
+                              <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                            <DialogBox
+                              show={showConfirmDialog === project.figmaId}
+                              onClose={() => setShowConfirmDialog(null)}
+                              onConfirm={() => handleDeleteUrl(project.figmaId)}
+                            />
+                          </td>
+                          <td className="text-center">
+                            <button
+                              data-testid="verification"
+                              className="btn btn-outline-primary mx-2"
+                              onClick={() => handleDisplayVerification(project.figmaId)}
+                            >
+                              <FontAwesomeIcon icon={faStreetView} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
 

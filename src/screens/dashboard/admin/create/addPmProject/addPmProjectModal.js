@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Form,
-  Button,
-  Modal,
-  Dropdown,
-} from "semantic-ui-react";
+import { Form, Button, Modal, Dropdown } from "semantic-ui-react";
 import OtpModal from "../../../../../molecules/otpModal";
 import CloseButton from "../../../../../atoms/closeButton/closeButton";
 import "../addPmGit/addPm.css";
@@ -23,17 +18,10 @@ function AddPmProjectModal({
   onClose,
 }) {
   return (
-    <Modal
-      size="mini"
-      open={true}
-      onClose={onClose}
-      className="form-modal"
-    >
+    <Modal size="mini" open={true} onClose={onClose} className="form-modal">
       <CloseButton onClick={onClose} />
 
-      <Modal.Header>
-        Add PM to project
-      </Modal.Header>
+      <Modal.Header>Add PM to project</Modal.Header>
       <Modal.Content>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
@@ -41,11 +29,7 @@ function AddPmProjectModal({
               Project-Name
               <span className="red-text">*</span>
             </label>
-            <input
-              name="name"
-              placeholder={projectName}
-              readOnly
-            />
+            <input name="name" placeholder={projectName} readOnly />
           </Form.Field>
           <Form.Field>
             <label>
@@ -62,11 +46,7 @@ function AddPmProjectModal({
             />
           </Form.Field>
 
-          <Button
-            type="submit"
-            primary
-            onClick={handleSubmit}
-          >
+          <Button type="submit" primary onClick={handleSubmit}>
             Submit
           </Button>
         </Form>

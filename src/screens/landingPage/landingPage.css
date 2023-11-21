@@ -14,8 +14,7 @@
 
 p {
   margin: 0 auto;
-  font-family: "Helvetica Neue", "Arial",
-    sans-serif;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
   color: gray;
   font-variant-ligatures: normal;
 }
@@ -75,7 +74,6 @@ div.at-container {
   height: 50px;
 }
 
-
 @keyframes slide-in {
   0% {
     transform: translateX(100%);
@@ -115,8 +113,6 @@ div.at-container {
     padding: 50px;
   }
 }
-
-
 
 @media (max-width: 768px) {
   .sample {

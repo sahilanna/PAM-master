@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Modal,
-  Button,
-  Form,
-  Dropdown,
-} from "semantic-ui-react";
+import { Modal, Button, Form, Dropdown } from "semantic-ui-react";
 import CloseButton from "../../../../../atoms/closeButton/closeButton";
 import "../addPmGit/addPm.css";
 
@@ -17,12 +12,7 @@ const AddProjectRepoModal = ({
   handleRepoChange,
 }) => {
   return (
-    <Modal
-      size="mini"
-      open={true}
-      onClose={onClose}
-      className="form-modal"
-    >
+    <Modal size="mini" open={true} onClose={onClose} className="form-modal">
       <CloseButton onClick={onClose} />
 
       <Modal.Header>Add Project</Modal.Header>
@@ -56,11 +46,7 @@ const AddProjectRepoModal = ({
               onChange={handleRepoChange}
             />
           </Form.Field>
-          <Button
-            data-testid="submit"
-            type="submit"
-            primary
-          >
+          <Button data-testid="submit" type="submit" primary>
             Submit
           </Button>
         </Form>

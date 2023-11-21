@@ -9,9 +9,7 @@ const NavbarDropdown = ({ title, items }) => {
         {items.map((item, index) => (
           <React.Fragment key={index}>
             <Dropdown.Item>{item}</Dropdown.Item>
-            {index < items.length - 1 && (
-              <Dropdown.Divider />
-            )}
+            {index < items.length - 1 && <Dropdown.Divider />}
           </React.Fragment>
         ))}
       </Dropdown.Menu>

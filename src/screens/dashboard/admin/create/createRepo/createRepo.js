@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { NGROK_URL } from "../../../../../network/config";
+import CreateRepoModal from "./createRepoModal";
 import api from "../../../../../network/api";
+import { NGROK_URL } from "../../../../../network/config";
 import {
   ERROR_CODE_NOT_FOUND,
   ERROR_CODE_BAD_REQUEST,
   ERROR_CODE_INTERNAL_SERVER_ERROR,
 } from "../../../../../assets/constants/errorCode";
-import CreateRepoUI from "./createRepoModal";
 
 function CreateRepo() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
-  const [description, setDescription] =
-    useState("");
+  const [description, setDescription] = useState("");
   const [clicked, setClicked] = useState(false);
 
   const handleChange = (e) => {
@@ -34,38 +31,23 @@ function CreateRepo() {
     setClicked(true);
 
     try {
-      await api.post(
-        `https://${NGROK_URL}/repositories/add`,
-        {
-          name,
-          description,
-        }
-      );
+      await api.post(`https://${NGROK_URL}/repositories/add`, {
+        name,
+        description,
+      });
       navigate("/repoRead");
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status ===
-          ERROR_CODE_BAD_REQUEST
-      ) {
+      if (error.response && error.response.status === ERROR_CODE_BAD_REQUEST) {
         toast.error("Bad Request", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
         });
-      } else if (
-        error.response &&
-        error.response.status ===
-          ERROR_CODE_NOT_FOUND
-      ) {
+      } else if (error.response && error.response.status === ERROR_CODE_NOT_FOUND) {
         toast.error("404 NOT FOUND", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
         });
-      } else if (
-        error.response &&
-        error.response.status ===
-          ERROR_CODE_INTERNAL_SERVER_ERROR
-      ) {
+      } else if (error.response && error.response.status === ERROR_CODE_INTERNAL_SERVER_ERROR) {
         toast.error("Server Error", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
@@ -84,7 +66,7 @@ function CreateRepo() {
   };
 
   return (
-    <CreateRepoUI
+    <CreateRepoModal
       name={name}
       description={description}
       handleChange={handleChange}

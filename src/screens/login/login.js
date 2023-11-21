@@ -1,7 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../network/api";
 import NavBarLogin from "../navbar/navbarLogin";
@@ -14,16 +11,11 @@ import { decodeIdToken } from "../../utils/decodeLoginId";
 import ErrorModal from "../../molecules/errorModal";
 
 function Login() {
-  const [
-    showUserNotFoundModal,
-    setShowUserNotFoundModal,
-  ] = useState(false);
-  const [
-    isGoogleButtonRendered,
-    setIsGoogleButtonRendered,
-  ] = useState(false);
+  const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
+  const [isGoogleButtonRendered, setIsGoogleButtonRendered] = useState(false);
 
   const navigate = useNavigate();
+
   const handleGoogleLogin = async (response) => {
     const token = response.credential;
     const decodedToken = decodeIdToken(token);
@@ -33,31 +25,21 @@ function Login() {
       "ngrok-skip-browser-warning": "true",
       emailToVerify: `${emailToVerify}`,
     };
-     logger.info("Clientsjfuyasduxcauckyuascuk ID");
+    logger.info("Before Try Block");
 
     try {
-       logger.info("Client IDjvjhsjhvj,sjhhvjhvsjvxjvsjkvsk.v");
-      const { data } = await api.get(
-        `https://${NGROK_LOGIN}/auth/api/v1/get-email`,
-        { headers }
-      );
-      logger.info(
-        "ClienthvhajshhshahvIDjvjhsjhvj,sjhhvjhvsjvxjvsjkvsk.v"
-      );
+      logger.info("Inside try block before hitting api");
+      const { data } = await api.get(`https://${NGROK_LOGIN}/auth/api/v1/get-email`, { headers });
+      logger.info("After hitting api in try block");
 
-      sessionStorage.setItem(
-        "item",
-        JSON.stringify(data)
-      );
+      sessionStorage.setItem("item", JSON.stringify(data));
       sessionStorage.getItem("item");
 
       if (data.enumRole === "ADMIN") {
         navigate("/AdminDashboard", {
           state: { data },
         });
-      } else if (
-        data.enumRole === "PROJECT_MANAGER"
-      ) {
+      } else if (data.enumRole === "PROJECT_MANAGER") {
         navigate("/pmDashboard", {
           state: { data },
         });
@@ -69,23 +51,21 @@ function Login() {
         logger.error("Error");
       }
     } catch (error) {
-      logger.error("Error in verifying login details");
+      logger.error("Catch Block: Error in verifying login details");
       setShowUserNotFoundModal(true);
     }
   };
 
   useEffect(() => {
-    const GOOGLE_CLIENT_ID =
-      process.env.REACT_APP_GOOGLE_CLIENT_ID;
+    const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
-    logger.info("Client ID", GOOGLE_CLIENT_ID);
+    logger.info("Client ID:", GOOGLE_CLIENT_ID);
     window.google.accounts.id.initialize({
       client_id: GOOGLE_CLIENT_ID,
       callback: handleGoogleLogin,
     });
     window.google.accounts.id.renderButton(
-      document.getElementById("signIn") ||
-        document.createElement("div"),
+      document.getElementById("signIn") || document.createElement("div"),
       {
         theme: "outline",
         size: "large",
@@ -128,9 +108,7 @@ function Login() {
         open={showUserNotFoundModal}
         header="User Not Found"
         content="This user was not found. Please try again."
-        onClose={() =>
-          setShowUserNotFoundModal(false)
-        }
+        onClose={() => setShowUserNotFoundModal(false)}
       />
     </div>
   );

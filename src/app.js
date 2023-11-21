@@ -1,9 +1,5 @@
 import React, { Suspense } from "react";
-import {
-  Route,
-  Routes,
-  BrowserRouter,
-} from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/reduxStore/store";
 import PrivateRoutes from "./privateRouting";
@@ -15,6 +11,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Logout from "./screens/logout/logout";
 import "./app.css";
 import "././screens/dashboard/admin/create/commonModal.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -22,39 +20,19 @@ function App() {
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
-            <Route
-              path="/LoadingPage"
-              element={<LoadingPage />}
-            />
-            <Route
-              path="/Login"
-              element={<Login />}
-            />
-            <Route
-              path="/"
-              element={<LandingPage />}
-            />
-            <Route
-              path="/Logout"
-              element={<Logout />}
-            />
-            <Route
-              path="/faq"
-              element={<Faq />}
-            />
+            <Route path="/LoadingPage" element={<LoadingPage />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/Logout" element={<Logout />} />
+            <Route path="/faq" element={<Faq />} />
             <Route
               element={
-                <Suspense
-                  fallback={<div>Loading...</div>}
-                >
+                <Suspense fallback={<div>Loading...</div>}>
                   <PrivateRoutes />
                 </Suspense>
               }
             >
-              <Route
-                path="*"
-                element={<h1>Page Not Found</h1>}
-              />
+              <Route path="*" element={<h1>Page Not Found</h1>} />
             </Route>
           </Routes>
         </BrowserRouter>

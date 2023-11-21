@@ -1,8 +1,4 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-} from "react";
+import { useState, useEffect, useRef } from "react";
 import api from "../../../../network/api";
 import { NGROK_URL } from "../../../../network/config";
 import { toast } from "react-toastify";
@@ -15,16 +11,12 @@ function useApiData() {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(
-        `https://${NGROK_URL}/request/allActive`
-      );
+      const response = await api.get(`https://${NGROK_URL}/request/allActive`);
       const newData = response.data;
       const newRequests = newData.filter(
         (newItem) =>
           !prevDataRef.current.some(
-            (prevItem) =>
-              prevItem.accessRequestId ===
-              newItem.accessRequestId
+            (prevItem) => prevItem.accessRequestId === newItem.accessRequestId
           )
       );
 

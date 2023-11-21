@@ -3,231 +3,70 @@ import { Route, Routes } from "react-router-dom";
 import ProjectDetails from "./screens/dashboard/admin/read/projectDetails";
 import logger from "./utils/logger.js";
 import LoadingPage from "./atoms/loadingPage/loadingPage";
-import {
-  ADMIN,
-  PROJECT_MANAGER,
-  USER,
-} from "./assets/constants/projectRoles";
+import { ADMIN, PROJECT_MANAGER, USER } from "./assets/constants/projectRoles";
 const LazyAdminDashboard = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/adminDashboard/adminDashboard"
-    )
+  () => import("./screens/dashboard/admin/adminDashboard/adminDashboard")
 );
-const LazyPmCreate = lazy(
-  () => import("./screens/dashboard/pm/pmCreate")
-);
+const LazyPmCreate = lazy(() => import("./screens/dashboard/pm/pmCreate"));
 const LazyCreate = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/create/addProjectRepo/addProjectRepo"
-    )
+  () => import("./screens/dashboard/admin/create/addProjectRepo/addProjectRepo")
 );
-const LazyPmReadNew = lazy(
-  () => import("./screens/dashboard/pm/pmReadNew")
-);
-const LazyUserCreate = lazy(
-  () =>
-    import("./screens/dashboard/users/userCreate")
-);
-const LazyCreateRepo = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/create/createRepo/createRepo"
-    )
-);
-const LazyReports = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/reports/reports"
-    )
-);
-const LazyPmRequestUser = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/pmRequests/pmRequestUser"
-    )
-);
-const LazyPmRequestForm = lazy(
-  () =>
-    import(
-      "./screens/dashboard/projectManager/pmRequestForm"
-    )
-);
-const LazyAddPm = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/create/addPmGit/addPm"
-    )
-);
-const LazyAddUser = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/create/addUserGit/addUser"
-    )
-);
-const LazyFigmaRead = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/figma/figmaRead/figmaRead"
-    )
-);
-const LazyFigmaCreate = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/figma/figmaCreateUser"
-    )
-);
+const LazyPmReadNew = lazy(() => import("./screens/dashboard/pm/pmReadNew"));
+const LazyUserCreate = lazy(() => import("./screens/dashboard/users/userCreateModal"));
+const LazyCreateRepo = lazy(() => import("./screens/dashboard/admin/create/createRepo/createRepo"));
+const LazyReports = lazy(() => import("./screens/dashboard/admin/reports/reports"));
+const LazyPmRequestUser = lazy(() => import("./screens/dashboard/admin/pmRequests/pmRequestUser"));
+const LazyPmRequestForm = lazy(() => import("./screens/dashboard/projectManager/pmRequestForm"));
+const LazyAddPm = lazy(() => import("./screens/dashboard/admin/create/addPmGit/addPm"));
+const LazyAddUser = lazy(() => import("./screens/dashboard/admin/create/addUserGit/addUser"));
+const LazyFigmaRead = lazy(() => import("./screens/dashboard/admin/figma/figmaRead/figmaRead"));
+const LazyFigmaCreate = lazy(() => import("./screens/dashboard/admin/figma/figmaCreateUser"));
 const LazyRepoPmDashboard = lazy(
-  () =>
-    import(
-      "./screens/dashboard/projectManager/repoPmDashboard"
-    )
+  () => import("./screens/dashboard/projectManager/repoPmDashboard")
 );
 const LazyCreateFigmaDetails = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/figma/createFigma/createFigmaDetails"
-    )
+  () => import("./screens/dashboard/admin/figma/createFigma/createFigmaDetails")
 );
-const LazyUserHistory = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/userHistory/userHistory"
-    )
-);
-const LazyUserProjects = lazy(
-  () =>
-    import(
-      "./screens/dashboard/userDashboard/userProjects"
-    )
-);
-const LazyLogin = lazy(
-  () => import("./screens/login/login")
-);
-const LazyRepoRead = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/repository/repoRead"
-    )
-);
-const LazyUserRead = lazy(
-  () =>
-    import("./screens/dashboard/users/userRead")
-);
-const LazyPmDashboard = lazy(
-  () =>
-    import(
-      "./screens/dashboard/projectManager/pmDashboard"
-    )
-);
-const LazyUserRepoRead = lazy(
-  () =>
-    import(
-      "./screens/dashboard/userDashboard/userRepoRead"
-    )
-);
-const LazyAnalytics = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/analytics/analytics"
-    )
-);
-const LazyProfile = lazy(
-  () =>
-    import("./screens/dashboard/admin/profile")
-);
-const LazyUserProfile = lazy(
-  () =>
-    import(
-      "./screens/dashboard/userDashboard/userProfile"
-    )
-);
-const LazyPmProfile = lazy(
-  () =>
-    import("./screens/dashboard/admin/profile")
-);
-const LazyAddUserName = lazy(
-  () =>
-    import(
-      "./screens/dashboard/users/addUserName"
-    )
-);
+const LazyUserHistory = lazy(() => import("./screens/dashboard/admin/userHistory/userHistory"));
+const LazyUserProjects = lazy(() => import("./screens/dashboard/userDashboard/userProjects"));
+const LazyLogin = lazy(() => import("./screens/login/login"));
+const LazyRepoRead = lazy(() => import("./screens/dashboard/admin/repository/repoRead"));
+const LazyUserRead = lazy(() => import("./screens/dashboard/users/userRead/userRead"));
+const LazyPmDashboard = lazy(() => import("./screens/dashboard/projectManager/pmDashboard"));
+const LazyUserRepoRead = lazy(() => import("./screens/dashboard/userDashboard/userRepoRead"));
+const LazyAnalytics = lazy(() => import("./screens/dashboard/admin/analytics/analytics"));
+const LazyProfile = lazy(() => import("./screens/dashboard/admin/profile"));
+const LazyUserProfile = lazy(() => import("./screens/dashboard/userDashboard/userProfile"));
+const LazyPmProfile = lazy(() => import("./screens/dashboard/admin/profile"));
+const LazyAddUserName = lazy(() => import("./screens/dashboard/users/addUserNameModal"));
 const LazyCreateProject = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/create/createProject/createProject"
-    )
+  () => import("./screens/dashboard/admin/create/createProject/createProject")
 );
-const LazyAddPmUserName = lazy(
-  () =>
-    import("./screens/dashboard/pm/addPmUsername")
-);
-const LazyAddFile = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/create/addFile/addFile"
-    )
-);
+const LazyAddPmUserName = lazy(() => import("./screens/dashboard/pm/addPmUsername"));
+const LazyAddFile = lazy(() => import("./screens/dashboard/admin/create/addFile/addFile"));
 const LazyProjectUsers = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/read/projectUsers/projectUsers"
-    )
+  () => import("./screens/dashboard/admin/read/projectUsers/projectUsers")
 );
 const LazyAddUserProject = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/create/addUserProject/addUserProject"
-    )
+  () => import("./screens/dashboard/admin/create/addUserProject/addUserProject")
 );
 const LazyProjectAnalytics = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/analytics/projectAnalytics"
-    )
+  () => import("./screens/dashboard/admin/analytics/projectAnalytics")
 );
-const LazyProjectPms = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/read/projectPms"
-    )
-);
+const LazyProjectPms = lazy(() => import("./screens/dashboard/admin/read/projectPms"));
 const LazyAddPmProject = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/create/addPmProject/addPmProject"
-    )
+  () => import("./screens/dashboard/admin/create/addPmProject/addPmProject")
 );
-const LazyUserActivity = lazy(
-  () =>
-    import(
-      "./screens/dashboard/users/userActivity"
-    )
-);
-const LazyPmNotification = lazy(
-  () =>
-    import(
-      "./screens/dashboard/projectManager/pmNotification"
-    )
-);
+const LazyUserActivity = lazy(() => import("./screens/dashboard/users/userActivity"));
+const LazyPmNotification = lazy(() => import("./screens/dashboard/projectManager/pmNotification"));
 const LazyDriveDetails = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/drive/driveScreen/driveDetails"
-    )
+  () => import("./screens/dashboard/admin/drive/driveScreen/driveDetails")
 );
 const LazyCreateDriveDetails = lazy(
-  () =>
-    import(
-      "./screens/dashboard/admin/drive/createDrive/createDriveDetails"
-    )
+  () => import("./screens/dashboard/admin/drive/createDrive/createDriveDetails")
 );
 const LazyShowAllNotification = lazy(
-  () =>
-    import(
-      "./screens/dashboard/projectManager/showAllNotification"
-    )
+  () => import("./screens/dashboard/projectManager/showAllNotification")
 );
 
 const PrivateRoutes = () => {
@@ -246,9 +85,7 @@ const PrivateRoutes = () => {
           <Route
             path="/AddPmUserName"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyAddPmUserName />
               </Suspense>
             }
@@ -256,9 +93,7 @@ const PrivateRoutes = () => {
           <Route
             path="/AdminDashboard"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyAdminDashboard />
               </Suspense>
             }
@@ -266,9 +101,7 @@ const PrivateRoutes = () => {
           <Route
             path="/CreateProject"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyCreateProject />
               </Suspense>
             }
@@ -276,9 +109,7 @@ const PrivateRoutes = () => {
           <Route
             path="/AddUserName"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyAddUserName />
               </Suspense>
             }
@@ -286,9 +117,7 @@ const PrivateRoutes = () => {
           <Route
             path="/Login"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyLogin />
               </Suspense>
             }
@@ -296,9 +125,7 @@ const PrivateRoutes = () => {
           <Route
             path="/Create"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyCreate />
               </Suspense>
             }
@@ -306,9 +133,7 @@ const PrivateRoutes = () => {
           <Route
             path="/RepoRead"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyRepoRead />
               </Suspense>
             }
@@ -316,9 +141,7 @@ const PrivateRoutes = () => {
           <Route
             path="/UserRead"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyUserRead />
               </Suspense>
             }
@@ -326,9 +149,7 @@ const PrivateRoutes = () => {
           <Route
             path="/PmCreate"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyPmCreate />
               </Suspense>
             }
@@ -336,9 +157,7 @@ const PrivateRoutes = () => {
           <Route
             path="/PmReadNew"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyPmReadNew />
               </Suspense>
             }
@@ -346,9 +165,7 @@ const PrivateRoutes = () => {
           <Route
             path="//PmUpdate/:id"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyPmReadNew />
               </Suspense>
             }
@@ -356,9 +173,7 @@ const PrivateRoutes = () => {
           <Route
             path="/UserCreate"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyUserCreate />
               </Suspense>
             }
@@ -366,9 +181,7 @@ const PrivateRoutes = () => {
           <Route
             path="/CreateRepo"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyCreateRepo />
               </Suspense>
             }
@@ -376,9 +189,7 @@ const PrivateRoutes = () => {
           <Route
             path="/AddPm"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyAddPm />
               </Suspense>
             }
@@ -386,9 +197,7 @@ const PrivateRoutes = () => {
           <Route
             path="/addUser"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyAddUser />
               </Suspense>
             }
@@ -396,9 +205,7 @@ const PrivateRoutes = () => {
           <Route
             path="/repoRead"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyRepoRead />
               </Suspense>
             }
@@ -406,9 +213,7 @@ const PrivateRoutes = () => {
           <Route
             path="/FigmaRead"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyFigmaRead />
               </Suspense>
             }
@@ -416,9 +221,7 @@ const PrivateRoutes = () => {
           <Route
             path="/FigmaCreate"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyFigmaCreate />
               </Suspense>
             }
@@ -426,9 +229,7 @@ const PrivateRoutes = () => {
           <Route
             path="/UserHistory"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyUserHistory />
               </Suspense>
             }
@@ -436,9 +237,7 @@ const PrivateRoutes = () => {
           <Route
             path="/Reports"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyReports />
               </Suspense>
             }
@@ -446,9 +245,7 @@ const PrivateRoutes = () => {
           <Route
             path="/CreateFigmaDetails"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyCreateFigmaDetails />
               </Suspense>
             }
@@ -456,9 +253,7 @@ const PrivateRoutes = () => {
           <Route
             path="/PmRequestUser"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyPmRequestUser />
               </Suspense>
             }
@@ -467,9 +262,7 @@ const PrivateRoutes = () => {
           <Route
             path="/addFile"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyAddFile />
               </Suspense>
             }
@@ -477,9 +270,7 @@ const PrivateRoutes = () => {
           <Route
             path="/projectUsers"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyProjectUsers />
               </Suspense>
             }
@@ -487,9 +278,7 @@ const PrivateRoutes = () => {
           <Route
             path="/addUserProject"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyAddUserProject />
               </Suspense>
             }
@@ -497,9 +286,7 @@ const PrivateRoutes = () => {
           <Route
             path="/projectPms"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyProjectPms />
               </Suspense>
             }
@@ -507,9 +294,7 @@ const PrivateRoutes = () => {
           <Route
             path="/addPmProject"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyAddPmProject />
               </Suspense>
             }
@@ -517,9 +302,7 @@ const PrivateRoutes = () => {
           <Route
             path="/Profile"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyProfile />
               </Suspense>
             }
@@ -527,9 +310,7 @@ const PrivateRoutes = () => {
           <Route
             path="/ProjectAnalytics"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyProjectAnalytics />
               </Suspense>
             }
@@ -537,9 +318,7 @@ const PrivateRoutes = () => {
           <Route
             path="/Analytics"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyAnalytics />
               </Suspense>
             }
@@ -547,9 +326,7 @@ const PrivateRoutes = () => {
           <Route
             path="/userActivity"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyUserActivity />
               </Suspense>
             }
@@ -557,9 +334,7 @@ const PrivateRoutes = () => {
           <Route
             path="/createDriveDetails"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyCreateDriveDetails />
               </Suspense>
             }
@@ -567,9 +342,7 @@ const PrivateRoutes = () => {
           <Route
             path="/ProjectDetails/:projectId/:projectName"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <ProjectDetails />
               </Suspense>
             }
@@ -577,9 +350,7 @@ const PrivateRoutes = () => {
           <Route
             path="/driveDetails"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyDriveDetails />
               </Suspense>
             }
@@ -587,9 +358,7 @@ const PrivateRoutes = () => {
           <Route
             path="/Create"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyCreate />
               </Suspense>
             }
@@ -597,9 +366,7 @@ const PrivateRoutes = () => {
           <Route
             path="/addPm"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyAddPm />
               </Suspense>
             }
@@ -607,9 +374,7 @@ const PrivateRoutes = () => {
           <Route
             path="/addUser"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyAddUser />
               </Suspense>
             }
@@ -617,17 +382,12 @@ const PrivateRoutes = () => {
           <Route
             path="/createdriveDetails"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyCreateDriveDetails />
               </Suspense>
             }
           />
-          <Route
-            path="*"
-            element={<h1>Page Not Found</h1>}
-          />
+          <Route path="*" element={<h1>Page Not Found</h1>} />
         </Routes>
       )}
       {role === PROJECT_MANAGER && (
@@ -635,9 +395,7 @@ const PrivateRoutes = () => {
           <Route
             path="/pmDashboard"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyPmDashboard />
               </Suspense>
             }
@@ -645,9 +403,7 @@ const PrivateRoutes = () => {
           <Route
             path="/PmRequestForm"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyPmRequestForm />
               </Suspense>
             }
@@ -655,9 +411,7 @@ const PrivateRoutes = () => {
           <Route
             path="/repoPmDashboard"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyRepoPmDashboard />
               </Suspense>
             }
@@ -665,9 +419,7 @@ const PrivateRoutes = () => {
           <Route
             path="/pmProfile"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyPmProfile />
               </Suspense>
             }
@@ -675,9 +427,7 @@ const PrivateRoutes = () => {
           <Route
             path="/pmNotification"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyPmNotification />
               </Suspense>
             }
@@ -685,17 +435,12 @@ const PrivateRoutes = () => {
           <Route
             path="/showAllNotification"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyShowAllNotification />
               </Suspense>
             }
           />
-          <Route
-            path="*"
-            element={<h1>Page Not Found</h1>}
-          />
+          <Route path="*" element={<h1>Page Not Found</h1>} />
         </Routes>
       )}
       {role === USER && (
@@ -703,9 +448,7 @@ const PrivateRoutes = () => {
           <Route
             path="/userProjects"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyUserProjects />
               </Suspense>
             }
@@ -713,9 +456,7 @@ const PrivateRoutes = () => {
           <Route
             path="/userRepoRead"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyUserRepoRead />
               </Suspense>
             }
@@ -723,17 +464,12 @@ const PrivateRoutes = () => {
           <Route
             path="/userProfile"
             element={
-              <Suspense
-                fallback={<LoadingPage />}
-              >
+              <Suspense fallback={<LoadingPage />}>
                 <LazyUserProfile />
               </Suspense>
             }
           />
-          <Route
-            path="*"
-            element={<h1>Page Not Found</h1>}
-          />
+          <Route path="*" element={<h1>Page Not Found</h1>} />
         </Routes>
       )}
     </>

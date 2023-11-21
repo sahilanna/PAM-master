@@ -14,9 +14,7 @@ const Logout = () => {
 
   const Logout = async () => {
     try {
-      await api.post(
-        `https://${NGROK_URL}/users/${id}/logout`
-      ); //Tracking last Logout time of user
+      await api.post(`https://${NGROK_URL}/users/${id}/logout`); //Tracking last Logout time of user
       sessionStorage.clear();
       navigate("/Login");
     } catch (error) {

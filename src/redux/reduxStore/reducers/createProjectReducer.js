@@ -11,10 +11,7 @@ const initialState = {
   error: null,
 };
 
-const createProjectReducer = (
-  state = initialState,
-  action
-) => {
+const createProjectReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_PROJECT_REQUEST:
       return {

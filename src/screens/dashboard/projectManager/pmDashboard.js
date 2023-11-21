@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-} from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Icon } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,19 +14,13 @@ import logger from "../../../utils/logger.js";
 const PmDashboard = () => {
   const [item, setItem] = useState([]);
 
-  const [
-    showPmProjectDetails,
-    setShowPmProjectDetails,
-  ] = useState(false);
+  const [showPmProjectDetails, setShowPmProjectDetails] = useState(false);
   const [pmid, setPmid] = useState([]);
-  const [searchQuery, setSearchQuery] =
-    useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
-  const [selectedProject, setSelectedProject] =
-    useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  const [isLoading, setIsLoading] =
-    useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   let data = sessionStorage.getItem("item");
   let user = data ? JSON.parse(data) : null;
@@ -54,11 +45,8 @@ const PmDashboard = () => {
       setItem(response.data);
       setPmid(response.data);
       setIsLoading(false);
-      const filteredItems = response.data.filter(
-        (item) =>
-          item.projectName
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase())
+      const filteredItems = response.data.filter((item) =>
+        item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
       );
       logger.info("Checking", filteredItems);
     } catch (error) {
@@ -71,9 +59,7 @@ const PmDashboard = () => {
   }, []);
 
   const filteredItems = item.filter((item) =>
-    item.projectName
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase())
+    item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleProjectDetails = (project) => {
@@ -85,10 +71,7 @@ const PmDashboard = () => {
     setShowPmProjectDetails(false);
   };
 
-  const navigateForm = (
-    projectId,
-    projectName
-  ) => {
+  const navigateForm = (projectId, projectName) => {
     navigate("/PmRequestForm", {
       state: { projectId, projectName },
     });
@@ -121,9 +104,7 @@ const PmDashboard = () => {
               type="text"
               placeholder="Search Projects..."
               value={searchQuery}
-              onChange={(e) =>
-                setSearchQuery(e.target.value)
-              }
+              onChange={(e) => setSearchQuery(e.target.value)}
             ></input>
             <i class="users icon"></i>
           </div>
@@ -145,39 +126,24 @@ const PmDashboard = () => {
                 <tr>
                   <th>Project-Name</th>
                   <th>Project-Description</th>
-                  <th className="text-center">
-                    View
-                  </th>
+                  <th className="text-center">View</th>
                   <th>Add User</th>
                 </tr>
               </thead>
               <tbody>
-                {filteredItems &&
-                filteredItems.length > 0 ? (
+                {filteredItems && filteredItems.length > 0 ? (
                   filteredItems.map((item) => (
                     <tr key={item.id}>
                       <>
-                        <td>
-                          {item.projectName}
-                        </td>
-                        <td>
-                          {
-                            item.projectDescription
-                          }
-                        </td>
+                        <td>{item.projectName}</td>
+                        <td>{item.projectDescription}</td>
                         <td className="text-center">
                           <button
                             data-testid="view-icon"
                             className="btn btn-outline-primary mx-2"
-                            onClick={() =>
-                              handleProjectDetails(
-                                item
-                              )
-                            }
+                            onClick={() => handleProjectDetails(item)}
                           >
-                            <FontAwesomeIcon
-                              icon={faEye}
-                            />
+                            <FontAwesomeIcon icon={faEye} />
                           </button>
                         </td>
                         <td>
@@ -186,12 +152,7 @@ const PmDashboard = () => {
                             color="blue"
                             icon
                             labelPosition="left"
-                            onClick={() =>
-                              navigateForm(
-                                item.projectId,
-                                item.projectName
-                              )
-                            }
+                            onClick={() => navigateForm(item.projectId, item.projectName)}
                           >
                             <Icon name="plus" />
                             Add
@@ -202,9 +163,7 @@ const PmDashboard = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="2">
-                      No data available
-                    </td>
+                    <td colSpan="2">No data available</td>
                   </tr>
                 )}
               </tbody>
@@ -212,10 +171,7 @@ const PmDashboard = () => {
           </div>
         )}
         {showPmProjectDetails && (
-          <PmProjectDetails
-            project={selectedProject}
-            onClose={handleCloseDetails}
-          />
+          <PmProjectDetails project={selectedProject} onClose={handleCloseDetails} />
         )}
       </div>
     </div>

@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-} from "react";
+import React, { useState, useEffect } from "react";
 import PmSidebar from "./pmSidebar";
 import { NGROK_URL } from "../../../network/config";
 import api from "../../../network/api";
@@ -13,10 +10,8 @@ import logger from "../../../utils/logger.js";
 
 function ShowAllNotification() {
   const navigate = useNavigate();
-  const [allNotification, setAllNotification] =
-    useState([]);
-  const [showNotifyDialog, setShowNotifyDialog] =
-    useState(false);
+  const [allNotification, setAllNotification] = useState([]);
+  const [showNotifyDialog, setShowNotifyDialog] = useState(false);
   let data = sessionStorage.getItem("item");
   let user = data ? JSON.parse(data) : null;
 
@@ -27,9 +22,7 @@ function ShowAllNotification() {
 
   const fetchNotification = async () => {
     try {
-      const response = await api.get(
-        `https://${NGROK_URL}/request/all/PM?pmName=${pmName}`
-      );
+      const response = await api.get(`https://${NGROK_URL}/request/all/PM?pmName=${pmName}`);
 
       setAllNotification(response.data);
     } catch (error) {
@@ -41,9 +34,7 @@ function ShowAllNotification() {
   }, []);
 
   const clearNotification = async () => {
-    await api.delete(
-      `https://${NGROK_URL}/request/clearAll`
-    );
+    await api.delete(`https://${NGROK_URL}/request/clearAll`);
     navigate("/showAllNotification");
     setShowNotifyDialog(true);
     fetchNotification();
@@ -86,20 +77,14 @@ function ShowAllNotification() {
             <button
               data-testid="clear"
               className="btn btn-danger mx-2"
-              onClick={() =>
-                handleDeleteProject()
-              }
+              onClick={() => handleDeleteProject()}
             >
               <FontAwesomeIcon icon={faTrash} />
             </button>
             <ClearAllDialogue
               show={showNotifyDialog}
-              onClose={() =>
-                cancelDeleteProject()
-              }
-              onConfirm={() =>
-                confirmDeleteProject()
-              }
+              onClose={() => cancelDeleteProject()}
+              onConfirm={() => confirmDeleteProject()}
             />
           </div>
 
@@ -108,8 +93,7 @@ function ShowAllNotification() {
               <th>Notification</th>
             </thead>
             <tbody>
-              {allNotification &&
-              allNotification.length > 0 ? (
+              {allNotification && allNotification.length > 0 ? (
                 allNotification.map((item) => (
                   <tr key={item.id}>
                     <td>{item.response}</td>
@@ -117,9 +101,7 @@ function ShowAllNotification() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="2">
-                    No notifications
-                  </td>
+                  <td colSpan="2">No notifications</td>
                 </tr>
               )}
             </tbody>

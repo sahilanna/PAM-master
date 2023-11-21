@@ -18,90 +18,59 @@ export const createProjectFailure = (error) => ({
 });
 
 //Create PM
-export const createPM = ({
-  name,
-  email,
-  enumRole,
-}) => {
+export const createPM = ({ name, email, enumRole }) => {
   return async (dispatchPMUpdate) => {
     try {
-      const responseCreatePM = await api.post(
-        `https://${NGROK_URL}/users/`,
-        {
-          name,
-          email,
-          enumRole,
-        }
-      );
+      const responseCreatePM = await api.post(`https://${NGROK_URL}/users/`, {
+        name,
+        email,
+        enumRole,
+      });
       dispatchPMUpdate({
         type: "createPM",
         payload: responseCreatePM,
       });
     } catch (error) {
-      logger.error(
-        "Error in fetching data",
-        error
-      );
+      logger.error("Error in fetching data", error);
     }
   };
 };
 
 //create user
 
-export const createUser = ({
-  name,
-  email,
-  enumRole,
-}) => {
+export const createUser = ({ name, email, enumRole }) => {
   return async (dispatchUserUpdate) => {
     try {
-      const responseCreateUser = await api.post(
-        `https://${NGROK_URL}/users/`,
-        {
-          name,
-          email,
-          enumRole,
-        }
-      );
+      const responseCreateUser = await api.post(`https://${NGROK_URL}/users/`, {
+        name,
+        email,
+        enumRole,
+      });
 
       dispatchUserUpdate({
         type: "createUser",
         payload: responseCreateUser,
       });
     } catch (error) {
-      logger.error(
-        "Error in fetching data",
-        error
-      );
+      logger.error("Error in fetching data", error);
     }
   };
 };
 
-export const createPmGithubName = ({
-  projectName,
-  repo,
-  username,
-}) => {
+export const createPmGithubName = ({ projectName, repo, username }) => {
   return async (dispatchPmGithub) => {
     try {
-      const responseCreatePmGithubName =
-        await api.post(
-          `https://${NGROK_URL}/collaborators/add`,
-          {
-            projectName,
-            repo,
-            username,
-          }
-        );
+      const responseCreatePmGithubName = await api.post(`https://${NGROK_URL}/collaborators/add`, {
+        projectName,
+        repo,
+        username,
+      });
       dispatchPmGithub({
         type: "createPmGithubName",
         payload: responseCreatePmGithubName,
       });
     } catch (error) {
-      logger.error(
-        "Error in fetching data",
-        error
-      );
+      logger.error("Error in fetching data", error);
     }
   };
 };
