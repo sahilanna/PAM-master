@@ -1,6 +1,5 @@
 import React from "react";
-import "/home/nineleaps/Desktop/Pratap/PAM-master/src/screens/dashboard/sidebar/sidebar.css";
-import CustomSidebarPU from "../sidebar/pmUserSidebar";
+import CustomSidebarPU from "./commonSidebar";
 
 function UserSidebar() {
   const title = "PAM";

@@ -1,5 +1,5 @@
 import React from "react";
-import UserSidebar from "./userSidebar";
+import UserSidebar from "../sidebar/userSidebar";
 import RepoDashboard from "../../../molecules/repoDashboard";
 
 function UserRepoRead() {

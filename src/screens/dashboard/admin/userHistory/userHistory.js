@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Icon } from "semantic-ui-react";
 import "./userHistory.css";
 import "semantic-ui-css/semantic.min.css";
-import Sidebar from "../../sidebar/sidebar";
+import AdminSidebar from "../../sidebar/adminSidebar/adminSidebar";
 import { NGROK_URL } from "../../../../network/config";
 import LoadingPage from "../../../../atoms/loadingPage/loadingPage";
 import api from "../../../../network/api";
@@ -83,7 +83,7 @@ function UserHistory() {
 
   return (
     <div className="parent-admin-userHistory">
-      <Sidebar />
+      <AdminSidebar />
 
       <div className="admin-child-userHistory">
         <br />

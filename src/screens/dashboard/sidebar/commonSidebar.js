@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Sidebar, Menu, Icon } from "semantic-ui-react";
-import "./sidebar.css";
+import "./adminSidebar/adminSidebar.css";
 
-function CustomSidebar({ title, links }) {
+function CommonSidebar({ title, links }) {
   return (
     <div>
       <Sidebar className="sidebar-title" as={Menu} animation="overlay" visible vertical inverted>
@@ -28,4 +28,4 @@ function CustomSidebar({ title, links }) {
   );
 }
 
-export default CustomSidebar;
+export default CommonSidebar;

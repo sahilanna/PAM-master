@@ -1,6 +1,6 @@
 import React from "react";
 import ProfilePU from "../projectManager/profilePU";
-import "./profile.css";
+import "./userDashboard.css";
 
 const UserProfile = () => {
   let profileData = sessionStorage.getItem("item");

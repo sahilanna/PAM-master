@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button } from "semantic-ui-react";
 import { NGROK_URL } from "../../../network/config";
 import api from "../../../network/api";
-import "./pmDashboard.css";
+import "./pmDashboard/pmDashboard.css";
 import logger from "../../../utils/logger.js";
 
 const PmProjectDetails = ({ project, onClose }) => {

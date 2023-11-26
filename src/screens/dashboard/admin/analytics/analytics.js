@@ -4,7 +4,7 @@ import { PieChart, Pie, Legend, Tooltip, Cell } from "recharts";
 import { Button } from "semantic-ui-react";
 import { CSVLink } from "react-csv";
 import { NGROK_URL } from "../../../../network/config";
-import Sidebar from "../../sidebar/sidebar";
+import AdminSidebar from "../../sidebar/adminSidebar/adminSidebar";
 import LoadingPage from "../../../../atoms/loadingPage/loadingPage";
 import logger from "../../../../utils/logger.js";
 import api from "../../../../network/api";
@@ -62,7 +62,7 @@ function Analytics() {
 
   return (
     <div className="project-analytics">
-      <Sidebar />
+      <AdminSidebar />
       <div className="main-content">
         <div className="analytics-components">
           {isLoading ? (

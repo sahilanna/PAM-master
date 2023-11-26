@@ -1,5 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGithub,
   faInstagram,
@@ -7,64 +6,53 @@ import {
   faJira,
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
+import FooterLink from "../../utils/footerLink";
+import FooterBelowLink from "../../utils/footerBelowLink";
 import "./footer.css";
 
 const Footer = () => {
+  const businessLinks = [
+    {
+      label: "LinkedIn",
+      url: "https://www.linkedin.com/company/nineleaps/mycompany/",
+      icon: faLinkedin,
+    },
+    { label: "GitHub", url: "https://github.com/", icon: faGithub },
+  ];
+
+  const socialMediaLinks = [
+    {
+      label: "Instagram",
+      url: "https://instagram.com/nineleaps_tech?igshid=MGU3ZTQzNzY=",
+      icon: faInstagram,
+    },
+  ];
+
+  const toolsLinks = [
+    { label: "Figma", url: "https://www.figma.com/", icon: faFigma },
+    { label: "Jira", url: "https://www.atlassian.com/", icon: faJira },
+  ];
+
   return (
     <div className="footer-background">
-      <div className="sb_footer_section_padding">
-        <div className="sb_footer-links">
-          <div className="sb_footer-links_div">
-            <h4>For Business</h4>
-            <a href="https://www.linkedin.com/company/nineleaps/mycompany/">
-              <p>
-                <FontAwesomeIcon icon={faLinkedin} /> LinkedIn
-              </p>
-            </a>
-            <a href="https://github.com/">
-              <p>
-                <FontAwesomeIcon icon={faGithub} /> GitHub
-              </p>
-            </a>
-          </div>
-          <div className="sb_footer-links_div">
-            <h4>Social media</h4>
-            <a href="https://instagram.com/nineleaps_tech?igshid=MGU3ZTQzNzY=">
-              <p>
-                <FontAwesomeIcon icon={faInstagram} /> Instagram
-              </p>
-            </a>
-          </div>
-          <div className="sb_footer-links_div">
-            <h4>Tools</h4>
-            <a href="https://www.figma.com/">
-              <p>
-                {" "}
-                <FontAwesomeIcon icon={faFigma} /> Figma
-              </p>
-            </a>
-            <a href="https://www.atlassian.com/">
-              <p>
-                <FontAwesomeIcon icon={faJira} /> Jira
-              </p>
-            </a>
-          </div>
+      <div className="footer-section-padding">
+        <div className="footer-links">
+          <FooterLink title="For Business" links={businessLinks} />
+          <FooterLink title="Social Media" links={socialMediaLinks} />
+          <FooterLink title="Tools" links={toolsLinks} />
         </div>
-        <hr></hr>
-        <div className="sb_footer-below">
-          <div className="sb_footer-copyright">
-            <p>@{new Date().getFullYear()} All rigts reserved.</p>
+
+        <div className="footer-below">
+          <div>
+            <p>@{new Date().getFullYear()} All rights reserved.</p>
           </div>
-          <div className="sb_footer-below-links">
-            <a href="/faq">
-              <div>
-                <p style={{ marginRight: "35px" }}> FAQs</p>
-              </div>
-            </a>
+          <div className="footer-below-links">
+            <FooterBelowLink label="FAQs" url="/faq" />
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 export default Footer;

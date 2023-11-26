@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PmSidebar from "./pmSidebar";
+import PmSidebar from "../sidebar/pmSidebar";
 import api from "../../../network/api";
 import { useNavigate } from "react-router-dom";
 import { NGROK_URL } from "../../../network/config";

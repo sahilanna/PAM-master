@@ -1,6 +1,6 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
-import LandingPageDescription from "./landingPageDescription";
+import LandingPageDescription from "../../utils/landingPageDescription";
 import NavBar from "../navbar/navbar";
 import Footer from "../footer/footer";
 import planning from "../../assets/images/planning.jpg";
@@ -13,11 +13,9 @@ const LandingPage = () => {
     <div className="landing-page-background">
       <NavBar />
 
-      <div>
-        <div className="at-container">
-          <div className="at-item">
-            <p> Build-Better-Together</p>
-          </div>
+      <div className="at-container">
+        <div className="at-item">
+          <p> Build-Better-Together</p>
         </div>
       </div>
 
@@ -27,39 +25,18 @@ const LandingPage = () => {
             <LandingPageDescription />
           </div>
           <div className="col-md-6">
-            <div className="image-carousel-container">
+            <div>
               <Carousel slide={true}>
                 <Carousel.Item>
-                  <img
-                    src={planning}
-                    alt="First slide"
-                    style={{
-                      maxWidth: "90%",
-                      height: "370px",
-                    }}
-                  />
+                  <img className="carousal-image" src={planning} alt="First slide" />
                 </Carousel.Item>
 
                 <Carousel.Item>
-                  <img
-                    src={strategy}
-                    alt="Second slide"
-                    style={{
-                      maxWidth: "90%",
-                      height: "370px",
-                    }}
-                  />
+                  <img className="carousal-image" src={strategy} alt="Second slide" />
                 </Carousel.Item>
 
                 <Carousel.Item>
-                  <img
-                    src={meeting}
-                    alt="Third slide"
-                    style={{
-                      maxWidth: "90%",
-                      height: "370px",
-                    }}
-                  />
+                  <img className="carousal-image" src={meeting} alt="Third slide" />
                 </Carousel.Item>
               </Carousel>
             </div>

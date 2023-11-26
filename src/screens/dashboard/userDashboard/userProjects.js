@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import UserSidebar from "./userSidebar";
 import { NGROK_URL } from "../../../network/config";
-import LoadingPage from "../../../atoms/loadingPage/loadingPage";
-import api from "../../../network/api";
-import PmProjectDetails from "../projectManager/pmProjectDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { getUserFromSessionStorage } from "../../../utils/sessionStorage";
+import LoadingPage from "../../../atoms/loadingPage/loadingPage";
+import UserSidebar from "../sidebar/userSidebar";
+import PmProjectDetails from "../projectManager/pmProjectDetails";
 import logger from "../../../utils/logger.js";
-import './profile.css';
+import api from "../../../network/api";
+import "./userDashboard.css";
 
 function UserProjects() {
   const [showUserProjectDetails, setShowUserProjectDetails] = useState(false);
@@ -18,13 +19,8 @@ function UserProjects() {
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  let data = sessionStorage.getItem("item");
-  let user = data ? JSON.parse(data) : null;
-
-  let id = null;
-  if (user !== null) {
-    id = user.id;
-  }
+  const user = getUserFromSessionStorage();
+  const id = user ? user.id : null;
 
   const fetchUserid = async () => {
     setIsLoading(true);
@@ -35,7 +31,7 @@ function UserProjects() {
       const filteredProjects = result.data.filter((item) =>
         item.projectName.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      logger.info(filteredProjects);
+      logger.info("Successfully fetched user info:", filteredProjects);
     } catch (error) {
       logger.error("Error fetching Projects:", error);
       setIsLoading(true);
@@ -75,14 +71,10 @@ function UserProjects() {
             />
 
             <i class="users icon"></i>
-            <div
-              
-            ></div>
+            <div></div>
           </div>
         </div>
-        <div
-        
-        >
+        <div>
           {isLoading ? (
             <LoadingPage />
           ) : (

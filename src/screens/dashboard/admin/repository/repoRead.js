@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../../sidebar/sidebar";
+import AdminSidebar from "../../sidebar/adminSidebar/adminSidebar";
 import LoadingPage from "../../../../atoms/loadingPage/loadingPage";
 import api from "../../../../network/api";
 import { NGROK_URL } from "../../../../network/config";
@@ -93,7 +93,7 @@ function RepoRead(onClose) {
 
   return (
     <div className="parent-admin">
-      <Sidebar />
+      <AdminSidebar />
       <div className="admin-child">
         <div
           style={{

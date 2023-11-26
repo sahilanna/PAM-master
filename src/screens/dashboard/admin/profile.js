@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../sidebar/sidebar";
+import AdminSidebar from "../sidebar/adminSidebar/adminSidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "./profile.css";
@@ -29,9 +29,9 @@ const Profile = () => {
       const response = await api.get(`https://${NGROK_URL}/users/${id}`);
       const userData = response.data;
 
-      setUserName(userData.name);
+      setUserName(userData?.name);
       logger.info(userName);
-      setUserRole(userData.enumRole);
+      setUserRole(userData?.enumRole);
       logger.info(userRole);
     } catch (error) {
       logger.error("Error fetching user project list:", error);
@@ -39,7 +39,7 @@ const Profile = () => {
   }
   return (
     <div className="parent-admi">
-      <Sidebar />
+      <AdminSidebar/>
       <div className="admin-chil">
         <div className="profile-paren">
           <div className="profile-details">

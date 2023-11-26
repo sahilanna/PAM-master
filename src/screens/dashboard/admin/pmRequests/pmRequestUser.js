@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Table, Button } from "semantic-ui-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Sidebar from "../../sidebar/sidebar";
+import AdminSidebar from "../../sidebar/adminSidebar/adminSidebar";
 import { NGROK_URL } from "../../../../network/config";
 import api from "../../../../network/api";
 import "../figma/figmaRead/figmaRead.css";
@@ -102,7 +102,7 @@ function PmRequestUser() {
 
   return (
     <div className="parent-admin">
-      <Sidebar />
+      <AdminSidebar />
       <div className="admin-child">
         <div
           style={{

@@ -1,12 +1,12 @@
 import React from "react";
 import { Modal, Button, Header } from "semantic-ui-react";
-import "./pmDashboard.css";
+import "./pmDashboard/pmDashboard.css";
 
-function ClearAllDialogue(props) {
+function ClearAllDialogueBox(props) {
   const { show, onClose, onConfirm } = props;
 
   return (
-    <Modal className="custom-dialog3" open={show} onClose={onClose}>
+    <Modal size="mini" className="clear-dialog-box" open={show} onClose={onClose}>
       <Header icon="exclamation triangle" content="Confirm Clear" />
       <Modal.Content>
         <p>Are you sure you want to clear all the notifications?</p>
@@ -23,4 +23,4 @@ function ClearAllDialogue(props) {
   );
 }
 
-export default ClearAllDialogue;
+export default ClearAllDialogueBox;

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../network/api";
+import axios from "axios";
 import NavBarLogin from "../navbar/navbarLogin";
 import Footer from "../footer/footer";
-import "./login.css";
+import ErrorModal from "../../molecules/errorModal";
 import { NGROK_LOGIN } from "../../network/config";
 import projectLogo from "../../assets/images/projectLogo.png";
 import logger from "../../utils/logger.js";
 import { decodeIdToken } from "../../utils/decodeLoginId";
-import ErrorModal from "../../molecules/errorModal";
+import { setUserInSessionStorage } from "../../utils/sessionStorage";
+import "./login.css";
 
 function Login() {
   const [showUserNotFoundModal, setShowUserNotFoundModal] = useState(false);
@@ -29,11 +31,10 @@ function Login() {
 
     try {
       logger.info("Inside try block before hitting api");
-      const { data } = await api.get(`https://${NGROK_LOGIN}/auth/api/v1/get-email`, { headers });
+      const { data } = await axios.get(`https://${NGROK_LOGIN}/auth/api/v1/get-email`, { headers });
       logger.info("After hitting api in try block");
 
-      sessionStorage.setItem("item", JSON.stringify(data));
-      sessionStorage.getItem("item");
+      setUserInSessionStorage(data);
 
       if (data.enumRole === "ADMIN") {
         navigate("/AdminDashboard", {
@@ -75,34 +76,24 @@ function Login() {
   }, [isGoogleButtonRendered]);
 
   return (
-    <div className="sample1">
+    <div className="login-page">
       <NavBarLogin />
-      <div className="box-container">
-        <div className="welcome-message">
-          <p>Welcome to PAM</p>
-        </div>
+
+      <div className="welcome-message">
+        <p>Welcome to PAM</p>
       </div>
-      <div className="box-container">
-        <div>
-          <img
-            data-testid="logo"
-            src={projectLogo}
-            alt="Logo"
-            style={{
-              width: "235px",
-              height: "300px",
-              paddingTop: "40px",
-            }}
-          />
-        </div>
+
+      <div>
+        <img className="login-image" data-testid="logo" src={projectLogo} alt="Logo" />
       </div>
-      <div className="box-container">
-        <div data-testid="signIn" id="signIn">
-          Button
-        </div>
+
+      <div className="sign-in-button" data-testid="signIn" id="signIn">
+        Button
       </div>
-      <div className="box-container"></div>
-      <Footer />
+
+      <div className="footer-container">
+        <Footer />
+      </div>
 
       <ErrorModal
         open={showUserNotFoundModal}

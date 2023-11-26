@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "semantic-ui-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
-import Sidebar from "../../sidebar/sidebar";
+import AdminSidebar from "../../sidebar/adminSidebar/adminSidebar.js";
 import logger from "../../../../utils/logger.js";
 import { NGROK_URL } from "../../../../network/config";
 import api from "../../../../network/api";
@@ -68,7 +68,7 @@ const ProjectAnalytics = () => {
 
   return (
     <div className="project-analytics">
-      <Sidebar />
+      <AdminSidebar />
       <div className="main-content">
         <div className="analytics-components">
           <div style={{ textAlign: "center" }}>

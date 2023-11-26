@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { CSVLink } from "react-csv";
 import Pagination from "../../../../utils/pagination";
 import LoadingPage from "../../../../atoms/loadingPage/loadingPage";
-import CustomSidebar from "../../sidebar/sidebar";
+import AdminSidebar from "../../sidebar/adminSidebar/adminSidebar";
 import AdminHeader from "./adminHeader";
 import useApiData from "../pmRequests/interval";
 import logger from "../../../../utils/logger.js";
@@ -90,7 +90,7 @@ const AdminDashboard = () => {
   return (
     <div className="parent-admin">
       <div className="custom-sidebar">
-        <CustomSidebar />
+        <AdminSidebar />
       </div>
       <div className="admin-child">
         <AdminHeader />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../../../sidebar/sidebar";
+import AdminSidebar from "../../../sidebar/adminSidebar/adminSidebar";
 import { NGROK_URL } from "../../../../../network/config";
 import LoadingPage from "../../../../../atoms/loadingPage/loadingPage";
 import api from "../../../../../network/api";
@@ -88,7 +88,7 @@ function DriveRead() {
 
   return (
     <div className="parent-admin">
-      <Sidebar />
+      <AdminSidebar />
       <div className="admin-child">
         <br />
         <div

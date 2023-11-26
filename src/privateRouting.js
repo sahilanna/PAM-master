@@ -32,7 +32,9 @@ const LazyUserProjects = lazy(() => import("./screens/dashboard/userDashboard/us
 const LazyLogin = lazy(() => import("./screens/login/login"));
 const LazyRepoRead = lazy(() => import("./screens/dashboard/admin/repository/repoRead"));
 const LazyUserRead = lazy(() => import("./screens/dashboard/users/userRead/userRead"));
-const LazyPmDashboard = lazy(() => import("./screens/dashboard/projectManager/pmDashboard"));
+const LazyPmDashboard = lazy(
+  () => import("./screens/dashboard/projectManager/pmDashboard/pmDashboard")
+);
 const LazyUserRepoRead = lazy(() => import("./screens/dashboard/userDashboard/userRepoRead"));
 const LazyAnalytics = lazy(() => import("./screens/dashboard/admin/analytics/analytics"));
 const LazyProfile = lazy(() => import("./screens/dashboard/admin/profile"));

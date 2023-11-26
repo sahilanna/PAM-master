@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
-import { NGROK_URL } from "../../../network/config";
-import PmSidebar from "./pmSidebar";
-import LoadingPage from "../../../atoms/loadingPage/loadingPage";
-import api from "../../../network/api";
-import PmProjectDetails from "./pmProjectDetails";
-import logger from "../../../utils/logger.js";
+import { NGROK_URL } from "../../../../network/config";
+import PmSidebar from "../../sidebar/pmSidebar";
+import LoadingPage from "../../../../atoms/loadingPage/loadingPage";
+import api from "../../../../network/api";
+import PmProjectDetails from "../pmProjectDetails";
+import logger from "../../../../utils/logger.js";
 
 const PmDashboard = () => {
   const [item, setItem] = useState([]);

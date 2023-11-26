@@ -7,7 +7,7 @@ import { faTrash, faEye, faUserCircle } from "@fortawesome/free-solid-svg-icons"
 import "./read.css";
 import PmDetails from "./pmDetails";
 import { NGROK_URL } from "../../../network/config";
-import Sidebar from "../sidebar/sidebar";
+import AdminSidebar from "../sidebar/adminSidebar/adminSidebar";
 import LoadingPage from "../../../atoms/loadingPage/loadingPage";
 import api from "../../../network/api";
 import logger from "../../../utils/logger.js";
@@ -117,7 +117,7 @@ function PmReadNew() {
   return (
     <div className="parent-admin">
       <div>
-        <Sidebar />
+        <AdminSidebar />
       </div>
 
       <div className="admin-child">

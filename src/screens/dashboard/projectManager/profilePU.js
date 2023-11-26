@@ -1,6 +1,6 @@
 import React from "react";
-import UserSidebar from "../userDashboard/userSidebar";
-import PmSidebar from "./pmSidebar";
+import UserSidebar from "../sidebar/userSidebar";
+import PmSidebar from "../sidebar/pmSidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 

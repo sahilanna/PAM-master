@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FigmaCreate from "../figmaCreateUser";
-import Sidebar from "../../../sidebar/sidebar";
+import AdminSidebar from "../../../sidebar/adminSidebar/adminSidebar";
 import { NGROK_URL } from "../../../../../network/config";
 import "./figmaRead.css";
 import LoadingPage from "../../../../../atoms/loadingPage/loadingPage";
@@ -130,7 +130,7 @@ function FigmaRead() {
 
   return (
     <div className="parent-admin">
-      <Sidebar />
+      <AdminSidebar />
       <div className="admin-child">
         <br />
         <div

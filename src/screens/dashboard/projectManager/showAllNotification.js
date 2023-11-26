@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import PmSidebar from "./pmSidebar";
+import PmSidebar from "../sidebar/pmSidebar";
 import { NGROK_URL } from "../../../network/config";
 import api from "../../../network/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import ClearAllDialogue from "./clearAllDialogue";
+import ClearAllDialogueBox from "./clearAllDialogueBox";
 import { useNavigate } from "react-router-dom";
 import logger from "../../../utils/logger.js";
 
@@ -81,7 +81,7 @@ function ShowAllNotification() {
             >
               <FontAwesomeIcon icon={faTrash} />
             </button>
-            <ClearAllDialogue
+            <ClearAllDialogueBox
               show={showNotifyDialog}
               onClose={() => cancelDeleteProject()}
               onConfirm={() => confirmDeleteProject()}

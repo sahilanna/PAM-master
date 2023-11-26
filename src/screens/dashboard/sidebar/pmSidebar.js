@@ -1,6 +1,6 @@
 import React from "react";
-import "/home/nineleaps/Desktop/Pratap/PAM-master/src/screens/dashboard/sidebar/sidebar.css";
-import CustomSidebarPU from "../sidebar/pmUserSidebar";
+import CommonSidebar from "./commonSidebar";
+import "./adminSidebar/adminSidebar.css";
 
 function PmSidebar() {
   const title = "PAM";
@@ -33,7 +33,7 @@ function PmSidebar() {
     },
   ];
 
-  return <CustomSidebarPU title={title} links={links} />;
+  return <CommonSidebar title={title} links={links} />;
 }
 
 export default PmSidebar;

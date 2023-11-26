@@ -1,7 +1,28 @@
+.custom-heading {
+
+  font-size: 30px;
+  margin-left: 15px;
+}
 .custom-menu-item {
+  text-align: left;
   font-size: 15px;
   font-weight: bold;
   transition: background-color 0.3s;
+  margin-bottom: 20px;
+}
+.menu-items {
+  font-size: 16px;
+  color: white;
+
+}
+.user-icon{
+  margin-left: 30px;
+ 
+  
+}
+.icon-name{
+  margin-left: 10px;
+  
 }
 
 .custom-menu-item:hover,
@@ -10,12 +31,12 @@
   color: #ff5733;
 }
 
-.sidebar-title{
+.sidebar-title {
   margin-right: 90px;
   font-size: 30px;
   text-align: left;
 }
 
-.sidebar-icons{
+.sidebar-icons {
   margin-right: 10px;
 }

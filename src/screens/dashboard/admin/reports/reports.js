@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CSVLink } from "react-csv";
-import Sidebar from "../../sidebar/sidebar";
+import AdminSidebar from "../../sidebar/adminSidebar/adminSidebar";
 import "../adminDashboard/adminDashboard.css";
 import { NGROK_URL } from "../../../../network/config";
 import api from "../../../../network/api";
@@ -70,7 +70,7 @@ function Reports() {
   return (
     <div className="parent-admin">
       <div>
-        <Sidebar />
+        <AdminSidebar />
       </div>
       <div className="admin-child">
         <br />

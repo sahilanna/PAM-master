@@ -6,7 +6,7 @@ import api from "../../../../network/api";
 import { NGROK_URL } from "../../../../network/config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faTimes } from "@fortawesome/free-solid-svg-icons";
-import CustomSidebar from "../../sidebar/sidebar";
+import AdminSidebar from "../../sidebar/adminSidebar/adminSidebar";
 import ProjectUsers from "./projectUsers/projectUsers";
 import ProjectPms from "./projectPms";
 import OtpModal from "../../../../molecules/otpModal";
@@ -263,7 +263,8 @@ const ProjectDetails = ({
             width: "250px",
           }}
         >
-          <CustomSidebar />
+          <AdminSidebar
+           />
         </div>
 
         <div className="container">

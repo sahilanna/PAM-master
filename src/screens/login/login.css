@@ -1,4 +1,4 @@
-.sample1 {
+.login-page {
   background: rgb(2, 0, 36);
   background: linear-gradient(
     90deg,
@@ -12,38 +12,22 @@
   display: flex;
   flex-direction: column;
 }
-body {
-  margin: 0;
-  padding: 0;
+
+.footer-container {
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
 }
 
-.navbar {
-  background-color: #ffffff;
-  padding: 10px;
-}
-
-.signIn-container {
+.sign-in-button {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
-.box-container {
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(22, 22, 124, 1) 100%,
-    rgba(0, 212, 255, 1) 100%
-  );
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f2f2f2;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 25vh;
-}
-.space {
-  height: 20px;
+.login-image {
+  width: 230px;
+  height: 220px;
+  padding-top: 0px;
 }
 
 .welcome-message {
@@ -52,31 +36,7 @@ body {
   font-size: 40px;
   font-weight: bold;
   animation: fade-in 1s ease-in;
-}
-
-.centered-modal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 30vh;
-  position: relative;
-  left: 30%;
-  top: 30%;
-  transform: translateX(25%);
-}
-
-.centered-modal .modal-dialog {
-  width: 300px !important;
-  margin: 0 !important;
-}
-
-.Modal-cont {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  left: 500px;
-  width: 100%;
+  padding-top: 30px;
 }
 
 @keyframes fade-in {
