@@ -6,10 +6,10 @@ import api from "../../../../network/api";
 import { NGROK_URL } from "../../../../network/config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import DialogBox from "../../dialogBox/dialogBox";
 import Pagination from "../../../../utils/pagination";
 import "../figma/figmaRead/figmaRead.css";
 import logger from "../../../../utils/logger.js";
+import DeleteDialogBox from "../../../../atoms/deleteDialogBox/deleteDialogBox";
 
 function RepoRead(onClose) {
   const [isLoading, setIsLoading] = useState(false);
@@ -92,20 +92,10 @@ function RepoRead(onClose) {
   };
 
   return (
-    <div className="parent-admin">
+    <div className="admin-screen">
       <AdminSidebar />
-      <div className="admin-child">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: "20px",
-            marginBottom: "30px",
-            marginLeft: "40px",
-            marginRight: "30px",
-          }}
-        >
+      <div className="admin-child-screen">
+        <div className="admin-read">
           <div className="ui left icon input">
             <input
               type="text"
@@ -128,10 +118,7 @@ function RepoRead(onClose) {
           </div>
         </div>
         <div
-          style={{
-            marginLeft: "20px",
-            marginRight: "30px",
-          }}
+       
         >
           {isLoading ? (
             <LoadingPage />
@@ -168,7 +155,7 @@ function RepoRead(onClose) {
                           {showConfirmDialog === item.repoId && (
                             <div className="dialog-backdrop">
                               <div className="dialog-container">
-                                <DialogBox
+                                <DeleteDialogBox
                                   show={showConfirmDialog === item.repoId}
                                   onClose={() => setShowConfirmDialog(null)}
                                   onConfirm={() => deleteUser(item.repoId)}
@@ -184,11 +171,7 @@ function RepoRead(onClose) {
               </table>
               <div
                 className="pagination"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "20px",
-                }}
+             
               >
                 <Pagination
                   data={filteredProjects}

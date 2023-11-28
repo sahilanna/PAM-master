@@ -31,7 +31,7 @@ function PmNotification() {
       setAccessRequestId(requestId);
       logger.info(accessRequestId);
 
-      // Show each message as a toast notification
+
       toast.info(notification[0], {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 4000,
@@ -60,66 +60,49 @@ function PmNotification() {
   };
 
   return (
-    <div className="parent-admin">
-      <div
-        style={{
-          height: "100vh",
-          overflow: "scroll initial",
-        }}
-      >
+    <div className="pm-read-screen">
+      <div>
         <PmSidebar />
       </div>
 
-      <div
-        style={{
-          marginLeft: "20px",
-          marginRight: "30px",
-        }}
-      >
-        <div
-          style={{
-            marginTop: "80px",
-            marginLeft: "280px",
-          }}
-        >
-          <div style={{ paddingLeft: "350px" }}>
-            {" "}
-            <Button data-testid="notify" onClick={goToNotification}>
-              Show All
-            </Button>
-          </div>
-
-          <table class="ui celled table">
-            <thead>
-              <th>Notification</th>
-              <th>Mark as Read</th>
-            </thead>
-            <tbody>
-              {notification && notification.length > 0 ? (
-                notification.map((item) => (
-                  <tr key={item.id}>
-                    <td>
-                      <b>{item.response}</b>
-                    </td>
-                    <td>
-                      <Button
-                        data-testid="delete"
-                        style={{ color: "blue" }}
-                        onClick={() => onDeleteNotification(item.accessRequestId)}
-                      >
-                        <FontAwesomeIcon icon={faCheck} className="read-icon" />
-                      </Button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="2">No unread notifications</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+      <div className="show-all-notifications">
+        <div className="show-all-notification-button">
+          {" "}
+          <Button data-testid="notify" onClick={goToNotification}>
+            Show All
+          </Button>
         </div>
+
+        <table class="ui celled table">
+          <thead>
+            <th>Notification</th>
+            <th>Mark as Read</th>
+          </thead>
+          <tbody>
+            {notification && notification.length > 0 ? (
+              notification.map((item) => (
+                <tr key={item.id}>
+                  <td>
+                    <b>{item.response}</b>
+                  </td>
+                  <td>
+                    <Button
+                      data-testid="delete"
+                      style={{ color: "blue" }}
+                      onClick={() => onDeleteNotification(item.accessRequestId)}
+                    >
+                      <FontAwesomeIcon icon={faCheck} className="read-icon" />
+                    </Button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="2">No unread notifications</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );

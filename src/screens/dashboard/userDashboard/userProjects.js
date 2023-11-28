@@ -22,7 +22,7 @@ function UserProjects() {
   const user = getUserFromSessionStorage();
   const id = user ? user.id : null;
 
-  const fetchUserid = async () => {
+  const fetchUserId = async () => {
     setIsLoading(true);
     try {
       const result = await api.get(`https://${NGROK_URL}/users/${id}/role/user/projects`);
@@ -39,7 +39,7 @@ function UserProjects() {
   };
 
   useEffect(() => {
-    fetchUserid();
+    fetchUserId();
   }, []);
 
   const filteredProjects = userid.filter((item) =>

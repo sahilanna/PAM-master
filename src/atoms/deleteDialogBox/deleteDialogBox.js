@@ -1,8 +1,8 @@
 import React from "react";
 import { Modal, Header, Button } from "semantic-ui-react";
-import "./dialogBox.css";
+import "./deleteDialogBox.css";
 
-const DialogBox = (props) => {
+const DeleteDialogBox = (props) => {
   const { show, onClose, onConfirm } = props;
 
   return (
@@ -23,4 +23,4 @@ const DialogBox = (props) => {
   );
 };
 
-export default DialogBox;
+export default DeleteDialogBox;

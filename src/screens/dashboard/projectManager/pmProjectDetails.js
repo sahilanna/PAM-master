@@ -1,72 +1,57 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button } from "semantic-ui-react";
 import { NGROK_URL } from "../../../network/config";
+import { getUserFromSessionStorage } from "../../../utils/sessionStorage";
+import CloseButton from "../../../atoms/closeButton/closeButton";
+import ProjectDetailItem from "../../../utils/projectDetailItem";
 import api from "../../../network/api";
-import "./pmDashboard/pmDashboard.css";
 import logger from "../../../utils/logger.js";
 
 const PmProjectDetails = ({ project, onClose }) => {
   const [isLoading, setIsLoading] = useState(true);
-  let data = sessionStorage.getItem("item");
-  let user = data ? JSON.parse(data) : null;
-
-  let id = null;
-  if (user !== null) {
-    id = user.id;
-  }
+  const user = getUserFromSessionStorage();
+  const id = user ? user.id : null;
 
   const [result, setResult] = useState([]);
-  const fetchFigma = async () => {
+  const fetchprojectDetails = async () => {
     try {
       const response = await api.get(
         `https://${NGROK_URL}/users/${id}/role/project_manager/projects`
       );
       const data = response.data;
-
       setIsLoading(false);
       setResult(data);
-      logger.info("result", result);
+      logger.info("project Details fetched successfully", result);
     } catch (error) {
-      logger.error("Error fetching PMID:", error);
+      logger.error("Error fetching prject details:", error);
       setIsLoading(true);
     }
   };
   useEffect(() => {
-    fetchFigma();
+    fetchprojectDetails();
   }, []);
 
   if (!project) return null;
   logger.error(isLoading);
 
   return (
-    <Modal className="custom-dialog2" open={true} onClose={onClose}>
+    <Modal size="mini" className="form-modal" open={true} onClose={onClose}>
+      <CloseButton onClick={onClose} />
       <Modal.Header>Project Details</Modal.Header>
 
       <Modal.Content>
-        <p>
-          <strong>Project ID: </strong> {project.projectId}
-        </p>
-        <p>
-          <strong>Project Name:</strong> {project.projectName}
-        </p>
-        <p>
-          <strong>Figma URL: </strong>
-          <a href={project.figma.figmaURL}>{project.figma.figmaURL}</a>
-        </p>
-        <p>
-          <strong>Drive Link: </strong>
-          <a href={project.googleDrive.driveLink}>{project.googleDrive.driveLink}</a>
-        </p>
-        {/* <p><strong>Repo Name: </strong>{project.repositories[0].repo.name}</p> */}
-        <p>
-          <strong>project Description: </strong> {project.projectDescription}
-        </p>
+        <ProjectDetailItem label="Project ID" value={project.projectId} />
+        <ProjectDetailItem label="Project Name" value={project.projectName} />
+        <ProjectDetailItem
+          label="Figma URL"
+          value={<a href={project.figma.figmaURL}>{project.figma.figmaURL}</a>}
+        />
+        <ProjectDetailItem
+          label="Drive Link"
+          value={<a href={project.googleDrive.driveLink}>{project.googleDrive.driveLink}</a>}
+        />
+        <ProjectDetailItem label="Project Description" value={project.projectDescription} />
       </Modal.Content>
-      <Modal.Actions>
-        <Button data-testid="onClose" variant="secondary" onClick={onClose}>
-          Close
-        </Button>
-      </Modal.Actions>
     </Modal>
   );
 };

@@ -1,0 +1,22 @@
+.reoprts-screen {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-left: 130px;
+}
+
+.reports-child-screen {
+  width: 70%;
+  margin-left: 270px;
+  padding: 10px;
+}
+
+.reports-read {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-left: 10px;
+  margin-right: 0px;
+}

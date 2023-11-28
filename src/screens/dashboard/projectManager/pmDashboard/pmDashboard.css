@@ -1,15 +1,54 @@
-.parent-pmadmin {
+.pm-read-screen {
   display: flex;
-  height: 100vh;
-  justify-content: center;
+  flex-direction: row;
+  width: 100%;
 }
 
-.admin-pmchild {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.pm-child {
+  width:80%;
+ margin-left: 20%;
+  padding: 20px;
 }
+
+
+.pm-read {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-left: 0px;
+ 
+}
+
+.pm-notification{
+  margin-top: 80px;
+  margin-left: 220px;
+}
+
+.show-all-notification{
+  margin-top: 80px;
+  margin-left: 590px;
+  
+}
+.show-all-notifications{
+  margin-top: 10px;
+  margin-left: 490px;
+  
+}
+
+.show-all-notification-button{
+  margin-top: 80px;
+  margin-left: 590px;
+}
+
+
+.clear-all-notifications{
+  padding-left: 270px;
+}
+
+
+
 
 .profile-container {
   display: flex;
@@ -45,13 +84,7 @@
   color: #af1818;
 }
 
-.custom-dialog2 {
-  width: 40% !important;
-  max-height: 55vh;
-  margin: auto;
-  margin-left: 40% !important;
-  margin-top: 10% !important;
-}
+
 .clear-dialog-box {
  
   display: flex;

@@ -1,7 +1,8 @@
 import React from "react";
 import PmSidebar from "../sidebar/pmSidebar";
-import "./pmDashboard/pmDashboard.css";
 import RepoDashboard from "../../../molecules/repoDashboard";
+import "./pmDashboard/pmDashboard.css";
+
 
 function RepoPmDashboard() {
   return (

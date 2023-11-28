@@ -101,19 +101,12 @@ function PmRequestUser() {
   };
 
   return (
-    <div className="parent-admin">
+    <div className="admin-screen">
       <AdminSidebar />
-      <div className="admin-child">
+      <div className="admin-child-screen">
         <div
-          style={{
-            marginLeft: "20px",
-            marginRight: "30px",
-            marginTop: "70px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-          }}
+          className="admin-read"
+         
         >
           {requestData.length > 0 ? (
             <Table className="ui-celled-table">

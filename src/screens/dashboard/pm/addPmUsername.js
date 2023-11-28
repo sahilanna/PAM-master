@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Modal, Form, Dropdown, Button } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import { NGROK_URL, GIT_ACCESS_TOKEN } from "../../../network/config";
-import api from "../../../network/api";
-import logger from "../../../utils/logger.js";
 import CloseButton from "../../../atoms/closeButton/closeButton";
 import ErrorModal from "../../../molecules/errorModal";
+import api from "../../../network/api";
+import logger from "../../../utils/logger.js";
+
 function AddPmUserName() {
   const navigate = useNavigate();
   const [id, setId] = useState();
@@ -27,8 +28,9 @@ function AddPmUserName() {
         value: user.id,
       }));
       setUsers(userOptions);
+      logger.info("PM data successfully fetched");
     } catch (error) {
-      logger.error("Error fetching Users:", error);
+      logger.error("Error fetching PM data:", error);
     }
   };
   const handleSubmit = async (e) => {
@@ -47,9 +49,11 @@ function AddPmUserName() {
 
       navigate("/pmReadNew");
     } catch (error) {
+      
       if (error.response && error.response.status == 409) {
         setShowInvalidUsernameModal(true);
       }
+      logger.error("Error occured in submitting:", error);
     }
   };
 

@@ -6,13 +6,14 @@ import { NGROK_URL } from "../../../../../network/config";
 import "./figmaRead.css";
 import LoadingPage from "../../../../../atoms/loadingPage/loadingPage";
 import api from "../../../../../network/api";
-import DialogBox from "../../../dialogBox/dialogBox";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Pagination from "../../../../../utils/pagination";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { faTrash, faUser, faStreetView } from "@fortawesome/free-solid-svg-icons";
 import logger from "../../../../../utils/logger.js";
+import DeleteDialogBox from "../../../../../atoms/deleteDialogBox/deleteDialogBox";
 
 function FigmaRead() {
   const [userData, setUserData] = useState({
@@ -129,20 +130,12 @@ function FigmaRead() {
   }, [filteredProjects]);
 
   return (
-    <div className="parent-admin">
+    <div className="figma-screen">
       <AdminSidebar />
-      <div className="admin-child">
-        <br />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: "20px",
-            marginBottom: "30px",
-            marginLeft: "40px",
-            marginRight: "30px",
-          }}
+      <div className="figma-child-screen">
+        
+        <div className="figma-read"
+         
         >
           <div className="ui left icon input">
             <input
@@ -159,10 +152,7 @@ function FigmaRead() {
           </button>
         </div>
         <div
-          style={{
-            marginLeft: "20px",
-            marginRight: "30px",
-          }}
+          
         >
           {isLoading ? (
             <LoadingPage />
@@ -216,7 +206,7 @@ function FigmaRead() {
                             >
                               <FontAwesomeIcon icon={faTrash} />
                             </button>
-                            <DialogBox
+                            <DeleteDialogBox
                               show={showConfirmDialog === project.figmaId}
                               onClose={() => setShowConfirmDialog(null)}
                               onConfirm={() => handleDeleteUrl(project.figmaId)}
@@ -238,11 +228,7 @@ function FigmaRead() {
 
                   <div
                     className="pagination"
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "20px",
-                    }}
+                   
                   >
                     <Pagination
                       data={filteredItems}

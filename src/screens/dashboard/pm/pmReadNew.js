@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import DialogBox from "../dialogBox/dialogBox";
 import Pagination from "../../../utils/pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEye, faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import "./read.css";
 import PmDetails from "./pmDetails";
 import { NGROK_URL } from "../../../network/config";
 import AdminSidebar from "../sidebar/adminSidebar/adminSidebar";
 import LoadingPage from "../../../atoms/loadingPage/loadingPage";
 import api from "../../../network/api";
 import logger from "../../../utils/logger.js";
+import DeleteDialogBox from "../../../atoms/deleteDialogBox/deleteDialogBox";
+
 
 function PmReadNew() {
   const navigate = useNavigate();
@@ -33,9 +33,10 @@ function PmReadNew() {
     try {
       const response = await api.get(`https://${NGROK_URL}/users/role/project_manager`);
       setIsLoading(true);
-      const Data = response.data;
-      setItem(Data);
+      const data = response.data;
+      setItem(data);
       setIsLoading(false);
+      logger.info("PM info fetched successfully")
       setFilteredProjects(response.data);
     } catch (error) {
       setIsLoading(true);
@@ -97,6 +98,7 @@ function PmReadNew() {
       setShowConfirmDialog(false);
       loaditem();
       navigate("/pmReadNew");
+      logger.info("User deleted successfully");
     } catch (error) {
       logger.error("Error in deleting user", error);
     }
@@ -107,31 +109,19 @@ function PmReadNew() {
   };
 
   const viewActivity = (id, username) => {
-    // setShowUserActivity(true)
-
     navigate("/userActivity", {
       state: { id, username },
     });
   };
 
   return (
-    <div className="parent-admin">
+    <div className="admin-screen">
       <div>
         <AdminSidebar />
       </div>
 
-      <div className="admin-child">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: "20px",
-            marginBottom: "30px",
-            marginLeft: "40px",
-            marginRight: "30px",
-          }}
-        >
+      <div className="admin-child-screen">
+        <div className="admin-read">
           <div class="ui left icon input">
             <input
               type="text"
@@ -151,10 +141,7 @@ function PmReadNew() {
           </div>
         </div>
         <div
-          style={{
-            marginLeft: "20px",
-            marginRight: "30px",
-          }}
+         
         >
           {isLoading ? (
             <LoadingPage />
@@ -214,7 +201,7 @@ function PmReadNew() {
                         {showConfirmDialog === item.id && (
                           <div className="dialog-backdrop">
                             <div className="dialog-container">
-                              <DialogBox
+                              <DeleteDialogBox
                                 show={showConfirmDialog === item.id}
                                 onClose={() => setShowConfirmDialog(null)}
                                 onConfirm={() => deleteUser(item.id)}
@@ -232,12 +219,7 @@ function PmReadNew() {
         </div>
 
         <div
-          className="pagination"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "20px",
-          }}
+        
         >
           <Pagination
             data={filteredProjects}

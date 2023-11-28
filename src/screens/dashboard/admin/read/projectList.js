@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "semantic-ui-react";
-import api from "../../../../network/api";
+import { useNavigate } from "react-router-dom";
 import { NGROK_URL, GIT_ACCESS_TOKEN } from "../../../../network/config";
 import { REPO_OWNER } from "../../../../assets/constants/owner";
-import DialogBox from "../../dialogBox/dialogBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import "./read.css";
-import { useNavigate } from "react-router-dom";
+import DeleteDialogBox from "../../../../atoms/deleteDialogBox/deleteDialogBox";
 import OtpModal from "../../../../molecules/otpModal";
 import logger from "../../../../utils/logger.js";
+import api from "../../../../network/api";
+import "./read.css";
 
 function ProjectList({ projectId, projectName, type }) {
   const [items, setItems] = useState([]);
@@ -172,7 +172,7 @@ function ProjectList({ projectId, projectName, type }) {
         onSubmit={handleOTPSubmit}
         errorMessage={errorMessage}
       />
-      <DialogBox
+      <DeleteDialogBox
         show={showConfirmDialog}
         onClose={handleCancelDelete}
         onConfirm={handleConfirmDelete}

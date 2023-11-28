@@ -4,7 +4,7 @@ import AdminSidebar from "../../../sidebar/adminSidebar/adminSidebar";
 import { NGROK_URL } from "../../../../../network/config";
 import LoadingPage from "../../../../../atoms/loadingPage/loadingPage";
 import api from "../../../../../network/api";
-import DialogBox from "../../../dialogBox/dialogBox";
+import DeleteDialogBox from "../../../../../atoms/deleteDialogBox/deleteDialogBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Pagination from "../../../../../utils/pagination";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -87,20 +87,11 @@ function DriveRead() {
   }, [filteredProjects]);
 
   return (
-    <div className="parent-admin">
+    <div className="drive-screen">
       <AdminSidebar />
-      <div className="admin-child">
-        <br />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: "20px",
-            marginBottom: "30px",
-            marginLeft: "40px",
-            marginRight: "30px",
-          }}
+      <div className="drive-child-screen">
+        <div className="drive-read"
+          
         >
           <div className="ui left icon input">
             <input
@@ -116,10 +107,7 @@ function DriveRead() {
           </button>
         </div>
         <div
-          style={{
-            marginLeft: "20px",
-            marginRight: "30px",
-          }}
+        
         >
           {isLoading ? (
             <LoadingPage />
@@ -156,7 +144,7 @@ function DriveRead() {
                             >
                               <FontAwesomeIcon icon={faTrash} />
                             </button>
-                            <DialogBox
+                            <DeleteDialogBox
                               show={showConfirmDialog === project.driveId}
                               onClose={() => setShowConfirmDialog(null)}
                               onConfirm={() => handleDeleteUrl(project.driveId)}
@@ -168,11 +156,7 @@ function DriveRead() {
                   </table>
                   <div
                     className="pagination"
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "20px",
-                    }}
+                   
                   >
                     <Pagination
                       data={filteredItems}

@@ -4,37 +4,28 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
+import { getUserFromSessionStorage } from "../../../../utils/sessionStorage";
 import { NGROK_URL } from "../../../../network/config";
 import PmSidebar from "../../sidebar/pmSidebar";
 import LoadingPage from "../../../../atoms/loadingPage/loadingPage";
-import api from "../../../../network/api";
 import PmProjectDetails from "../pmProjectDetails";
 import logger from "../../../../utils/logger.js";
+import api from "../../../../network/api";
+import "./pmDashboard.css";
 
 const PmDashboard = () => {
   const [item, setItem] = useState([]);
-
   const [showPmProjectDetails, setShowPmProjectDetails] = useState(false);
   const [pmid, setPmid] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const [selectedProject, setSelectedProject] = useState(null);
-
   const [isLoading, setIsLoading] = useState(false);
 
-  let data = sessionStorage.getItem("item");
-  let user = data ? JSON.parse(data) : null;
+  const user = getUserFromSessionStorage();
+  const id = user ? user.id : null;
 
-  logger.info(pmid);
-
-  let id = null;
-  if (user !== null) {
-    id = user.id;
-    const pmName = user.name;
-    logger.info(pmName);
-  }
-
-  const fetchPmid = async () => {
+  const fetchPmId = async () => {
     setIsLoading(true);
     try {
       new URLSearchParams(window.location.search);
@@ -55,7 +46,7 @@ const PmDashboard = () => {
     }
   };
   useEffect(() => {
-    fetchPmid();
+    fetchPmId();
   }, []);
 
   const filteredItems = item.filter((item) =>
@@ -78,27 +69,12 @@ const PmDashboard = () => {
   };
 
   return (
-    <div className="parent-admin">
-      <div
-        style={{
-          height: "100vh",
-          overflow: "scroll initial",
-        }}
-      >
+    <div className="pm-read-screen">
+      <div>
         <PmSidebar />
       </div>
-      <div className="admin-child">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: "20px",
-            marginBottom: "30px",
-            marginLeft: "40px",
-            marginRight: "30px",
-          }}
-        >
+      <div className="pm-child">
+        <div className="pm-read">
           <div class="ui left icon input">
             <input
               type="text"
@@ -115,12 +91,6 @@ const PmDashboard = () => {
             <LoadingPage />
           </div>
         ) : (
-          <div
-            style={{
-              marginLeft: "20px",
-              marginRight: "30px",
-            }}
-          >
             <table class="ui celled table">
               <thead>
                 <tr>
@@ -168,7 +138,6 @@ const PmDashboard = () => {
                 )}
               </tbody>
             </table>
-          </div>
         )}
         {showPmProjectDetails && (
           <PmProjectDetails project={selectedProject} onClose={handleCloseDetails} />

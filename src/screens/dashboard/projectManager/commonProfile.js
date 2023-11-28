@@ -4,7 +4,7 @@ import PmSidebar from "../sidebar/pmSidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-function ProfilePU({ profileData }) {
+function CommonProfile({ profileData }) {
   const id = profileData.id;
   const pname = profileData.name;
   const pemail = profileData.email;
@@ -37,4 +37,4 @@ function ProfilePU({ profileData }) {
   );
 }
 
-export default ProfilePU;
+export default CommonProfile;

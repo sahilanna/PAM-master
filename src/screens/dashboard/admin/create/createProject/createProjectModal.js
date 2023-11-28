@@ -20,7 +20,13 @@ function CreateProjectModal({
     <>
       <ToastContainer />
 
-      <Modal size="mini" open={true} onClose={onClose} className="form-modal">
+      <Modal
+        className="form-modal"
+        size="mini"
+        open={true}
+        onClose={onClose}
+        
+      >
         {loading && <LoadingPage />}
         {success && <div>Project created successfully!</div>}
         {error && <div>Error: {error.message}</div>}

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Dropdown, Modal } from "semantic-ui-react";
 import { NGROK_URL } from "../../../network/config";
-import { useNavigate, useLocation } from "react-router-dom";
-import "semantic-ui-css/semantic.min.css";
+import CloseButton from "../../../atoms/closeButton/closeButton";
 import api from "../../../network/api";
 import logger from "../../../utils/logger.js";
 
@@ -34,9 +34,7 @@ function PmRequestForm() {
     }
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+ 
   const fetchUsers = async () => {
     try {
       const response = await api.get(
@@ -47,13 +45,18 @@ function PmRequestForm() {
         const userNames = response.data.map((users) => users.name);
         setUsers(userNames);
         setUserObj(response.data);
+        logger.info("User name successfully fetched");
       }
     } catch (error) {
       logger.error("Error fetching Users:", error);
     }
   };
 
-  const Description = (e) => {
+   useEffect(() => {
+     fetchUsers();
+   }, []);
+
+  const description = (e) => {
     setRequestDescription(e.target.value);
   };
 
@@ -75,6 +78,7 @@ function PmRequestForm() {
       });
       if (response.data.success) {
         setRequestStatus("Request submitted successfully");
+        logger.info("Request submitted successfully");
       }
       navigate("/PmDashboard");
     } catch (error) {
@@ -86,39 +90,20 @@ function PmRequestForm() {
     navigate(-1);
   };
   return (
-    <Modal
-      open={true}
-      onClose={onClose}
-      style={{
-        position: "fixed",
-        right: "-80px",
-        top: "10px",
-        width: "500px",
-        height: "560px",
-      }}
-    >
-      <div
-        style={{
-          paddingLeft: "820px",
-          paddingTop: "5px",
-        }}
-      ></div>
-      <div style={{ paddingLeft: "442px" }}>
-        <Button data-testid="close" secondary onClick={onClose}>
-          X
-        </Button>
-      </div>
+    <Modal className="form-modal" size="mini" open={true} onClose={onClose}>
+      <CloseButton onClick={onClose} />
+
       <Modal.Header>Request Form To Add User</Modal.Header>
       <Modal.Content>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
-            <label style={{ textAlign: "left" }}>Project Name</label>
+            <label>Project Name</label>
 
             <input data-testid="project-name" name="name" placeholder={projectName} readOnly />
           </Form.Field>
 
           <Form.Field>
-            <label style={{ textAlign: "left" }}>User</label>
+            <label> User</label>
             {users.length > 0 ? (
               <Dropdown
                 data-testid="user-dropdown"
@@ -140,14 +125,14 @@ function PmRequestForm() {
             )}
           </Form.Field>
           <Form.Field>
-            <label style={{ textAlign: "left" }}>Description:</label>
+            <label>Description:</label>
             <input
               data-testid="description"
               type="text"
               placeholder="Description"
               id="Description"
               required
-              onChange={Description}
+              onChange={description}
             />
           </Form.Field>
           <Button data-testid="submit" primary type="submit">
@@ -155,7 +140,6 @@ function PmRequestForm() {
           </Button>
         </Form>
       </Modal.Content>
-      <Modal.Actions></Modal.Actions>
     </Modal>
   );
 }

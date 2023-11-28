@@ -1,6 +1,6 @@
 import React from "react";
 import "./pmDashboard.css";
-import PmSidebar from "./pmSidebar";
+import PmSidebar from "../sidebar/pmSidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,10 +16,7 @@ const PmProfile = () => {
   return (
     <div className="parent-pmadmin">
       <div
-        style={{
-          height: "100vh",
-          overflow: "scroll initial",
-        }}
+        
       >
         <PmSidebar />
       </div>

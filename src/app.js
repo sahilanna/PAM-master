@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Logout from "./screens/logout/logout";
 import "./app.css";
 import "././screens/dashboard/admin/create/commonModal.css";
+import "././screens/dashboard/admin/adminScreen.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

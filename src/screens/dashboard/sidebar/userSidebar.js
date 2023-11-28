@@ -1,5 +1,5 @@
 import React from "react";
-import CustomSidebarPU from "./commonSidebar";
+import CommonSidebar from "./commonSidebar";
 
 function UserSidebar() {
   const title = "PAM";
@@ -27,7 +27,7 @@ function UserSidebar() {
     },
   ];
 
-  return <CustomSidebarPU title={title} links={links} />;
+  return <CommonSidebar title={title} links={links} />;
 }
 
 export default UserSidebar;

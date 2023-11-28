@@ -2,11 +2,12 @@ import React from "react";
 import AdminSidebar from "../../sidebar/adminSidebar/adminSidebar";
 import LoadingPage from "../../../../atoms/loadingPage/loadingPage";
 import Pagination from "../../../../utils/pagination";
-import DialogBox from "../../dialogBox/dialogBox";
+import DeleteDialogBox from "../../../../atoms/deleteDialogBox/deleteDialogBox";
 import UserDetails from "../userDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEye, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import "./userRead.css";
+
 
 const UserReadTable = ({
   isLoading,
@@ -53,7 +54,7 @@ const UserReadTable = ({
           </button>
         </div>
       </div>
-      <div className="user-table">
+      <div >
         {isLoading ? (
           <LoadingPage />
         ) : (
@@ -107,7 +108,7 @@ const UserReadTable = ({
                       >
                         <FontAwesomeIcon icon={faTrash} />{" "}
                       </button>
-                      <DialogBox
+                      <DeleteDialogBox
                         show={showConfirmDialog === user.id}
                         onClose={() => setShowConfirmDialog(null)}
                         onConfirm={() => deleteUser(user.id)}

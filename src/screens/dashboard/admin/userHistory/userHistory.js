@@ -86,14 +86,8 @@ function UserHistory() {
       <AdminSidebar />
 
       <div className="admin-child-userHistory">
-        <br />
-        <br />
-        <div
-          style={{
-            marginLeft: "20px",
-            marginRight: "30px",
-          }}
-        >
+       
+        <div className="user-history-read">
           <div className="search-and-download-container">
             <div className="ui left icon input">
               <input
@@ -156,11 +150,7 @@ function UserHistory() {
 
               <div
                 className="pagination"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "20px",
-                }}
+              
               >
                 <Pagination
                   data={filteredProjects}

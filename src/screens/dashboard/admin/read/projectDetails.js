@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Header, Segment, List, Tab } from "semantic-ui-react";
-import DialogBox from "../../dialogBox/dialogBox";
 import { useNavigate, useParams } from "react-router-dom";
-import api from "../../../../network/api";
 import { NGROK_URL } from "../../../../network/config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -10,8 +8,11 @@ import AdminSidebar from "../../sidebar/adminSidebar/adminSidebar";
 import ProjectUsers from "./projectUsers/projectUsers";
 import ProjectPms from "./projectPms";
 import OtpModal from "../../../../molecules/otpModal";
+import DeleteDialogBox from "../../../../atoms/deleteDialogBox/deleteDialogBox";
 import logger from "../../../../utils/logger.js";
+import api from "../../../../network/api";
 import "./read.css";
+
 
 const ProjectDetails = ({
   project,
@@ -368,7 +369,7 @@ const ProjectDetails = ({
           />
         </div>
       </div>
-      <DialogBox
+      <DeleteDialogBox
         show={showConfirmDialog}
         onClose={handleCancelDelete}
         onConfirm={handleConfirmDelete}

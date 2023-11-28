@@ -5,7 +5,6 @@ import logger from "../../../../utils/logger.js";
 import UserReadTable from "./userReadTable";
 import { NGROK_URL } from "../../../../network/config";
 
-
 const UserRead = () => {
   const navigate = useNavigate();
   const URL = `https://${NGROK_URL}/users/role/user`;

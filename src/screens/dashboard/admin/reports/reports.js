@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "../../../../utils/pagination";
 import logger from "../../../../utils/logger.js";
+import "./reports.css";
 
 function Reports() {
   const [item, setItem] = useState([]);
@@ -68,20 +69,13 @@ function Reports() {
   const currentRows = showOtherTable ? mitem : item;
 
   return (
-    <div className="parent-admin">
+    <div className="reports-screen">
       <div>
         <AdminSidebar />
       </div>
-      <div className="admin-child">
-        <br />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            marginLeft: "400px",
-            marginBottom: "5px",
-          }}
-        >
+      <div className="reports-child-screen">
+      
+        <div className="reports-read">
           <button className="ui button" onClick={handleTableClick}>
             Employees Project List
           </button>
@@ -97,15 +91,9 @@ function Reports() {
             </CSVLink>
           )}
         </div>
-        <br />
-        <br />
+
         {currentRows.length > 0 && (
-          <div
-            style={{
-              marginLeft: "40px",
-              marginRight: "40px",
-            }}
-          >
+          <div >
             <table className="ui celled table">
               <thead>
                 <tr>
@@ -123,26 +111,14 @@ function Reports() {
                       {entry.projectNames.length > 0 ? (
                         entry.projectNames.join(", ")
                       ) : (
-                        <span
-                          style={{
-                            fontStyle: "italic",
-                          }}
-                        >
-                          No projects
-                        </span>
+                        <span>No projects</span>
                       )}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "20px",
-              }}
-            >
+            <div>
               <Pagination
                 data={currentRows}
                 itemsPerPage={rowsPerPage}
