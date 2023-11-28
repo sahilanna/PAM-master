@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import AdminSidebar from "../sidebar/adminSidebar/adminSidebar";
+import AdminSidebar from "../../sidebar/adminSidebar/adminSidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "./profile.css";
-import api from "../../../network/api";
-import { NGROK_URL } from "../../../network/config";
-import logger from "../../../utils/logger.js";
+import api from "../../../../network/api";
+import { NGROK_URL } from "../../../../network/config";
+import logger from "../../../../utils/logger.js";
 const Profile = () => {
   let profileData = sessionStorage.getItem("item");
   let pdata = profileData ? JSON.parse(profileData) : null;
@@ -13,12 +13,9 @@ const Profile = () => {
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
 
-  let id = null;
-  let pemail = null;
-  if (pdata !== null) {
-    id = pdata.id;
-    pemail = pdata.email;
-  }
+  const id = pdata?.id || "N/A";
+  const pemail = pdata?.email || "N/A";
+ 
 
   useEffect(() => {
     fetchUserList();
@@ -29,7 +26,7 @@ const Profile = () => {
       const response = await api.get(`https://${NGROK_URL}/users/${id}`);
       const userData = response.data;
 
-      setUserName(userData?.name);
+      setUserName(userData?.name) ;
       logger.info(userName);
       setUserRole(userData?.enumRole);
       logger.info(userRole);

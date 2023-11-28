@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Button } from "semantic-ui-react";
-import "./pmCreate.css";
+
 
 const PmDetails = ({ project, onClose }) => {
   if (!project) return null;
