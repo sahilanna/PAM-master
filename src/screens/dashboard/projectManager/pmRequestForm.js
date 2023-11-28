@@ -34,7 +34,6 @@ function PmRequestForm() {
     }
   };
 
- 
   const fetchUsers = async () => {
     try {
       const response = await api.get(
@@ -52,9 +51,9 @@ function PmRequestForm() {
     }
   };
 
-   useEffect(() => {
-     fetchUsers();
-   }, []);
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const description = (e) => {
     setRequestDescription(e.target.value);

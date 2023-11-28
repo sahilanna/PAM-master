@@ -91,53 +91,53 @@ const PmDashboard = () => {
             <LoadingPage />
           </div>
         ) : (
-            <table class="ui celled table">
-              <thead>
-                <tr>
-                  <th>Project-Name</th>
-                  <th>Project-Description</th>
-                  <th className="text-center">View</th>
-                  <th>Add User</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredItems && filteredItems.length > 0 ? (
-                  filteredItems.map((item) => (
-                    <tr key={item.id}>
-                      <>
-                        <td>{item.projectName}</td>
-                        <td>{item.projectDescription}</td>
-                        <td className="text-center">
-                          <button
-                            data-testid="view-icon"
-                            className="btn btn-outline-primary mx-2"
-                            onClick={() => handleProjectDetails(item)}
-                          >
-                            <FontAwesomeIcon icon={faEye} />
-                          </button>
-                        </td>
-                        <td>
-                          <Button
-                            data-testid="add-user"
-                            color="blue"
-                            icon
-                            labelPosition="left"
-                            onClick={() => navigateForm(item.projectId, item.projectName)}
-                          >
-                            <Icon name="plus" />
-                            Add
-                          </Button>
-                        </td>
-                      </>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="2">No data available</td>
+          <table class="ui celled table">
+            <thead>
+              <tr>
+                <th>Project-Name</th>
+                <th>Project-Description</th>
+                <th className="text-center">View</th>
+                <th>Add User</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredItems && filteredItems.length > 0 ? (
+                filteredItems.map((item) => (
+                  <tr key={item.id}>
+                    <>
+                      <td>{item.projectName}</td>
+                      <td>{item.projectDescription}</td>
+                      <td className="text-center">
+                        <button
+                          data-testid="view-icon"
+                          className="btn btn-outline-primary mx-2"
+                          onClick={() => handleProjectDetails(item)}
+                        >
+                          <FontAwesomeIcon icon={faEye} />
+                        </button>
+                      </td>
+                      <td>
+                        <Button
+                          data-testid="add-user"
+                          color="blue"
+                          icon
+                          labelPosition="left"
+                          onClick={() => navigateForm(item.projectId, item.projectName)}
+                        >
+                          <Icon name="plus" />
+                          Add
+                        </Button>
+                      </td>
+                    </>
                   </tr>
-                )}
-              </tbody>
-            </table>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="2">No data available</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         )}
         {showPmProjectDetails && (
           <PmProjectDetails project={selectedProject} onClose={handleCloseDetails} />

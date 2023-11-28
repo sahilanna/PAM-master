@@ -49,11 +49,10 @@ a {
 }
 
 @media screen and (max-width: 550px) {
- 
   .footer-links div {
     margin: 1rem 0;
   }
- 
+
   .footer-below {
     flex-direction: column;
     justify-content: left;
@@ -66,4 +65,3 @@ a {
     margin-top: 1rem;
   }
 }
-

@@ -4,13 +4,11 @@
   width: 100%;
 }
 
-
 .pm-child {
-  width:80%;
- margin-left: 20%;
+  width: 80%;
+  margin-left: 20%;
   padding: 20px;
 }
-
 
 .pm-read {
   display: flex;
@@ -18,37 +16,30 @@
   margin-top: 20px;
   margin-bottom: 30px;
   margin-left: 0px;
- 
 }
 
-.pm-notification{
+.pm-notification {
   margin-top: 80px;
   margin-left: 220px;
 }
 
-.show-all-notification{
+.show-all-notification {
   margin-top: 80px;
   margin-left: 590px;
-  
 }
-.show-all-notifications{
+.show-all-notifications {
   margin-top: 10px;
   margin-left: 490px;
-  
 }
 
-.show-all-notification-button{
+.show-all-notification-button {
   margin-top: 80px;
   margin-left: 590px;
 }
 
-
-.clear-all-notifications{
+.clear-all-notifications {
   padding-left: 270px;
 }
-
-
-
 
 .profile-container {
   display: flex;
@@ -84,15 +75,11 @@
   color: #af1818;
 }
 
-
 .clear-dialog-box {
- 
   display: flex;
   padding: 5px;
   position: relative;
   left: auto;
   top: 140px;
   height: auto;
-
- 
 }

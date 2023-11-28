@@ -133,10 +133,7 @@ function FigmaRead() {
     <div className="figma-screen">
       <AdminSidebar />
       <div className="figma-child-screen">
-        
-        <div className="figma-read"
-         
-        >
+        <div className="figma-read">
           <div className="ui left icon input">
             <input
               type="text"
@@ -151,9 +148,7 @@ function FigmaRead() {
             Create Figma
           </button>
         </div>
-        <div
-          
-        >
+        <div>
           {isLoading ? (
             <LoadingPage />
           ) : (
@@ -226,10 +221,7 @@ function FigmaRead() {
                     </tbody>
                   </table>
 
-                  <div
-                    className="pagination"
-                   
-                  >
+                  <div className="pagination">
                     <Pagination
                       data={filteredItems}
                       itemsPerPage={itemsPerPage}

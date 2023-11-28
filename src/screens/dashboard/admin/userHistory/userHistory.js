@@ -86,7 +86,6 @@ function UserHistory() {
       <AdminSidebar />
 
       <div className="admin-child-userHistory">
-       
         <div className="user-history-read">
           <div className="search-and-download-container">
             <div className="ui left icon input">
@@ -148,10 +147,7 @@ function UserHistory() {
                 </Table.Body>
               </Table>
 
-              <div
-                className="pagination"
-              
-              >
+              <div className="pagination">
                 <Pagination
                   data={filteredProjects}
                   itemsPerPage={rowsPerPage}

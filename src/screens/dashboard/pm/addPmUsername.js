@@ -49,7 +49,6 @@ function AddPmUserName() {
 
       navigate("/pmReadNew");
     } catch (error) {
-      
       if (error.response && error.response.status == 409) {
         setShowInvalidUsernameModal(true);
       }

@@ -15,9 +15,7 @@ const PmProfile = () => {
 
   return (
     <div className="parent-pmadmin">
-      <div
-        
-      >
+      <div>
         <PmSidebar />
       </div>
       <div className="admin-pmchild">

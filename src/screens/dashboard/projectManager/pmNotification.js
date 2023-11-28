@@ -31,7 +31,6 @@ function PmNotification() {
       setAccessRequestId(requestId);
       logger.info(accessRequestId);
 
-
       toast.info(notification[0], {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 4000,

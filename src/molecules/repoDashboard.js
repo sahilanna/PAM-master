@@ -12,8 +12,8 @@ function RepoDashboard({ role, SidebarComponent }) {
   const [isLoading, setIsLoading] = useState(false);
 
   let data = sessionStorage.getItem("item");
-  const user = data ? JSON.parse(data) : null; 
-  const id = user ? user.id : null; 
+  const user = data ? JSON.parse(data) : null;
+  const id = user ? user.id : null;
 
   const fetchRepo = async () => {
     try {
@@ -62,11 +62,7 @@ function RepoDashboard({ role, SidebarComponent }) {
             <i className="users icon"></i>
           </div>
         </div>
-        <div
-          
-        >
-          {isLoading ? <LoadingPage /> : <RepoTable data={filteredResult} />}
-        </div>
+        <div>{isLoading ? <LoadingPage /> : <RepoTable data={filteredResult} />}</div>
       </div>
     </div>
   );

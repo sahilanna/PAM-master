@@ -92,9 +92,9 @@ const UserRead = () => {
       setShowConfirmDialog(false);
       loadUserRead();
       navigate("/userRead");
-      logger.info("User details successfully fetched")
+      logger.info("User details successfully fetched");
     } catch (error) {
-      logger.error("Error in deleting user",error);
+      logger.error("Error in deleting user", error);
     }
   };
 

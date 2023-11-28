@@ -1,4 +1,3 @@
-
 export const getUserFromSessionStorage = () => {
   const data = sessionStorage.getItem("item");
   return data ? JSON.parse(data) : null;
@@ -11,4 +10,3 @@ export const setUserInSessionStorage = (userData) => {
 export const clearSessionStorage = () => {
   sessionStorage.clear();
 };
-

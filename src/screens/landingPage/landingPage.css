@@ -12,10 +12,9 @@
   position: relative;
 }
 
-.carousal-image{
+.carousal-image {
   max-width: 90%;
   height: 370px;
-
 }
 
 p {
@@ -74,9 +73,6 @@ div.at-container {
   justify-content: flex-end;
   height: 100%;
 }
-
-
-
 
 @keyframes slide-in {
   0% {

@@ -1,7 +1,6 @@
 import React from "react";
 import { Modal, Button } from "semantic-ui-react";
 
-
 const PmDetails = ({ project, onClose }) => {
   if (!project) return null;
 

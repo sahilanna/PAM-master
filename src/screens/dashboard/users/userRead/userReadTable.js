@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEye, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import "./userRead.css";
 
-
 const UserReadTable = ({
   isLoading,
   filteredProjects,
@@ -54,7 +53,7 @@ const UserReadTable = ({
           </button>
         </div>
       </div>
-      <div >
+      <div>
         {isLoading ? (
           <LoadingPage />
         ) : (

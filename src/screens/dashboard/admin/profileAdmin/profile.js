@@ -15,7 +15,6 @@ const Profile = () => {
 
   const id = pdata?.id || "N/A";
   const pemail = pdata?.email || "N/A";
- 
 
   useEffect(() => {
     fetchUserList();
@@ -26,7 +25,7 @@ const Profile = () => {
       const response = await api.get(`https://${NGROK_URL}/users/${id}`);
       const userData = response.data;
 
-      setUserName(userData?.name) ;
+      setUserName(userData?.name);
       logger.info(userName);
       setUserRole(userData?.enumRole);
       logger.info(userRole);
@@ -36,7 +35,7 @@ const Profile = () => {
   }
   return (
     <div className="parent-admi">
-      <AdminSidebar/>
+      <AdminSidebar />
       <div className="admin-chil">
         <div className="profile-paren">
           <div className="profile-details">

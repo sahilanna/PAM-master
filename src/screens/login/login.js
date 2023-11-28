@@ -31,7 +31,7 @@ function Login() {
 
     try {
       logger.info("Inside try block before hitting api");
-      const { data } = await axios.get(`https://${NGROK_LOGIN}/auth/api/v1/get-email`, { headers });
+      const { data } = await api.get(`https://${NGROK_LOGIN}/auth/api/v1/get-email`, { headers });
       logger.info("After hitting api in try block");
 
       setUserInSessionStorage(data);

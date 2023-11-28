@@ -13,17 +13,12 @@ const NavBarLogin = () => {
       <Menu inverted>
         <Container>
           <Menu.Item as={Link} to="/" header>
-            <Image
-            className="navbar-logo"
-              src={projectLogo}
-              alt="Logo"
-             
-            />
+            <Image className="navbar-logo" src={projectLogo} alt="Logo" />
             <span className="heading">Project Access Management</span>
           </Menu.Item>
           <Menu.Menu position="left">
-           <NavbarDropdown title="Features" items={FEATURES_ITEMS} />
-      <NavbarDropdown title="Tools" items={TOOLS_ITEMS} />
+            <NavbarDropdown title="Features" items={FEATURES_ITEMS} />
+            <NavbarDropdown title="Tools" items={TOOLS_ITEMS} />
           </Menu.Menu>
         </Container>
       </Menu>

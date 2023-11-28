@@ -11,7 +11,6 @@ import api from "../../../network/api";
 import logger from "../../../utils/logger.js";
 import DeleteDialogBox from "../../../atoms/deleteDialogBox/deleteDialogBox";
 
-
 function PmReadNew() {
   const navigate = useNavigate();
   const [item, setItem] = useState([]);
@@ -36,7 +35,7 @@ function PmReadNew() {
       const data = response.data;
       setItem(data);
       setIsLoading(false);
-      logger.info("PM info fetched successfully")
+      logger.info("PM info fetched successfully");
       setFilteredProjects(response.data);
     } catch (error) {
       setIsLoading(true);
@@ -140,9 +139,7 @@ function PmReadNew() {
             </button>
           </div>
         </div>
-        <div
-         
-        >
+        <div>
           {isLoading ? (
             <LoadingPage />
           ) : (
@@ -218,9 +215,7 @@ function PmReadNew() {
           )}
         </div>
 
-        <div
-        
-        >
+        <div>
           <Pagination
             data={filteredProjects}
             itemsPerPage={itemsPerPage}

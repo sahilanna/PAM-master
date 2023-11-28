@@ -13,7 +13,6 @@ import logger from "../../../../utils/logger.js";
 import api from "../../../../network/api";
 import "./read.css";
 
-
 const ProjectDetails = ({
   project,
   onClose,
@@ -264,8 +263,7 @@ const ProjectDetails = ({
             width: "250px",
           }}
         >
-          <AdminSidebar
-           />
+          <AdminSidebar />
         </div>
 
         <div className="container">

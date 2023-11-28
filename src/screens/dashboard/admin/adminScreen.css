@@ -9,10 +9,9 @@
   width: 80%;
   margin: 0 auto;
   padding: 10px;
-  
 }
 
-.admin-read{
+.admin-read {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

@@ -1,5 +1,4 @@
 .custom-heading {
-
   font-size: 30px;
   margin-left: 15px;
 }
@@ -13,16 +12,12 @@
 .menu-items {
   font-size: 16px;
   color: white;
-
 }
-.user-icon{
+.user-icon {
   margin-left: 30px;
- 
-  
 }
-.icon-name{
+.icon-name {
   margin-left: 10px;
-  
 }
 
 .custom-menu-item:hover,

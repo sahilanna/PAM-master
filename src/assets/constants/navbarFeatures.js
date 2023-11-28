@@ -4,4 +4,3 @@ export const FEATURES_ITEMS = [
   "Providing and revoking the access for various tools under the project for the DevOps team.",
   "With this platform, we want to build a solution which helps DevOps team to manage access across the projects.",
 ];
-

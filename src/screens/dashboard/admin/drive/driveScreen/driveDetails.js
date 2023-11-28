@@ -90,9 +90,7 @@ function DriveRead() {
     <div className="drive-screen">
       <AdminSidebar />
       <div className="drive-child-screen">
-        <div className="drive-read"
-          
-        >
+        <div className="drive-read">
           <div className="ui left icon input">
             <input
               type="text"
@@ -106,9 +104,7 @@ function DriveRead() {
             Create Drive
           </button>
         </div>
-        <div
-        
-        >
+        <div>
           {isLoading ? (
             <LoadingPage />
           ) : (
@@ -154,10 +150,7 @@ function DriveRead() {
                       ))}
                     </tbody>
                   </table>
-                  <div
-                    className="pagination"
-                   
-                  >
+                  <div className="pagination">
                     <Pagination
                       data={filteredItems}
                       itemsPerPage={itemsPerPage}

@@ -104,10 +104,7 @@ function PmRequestUser() {
     <div className="admin-screen">
       <AdminSidebar />
       <div className="admin-child-screen">
-        <div
-          className="admin-read"
-         
-        >
+        <div className="admin-read">
           {requestData.length > 0 ? (
             <Table className="ui-celled-table">
               <Table.Header>

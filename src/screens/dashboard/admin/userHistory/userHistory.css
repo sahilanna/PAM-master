@@ -14,7 +14,7 @@
   font-size: 14px;
 }
 
-.user-history-read{
+.user-history-read {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

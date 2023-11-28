@@ -117,9 +117,7 @@ function RepoRead(onClose) {
             </button>
           </div>
         </div>
-        <div
-       
-        >
+        <div>
           {isLoading ? (
             <LoadingPage />
           ) : (
@@ -169,10 +167,7 @@ function RepoRead(onClose) {
                   )}
                 </tbody>
               </table>
-              <div
-                className="pagination"
-             
-              >
+              <div className="pagination">
                 <Pagination
                   data={filteredProjects}
                   itemsPerPage={itemsPerPage}

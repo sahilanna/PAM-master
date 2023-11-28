@@ -3,7 +3,6 @@ import { Modal } from "semantic-ui-react";
 import CloseButton from "../../../atoms/closeButton/closeButton";
 
 const UserDetails = ({ project, onClose }) => {
-  
   if (!project) return null;
 
   return (

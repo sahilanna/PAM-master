@@ -74,7 +74,6 @@ function Reports() {
         <AdminSidebar />
       </div>
       <div className="reports-child-screen">
-      
         <div className="reports-read">
           <button className="ui button" onClick={handleTableClick}>
             Employees Project List
@@ -93,7 +92,7 @@ function Reports() {
         </div>
 
         {currentRows.length > 0 && (
-          <div >
+          <div>
             <table className="ui celled table">
               <thead>
                 <tr>
